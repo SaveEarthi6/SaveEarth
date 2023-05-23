@@ -16,4 +16,11 @@
   	WHERE id = #{id} AND pw = #{pw}
   </select>
   
+    <select id="selectById" resultType="web.dto.Member" parameterType="string">
+	  	SELECT * FROM member
+	  WHERE id= #{id}
+  </select>
+  
+  
+  
   </mapper>
