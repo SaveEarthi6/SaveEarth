@@ -85,7 +85,6 @@ select {
 	height: 30px;
 	font-size: 18px;
 	border: 1px solid #ccc;
-/* 	border-bottom: 1px black solid; */
 }
 
 /* 검색창 버튼 스타일 */
@@ -104,6 +103,7 @@ select {
 /* 검색아이콘 이미지 */
 .search_icon {
 	margin-top:3px;
+	margin-bottom:3px;
 	width: 20px;
 	height: 20px;
 }
@@ -178,6 +178,7 @@ select {
 </div>
 
 
+<c:import url="../layout/footer.jsp"></c:import>
 
 
 </body>
