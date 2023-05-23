@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>     
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,6 +33,12 @@ $(document).ready(function(){
 	$("#freeBoard").click(function(){
 		$(location).attr("href", "/free/main")
 	})
+	
+	$("#campBoard").click(function(){
+		$(location).attr("href", "/campaign/main")
+	})
+	
+	
 
 })
 
@@ -98,9 +105,20 @@ body {
 <div id="fullHeader">
 <div id="header">
 	<div id="wrap">
-	<a href="../main/main"><img id="logo" src="../../resources/img/logo2.png"></a>
+	<a href="../saveearth/main"><img id="logo" src="../../resources/img/logo2.png"></a>
+	<c:if test="${empty isLogin }">
+	<a href="/member/login">로그인</a>
+	<a href="#">관리자 로그인 </a>
+	</c:if>
+	<c:if test="${not empty isLogin and isLogin }">
+	<a href="/member/logout">로그아웃</a>
+	<a href="#">마이페이지</a>
+	
+	</c:if>
 	</div>
 </div>
+
+
 
 <table class="menu">
 

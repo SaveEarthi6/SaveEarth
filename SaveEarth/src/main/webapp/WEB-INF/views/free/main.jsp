@@ -35,7 +35,6 @@ body {
 	position: absolute;
 	top: 38%;
 	left: 45%;
-	/* 	transform: translate(-50%, -50%);  */
 	color: #fff;
 	font-weight: bold;
 	font-size: 50px;
@@ -48,7 +47,6 @@ input {
 	width: 100%;
 	border: 1px solid #bbb;
 	border-radius: 8px;
-/* 	padding: 10px 12px; */
 	font-size: 14px;
 }
 
@@ -58,8 +56,20 @@ input {
 	src:
 		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff')
 		format('woff');
+		
 	font-weight: 700;
 	font-style: normal;
+}
+
+/* 말머리글 (드롭다운) 크기 늘리기 */
+select {
+	width:100px;
+}
+
+.head {
+	padding-left: 1200px;
+	padding-top: 100px;
+	
 }
 
 /* 검색 전체 div태그 스타일 */
@@ -105,6 +115,7 @@ input {
 
 }
 
+
 </style>
 
 </head>
@@ -115,6 +126,32 @@ input {
 	<img class="freeimage" src="../resources/img/free.png">
 	<h1 class="free">자유게시판</h1>
 </div>
+
+<!-- 말머리글 -->
+<div class= "head">
+<!-- 	<select> -->
+<!-- 		<option value="">선택</option> -->
+<!-- 		<option value= "talk">사담</option> -->
+<!-- 		<option value= "info">정보</option> -->
+<!-- 		<option value= "quest">질문</option> -->
+<!-- 	</select> -->
+
+<div class="btn-group">
+  <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+  선택
+  </button>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="#">사담</a></li>
+    <li><a class="dropdown-item" href="#">정보</a></li>
+    <li><a class="dropdown-item" href="#">질문</a></li>
+  </ul>
+</div>
+<!-- 글쓰기 버튼 -->
+	<button type="button" class="btn btn-outline-success">글쓰기</button>
+</div>
+
+
+
 
 <table class="list">
 
@@ -147,12 +184,12 @@ input {
 </table>
 
 <div>
-        <form action="/info/main">
-            <div class="search">
-                <input type="text" name="search" class="search_input">
-                <button type="button" name="search_btn" class="search_btn"><img src="../resources/img/searchicon.png" class="search_icon"></button>
-            </div>
-        </form>
+	<form action="/info/main">
+	    <div class="search">
+	        <input type="text" name="search" class="search_input">
+	        <button type="button" name="search_btn" class="search_btn"><img src="../resources/img/searchicon.png" class="search_icon"></button>
+	    </div>
+	</form>
 </div>
 
 
