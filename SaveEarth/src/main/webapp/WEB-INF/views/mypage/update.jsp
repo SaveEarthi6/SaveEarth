@@ -123,7 +123,7 @@ body {
   width:80%;
   height:40px;
   background: linear-gradient(125deg,#81ecec,#6c5ce7,#81ecec);
-  background-position: left;
+  background-position: center;
   background-size: 200%;
   color:white;
   font-weight: bold;
@@ -134,7 +134,7 @@ body {
 }
 
 .btn:hover {
-  background-position: right;
+  background-position: center;
 }
 
 
@@ -194,7 +194,7 @@ body {
         <input name="cellphoneNo" type="number" class="cellphoneNo" placeholder="전화번호">
       </div>
   
-  	<button>회원정보 수정</button>
+  	<button class="btn">회원정보 수정</button>
 </form>
 
 
@@ -261,5 +261,5 @@ body {
 <!-- </form> -->
 
 <!-- </form> -->
-
+</body>
 <c:import url="../layout/footer.jsp"></c:import>

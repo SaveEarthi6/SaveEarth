@@ -28,37 +28,18 @@
   <li class="nav-item">
     <a class="nav-link" href="./update">회원정보 수정</a>
   </li>
-    <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="./update">회원정보 탈퇴</a>
+  <li class="nav-item">
+    <a class="nav-link" href="./delete">회원정보 탈퇴</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="./board">게시글, 댓글</a>
+    <a class="nav-link" href="./board">게시글 댓글</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="./order">주문내역</a>
+    <a class="nav-link active" aria-current="page" href="./order">주문내역</a>
   </li>
 </ul>
 
 <br>
-
-<form action="./delete" method="get">
-
-<table border="1">
-<tr>
-	<th>아이디 : </th>
-	<th>{아이디정보} </th>
-</tr>
-
-<tr>
-	<td>비밀번호 : </td>
-	<td>{비밀번호 정보} </td>
-</tr>
-
-</table>
-
-<button>회원 탈퇴</button>
-
-</form>
 
 </body>
 <c:import url="../layout/footer.jsp"></c:import>
