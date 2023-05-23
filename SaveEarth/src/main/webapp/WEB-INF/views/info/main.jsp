@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<c:import url="../header/header.jsp"/>
+<c:import url="../layout/header.jsp"/>
 
 <!DOCTYPE html>
 <html>
@@ -20,6 +20,7 @@
 
 <style type="text/css">
 
+/*  */
 .infoimage {
 	position: relative;
 }
@@ -28,7 +29,6 @@
 	position: absolute;
 	top: 38%; 
 	left: 45%; 
-/* 	transform: translate(-50%, -50%);  */
 	color: #fff; 
 	font-weight: bold;
 	font-size: 50px;
@@ -62,7 +62,7 @@ li {
 	color: black;
 	border: 1px solid #ccc;
 	height: 30px;
-	padding-top: 12px;
+ 	padding-top: 3px; 
 	font-weight: bold;
 }
 
