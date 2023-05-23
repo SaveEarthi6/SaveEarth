@@ -19,6 +19,33 @@
 
 <style type="text/css">
 
+.btn {
+  position:relative;
+  left:40%;
+  transform: translateX(-50%);
+  margin-bottom: 40px;
+  width:80%;
+  height:40px;
+  background: linear-gradient(125deg,#81ecec,#6c5ce7,#81ecec);
+  background-position: center;
+  background-size: 200%;
+  color:white;
+  font-weight: bold;
+  border:none;
+  cursor:pointer;
+  transition: 0.4s;
+  display:inline;
+  margin-left: 60px;
+}
+
+.btn:hover {
+  background-position: center;
+}
+
+form{
+margin: 0 auto;
+width: 700px;
+}
 </style>
 
 <body>
@@ -41,22 +68,24 @@
 
 <br>
 
-<form action="./delete" method="get">
 
-<table border="1">
-<tr>
-	<th>아이디 : </th>
-	<th>{아이디정보} </th>
-</tr>
+<form action="./delete" method="post">
 
-<tr>
-	<td>비밀번호 : </td>
-	<td>{비밀번호 정보} </td>
-</tr>
-
+<table class="table table-bordered">
+    <tr>
+      <td>아이디</td>
+      <td>{아이디}</td>
+    </tr>
+    <tr>
+    
+    <tr>
+      <td>패스워드</td>
+      <td>{패스워드}</td>
+    </tr>
 </table>
 
-<button>회원 탈퇴</button>
+
+	<button class="btn">회원 탈퇴</button>
 
 </form>
 

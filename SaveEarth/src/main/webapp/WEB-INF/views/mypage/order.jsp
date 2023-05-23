@@ -32,7 +32,7 @@
     <a class="nav-link" href="./delete">회원정보 탈퇴</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="./board">게시글 댓글</a>
+    <a class="nav-link" href="./board">게시글, 댓글</a>
   </li>
   <li class="nav-item">
     <a class="nav-link active" aria-current="page" href="./order">주문내역</a>
@@ -40,6 +40,9 @@
 </ul>
 
 <br>
+
+
+
 
 </body>
 <c:import url="../layout/footer.jsp"></c:import>

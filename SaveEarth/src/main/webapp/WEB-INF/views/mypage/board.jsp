@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 
 <c:import url="../layout/header.jsp"></c:import>
@@ -35,7 +35,7 @@
   </li>
   
   <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="./board">게시글 댓글</a>
+    <a class="nav-link active" aria-current="page" href="./board">게시글, 댓글</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="./order">주문내역</a>
@@ -43,6 +43,10 @@
 </ul>
 
 <br>
+
+
+
+
 
 </body>
 <c:import url="../layout/footer.jsp"></c:import>
