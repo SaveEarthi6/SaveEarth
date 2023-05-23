@@ -95,18 +95,18 @@ button{ cursor: pointer; } /* 모든 버튼에 마우스손모양 처리 */
 <body>
 	<div class="loginbox">
   <h2>로그인</h2>
-  <form action="#">
+  <form action="./login" method="post">
     <!--작성하지 않아도 문제는 없음-->
     <fieldset>
       <legend>로그인 구역</legend>
-      <label for="loginid">아이디</label>
-      <input type="text" id="loginid" name="loginid" placeholder="아이디를 입력해 주세요">
-      <label for="loginpw">비밀번호</label>
-      <input type="password" id="loginpw" name="loginpw" placeholder="비밀번호를 입력해 주세요">
+      <label for="id">아이디</label>
+      <input type="text" id="id" name="id" placeholder="아이디를 입력해 주세요">
+      <label for="pw">비밀번호</label>
+      <input type="password" id="pw" name="pw" placeholder="비밀번호를 입력해 주세요">
       <ul>
-        <li><a href="#">아이디찾기</a></li>
-        <li><a href="#">비밀번호찾기</a></li>
-        <li><a href="#">회원가입</a></li>
+        <li><a href="/member/findid">아이디찾기</a></li>
+        <li><a href="/member/findpw">비밀번호찾기</a></li>
+        <li><a href="/member/join">회원가입</a></li>
       </ul>
       <!--데이터를 서버로 전송-->
       <button type="submit">로그인</button>
