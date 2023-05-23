@@ -32,6 +32,12 @@ $(document).ready(function(){
 	$("#freeBoard").click(function(){
 		$(location).attr("href", "/free/main")
 	})
+	
+	$("#campBoard").click(function(){
+		$(location).attr("href", "/campaign/main")
+	})
+	
+	
 
 })
 
@@ -98,7 +104,7 @@ body {
 <div id="fullHeader">
 <div id="header">
 	<div id="wrap">
-	<a href="../main/main"><img id="logo" src="../../resources/img/logo2.png"></a>
+	<a href="../saveearth/main"><img id="logo" src="../../resources/img/logo2.png"></a>
 	</div>
 </div>
 
