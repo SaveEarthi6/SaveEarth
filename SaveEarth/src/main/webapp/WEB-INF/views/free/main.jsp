@@ -68,7 +68,7 @@ select {
 
 .head {
 	padding-left: 1200px;
-	padding-top: 100px;
+	padding-top: 50px;
 	
 }
 
@@ -108,12 +108,16 @@ select {
 	height: 20px;
 }
 
-/* 게시판 목록 스타일 */
-.list {
-	margin-top: 70px;
-	margin-left: 135px;
-
+/* 게시판 목록 */
+#board {
+	width:1300px;
+	
+	margin-top: 100px;
+	
+	margin-left:auto;
+	margin-right:auto
 }
+
 
 
 </style>
@@ -150,39 +154,20 @@ select {
 	<button type="button" class="btn btn-outline-success">글쓰기</button>
 </div>
 
+<!-- 게시판 -->
+<table id= "board" class= "table table-striped table-hover text-center">
 
-
-
-<table class="list">
-
-<tr>
-	<td>list1</td>
-	<td>list1</td>
-	<td>list1</td>
-</tr>
-<tr>
-	<td>list1</td>
-	<td>list1</td>
-	<td>list1</td>
-</tr>
-<tr>
-	<td>list1</td>
-	<td>list1</td>
-	<td>list1</td>
-</tr>
-<tr>
-	<td>list1</td>
-	<td>list1</td>
-	<td>list1</td>
-</tr>
-<tr>
-	<td>list1</td>
-	<td>list1</td>
-	<td>list1</td>
-</tr>
+	<tr>
+		<th style="width: 20px;">글번호</th>
+		<th style="width: 20px;">제목</th>
+		<th style="width: 20px;">작성자</th>
+		<th style="width: 20px;">조회수</th>
+		<th style="width: 20px;">작성일</th>
+	</tr>
 
 </table>
 
+<!-- 검색창 -->
 <div>
 	<form action="/info/main">
 	    <div class="search">
