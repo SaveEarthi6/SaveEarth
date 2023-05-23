@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
+<!DOCTYPE html>
+
 <c:import url="../layout/header.jsp"></c:import>
 
 
@@ -14,34 +15,30 @@
 
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" ></script>
+</head>
 
 <style type="text/css">
 
 </style>
 
-</head>
 <body>
-<h1 style="text-align: center;">마이페이지 회원탈퇴</h1>
-<hr>
+<br>
 
-탈퇴 아이디 확인
+<ul class="nav nav-pills nav-fill">
+  <li class="nav-item">
+    <a class="nav-link" href="./update">회원정보 수정</a>
+  </li>
+    <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="./update">회원정보 탈퇴</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="./board">게시글, 댓글</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="./order">주문내역</a>
+  </li>
+</ul>
 
-<table border="1">
-
-<thead>
-<tr>
-	<th>아이디</th>
-	<th>"id"</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-	<th>이름</th>
-	<th>"nick"</th>
-</tr>
-</tbody>
-
-</table>
+<br>
 
 <c:import url="../layout/footer.jsp"></c:import>
