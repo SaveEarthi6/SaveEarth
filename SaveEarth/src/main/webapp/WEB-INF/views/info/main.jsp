@@ -20,7 +20,6 @@
 
 <style type="text/css">
 
-/*  */
 .infoimage {
 	position: relative;
 }
@@ -43,33 +42,21 @@
     font-style: normal;
 }
 
-/* ul태그 id=nav, 스타일 적용 */
-#nav {
-	list-style-type: none;
-	margin: 0 auto;
-	padding: 0 auto;
+/* 게시판 분류 버튼 스타일 */
+.nav button { 
+ 	margin-left: 30px; 
+	margin-top: 20px; 
+	width: 100px; 
+ } 
+
+
+.nav {
 	margin-left: 100px;
-	margin-top: 20px;
+	margin-bottom: 50px;
 }
 
-/* li태그 네비게이션바 요소 스타일 */
-li {
-	float: left; 
-	background-color: white;
-	/* 	background-color: #7CA621; */
-	width: 100px;
+.row {
 	text-align: center;
-	color: black;
-	border: 1px solid #ccc;
-	height: 30px;
- 	padding-top: 3px; 
-	font-weight: bold;
-}
-
-/* 게시판 분류에 마우스 올렸을 때 스타일 */
-li:hover {
-	color: white;
-	background-color: #59A8D9;
 }
 
 </style>
@@ -78,22 +65,55 @@ li:hover {
 </head>
 <body>
 
-<!-- 메뉴 네비게이션바 -->
 
 <div>
 	<img class="infoimage" src="../resources/img/info.png" style="width: 100%; height: 500px;">
 	<h1 class="info">정보게시판</h1>
 </div>
 
-<ul id="nav">
-	<li>전체</li>
-	<li>환경</li>
-	<li>자유</li>
-</ul>
+<div class="nav">
+<button type="button" class="btn btn-outline-success">전체</button>
+<button type="button" class="btn btn-outline-success">환경</button>
+<button type="button" class="btn btn-outline-success">자유</button>
+</div>
 
+<div class="container">
 
+<div class="row">	
 
+	<div class="col-sm-4">
+	<img src="http://www.snpo.kr/data/editor/2204/29da0cc3a9199228b1f876bf0eca7505_1648990579_4091.png" class="img-thumbnail" alt="..." style="height: 300px;">
+	</div>
+	<div class="col-sm-4">
+	<img src="http://www.snpo.kr/data/editor/2204/29da0cc3a9199228b1f876bf0eca7505_1648990886_8624.png" class="img-thumbnail" alt="..." style="height: 300px;">
+	</div>
+	<div class="col-sm-4">
+	<img src="http://www.snpo.kr/data/editor/2204/29da0cc3a9199228b1f876bf0eca7505_1648991022_9541.png" class="img-thumbnail" alt="..." style="height: 300px;">
+	</div>
+	
+	<div class="col-sm-4">
+	<span id="title1">제목1</span>
+	</div>
+	<div class="col-sm-4">
+	<span id="title2">제목2</span>
+	</div>
+	<div class="col-sm-4">
+	<span id="title3">제목3</span>
+	</div>
 
-</body>
+	<div class="col-sm-4">
+	<span id="content1">상세내용입니다1</span>
+	</div>
+	<div class="col-sm-4">
+	<span id="content2">상세내용입니다2</span>
+	</div>
+	<div class="col-sm-4">
+	<span id="content3">상세내용입니다3</span>
+	</div>
+	
 
-</html>
+</div>
+
+</div>
+
+<c:import url="../layout/footer.jsp"></c:import>
