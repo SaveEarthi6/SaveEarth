@@ -17,7 +17,7 @@ a{ text-decoration: none; } /* 링크텍스트에 밑줄없앰 */
 button{ cursor: pointer; } /* 모든 버튼에 마우스손모양 처리 */
 
 /* body설정 */
-body{ background-color: #ededed; }
+/* body{ background-color: #ededed; } */
 
 .loginbox{
     width: 780px; height: 550px;
@@ -99,16 +99,18 @@ body{ background-color: #ededed; }
     <!--작성하지 않아도 문제는 없음-->
     <fieldset>
       <legend>로그인 구역</legend>
-      <label for="loginid">아이디(E-mail)</label>
-      <input type="text" id="loginid" placeholder="아이디(E-mail)을 입력해 주세요">
+      <label for="loginid">아이디</label>
+      <input type="text" id="loginid" name="loginid" placeholder="아이디를 입력해 주세요">
       <label for="loginpw">비밀번호</label>
-      <input type="password" id="loginpw" placeholder="비밀번호를 입력해 주세요">
+      <input type="password" id="loginpw" name="loginpw" placeholder="비밀번호를 입력해 주세요">
       <ul>
-        <li><a href="#">아이디/비밀번호찾기</a></li>
+        <li><a href="#">아이디찾기</a></li>
+        <li><a href="#">비밀번호찾기</a></li>
         <li><a href="#">회원가입</a></li>
       </ul>
       <!--데이터를 서버로 전송-->
       <button type="submit">로그인</button>
+      
     </fieldset>
   </form>
 </div>
