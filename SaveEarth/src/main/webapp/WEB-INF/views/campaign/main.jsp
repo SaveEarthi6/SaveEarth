@@ -1,36 +1,51 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!-- CSS only -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<c:import url="../layout/header.jsp"/>
 
 <style type="text/css">
 
-div#banner {
-	width: 1400px;
-	height: 500px;
-	border: 1px solid #ccc;
+.campimage {
+	position: relative;
 }
+
+.camp {
+	position: absolute;
+	top: 38%; 
+	left: 45%; 
+/* 	transform: translate(-50%, -50%);  */
+	color: #fff; 
+	font-weight: bold;
+	font-size: 50px;
+    font-family: 'KBO-Dia-Gothic_bold';
+}
+
+
+@font-face {
+    font-family: 'KBO-Dia-Gothic_bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
 
 </style>
 
-</head>
-<body>
 
-<div class="container">
-<div class="row">
-	<div class="col-1"></div>
-	<div class="col-10" id="banner"><img alt="camp_img" src="../../resources/img/cat.jpg" style="width: 100%; height: 200px;"></div>
-	<div class="col-1"></div>
-</div>
-</div>
 
-</body>
-</html>
+<div>
+	<img class="campimage" src="../resources/img/camp.png" style="width: 100%; height: 500px;">
+	<h1 class="camp">캠페인게시판</h1>
+</div>	
+	
+	
+<div>
+
+나의 달력
+
+</div>
+	
+
+
+<c:import url="../layout/footer.jsp"/>
