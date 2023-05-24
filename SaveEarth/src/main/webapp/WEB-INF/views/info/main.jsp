@@ -104,6 +104,7 @@ $(document).ready(function(){
 	height: 30px;
 	font-size: 18px;
 	border: 1px solid #ccc;
+	margin-top: 10px;
 /* 	border-bottom: 1px black solid; */
 }
 
@@ -117,7 +118,6 @@ $(document).ready(function(){
 	border-radius: 15px;
 	color: #fff;
 	cursor: pointer;
-	vertical-align: middle;
 }
 
 /* 검색아이콘 이미지 */
@@ -215,7 +215,7 @@ $(document).ready(function(){
 	
 </div>
 
-	<form action="/info/main">
+	<form action="/info/main" method="post">
 	    <div class="search">
 	        <input type="text" name="search" class="search_input">
 	        <button type="button" name="search_btn" class="search_btn"><img src="../resources/img/searchicon.png" class="search_icon"></button>
