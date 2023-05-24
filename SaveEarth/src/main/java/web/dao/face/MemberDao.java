@@ -8,4 +8,12 @@ public interface MemberDao {
 
 	public int selectCntByIdPw(Member member);
 
+	/**
+	 * 회원정보 조회
+	 * @param loginid
+	 * @return
+	 */
+	public Member selectById(String loginid);
+
+
 }
