@@ -39,7 +39,10 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member info(String loginid) {
 		logger.info("loginid : {}", loginid);
+		
 		return memberDao.selectById(loginid);
 	}
+
+
 
 }

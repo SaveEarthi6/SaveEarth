@@ -15,4 +15,5 @@ public interface MemberDao {
 	 */
 	public Member selectById(String loginid);
 
+
 }

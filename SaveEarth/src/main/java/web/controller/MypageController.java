@@ -32,18 +32,26 @@ public class MypageController {
 		logger.info("info: {}", info);
 		
 		model.addAttribute("info", info);
-		
-		
 	}
 	
 	@RequestMapping("/delete")
-	public void mypageDelete() {
+	public void mypageDelete(HttpSession session, Model model) {
 		logger.info("/mypage/delete");
+		
+		String loginid = (String) session.getAttribute("loginid");
+		logger.info("{}", loginid);
+		
+		Member info = memberService.info(loginid);
+		
+		logger.info("info: {}", info);
+		
+		model.addAttribute("info", info);
 	}
 	
 	@RequestMapping("/board")
 	public void mypageBoard() {
 		logger.info("/mypage/board");
+		
 	}
 	
 	@RequestMapping("/order")

@@ -74,13 +74,28 @@ width: 700px;
 <table class="table table-bordered">
     <tr>
       <td>아이디</td>
-      <td>{아이디}</td>
+      <td>${info.id }</td>
     </tr>
     <tr>
     
     <tr>
       <td>패스워드</td>
-      <td>{패스워드}</td>
+      <td>${info.pw}</td>
+    </tr>
+    
+    <tr>
+      <td>닉네임</td>
+      <td>${info.nick}</td>
+    </tr>
+    
+    <tr>
+      <td>이메일</td>
+      <td>${info.email}</td>
+    </tr>
+    
+    <tr>
+      <td>연락처</td>
+      <td>${info.phone}</td>
     </tr>
 </table>
 

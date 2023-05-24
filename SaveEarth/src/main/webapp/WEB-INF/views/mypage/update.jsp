@@ -235,7 +235,7 @@ width: 700px;
  
      
       <div class="textForm">
-        <input name="name" id="name" type="password" class="name" placeholder="이름">
+        <input name="name" id="name" type="text" class="name" placeholder="이름">
        ${info.name}
       </div>
       
