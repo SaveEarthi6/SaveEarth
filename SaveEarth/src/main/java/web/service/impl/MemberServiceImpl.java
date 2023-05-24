@@ -14,7 +14,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@Autowired MemberDao memberDao;
+	@Autowired private MemberDao memberDao;
 	
 	@Override
 	public void join(Member memberParam) {
@@ -45,8 +45,44 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public Member update(String loginid) {
-		return memberDao.updateUser(loginid);
+		logger.info("loginid : {}", loginid);
+		
+		return memberDao.update(loginid);
 	}
+
+
+	
+	@Override
+	public boolean checkid(Member member) {
+		
+		int check = memberDao.checkid(member);
+		
+		if(check > 0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	@Override
+	public Member findid(Member member) {
+		
+		return memberDao.selectIdByNameEmail(member);
+			
+	}
+
+	@Override
+	public Member delete(String loginid) {
+		logger.info(loginid);
+		
+		return memberDao.delete(loginid);
+	}
+
+
+
+
+
+
 
 
 

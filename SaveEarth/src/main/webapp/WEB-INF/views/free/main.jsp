@@ -164,6 +164,18 @@ select {
 		<th style="width: 20px;">조회수</th>
 		<th style="width: 20px;">작성일</th>
 	</tr>
+	
+<tbody>
+<c:forEach items="${list }" var="free">
+	<tr>
+		<td>${free.free_no }</td>
+		<td class="text-start"><a href="./view?free_no=${free.free_no }">${free.free_title }</a></td>
+		<td>${free.free_head }</td>
+		<td>${free.free_views }</td>
+		<td><fmt:formatDate value="${free.free_create }" pattern="yy-MM-dd HH:mm:ss"/></td>
+	</tr>
+</c:forEach>
+</tbody>
 
 </table>
 
@@ -176,6 +188,11 @@ select {
 	    </div>
 	</form>
 </div>
+
+<span class="float-end mb-3">${paging.totalCount }</span>
+<div class="clearfix"></div>
+
+<c:import url="/WEB-INF/views/layout/paging.jsp" />
 
 
 <c:import url="../layout/footer.jsp"></c:import>
