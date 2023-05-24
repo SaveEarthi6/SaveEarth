@@ -2,6 +2,7 @@ package web.service.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -17,6 +18,7 @@ import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Member;
 import web.service.face.FreeService;
+import web.util.Paging;
 
 @Service
 public class FreeServiceImpl implements FreeService{
@@ -111,8 +113,32 @@ public class FreeServiceImpl implements FreeService{
 		
 	}
 	
-	
+	@Override
+	public Paging getPaging(int curPage) {
 		
+		int totalCount = freeDao.selectCntAll();
 
+		//페이징 객체
+		Paging paging = new Paging(totalCount, curPage);
+		
+		return paging;
+	}
+	
+	@Override
+	public List<Free> list(Paging paging) {
+		
+		return freeDao.selectList(paging);
+	}
+
+	
+	@Override
+	public Free getView(Free freeBoard) {
+		
+		freeDao.updateHit(freeBoard);
+		
+		return freeDao.selectFreeBoard(freeBoard);
+		
+	}
+	
 
 }
