@@ -242,13 +242,7 @@ width: 700px;
       </div>
       
       <div class="textForm">
-        <input type="text" name="birth" id="birth" type="datetime-local" class="birth" placeholder="생년월일 : ${info.birth }">
-      </div>
       
-      <div class="textForm">
-        <input name="email" id ="email" type="email" class="email" placeholder="이메일 : ${info.email }">
-      </div>
-            
   		<button class="btn">회원정보 수정</button>
 </form>
 

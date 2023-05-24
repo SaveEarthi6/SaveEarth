@@ -117,6 +117,5 @@ public class Member {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-
 	
 }

@@ -14,7 +14,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@Autowired MemberDao memberDao;
+	@Autowired private MemberDao memberDao;
 	
 	@Override
 	public void join(Member memberParam) {

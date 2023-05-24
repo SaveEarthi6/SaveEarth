@@ -7,9 +7,8 @@
   <mapper namespace="web.dao.face.MemberDao">
   
   <insert id="insert" parameterType="web.dto.Member">
-  INSERT INTO member(userno,id,pw,name,nick,birth,email,post,addr1,addr2,phone)
-   		VALUES(userno_seq.nextval,#{id},#{pw},#{name},#{nick},#{birth},#{email},#{post},#{addr1},#{addr2},#{phone})
-  
+  		INSERT INTO member(userno,id,pw,name,nick,birth,email,post,addr1,addr2,phone)
+  VALUES(userno_seq.nextval,#{id},#{pw},#{name},#{nick},#{birth},#{email},#{post},#{addr1},#{addr2},#{phone})
   </insert>
   
   <select id="selectCntByIdPw" resultType="int" parameterType="web.dto.Member">
@@ -23,9 +22,7 @@
   </select>
   
 	<update id="update" parameterType="String">
-		UPDATE Member
-		SET name= #{name} #{id}
-		WHERE id = #
+
 	</update>
 	
 	<select id="checkid" parameterType="web.dto.Member" resultType="int">
