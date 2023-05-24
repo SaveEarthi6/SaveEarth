@@ -38,14 +38,15 @@ public class MypageController {
 	}
 	
 	@PostMapping("/update")
-	public void mypageUpdateProc(HttpSession session, Model model) {
+	public void mypageUpdateProc(HttpSession session, Member member) {
 		logger.info("/mypage/updateProc");
 		
 		String loginid = (String) session.getAttribute("loginid");
 		logger.info("{}", loginid);
 		
-		Member update = memberService.update(loginid);
-		logger.info("info:{}", update);
+		member.setId((String) session.getAttribute("id"));
+		member.setPw((String) session.getAttribute("pw"));
+		logger.info("info:{}", member);
 		
 	}
 	
