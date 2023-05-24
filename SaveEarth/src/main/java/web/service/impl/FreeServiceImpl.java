@@ -42,6 +42,8 @@ public class FreeServiceImpl implements FreeService{
 		
 		free.setAdminNo(1);
 		free.setUserNo(memberInfo.getUserno());
+		System.out.println();
+		
 //		free.setUserNo(2);
 		logger.info("free {}", free);
 		logger.info("file {}", file);
