@@ -97,7 +97,7 @@
   
   <div class="col-md-6">
     <label for="inputCity" class="phone">연락처</label>
-    <input type="text" class="form-control" id="address" name="address">
+    <input type="text" class="form-control" id="phone" name="phone">
   </div>
 
   <div class="col-12">
