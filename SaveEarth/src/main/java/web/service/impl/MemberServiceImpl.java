@@ -45,8 +45,22 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public Member update(String loginid) {
-		return memberDao.updateUser(loginid);
+		logger.info("loginid : {}", loginid);
+		
+		return memberDao.update(loginid);
 	}
+
+	@Override
+	public Member delete(String loginid) {
+		logger.info(loginid);
+		
+		return memberDao.delete(loginid);
+	}
+
+
+
+
+
 
 
 
