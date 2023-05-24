@@ -1,9 +1,12 @@
 package web.dao.face;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Free;
 import web.dto.FreeFile;
+import web.util.Paging;
 
 public interface FreeDao {
 
@@ -26,6 +29,19 @@ public interface FreeDao {
 	 * @param file - 파일 정보
 	 */
 	public void insertFreeFile(FreeFile freeFile);
+
+	/**
+	 * totalcount가져오기
+	 * @return
+	 */
+	public int selectCntAll();
+
+	public List<Free> selectList(Paging paging);
+
+	public Free selectFreeBoard(Free freeBoard);
+
+	public void updateHit(Free freeBoard);
+
 	
 
 	

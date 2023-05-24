@@ -25,4 +25,31 @@
 	VALUES ( #{freeFileNo}, #{freeNo}, #{freeOriginName}, #{freeStoredName})
 </insert>
 
+<select id="selectCntAll" resultType="int">
+	SELECT count(*) FROM free
+</select>
+
+<select id="selectList" resultType="web.dto.Free" parameterType="web.util.Paging">
+	SELECT * FROM(
+		SELECT rownum rnum, F.* FROM (
+			SELECT
+			free_no, free_title, free_head, free_content, free_views, free_create
+			FROM free
+			ORDER BY free_no DESC
+		)F
+	)FREE
+	WHERE rnum BETWEEN #{startNo} AND #{endNo}
+</select>
+
+<select id="selectFreeBoard" parameterType="web.dto.Free" resultType="web.dto.Free">
+	SELECT * FROM free
+	WHERE free_no = #{freeNo}
+</select>
+
+<update id="updateHit" parameterType="web.dto.Free">
+	UPDATE free set
+	free_views = free_views + 1
+	WHERE free_no = #{freeNo}
+</update>
+
 </mapper>
