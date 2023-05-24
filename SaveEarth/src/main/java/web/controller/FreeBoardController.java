@@ -11,4 +11,7 @@ public class FreeBoardController {
 	
 	@GetMapping("free/detail")
 	public void detail() {}
+	
+	@GetMapping("free/write")
+	public void write() {}
 }
