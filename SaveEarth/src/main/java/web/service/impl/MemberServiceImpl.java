@@ -1,5 +1,7 @@
 package web.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +11,8 @@ import web.service.face.MemberService;
 
 @Service
 public class MemberServiceImpl implements MemberService {
+	
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired MemberDao memberDao;
 	
@@ -31,5 +35,19 @@ public class MemberServiceImpl implements MemberService {
 		return false;
 		 }
 	}
+
+	@Override
+	public Member info(String loginid) {
+		logger.info("loginid : {}", loginid);
+		
+		return memberDao.selectById(loginid);
+	}
+
+	@Override
+	public Member update(String loginid) {
+		return memberDao.updateUser(loginid);
+	}
+
+
 
 }

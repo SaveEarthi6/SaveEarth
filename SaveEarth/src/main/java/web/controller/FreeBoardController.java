@@ -9,4 +9,6 @@ public class FreeBoardController {
 	@GetMapping("/free/main")
 	public void free() {}
 	
+	@GetMapping("free/detail")
+	public void detail() {}
 }

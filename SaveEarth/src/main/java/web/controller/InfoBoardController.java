@@ -9,9 +9,13 @@ public class InfoBoardController {
 	
 	@GetMapping("/info/main")
 	public void info() {
-		
-		
+
+	}
+	
+	@GetMapping("/info/detail")
+	public void detail() {
 		
 	}
+
 
 }
