@@ -102,16 +102,34 @@ $(document).ready(function() {
 	</c:if>
 </div>
 
+<!-- 버튼 -->
 <div class="text-center mb-3">
 	<a href= "/free/main"><button id="btnList" class="btn btn-success">목록</button></a>
 	
 	<c:if test="${id eq viewBoard.writerId }">
 		<button id="btnUpdate" class="btn btn-success">수정</button>
-		<button id="btnDelete" class="btn btn-success">삭제</button>
+		<button id="btnDelete" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">삭제</button>
 	</c:if>
 </div>
 
+<!-- 댓글 -->
+	<div class="card my-4">
+		<h5 class="card-header" style="font-weight: bold ;">댓글</h5>
+		<div class="card-body">
+			<form name="comment-form" action="/board/comment/write" method="post" autocomplete="off">
+					<textarea name="content" class="form-control" rows="3"></textarea>
+				<div style= "padding-top: 50px;">
+					<button type="submit" class="btn btn-success">등록</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+	
+	
 </div><!-- .container end -->
+
+
 
 <c:import url="../layout/footer.jsp"></c:import>
 
