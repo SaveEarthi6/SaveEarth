@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import web.dto.Member;
 import web.service.face.MemberService;
@@ -19,7 +20,7 @@ import web.service.face.MemberService;
 @RequestMapping("/mypage")
 public class MypageController {
 	
-	@Autowired MemberService memberService;
+	@Autowired private MemberService memberService;
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -73,9 +74,6 @@ public class MypageController {
 		memberService.delete(loginid);
 		
 		return "redirect:/saveearth/main";
-		
-		
-		
 	}
 	
 	@RequestMapping("/board")
