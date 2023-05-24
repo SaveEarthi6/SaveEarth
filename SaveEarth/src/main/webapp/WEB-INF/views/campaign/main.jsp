@@ -47,6 +47,56 @@
 	padding: 40px;
 }
 
+#line {
+	width: 1700px;
+	margin: 0 auto;
+}
+
+.nav button {  
+  	margin-left: 30px;  
+	margin-top: 20px;  
+ 	width: 100px;  
+}  
+
+.nav { 
+ 	margin-left: 100px; 
+ 	margin-bottom: 50px; 
+} 
+
+
+/* 검색 전체 div태그 스타일 */
+.search {
+	text-align: center;
+	width: 100%;
+	height: 100px;
+}
+
+.search_input {
+	width: 300px;
+	height: 30px;
+	font-size: 18px;
+	border: 1px solid #ccc;
+/* 	border-bottom: 1px black solid; */
+}
+
+.search_btn {
+	font-size: 18px;
+	border: none;
+	background-color: green;
+	width: 50px;
+	height: 30px;
+	border-radius: 15px;
+	color: #fff;
+	cursor: pointer;
+	vertical-align: middle;
+}
+
+.search_icon {
+	width: 20px;
+	height: 20px;
+	margin-bottom: 3px;
+}
+
 
 </style>
 
@@ -100,7 +150,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </div>
 
+<div id="line"><hr></div>
+
 <div id="campList">
+
+<div class="nav">
+<button type="button" class="btn btn-outline-success">전체</button>
+<button type="button" class="btn btn-outline-success">진행중</button>
+<button type="button" class="btn btn-outline-success">마감</button>
+</div>
+
+<div class="search">
+	<form action="/info/main">
+        <input type="text" name="search" class="search_input">
+        <button type="button" name="search_btn" class="search_btn"><img src="../resources/img/searchicon.png" class="search_icon"></button>
+	</form>
+</div>
 
 
 </div>
