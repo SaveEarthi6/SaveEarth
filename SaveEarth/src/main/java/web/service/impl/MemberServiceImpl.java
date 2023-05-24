@@ -43,6 +43,11 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.selectById(loginid);
 	}
 
+	@Override
+	public Member update(String loginid) {
+		return memberDao.updateUser(loginid);
+	}
+
 
 
 }
