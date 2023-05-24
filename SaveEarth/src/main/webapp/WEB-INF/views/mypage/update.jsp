@@ -242,8 +242,26 @@ width: 700px;
       </div>
       
       <div class="textForm">
+      ${info.birth }
+        <input name="birth" id="birth" type="date" class="birth" placeholder="생년월일 : ${info.birth }">
+      </div>
       
-  		<button class="btn">회원정보 수정</button>
+      <div class="textForm">
+        <input name="email" id ="email" type="text" class="email" placeholder="이메일 : ${info.email }">
+      </div>
+      
+     <div class="textForm">
+       <input type="button" class="form-control" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
+       <input  type="text" disabled class="nickname" id="sample4_postcode" placeholder="우편번호 : ${info.post}" name="post"> 
+         <input type="text" disabled class="nickname" id="sample4_roadAddress" placeholder="도로명주소 : ${info.addr1}" name="addr1">
+      <span id="guide" style="color:#999;display:none"></span>
+      <input type="text" class="nickname" id="sample4_detailAddress" placeholder="상세주소 : ${info.addr2}" name="addr2">
+     </div>
+     
+      <div class="textForm">
+        <input type="text" class="nickname id="phone" name="phone" placeholder=" 연락처 : ${info.phone }">
+      </div>
+        <button class="btn">회원정보 수정</button>
 </form>
 
 
