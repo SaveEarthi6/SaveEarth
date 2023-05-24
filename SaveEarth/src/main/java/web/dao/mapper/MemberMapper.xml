@@ -27,6 +27,18 @@
 		SET name= #{name} #{id}
 		WHERE id = #
 	</update>
+	
+	<select id="checkid" parameterType="web.dto.Member" resultType="int">
+	SELECT COUNT(*) FROM member
+	WHERE name=#{name} and email=#{email}
+	</select>
+	
+	<select id="selectIdByNameEmail" parameterType="web.dto.Member" resultType="web.dto.Member">
+	SELECT id,name FROM member
+	WHERE name=#{name} and email=#{email}
+	</select>
+	
+	
 
   
   

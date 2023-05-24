@@ -79,9 +79,7 @@ public class MemberController {
 		if(check) {
 			Member id = memberService.findid(member);
 			
-			String idtest= id.getId();
-			System.out.println(idtest);
-			
+			System.out.println(id);
 			
 			model.addAttribute("id", id);
 			
