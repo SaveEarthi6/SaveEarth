@@ -22,11 +22,24 @@ public interface MemberService {
 	 */
 	public Member update(String loginid);
 	
+	/**
+	 * 마이페이지 회원정보 탈퇴 
+	 * @param loginid
+	 * @return
+	 */
+	public Member delete(String loginid);
+
+
 	
+
+
+
+
 	
-	
-	
-	
+
+	public Member findid(Member member);
+
+	public boolean checkid(Member member);
 	
 	
 	
