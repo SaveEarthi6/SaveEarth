@@ -24,9 +24,20 @@
   
 	<update id="updateUser" parameterType="String">
 		UPDATE Member
-		SET id=#{id}, pw=#{pw}, name=#{name}, nick=#{nick}, birth=#{birth}, email=#{email}, post=#{post}, addr1=#{addr1}, addr2=#{addr2}, phone=#{phone}
-		WHERE id = #{id}
+		SET name= #{name} #{id}
+		WHERE id = #
 	</update>
+	
+	<select id="checkid" resultType="int" parameterType="web.dto.Member">
+		select count(*) from member
+		where name = #{name} and email = #{email}
+	</select>
+	
+	<select id="selectIdByNameEmail" parameterType="web.dto.Member" resultType="web.dto.Member">
+		SELECT name,id FROM member
+		WHERE name=#{name} and email=#{email}
+	
+	</select>
   
   
   

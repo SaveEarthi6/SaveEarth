@@ -23,6 +23,14 @@ public interface MemberService {
 	public Member update(String loginid);
 
 	
+
+	public Member findid(Member member);
+
+	public boolean checkid(Member member);
+
+	
+
+	
 	
 
 

@@ -243,22 +243,20 @@ width: 700px;
      
       
       <div class="textForm">
-        <input name="birth" id="birth" type="datetime-local" class="birth" placeholder="생년월일 : ${info.birth }">
+        <input type="text" name="birth" id="birth" type="datetime-local" class="birth" placeholder="생년월일 : ${info.birth }">
       </div>
       
       
       <div class="textForm">
-        <input name="email" id ="email" type="text" class="email" placeholder="이메일 : ${info.email }">
+        <input name="email" id ="email" type="email" class="email" placeholder="이메일 : ${info.email }">
       </div>
        
       
-      <div class="textForm">
-        <label for="inputCity" class="form-label">주소 :  ${info.post }</label>
-      </div>
+ 
       
       
        <div class="textForm">
-        <input type="text" class="form-control" id="sample4_postcode" placeholder="우편번호 : ${info.addr1 }" name="post"> 
+        <input type="text" class="form-control" id="sample4_postcode" placeholder="우편번호 : ${info.post }" name="post"> 
       </div>
       
       
@@ -267,7 +265,10 @@ width: 700px;
       </div>
       
       <div class="textForm">
-        <input type="text" class="form-control" id="sample4_roadAddress" placeholder="도로명주소 : ${info.addr2 } " name="addr1">
+        <input type="text" class="form-control" id="sample4_roadAddress" placeholder="도로명주소 : ${info.addr1 } " name="addr1">
+      </div>
+            <div class="textForm">
+        <input type="text" class="form-control" id="sample4_roadAddress" placeholder="상세주소 : ${info.addr2 } " name="addr2">
       </div>
       
       <div class="textForm">

@@ -5,23 +5,16 @@
 
 <c:import url="../layout/header.jsp"></c:import>
 <html>
-
-
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
 <body>
-<h1> 아이디 찾기 구현 페이지</h1>
+
+
+<h1>${id.name }님의 회원정보와 일치하는 아이디는 ${id.id }입니다</h1>
 
 
 
-<form action="./findid" method="post">
-<label>이름</label>
-<input type="text" name="name"><br>
-<label>이메일</label>
-<input type="email" name="email">
 
-
-<button class="button">아이디 확인</button>
-</form>
-
-
-</body>
 <c:import url="../layout/footer.jsp"></c:import>

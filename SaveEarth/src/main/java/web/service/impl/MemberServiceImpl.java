@@ -48,6 +48,30 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.updateUser(loginid);
 	}
 
+	
+	@Override
+	public boolean checkid(Member member) {
+		
+		int check = memberDao.checkid(member);
+		
+		if(check > 0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	@Override
+	public Member findid(Member member) {
+		
+		return memberDao.selectIdByNameEmail(member);
+			
+	}
+
+
+
+
+
 
 
 }
