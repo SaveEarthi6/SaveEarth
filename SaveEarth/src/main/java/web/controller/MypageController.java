@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import web.dto.Member;
@@ -21,7 +23,7 @@ public class MypageController {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	@RequestMapping("/update")
+	@GetMapping("/update")
 	public void mypageUpdate(HttpSession session, Model model) {
 		logger.info("/mypage/update");
 		
@@ -33,6 +35,19 @@ public class MypageController {
 		
 		model.addAttribute("info", info);
 	}
+	
+	@PostMapping("/update")
+	public void mypageUpdateProc(HttpSession session, Model model) {
+		logger.info("/mypage/updateProc");
+		
+		String loginid = (String) session.getAttribute("loginid");
+		logger.info("{}", loginid);
+		
+		Member update = memberService.update(loginid);
+		logger.info("info:{}", update);
+		
+	}
+	
 	
 	@RequestMapping("/delete")
 	public void mypageDelete(HttpSession session, Model model) {
