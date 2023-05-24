@@ -22,11 +22,11 @@
 	  WHERE id= #{id}
   </select>
   
-<!-- 	<update id="update" parameterType="String"> -->
-<!-- 		UPDATE Member -->
-<!-- 		SET id=#{id}, pw=#{pw}, name=#{name}, nick=#{nick}, birth=#{birth}, email=#{email}, post=#{post}, addr1=#{addr1}, addr2=#{addr2} -->
-<!-- 		WHERE id = #{id} -->
-<!-- 	</update> -->
+	<update id="updateUser" parameterType="String">
+		UPDATE Member
+		SET id=#{id}, pw=#{pw}, name=#{name}, nick=#{nick}, birth=#{birth}, email=#{email}, post=#{post}, addr1=#{addr1}, addr2=#{addr2}, phone=#{phone}
+		WHERE id = #{id}
+	</update>
   
   
   
