@@ -13,6 +13,14 @@ public class CampaignController {
 	@RequestMapping("/main")
 	public void campMain() {
 		logger.info("/campaign/main [GET]");
+		
+		//캠페인 불러오기
+		
+	}
+	
+	@RequestMapping("/detail")
+	public void campDetail() {
+		logger.info("/campaign/detail [GET]");
 	}
 
 }
