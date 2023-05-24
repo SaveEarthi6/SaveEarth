@@ -11,6 +11,7 @@
 <meta charset="UTF-8">
 <title>정보게시판</title>
 
+
 <!-- jQuery 2.2.4 -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
@@ -125,6 +126,7 @@ $(document).ready(function(){
 	width: 20px;
 	height: 20px;
 	margin-bottom: 3px;
+	color: white;
 }
 
 </style>
@@ -141,7 +143,7 @@ $(document).ready(function(){
 
 <div class="nav">
 <button type="button" class="btn btn-outline-success">전체</button>
-<button type="button" class="btn btn-outline-success">환경</button>
+<button type="button" class="btn btn-outline-success">정보</button>
 <button type="button" class="btn btn-outline-success">자유</button>
 </div>
 
@@ -218,9 +220,12 @@ $(document).ready(function(){
 	<form action="/info/main" method="post">
 	    <div class="search">
 	        <input type="text" name="search" class="search_input">
-	        <button type="button" name="search_btn" class="search_btn"><img src="../resources/img/searchicon.png" class="search_icon"></button>
+<!-- 	        <button type="button" name="search_btn" class="search_btn"><img src="../resources/img/searchicon.png" class="search_icon"></button> -->
+	        <button type="button" name="search_btn" class="search_btn"><i class="bi bi-search"></i></button>
 	    </div>
 	</form>
+
+
 
 </div>
 
