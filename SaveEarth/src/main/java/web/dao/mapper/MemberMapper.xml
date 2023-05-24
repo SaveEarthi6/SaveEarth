@@ -25,6 +25,13 @@
 
 	</update>
 	
+	
+	
+	
+	
+	
+	
+	
 	<select id="checkid" parameterType="web.dto.Member" resultType="int">
 	SELECT COUNT(*) FROM member
 	WHERE name=#{name} and email=#{email}
