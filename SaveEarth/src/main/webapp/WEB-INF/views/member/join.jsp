@@ -94,7 +94,6 @@
     <input type="text" class="form-control" id="sample4_roadAddress" placeholder="도로명주소" name="addr1">
 	<span id="guide" style="color:#999;display:none"></span>
 	<input type="text" class="form-control" id="sample4_detailAddress" placeholder="상세주소" name="addr2">
-
   </div>
   
   <div class="col-md-6">
