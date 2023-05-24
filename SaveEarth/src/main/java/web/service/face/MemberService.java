@@ -22,6 +22,7 @@ public interface MemberService {
 	 */
 	public Member update(String loginid);
 
+
 	
 	
 

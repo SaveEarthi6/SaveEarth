@@ -22,6 +22,13 @@ public interface MemberDao {
 	 */
 	public Member updateUser(String loginid);
 
+	/**
+	 * 로그인한 아이디로 회원정보를 가져온다
+	 * @param loginid - 로그인한 아이디
+	 * @return - 회원 정보
+	 */
+	public Member selectInfoById(String loginid);
+
 
 
 
