@@ -129,6 +129,14 @@ $(document).ready(function(){
 	color: white;
 }
 
+/* 검색창 스타일 */
+input {
+	width: 100%;
+	border: 1px solid #bbb;
+	border-radius: 8px;
+	font-size: 14px;
+}
+
 </style>
 
 
@@ -149,78 +157,22 @@ $(document).ready(function(){
 
 <div class="container">
 
-<div class="row">	
+<!-- 게시판 -->
+<table id= "board" class= "table table-striped table-hover text-center">
 
-	<div class="col-sm-4" id="thumnail1">
-	<img src="http://www.snpo.kr/data/editor/2204/29da0cc3a9199228b1f876bf0eca7505_1648990579_4091.png" class="img-thumbnail" alt="..." style="height: 300px;">
-	</div>
-	<div class="col-sm-4" id="thumnail2">
-	<img src="http://www.snpo.kr/data/editor/2204/29da0cc3a9199228b1f876bf0eca7505_1648990886_8624.png" class="img-thumbnail" alt="..." style="height: 300px;">
-	</div>
-	<div class="col-sm-4" id="thumnail3">
-	<img src="http://www.snpo.kr/data/editor/2204/29da0cc3a9199228b1f876bf0eca7505_1648991022_9541.png" class="img-thumbnail" alt="..." style="height: 300px;">
-	</div>
-	
-	<div class="col-sm-4">
-	<span id="title1">제목1</span>
-	</div>
-	<div class="col-sm-4">
-	<span id="title2">제목2</span>
-	</div>
-	<div class="col-sm-4">
-	<span id="title3">제목3</span>
-	</div>
+	<tr>
+		<th style="width: 20px;">글번호</th>
+		<th style="width: 20px;">제목</th>
+		<th style="width: 20px;">작성자</th>
+		<th style="width: 20px;">조회수</th>
+		<th style="width: 20px;">작성일</th>
+	</tr>
 
-	<div class="col-sm-4">
-	<span id="content1">상세내용입니다1</span>
-	</div>
-	<div class="col-sm-4">
-	<span id="content2">상세내용입니다2</span>
-	</div>
-	<div class="col-sm-4">
-	<span id="content3">상세내용입니다3</span>
-	</div>
-
-</div>
-
-<div class="row">
-
-	<div class="col-sm-4" id="thumnail4">
-	<img src="http://www.snpo.kr/data/editor/2204/29da0cc3a9199228b1f876bf0eca7505_1648990579_4091.png" class="img-thumbnail" alt="..." style="height: 300px;">
-	</div>
-	<div class="col-sm-4" id="thumnail5">
-	<img src="http://www.snpo.kr/data/editor/2204/29da0cc3a9199228b1f876bf0eca7505_1648990886_8624.png" class="img-thumbnail" alt="..." style="height: 300px;">
-	</div>
-	<div class="col-sm-4" id="thumnail6">
-	<img src="http://www.snpo.kr/data/editor/2204/29da0cc3a9199228b1f876bf0eca7505_1648991022_9541.png" class="img-thumbnail" alt="..." style="height: 300px;">
-	</div>
-	
-	<div class="col-sm-4">
-	<span id="title1">제목1</span>
-	</div>
-	<div class="col-sm-4">
-	<span id="title2">제목2</span>
-	</div>
-	<div class="col-sm-4">
-	<span id="title3">제목3</span>
-	</div>
-
-	<div class="col-sm-4">
-	<span id="content1">상세내용입니다1</span>
-	</div>
-	<div class="col-sm-4">
-	<span id="content2">상세내용입니다2</span>
-	</div>
-	<div class="col-sm-4">
-	<span id="content3">상세내용입니다3</span>
-	</div>
-	
-</div>
+</table>
 
 	<form action="/info/main" method="post">
 	    <div class="search">
 	        <input type="text" name="search" class="search_input">
-<!-- 	        <button type="button" name="search_btn" class="search_btn"><img src="../resources/img/searchicon.png" class="search_icon"></button> -->
 	        <button type="button" name="search_btn" class="search_btn"><i class="bi bi-search"></i></button>
 	    </div>
 	</form>
