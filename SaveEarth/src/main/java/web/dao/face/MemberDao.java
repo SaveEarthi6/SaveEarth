@@ -20,7 +20,28 @@ public interface MemberDao {
 	 * @param loginid
 	 * @return
 	 */
-	public Member updateUser(String loginid);
+	public Member update(String loginid);
+
+	/**
+	 * 회원정보 탈퇴
+	 * @param loginid
+	 * @return
+	 */
+	public Member delete(String loginid);
+
+
+
+	/**
+	 * 이름 이메일로 아이디 찾기
+	 * @param member - name, email
+	 * @return
+	 */
+	public int checkid(Member member);
+
+
+
+	public Member selectIdByNameEmail(Member member);
+
 
 
 
