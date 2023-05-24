@@ -88,7 +88,9 @@
   <div class="col-md-6">
  	<label for="inputCity" class="form-label">주소</label>
     <input type="text" class="form-control" id="sample4_postcode" placeholder="우편번호" name="post"> 
+   
     <input type="button" class="form-control" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
+    
     <input type="text" class="form-control" id="sample4_roadAddress" placeholder="도로명주소" name="addr1">
 	<span id="guide" style="color:#999;display:none"></span>
 	<input type="text" class="form-control" id="sample4_detailAddress" placeholder="상세주소" name="addr2">
@@ -97,7 +99,7 @@
   
   <div class="col-md-6">
     <label for="inputCity" class="phone">연락처</label>
-    <input type="text" class="form-control" id="address" name="address">
+    <input type="text" class="form-control" id="phone" name="phone">
   </div>
 
   <div class="col-12">

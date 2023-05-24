@@ -5,6 +5,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="web.dao.face.MemberDao">
+  
   <insert id="insert" parameterType="web.dto.Member">
   INSERT INTO member(userno,id,pw,name,nick,birth,email,post,addr1,addr2,phone)
    		VALUES(userno_seq.nextval,#{id},#{pw},#{name},#{nick},#{birth},#{email},#{post},#{addr1},#{addr2},#{phone})
@@ -15,5 +16,18 @@
   		SELECT count(*) FROM member
   	WHERE id = #{id} AND pw = #{pw}
   </select>
+  
+    <select id="selectById" resultType="web.dto.Member" parameterType="string">
+	  	SELECT * FROM member
+	  WHERE id= #{id}
+  </select>
+  
+	<update id="updateUser" parameterType="String">
+		UPDATE Member
+		SET id=#{id}, pw=#{pw}, name=#{name}, nick=#{nick}, birth=#{birth}, email=#{email}, post=#{post}, addr1=#{addr1}, addr2=#{addr2}, phone=#{phone}
+		WHERE id = #{id}
+	</update>
+  
+  
   
   </mapper>

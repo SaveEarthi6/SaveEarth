@@ -151,7 +151,7 @@ select {
   </ul>
 </div>
 <!-- 글쓰기 버튼 -->
-	<button type="button" class="btn btn-outline-success">글쓰기</button>
+	<a href = "/free/write"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
 </div>
 
 <!-- 게시판 -->
