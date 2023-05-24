@@ -21,33 +21,40 @@ public interface MemberService {
 	 * @return
 	 */
 	public Member update(String loginid);
-
-<<<<<<< HEAD
-=======
-	/**
-	 * 마이페이지 회원정보 탈퇴 
-	 * @param loginid
-	 * @return
-	 */
-	public Member delete(String loginid);
-
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 
 
 
-	
 
-	public Member findid(Member member);
 
-	public boolean checkid(Member member);
 
-	
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
 
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
