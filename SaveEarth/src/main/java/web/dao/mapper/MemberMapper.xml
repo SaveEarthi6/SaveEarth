@@ -7,9 +7,8 @@
   <mapper namespace="web.dao.face.MemberDao">
   
   <insert id="insert" parameterType="web.dto.Member">
-  INSERT INTO member(userno,id,pw,name,nick,birth,email,post,addr1,addr2,phone)
-   		VALUES(userno_seq.nextval,#{id},#{pw},#{name},#{nick},#{birth},#{email},#{post},#{addr1},#{addr2},#{phone})
-  
+  		INSERT INTO member(userno,id,pw,name,nick,birth,email,post,addr1,addr2,phone)
+  VALUES(userno_seq.nextval,#{id},#{pw},#{name},#{nick},#{birth},#{email},#{post},#{addr1},#{addr2},#{phone})
   </insert>
   
   <select id="selectCntByIdPw" resultType="int" parameterType="web.dto.Member">
@@ -22,11 +21,16 @@
 	  WHERE id= #{id}
   </select>
   
-	<update id="updateUser" parameterType="String">
-		UPDATE Member
-		SET id=#{id}, pw=#{pw}, name=#{name}, nick=#{nick}, birth=#{birth}, email=#{email}, post=#{post}, addr1=#{addr1}, addr2=#{addr2}, phone=#{phone}
-		WHERE id = #{id}
+	<update id="update" parameterType="String">
+		UPDATE member
+			SET id=#{id}, pw=#{pw}, name=#{name}, nick=#{nick}, birth=#{birth}, email=#{email}, addr1=#{addr1}, addr2=#{addr2}, phone=#{phone}
+		WHERE id = #{id} 
 	</update>
+	
+	<delete id="delete" parameterType="String" >
+		DELETE Member
+		WHERE id = #{id}
+	</delete>
   
   
   

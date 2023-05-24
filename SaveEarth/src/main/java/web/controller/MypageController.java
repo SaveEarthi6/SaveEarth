@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import web.dto.Member;
 import web.service.face.MemberService;
@@ -19,13 +20,13 @@ import web.service.face.MemberService;
 @RequestMapping("/mypage")
 public class MypageController {
 	
-	@Autowired MemberService memberService;
+	@Autowired private MemberService memberService;
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@GetMapping("/update")
 	public void mypageUpdate(HttpSession session, Model model) {
-		logger.info("/mypage/update");
+		logger.info("/mypage/update[GET]");
 		
 		String loginid = (String) session.getAttribute("loginid");
 		logger.info("{}", loginid);
@@ -37,21 +38,22 @@ public class MypageController {
 	}
 	
 	@PostMapping("/update")
-	public void mypageUpdateProc(HttpSession session, Model model) {
+	public void mypageUpdateProc(HttpSession session, Member member) {
 		logger.info("/mypage/updateProc");
 		
 		String loginid = (String) session.getAttribute("loginid");
 		logger.info("{}", loginid);
 		
-		Member update = memberService.update(loginid);
-		logger.info("info:{}", update);
+		member.setId((String) session.getAttribute("id"));
+		member.setPw((String) session.getAttribute("pw"));
+		logger.info("info:{}", member);
 		
 	}
 	
 	
-	@RequestMapping("/delete")
+	@GetMapping("/delete")
 	public void mypageDelete(HttpSession session, Model model) {
-		logger.info("/mypage/delete");
+		logger.info("/mypage/delete[GET]");
 		
 		String loginid = (String) session.getAttribute("loginid");
 		logger.info("{}", loginid);
@@ -61,6 +63,18 @@ public class MypageController {
 		logger.info("info: {}", info);
 		
 		model.addAttribute("info", info);
+	}
+	
+	@PostMapping("/delete")
+	public String mypageDeleteProc(HttpSession session, Model model) {
+		logger.info("/delete/delete[POST]");
+		
+		String loginid = (String) session.getAttribute("loginid");
+		logger.info("{}", loginid);
+		
+		memberService.delete(loginid);
+		
+		return "redirect:/saveearth/main";
 	}
 	
 	@RequestMapping("/board")
