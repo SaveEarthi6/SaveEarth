@@ -36,6 +36,14 @@ public interface MemberService {
 
 
 	
+
+	public Member findid(Member member);
+
+	public boolean checkid(Member member);
+
+	
+
+	
 	
 
 

@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -65,9 +66,39 @@ public class MemberController {
 	}
 	
 	@GetMapping("/findid")
-	public void findid() {
+	public void findidpage() {
 		
 	}
+	@PostMapping("/findid")
+	public String findid(Member member, Model model) {
+		System.out.println(member.getName());
+		System.out.println(member.getEmail());		
+		boolean check = memberService.checkid(member);
+		System.out.println(check);
+
+		if(check) {
+			Member id = memberService.findid(member);
+			
+			System.out.println(id);
+			
+			model.addAttribute("id", id);
+			
+		
+			return "./member/findViewid";
+		} else {
+			
+			
+			return "./member/findid";
+			
+		}
+		  
+	}
+	@GetMapping("/findViewid")
+	public void findViewid() {
+		
+	}
+	
+	
 	
 	@GetMapping("/findpw")
 	public void findpw() {

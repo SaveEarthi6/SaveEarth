@@ -31,6 +31,18 @@ public interface MemberDao {
 
 
 
+	/**
+	 * 이름 이메일로 아이디 찾기
+	 * @param member - name, email
+	 * @return
+	 */
+	public int checkid(Member member);
+
+
+
+	public Member selectIdByNameEmail(Member member);
+
+
 
 
 
