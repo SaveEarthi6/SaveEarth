@@ -242,7 +242,8 @@ width: 700px;
       </div>
       
       <div class="textForm">
-        <input name="birth" id="birth" type="datetime-local" class="birth" placeholder="생년월일 : ${info.birth }">
+      ${info.birth }
+        <input name="birth" id="birth" type="date" class="birth" placeholder="생년월일 : ${info.birth }">
       </div>
       
       <div class="textForm">
@@ -250,15 +251,15 @@ width: 700px;
       </div>
       
  	 <div class="textForm">
-    	<input type="text" class="form-control" id="sample4_postcode" placeholder="우편번호 : ${info.post}" name="post"> 
-    	<input type="button" class="form-control" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
-   		<input type="text" class="form-control" id="sample4_roadAddress" placeholder="도로명주소 : ${info.addr1}" name="addr1">
+ 		<input type="button" class="form-control" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
+    	<input  type="text" disabled class="nickname" id="sample4_postcode" placeholder="우편번호 : ${info.post}" name="post"> 
+   		<input type="text" disabled class="nickname" id="sample4_roadAddress" placeholder="도로명주소 : ${info.addr1}" name="addr1">
 		<span id="guide" style="color:#999;display:none"></span>
-		<input type="text" class="form-control" id="sample4_detailAddress" placeholder="상세주소 : ${info.addr2}" name="addr2">
+		<input type="text" class="nickname" id="sample4_detailAddress" placeholder="상세주소 : ${info.addr2}" name="addr2">
   	</div>
   	
       <div class="textForm">
-        <input type="text" class="form-control" id="phone" name="phone" placeholder="${info.phone }">
+        <input type="text" class="nickname id="phone" name="phone" placeholder=" 연락처 : ${info.phone }">
       </div>
   		<button class="btn">회원정보 수정</button>
 </form>

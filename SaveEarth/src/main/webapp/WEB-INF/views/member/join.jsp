@@ -77,7 +77,7 @@
   
    <div class="col-md-6">
     <label for="inputCity" class="form-label">생년월일</label>
-    <input type="datetime-local" class="form-control" id="birth" name="birth">
+    <input type="date" class="form-control" id="birth" name="birth">
   </div>
   
    <div class="col-md-6">
