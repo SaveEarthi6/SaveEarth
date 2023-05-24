@@ -37,6 +37,12 @@ h1 {
 /* 기사 url 스타일 */
 .url {
 	text-align: center;
+ 	margin-top: 10px;
+}
+
+.list{
+	text-align: center;
+	margin-bottom: 20px;
 }
 
 </style>
@@ -59,9 +65,13 @@ h1 {
  친환경 비누명함 제품화 기술을 중증장애인일자리지원협화 산하 반짝전구기획사업단과 인천 미추홀구 노인인력개발센터와 함께 했어요[2]. 이번 아이디어 지원을 통해 친환경 자원순환 문화를 확산하고, 장애인과 노인 일자리를 창출하는 등의 효과를 거두었다고 하니 우리 비영리도 참고해봐도 좋겠습니다.​
 </div>
 
+
 <div class="url">
-<a href="http://www.ecotiger.co.kr/news/articleView.html?idxno=32955">원본 URL</a>
+<a href="http://www.ecotiger.co.kr/news/articleView.html?idxno=32955" style="margin-left: 430px;">기사 자세히 보기</a>
 </div>
 
-</body>
-</html>
+<div class="list">
+<a href="./main"><button type="button" class="btn btn-success" style="width: 500px; margin-top: 20px;">목록으로</button></a>
+</div>
+
+<c:import url="../layout/footer.jsp"/>
