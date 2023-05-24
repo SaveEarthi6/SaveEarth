@@ -15,5 +15,14 @@ public interface MemberDao {
 	 */
 	public Member selectById(String loginid);
 
+	/**
+	 * 회원정보 수정
+	 * @param loginid
+	 * @return
+	 */
+	public Member updateUser(String loginid);
+
+
+
 
 }

@@ -225,47 +225,40 @@ width: 700px;
 
 <form action="./update" method="POST">
       <div class="textForm">
-        <input name="id" id="id" type="text" class="id" placeholder="아이디">
-       ${info.id }
+        <input name="id" id="id" type="text" class="id" placeholder="아이디 : ${info.id }">
+      
       </div>
       <div class="textForm">
-        <input name="pw" id="pw" type="text" class="pw" placeholder="비밀번호">
-       ${info.pw }
+        <input name="pw" id="pw" type="text" class="pw" placeholder="비밀번호 : ${info.pw }">
       </div>
- 
      
       <div class="textForm">
-        <input name="name" id="name" type="text" class="name" placeholder="이름">
-       ${info.name}
+        <input name="name" id="name" type="text" class="name" placeholder="이름 : ${info.name}">
+      
       </div>
       
       <div class="textForm">
-        <input name="nick" id="nick" type="text" class="nickname" placeholder="닉네임">
-       ${info.nick }
+        <input name="nick" id="nick" type="text" class="nickname" placeholder="닉네임 : ${info.nick }">
       </div>
      
       
       <div class="textForm">
-        <input name="birth" id="birth" type="datetime-local" class="birth" placeholder="생년월일">
-       ${info.birth }
+        <input name="birth" id="birth" type="datetime-local" class="birth" placeholder="생년월일 : ${info.birth }">
       </div>
       
       
       <div class="textForm">
-        <input name="email" id ="email" type="text" class="email" placeholder="이메일">
-       ${info.email }
+        <input name="email" id ="email" type="text" class="email" placeholder="이메일 : ${info.email }">
       </div>
        
       
       <div class="textForm">
-        <label for="inputCity" class="form-label">주소</label>
-       ${info.post }
+        <label for="inputCity" class="form-label">주소 :  ${info.post }</label>
       </div>
       
       
        <div class="textForm">
-        <input type="text" class="form-control" id="sample4_postcode" placeholder="우편번호" name="post"> 
-       ${info.addr1 }
+        <input type="text" class="form-control" id="sample4_postcode" placeholder="우편번호 : ${info.addr1 }" name="post"> 
       </div>
       
       
@@ -274,19 +267,16 @@ width: 700px;
       </div>
       
       <div class="textForm">
-        <input type="text" class="form-control" id="sample4_roadAddress" placeholder="도로명주소" name="addr1">
-       ${info.addr2 }
+        <input type="text" class="form-control" id="sample4_roadAddress" placeholder="도로명주소 : ${info.addr2 } " name="addr1">
       </div>
       
       <div class="textForm">
-        <label for="inputCity" class="phone">연락처</label>
+        <label for="inputCity" class="phone">연락처 : ${info.phone } </label>
         <input type="text" class="form-control" id="phone" name="phone">
-         ${info.phone }
       </div>
       
   		<button class="btn">회원정보 수정</button>
 </form>
-
 
 
 </body>
