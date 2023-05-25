@@ -29,7 +29,7 @@
 	SELECT count(*) FROM free
 </select>
 
-<select id="selectList" resultType="map" parameterType="web.util.Paging">
+<select id="selectList" resultType="map" parameterType="map">
 	SELECT * FROM(
 		SELECT rownum rnum, (SELECT m.id FROM member m WHERE m.userno = F.user_no) id, F.* FROM (
 			SELECT
@@ -38,7 +38,18 @@
 			ORDER BY free_no DESC
 		) F
 	) FREEMAIN
-	WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	WHERE 1=1
+	<choose>
+		<!-- 메인으로 접속했을 때 -->
+		<when test="free_head = null">
+		AND rnum BETWEEN #{startNo} AND #{endNo}
+		</when>
+		<when test="free_head != null">
+		AND rnum BETWEEN #{startNo} AND #{endNo}
+		AND free_head = #{freeHead}
+		</when>
+	</choose>
+	
 </select>
 
 
@@ -52,5 +63,15 @@
 	free_views = free_views + 1
 	WHERE free_no = #{freeNo}
 </update>
+
+<delete id="delete" parameterType="web.dto.Free">
+	DELETE free
+	WHERE free_no = #{freeNo}
+</delete>
+
+<delete id="deleteFile" parameterType="web.dto.Free">
+	DELETE free_file
+	WHERE free_no = #{freeNo}
+</delete>
 
 </mapper>

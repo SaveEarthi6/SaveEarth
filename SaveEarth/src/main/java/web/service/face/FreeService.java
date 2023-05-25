@@ -34,9 +34,16 @@ public interface FreeService {
 	 */
 	public Paging getPaging(int curPage);
 
-	public List<Map<String, Object>> list(Paging paging);
+	public List<Map<String, Object>> list(Paging paging, String freeHead);
 
 	public Free getView(Free freeBoard);
+	
+	/**
+	 * 게시글 + 첨부파일 삭제 처리
+	 * 
+	 * @param free - 삭제할 게시글 글번호
+	 */
+	public void delete(Free free);
 
 
 

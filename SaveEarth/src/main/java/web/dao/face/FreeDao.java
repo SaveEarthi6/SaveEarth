@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Free;
@@ -39,13 +40,27 @@ public interface FreeDao {
 	 */
 	public int selectCntAll();
 
-	public List<Map<String, Object>> selectList(Paging paging);
+	public List<Map<String, Object>> selectList(@Param("paging") Paging paging,@Param("freeHead") String freeHead);
 
 	public Free selectFreeBoard(Free freeBoard);
 
 	public void updateHit(Free freeBoard);
 
 	public Free selectAll(int userno);
+	
+	/**
+	 * 게시글을 참조하고 있는 모든 첨부파일을 삭제
+	 * 
+	 * @param free - 첨부파일을 삭제할 게시글 번호 객체
+	 */
+	public void deleteFile(Free free);
+	
+	/**
+	 * 게시글 정보 삭제
+	 * 
+	 * @param free - 삭제할 게시글의 글 번호
+	 */
+	public void delete(Free free);
 
 	
 	
