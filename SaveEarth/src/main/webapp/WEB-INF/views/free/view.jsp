@@ -99,10 +99,20 @@ $(document).ready(function() {
 
 <!-- 첨부파일 다운 -->
 <div class="mb-3">
-	<c:if test="${not empty boardFile }">
-		<a href="./download?fileNo=${boardFile.fileNo }">${boardFile.originName }</a>
+	<c:if test="${not empty freeFile }">
+		<a href="./download?fileNo=${free.fileNo }">${freeFile.FreeOriginName }</a>
 	</c:if>
 </div>
+
+<!-- 첨부파일 -->
+<div class="mb-3">
+	<c:if test="${not empty freeFile }">
+		<a href="../upload/${freeFile.FreeStoredName }" download="${freeFile.FreeOriginName }">
+			${freeFile.FreeOriginName }
+		</a>
+	</c:if>
+</div>
+
 
 <!-- 버튼 -->
 <div class="text-center mb-3">
