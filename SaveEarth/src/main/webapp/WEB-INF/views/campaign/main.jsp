@@ -117,12 +117,6 @@
 	color: inherit;
 }
 
-#campTag:visited {
-	color: purple;
-}
-
-
-
 
 </style>
 
@@ -186,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 	    <span class="search">
 	        <input type="text" name="search" class="search_input">
-	        <button type="button" name="search_btn" class="search_btn"><img src="../resources/img/searchicon.png" class="search_icon"></button>
+	        <button type="button" name="search_btn" class="search_btn"><i class="bi bi-search"></i></button>
 	    </span>
 		
 	</div>
@@ -194,69 +188,54 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	<div id="campList" class="row">
 		<div class="col-1"></div>
+		
 		<div id="camps" class="row col-10">
+		
+			<c:forEach var="campaign" items="${campList }" begin="0" end="2">
 			<div id="camp" class="col">
-			<a href="" id="campTag">
-				<img alt="" src="" style="width: 400px; height: 300px;">
+			<a href="./detail?campno=${campaign.campNo }" id="campTag">
+				<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
 				<div id="campTitle">
-					<span>진행중</span>
-					<span>캠페인 제목</span>
+					<span id="titleTag">[${campaign.campState }]</span>
+					<span id="title">${campaign.campTitle }</span>
 				</div>
 			</a>
 			</div>
-			<div id="camp" class="col">
-			<a href="./detail" id="campTag">		<!-- a태그 나중에 el 사용해서 수정하기 -->
-				<img alt="" src="" style="width: 400px; height: 300px;">
-				<div id="campTitle">
-					<span>진행중</span>
-					<span>캠페인 제목</span>
-				</div>
-			</a>
-			</div>
-			<div id="camp" class="col">
-			<a href="" id="campTag">
-				<img alt="" src="" style="width: 400px; height: 300px;">
-				<div id="campTitle">
-					<span>진행중</span>
-					<span>캠페인 제목</span>
-				</div>
-			</a>
-			</div>
+			</c:forEach>
+			
 		</div>
+		
 		<div class='col-1'></div>
 	</div>
 
 	<div id="campList" class="row">
 		<div class="col-1"></div>
+		
 		<div id="camps" class="row col-10">
+		
+			<c:forEach var="campaign" items="${campList }" begin="3" end="5">
 			<div id="camp" class="col">
-				<img alt="" src="" style="width: 400px; height: 300px;">
+			<a href="./detail?campno=${campaign.campNo }" id="campTag">
+				<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
 				<div id="campTitle">
-					<span>진행중</span>
-					<span>캠페인 제목</span>
+					<span id="titleTag">[${campaign.campState }]</span>
+					<span id="title">${campaign.campTitle }</span>
 				</div>
+			</a>
 			</div>
-			<div id="camp" class="col">
-				<img alt="" src="" style="width: 400px; height: 300px;">
-				<div id="campTitle">
-					<span>진행중</span>
-					<span>캠페인 제목</span>
-				</div>
-			</div>
-			<div id="camp" class="col">
-				<img alt="" src="" style="width: 400px; height: 300px;">
-				<div id="campTitle">
-					<span>진행중</span>
-					<span>캠페인 제목</span>
-				</div>
-			</div>
+			</c:forEach>
+			
 		</div>
+		
 		<div class='col-1'></div>
 	</div>
+
+
 	
 </div>
 
 	
 
+<c:import url="../layout/paging.jsp"/>
 
 <c:import url="../layout/footer.jsp"/>
