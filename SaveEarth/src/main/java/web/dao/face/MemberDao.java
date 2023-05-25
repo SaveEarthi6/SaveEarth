@@ -15,19 +15,7 @@ public interface MemberDao {
 	 */
 	public Member selectById(String loginid);
 
-	/**
-	 * 회원정보 수정
-	 * @param loginid
-	 * @return
-	 */
-	public Member update(String loginid);
 
-	/**
-	 * 회원정보 탈퇴
-	 * @param loginid
-	 * @return
-	 */
-	public Member delete(String loginid);
 
 
 
@@ -49,6 +37,21 @@ public interface MemberDao {
 	 * @return - 회원 정보
 	 */
 	public Member selectInfoById(String loginid);
+
+
+	/**
+	 * 회원정보 삭제
+	 * @param member
+	 */
+	public void delete(String loginid);
+
+	/**
+	 * 회원정보 수정
+	 * @param member
+	 */
+	public void updateUser(Member member);
+
+
 
 
 

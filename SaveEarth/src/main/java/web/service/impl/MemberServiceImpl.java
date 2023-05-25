@@ -43,12 +43,6 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.selectById(loginid);
 	}
 
-	@Override
-	public Member update(String loginid) {
-		logger.info("loginid : {}", loginid);
-		
-		return memberDao.update(loginid);
-	}
 
 
 	
@@ -71,12 +65,24 @@ public class MemberServiceImpl implements MemberService {
 			
 	}
 
+
+
+
 	@Override
-	public Member delete(String loginid) {
-		logger.info(loginid);
+	public void delete(String loginid) {
+		logger.info("{}", loginid);
+		memberDao.delete(loginid);
 		
-		return memberDao.delete(loginid);
 	}
+
+	@Override
+	public void update(Member member) { 
+		
+		memberDao.updateUser(member);
+		
+	}
+
+
 
 
 

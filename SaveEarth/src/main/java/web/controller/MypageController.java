@@ -1,6 +1,8 @@
 package web.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import web.dto.Free;
 import web.dto.Member;
+import web.service.face.FreeService;
 import web.service.face.MemberService;
 
 
@@ -21,6 +25,7 @@ import web.service.face.MemberService;
 public class MypageController {
 	
 	@Autowired MemberService memberService;
+	@Autowired FreeService freeService;
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -38,15 +43,13 @@ public class MypageController {
 	}
 	
 	@PostMapping("/update")
-	public void mypageUpdateProc(HttpSession session, Model model) {
-		logger.info("/mypage/updateProc");
+	public String mypageUpdateProc(HttpSession session, Member member) {
 		
-		String loginid = (String) session.getAttribute("loginid");
-		logger.info("{}", loginid);
+		member.setId((String)session.getAttribute("loginid"));
 		
-		Member update = memberService.update(loginid);
-		logger.info("info:{}", update);
+		memberService.update(member);
 		
+		return "redirect:/mypage/update";
 	}
 	
 	
@@ -65,22 +68,32 @@ public class MypageController {
 	}
 	
 	@PostMapping("/delete")
-	public String mypageDeleteProc(HttpSession session, Model model) {
+	public String mypageDeleteProc(Member member, HttpSession session) {
 		logger.info("/delete/delete[POST]");
 		
 		String loginid = (String) session.getAttribute("loginid");
 		logger.info("{}", loginid);
 		
+		
 		memberService.delete(loginid);
 		
-		return "redirect:/saveearth/main";
+		
+		return "redirect:/member/logout";
 	}
 	
-	@RequestMapping("/board")
-	public void mypageBoard() {
-		logger.info("/mypage/board");
+//	@RequestMapping("/board")
+//	public void mypageBoard(Free free, Model model) {
+//		logger.info("/mypage/board");
+//		
+//		free = freeService.view(free);
+//		logger.info("{}", free);
+//		
+//		model.addAttribute("viewFree", free);
 		
-	}
+		
+		
+		
+//	}
 	
 	@RequestMapping("/order")
 	public void mypageOrder() {
