@@ -53,4 +53,14 @@
 	WHERE free_no = #{freeNo}
 </update>
 
+<delete id="delete" parameterType="web.dto.Free">
+	DELETE free
+	WHERE free_no = #{freeNo}
+</delete>
+
+<delete id="deleteFile" parameterType="web.dto.Free">
+	DELETE free_file
+	WHERE free_no = #{freeNo}
+</delete>
+
 </mapper>

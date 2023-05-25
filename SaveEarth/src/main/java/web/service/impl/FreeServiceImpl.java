@@ -141,6 +141,14 @@ public class FreeServiceImpl implements FreeService{
 		return freeDao.selectFreeBoard(freeBoard);
 		
 	}
+
+	@Override
+	public void delete(Free free) {
+		
+		freeDao.deleteFile(free);
+		freeDao.delete(free);
+		
+	}
 	
 
 	
