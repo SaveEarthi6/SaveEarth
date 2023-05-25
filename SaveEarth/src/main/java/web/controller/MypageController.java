@@ -25,7 +25,7 @@ public class MypageController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@GetMapping("/update")
-	public void mypageUpdate(HttpSession session, Model model) {
+	public void mypageUpdate(HttpSession session, Model model, Member member) {
 		logger.info("/mypage/update[GET]");
 		
 		String loginid = (String) session.getAttribute("loginid");
