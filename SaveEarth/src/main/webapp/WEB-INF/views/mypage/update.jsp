@@ -115,26 +115,26 @@ body {
   background: none;
 }
 
-.btn {
-  position:relative;
-  left:40%;
-  transform: translateX(-50%);
-  margin-bottom: 40px;
-  width:80%;
-  height:40px;
-  background: linear-gradient(125deg,#81ecec,#6c5ce7,#81ecec);
-  background-position: center;
-  background-size: 200%;
-  color:white;
-  font-weight: bold;
+ .btn-bottom { 
+  position:relative; 
+  left:2%; */
+  transform: translateX(-50%); 
+  margin-bottom: 40px; 
+  width:80%; 
+  height:40px; 
+  background: linear-gradient(125deg,#81ecec,#6c5ce7,#81ecec); 
+  background-position: center; 
+  background-size: 200%; 
+  color:white; 
+  font-weight: bold; 
   border:none;
-  cursor:pointer;
-  transition: 0.4s;
-  display:inline;
-  margin-left: 60px;
-}
+  cursor:pointer; 
+  transition: 0.4s; 
+  display:inline; 
+  margin-left: 60px; 
+ } 
 
-.btn:hover {
+.btn-bottom:hover {
   background-position: center;
 }
 
@@ -142,6 +142,98 @@ form{
 margin: 0 auto;
 width: 700px;
 }
+
+/*  */
+/* 게시판 이미지 스타일 */
+.infoimage {
+	position: relative;
+}
+
+/* '정보게시판' 문구 스타일 */
+.info {
+	position: absolute;
+	top: 38%; 
+	left: 45%; 
+	color: #fff; 
+	font-weight: bold;
+	font-size: 50px;
+    font-family: 'KBO-Dia-Gothic_bold';
+}
+
+/* 폰트 스타일 */
+@font-face {
+    font-family: 'KBO-Dia-Gothic_bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+/* 게시판 분류 버튼 스타일 */
+.nav button {  
+  	margin-left: 30px;  
+	margin-top: 20px;  
+ 	width: 100px;  
+  }  
+
+
+/* 게시글 분류 전체(div) 스타일 */
+.nav { 
+ 	margin-left: 100px; 
+ 	margin-bottom: 50px; 
+ } 
+
+/* 게시물 전체 감싸는 태그 */
+.row {
+	text-align: center;
+	margin-bottom: 50px;
+	cursor: pointer;
+}
+
+/* 검색 전체 div태그 스타일 */
+.search {
+	text-align: center;
+	width: 100%;
+	height: 100px;
+}
+
+/* 검색창 스타일 */
+.search_input {
+	width: 300px;
+	height: 30px;
+	font-size: 18px;
+	border: 1px solid #ccc;
+	margin-top: 10px;
+/* 	border-bottom: 1px black solid; */
+}
+
+/* 검색창 버튼 스타일 */
+.search_btn {
+	font-size: 18px;
+	border: none;
+	background-color: green;
+	width: 50px;
+	height: 30px;
+	border-radius: 15px;
+	color: #fff;
+	cursor: pointer;
+}
+
+/* 검색아이콘 이미지 */
+.search_icon {
+	width: 20px;
+	height: 20px;
+	margin-bottom: 3px;
+	color: white;
+}
+
+/* 검색창 스타일 */
+input {
+	width: 100%;
+	border: 1px solid #bbb;
+	border-radius: 8px;
+	font-size: 14px;
+}
+
 </style>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -206,29 +298,35 @@ width: 700px;
 <body>
 <br>
 
-<ul class="nav nav-pills nav-fill">
-  <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="./update">회원정보 수정</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="./delete">회원정보 탈퇴</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="./board">게시글, 댓글</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="./order">주문내역</a>
-  </li>
-</ul>
+<div class="nav">
+<a href="./update"><button type="button" class="btn btn-outline-success" id ="top">회원정보 수정</button></a>
+<a href="./delete"><button type="button" class="btn btn-outline-success" id ="top">회원정보 탈퇴</button></a>
+<a href="./board"><button type="button" class="btn btn-outline-success" id ="top">게시글, 댓글 수정</button></a>
+<a href="./order"><button type="button" class="btn btn-outline-success" id ="top">주문내역 수정</button></a>
+</div>
+
+<!-- <ul class="nav nav-pills nav-fill"> -->
+<!--   <li class="nav-item"> -->
+<!--     <a class="nav-link active" aria-current="page" href="./update">회원정보 수정</a> -->
+<!--   </li> -->
+<!--   <li class="nav-item"> -->
+<!--     <a class="nav-link" href="./delete">회원정보 탈퇴</a> -->
+<!--   </li> -->
+<!--   <li class="nav-item"> -->
+<!--     <a class="nav-link" href="./board">게시글, 댓글</a> -->
+<!--   </li> -->
+<!--   <li class="nav-item"> -->
+<!--     <a class="nav-link" href="./order">주문내역</a> -->
+<!--   </li> -->
+<!-- </ul> -->
 
 <br>
 
 <form action="./update" method="POST">
 
       <div class="textForm">
-        <input name="id" id="id" type="text" class="id" placeholder="아이디 : ${info.id }">
+      	<label>${info.id }</label>
       </div>
-      
       <div class="textForm">
         <input name="pw" id="pw" type="text" class="pw" placeholder="비밀번호 : ${info.pw }">
       </div>
@@ -242,7 +340,7 @@ width: 700px;
       </div>
       
       <div class="textForm">
-      ${info.birth }
+        ${info.birth }
         <input name="birth" id="birth" type="date" class="birth" placeholder="생년월일 : ${info.birth }">
       </div>
       
@@ -261,8 +359,10 @@ width: 700px;
       <div class="textForm">
         <input type="text" class="nickname id="phone" name="phone" placeholder=" 연락처 : ${info.phone }">
       </div>
-        <button class="btn">회원정보 수정</button>
+        <button class="btn-bottom">회원정보 수정</button>
 </form>
+
+
 
 
 </body>

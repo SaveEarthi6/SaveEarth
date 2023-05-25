@@ -16,29 +16,6 @@ public interface MemberService {
 	 */
 	public Member info(String loginid);
 
-	/**
-	 * 마이페이지 정보 수정
-	 * @param loginid
-	 * @return
-	 */
-	public Member update(String loginid);
-	
-	/**
-	 * 마이페이지 회원정보 탈퇴 
-	 * @param loginid
-	 * @return
-	 */
-	public Member delete(String loginid);
-
-
-	
-
-
-
-
-	
-
-
 	public Member findid(Member member);
 
 	/**
@@ -49,10 +26,25 @@ public interface MemberService {
 	public boolean checkid(Member member);
 
 	/**
+	 * 회원정보 삭제
+	 * @param loginid
+	 */
+	public void delete(String loginid);
+
+	/**
+	 * 회원정보 수정
+	 * @param member
+	 */
+	public void update(Member member);
+
+	/**
 	 * 중복아이디 체크
 	 * @param member
 	 * @return
 	 */
+	
+	public Member getUserInfo(String loginid);
+
 	
 	public int overlappedID(Member member);
 
@@ -68,27 +60,5 @@ public interface MemberService {
 	
 	
 	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
