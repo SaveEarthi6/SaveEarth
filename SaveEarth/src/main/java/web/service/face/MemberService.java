@@ -21,7 +21,7 @@ public interface MemberService {
 	 * @return
 	 */
 	public Member update(String loginid);
-
+	
 	/**
 	 * 마이페이지 회원정보 탈퇴 
 	 * @param loginid
@@ -40,11 +40,34 @@ public interface MemberService {
 	public Member findid(Member member);
 
 	public boolean checkid(Member member);
-
+	
+	
+	
+	
+	
+	
 	
 
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

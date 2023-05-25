@@ -115,7 +115,9 @@ select {
 	margin-top: 100px;
 	
 	margin-left:auto;
-	margin-right:auto
+	margin-right:auto;
+	
+	text-align: center;
 }
 
 
@@ -130,6 +132,7 @@ select {
 	<img class="freeimage" src="../resources/img/free.png">
 	<h1 class="free">자유게시판</h1>
 </div>
+
 
 <!-- 말머리글 -->
 <div class= "head">
@@ -155,15 +158,29 @@ select {
 </div>
 
 <!-- 게시판 -->
-<table id= "board" class= "table table-striped table-hover text-center">
+<table id= "board" class= "table table-hover text-center">
 
 	<tr>
 		<th style="width: 20px;">글번호</th>
-		<th style="width: 20px;">제목</th>
+		<th style="width: 20px;">말머리</th>
+		<th style="width: 20px; text-align:center">제목</th>
 		<th style="width: 20px;">작성자</th>
 		<th style="width: 20px;">조회수</th>
 		<th style="width: 20px;">작성일</th>
 	</tr>
+	
+<tbody>
+<c:forEach items="${list }" var="free">
+	<tr>
+		<td>${free.freeNo }</td>
+		<td>${free.freeHead}</td>
+		<td class="text-start" style="text-align:center"><a href="/free/view?freeNo=${free.freeNo }">${free.freeTitle }</a></td>
+		<td>${loginid }</td>
+		<td>${free.freeViews }</td>
+		<td><fmt:formatDate value="${free.freeCreate}" pattern="yy-MM-dd HH:mm:ss"/></td>
+	</tr>
+</c:forEach>
+</tbody>
 
 </table>
 
@@ -172,10 +189,15 @@ select {
 	<form action="/info/main">
 	    <div class="search">
 	        <input type="text" name="search" class="search_input">
-	        <button type="button" name="search_btn" class="search_btn"><img src="../resources/img/searchicon.png" class="search_icon"></button>
+	        <button type="button" name="search_btn" class="search_btn"  style="margin-bottom: 3px;"><i class="bi bi-search"></i></button>
 	    </div>
 	</form>
 </div>
+
+<span class="float-end mb-3">${paging.totalCount }</span>
+<div class="clearfix"></div>
+
+<c:import url="/WEB-INF/views/layout/paging.jsp" />
 
 
 <c:import url="../layout/footer.jsp"></c:import>
