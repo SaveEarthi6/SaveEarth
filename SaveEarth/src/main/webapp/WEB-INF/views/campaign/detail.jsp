@@ -10,7 +10,7 @@
 
 #posterWrap { 
 	text-align: center; 
-} 
+}  
 
 #header {
 	margin-top: 30px;
