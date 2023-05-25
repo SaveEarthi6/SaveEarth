@@ -78,6 +78,15 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.delete(loginid);
 	}
 
+	@Override
+	public int overlappedID(Member member) {
+		
+		int result = memberDao.overlappedID(member);
+		return result;
+	}
+
+
+
 
 
 
