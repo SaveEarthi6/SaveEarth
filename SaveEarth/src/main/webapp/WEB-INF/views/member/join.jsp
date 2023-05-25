@@ -283,6 +283,9 @@ function joinform_check(){
                 }
             }
         }).open();
+        
+        
+        
     }
 </script>
 
