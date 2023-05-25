@@ -60,6 +60,7 @@ public class MemberServiceImpl implements MemberService {
 	public Member findid(Member member) {
 		
 		return memberDao.selectIdByNameEmail(member);
+			
 	}
 
 	@Override
@@ -93,7 +94,8 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public void sendSimpleMessage(Mail mail) {
-		// TODO Auto-generated method stub
+		
+		
 		
 	}
 
