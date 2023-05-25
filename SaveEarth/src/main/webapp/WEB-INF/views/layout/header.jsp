@@ -25,7 +25,7 @@
 // 	})
 // })
 
-/* '정보게시판' 클릭했을 때 지정한 href로 이동 */
+/* 클릭했을 때 지정한 href로 이동 */
 $(document).ready(function(){
 
 	$("#infoBoard").click(function(){
@@ -40,7 +40,9 @@ $(document).ready(function(){
 		$(location).attr("href", "/campaign/main")
 	})
 	
-	
+	$("#welcome").click(function(){
+		$(location).attr("href", "/intro/main")
+	})
 
 })
 
