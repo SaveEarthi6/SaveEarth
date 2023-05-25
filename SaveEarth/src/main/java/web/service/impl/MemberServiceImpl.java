@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import web.dao.face.MemberDao;
+import web.dto.Mail;
 import web.dto.Member;
 import web.service.face.MemberService;
 
@@ -89,6 +90,14 @@ public class MemberServiceImpl implements MemberService {
 		
 		return memberDao.selectInfoById(loginid);
 	}
+
+	@Override
+	public void sendSimpleMessage(Mail mail) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 
 
 

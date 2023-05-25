@@ -1,5 +1,6 @@
 package web.service.face;
 
+import web.dto.Mail;
 import web.dto.Member;
 
 public interface MemberService {
@@ -46,5 +47,18 @@ public interface MemberService {
 
 	
 	public int overlappedID(Member member);
+
+	/**
+	 * 메일보내기
+	 * @param mail
+	 */
+	public void sendSimpleMessage(Mail mail);
+
+
+	
+	
+	
+	
+	
 
 }
