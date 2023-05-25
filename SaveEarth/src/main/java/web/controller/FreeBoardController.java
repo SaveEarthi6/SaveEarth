@@ -32,7 +32,7 @@ public class FreeBoardController {
 	MemberService memberService;
 
 	@GetMapping("/free/main")
-	public void free(Model model, @RequestParam(defaultValue = "0") int curPage) {
+	public void free(Model model, @RequestParam(defaultValue = "0") int curPage, String freeHead) {
 		
 		logger.info("/free/main [GET]");
 		
@@ -40,7 +40,7 @@ public class FreeBoardController {
 		Paging paging = freeService.getPaging(curPage);
 		
 		//페이징을 적용한 리스트 보여주기(userno을 기준으로 join)
-		List<Map<String,Object>> list = freeService.list(paging);
+		List<Map<String,Object>> list = freeService.list(paging, freeHead);
 		logger.info("list {}", list);
 
 		for(Map m : list) {
@@ -51,6 +51,7 @@ public class FreeBoardController {
 		//jsp에서 쓰기 위해서는 map의 컬럼명과 동일하게 해주어야 한다
 		model.addAttribute("list", list);
 		model.addAttribute("paging", paging);
+		model.addAttribute("freeHead", freeHead);
 		
 	}
 	

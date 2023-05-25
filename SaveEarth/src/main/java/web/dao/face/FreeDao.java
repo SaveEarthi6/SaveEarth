@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Free;
@@ -39,7 +40,7 @@ public interface FreeDao {
 	 */
 	public int selectCntAll();
 
-	public List<Map<String, Object>> selectList(Paging paging);
+	public List<Map<String, Object>> selectList(@Param("paging") Paging paging,@Param("freeHead") String freeHead);
 
 	public Free selectFreeBoard(Free freeBoard);
 

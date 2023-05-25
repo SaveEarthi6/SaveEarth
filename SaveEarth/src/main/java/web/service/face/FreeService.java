@@ -34,7 +34,7 @@ public interface FreeService {
 	 */
 	public Paging getPaging(int curPage);
 
-	public List<Map<String, Object>> list(Paging paging);
+	public List<Map<String, Object>> list(Paging paging, String freeHead);
 
 	public Free getView(Free freeBoard);
 

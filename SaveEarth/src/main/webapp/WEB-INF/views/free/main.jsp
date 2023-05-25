@@ -127,7 +127,7 @@ select {
 <!-- 필터 기능 -->
 <script type="text/javascript">
 $(function() {
-	console.log($)
+	console.log("${paging.curPage}")
 })
 
 function selectFilter () {
@@ -136,8 +136,7 @@ function selectFilter () {
 	var filter = ("#filter").val()
 	
 }
-// 	var op1 = $("#op1").val()
-// 	location.href = "?freeHead=" + op1
+
 	
 </script>
 
@@ -160,15 +159,15 @@ function selectFilter () {
 <!-- 		<option value= "quest">질문</option> -->
 <!-- 	</select> -->
 
-<div class="btn-group" id="filter">
+<div class="btn-group" >
 
   <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
   선택
   </button>
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="/free/main">사담</a></li>
-    <li><a class="dropdown-item" href="/free/main">정보</a></li>
-    <li><a class="dropdown-item" href="/free/main">질문</a></li>
+  <ul class="dropdown-menu" id="filter">
+    <li><a class="dropdown-item" href="/free/main?freeHead=사담">사담</a></li>
+    <li><a class="dropdown-item" href="/free/main?freeHead=정보">정보</a></li>
+    <li><a class="dropdown-item" href="/free/main?freeHead=질문">질문</a></li>
   </ul>
   
 </div>
@@ -191,7 +190,7 @@ function selectFilter () {
 <tbody>
 <c:forEach items="${list }" var="free">
 	<c:choose>
-		<c:when test="${free.FREEHEAD eq op1 }">
+		<c:when test="${free.FREEHEAD eq '사담'}">
 			<tr>
 				<!-- map에 저장된 컬럼명과 동일하게 지정해주어야 한다 -->
 				<td>${free.FREE_NO }</td>
@@ -204,7 +203,7 @@ function selectFilter () {
 		</c:when>
 		<c:when test="${free.FREEHEAD eq '정보' }">
 			<tr>
-				<!-- map에 저장된 컬럼명과 동일하게 지정해주어야 한다 -->
+<!-- 				map에 저장된 컬럼명과 동일하게 지정해주어야 한다 -->
 				<td>${free.FREE_NO }</td>
 				<td>${free.FREE_HEAD}</td>
 				<td class="text-start" style="text-align:center"><a href="/free/view?freeNo=${free.FREE_NO }">${free.FREE_TITLE }</a></td>
@@ -215,7 +214,7 @@ function selectFilter () {
 		</c:when>
 		<c:when test="${free.FREEHEAD eq '질문' }">
 			<tr>
-				<!-- map에 저장된 컬럼명과 동일하게 지정해주어야 한다 -->
+<!-- 				map에 저장된 컬럼명과 동일하게 지정해주어야 한다 -->
 				<td>${free.FREE_NO }</td>
 				<td>${free.FREE_HEAD}</td>
 				<td class="text-start" style="text-align:center"><a href="/free/view?freeNo=${free.FREE_NO }">${free.FREE_TITLE }</a></td>
@@ -226,7 +225,7 @@ function selectFilter () {
 		</c:when>
 		<c:otherwise>
 			<tr>
-				<!-- map에 저장된 컬럼명과 동일하게 지정해주어야 한다 -->
+<!-- 				map에 저장된 컬럼명과 동일하게 지정해주어야 한다 -->
 				<td>${free.FREE_NO }</td>
 				<td>${free.FREE_HEAD}</td>
 				<td class="text-start" style="text-align:center"><a href="/free/view?freeNo=${free.FREE_NO }">${free.FREE_TITLE }</a></td>
