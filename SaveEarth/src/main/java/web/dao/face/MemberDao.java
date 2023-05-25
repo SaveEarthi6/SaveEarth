@@ -34,6 +34,10 @@ public interface MemberDao {
 	 */
 	public Member selectInfoById(String loginid);
 
+	public int overlappedID(Member member);
+
+	
+
 
 	/**
 	 * 회원정보 삭제

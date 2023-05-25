@@ -2,7 +2,9 @@ package web.service.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -125,7 +127,7 @@ public class FreeServiceImpl implements FreeService{
 	}
 	
 	@Override
-	public List<Free> list(Paging paging) {
+	public List<Map<String, Object>> list(Paging paging) {
 		
 		return freeDao.selectList(paging);
 	}
@@ -139,6 +141,8 @@ public class FreeServiceImpl implements FreeService{
 		return freeDao.selectFreeBoard(freeBoard);
 		
 	}
+	
+
 	
 
 }
