@@ -68,7 +68,6 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-<<<<<<< HEAD
 	public void update(Member member) { 
 		logger.info("memberserviceimpl{}", member);
 
@@ -79,50 +78,11 @@ public class MemberServiceImpl implements MemberService {
 
 
 
-=======
 	public int overlappedID(Member member) {
 		
 		int result = memberDao.overlappedID(member);
 		return result;
 	}
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
-
-
-
-
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	@Override
 	public Member getUserInfo(String loginid) {
