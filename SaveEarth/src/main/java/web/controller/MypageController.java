@@ -29,7 +29,7 @@ public class MypageController {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	@GetMapping("/update")
+	@GetMapping("/update") // 마이페이지 - 개인정보 불러오기
 	public void mypageUpdate(HttpSession session, Model model, Member member) {
 		logger.info("/mypage/update[GET]");
 		
@@ -42,10 +42,11 @@ public class MypageController {
 		model.addAttribute("info", info);
 	}
 	
-	@PostMapping("/update")
+	@PostMapping("/update") // 마이페이지 - 개인정보 수정
 	public String mypageUpdateProc(HttpSession session, Member member) {
 		
 		member.setId((String)session.getAttribute("loginid"));
+		logger.info("{}", member);
 		
 		memberService.update(member);
 		
@@ -53,7 +54,7 @@ public class MypageController {
 	}
 	
 	
-	@GetMapping("/delete")
+	@GetMapping("/delete") // 마이페이지 - 개인정보 불러오기 
 	public void mypageDelete(HttpSession session, Model model) {
 		logger.info("/mypage/delete[GET]");
 		
@@ -67,12 +68,12 @@ public class MypageController {
 		model.addAttribute("info", info);
 	}
 	
-	@PostMapping("/delete")
+	@PostMapping("/delete") // 마이페이지 - 회원탈퇴
 	public String mypageDeleteProc(Member member, HttpSession session) {
 		logger.info("/delete/delete[POST]");
 		
 		String loginid = (String) session.getAttribute("loginid");
-		logger.info("{}", loginid);
+		logger.info("controller{}", loginid);
 		
 		
 		memberService.delete(loginid);
@@ -81,19 +82,16 @@ public class MypageController {
 		return "redirect:/member/logout";
 	}
 	
-//	@RequestMapping("/board")
-//	public void mypageBoard(Free free, Model model) {
-//		logger.info("/mypage/board");
+	@RequestMapping("/board")
+	public void mypageBoard(Free free, Model model) {
+		logger.info("/mypage/board");
 //		
 //		free = freeService.view(free);
 //		logger.info("{}", free);
 //		
 //		model.addAttribute("viewFree", free);
 		
-		
-		
-		
-//	}
+	}
 	
 	@RequestMapping("/order")
 	public void mypageOrder() {

@@ -15,10 +15,6 @@ public interface MemberDao {
 	 */
 	public Member selectById(String loginid);
 
-
-
-
-
 	/**
 	 * 이름 이메일로 아이디 찾기
 	 * @param member - name, email

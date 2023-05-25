@@ -20,14 +20,8 @@
         SELECT * FROM member
      WHERE id= #{id}
   </select>
-  
-<!--    <update id="update" parameterType="String"> -->
-<!--       UPDATE member -->
-<!--          SET id=#{id}, pw=#{pw}, name=#{name}, nick=#{nick}, birth=#{birth}, email=#{email}, addr1=#{addr1}, addr2=#{addr2}, phone=#{phone} -->
-<!--       WHERE id = #{id}  -->
-<!--    </update> -->
 
-   <update id="updateUser" parameterType="web.dto.Member">
+   <update id="updateUser" parameterType="web.dto.Member" >
       UPDATE member
          SET id=#{id}, pw=#{pw}, name=#{name}, nick=#{nick}, birth=#{birth}, email=#{email}, post=#{post}, addr1=#{addr2}, phone=#{phone} 
       WHERE id = #{id} 
@@ -35,7 +29,7 @@
    
    <delete id="delete" parameterType="String" >
       DELETE 
-      From member
+      FROM member
       WHERE id = #{id}
    </delete>
    

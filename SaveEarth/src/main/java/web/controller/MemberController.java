@@ -27,7 +27,6 @@ public class MemberController {
 	@Autowired MemberService memberService;
 	
 	@GetMapping("/login")
-	
 	public void loginpage() {
 		
 	}
