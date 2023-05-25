@@ -100,7 +100,7 @@ $(document).ready(function() {
 </tr>
 </table>
 
-<!-- 첨부파일 -->
+<!-- 첨부파일 다운 -->
 <div class="mb-3">
 	<c:if test="${not empty boardFile }">
 		<a href="./download?fileNo=${boardFile.fileNo }">${boardFile.originName }</a>

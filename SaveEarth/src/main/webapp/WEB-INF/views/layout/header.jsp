@@ -97,8 +97,8 @@ body {
 #logo {
 	text-align: center;
 	width:500px;
-	height:100px;
-	position: relative;
+	height:150px;
+	margin-bottom: 50px;
 }
 
 .lefttop {
