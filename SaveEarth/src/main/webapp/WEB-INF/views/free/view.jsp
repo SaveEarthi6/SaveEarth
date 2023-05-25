@@ -45,6 +45,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+<<<<<<< HEAD
 	   
 	   $("#btnUpdate").click(function() {
 	      location.href = "./update?freeNo=${free.freeNo}"
@@ -53,6 +54,16 @@ $(document).ready(function() {
 	   $("#btnDelete").click(function() {
 	      location.href = "./delete?boardNo=${viewBoard.boardNo}"
 	   })
+=======
+	
+	$("#btnUpdate").click(function() {
+		location.href = "./update?freeNo=${free.freeNo}"
+	})
+	
+	$("#btnDelete").click(function() {
+		location.href = "./delete?boardNo=${viewBoard.boardNo}"
+	})
+>>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
 
 
 </script>
