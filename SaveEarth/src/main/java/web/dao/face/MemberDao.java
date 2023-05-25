@@ -16,22 +16,6 @@ public interface MemberDao {
 	public Member selectById(String loginid);
 
 	/**
-	 * 회원정보 수정
-	 * @param loginid
-	 * @return
-	 */
-	public Member update(String loginid);
-
-	/**
-	 * 회원정보 탈퇴
-	 * @param loginid
-	 * @return
-	 */
-	public Member delete(String loginid);
-
-
-
-	/**
 	 * 이름 이메일로 아이디 찾기
 	 * @param member - name, email
 	 * @return
@@ -53,6 +37,21 @@ public interface MemberDao {
 	public int overlappedID(Member member);
 
 	
+
+
+	/**
+	 * 회원정보 삭제
+	 * @param member
+	 */
+	public void delete(String loginid);
+
+	/**
+	 * 회원정보 수정
+	 * @param member
+	 */
+	public void updateUser(Member member);
+
+
 
 
 

@@ -124,7 +124,7 @@ body {
 	<a href="../saveearth/main"><img id="logo" src="../../resources/img/logo2.png"></a>
 	<c:if test="${empty isLogin }">
 	<a href="/member/login" class="lefttop">로그인</a>
-	<a href="/admin/main"	class="righttop">관리자 로그인 </a>
+	<a href="/admin/login"	class="righttop">관리자 로그인 </a>
 	</c:if>
 	<c:if test="${not empty isLogin and isLogin }">
 	<a href="/member/logout" class="lefttop">로그아웃</a>

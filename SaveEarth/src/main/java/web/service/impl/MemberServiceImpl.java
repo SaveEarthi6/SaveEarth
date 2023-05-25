@@ -42,15 +42,6 @@ public class MemberServiceImpl implements MemberService {
 		
 		return memberDao.selectById(loginid);
 	}
-
-	@Override
-	public Member update(String loginid) {
-		logger.info("loginid : {}", loginid);
-		
-		return memberDao.update(loginid);
-	}
-
-
 	
 	@Override
 	public boolean checkid(Member member) {
@@ -68,22 +59,33 @@ public class MemberServiceImpl implements MemberService {
 	public Member findid(Member member) {
 		
 		return memberDao.selectIdByNameEmail(member);
-			
 	}
 
 	@Override
-	public Member delete(String loginid) {
-		logger.info(loginid);
+	public void delete(String loginid) {
+		logger.info("{}", loginid);
+		memberDao.delete(loginid);
+	}
+
+	@Override
+<<<<<<< HEAD
+	public void update(Member member) { 
+		logger.info("memberserviceimpl{}", member);
+
 		
-		return memberDao.delete(loginid);
+		
+		memberDao.updateUser(member);
 	}
 
-	@Override
+
+
+=======
 	public int overlappedID(Member member) {
 		
 		int result = memberDao.overlappedID(member);
 		return result;
 	}
+>>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
 
 
 
