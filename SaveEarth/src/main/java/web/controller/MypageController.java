@@ -50,11 +50,11 @@ public class MypageController {
 		
 		memberService.update(member);
 		
-		return "redirect:./update";
+		return "redirect:/mypage/update";
 	}
 	
 	
-	@GetMapping("/delete")
+	@GetMapping("/delete") // 마이페이지 - 개인정보 불러오기 
 	public void mypageDelete(HttpSession session, Model model) {
 		logger.info("/mypage/delete[GET]");
 		
@@ -68,7 +68,7 @@ public class MypageController {
 		model.addAttribute("info", info);
 	}
 	
-	@PostMapping("/delete")
+	@PostMapping("/delete") // 마이페이지 - 회원탈퇴
 	public String mypageDeleteProc(Member member, HttpSession session) {
 		logger.info("/delete/delete[POST]");
 		
@@ -95,7 +95,7 @@ public class MypageController {
 	
 	@RequestMapping("/order")
 	public void mypageOrder() {
-		logger.info("./order");
+		logger.info("/mypage/order");
 	}
 
 }

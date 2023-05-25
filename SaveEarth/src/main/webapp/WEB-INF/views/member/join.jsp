@@ -8,7 +8,7 @@
 
 <!-- 우편상세정보 -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script src="/resources/js/addressapi.js"></script>
+<!-- <script src="/resources/js/addressapi.js"></script> -->
 <!-- jQuery 2.2.4  -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
@@ -27,9 +27,122 @@
 
 </style>
 
+<!-- 20230525추가 id 중복 -->
+<script type="text/javascript">
 
 
-<body>
+
+/* 무한루프 */
+/* $(function(){
+	$('#id').blur(function(){
+		if($("#id").val()==""){
+			alert("아이디를 입력하세요");
+			$("#id").focus();
+			
+		} 
+	})
+}); */
+
+ $(function(){
+	$("#overlappedID").click(function() {
+		console.log("test")
+
+		const id = $("#id").val();
+		$("#signup").attr("type","button");
+		$.ajax({
+			type: "get",
+
+			url: "http://localhost:8888/member/idCheck",
+			data:{id:id},
+			success: function(data){
+				if(data == 1) {
+					$("#olmessage").text("이미 사용중인 ID입니다");
+					$("#signup").attr("type","button");
+					
+					
+				} else {
+					$("#olmessage").text("사용가능한 ID입니다");
+					$("#signup").attr("type","submit");
+				}
+			}
+		})
+	})
+	
+
+}) 
+
+
+
+
+
+$(function(){
+
+//비밀번호 확인
+	$('#userpwcheck').blur(function(){
+	   if($('#pw').val() != $('#userpwcheck').val()){
+	    	if($('#userpwcheck').val()!=''){
+		    alert("비밀번호가 일치하지 않습니다.");
+	    	    $('#userpwcheck').val('');
+	          $('#userpwcheck').focus();
+	       }
+	    }
+	})  	   
+});
+
+
+
+function joinform_check(){
+	
+	var id = document.getElementById("id");
+	var pw = document.getElementById("pw");
+	
+	
+	if(id.value == ""){
+		alert("아이디를 입력하세요");
+		id.focus();
+		$("#signup").attr("type","button");
+		return false;
+	};
+	
+
+	
+	  if (pw.value == "") {
+		    alert("비밀번호를 입력하세요.");
+		    pw.focus();
+		    $("#signup").attr("type","button");
+		    return false;
+		  } else if(!pwdCheck.test(pw.value)) {
+			  //비밀번호 영문자+숫자+특수조합(8~25자리 입력) 정규식
+			  var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+			    alert("비밀번호는 영문자+숫자+특수문자 조합으로 8~25자리 사용해야 합니다.");
+			    pw.focus();
+			    $("#signup").attr("type","button");
+			    return false;
+			  } else{
+				  $("#signup").attr("type","submit");
+				  return true;
+			  }
+
+/* 		  //비밀번호 영문자+숫자+특수조합(8~25자리 입력) 정규식
+		  var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/; */
+
+/* 		  if (!pwdCheck.test(pw.value)) {
+		    alert("비밀번호는 영문자+숫자+특수문자 조합으로 8~25자리 사용해야 합니다.");
+		    pw.focus();
+		    $("#signup").attr("type","button");
+		    return false;
+		  }; */
+		  
+		
+}
+
+
+
+</script>
+
+
+
+<body >
 <h1>회원가입 페이지</h1>
 <hr>
 
@@ -55,6 +168,12 @@
     <input type="text" class="form-control" id="id" name="id">
   </div>
   
+  <!-- 20230525추가 id 중복 -->
+  <button id="overlappedID" type="button"  >중복확인</button><br>
+  <span id="olmessage"></span>
+
+  
+  
   <div class="col-md-6">
     <label for="inputPassword4" class="form-label">비밀번호</label>
     <input type="password" class="form-control" id="pw" name="pw">
@@ -62,7 +181,7 @@
   
    <div class="col-md-6">
     <label for="inputPassword4" class="form-label">비밀번호 확인</label>
-    <input type="password" class="form-control" id="userpwcheck">
+    <input type="password" class="form-control" id="userpwcheck" name="userpwcheck">
   </div>
 
   <div class="col-md-6">
@@ -102,7 +221,7 @@
   </div>
 
   <div class="col-12">
-    <button type="submit" class="btn btn-primary">가입하기</button>
+    <button  class="btn btn-primary" id="signup" onclick="joinform_check()">가입하기</button>
   </div>
   
   

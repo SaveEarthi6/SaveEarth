@@ -29,17 +29,18 @@
 	SELECT count(*) FROM free
 </select>
 
-<select id="selectList" resultType="web.dto.Free" parameterType="web.util.Paging">
+<select id="selectList" resultType="map" parameterType="web.util.Paging">
 	SELECT * FROM(
-		SELECT rownum rnum, F.* FROM (
+		SELECT rownum rnum, (SELECT m.id FROM member m WHERE m.userno = F.user_no) id, F.* FROM (
 			SELECT
-			free_no, free_title, free_head, free_content, free_views, free_create
+			*
 			FROM free
 			ORDER BY free_no DESC
-		)F
-	)FREE
+		) F
+	) FREEMAIN
 	WHERE rnum BETWEEN #{startNo} AND #{endNo}
 </select>
+
 
 <select id="selectFreeBoard" parameterType="web.dto.Free" resultType="web.dto.Free">
 	SELECT * FROM free

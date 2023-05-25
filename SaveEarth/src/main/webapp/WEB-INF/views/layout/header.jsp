@@ -25,7 +25,7 @@
 // 	})
 // })
 
-/* '정보게시판' 클릭했을 때 지정한 href로 이동 */
+/* 클릭했을 때 지정한 href로 이동 */
 $(document).ready(function(){
 
 	$("#infoBoard").click(function(){
@@ -40,7 +40,9 @@ $(document).ready(function(){
 		$(location).attr("href", "/campaign/main")
 	})
 	
-	
+	$("#welcome").click(function(){
+		$(location).attr("href", "/intro/main")
+	})
 
 })
 
@@ -95,8 +97,8 @@ body {
 #logo {
 	text-align: center;
 	width:500px;
-	height:100px;
-	position: relative;
+	height:150px;
+	margin-bottom: 50px;
 }
 
 .lefttop {
@@ -122,7 +124,7 @@ body {
 	<a href="../saveearth/main"><img id="logo" src="../../resources/img/logo2.png"></a>
 	<c:if test="${empty isLogin }">
 	<a href="/member/login" class="lefttop">로그인</a>
-	<a href="/admin/main"	class="righttop">관리자 로그인 </a>
+	<a href="/admin/login"	class="righttop">관리자 로그인 </a>
 	</c:if>
 	<c:if test="${not empty isLogin and isLogin }">
 	<a href="/member/logout" class="lefttop">로그아웃</a>

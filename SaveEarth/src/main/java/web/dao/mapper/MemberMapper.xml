@@ -21,7 +21,7 @@
      WHERE id= #{id}
   </select>
 
-   <update id="updateUser" parameterType="web.dto.Member">
+   <update id="updateUser" parameterType="web.dto.Member" >
       UPDATE member
          SET id=#{id}, pw=#{pw}, name=#{name}, nick=#{nick}, birth=#{birth}, email=#{email}, post=#{post}, addr1=#{addr2}, phone=#{phone} 
       WHERE id = #{id} 
@@ -29,7 +29,7 @@
    
    <delete id="delete" parameterType="String" >
       DELETE 
-      From member
+      FROM member
       WHERE id = #{id}
    </delete>
    
@@ -42,8 +42,47 @@
 	SELECT id,name FROM member
 	WHERE name=#{name} and email=#{email}
 	</select>   
+	
+	<select id="overlappedID" parameterType="web.dto.Member" resultType="int">
+	SELECT COUNT(id) From member
+	WHERE id =#{id}
+	</select>
   
   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <select id="selectInfoById" resultType="web.dto.Member" parameterType="string">
+	SELECT * FROM member
+	WHERE id=#{loginid}  
+  </select>
   
   </mapper>
 	

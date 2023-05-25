@@ -328,9 +328,8 @@ input {
 <form action="./update" method="POST">
 
       <div class="textForm">
-        <input name="id" id="id" type="text" class="id" placeholder="아이디 : ${info.id }">
+      	<label>${info.id }</label>
       </div>
-      
       <div class="textForm">
         <input name="pw" id="pw" type="text" class="pw" placeholder="비밀번호 : ${info.pw }">
       </div>
@@ -344,7 +343,7 @@ input {
       </div>
       
       <div class="textForm">
-      ${info.birth }
+        ${info.birth }
         <input name="birth" id="birth" type="date" class="birth" placeholder="생년월일 : ${info.birth }">
       </div>
       
@@ -365,6 +364,8 @@ input {
       </div>
         <button class="btn-bottom">회원정보 수정</button>
 </form>
+
+
 
 
 </body>

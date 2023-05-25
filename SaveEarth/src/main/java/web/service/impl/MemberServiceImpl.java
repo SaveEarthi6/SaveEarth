@@ -71,9 +71,66 @@ public class MemberServiceImpl implements MemberService {
 	public void update(Member member) { 
 		
 		logger.info("memberserviceimpl{}", member);
+
+		
 		
 		memberDao.updateUser(member);
 	}
+
+
+
+	
+	public int overlappedID(Member member) {
+		
+		int result = memberDao.overlappedID(member);
+		return result;
+	}
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@Override
+	public Member getUserInfo(String loginid) {
+		
+		return memberDao.selectInfoById(loginid);
+	}
+
+
+
 
 
 }

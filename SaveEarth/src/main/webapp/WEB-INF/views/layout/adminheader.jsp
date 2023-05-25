@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>     
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +13,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- jQuery 2.2.4 -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<!-- 부트스트랩 : icon -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 
 
 <script type="text/javascript">
@@ -26,19 +29,16 @@
 $(document).ready(function(){
 
 	$("#infoBoard").click(function(){
-		$(location).attr("href", "/info/main")
+		$(location).attr("href", "/admin/board")
 	})
 
 	$("#freeBoard").click(function(){
-		$(location).attr("href", "/free/main")
+		$(location).attr("href", "/admin/product")
 	})
 	
 	$("#campBoard").click(function(){
-		$(location).attr("href", "/campaign/main")
+		$(location).attr("href", "/admin/inquiry")
 	})
-	
-	
-
 })
 
 </script>
@@ -71,7 +71,7 @@ body {
 
 /* 네비게이션바 구분 스타일 */
 .menu td {
-	width : 500px;
+	width : inherit;
 	text-align: center;
 	background-color: #7CA621;
 	color : white;
@@ -93,6 +93,18 @@ body {
 	text-align: center;
 	width:500px;
 	height:100px;
+	position: relative;
+}
+
+.lefttop {
+	position : absolute;
+	top: 50px;
+	right:150px
+}
+.righttop{
+	position: absolute;
+	top: 50px;
+	right: 18px;
 }
 
 </style>
@@ -105,15 +117,25 @@ body {
 <div id="header">
 	<div id="wrap">
 	<a href="../saveearth/main"><img id="logo" src="../../resources/img/logo2.png"></a>
+	
+	<c:if test="${empty isLogin }">
+	<a href="/admin/login"	class="righttop">관리자 로그인 </a>
+	</c:if>
+	
+	<c:if test="${not empty isLogin and isLogin }">
+	<a href="/member/logout" class="lefttop">로그아웃</a>
+	</c:if>
 	</div>
 </div>
+
+
 
 <table class="menu">
 
 <tr>
 	<td id="welcome">게시판 관리</td>
-	<td id="infoBoard">상품관리</td>
-	<td id="freeBoard">문의관리</td>
+	<td id="infoBoard">상품 관리</td>
+	<td id="freeBoard">문의 관리</td>
 </tr>
 
 </table>
