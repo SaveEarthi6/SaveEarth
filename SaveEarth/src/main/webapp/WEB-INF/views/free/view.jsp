@@ -45,12 +45,9 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	$("#btnList").click(function() {
-		location.href = "./list"
-	})
 	
 	$("#btnUpdate").click(function() {
-		location.href = "./update?boardNo=${viewBoard.boardNo}"
+		location.href = "./update?freeNo=${free.freeNo}"
 	})
 	
 	$("#btnDelete").click(function() {

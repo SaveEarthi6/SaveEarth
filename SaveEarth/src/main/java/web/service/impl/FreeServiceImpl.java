@@ -127,9 +127,9 @@ public class FreeServiceImpl implements FreeService{
 	}
 	
 	@Override
-	public List<Map<String, Object>> list(Paging paging) {
+	public List<Map<String, Object>> list(Paging paging, String freeHead) {
 		
-		return freeDao.selectList(paging);
+		return freeDao.selectList(paging, freeHead);
 	}
 
 	
