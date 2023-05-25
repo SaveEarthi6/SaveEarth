@@ -126,7 +126,16 @@ select {
 
 <!-- 필터 기능 -->
 <script type="text/javascript">
+$(function() {
+	console.log($)
+})
 
+function selectFilter () {
+	console.log("click")
+	
+	var filter = ("#filter").val()
+	
+}
 // 	var op1 = $("#op1").val()
 // 	location.href = "?freeHead=" + op1
 	
@@ -151,15 +160,15 @@ select {
 <!-- 		<option value= "quest">질문</option> -->
 <!-- 	</select> -->
 
-<div class="btn-group">
+<div class="btn-group" id="filter">
 
   <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
   선택
   </button>
   <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="/free/main?freeHead=사담" id="op1">사담</a></li>
-    <li><a class="dropdown-item" href="/free/main?freeHead=정보" id="op2">정보</a></li>
-    <li><a class="dropdown-item" href="/free/main?freeHead=질문" id="op3">질문</a></li>
+    <li><a class="dropdown-item" href="/free/main">사담</a></li>
+    <li><a class="dropdown-item" href="/free/main">정보</a></li>
+    <li><a class="dropdown-item" href="/free/main">질문</a></li>
   </ul>
   
 </div>
@@ -170,7 +179,7 @@ select {
 <!-- 게시판 -->
 <table id= "board" class= "table table-hover text-center">
 
-	<tr style= "background-color: #59A8D9; color: white;" >
+	<tr style= "background-color: #59A8D9; color: white;">
 		<th style="width: 20px;">글번호</th>
 		<th style="width: 20px;">말머리</th>
 		<th style="width: 30px; text-align:center">제목</th>
