@@ -131,7 +131,6 @@ public class FreeBoardController {
 		model.addAttribute("loginid", loginid);
 		model.addAttribute("userInfo", userInfo);
 		
-		
 		return "redirect:/free/main";
 		
 	}
