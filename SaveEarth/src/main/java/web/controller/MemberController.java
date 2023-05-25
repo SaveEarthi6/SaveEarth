@@ -133,7 +133,7 @@ public class MemberController {
 	@PostMapping("/mail/send")
 	public String sendMail(Mail mail) {
 		System.out.println(mail);
-//		memberService.sendSimpleMessage(mail);
+		memberService.sendSimpleMessage(mail);
 		return "/member/aftermail";
 	}
 	
