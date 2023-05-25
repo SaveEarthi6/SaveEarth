@@ -1,6 +1,7 @@
 package web.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -35,14 +36,24 @@ public class FreeBoardController {
 		
 		logger.info("/free/main [GET]");
 		
+		//페이징
 		Paging paging = freeService.getPaging(curPage);
 		
-		List<Free> list = freeService.list(paging);
+		//페이징을 적용한 리스트 보여주기(userno을 기준으로 join)
+		List<Map<String,Object>> list = freeService.list(paging);
+		logger.info("list {}", list);
+
+		for(Map m : list) {
+			logger.info(" list {} ", m);
+		}
 		
+		
+		//jsp에서 쓰기 위해서는 map의 컬럼명과 동일하게 해주어야 한다
 		model.addAttribute("list", list);
-		
+		model.addAttribute("paging", paging);
 		
 	}
+	
 	
 	@GetMapping("/free/view")
 	public void detail(Model model, Free freeBoard, HttpSession session) {
@@ -53,10 +64,16 @@ public class FreeBoardController {
 		logger.info("free {}", free);
 		String loginid = (String) session.getAttribute("loginid");
 		String loginnick = (String) freeService.getNick(loginid);
+		//입력한 아이디랑 로그인 했을 때 아이디가 일치하는지 -> 근데 자유게시판에는 회원번호가 있으니까
+		//로그인할 때 세션에 저장한 아이디를 가지고 회원번호를 가져온다
+		//free에 있는 회원번호랑 지금 로그인한 아이디랑 일치하는 회원번호
+		Member userInfo = memberService.getUserInfo(loginid);
+		logger.info("userInfo {}", userInfo);
 		
 		model.addAttribute("view", free);
 		model.addAttribute("nick", loginnick);
-		
+		model.addAttribute("loginid", loginid);
+		model.addAttribute("userInfo", userInfo);
 		//상세보기 페이지 파일
 		
 	}
@@ -94,4 +111,7 @@ public class FreeBoardController {
 		return "redirect:/free/main";
 		
 	}
+	
+	
+	
 }

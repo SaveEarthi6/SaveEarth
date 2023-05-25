@@ -1,11 +1,14 @@
 package web.dao.face;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Free;
 import web.dto.FreeFile;
+import web.dto.Member;
 import web.util.Paging;
 
 public interface FreeDao {
@@ -36,13 +39,13 @@ public interface FreeDao {
 	 */
 	public int selectCntAll();
 
-	public List<Free> selectList(Paging paging);
+	public List<Map<String, Object>> selectList(Paging paging);
 
 	public Free selectFreeBoard(Free freeBoard);
 
 	public void updateHit(Free freeBoard);
 
-	
+	public Free selectAll(int userno);
 
 	
 	

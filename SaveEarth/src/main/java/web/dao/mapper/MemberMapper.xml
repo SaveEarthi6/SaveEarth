@@ -50,6 +50,39 @@
   
   
   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <select id="selectInfoById" resultType="web.dto.Member" parameterType="string">
+	SELECT * FROM member
+	WHERE id=#{loginid}  
+  </select>
+  
   </mapper>
 	
 

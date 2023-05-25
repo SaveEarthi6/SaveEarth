@@ -47,11 +47,60 @@ public interface MemberService {
 	 */
 	public boolean checkid(Member member);
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 	/**
 	 * 중복아이디 체크
 	 * @param member
 	 * @return
 	 */
+	
+	public Member getUserInfo(String loginid);
+
 	
 	public int overlappedID(Member member);
 
