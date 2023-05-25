@@ -53,6 +53,8 @@ public interface MemberService {
 	 * @param mail
 	 */
 	public void sendSimpleMessage(Mail mail);
+	
+	
 
 
 	
