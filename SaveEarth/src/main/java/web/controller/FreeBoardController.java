@@ -112,6 +112,38 @@ public class FreeBoardController {
 		
 	}
 	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@GetMapping("/main")
+	public String delete (Free free) {
+		freeService.delete(free);
+		
+		return "redirect:./main";
+	}
+	
 	
 	@GetMapping("/free/update")
 	public String update(Model model, Free freeBoard, HttpSession session) {

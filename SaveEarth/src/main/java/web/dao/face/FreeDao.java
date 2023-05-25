@@ -47,6 +47,20 @@ public interface FreeDao {
 	public void updateHit(Free freeBoard);
 
 	public Free selectAll(int userno);
+	
+	/**
+	 * 게시글을 참조하고 있는 모든 첨부파일을 삭제
+	 * 
+	 * @param free - 첨부파일을 삭제할 게시글 번호 객체
+	 */
+	public void deleteFile(Free free);
+	
+	/**
+	 * 게시글 정보 삭제
+	 * 
+	 * @param free - 삭제할 게시글의 글 번호
+	 */
+	public void delete(Free free);
 
 	
 	
