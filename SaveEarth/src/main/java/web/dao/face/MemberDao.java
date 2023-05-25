@@ -50,6 +50,10 @@ public interface MemberDao {
 	 */
 	public Member selectInfoById(String loginid);
 
+	public int overlappedID(Member member);
+
+	
+
 
 
 

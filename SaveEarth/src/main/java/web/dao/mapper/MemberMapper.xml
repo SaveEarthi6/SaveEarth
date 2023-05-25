@@ -41,6 +41,12 @@
 	SELECT id,name FROM member
 	WHERE name=#{name} and email=#{email}
 	</select>   
+	
+	<select id="overlappedID" parameterType="web.dto.Member" resultType="int">
+	SELECT COUNT(id) From member
+	WHERE id =#{id}
+	</select>
+  
   
   
   

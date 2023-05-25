@@ -12,7 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import web.dto.Mail;
 import web.dto.Member;
 import web.service.face.MemberService;
 
@@ -113,5 +115,33 @@ public class MemberController {
 		
 		return "redirect:/saveearth/main";
 	}
+	
+//	   20230525추가 id 중복 
+	
+	@ResponseBody
+	@GetMapping("/idCheck")
+	public int overlappendID(Member member) {
+		int result = memberService.overlappedID(member);
+		System.out.println(result);
+		return result;
+	}
+	
+	@GetMapping("/mail/send")
+	public String mailsendpage() {
+		
+		return "/member/sendemail";
+	}	
+	
+	@PostMapping("/mail/send")
+	public String sendMail(Mail mail) {
+		System.out.println(mail);
+//		memberService.sendSimpleMessage(mail);
+		return "/member/aftermail";
+	}
+	
+	
+
+	
+	
 
 }
