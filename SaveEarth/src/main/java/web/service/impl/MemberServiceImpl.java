@@ -81,6 +81,43 @@ public class MemberServiceImpl implements MemberService {
 
 
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@Override
+	public Member getUserInfo(String loginid) {
+		
+		return memberDao.selectInfoById(loginid);
+	}
 
 
 

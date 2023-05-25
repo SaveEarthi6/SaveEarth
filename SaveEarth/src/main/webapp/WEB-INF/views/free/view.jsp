@@ -70,7 +70,7 @@ $(document).ready(function() {
 <div class="container">
 
 <div style= "margin-left: 1100px; padding-top: 50px; padding-bottom: 50px;">
-	<c:if test="${islogin eq true }">
+	<c:if test="${ userInfo.userno eq view.userNo }">
 		<button id="btnUpdate" class="btn btn-success">수정</button>
 		<button id="btnDelete" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">삭제</button>
 	</c:if>
@@ -82,7 +82,7 @@ $(document).ready(function() {
 	<td class="table-light">글번호</td><td colspan="3">${view.freeNo }</td>
 </tr>
 <tr>
-	<td class="table-light">아이디</td><td>${loginid }</td>
+	<td class="table-light">아이디</td><td>${view.userNo }</td>
 	<td class="table-light">닉네임</td><td>${nick }</td>
 </tr>
 <tr>
