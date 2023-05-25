@@ -51,7 +51,6 @@ public class FreeBoardController {
 		//jsp에서 쓰기 위해서는 map의 컬럼명과 동일하게 해주어야 한다
 		model.addAttribute("list", list);
 		model.addAttribute("paging", paging);
-		model.addAttribute("freeHead", freeHead);
 		
 	}
 	
@@ -113,6 +112,29 @@ public class FreeBoardController {
 		
 	}
 	
+	
+	@GetMapping("/free/update")
+	public String update(Model model, Free freeBoard, HttpSession session) {
+
+		Free free = freeService.getView(freeBoard);
+		logger.info("free {}", free);
+		String loginid = (String) session.getAttribute("loginid");
+		String loginnick = (String) freeService.getNick(loginid);
+		//입력한 아이디랑 로그인 했을 때 아이디가 일치하는지 -> 근데 자유게시판에는 회원번호가 있으니까
+		//로그인할 때 세션에 저장한 아이디를 가지고 회원번호를 가져온다
+		//free에 있는 회원번호랑 지금 로그인한 아이디랑 일치하는 회원번호
+		Member userInfo = memberService.getUserInfo(loginid);
+		logger.info("userInfo {}", userInfo);
+		
+		model.addAttribute("view", free);
+		model.addAttribute("nick", loginnick);
+		model.addAttribute("loginid", loginid);
+		model.addAttribute("userInfo", userInfo);
+		
+		
+		return "redirect:/free/main";
+		
+	}
 	
 	
 }

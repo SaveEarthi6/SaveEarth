@@ -40,6 +40,7 @@
 	) FREEMAIN
 	WHERE 1=1
 	<choose>
+		<!-- 메인으로 접속했을 때 -->
 		<when test="free_head = null">
 		AND rnum BETWEEN #{startNo} AND #{endNo}
 		</when>
