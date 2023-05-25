@@ -111,25 +111,19 @@ select {
 	text-align: center;
 }
 
-.container{
-max-width: 100%
-}
-
-
-
 </style>
 
 <thead>
 <div class="container">
 
-<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" style= "width:1500px; padding-right:550px;">
   <div class="carousel-indicators">
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
   </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
+  <div class="carousel-inner" >
+    <div class="carousel-item active" >
       <img src="/resources/img/camp.png" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
