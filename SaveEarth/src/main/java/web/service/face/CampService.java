@@ -1,6 +1,7 @@
 package web.service.face;
 
 import java.util.List;
+import java.util.Map;
 
 import web.dto.Campaign;
 import web.util.Paging;
@@ -29,7 +30,7 @@ public interface CampService {
 	 * @param campno - 캠페인 번호
 	 * @return 일치하는 캠페인 정보
 	 */
-	public Campaign getCampDetail(int campno);
+	public Map<String, Object> getCampDetail(int campno);
 
 
 }

@@ -1,6 +1,7 @@
 package web.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,14 +38,14 @@ public class CampServiceImpl implements CampService {
 
 		logger.info("getList() - paging : {}", paging);
 		
-		return campDao.selectCamp(paging);
+		return campDao.selectCampList(paging);
 	}
 	
 	@Override
-	public Campaign getCampDetail(int campno) {
+	public Map<String, Object> getCampDetail(int campno) {
 
 		logger.info("getCampDetail() - campno : {}", campno);
 		
-		return null;
+		return campDao.selectCamp(campno);
 	}
 }

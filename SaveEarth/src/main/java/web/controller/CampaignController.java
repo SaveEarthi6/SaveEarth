@@ -1,6 +1,7 @@
 package web.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,8 +44,10 @@ public class CampaignController {
 		logger.info("/campaign/detail [GET]");
 		logger.info("campno : {}", campno);
 		
-		Campaign campDetail = campService.getCampDetail(campno);
+		Map<String, Object> campDetail = campService.getCampDetail(campno);
+		logger.info("{}", campDetail);
 		
+		model.addAttribute("campDetail", campDetail);
 		
 	}
 

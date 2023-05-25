@@ -5,17 +5,25 @@
 
 <mapper namespace="web.dao.face.CampDao">
 
-<select id="selectCntAll" resultType="int">
-	SELECT count(*) FROM campaign
-</select>
-
-<select id="selectCamp" resultType="web.dto.Campaign" parameterType="web.util.Paging">
-	SELECT * FROM (
-    	SELECT rownum rnum, C.* FROM (
-        	SELECT * FROM campaign ORDER BY camp_no DESC
-    	) C
-	) CAMP
-	WHERE rnum BETWEEN #{startNo} AND #{endNo}
-</select>
+	<select id="selectCntAll" resultType="int">
+		SELECT count(*) FROM campaign
+	</select>
+	
+	<select id="selectCampList" resultType="web.dto.Campaign" parameterType="web.util.Paging">
+		SELECT * FROM (
+	    	SELECT rownum rnum, C.* FROM (
+	        	SELECT * FROM campaign ORDER BY camp_no DESC
+	    	) C
+		) CAMP
+		WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
+	
+	<select id="selectCamp" resultType="map" parameterType="int">
+		SELECT c.*, f.*
+		FROM campaign c 
+		LEFT OUTER JOIN campaign_file f
+		ON c.camp_no = f.camp_no
+		WHERE c.camp_no = #{campNo}
+	</select>
 
 </mapper>
