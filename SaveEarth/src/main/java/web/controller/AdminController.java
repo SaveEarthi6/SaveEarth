@@ -28,4 +28,13 @@ public class AdminController {
 		
 	}
 
+	
+	//관리자-정보게시판
+	@GetMapping("/info")
+	public void adminInfo() {
+		logger.info("admin/info[GET]");
+	}
+	
+	
+	
 }

@@ -42,9 +42,6 @@ public class MemberServiceImpl implements MemberService {
 		
 		return memberDao.selectById(loginid);
 	}
-
-
-
 	
 	@Override
 	public boolean checkid(Member member) {
@@ -62,34 +59,21 @@ public class MemberServiceImpl implements MemberService {
 	public Member findid(Member member) {
 		
 		return memberDao.selectIdByNameEmail(member);
-			
 	}
-
-
-
 
 	@Override
 	public void delete(String loginid) {
 		logger.info("{}", loginid);
 		memberDao.delete(loginid);
-		
 	}
 
 	@Override
 	public void update(Member member) { 
 		
-		memberDao.updateUser(member);
+		logger.info("memberserviceimpl{}", member);
 		
+		memberDao.updateUser(member);
 	}
-
-
-
-
-
-
-
-
-
 
 
 }

@@ -2,12 +2,16 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:import url="../layout/header.jsp"></c:import>
+<!DOCTYPE html>
 
-<div class="container">
+<c:import url="../layout/adminheader.jsp"></c:import>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
 
-<h1>SaveEarth 메인</h1>
-
-</div>
+</body>
+</html>
 
 <c:import url="../layout/footer.jsp"></c:import>

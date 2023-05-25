@@ -180,7 +180,7 @@ width: 700px;
 
 /* 게시글 분류 전체(div) 스타일 */
 .nav { 
- 	margin-left: 100px; 
+ 	margin-left: 30%; 
  	margin-bottom: 50px; 
  } 
 

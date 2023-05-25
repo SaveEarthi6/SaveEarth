@@ -14,8 +14,7 @@ public class Free {
 	private Date freeCreate;
 	private Date freeModify;
 	
-	public Free() {
-	}
+	public Free() {}
 
 	public Free(int freeNo, int userNo, int adminNo, String freeHead, String freeTitle, String freeContent,
 			int freeViews, Date freeCreate, Date freeModify) {

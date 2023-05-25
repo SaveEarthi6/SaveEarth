@@ -33,7 +33,6 @@ public class MemberController {
 	}
 	
 	@PostMapping("/login")
-	
 	public String login(Member member, HttpSession session) {
 
 		logger.info("/member/login");

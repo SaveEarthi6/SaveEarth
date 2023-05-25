@@ -20,12 +20,6 @@
         SELECT * FROM member
      WHERE id= #{id}
   </select>
-  
-<!--    <update id="update" parameterType="String"> -->
-<!--       UPDATE member -->
-<!--          SET id=#{id}, pw=#{pw}, name=#{name}, nick=#{nick}, birth=#{birth}, email=#{email}, addr1=#{addr1}, addr2=#{addr2}, phone=#{phone} -->
-<!--       WHERE id = #{id}  -->
-<!--    </update> -->
 
    <update id="updateUser" parameterType="web.dto.Member">
       UPDATE member
