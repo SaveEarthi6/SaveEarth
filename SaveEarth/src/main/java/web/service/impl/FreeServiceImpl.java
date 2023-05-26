@@ -143,10 +143,25 @@ public class FreeServiceImpl implements FreeService{
 	}
 
 	@Override
-	public void delete(Free free) {
+	public void delete(Free free, FreeFile freeFile) {
 		
-		freeDao.deleteFile(free);
+		freeDao.deleteFile(freeFile);
 		freeDao.delete(free);
+		
+	}
+	
+	@Override
+	public FreeFile getFreeFile(Free freeBoard) {
+		
+		return freeDao.selectFreeFile(freeBoard);
+		
+	}
+	
+	@Override
+	public void update(Free freeBoard) {
+		
+		freeDao.updateFree(freeBoard);
+		
 		
 	}
 	

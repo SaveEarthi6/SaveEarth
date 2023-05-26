@@ -12,10 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Free;
+import web.dto.FreeFile;
 import web.dto.Member;
 import web.service.face.FreeService;
 import web.service.face.MemberService;
@@ -32,9 +34,10 @@ public class FreeBoardController {
 	MemberService memberService;
 
 	@GetMapping("/free/main")
-	public void free(Model model, @RequestParam(defaultValue = "0") int curPage, String freeHead) {
+	public void free(Model model, @RequestParam(value = "curPage", defaultValue = "1") int curPage, String freeHead) {
 		
 		logger.info("/free/main [GET]");
+		logger.info("freeHead{}", freeHead);
 		
 		//페이징
 		Paging paging = freeService.getPaging(curPage);
@@ -47,10 +50,10 @@ public class FreeBoardController {
 			logger.info(" list {} ", m);
 		}
 		
-		
 		//jsp에서 쓰기 위해서는 map의 컬럼명과 동일하게 해주어야 한다
 		model.addAttribute("list", list);
 		model.addAttribute("paging", paging);
+		model.addAttribute("freeHead", freeHead);
 		
 	}
 	
@@ -75,6 +78,8 @@ public class FreeBoardController {
 		model.addAttribute("loginid", loginid);
 		model.addAttribute("userInfo", userInfo);
 		//상세보기 페이지 파일
+		FreeFile freeFile = freeService.getFreeFile(freeBoard);
+		logger.info("freeFile {}", freeFile);
 		
 	}
 	
@@ -136,17 +141,16 @@ public class FreeBoardController {
 	
 	
 	
-	
-	@GetMapping("/main")
-	public String delete (Free free) {
-		freeService.delete(free);
+	@RequestMapping("/free/delete")
+	public String delete (Free free, FreeFile freeFile) {
+		freeService.delete(free ,freeFile);
 		
 		return "redirect:./main";
 	}
 	
 	
 	@GetMapping("/free/update")
-	public String update(Model model, Free freeBoard, HttpSession session) {
+	public void update(Model model, Free freeBoard, HttpSession session) {
 
 		Free free = freeService.getView(freeBoard);
 		logger.info("free {}", free);
@@ -158,14 +162,29 @@ public class FreeBoardController {
 		Member userInfo = memberService.getUserInfo(loginid);
 		logger.info("userInfo {}", userInfo);
 		
+		FreeFile freeFile = freeService.getFreeFile(freeBoard);
+		logger.info("freeFile {} ", freeFile);
+		
 		model.addAttribute("view", free);
 		model.addAttribute("nick", loginnick);
-		model.addAttribute("loginid", loginid);
 		model.addAttribute("userInfo", userInfo);
+		model.addAttribute("freeFile", freeFile);
+		
+	}
+	
+	@PostMapping("/free/update")
+	public String updatePost(Model model, Free freeBoard, HttpSession session, int freeNo) {
+		
+		logger.info("/free/update [POST]");
+		
+		logger.info("freeBoard {}", freeBoard);
+		
+		//자유게시판 수정
+		freeService.update(freeBoard);
 		
 		return "redirect:/free/main";
 		
 	}
-	
+
 	
 }

@@ -35,20 +35,31 @@
 			SELECT
 			*
 			FROM free
+	
+		<if test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('사담')">
+			WHERE free_head = #{freeHead}
 			ORDER BY free_no DESC
+		</if>
+		
+		<if test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('정보')">
+			WHERE free_head = #{freeHead}
+			ORDER BY free_no DESC
+		</if>
+		
+		<if test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('질문')">
+			WHERE free_head = #{freeHead}
+			ORDER BY free_no DESC
+		</if>
+		
+		<if test="freeHead == null">
+			ORDER BY free_no DESC
+		</if>
+			
 		) F
 	) FREEMAIN
-	WHERE 1=1
-	<choose>
-		<!-- 메인으로 접속했을 때 -->
-		<when test="free_head = null">
-		AND rnum BETWEEN #{startNo} AND #{endNo}
-		</when>
-		<when test="free_head != null">
-		AND rnum BETWEEN #{startNo} AND #{endNo}
-		AND free_head = #{freeHead}
-		</when>
-	</choose>
+	WHERE rnum BETWEEN #{paging.startNo} AND #{paging.endNo}
+	ORDER BY free_no DESC
+	
 	
 </select>
 
@@ -69,9 +80,21 @@
 	WHERE free_no = #{freeNo}
 </delete>
 
-<delete id="deleteFile" parameterType="web.dto.Free">
+<delete id="deleteFile" parameterType="web.dto.FreeFile">
 	DELETE free_file
 	WHERE free_no = #{freeNo}
 </delete>
+
+
+<select id="selectFreeFile" parameterType="web.dto.Free" resultType="web.dto.FreeFile">
+	SELECT * FROM free_file
+	WHERE free_no = #{freeNo}
+</select>
+
+<update id="updateFree" parameterType="web.dto.Free">
+	UPDATE free SET
+	free_title = #{freeTitle}, free_content = #{freeContent}, free_head = #{freeHead}
+	WHERE free_no = #{freeNo}
+</update>
 
 </mapper>
