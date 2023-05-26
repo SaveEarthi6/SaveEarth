@@ -4,13 +4,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+
 <c:import url="../layout/header.jsp"/>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>자유게시판 상세</title>
 
 <style type="text/css">
 
@@ -43,30 +39,6 @@
 
 </style>
 
-<script type="text/javascript">
-$(document).ready(function() {
-<<<<<<< HEAD
-	   
-	   $("#btnUpdate").click(function() {
-	      location.href = "./update?freeNo=${free.freeNo}"
-	   })
-	   
-	   $("#btnDelete").click(function() {
-	      location.href = "./delete?boardNo=${viewBoard.boardNo}"
-	   })
-=======
-	
-	$("#btnUpdate").click(function() {
-		location.href = "./update?freeNo=${free.freeNo}"
-	})
-	
-	$("#btnDelete").click(function() {
-		location.href = "./delete?boardNo=${viewBoard.boardNo}"
-	})
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
-
-
-</script>
 
 <!-- 자유게시판 디테일 이미지 -->
 <div>
@@ -79,8 +51,8 @@ $(document).ready(function() {
 
 <div style= "margin-left: 1100px; padding-top: 50px; padding-bottom: 50px;">
 	<c:if test="${ userInfo.userno eq view.userNo }">
-		<button id="btnUpdate" class="btn btn-success">수정</button>
-		<button id="btnDelete" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">삭제</button>
+		<button onclick="location.href='./update?freeNo=${view.freeNo}'" id="btnUpdate" class="btn btn-success">수정</button>
+		<button onclick="location.href='./delete?freeNo=${view.freeNo}'" id="btnDelete" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">삭제</button>
 	</c:if>
 </div>
 
@@ -90,7 +62,7 @@ $(document).ready(function() {
 	<td class="table-light">글번호</td><td colspan="3">${view.freeNo }</td>
 </tr>
 <tr>
-	<td class="table-light">아이디</td><td>${view.userNo }</td>
+	<td class="table-light">아이디</td><td>${userInfo.id }</td>
 	<td class="table-light">닉네임</td><td>${nick }</td>
 </tr>
 <tr>
@@ -107,6 +79,7 @@ $(document).ready(function() {
 	<td colspan="4">${view.freeContent }</td>
 </tr>
 </table>
+
 
 <!-- 첨부파일 다운 -->
 <div class="mb-3">

@@ -1,12 +1,12 @@
 package web.service.face;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Free;
+import web.dto.FreeFile;
 import web.dto.Member;
 import web.util.Paging;
 
@@ -39,11 +39,24 @@ public interface FreeService {
 	public Free getView(Free freeBoard);
 	
 	/**
-	 * 게시글 + 첨부파일 삭제 처리
-	 * 
-	 * @param free - 삭제할 게시글 글번호
+	 * 게시글 삭제
+	 * @param free
+	 * @param freeFile
 	 */
-	public void delete(Free free);
+	public void delete(Free free, FreeFile freeFile);
+
+	/**
+	 * 파일 정보 가져오기
+	 * @param freeBoard
+	 * @return 
+	 */
+	public FreeFile getFreeFile(Free freeBoard);
+
+	/**
+	 * 게시글 정보 수정하기
+	 * @param freeBoard - 입력한 게시글 정보
+	 */
+	public void update(Free freeBoard);
 
 
 
