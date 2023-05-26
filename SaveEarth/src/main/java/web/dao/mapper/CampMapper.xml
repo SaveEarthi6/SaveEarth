@@ -25,5 +25,26 @@
 		ON c.camp_no = f.camp_no
 		WHERE c.camp_no = #{campNo}
 	</select>
+	
+	<select id="selectCntAllByState" resultType="int" parameterType="string">
+		SELECT count(*) FROM campaign
+		WHERE camp_state = #{state}
+	</select>
+	
+<!-- 	<select id="selectCampListByState" resultType=""> -->
+<!-- 		SELECT * FROM campaign -->
+<!-- 		WHERE camp_state = #{state} -->
+<!-- 	</select> -->
+	
+	<select id="selectCampListByState" resultType="web.dto.Campaign" parameterType="map">
+		SELECT * FROM (
+	    	SELECT rownum rnum, C.* FROM (
+	        	SELECT * FROM campaign 
+	        		WHERE camp_state = #{state} 
+	        		ORDER BY camp_no DESC
+	    	) C
+		) CAMP
+		WHERE rnum BETWEEN #{paging.startNo} AND #{paging.endNo}
+	</select>
 
 </mapper>

@@ -1,5 +1,6 @@
 package web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import web.dto.Campaign;
 import web.service.face.CampService;
@@ -50,5 +52,50 @@ public class CampaignController {
 		model.addAttribute("campDetail", campDetail);
 		
 	}
+	
+	@ResponseBody
+	@RequestMapping("/preface")
+	public void campList(Model model, @RequestParam(defaultValue = "0") int curPage, String state) {
+		logger.info("/campaign/preface [GET]");
+		logger.info("{}", curPage);
+		logger.info("{}", state);
+		
+		
+		if("전체".equals(state)) {
+			logger.info("전체 선택됨");
+			
+			Paging paging = campService.getPaging(curPage);
+			List<Campaign> campList = campService.getList(paging);
+			
+			for(Campaign c : campList) {
+				logger.info("{}", c);
+			}
+			
+			model.addAttribute("campList", campList);
+			
+		} else {
+			logger.info("마감 혹은 진행중이 선택됨");
+			
+			Paging paging = campService.getPagingByState(curPage, state);
+			
+			//다른 타입이라서 map으로 전달 불가
+			//state로 조회해옥
+			
+			List<Campaign> campList = campService.getListByState(paging, state);
+			
+			for(Campaign c : campList) {
+				logger.info("{}", c);
+			}
+			
+			
+			model.addAttribute("campList", campList);
+		}
+		
+		
+		//return
+		//모델 앤 뷰
+		
+	}
+	
 
 }
