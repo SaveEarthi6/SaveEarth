@@ -53,19 +53,20 @@ public class CampaignController {
 		
 	}
 	
-	@ResponseBody
 	@RequestMapping("/preface")
-	public void campList(Model model, @RequestParam(defaultValue = "0") int curPage, String state) {
+	public String campList(Model model, @RequestParam(defaultValue = "0") int curPage, String state) {
 		logger.info("/campaign/preface [GET]");
 		logger.info("{}", curPage);
 		logger.info("{}", state);
+		
+		List<Campaign> campList = new ArrayList<>();
 		
 		
 		if("전체".equals(state)) {
 			logger.info("전체 선택됨");
 			
 			Paging paging = campService.getPaging(curPage);
-			List<Campaign> campList = campService.getList(paging);
+			campList = campService.getList(paging);
 			
 			for(Campaign c : campList) {
 				logger.info("{}", c);
@@ -77,11 +78,8 @@ public class CampaignController {
 			logger.info("마감 혹은 진행중이 선택됨");
 			
 			Paging paging = campService.getPagingByState(curPage, state);
-			
-			//다른 타입이라서 map으로 전달 불가
-			//state로 조회해옥
-			
-			List<Campaign> campList = campService.getListByState(paging, state);
+					
+			campList = campService.getListByState(paging, state);
 			
 			for(Campaign c : campList) {
 				logger.info("{}", c);
@@ -92,8 +90,12 @@ public class CampaignController {
 		}
 		
 		
-		//return
-		//모델 앤 뷰
+		return "/campaign/campList";
+		
+	}
+	
+	@RequestMapping("/test")
+	public void test() {
 		
 	}
 	

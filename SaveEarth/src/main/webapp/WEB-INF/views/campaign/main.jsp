@@ -5,9 +5,11 @@
 <c:import url="../layout/header.jsp"/>
 
 <!-- 풀캘린더 -->
-<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js'></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js"></script>
 
 
 <style type="text/css">
@@ -142,40 +144,21 @@
 		const state = $(this).html()
 		
 		$.ajax({
-			type: "get"
+			type: "post"
 			, url : "./preface"
 			, data : {state : state}
-// 			, dataType : "json"
+			, dataType : "html"
 			, success : function(res) {
 				console.log('성공')
-				console.log(res)
+				
+				$("#campListJsp").html(res)
 			}
 			, error : function() {
 				console.log('실패')
 				
 			}
 		})
-		
 
-// 		const id = $(".id").val();
-// 		$("#signup").attr("type","button");
-// 		$.ajax({
-// 			type: "get",
-
-// 			url: "http://localhost:8888/member/idCheck",
-// 			data:{id:id},
-// 			success: function(data){
-// 				if(data == 1) {
-// 					$("#olmessage").text("이미 사용중인 ID입니다");
-// 					$("#signup").attr("type","button");
-					
-					
-// 				} else {
-// 					$("#olmessage").text("사용가능한 ID입니다");
-// 					$("#signup").attr("type","submit");
-// 				}
-// 			}
-// 		})
 	})
 	
 
@@ -197,40 +180,16 @@
 
 <!-- 나중에 c:if 로 감싸줘야 함 -->
 
-<div id="calName">나의 달력</div>
+	<div id="calName">나의 달력</div>
+	
+	<div id="calendar">
+	
+	<c:import url="./calendar.jsp"></c:import>
+	
+	</div>
 
-<div id="calendar"></div>
 
 
-<script>
-
-document.addEventListener('DOMContentLoaded', function() {
-	var calendarEl = document.getElementById('calendar');
-	var calendar = new FullCalendar.Calendar(calendarEl, {
-		themeSystem: 'bootstrap5'
-		, customButtons: {
-			myCustomButton: {
-				text: '인증글 작성하기'
-				, click: function() {
-					alert('인증글 작성하기 모달')
-					//클릭시 모달창 클릭되도록 수정하기
-				}
-			}
-
-		}
-		, initialView: 'dayGridMonth'		//초기 로드될 때 보이는 캘린더화면(month)
-		, headerToolbar: {
-			start: 'prev next today'
-			, center: 'title'
-			, end: 'myCustomButton'
-		}
-		//타이틀 포멧
-		, locale: 'ko'	//한국어 설정
-	});
-	calendar.render();
-});
-
-</script>
 
 <!-- 달력 커스텀 해야함 -->
 
@@ -238,7 +197,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <div id="line"><hr></div>
 
+<div id="campList">
+	<div class="nav">
+		<button id="navButton" type="button" class="btn btn-outline-success preface">전체</button>
+		<button id="navButton" type="button" class="btn btn-outline-success preface">진행중</button>
+		<button id="navButton" type="button" class="btn btn-outline-success preface">마감</button>
+		
+	    <span class="search">
+	        <input type="text" name="search" class="search_input">
+	        <button type="button" name="search_btn" class="search_btn"><i class="bi bi-search"></i></button>
+	    </span>
+		
+	</div>
+	
+<div id="campListJsp">
+
 <c:import url="./campList.jsp"/>
+
+</div>
+
+</div>
+
+
 
 <div id="writeModal" style="height: 0; width: 0;">
 

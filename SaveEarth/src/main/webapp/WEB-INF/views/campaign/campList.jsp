@@ -3,19 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-<div id="campList">
-	<div class="nav">
-		<button id="navButton" type="button" class="btn btn-outline-success preface">전체</button>
-		<button id="navButton" type="button" class="btn btn-outline-success preface">진행중</button>
-		<button id="navButton" type="button" class="btn btn-outline-success preface">마감</button>
-		
-	    <span class="search">
-	        <input type="text" name="search" class="search_input">
-	        <button type="button" name="search_btn" class="search_btn"><i class="bi bi-search"></i></button>
-	    </span>
-		
-	</div>
-	
 
 	<div id="campList" class="row">
 		<div class="col-1"></div>
@@ -63,4 +50,4 @@
 
 
 	
-</div>
+
