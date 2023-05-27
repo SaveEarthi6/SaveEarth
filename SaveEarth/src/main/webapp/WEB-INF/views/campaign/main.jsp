@@ -121,6 +121,71 @@
 </style>
 
 
+<script type="text/javascript">
+
+//인증글 버튼 클릭 모달
+// var myModal = document.getElementById('myModal')
+// var myInput = document.getElementById('myInput')
+
+// myModal.addEventListener('shown.bs.modal', function () {
+// 	myInput.focus()
+// }
+
+
+
+//캠페인 상태 버튼 ajax
+ $(function(){
+	$(".preface").click(function() {
+		console.log("test")
+		console.log($(this).html())
+		
+		const state = $(this).html()
+		
+		$.ajax({
+			type: "get"
+			, url : "./preface"
+			, data : {state : state}
+// 			, dataType : "json"
+			, success : function(res) {
+				console.log('성공')
+				console.log(res)
+			}
+			, error : function() {
+				console.log('실패')
+				
+			}
+		})
+		
+
+// 		const id = $(".id").val();
+// 		$("#signup").attr("type","button");
+// 		$.ajax({
+// 			type: "get",
+
+// 			url: "http://localhost:8888/member/idCheck",
+// 			data:{id:id},
+// 			success: function(data){
+// 				if(data == 1) {
+// 					$("#olmessage").text("이미 사용중인 ID입니다");
+// 					$("#signup").attr("type","button");
+					
+					
+// 				} else {
+// 					$("#olmessage").text("사용가능한 ID입니다");
+// 					$("#signup").attr("type","submit");
+// 				}
+// 			}
+// 		})
+	})
+	
+
+})
+
+
+
+</script>
+
+
 
 <div>
 	<img class="campimage" src="../resources/img/camp.png" style="width: 100%; height: 500px;">
@@ -148,6 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				text: '인증글 작성하기'
 				, click: function() {
 					alert('인증글 작성하기 모달')
+					//클릭시 모달창 클릭되도록 수정하기
 				}
 			}
 
@@ -172,66 +238,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <div id="line"><hr></div>
 
-<div id="campList">
-	<div class="nav">
-		<button id="navButton" type="button" class="btn btn-outline-success">전체</button>
-		<button id="navButton" type="button" class="btn btn-outline-success">진행중</button>
-		<button id="navButton" type="button" class="btn btn-outline-success">마감</button>
-		
-	    <span class="search">
-	        <input type="text" name="search" class="search_input">
-	        <button type="button" name="search_btn" class="search_btn"><i class="bi bi-search"></i></button>
-	    </span>
-		
-	</div>
-	
+<c:import url="./campList.jsp"/>
 
-	<div id="campList" class="row">
-		<div class="col-1"></div>
-		
-		<div id="camps" class="row col-10">
-		
-			<c:forEach var="campaign" items="${campList }" begin="0" end="2">
-			<div id="camp" class="col">
-			<a href="./detail?campno=${campaign.campNo }" id="campTag">
-				<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
-				<div id="campTitle">
-					<span id="titleTag">[${campaign.campState }]</span>
-					<span id="title">${campaign.campTitle }</span>
-				</div>
-			</a>
-			</div>
-			</c:forEach>
-			
-		</div>
-		
-		<div class='col-1'></div>
-	</div>
+<div id="writeModal" style="height: 0; width: 0;">
 
-	<div id="campList" class="row">
-		<div class="col-1"></div>
-		
-		<div id="camps" class="row col-10">
-		
-			<c:forEach var="campaign" items="${campList }" begin="3" end="5">
-			<div id="camp" class="col">
-			<a href="./detail?campno=${campaign.campNo }" id="campTag">
-				<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
-				<div id="campTitle">
-					<span id="titleTag">[${campaign.campState }]</span>
-					<span id="title">${campaign.campTitle }</span>
-				</div>
-			</a>
-			</div>
-			</c:forEach>
-			
-		</div>
-		
-		<div class='col-1'></div>
-	</div>
+<!-- Button trigger modal -->
+<button style="display: hidden" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></button>
 
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-	
 </div>
 
 	
