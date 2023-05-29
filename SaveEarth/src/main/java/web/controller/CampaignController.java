@@ -9,9 +9,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Campaign;
 import web.service.face.CampService;
@@ -23,8 +26,8 @@ public class CampaignController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired CampService campService;
 	
-	@RequestMapping("/main")
-	public void campMain(Model model, @RequestParam(defaultValue = "0") int curPage) {
+	@GetMapping("/main")
+	public void campMainGet(Model model, @RequestParam(defaultValue = "0") int curPage) {
 		logger.info("/campaign/main [GET]");
 		logger.info("curPage : {}", curPage);
 		
@@ -39,6 +42,17 @@ public class CampaignController {
 		
 		model.addAttribute("campList", campList);
 		
+	}
+	
+	@PostMapping("/main")
+	public String campMainPost(MultipartFile partFile, String partTitle, String partContent) {
+		logger.info("/campaign/main [POST]");
+		logger.info("{}", partFile);
+		logger.info("{}", partTitle);
+		logger.info("{}", partContent);
+		
+		
+		return "redirect:/campaign/main";
 	}
 	
 	@RequestMapping("/detail")
@@ -94,10 +108,7 @@ public class CampaignController {
 		
 	}
 	
-	@RequestMapping("/test")
-	public void test() {
-		
-	}
+
 	
 
 }
