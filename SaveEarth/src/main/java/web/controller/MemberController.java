@@ -1,18 +1,33 @@
 package web.controller;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Date;
+import java.util.HashMap;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Description;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
 import web.dto.Mail;
 import web.dto.Member;
@@ -41,9 +56,19 @@ public class MemberController {
 		logger.info("{}", member);
 		boolean isLogin = memberService.login(member);
 		
+		
+//  2023-05-29 세션에  userno 추가		---------!!
+		member = memberService.info(member.getId());
+		System.out.println(member);
+		System.out.println("유저번호" +member.getUserno());
+		
 		if( isLogin) {
 			session.setAttribute("isLogin", isLogin);
 			session.setAttribute("loginid", member.getId());
+			session.setAttribute("loginNO", member.getUserno());
+			
+//  2023-05-29 세션에  userno 추가		---------!!		
+			
 			
 		} else {
 			session.invalidate();
@@ -100,11 +125,55 @@ public class MemberController {
 	}
 	
 	
+
 	
 	@GetMapping("/findpw")
+	public void findpwview() {
+		
+	}
+	
+//	pw찾기 id,email확인해서 있는지		
+	@PostMapping("/findpw")
 	public void findpw() {
 		
 	}
+	
+//	pw찾기 id,email확인해서 있는지	
+	@ResponseBody
+	@GetMapping("/findIdEmail")
+	public int checkIdEmail(Member member) {
+		int result = memberService.checkIdEmail(member);
+		
+		if(result==1) {
+			
+			//비밀번호 난수생성
+			String pw = "";
+			for (int i = 0; i < 12; i++) {
+				pw += (char) ((Math.random() * 26) + 97);
+			}	
+			System.out.println(pw);
+			member.setPw(pw);
+			
+			
+			//비밀번호 난수로 변경(update)
+			memberService.temPw(member);
+			System.out.println(member);
+
+			
+			//이메일 발송()
+			memberService.mailSend(member);
+			
+			
+			
+			return result;
+			
+		} else {
+			return result;	
+		}
+		
+		
+	}
+	
 	
 	@RequestMapping("logout")
 	public String logout(HttpSession session) {
@@ -125,18 +194,57 @@ public class MemberController {
 		return result;
 	}
 	
-	@GetMapping("/mail/send")
-	public String mailsendpage() {
-		
-		return "/member/sendemail";
-	}	
 	
-	@PostMapping("/mail/send")
-	public String sendMail(Mail mail) {
-		System.out.println(mail);
-		memberService.sendSimpleMessage(mail);
-		return "/member/aftermail";
+//  20230529추가 이메일 중복 	
+	@ResponseBody
+	@GetMapping("/emailCheck")
+	public int emailCheck(Member member) {
+		int result = memberService.overlappedEmail(member);
+		System.out.println(result);
+		
+		return result;
 	}
+	
+	
+	@GetMapping("/kakao")
+	public String kakaocode(@RequestParam("code") String code) {
+		
+			System.out.println("code : " + code);
+			
+			
+			
+			//CODE로 access 토큰 가져오기
+			String access_token = memberService.getToken(code);
+			
+	
+			System.out.println("받아온:accestoken:" +access_token);
+				
+			//-------------------------------------------------------------------------	
+			
+			//토큰으로 정보 가지고 오기
+			
+			Member member = memberService.getKaKaoinfo(access_token);
+			
+			System.out.println("가져온 유저 아이디" + member.getId());
+			System.out.println("가져온 유저 이메일" + member.getEmail());
+		//*************************2023-05-26 금요일 kakao정보가져오기까지 이정보로 로그인하기 다음 구현 *************************
+			
+			
+			
+			
+			
+	        return "/saveearth/main";
+	    
+		
+	    
+		
+	}
+
+    @RequestMapping("/kakaoToken")
+    public void kakotoken() {
+    	
+    }
+    
 	
 	
 

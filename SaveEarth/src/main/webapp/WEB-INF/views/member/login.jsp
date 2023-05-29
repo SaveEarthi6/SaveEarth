@@ -110,7 +110,9 @@ button{ cursor: pointer; } /* 모든 버튼에 마우스손모양 처리 */
       </ul>
       <!--데이터를 서버로 전송-->
       <button type="submit">로그인</button>
-      
+      <a href="https://kauth.kakao.com/oauth/authorize?client_id=afd568c5b46891ae3dde245d70d25e21&redirect_uri=http://localhost:8888/member/kakao
+&response_type=code"><img src="/resources/img/kakaoLogin.png" style="height:30px"/></a>
+     
     </fieldset>
   </form>
 </div>

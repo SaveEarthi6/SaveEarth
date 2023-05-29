@@ -1,5 +1,7 @@
 package web.service.face;
 
+import java.util.HashMap;
+
 import web.dto.Mail;
 import web.dto.Member;
 
@@ -48,11 +50,47 @@ public interface MemberService {
 	
 	public int overlappedID(Member member);
 
+	public int overlappedEmail(Member member);
+
+
+	
+	
 	/**
-	 * 메일보내기
-	 * @param mail
+	 * id와email값 받아와서 있는지 없는지 체크
+	 * @param member
+	 * @return 1 있음  0 없음
 	 */
-	public void sendSimpleMessage(Mail mail);
+	public int checkIdEmail(Member member);
+
+	/**
+	 * 임시비밀번호로 패스워드 변경
+	 * @param member
+	 * @return
+	 */
+	public void temPw(Member member);
+
+	/**
+	 * 메일발송
+	 * @param member
+	 */
+	public void mailSend(Member member);
+
+	
+	/**
+	 * 카카오 토큰 가져오기
+	 * @param code
+	 * @return
+	 */
+	public String getToken(String code);
+
+	public Member getKaKaoinfo(String access_token);
+
+
+
+	
+
+
+	
 	
 	
 
