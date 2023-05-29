@@ -176,36 +176,6 @@ myModal.addEventListener('shown.bs.modal', () => {
   myInput.focus()
 })
 
-// //모달 초기화
-// function initModal(arg) {
-	
-// 	console.log('글 작성 취소')	
-	$("#partTitle").val()
-	
-// }
-
-// //첨부파일 읽어오기
-// function readFile(file) {
-	
-// }
-
-// //DB 삽입
-// function insertPart() {
-	
-// 	console.log('글 작성하기')
-// 	console.log($("#partTitle").val())
-// 	console.log($("#partContent").val())
-// 	console.log($("#partFile").val())
-	
-// 	const title = $("#partTitle").val()
-// 	const content = $("#partContent").val()
-	
-	
-	
-// }
-
-
-
 //파일 전송 api 제이쿼리
 
 
@@ -259,7 +229,7 @@ myModal.addEventListener('shown.bs.modal', () => {
 			<div class="modal-body">
 				<div class="form-group">
 					<label for="partNo">참여할 캠페인</label>
-					<select id="partNo" class="form-control">
+					<select id="partNo" class="form-control" name="campNo">
 						<c:forEach var="campaign" items="${campList }">
 						<option value="${campaign.campNo }">${campaign.campTitle }</option>
 						</c:forEach>
@@ -280,9 +250,7 @@ myModal.addEventListener('shown.bs.modal', () => {
 					<input type="file" class="form-control" id="partFile" name="partFile">
 				</div>
 				<div>
-					<!-- 회원번호랑 캠페인 번호 넣을 곳 -->
-<%-- 					<input type="text" value="${loginNo }"> --%>
-					
+					<input type="hidden" name="userNo" value="1">	<!-- 회원번호 -->
 				</div>
 			</div>
 			
@@ -291,7 +259,6 @@ myModal.addEventListener('shown.bs.modal', () => {
 			<div class="modal-footer" id="btnWrap">
 		        <button type="button" class="btn btn-secondary" id="btnCancel" data-bs-dismiss="modal">취소하기</button>
 		        <button type="submit" class="btn btn-primary" id="btnWrite">작성하기</button>
-		        <!-- 회원번호 캠페인번호 같이 넘겨야함 -->
 		        <!-- onclick시 함수 ajax 함수 호출..? -->
 			</div>
 		</div>
