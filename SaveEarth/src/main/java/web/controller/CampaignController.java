@@ -48,19 +48,21 @@ public class CampaignController {
 		
 		model.addAttribute("campList", campList);
 		
-		//달력 불러오기
+		
 		if(session.getAttribute("isLogin") != null) {
 //			List<Certification> certList = campService.getcertList(session.getAttribute("loginId"));
 		} else {
 			List<Calendar> calList = campService.getCalendar();
-			
+	
 			for(Calendar c : calList) {
 				logger.info("{}", c);
+		
 			}
 			
 			model.addAttribute("calList", calList);
-			
+	
 		}
+		
 		
 	}
 	
@@ -74,6 +76,28 @@ public class CampaignController {
 		
 		
 		return "redirect:/campaign/main";
+	}
+	
+	@ResponseBody
+	@PostMapping("/getCalendar")
+	public List<Calendar> gerCalendar(HttpSession session, Model model) {
+		
+		//달력 불러오기
+		if(session.getAttribute("isLogin") != null) {
+//					List<Certification> certList = campService.getcertList(session.getAttribute("loginId"));
+		} else {
+			List<Calendar> calList = campService.getCalendar();
+			
+			for(Calendar c : calList) {
+				logger.info("{}", c);
+				
+			}
+			
+			return calList;
+		}
+		
+		return null;
+		
 	}
 	
 	@RequestMapping("/detail")

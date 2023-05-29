@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+  
 <style>
 /* 툴바 제목 */
 .fc-toolbar-title {
@@ -87,6 +88,39 @@
 
 <script type="text/javascript">
 
+var eventDay;
+var title;
+var date;
+
+// $.ajax({
+// 	type: "post"
+// 	, url : "./getCalendar"
+// 	, dataType : "JSON"
+// 	, success : function(res) {
+// 		console.log('성공')
+// 		console.log(res)
+		
+// 		$.each(res, function(key, value) {
+			
+// 			title1 = value.calName
+// 			start1 = value.calDate
+			
+// 			console.log(title1)
+// 			console.log(start1)
+			
+			
+// 		})
+		
+// 	}
+// 	, error : function() {
+// 		console.log('실패')
+		
+// 	}
+// })
+
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
 	var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -107,13 +141,13 @@ document.addEventListener('DOMContentLoaded', function() {
 			, end: 'myCustomButton'
 		},
 		events: [
-			<c:forEach var="calendar" items="${calList }">
+			<c:forEach items="${calList}" var="calList">
 			{
-				title: ${calendar.calName}
-				, start: ${calendar.calDate}
-			}
+				title : "${calList.calName}"	,
+				start : "<fmt:formatDate value="${calList.calDate}" pattern="yyyy-MM-dd"/>"
+			},
 			</c:forEach>
-			
+				 
 		],
 		dateClick: function(info) {		//날짜 클릭하면 해당 일 출력
 			var string = info.date
@@ -150,6 +184,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 </script>
-
-
-
