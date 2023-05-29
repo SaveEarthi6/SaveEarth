@@ -2,6 +2,8 @@ package web.dto;
 
 import java.util.Date;
 
+import org.apache.ibatis.type.Alias;
+
 public class Campaign {
 	
 	private int campNo;
