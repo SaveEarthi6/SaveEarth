@@ -1,35 +1,28 @@
 package web.controller;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Date;
-import java.util.HashMap;
+import java.net.URLEncoder;
 
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Description;
-import org.springframework.mail.javamail.MimeMessageHelper;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 
-import web.dto.Mail;
 import web.dto.Member;
 import web.service.face.MemberService;
 
@@ -244,6 +237,54 @@ public class MemberController {
     public void kakotoken() {
     	
     }
+    
+    @ResponseBody
+    @GetMapping("/naver")
+    public void naver(@RequestParam("code") String code, @RequestParam("state") String state )throws Exception {
+    	System.out.println(code);
+    	System.out.println(state);
+    	
+        String clientId = "GHbqes62pzw1QpLMxiNo";//애플리케이션 클라이언트 아이디값";
+        String clientSecret = "RmazoV_MRN";//애플리케이션 클라이언트 시크릿값";
+        String redirectURI = URLEncoder.encode("http://localhost:8888/member/naver", "UTF-8");
+        String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code"
+            + "&client_id=" + clientId
+            + "&client_secret=" + clientSecret
+            + "&redirect_uri=" + redirectURI
+            + "&code=" + code
+            + "&state=" + state;
+        String accessToken = "";
+        String refresh_token = "";
+        try {
+          URL url = new URL(apiURL);
+          HttpURLConnection con = (HttpURLConnection)url.openConnection();
+          con.setRequestMethod("GET");
+          int responseCode = con.getResponseCode();
+          BufferedReader br;
+          if (responseCode == 200) { // 정상 호출
+            br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+          } else {  // 에러 발생
+            br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+          }
+          String inputLine;
+          StringBuilder res = new StringBuilder();
+          while ((inputLine = br.readLine()) != null) {
+            res.append(inputLine);
+          }
+          br.close();
+          if (responseCode == 200) {
+            System.out.println(res.toString());
+            System.out.println(res);
+     
+            
+          }
+        } catch (Exception e) {
+          // Exception 로깅
+        }
+        
+    }
+
+
     
 	
 	
