@@ -275,6 +275,7 @@ public class MemberController {
           if (responseCode == 200) {
             System.out.println(res.toString());
             System.out.println(res);
+
      
             
           }
