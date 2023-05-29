@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Free;
 import web.dto.FreeFile;
@@ -26,10 +27,10 @@ public interface FreeDao {
 
 
 	/**
-	 * 자유게시판에 첨부한 파일 정보를 삽입한다
-	 * @param file - 파일 정보
+	 * 자유게시판에 첨부한 파일(들)을 삽입한다
+	 * @param freeFiles - 첨부파일들
 	 */
-	public void insertFreeFile(FreeFile freeFile);
+	public void insertFreeFile(FreeFile freeFiles);
 
 	/**
 	 * totalcount가져오기
@@ -45,7 +46,12 @@ public interface FreeDao {
 	 */
 	public List<Map<String, Object>> selectList(@Param("paging") Paging paging, @Param("freeHead") String freeHead);
 
-	public Free selectFreeBoard(Free freeBoard);
+	/**
+	 * 게시글 번호가 일치하는 게시글 정보를 조회한다 
+	 * @param freeBoard - 게시글 번호
+	 * @return 게시글 번호가 일치하는 게시글 정보
+	 */
+	public Map<String, Object> selectFreeBoard(@Param("freeBoard") Free freeBoard);
 
 	public void updateHit(Free freeBoard);
 
@@ -54,9 +60,9 @@ public interface FreeDao {
 	/**
 	 * 게시글을 참조하고 있는 모든 첨부파일을 삭제
 	 * 
-	 * @param free - 첨부파일을 삭제할 게시글 번호 객체
+	 * @param free - 첨부파일을 삭제할 게시글 번호
 	 */
-	public void deleteFile(FreeFile freeFile);
+	public void deleteFile(Free free);
 	
 	/**
 	 * 게시글 정보 삭제
@@ -67,16 +73,24 @@ public interface FreeDao {
 
 	/**
 	 * 파일 정보를 조회한다
-	 * @param freeBoard
+	 * @param freeBoard - 게시글 번호
+	 * @return - 게시글 번호가 일치하는 파일 정보
 	 */
-	public FreeFile selectFreeFile(Free freeBoard);
+	public List<FreeFile> selectFreeFile(Free freeBoard);
 
 	/**
-	 * 게시글 내용 수정
-	 * @param freeBoard - 수정한 내용
+	 * 게시글 정보 수정
+	 * @param freeBoard - 수정할 게시글 정보
 	 */
-	public void updateFree(Free freeBoard);
+	public void updateBoard(Free freeBoard);
 
-	
-	
+	/**
+	 * 검색어와 일치하는 게시글을 조회한다
+	 * @param paging - 페이징 객체
+	 * @param keyword - 입력한 검색어
+	 * @return - 검색어와 일치하는 게시글
+	 */
+	public List<Map<String, Object>> selectFreeByKeyword(@Param("paging") Paging paging, @Param("keyword") String keyword);
+
+
 }

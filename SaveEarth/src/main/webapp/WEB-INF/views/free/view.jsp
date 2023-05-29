@@ -50,50 +50,44 @@
 <div class="container">
 
 <div style= "margin-left: 1100px; padding-top: 50px; padding-bottom: 50px;">
-	<c:if test="${ userInfo.userno eq view.userNo }">
-		<button onclick="location.href='./update?freeNo=${view.freeNo}'" id="btnUpdate" class="btn btn-success">수정</button>
-		<button onclick="location.href='./delete?freeNo=${view.freeNo}'" id="btnDelete" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">삭제</button>
+	<c:if test="${ userInfo.userno eq view.USER_NO }">
+		<button onclick="location.href='./update?freeNo=${view.FREE_NO}'" id="btnUpdate" class="btn btn-success">수정</button>
+		<button onclick="location.href='./delete?freeNo=${view.FREE_NO}'" id="btnDelete" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">삭제</button>
 	</c:if>
 </div>
 
 <!-- 게시글 상세 -->
 <table class="table table-bordered" style= "font-weight: bold;">
 <tr>
-	<td class="table-light">글번호</td><td colspan="3">${view.freeNo }</td>
+	<td class="table-light">글번호</td><td colspan="3">${view.FREE_NO }</td>
 </tr>
 <tr>
-	<td class="table-light">아이디</td><td>${userInfo.id }</td>
-	<td class="table-light">닉네임</td><td>${nick }</td>
+	<td class="table-light">아이디</td><td>${view.ID }</td>
+	<td class="table-light">닉네임</td><td>${view.NICK }</td>
 </tr>
 <tr>
-	<td class="table-light">조회수</td><td>${view.freeViews }</td>
-	<td class="table-light">작성일</td><td><fmt:formatDate value="${view.freeCreate }" pattern="yy-MM-dd HH:mm:ss"/></td>
+	<td class="table-light">조회수</td><td>${view.FREE_VIEWS }</td>
+	<td class="table-light">작성일</td><td><fmt:formatDate value="${view.FREE_CREATE }" pattern="yy-MM-dd HH:mm:ss"/></td>
 </tr>
 <tr>
-	<td class="table-light">제목</td><td colspan="3">${view.freeTitle }</td>
+	<td class="table-light">제목</td><td colspan="3">${view.FREE_TITLE }</td>
 </tr>
 <tr>
 	<td class="table-light" colspan="4">본문</td>
 </tr>
 <tr>
-	<td colspan="4">${view.freeContent }</td>
+	<td colspan="4">${view.FREE_CONTENT }</td>
 </tr>
 </table>
 
-
-<!-- 첨부파일 다운 -->
+<!-- 첨부파일 다운-->
 <div class="mb-3">
 	<c:if test="${not empty freeFile }">
-		<a href="./download?fileNo=${free.fileNo }">${freeFile.FreeOriginName }</a>
-	</c:if>
-</div>
-
-<!-- 첨부파일 -->
-<div class="mb-3">
-	<c:if test="${not empty freeFile }">
-		<a href="../upload/${freeFile.FreeStoredName }" download="${freeFile.FreeOriginName }">
-			${freeFile.FreeOriginName }
+	<c:forEach items="${freeFile }" var="file">
+		<a href="../upload/${file.freeStoredName }" download="${file.freeOriginName }">
+			${file.freeOriginName }
 		</a>
+	</c:forEach>
 	</c:if>
 </div>
 
