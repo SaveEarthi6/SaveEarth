@@ -35,38 +35,50 @@
 			SELECT
 			*
 			FROM free
-	
-		<if test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('사담')">
+	<choose>
+		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('사담')">
 			WHERE free_head = #{freeHead}
 			ORDER BY free_no DESC
-		</if>
+		</when>
 		
-		<if test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('정보')">
+		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('정보')">
 			WHERE free_head = #{freeHead}
 			ORDER BY free_no DESC
-		</if>
+		</when>
 		
-		<if test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('질문')">
+		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('질문')">
 			WHERE free_head = #{freeHead}
 			ORDER BY free_no DESC
-		</if>
+		</when>
 		
-		<if test="freeHead == null">
+		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('전체')">
 			ORDER BY free_no DESC
-		</if>
-			
+		</when>
+
+		<when test="freeHead == null">
+			ORDER BY free_no DESC
+		</when>
+		
+	</choose>	
 		) F
 	) FREEMAIN
-	WHERE rnum BETWEEN #{paging.startNo} AND #{paging.endNo}
+	WHERE rnum BETWEEN #{paging.startNo} and #{paging.endNo}
 	ORDER BY free_no DESC
 	
 	
 </select>
 
-
-<select id="selectFreeBoard" parameterType="web.dto.Free" resultType="web.dto.Free">
-	SELECT * FROM free
-	WHERE free_no = #{freeNo}
+<select id="selectFreeBoard" parameterType="web.dto.Free" resultType="map">
+	SELECT * FROM(
+		SELECT 
+		(SELECT m.id FROM member m WHERE m.userno = F.user_no) id,
+		(SELECT m.id FROM member m WHERE m.userno = F.user_no) nick, F.* FROM (
+			SELECT
+			*
+			FROM free
+		) F
+	) FREEMAIN
+	WHERE free_no = #{freeBoard.freeNo}
 </select>
 
 <update id="updateHit" parameterType="web.dto.Free">
@@ -80,29 +92,63 @@
 	WHERE free_no = #{freeNo}
 </delete>
 
-<delete id="deleteFile" parameterType="web.dto.FreeFile">
+<delete id="deleteFile" parameterType="web.dto.Free">
 	DELETE free_file
 	WHERE free_no = #{freeNo}
 </delete>
-
 
 <select id="selectFreeFile" parameterType="web.dto.Free" resultType="web.dto.FreeFile">
 	SELECT * FROM free_file
 	WHERE free_no = #{freeNo}
 </select>
 
-<update id="updateFree" parameterType="web.dto.Free">
+<update id="updateBoard" parameterType="web.dto.Free">
 	UPDATE free SET
 	free_title = #{freeTitle}, free_content = #{freeContent}, free_head = #{freeHead}
 	WHERE free_no = #{freeNo}
 </update>
 
+<select id="selectFreeByKeyword" resultType="map" parameterType="map">
+
+	SELECT * FROM(
+		SELECT rownum rnum, (SELECT m.id FROM member m WHERE m.userno = F.user_no) id, F.* FROM (
+			SELECT
+			*
+			FROM free
+	<choose>
+		
+		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('전체')
+					&amp;&amp; keyword != null">
+			WHERE free_title LIKE ''%' || #{keyword} || '%'
+			ORDER BY free_no DESC
+		</when>
+
+		<when test="freeHead == null &amp;&amp; keyword != null">
+			WHERE free_title LIKE ''%' || #{keyword} || '%'
+			ORDER BY free_no DESC
+		</when>
+		
+	</choose>	
+		) F
+	) FREEMAIN
+	WHERE rnum BETWEEN #{paging.startNo} and #{paging.endNo}
+	ORDER BY free_no DESC
+
+</select>
+
+<!-- <select id="mypageList" resultType="web.dto.Free" parameterType="int"> -->
+<!-- select * from Free -->
+<!-- where user_no = #{userNo} -->
+<!-- </select> -->
+
+>>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
 <select id="mypageList" resultType="web.dto.Free" parameterType="int">
 select * from Free
 where user_no = #{userNo}
 ORDER BY free_no DESC
 </select>
 
+<<<<<<< HEAD
 
 
 
@@ -111,4 +157,6 @@ ORDER BY free_no DESC
 
 
 
+=======
+>>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
 </mapper>

@@ -96,53 +96,49 @@ $(document).ready(function() {
 <div class="container">
 
 <div style= "margin-left: 1100px; padding-top: 50px; padding-bottom: 50px;">
-	<c:if test="${ userInfo.userno eq view.userNo }">
-		<button id="btnDelete" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">삭제</button>
-	</c:if>
 </div>
 
 <!-- 게시글 상세 -->
 <table class="table table-bordered" style= "font-weight: bold;">
 <tr>
-	<td class="table-light">글번호</td><td colspan="3">${view.freeNo}</td>
+	<td class="table-light">글번호</td><td colspan="3">${view.FREE_NO}</td>
 </tr>
 <tr>
-	<td class="table-light">아이디</td><td>${userInfo.id }</td>
-	<td class="table-light">닉네임</td><td>${userInfo.nick }</td>
+	<td class="table-light">아이디</td><td>${view.ID }</td>
+	<td class="table-light">닉네임</td><td>${view.NICK }</td>
 </tr>
 <tr>
-	<td class="table-light">조회수</td><td>${view.freeViews }</td>
-	<td class="table-light">작성일</td><td><fmt:formatDate value="${view.freeCreate }" pattern="yy-MM-dd HH:mm:ss"/></td>
+	<td class="table-light">조회수</td><td>${view.FREE_VIEWS }</td>
+	<td class="table-light">작성일</td><td><fmt:formatDate value="${view.FREE_CREATE }" pattern="yy-MM-dd HH:mm:ss"/></td>
 </tr>
 
 </table>
 
 <form action="/free/update" method="post" enctype="multipart/form-data">
 
-<input type="hidden" name="freeNo" value="${view.freeNo}">
+<input type="hidden" name="freeNo" value="${view.FREE_NO}">
 
 <div class="form-group" style= "margin-top: 50px">
 	<label class="form-label" for="head">말머리글</label>
-	<input type="text" id="head" name="freeHead" class="form-control" style="width: 100px;" value="${view.freeHead}">
+	<input type="text" id="head" name="freeHead" class="form-control" style="width: 100px;" value="${view.FREE_HEAD}">
 </div>
 
 
 <!-- 글쓰기 폼 (웹 에디터) -->
 <div class="form-group" style= "margin-top: 50px">
 	<label class="form-label" for="title">제목</label>
-	<input type="text" id="title" name="freeTitle" class="form-control" value="${view.freeTitle }">
+	<input type="text" id="title" name="freeTitle" class="form-control" value="${view.FREE_TITLE }">
 </div>
 
 <div class="form-group" style= "margin-top: 50px">
 	<label class="form-label" for="content">본문</label>
-	<textarea class="form-control" rows="10" style="width: 100%;" id="content" name="freeContent">${view.freeContent }</textarea>
+	<textarea class="form-control" rows="10" style="width: 100%;" id="content" name="freeContent">${view.FREE_CONTENT }</textarea>
 </div>
 
-<div class="form-group mb-3" style= "margin-top: 50px">
-	<label class="form-label" for="file">첨부파일</label>
-	
-</div>
+<div style="
+    margin-top: 30px; margin-bottom: 30px;">
 		<button id="btnUpdate" class="btn btn-success">수정완료</button>
+</div>
 
 </form>
 
@@ -155,7 +151,6 @@ $(document).ready(function() {
 		</div>
 
 		<div id="newFile">
-			<hr>
 			<label class="form-label" for="file">새로운 첨부파일</label>
 			<input type="file" id="file" name="file" class="form-control">
 			<small>** 새로운 파일로 첨부하면 기존 파일은 삭제됩니다</small>

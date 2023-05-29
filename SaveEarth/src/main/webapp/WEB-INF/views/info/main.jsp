@@ -170,9 +170,9 @@ input {
 
 </table>
 
-	<form action="/info/main" method="post">
+	<form action="/info/search" method="get">
 	    <div class="search">
-	        <input type="text" name="search" class="search_input">
+	        <input type="text" name="keyword" class="search_input" placeholder="검색어를 입력해주세요">
 	        <button type="button" name="search_btn" class="search_btn"><i class="bi bi-search"></i></button>
 	    </div>
 	</form>

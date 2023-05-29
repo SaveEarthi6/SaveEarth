@@ -32,17 +32,8 @@
 
 
 
-/* 무한루프 */
-/* $(function(){
-	$('#id').blur(function(){
-		if($("#id").val()==""){
-			alert("아이디를 입력하세요");
-			$("#id").focus();
-			
-		} 
-	})
-}); */
 
+//아이디 중복체크
  $(function(){
 	$("#overlappedID").click(function() {
 		console.log("test")
@@ -56,7 +47,8 @@
 			data:{id:id},
 			success: function(data){
 				if(data == 1) {
-					$("#olmessage").text("이미 사용중인 ID입니다");
+					result="이미 사용중인 ID입니다";
+					$("#olmessage").html(result);
 					$("#signup").attr("type","button");
 					
 					
@@ -69,7 +61,41 @@
 	})
 	
 
-}) 
+})
+
+
+
+//이메일 중복체크
+$(function(){
+	$("#email").blur(function() {
+		console.log("testemail")
+
+		const email = $("#email").val();
+		$.ajax({
+			type: "get",
+
+			url: "http://localhost:8888/member/emailCheck",
+			data:{email:email},
+			success: function(data){
+				if(data == 1) {
+					result="이미 사용중인 E-mail입니다";
+					$("#olEmessage").html(result);
+					$("#signup").attr("type","button");
+					
+					
+				} else {
+					$("#signup").attr("type","submit");
+				  		
+				}
+			}
+		})
+	})
+	
+
+})
+
+
+
 
 
 
@@ -91,37 +117,37 @@ $(function(){
 
 
 
-function joinform_check(){
+// function joinform_check(){
 	
-	var id = document.getElementById("id");
-	var pw = document.getElementById("pw");
+// 	var id = document.getElementById("id");
+// 	var pw = document.getElementById("pw");
 	
 	
-	if(id.value == ""){
-		alert("아이디를 입력하세요");
-		id.focus();
-		$("#signup").attr("type","button");
-		return false;
-	};
+// 	if(id.value == ""){
+// 		alert("아이디를 입력하세요");
+// 		id.focus();
+// 		$("#signup").attr("type","button");
+// 		return false;
+// 	};
 	
 
 	
-	  if (pw.value == "") {
-		    alert("비밀번호를 입력하세요.");
-		    pw.focus();
-		    $("#signup").attr("type","button");
-		    return false;
-		  } else if(!pwdCheck.test(pw.value)) {
-			  //비밀번호 영문자+숫자+특수조합(8~25자리 입력) 정규식
-			  var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
-			    alert("비밀번호는 영문자+숫자+특수문자 조합으로 8~25자리 사용해야 합니다.");
-			    pw.focus();
-			    $("#signup").attr("type","button");
-			    return false;
-			  } else{
-				  $("#signup").attr("type","submit");
-				  return true;
-			  }
+// 	  if (pw.value == "") {
+// 		    alert("비밀번호를 입력하세요.");
+// 		    pw.focus();
+// 		    $("#signup").attr("type","button");
+// 		    return false;
+// 		  } else if(!pwdCheck.test(pw.value)) {
+// 			  //비밀번호 영문자+숫자+특수조합(8~25자리 입력) 정규식
+// 			  var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+// 			    alert("비밀번호는 영문자+숫자+특수문자 조합으로 8~25자리 사용해야 합니다.");
+// 			    pw.focus();
+// 			    $("#signup").attr("type","button");
+// 			    return false;
+// 			  } else{
+// 				  $("#signup").attr("type","submit");
+// 				  return true;
+// 			  }
 
 /* 		  //비밀번호 영문자+숫자+특수조합(8~25자리 입력) 정규식
 		  var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/; */
@@ -133,8 +159,82 @@ function joinform_check(){
 		    return false;
 		  }; */
 		  
-		
-}
+
+		  
+function joinform_check() {
+    var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
+    var getCheck= RegExp(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/);
+    var getName= RegExp(/^[가-힣|a-z|A-Z]+$/);
+
+    //아이디 공백 확인
+    if($("#id").val() == ""){
+      alert("아이디를 입력해주세요");
+      $("#id").focus();
+      return false;
+    }
+
+//     //아이디 중복확인 수행
+//     if($("#olmessage").val() == ""){
+//       alert("아이디중복확인을 해주세요");
+//       return false;
+//     }    
+    
+    
+    if($('#name').val().length>7){
+		alert("이름은 7자 까지 입력가능합니다.")
+		return false;
+    }
+
+    //이름 공백 확인
+    if($("#name").val() == ""){
+      alert("이름을 입력해주세요");
+      $("#name").focus();
+      return false;
+    }
+    //이름 유효성
+    if (!getName.test($("#name").val())) {
+      alert("이름 형식에 맞게 입력해주세요.");
+      $("#name").val("");
+      $("#name").focus();
+      return false;
+    }
+    //비밀번호 공백 확인
+    if($("#pw").val() == ""){
+      alert("비밀번호를 입력해주세요");
+      $("#pw").focus();
+      return false;
+    }
+    //비밀번호 유효성
+    if(!getCheck.test($("#pw").val())) {
+    alert("비밀번호는 영문자+숫자+특수문자 조합으로 8~25자리 사용해야 합니다.");
+    $("#pw").val("");
+    $("#pw").focus();
+    return false;
+    }
+    //이메일 유효성 검사
+    if(!getMail.test($("#email").val())){
+      alert("이메일 형식에 맞게 입력해주세요.")
+      $("#email").val("");
+      $("#email").focus();
+      return false;
+    }
+   //이메일 공백 확인
+    if($("#email").val() == ""){
+      alert("이메일을 입력해주세요");
+      $("#email").focus();
+      return false;
+    }
+
+  return true;
+}		  		    
+    
+
+
+
+    	
+
+		  
+
 
 
 
@@ -157,7 +257,7 @@ function joinform_check(){
 <div style="justify-content: center, margin: 0 auto;">
 
 
-<form action="./join" style="margin : 0 520px;" method="post">
+<form action="./join" onsubmit=" return joinform_check()" style="margin : 0 520px;" method="post">
 
 
 
@@ -203,13 +303,13 @@ function joinform_check(){
     <label for="inputCity" class="form-label">이메일</label>
     <input type="email" class="form-control" id="email" name="email">
   </div>
+  <span id="olEmessage"></span>
  
   <div class="col-md-6">
  	<label for="inputCity" class="form-label">주소</label>
+ 
+ 	<input type="button" class="form-control" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
     <input type="text" class="form-control" id="sample4_postcode" placeholder="우편번호" name="post"> 
-   
-    <input type="button" class="form-control" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
-    
     <input type="text" class="form-control" id="sample4_roadAddress" placeholder="도로명주소" name="addr1">
 	<span id="guide" style="color:#999;display:none"></span>
 	<input type="text" class="form-control" id="sample4_detailAddress" placeholder="상세주소" name="addr2">
@@ -221,7 +321,7 @@ function joinform_check(){
   </div>
 
   <div class="col-12">
-    <button  class="btn btn-primary" id="signup" onclick="joinform_check()">가입하기</button>
+    <button type="submit" class="btn btn-primary" id="signup" >가입하기</button>
   </div>
   
   

@@ -108,7 +108,7 @@ form {
 
 <div class="form-group mb-3" style= "margin-top: 50px">
 	<label class="form-label" for="file">첨부파일</label>
-	<input type="file" id="file" name="file" class="form-control">
+	<input type="file" id="file" name="files" class="form-control" multiple="multiple">
 </div>
 
 <!-- 글쓰기 작성, 취소 버튼 -->
