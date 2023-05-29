@@ -146,15 +146,4 @@ select * from Free
 where user_no = #{userNo}
 ORDER BY free_no DESC
 </select>
-
-
-
-
-
-
-
-
-
-=======
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
 </mapper>
