@@ -73,6 +73,9 @@ public interface FreeService {
 	 * @return
 	 */
 	public List<Free> mypageList(int userno);
+	
+	
+	
 
 
 

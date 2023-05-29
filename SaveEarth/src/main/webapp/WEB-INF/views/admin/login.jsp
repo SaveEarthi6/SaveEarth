@@ -18,6 +18,11 @@ button{ cursor: pointer; } /* 모든 버튼에 마우스손모양 처리 */
 /* body설정 */
 /* body{ background-color: #ededed; } */
 
+
+
+
+
+
 .loginbox{
     width: 780px; height: 550px;
     margin: 0 auto; /* 블록요소를 부모영역에서 가운데 처리 */
@@ -97,16 +102,16 @@ button{ cursor: pointer; } /* 모든 버튼에 마우스손모양 처리 */
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="loginbox">
+   <div class="loginbox">
   <h2>관리자 로그인</h2>
   <form action="./login" method="post">
     <!--작성하지 않아도 문제는 없음-->
     <fieldset>
       <legend>로그인 구역</legend>
       <label for="id">관리자 아이디</label>
-      <input type="text" id="id" name="id" placeholder="Admin ID">
+      <input type="text" id="id" name="adminId" placeholder="Admin ID">
       <label for="pw">관리자 비밀번호</label>
-      <input type="password" id="pw" name="pw" placeholder="Admin PW">
+      <input type="password" id="pw" name="adminPw" placeholder="Admin PW">
       <!--데이터를 서버로 전송-->
       <button type="submit">로그인</button>
       

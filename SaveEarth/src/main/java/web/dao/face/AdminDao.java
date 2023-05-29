@@ -1,5 +1,9 @@
 package web.dao.face;
 
-public class AdminDao {
+import web.dto.Admin;
+
+public interface AdminDao {
+
+   public int selectCntByIdPw(Admin adminParam);
 
 }

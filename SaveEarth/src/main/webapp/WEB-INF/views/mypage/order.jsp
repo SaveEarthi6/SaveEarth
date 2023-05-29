@@ -242,7 +242,7 @@ input {
 <div class="nav">
 <a href="./update"><button type="button" class="btn btn-outline-success" id ="top">회원정보 수정</button></a>
 <a href="./delete"><button type="button" class="btn btn-outline-success" id ="top">회원정보 탈퇴</button></a>
-<a href="./board"><button type="button" class="btn btn-outline-success" id ="top">게시글, 댓글 수정</button></a>
+<a href="./board"><button type="button" class="btn btn-outline-success" id ="top">작성글<br> 보기</button></a>
 <a href="./order"><button type="button" class="btn btn-outline-success" id ="top">주문내역 수정</button></a>
 </div>
 

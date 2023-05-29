@@ -301,7 +301,7 @@ input {
 <div class="nav">
 <a href="./update"><button type="button" class="btn btn-outline-success" id ="top">회원정보 수정</button></a>
 <a href="./delete"><button type="button" class="btn btn-outline-success" id ="top">회원정보 탈퇴</button></a>
-<a href="./board"><button type="button" class="btn btn-outline-success" id ="top">게시글, 댓글 수정</button></a>
+<a href="./board"><button type="button" class="btn btn-outline-success" id ="top">작성글<br> 보기</button></a>
 <a href="./order"><button type="button" class="btn btn-outline-success" id ="top">주문내역 수정</button></a>
 </div>
 
@@ -325,27 +325,32 @@ input {
 <form action="./update" method="POST">
 
       <div class="textForm">
-      	<label>${info.id }</label>
+      	<label>아이디</label>
+      	<input name="pw" disabled id="pw" type="text" class="pw" value = "${info.id}">
       </div>
       <div class="textForm">
-        <input name="pw" id="pw" type="text" class="pw" placeholder="비밀번호 : ${info.pw }">
+     	 <label>비밀번호</label>
+        <input name="pw" id="pw" type="text" class="pw" value = "${info.pw}">
       </div>
      
       <div class="textForm">
-        <input name="name" id="name" type="text" class="name" placeholder="이름 : ${info.name}">
+      <label>이름</label>
+        <input name="name" id="name" type="text" class="name" value="${info.name}">
       </div>
       
       <div class="textForm">
-        <input name="nick" id="nick" type="text" class="nickname" placeholder="닉네임 : ${info.nick }">
+      <label>닉네임</label>
+        <input name="nick" id="nick" type="text" class="nickname" value="${info.nick }">
       </div>
       
       <div class="textForm">
         ${info.birth }
-        <input name="birth" id="birth" type="date" class="birth" placeholder="생년월일 : ${info.birth }">
+        <input name="birth" id="birth" type="date" class="birth" value="${info.birth }">
       </div>
       
       <div class="textForm">
-        <input name="email" id ="email" type="text" class="email" placeholder="이메일 : ${info.email }">
+      <label>이메일</label>
+        <input name="email" id ="email" type="text" class="email" value="${info.email }">
       </div>
       
      <div class="textForm">
@@ -353,11 +358,13 @@ input {
        <input  type="text" disabled class="nickname" id="sample4_postcode" placeholder="우편번호 : ${info.post}" name="post"> 
          <input type="text" disabled class="nickname" id="sample4_roadAddress" placeholder="도로명주소 : ${info.addr1}" name="addr1">
       <span id="guide" style="color:#999;display:none"></span>
-      <input type="text" class="nickname" id="sample4_detailAddress" placeholder="상세주소 : ${info.addr2}" name="addr2">
+      <label>상세주소</label>
+      <input type="text" class="nickname" id="sample4_detailAddress" value ="${info.addr2}" name="addr2">
      </div>
      
       <div class="textForm">
-        <input type="text" class="nickname id="phone" name="phone" placeholder=" 연락처 : ${info.phone }">
+      	<label>연락처</label>
+        <input type="text" class="nickname id="phone" name="phone" value="${info.phone }">
       </div>
         <button class="btn-bottom">회원정보 수정</button>
 </form>

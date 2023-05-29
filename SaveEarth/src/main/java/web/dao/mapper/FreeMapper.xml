@@ -133,6 +133,8 @@
 	) FREEMAIN
 	WHERE rnum BETWEEN #{paging.startNo} and #{paging.endNo}
 	ORDER BY free_no DESC
+	
+	
 
 </select>
 
@@ -145,7 +147,5 @@
 select * from Free
 where user_no = #{userNo}
 ORDER BY free_no DESC
-
 </select>
-
 </mapper>
