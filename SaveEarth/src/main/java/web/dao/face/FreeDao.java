@@ -93,7 +93,11 @@ public interface FreeDao {
 	public List<Free> mypageList(int userno);
 
 	
-
+	
+	
+	
+	
+	
 	
 
 
