@@ -162,15 +162,14 @@ public class FreeServiceImpl implements FreeService{
 		
 		freeDao.updateFree(freeBoard);
 		
-		
 	}
+	
 
 	@Override
-	public List<Free> getList(int userno) {
-		return freeDao.getListMypage(userno);
-	}
-
+	public List<Free> mypageList(int userno) {
 	
+		return freeDao.mypageList(userno);
+}
 
 	
 

@@ -58,12 +58,17 @@ public interface FreeService {
 	 */
 	public void update(Free freeBoard);
 
+	
 	/**
-	 * 마이페이지 - 내가 쓴 게시글 보기
+	 * 마이페이지 - 내가작성한 게시글 보기
 	 * @param userno
 	 * @return
 	 */
-	public List<Free> getList(int userno);
+	public List<Free> mypageList(int userno);
+
+
+
+
 
 
 
