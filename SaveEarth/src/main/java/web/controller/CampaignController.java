@@ -4,19 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import web.dto.Calendar;
 import web.dto.Campaign;
+import web.dto.Certification;
 import web.service.face.CampService;
 import web.util.Paging;
 
@@ -27,14 +32,15 @@ public class CampaignController {
 	@Autowired CampService campService;
 	
 	@GetMapping("/main")
-	public void campMainGet(Model model, @RequestParam(defaultValue = "0") int curPage) {
+	public void campMainGet(HttpSession session, Model model, @RequestParam(defaultValue = "0") int curPage) {
 		logger.info("/campaign/main [GET]");
 		logger.info("curPage : {}", curPage);
 		
 		Paging paging = campService.getPaging(curPage);
 		
 		//캠페인 불러오기
-		List<Campaign> campList = campService.getList(paging);
+		List<Campaign> campList = campService.getCampList(paging);
+		
 		
 		for(Campaign c : campList) {
 			logger.info("{}", c);
@@ -42,14 +48,29 @@ public class CampaignController {
 		
 		model.addAttribute("campList", campList);
 		
+		//달력 불러오기
+		if(session.getAttribute("isLogin") != null) {
+//			List<Certification> certList = campService.getcertList(session.getAttribute("loginId"));
+		} else {
+			List<Calendar> calList = campService.getCalendar();
+			
+			for(Calendar c : calList) {
+				logger.info("{}", c);
+			}
+			
+			model.addAttribute("calList", calList);
+			
+		}
+		
 	}
 	
 	@PostMapping("/main")
-	public String campMainPost(MultipartFile partFile, String partTitle, String partContent) {
+	public String campMainPost(MultipartFile partFile, Certification certification ) {
 		logger.info("/campaign/main [POST]");
 		logger.info("{}", partFile);
-		logger.info("{}", partTitle);
-		logger.info("{}", partContent);
+		logger.info("********** {}", certification);
+		
+		campService.writePart(certification, partFile);
 		
 		
 		return "redirect:/campaign/main";
@@ -80,7 +101,7 @@ public class CampaignController {
 			logger.info("전체 선택됨");
 			
 			Paging paging = campService.getPaging(curPage);
-			campList = campService.getList(paging);
+			campList = campService.getCampList(paging);
 			
 			for(Campaign c : campList) {
 				logger.info("{}", c);

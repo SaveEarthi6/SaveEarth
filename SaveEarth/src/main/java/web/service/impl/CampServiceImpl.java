@@ -1,16 +1,25 @@
 package web.service.impl;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
+import javax.servlet.ServletContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import web.dao.face.CampDao;
+import web.dto.Calendar;
 import web.dto.Campaign;
+import web.dto.Certification;
+import web.dto.CertificationFile;
 import web.service.face.CampService;
 import web.util.Paging;
 
@@ -19,6 +28,7 @@ public class CampServiceImpl implements CampService {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired CampDao campDao;
+	@Autowired ServletContext context;
 	
 	@Override
 	public Paging getPaging(int curPage) {
@@ -35,7 +45,7 @@ public class CampServiceImpl implements CampService {
 	}
 	
 	@Override
-	public List<Campaign> getList(Paging paging) {
+	public List<Campaign> getCampList(Paging paging) {
 
 		logger.info("getList() - paging : {}", paging);
 		
@@ -76,5 +86,62 @@ public class CampServiceImpl implements CampService {
 //		return campDao.selectCampListByState(param);
 		return campDao.selectCampListByState(paging, state);
 	}
+	
+	@Override
+	public void writePart(Certification certification, MultipartFile partFile) {
+
+		//partNo 조회해오기
+		int nextVal = campDao.selectPartNo();
+		
+		logger.info("writePart() - nextVal : {}", nextVal);
+		
+		certification.setPartNo(nextVal);
+		
+		//인증 테이블 삽입
+		campDao.insertCert(certification);
+		
+		//파일 테이블 삽입
+		if(partFile.getSize() <= 0) {
+			return;
+		}
+		
+		String storedPath = context.getRealPath("upload");
+		logger.info("storedPath : {}", storedPath);
+		
+		File storedFolder = new File(storedPath);
+		if(!storedFolder.exists()) {
+			storedFolder.mkdir();		
+		}
+		
+		String originName = partFile.getOriginalFilename();
+		String storedName = UUID.randomUUID().toString().split("-")[0];
+		
+		//실제 저장될 파일 정보 객체
+		File dest = new File(storedFolder, storedName);
+		
+		try {
+			partFile.transferTo(dest);
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		CertificationFile certFile = new CertificationFile();
+		
+		certFile.setPartNo(nextVal);
+		certFile.setCampNo(certification.getCampNo());
+		certFile.setPartOriginName(originName);
+		certFile.setPartStoredName(storedName);
+		
+		campDao.insertFile(certFile);
+	}
+	
+	@Override
+	public List<Calendar> getCalendar() {
+
+		return campDao.selectCalList();
+	}
+
 	
 }

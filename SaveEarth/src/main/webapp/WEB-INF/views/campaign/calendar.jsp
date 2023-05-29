@@ -106,6 +106,23 @@ document.addEventListener('DOMContentLoaded', function() {
 			, center: 'title'
 			, end: 'myCustomButton'
 		},
+		events: [
+			<c:forEach var="calendar" items="${calList }">
+			{
+				title: ${calendar.calName}
+				, start: ${calendar.calDate}
+			}
+			</c:forEach>
+			
+		],
+		dateClick: function(info) {		//날짜 클릭하면 해당 일 출력
+			var string = info.date
+			day = string.getDate()
+			console.log(day)
+			
+			//여기에 해당 일자 목록 불러오는 에이젝스..? 혹은 메소드 추가해야 함
+			
+		}
 // 		selectable : true,
 // 		select: function(arg) {		//날짜 클릭 이벤트
 // 			console.log(calendar.getDate())
@@ -121,14 +138,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			
 		
 // 		},
-		dateClick: function(info) {		//날짜 클릭하면 해당 일 출력
-			var string = info.date
-			day = string.getDate()
-			console.log(day)
-			
-			//여기에 해당 일자 목록 불러오는 에이젝스..? 혹은 메소드 추가해야 함
-			
-		}
 
 	});
     calendar.render();

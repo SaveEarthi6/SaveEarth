@@ -3,7 +3,11 @@ package web.service.face;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import web.dto.Calendar;
 import web.dto.Campaign;
+import web.dto.Certification;
 import web.util.Paging;
 
 public interface CampService {
@@ -22,7 +26,7 @@ public interface CampService {
 	 * @param paging - 계산된 페이징 객체
 	 * @return 해당 페이지에 로드될 캠페인 목록
 	 */
-	public List<Campaign> getList(Paging paging);
+	public List<Campaign> getCampList(Paging paging);
 
 	/**
 	 * 전달파라미터로 전달된 캠페인 번호와 일치하는 캠페인 정보 얻기
@@ -49,5 +53,22 @@ public interface CampService {
 	 * @return 페이지에 로드될 캠페인 목록
 	 */
 	public List<Campaign> getListByState(Paging paging, String state);
+
+	/**
+	 * 입력받은 인증글 객체와 첨부파일을 DB에 저장하기
+	 * 
+	 * @param certification - 입력받은 인증글 정보가 담긴 DTO
+	 * @param partFile - 첨부파일
+	 */
+	public void writePart(Certification certification, MultipartFile partFile);
+
+	/**
+	 * DB에서 달력 기념일 불러오기
+	 * 
+	 * @return 달력 DB에 존재하는 기념일 리스트
+	 */
+	public List<Calendar> getCalendar();
+
+	
 
 }
