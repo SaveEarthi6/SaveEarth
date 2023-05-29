@@ -5,7 +5,10 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import web.dto.Calendar;
 import web.dto.Campaign;
+import web.dto.Certification;
+import web.dto.CertificationFile;
 import web.util.Paging;
 
 public interface CampDao {
@@ -20,5 +23,13 @@ public interface CampDao {
 
 //	public List<Campaign> selectCampListByState(Map<String, Object> param);
 	public List<Campaign> selectCampListByState(@Param("paging") Paging paging, @Param("state") String state);
+
+	public int selectPartNo();
+
+	public void insertCert(Certification certification);
+
+	public void insertFile(CertificationFile certFile);
+
+	public List<Calendar> selectCalList();
 
 }
