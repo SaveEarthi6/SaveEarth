@@ -233,7 +233,6 @@ public class FreeServiceImpl implements FreeService{
 		}
 		
 		
-		
 	}
 	
 	@Override
@@ -242,6 +241,12 @@ public class FreeServiceImpl implements FreeService{
 		
 		return freeDao.selectFreeByKeyword(paging, keyword);
 	}
+
+	@Override
+	public List<Free> mypageList(int userno) {
+	
+		return freeDao.mypageList(userno);
+}
 
 	
 

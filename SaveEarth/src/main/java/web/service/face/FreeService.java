@@ -66,6 +66,19 @@ public interface FreeService {
 	 */
 	public List<Map<String, Object>> search(Paging paging, String keyword);
 
+	
+	/**
+	 * 마이페이지 - 내가작성한 게시글 보기
+	 * @param userno
+	 * @return
+	 */
+	public List<Free> mypageList(int userno);
+
+
+
+
+
+
 
 
 

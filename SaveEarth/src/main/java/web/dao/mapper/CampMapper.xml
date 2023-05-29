@@ -5,17 +5,64 @@
 
 <mapper namespace="web.dao.face.CampDao">
 
-<select id="selectCntAll" resultType="int">
-	SELECT count(*) FROM campaign
-</select>
-
-<select id="selectCamp" resultType="web.dto.Campaign" parameterType="web.util.Paging">
-	SELECT * FROM (
-    	SELECT rownum rnum, C.* FROM (
-        	SELECT * FROM campaign ORDER BY camp_no DESC
-    	) C
-	) CAMP
-	WHERE rnum BETWEEN #{startNo} AND #{endNo}
-</select>
+	<select id="selectCntAll" resultType="int">
+		SELECT count(*) FROM campaign
+	</select>
+	
+	<select id="selectCampList" resultType="web.dto.Campaign" parameterType="web.util.Paging">
+		SELECT * FROM (
+	    	SELECT rownum rnum, C.* FROM (
+	        	SELECT * FROM campaign ORDER BY camp_no DESC
+	    	) C
+		) CAMP
+		WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
+	
+	<select id="selectCamp" resultType="map" parameterType="int">
+		SELECT c.*, f.*
+		FROM campaign c 
+		LEFT OUTER JOIN campaign_file f
+		ON c.camp_no = f.camp_no
+		WHERE c.camp_no = #{campNo}
+	</select>
+	
+	<select id="selectCntAllByState" resultType="int" parameterType="string">
+		SELECT count(*) FROM campaign
+		WHERE camp_state = #{state}
+	</select>
+	
+<!-- 	<select id="selectCampListByState" resultType=""> -->
+<!-- 		SELECT * FROM campaign -->
+<!-- 		WHERE camp_state = #{state} -->
+<!-- 	</select> -->
+	
+	<select id="selectCampListByState" resultType="web.dto.Campaign" parameterType="map">
+		SELECT * FROM (
+	    	SELECT rownum rnum, C.* FROM (
+	        	SELECT * FROM campaign 
+	        		WHERE camp_state = #{state} 
+	        		ORDER BY camp_no DESC
+	    	) C
+		) CAMP
+		WHERE rnum BETWEEN #{paging.startNo} AND #{paging.endNo}
+	</select>
+	
+	<select id="selectPartNo" resultType="int">
+		SELECT certification_seq.nextval FROM dual
+	</select>
+	
+	<insert id="insertCert" parameterType="web.dto.Certification">
+		INSERT INTO certification (part_no, user_no, camp_no, part_title, part_content)
+		VALUES (#{partNo}, #{userNo}, #{campNo}, #{partTitle}, #{partContent})
+	</insert>
+	
+	<insert id="insertFile" parameterType="web.dto.CertificationFile">
+		INSERT INTO certification_file (part_file_no, part_no, camp_no, part_origin_name, part_stored_name)
+		VALUES (certification_file_no_seq.nextval, #{partNo}, #{campNo}, #{partOriginName}, #{partStoredName})
+	</insert>
+	
+	<select id="selectCalList" resultType="web.dto.Calendar">
+		SELECT * FROM calendar
+	</select>
 
 </mapper>

@@ -85,6 +85,7 @@ public interface FreeDao {
 	public void updateBoard(Free freeBoard);
 
 	/**
+<<<<<<< HEAD
 	 * 검색어와 일치하는 게시글을 조회한다
 	 * @param paging - 페이징 객체
 	 * @param keyword - 입력한 검색어
@@ -107,6 +108,15 @@ public interface FreeDao {
 	 * @return
 	 */
 	public List<Free> mypageList(int userno);
+
+
+
+	
+
+	
+
+
+	
 
 	
 }

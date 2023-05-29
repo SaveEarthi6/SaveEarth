@@ -5,9 +5,11 @@
 <c:import url="../layout/header.jsp"/>
 
 <!-- 풀캘린더 -->
-<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js'></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js"></script>
 
 
 <style type="text/css">
@@ -117,8 +119,67 @@
 	color: inherit;
 }
 
+#btnModal {
+	width: 0;
+	height: 0;
+	display: none;
+}
+
 
 </style>
+
+
+<script type="text/javascript">
+
+
+
+//캠페인 상태 버튼 ajax
+ $(function(){
+	$(".preface").click(function() {
+		console.log("test")
+		console.log($(this).html())
+		
+		const state = $(this).html()
+		
+		$.ajax({
+			type: "post"
+			, url : "./preface"
+			, data : {state : state}
+			, dataType : "html"
+			, success : function(res) {
+				console.log('성공')
+				
+				$("#campListJsp").html(res)
+			}
+			, error : function() {
+				console.log('실패')
+				
+			}
+		})
+
+	})
+	
+
+})
+
+
+
+</script>
+
+<script type="text/javascript">
+
+//인증글 버튼 클릭 모달
+const myModal = document.getElementById('insertModal')
+const myInput = document.getElementById('myInput')
+
+myModal.addEventListener('shown.bs.modal', () => {
+  myInput.focus()
+})
+
+//파일 전송 api 제이쿼리
+
+
+</script>
 
 
 
@@ -132,51 +193,90 @@
 
 <!-- 나중에 c:if 로 감싸줘야 함 -->
 
-<div id="calName">나의 달력</div>
-
-<div id="calendar"></div>
-
-
-<script>
-
-document.addEventListener('DOMContentLoaded', function() {
-	var calendarEl = document.getElementById('calendar');
-	var calendar = new FullCalendar.Calendar(calendarEl, {
-		themeSystem: 'bootstrap5'
-		, customButtons: {
-			myCustomButton: {
-				text: '인증글 작성하기'
-				, click: function() {
-					alert('인증글 작성하기 모달')
-				}
-			}
-
-		}
-		, initialView: 'dayGridMonth'		//초기 로드될 때 보이는 캘린더화면(month)
-		, headerToolbar: {
-			start: 'prev next today'
-			, center: 'title'
-			, end: 'myCustomButton'
-		}
-		//타이틀 포멧
-		, locale: 'ko'	//한국어 설정
-	});
-	calendar.render();
-});
-
-</script>
-
-<!-- 달력 커스텀 해야함 -->
+	<div id="calName">나의 달력</div>
+	
+	<div id="calendarImport">
+	
+	<c:import url="./calendar.jsp"></c:import>
+	
+	</div>
+	
+	<!-- 달력 커스텀 해야함 -->
 
 </div>
+
+
+<div id="writeModal" style="height: 0; width: 0;">
+
+<!-- Button trigger modal -->
+<button id="btnModal" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></button>
+
+<form id="partForm" action="./main" method="post" enctype="multipart/form-data">
+<!-- Modal -->
+<div class="modal fade insertModal" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog">
+    	<div class="modal-content">
+    
+		    <!-- Modal Header -->
+			<div class="modal-header">
+		        <h5 class="modal-title" id="staticBackdropLabel">인증글 작성하기</h5>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>	<!-- close 클릭시 modal 한번 더 띄위기 -->
+			</div>
+		      
+		      
+		    <!-- Modal Body -->  
+		    
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="partNo">참여할 캠페인</label>
+					<select id="partNo" class="form-control" name="campNo">
+						<c:forEach var="campaign" items="${campList }">
+						<option value="${campaign.campNo }">${campaign.campTitle }</option>
+						</c:forEach>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="partTitle">제목</label>
+					<input type="text" class="form-control" id="partTitle" name="partTitle" placeholder="제목을 입력하세요">
+				</div>
+				<br>
+				<div class="form-group">
+					<label for="partContent">내용</label>
+					<input type="text" class="form-control" id="partContent" name="partContent" placeholder="내용을 입력하세요">				
+				</div>
+				<br>
+				<div class="form-group">
+					<label for="partFile">첨부파일</label>
+					<input type="file" class="form-control" id="partFile" name="partFile">
+				</div>
+				<div>
+					<input type="hidden" name="userNo" value="1">	<!-- 회원번호 -->
+				</div>
+			</div>
+			
+			
+			<!-- Modal Footer -->
+			<div class="modal-footer" id="btnWrap">
+		        <button type="button" class="btn btn-secondary" id="btnCancel" data-bs-dismiss="modal">취소하기</button>
+		        <button type="submit" class="btn btn-primary" id="btnWrite">작성하기</button>
+		        <!-- onclick시 함수 ajax 함수 호출..? -->
+			</div>
+		</div>
+	</div>
+</div>
+</form>
+
+</div>
+
+
 
 <div id="line"><hr></div>
 
 <div id="campList">
 	<div class="nav">
-		<button id="navButton" type="button" class="btn btn-outline-success">전체</button>
-		<button id="navButton" type="button" class="btn btn-outline-success">진행중</button>
-		<button id="navButton" type="button" class="btn btn-outline-success">마감</button>
+		<button id="navButton" type="button" class="btn btn-outline-success preface">전체</button>
+		<button id="navButton" type="button" class="btn btn-outline-success preface">진행중</button>
+		<button id="navButton" type="button" class="btn btn-outline-success preface">마감</button>
 		
 	    <span class="search">
 	        <input type="text" name="search" class="search_input">
@@ -185,56 +285,14 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 	</div>
 	
+<div id="campListJsp">
 
-	<div id="campList" class="row">
-		<div class="col-1"></div>
-		
-		<div id="camps" class="row col-10">
-		
-			<c:forEach var="campaign" items="${campList }" begin="0" end="2">
-			<div id="camp" class="col">
-			<a href="./detail?campno=${campaign.campNo }" id="campTag">
-				<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
-				<div id="campTitle">
-					<span id="titleTag">[${campaign.campState }]</span>
-					<span id="title">${campaign.campTitle }</span>
-				</div>
-			</a>
-			</div>
-			</c:forEach>
-			
-		</div>
-		
-		<div class='col-1'></div>
-	</div>
+<c:import url="./campList.jsp"/>
 
-	<div id="campList" class="row">
-		<div class="col-1"></div>
-		
-		<div id="camps" class="row col-10">
-		
-			<c:forEach var="campaign" items="${campList }" begin="3" end="5">
-			<div id="camp" class="col">
-			<a href="./detail?campno=${campaign.campNo }" id="campTag">
-				<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
-				<div id="campTitle">
-					<span id="titleTag">[${campaign.campState }]</span>
-					<span id="title">${campaign.campTitle }</span>
-				</div>
-			</a>
-			</div>
-			</c:forEach>
-			
-		</div>
-		
-		<div class='col-1'></div>
-	</div>
-
-
-	
 </div>
 
-	
+</div>
+
 
 <c:import url="../layout/paging.jsp"/>
 
