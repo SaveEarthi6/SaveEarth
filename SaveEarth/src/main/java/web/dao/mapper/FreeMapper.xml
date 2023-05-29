@@ -145,7 +145,5 @@
 select * from Free
 where user_no = #{userNo}
 ORDER BY free_no DESC
-
 </select>
-
 </mapper>
