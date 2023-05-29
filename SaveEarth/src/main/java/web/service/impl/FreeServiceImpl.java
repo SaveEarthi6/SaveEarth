@@ -164,6 +164,12 @@ public class FreeServiceImpl implements FreeService{
 		
 		
 	}
+
+	@Override
+	public List<Free> getList(int userno) {
+		return freeDao.getListMypage(userno);
+	}
+
 	
 
 	

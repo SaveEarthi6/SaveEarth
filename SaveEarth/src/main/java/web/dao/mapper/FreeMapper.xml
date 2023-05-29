@@ -97,4 +97,35 @@
 	WHERE free_no = #{freeNo}
 </update>
 
+
+<select id="getListMypage" resultType="web.dto.Free">
+
+select userno,
+    id,
+    pw,
+    name
+    nick,
+    birth,
+    email,
+    post,
+    addr1,
+    addr2,
+    phone,
+    
+    f.free_no,
+    f.Free_head,
+    f.Free_title,
+    f.Free_content,
+    f.Free_views,
+    f.Free_create,
+    f.Free_modify
+from member m
+inner JOIN FREE f
+on m.userno = f.user_no
+where m.id = #{id};
+
+
+</select>
+
+
 </mapper>

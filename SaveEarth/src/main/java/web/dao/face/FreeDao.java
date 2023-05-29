@@ -77,6 +77,14 @@ public interface FreeDao {
 	 */
 	public void updateFree(Free freeBoard);
 
+	/**
+	 * 마이페이지 - 내가쓴 게시글 보기
+	 * @param userno
+	 * @return
+	 */
+	public List<Free> getListMypage(int userno);
+
+
 	
 	
 }
