@@ -34,10 +34,20 @@ public interface MemberDao {
 	 */
 	public Member selectInfoById(String loginid);
 
+	/**
+	 * 회원가입 아이디 중복확인
+	 * @param member
+	 * @return
+	 */
 	public int overlappedID(Member member);
 
 	
-
+	/**
+	 * 회원가입 이메일 중복확인
+	 * @param member
+	 * @return
+	 */
+	public int overlappedEmail(Member member);
 
 	/**
 	 * 회원정보 삭제
@@ -50,6 +60,25 @@ public interface MemberDao {
 	 * @param member
 	 */
 	public void updateUser(Member member);
+
+	
+	/**
+	 * id email 있는 거 확인
+	 * @param member
+	 * @return 1 존재 0 없음
+	 */
+	public int existIdEmail(Member member);
+
+	
+	/**
+	 *  임시비밀번호 업데이트
+	 * @param member
+	 * @return id와 임시비밀번호
+	 */
+	public void updateTemPw(Member member);
+
+
+	
 
 
 

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 <!DOCTYPE html>
 
 <c:import url="../layout/header.jsp"></c:import>
@@ -110,7 +112,50 @@ button{ cursor: pointer; } /* 모든 버튼에 마우스손모양 처리 */
       </ul>
       <!--데이터를 서버로 전송-->
       <button type="submit">로그인</button>
-      
+      <!--  카카오 로그인 버튼 -->
+      <a href="https://kauth.kakao.com/oauth/authorize?client_id=afd568c5b46891ae3dde245d70d25e21&redirect_uri=http://localhost:8888/member/kakao
+&response_type=code"><img src="/resources/img/kakaoLogin.png" style="height:30px"/></a>
+ 
+ 	   <!-- 네이버 로그인 버튼 -->	
+	  
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.security.SecureRandom" %>
+<%@ page import="java.math.BigInteger" %>
+
+	  
+<!-- <!-- <script type = "text/javascript" src = "https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script> --> 
+ 
+<!-- <!-- <div id = "naver_id_login"></div> --> 
+ 
+<!-- <!--  <script type="text/javascript"> --> 
+ 
+<!-- //          var naver_id_login = new naver_id_login("GHbqes62pzw1QpLMxiNo", "http://localhost:8888/member/naver");    // Client ID, CallBack URL 삽입 -->
+<!-- //                                             // 단 'localhost'가 포함된 CallBack URL -->
+<!-- //          var state = naver_id_login.getUniqState(); -->
+        
+<!-- //          naver_id_login.setButton("white", 4, 40); -->
+<!-- //          naver_id_login.setDomain("http://localhost:8888/member/naver");    //  URL -->
+<!-- //          naver_id_login.setState(state); -->
+<!-- //          naver_id_login.setPopup(); -->
+<!-- //          naver_id_login.init_naver_id_login(); -->
+ 
+<!-- <!-- </script>  --> 
+
+<%
+    String clientId = "GHbqes62pzw1QpLMxiNo";//애플리케이션 클라이언트 아이디값";
+    String redirectURI = URLEncoder.encode("http://localhost:8888/member/naver", "UTF-8");
+    SecureRandom random = new SecureRandom();
+    String state = new BigInteger(130, random).toString();
+    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code"
+         + "&client_id=" + clientId
+         + "&redirect_uri=" + redirectURI
+         + "&state=" + state;
+    session.setAttribute("state", state);
+ %>
+  <a href="<%=apiURL%>"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
+
+    
+     
     </fieldset>
   </form>
 </div>

@@ -43,6 +43,11 @@ public class Mail {
 	public void setContent(String content) {
 		this.content = content;
 	}
+
+	public void mailsend(Mail mail) {
+		
+		
+	}
 	
 	
 	

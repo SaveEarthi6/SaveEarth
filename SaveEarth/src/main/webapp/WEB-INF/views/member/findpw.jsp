@@ -19,30 +19,61 @@
 
 <!-- 20230525임시비밀번호 -->
 <script>
-    $("#check").click(function () {
-        const userEmail = $("#email").val();
-        const sendEmail = document.forms["sendEmail"];
-        $.ajax({
-            type: 'post',
-            url: 'http://localhost:8888/member/email',
-            data: {
-                'memberEmail': userEmail
-            },
-            /* dataType: "text", */
-            success: function (result) {
-                if(result == 1){
-                    // 중복되는 것이 있다면 no == 일치하는 이메일이 있다!
-                    alert('임시비밀번호를 전송 했습니다.');
-                    sendEmail.submit();
-                }else {
-                    alert('가입되지 않은 이메일입니다.');
-                }
+//      $("#check").click(function () {
+//         const userEmail = $("#email").val();
+//         const sendEmail = document.forms["sendEmail"];
+//         $.ajax({
+//             type: 'post',
+//             url: 'http://localhost:8888/member/email',
+//             data: {
+//                 'memberEmail': userEmail
+//             },
+//             /* dataType: "text", */
+//             success: function (result) {
+//                 if(result == 1){
+//                     // 중복되는 것이 있다면 no == 일치하는 이메일이 있다!
+//                     alert('임시비밀번호를 전송 했습니다.');
+//                     sendEmail.submit();
+//                 }else {
+//                     alert('가입되지 않은 이메일입니다.');
+//                 }
 
-            },error: function () {
-                console.log('에러 체크!!')
-            }
-        })
-    });
+//             },error: function () {
+//                 console.log('에러 체크!!')
+//             }
+//         })
+//     });  
+     
+    $(function(){
+    	$("#check").click(function() {
+    		console.log("test")
+
+    		const id = $("#id").val();
+    		const email = $("#email").val();
+    		$("#check").attr("type","button");
+    		$.ajax({
+    			type: "get",
+
+    			url: "http://localhost:8888/member/findIdEmail",
+    			data:{id:id, email:email},
+    			success: function(data){
+    				if(data == 1) {
+    					$("#checkemail").text("이메일로 임시비밀번호가 발송되었습니다");
+    					$("#check").attr("type","button");
+    					
+    					
+    				} else {
+    					$("#checkemail").text("아이디/이메일이 일치하지 않습니다");
+    					$("#check").attr("type","submit");
+    				}
+    			}
+    		})
+    	})
+    	
+
+    })     
+    
+    
 </script>
 
 
@@ -184,17 +215,18 @@ width: 700px;
 
 
 
-<form action="./email" method="POST">
+<form action="./findpw" method="POST">
 
       <div class="textForm">
         <input name="id" id="id" type="text" class="id" placeholder="아이디 ">
       </div>
+      <span id= "checkid"></span>
       
       <div class="textForm">
       <label for="email">이메일</label>
       <input name="email" id="email" type="email" class="email" placeholder="이메일 " 
         required="/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)?$/i">
-        
+      <span id="checkemail"></span>  
         
       </div>
      
