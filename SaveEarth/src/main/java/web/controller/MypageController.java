@@ -105,6 +105,7 @@ public class MypageController {
 
 		for(Map m : list) {
 			logger.info(" list {} ", m);
+			
 		}
 		
 		model.addAttribute("freeHead", freeHead);
