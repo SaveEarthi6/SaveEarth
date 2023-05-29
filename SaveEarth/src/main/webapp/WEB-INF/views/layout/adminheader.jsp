@@ -107,6 +107,7 @@ body {
 	right: 18px;
 }
 
+
 </style>
 
 
@@ -124,6 +125,7 @@ body {
 	
 	<c:if test="${not empty isLogin and isLogin }">
 	<a href="/member/logout" class="lefttop">로그아웃</a>
+	<a href="/admin/free" class="righttop">관리자페이지</a>
 	</c:if>
 	</div>
 </div>
