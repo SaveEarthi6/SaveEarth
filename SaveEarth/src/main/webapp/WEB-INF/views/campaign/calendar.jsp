@@ -135,6 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			
 // 			//현재 어딜 클릭해도 오늘 날짜 출력
 // 			//일단 일 추출하는거까진 성공
+
 			
 		
 // 		},
