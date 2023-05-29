@@ -127,9 +127,9 @@ public class FreeServiceImpl implements FreeService{
 	}
 	
 	@Override
-	public List<Map<String, Object>> list(Paging paging) {
+	public List<Map<String, Object>> list(Paging paging, String freeHead) {
 		
-		return freeDao.selectList(paging);
+		return freeDao.selectList(paging, freeHead);
 	}
 
 	
@@ -139,6 +139,29 @@ public class FreeServiceImpl implements FreeService{
 		freeDao.updateHit(freeBoard);
 		
 		return freeDao.selectFreeBoard(freeBoard);
+		
+	}
+
+	@Override
+	public void delete(Free free, FreeFile freeFile) {
+		
+		freeDao.deleteFile(freeFile);
+		freeDao.delete(free);
+		
+	}
+	
+	@Override
+	public FreeFile getFreeFile(Free freeBoard) {
+		
+		return freeDao.selectFreeFile(freeBoard);
+		
+	}
+	
+	@Override
+	public void update(Free freeBoard) {
+		
+		freeDao.updateFree(freeBoard);
+		
 		
 	}
 	

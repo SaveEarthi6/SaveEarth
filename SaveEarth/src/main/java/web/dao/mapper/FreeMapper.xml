@@ -29,16 +29,38 @@
 	SELECT count(*) FROM free
 </select>
 
-<select id="selectList" resultType="map" parameterType="web.util.Paging">
+<select id="selectList" resultType="map" parameterType="map">
 	SELECT * FROM(
 		SELECT rownum rnum, (SELECT m.id FROM member m WHERE m.userno = F.user_no) id, F.* FROM (
 			SELECT
 			*
 			FROM free
+	
+		<if test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('사담')">
+			WHERE free_head = #{freeHead}
 			ORDER BY free_no DESC
+		</if>
+		
+		<if test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('정보')">
+			WHERE free_head = #{freeHead}
+			ORDER BY free_no DESC
+		</if>
+		
+		<if test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('질문')">
+			WHERE free_head = #{freeHead}
+			ORDER BY free_no DESC
+		</if>
+		
+		<if test="freeHead == null">
+			ORDER BY free_no DESC
+		</if>
+			
 		) F
 	) FREEMAIN
-	WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	WHERE rnum BETWEEN #{paging.startNo} AND #{paging.endNo}
+	ORDER BY free_no DESC
+	
+	
 </select>
 
 
@@ -50,6 +72,28 @@
 <update id="updateHit" parameterType="web.dto.Free">
 	UPDATE free set
 	free_views = free_views + 1
+	WHERE free_no = #{freeNo}
+</update>
+
+<delete id="delete" parameterType="web.dto.Free">
+	DELETE free
+	WHERE free_no = #{freeNo}
+</delete>
+
+<delete id="deleteFile" parameterType="web.dto.FreeFile">
+	DELETE free_file
+	WHERE free_no = #{freeNo}
+</delete>
+
+
+<select id="selectFreeFile" parameterType="web.dto.Free" resultType="web.dto.FreeFile">
+	SELECT * FROM free_file
+	WHERE free_no = #{freeNo}
+</select>
+
+<update id="updateFree" parameterType="web.dto.Free">
+	UPDATE free SET
+	free_title = #{freeTitle}, free_content = #{freeContent}, free_head = #{freeHead}
 	WHERE free_no = #{freeNo}
 </update>
 

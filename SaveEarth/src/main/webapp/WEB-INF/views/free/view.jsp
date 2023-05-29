@@ -4,13 +4,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+
 <c:import url="../layout/header.jsp"/>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>자유게시판 상세</title>
 
 <style type="text/css">
 
@@ -43,22 +39,6 @@
 
 </style>
 
-<script type="text/javascript">
-$(document).ready(function() {
-	$("#btnList").click(function() {
-		location.href = "./list"
-	})
-	
-	$("#btnUpdate").click(function() {
-		location.href = "./update?boardNo=${viewBoard.boardNo}"
-	})
-	
-	$("#btnDelete").click(function() {
-		location.href = "./delete?boardNo=${viewBoard.boardNo}"
-	})
-
-
-</script>
 
 <!-- 자유게시판 디테일 이미지 -->
 <div>
@@ -71,8 +51,8 @@ $(document).ready(function() {
 
 <div style= "margin-left: 1100px; padding-top: 50px; padding-bottom: 50px;">
 	<c:if test="${ userInfo.userno eq view.userNo }">
-		<button id="btnUpdate" class="btn btn-success">수정</button>
-		<button id="btnDelete" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">삭제</button>
+		<button onclick="location.href='./update?freeNo=${view.freeNo}'" id="btnUpdate" class="btn btn-success">수정</button>
+		<button onclick="location.href='./delete?freeNo=${view.freeNo}'" id="btnDelete" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">삭제</button>
 	</c:if>
 </div>
 
@@ -82,7 +62,7 @@ $(document).ready(function() {
 	<td class="table-light">글번호</td><td colspan="3">${view.freeNo }</td>
 </tr>
 <tr>
-	<td class="table-light">아이디</td><td>${view.userNo }</td>
+	<td class="table-light">아이디</td><td>${userInfo.id }</td>
 	<td class="table-light">닉네임</td><td>${nick }</td>
 </tr>
 <tr>
@@ -100,12 +80,23 @@ $(document).ready(function() {
 </tr>
 </table>
 
+
 <!-- 첨부파일 다운 -->
 <div class="mb-3">
-	<c:if test="${not empty boardFile }">
-		<a href="./download?fileNo=${boardFile.fileNo }">${boardFile.originName }</a>
+	<c:if test="${not empty freeFile }">
+		<a href="./download?fileNo=${free.fileNo }">${freeFile.FreeOriginName }</a>
 	</c:if>
 </div>
+
+<!-- 첨부파일 -->
+<div class="mb-3">
+	<c:if test="${not empty freeFile }">
+		<a href="../upload/${freeFile.FreeStoredName }" download="${freeFile.FreeOriginName }">
+			${freeFile.FreeOriginName }
+		</a>
+	</c:if>
+</div>
+
 
 <!-- 버튼 -->
 <div class="text-center mb-3">

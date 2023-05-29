@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:import url="../layout/header.jsp"></c:import>
 
@@ -36,6 +37,23 @@
 	clear: both;
 }
 
+#navButton  {  
+ 	width: 100px;  
+}  
+
+#toList {
+	text-align: center;
+	margin: 30px 0;
+}
+
+#enroll {
+	margin-right: 20px;
+}
+
+#part {
+	margin-left: 20px;
+}
+
 </style>
 
 
@@ -45,23 +63,26 @@
 	<div class="col-1"></div>
 	<div id="content" class="col-10">
 		<div id="header">
-			<div id="title">캠페인 제목</div>
+			<div id="title">[ ${campDetail.CAMP_STATE } ] ${campDetail.CAMP_TITLE }</div>
 			<p id="clear"></p>
 			<div id="info">
-				<span>작성일</span>
-				<span>조회수</span>
+				<span id="enroll">등록일 : <fmt:formatDate value="${campDetail.CAMP_ENROLL }" pattern="yyyy/MM/dd"/></span>
+				<span>|</span>
+				<span id="part">참여현황 : </span>	<!-- DB에서 인증사진 campno으로 count해와서 넣기 -->
 			</div>
 		</div>
 	
 		<div id="clear"></div>
 		<hr>
 		<div id="posterWrap">
+			<!-- DB에서 불러온 이미지 넣기 -->
 			<img id="poster" src="../../resources/img/cat_3.jpg">
 		</div>
 	</div>
 	<div class="col-1"></div>
 </div>
 
+<div id="toList"><button onclick="location.href='./main';"  id="navButton" type="button" class="btn btn-outline-success">목록으로</button></div>
 
 </div>
 

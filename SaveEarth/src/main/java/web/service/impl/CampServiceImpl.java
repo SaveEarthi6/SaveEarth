@@ -1,6 +1,8 @@
 package web.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,14 +39,42 @@ public class CampServiceImpl implements CampService {
 
 		logger.info("getList() - paging : {}", paging);
 		
-		return campDao.selectCamp(paging);
+		return campDao.selectCampList(paging);
 	}
 	
 	@Override
-	public Campaign getCampDetail(int campno) {
+	public Map<String, Object> getCampDetail(int campno) {
 
 		logger.info("getCampDetail() - campno : {}", campno);
 		
-		return null;
+		return campDao.selectCamp(campno);
 	}
+	
+	@Override
+	public Paging getPagingByState(int curPage, String state) {
+		logger.info("getPagingByState() - curPage : {}", curPage);
+		logger.info("getPagingByState() - state : {}", state);
+		
+		//총 게시글 수 조회하기
+		int totalCount = campDao.selectCntAllByState(state);
+		logger.info("totalCount : {}", totalCount);
+		
+		//페이징 객체
+		Paging paging = new Paging(totalCount, curPage, 6);
+		
+		return paging;
+	}
+	
+	@Override
+	public List<Campaign> getListByState(Paging paging, String state) {
+		logger.info("getListByState() - state : {}", state);
+		
+		Map<String, Object> param = new HashMap<>();
+		param.put("paging", paging);
+		param.put("state", state);
+		
+//		return campDao.selectCampListByState(param);
+		return campDao.selectCampListByState(paging, state);
+	}
+	
 }

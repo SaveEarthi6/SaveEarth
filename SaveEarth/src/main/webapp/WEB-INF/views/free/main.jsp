@@ -127,9 +127,28 @@ select {
 <!-- 필터 기능 -->
 <script type="text/javascript">
 
-// 	var op1 = $("#op1").val()
-// 	location.href = "?freeHead=" + op1
+
+// function selectFilter () {
+// 	console.log("click")
 	
+// 	 console.log( $("#filter").val() )
+	   
+// 	   //curPage 초기화
+// 	   var filter = $("#filter").val();
+// 	   location.href = "?filter=" + filter
+
+	
+// }
+function selectfreeHead() {
+	
+var freeHead = $('#freeHead').val()
+
+console.log(freeHead)
+
+location.href="?freeHead=" + freeHead
+
+}
+
 </script>
 
 </head>
@@ -144,23 +163,43 @@ select {
 <!-- 말머리글 -->
 <div class= "head">
 
-<!-- 	<select> -->
-<!-- 		<option value="">선택</option> -->
-<!-- 		<option value= "talk">사담</option> -->
-<!-- 		<option value= "info">정보</option> -->
-<!-- 		<option value= "quest">질문</option> -->
-<!-- 	</select> -->
+<div class="btn-group" >
 
-<div class="btn-group">
+  <select id="freeHead" onchange="selectfreeHead(this.value)" name="freeHead" >
 
-  <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-  선택
-  </button>
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="/free/main?freeHead=사담" id="op1">사담</a></li>
-    <li><a class="dropdown-item" href="/free/main?freeHead=정보" id="op2">정보</a></li>
-    <li><a class="dropdown-item" href="/free/main?freeHead=질문" id="op3">질문</a></li>
-  </ul>
+  	    <c:choose>
+  	    
+        <c:when test="${freeHead eq '사담' }">
+			<option value="">전체</option>
+			<option value= "사담" selected>사담</option>
+			<option value= "정보">정보</option>
+			<option value= "질문">질문</option>
+		</c:when>
+       
+        <c:when test="${freeHead eq '정보' }">
+			<option value="">전체</option>
+			<option value= "사담">사담</option>
+			<option value= "정보" selected>정보</option>
+			<option value= "질문">질문</option>
+		</c:when>
+       
+		<c:when test="${freeHead eq '질문' }">
+			<option value="">전체</option>
+			<option value= "사담">사담</option>
+			<option value= "정보">정보</option>
+			<option value= "질문" selected>질문</option>
+		</c:when>
+		
+		<c:otherwise>
+			<option value="">전체</option>
+			<option value= "사담">사담</option>
+			<option value= "정보">정보</option>
+			<option value= "질문">질문</option>
+		</c:otherwise>
+		
+      </c:choose>
+
+  </select>
   
 </div>
 <!-- 글쓰기 버튼 -->
@@ -170,7 +209,7 @@ select {
 <!-- 게시판 -->
 <table id= "board" class= "table table-hover text-center">
 
-	<tr style= "background-color: #59A8D9; color: white;" >
+	<tr style= "background-color: #59A8D9; color: white;">
 		<th style="width: 20px;">글번호</th>
 		<th style="width: 20px;">말머리</th>
 		<th style="width: 30px; text-align:center">제목</th>
@@ -181,10 +220,9 @@ select {
 	
 <tbody>
 <c:forEach items="${list }" var="free">
-	<c:choose>
-		<c:when test="${free.FREEHEAD eq op1 }">
+
 			<tr>
-				<!-- map에 저장된 컬럼명과 동일하게 지정해주어야 한다 -->
+<!-- 				map에 저장된 컬럼명과 동일하게 지정해주어야 한다 -->
 				<td>${free.FREE_NO }</td>
 				<td>${free.FREE_HEAD}</td>
 				<td class="text-start" style="text-align:center"><a href="/free/view?freeNo=${free.FREE_NO }">${free.FREE_TITLE }</a></td>
@@ -192,41 +230,7 @@ select {
 				<td>${free.FREE_VIEWS }</td>
 				<td><fmt:formatDate value="${free.FREE_CREATE}" pattern="yy-MM-dd HH:mm:ss"/></td>
 			</tr>
-		</c:when>
-		<c:when test="${free.FREEHEAD eq '정보' }">
-			<tr>
-				<!-- map에 저장된 컬럼명과 동일하게 지정해주어야 한다 -->
-				<td>${free.FREE_NO }</td>
-				<td>${free.FREE_HEAD}</td>
-				<td class="text-start" style="text-align:center"><a href="/free/view?freeNo=${free.FREE_NO }">${free.FREE_TITLE }</a></td>
-				<td>${free.ID}</td>
-				<td>${free.FREE_VIEWS }</td>
-				<td><fmt:formatDate value="${free.FREE_CREATE}" pattern="yy-MM-dd HH:mm:ss"/></td>
-			</tr>
-		</c:when>
-		<c:when test="${free.FREEHEAD eq '질문' }">
-			<tr>
-				<!-- map에 저장된 컬럼명과 동일하게 지정해주어야 한다 -->
-				<td>${free.FREE_NO }</td>
-				<td>${free.FREE_HEAD}</td>
-				<td class="text-start" style="text-align:center"><a href="/free/view?freeNo=${free.FREE_NO }">${free.FREE_TITLE }</a></td>
-				<td>${free.ID}</td>
-				<td>${free.FREE_VIEWS }</td>
-				<td><fmt:formatDate value="${free.FREE_CREATE}" pattern="yy-MM-dd HH:mm:ss"/></td>
-			</tr>
-		</c:when>
-		<c:otherwise>
-			<tr>
-				<!-- map에 저장된 컬럼명과 동일하게 지정해주어야 한다 -->
-				<td>${free.FREE_NO }</td>
-				<td>${free.FREE_HEAD}</td>
-				<td class="text-start" style="text-align:center"><a href="/free/view?freeNo=${free.FREE_NO }">${free.FREE_TITLE }</a></td>
-				<td>${free.ID}</td>
-				<td>${free.FREE_VIEWS }</td>
-				<td><fmt:formatDate value="${free.FREE_CREATE}" pattern="yy-MM-dd HH:mm:ss"/></td>
-			</tr>
-		</c:otherwise>
-	</c:choose>
+
 </c:forEach>
 </tbody>
 
@@ -245,7 +249,67 @@ select {
 <span class="float-end mb-3">${paging.totalCount }</span>
 <div class="clearfix"></div>
 
-<c:import url="/WEB-INF/views/layout/paging.jsp" />
+<div>
+	<ul class="pagination pagination-sm justify-content-center">
+
+	<%-- 첫 페이지로 이동 --%>
+	<c:if test="${paging.curPage ne 1 }">
+		<li class="page-item"><a href="./main?freeHead=${freeHead }" class="page-link">&larr; 처음</a></li>	
+	</c:if>
+	
+	<%-- 이전 페이징 리스트로 이동 --%>
+	<c:choose>
+	<c:when test="${paging.startPage ne 1 }">
+		<li class="page-item"><a href="./main?curPage=${paging.startPage - paging.pageCount }&freeHead=${freeHead}" class="page-link">&laquo;</a></li>
+	</c:when>
+	<c:when test="${paging.startPage eq 1 }">
+		<li class="page-item disabled"><a class="page-link">&laquo;</a></li>
+	</c:when>
+	</c:choose>
+	
+	<%-- 이전 페이지로 가기 --%>
+	<c:if test="${paging.curPage > 1 }">
+		<li class="page-item"><a href="./main?curPage=${paging.curPage - 1 }&freeHead=${freeHead}" class="page-link">&lt;</a></li>
+	</c:if>
+	
+	
+	
+	
+	<%-- 페이징 리스트 --%>
+	<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="i">
+	<c:if test="${paging.curPage eq i }">
+		<li class="page-item active"><a href="./main?curPage=${i }&freeHead=${freeHead}" class="page-link">${i }</a></li>
+	</c:if>
+	<c:if test="${paging.curPage ne i }">
+		<li class="page-item"><a href="./main?curPage=${i }&freeHead=${freeHead}" class="page-link">${i }</a></li>
+	</c:if>
+	</c:forEach>
+	
+
+	
+	
+	<%-- 다음 페이지로 가기 --%>
+	<c:if test="${paging.curPage < paging.totalPage }">
+		<li class="page-item"><a href="./main?curPage=${paging.curPage + 1 }&freeHead=${freeHead}" class="page-link">&gt;</a></li>
+	</c:if>
+	
+	<%-- 다음 페이징 리스트로 이동 --%>
+	<c:choose>
+	<c:when test="${paging.endPage ne paging.totalPage }">
+		<li class="page-item"><a href="./main?curPage=${paging.startPage + paging.pageCount }&freeHead=${freeHead}" class="page-link">&raquo;</a></li>
+	</c:when>
+	<c:when test="${paging.endPage eq paging.totalPage }">
+		<li class="page-item disabled"><a class="page-link" href="./main?curPage=${paging.totalPage }&freeHead=${freeHead}">&raquo;</a></li>
+	</c:when>
+	</c:choose>
+
+	<%-- 끝 페이지로 이동 --%>
+	<c:if test="${paging.curPage ne paging.totalPage }">
+		<li class="page-item"><a href="./main?curPage=${paging.totalPage }&freeHead=${freeHead}" class="page-link">끝 &rarr;</a></li>	
+	</c:if>
+	
+	</ul>
+</div>
 
 
 <c:import url="../layout/footer.jsp"></c:import>
