@@ -136,4 +136,16 @@
 
 </select>
 
+<!-- <select id="mypageList" resultType="web.dto.Free" parameterType="int"> -->
+<!-- select * from Free -->
+<!-- where user_no = #{userNo} -->
+<!-- </select> -->
+
+<select id="mypageList" resultType="web.dto.Free" parameterType="int">
+select * from Free
+where user_no = #{userNo}
+ORDER BY free_no DESC
+
+</select>
+
 </mapper>
