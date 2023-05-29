@@ -190,14 +190,12 @@ location.href="?freeHead=" + freeHead
 			<option value= "질문" selected>질문</option>
 		</c:when>
 		
-		<c:when test="${freeHead eq '전체' || freeHead == null}">
-			<option value="전체" selected>전체</option>
+		<c:when test="${freeHead eq '전체' }">
+			<option value="전체">전체</option>
 			<option value= "사담">사담</option>
 			<option value= "정보">정보</option>
 			<option value= "질문">질문</option>
 		</c:when>
-		
-
 		
       </c:choose>
 
@@ -242,14 +240,11 @@ location.href="?freeHead=" + freeHead
 <div>
 	<form action="/free/search?freeHead=${freeHead }&keyword=${keyword }" method="get">
 	    <div class="search">
-	        <input type="text" name="keyword" class="search_input"
-	        placeholder="검색어를 입력해주세요" value=${keyword }>
+	        <input type="text" name="keyword" class="search_input" value=${keyword }>
 	        <button class="search_btn"  style="margin-bottom: 3px;"><i class="bi bi-search"></i></button>
 	    </div>
 	</form>
 </div>
-
-<input type="hidden" name="freeHead" value="${freeHead }">
 
 <span class="float-end mb-3">${paging.totalCount }</span>
 <div class="clearfix"></div>
