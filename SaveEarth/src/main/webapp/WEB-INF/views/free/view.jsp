@@ -62,8 +62,7 @@
 	<td class="table-light">글번호</td><td colspan="3">${view.FREE_NO }</td>
 </tr>
 <tr>
-	<td class="table-light">아이디</td><td>${view.ID }</td>
-	<td class="table-light">닉네임</td><td>${view.NICK }</td>
+	<td class="table-light">아이디</td><td>${view.USER_ID }</td>
 </tr>
 <tr>
 	<td class="table-light">조회수</td><td>${view.FREE_VIEWS }</td>
@@ -86,7 +85,7 @@
 	<c:forEach items="${freeFile }" var="file">
 		<a href="../upload/${file.freeStoredName }" download="${file.freeOriginName }">
 			${file.freeOriginName }
-		</a>
+		</a><br>
 	</c:forEach>
 	</c:if>
 </div>
@@ -100,7 +99,7 @@
 
 <!-- 댓글 -->
 	<div class="card my-4">
-		<h5 class="card-header" style="font-weight: bold ;">댓글</h5>
+		<h5 class="card-header" style="font-weight: bold;">댓글</h5>
 		<div class="card-body">
 			<form name="comment-form" action="/board/comment/write" method="post" autocomplete="off">
 					<textarea name="content" class="form-control" rows="3"></textarea>
