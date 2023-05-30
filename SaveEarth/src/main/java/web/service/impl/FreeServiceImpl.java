@@ -65,7 +65,7 @@ public class FreeServiceImpl implements FreeService{
 //			free.setUserNo(memberInfo.getUserNo());
 //		} else if()
 		
-//		free.setAdminNo(1);
+		
 		free.setUserNo(memberInfo.getUserNo());
 		
 //		free.setUserNo(2);

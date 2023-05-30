@@ -11,11 +11,21 @@
 </select>
 
 <insert id="insertFree" parameterType="web.dto.Free">
+	
 	<selectKey keyProperty="freeNo" order="BEFORE" resultType="int">
 		select free_no_seq.nextval from dual
 	</selectKey>
-	INSERT INTO free (free_no, user_no, admin_no, free_head, free_title, free_content, free_views)
-	VALUES ( #{freeNo}, #{userNo}, #{adminNo}, #{freeHead}, #{freeTitle}, #{freeContent}, #{freeViews} )
+	
+	<if test="adminNo eq 0">
+	INSERT INTO free (free_no, user_no, free_head, free_title, free_content, free_views)
+	VALUES ( #{freeNo}, #{userNo}, #{freeHead}, #{freeTitle}, #{freeContent}, #{freeViews} )
+	</if>
+
+	<if test="userNo eq 0">
+	INSERT INTO free (free_no, admin_no, free_head, free_title, free_content, free_views)
+	VALUES ( #{freeNo}, #{adminNo}, #{freeHead}, #{freeTitle}, #{freeContent}, #{freeViews} )
+	</if>
+	
 </insert>
 
 <insert id="insertFreeFile" parameterType="web.dto.Free">
