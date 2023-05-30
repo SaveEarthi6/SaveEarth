@@ -254,28 +254,28 @@ input {
 <table class="table table-bordered">
     <tr>
       <td>아이디</td>
-      <td>${info.id }</td>
+      <td>${info.userId }</td>
     </tr>
     <tr>
     
     <tr>
       <td>패스워드</td>
-      <td>${info.pw}</td>
+      <td>${info.userPw}</td>
     </tr>
     
     <tr>
       <td>닉네임</td>
-      <td>${info.nick}</td>
+      <td>${info.userNick}</td>
     </tr>
     
     <tr>
       <td>이메일</td>
-      <td>${info.email}</td>
+      <td>${info.userEmail}</td>
     </tr>
     
     <tr>
       <td>연락처</td>
-      <td>${info.phone}</td>
+      <td>${info.userPhone}</td>
     </tr>
 </table>
 
