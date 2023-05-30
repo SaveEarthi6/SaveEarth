@@ -237,8 +237,6 @@ public class FreeServiceImpl implements FreeService{
 	
 	@Override
 	public List<Map<String, Object>> search(Paging paging, String keyword) {
-		
-		
 		return freeDao.selectFreeByKeyword(paging, keyword);
 	}
 
