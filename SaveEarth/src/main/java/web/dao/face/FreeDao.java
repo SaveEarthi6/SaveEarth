@@ -17,7 +17,7 @@ public interface FreeDao {
 	 * @param loginid
 	 * @return
 	 */
-	public String selectNickById(String loginid);
+	public String selectNickById(String loginId);
 
 	/**
 	 * 게시글 내용 삽입
@@ -85,7 +85,6 @@ public interface FreeDao {
 	public void updateBoard(Free freeBoard);
 
 	/**
-<<<<<<< HEAD
 	 * 검색어와 일치하는 게시글을 조회한다
 	 * @param paging - 페이징 객체
 	 * @param keyword - 입력한 검색어
@@ -93,14 +92,6 @@ public interface FreeDao {
 	 */
 	public List<Map<String, Object>> selectFreeByKeyword(@Param("paging") Paging paging, @Param("keyword") String keyword);
 
-
-	/**
-	 * 마이페이지 - 게시글 수정
-	 * @param userno
-	 * @param free
-	 * @return
-	 */
-//	public List<Free> mypageGetlist(int userno, Free free);
 
 	/**
 	 * 내가 쓴 게시글 불러오기

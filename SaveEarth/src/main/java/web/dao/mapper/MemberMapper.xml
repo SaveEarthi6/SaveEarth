@@ -99,7 +99,7 @@
   
   <select id="selectInfoById" resultType="web.dto.Member" parameterType="string">
 	SELECT * FROM member
-	WHERE user_id=#{loginid}  
+	WHERE user_id=#{loginId}  
   </select>
   
   </mapper>

@@ -17,7 +17,7 @@ public interface FreeService {
 	 * @param loginid
 	 * @return
 	 */
-	public String getNick(String loginid);
+	public String getNick(String loginId);
 
 	/**
 	 * 게시글 작성

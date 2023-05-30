@@ -16,7 +16,7 @@ public interface MemberService {
 	 * @param loginid
 	 * @return
 	 */
-	public Member info(String loginid);
+	public Member info(String loginId);
 
 	public Member findid(Member member);
 
@@ -31,7 +31,7 @@ public interface MemberService {
 	 * 회원정보 삭제
 	 * @param loginid
 	 */
-	public void delete(String loginid);
+	public void delete(String loginId);
 
 	/**
 	 * 회원정보 수정
@@ -45,7 +45,7 @@ public interface MemberService {
 	 * @return
 	 */
 	
-	public Member getUserInfo(String loginid);
+	public Member getUserInfo(String loginId);
 
 	
 	public int overlappedID(Member member);
