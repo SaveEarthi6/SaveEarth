@@ -1,5 +1,7 @@
 package web.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -17,9 +19,15 @@ public class InfoBoardController {
 	
 	//메인 화면
 	@GetMapping("/main")
-	public void info() {
+	public void info(HttpSession session, Model model) {
 
 		logger.info("/info/main [GET]");
+		
+		String loginId = (String) session.getAttribute("loginId");
+		boolean admin = (boolean) session.getAttribute("admin");
+		
+		model.addAttribute("admin", admin);
+	
 	}
 	
 	//상세보기

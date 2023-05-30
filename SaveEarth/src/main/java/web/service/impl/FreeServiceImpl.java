@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dao.face.FreeDao;
@@ -60,6 +61,10 @@ public class FreeServiceImpl implements FreeService{
 	@Override
 	public void freeWrite(Free free, List<MultipartFile> files, Member memberInfo) {
 		
+//		if(memberInfo.getUserNo() != 0) {
+//			free.setUserNo(memberInfo.getUserNo());
+//		} else if()
+		
 		free.setAdminNo(1);
 		free.setUserNo(memberInfo.getUserNo());
 		
@@ -68,13 +73,23 @@ public class FreeServiceImpl implements FreeService{
 		logger.info("files {}", files);
 		logger.info("memberInfo {}", memberInfo);
 		
+		
 		freeDao.insertFree(free);
+		logger.info("size {}", files.get(0).getSize());
 		
 		
-		if(files.size() <= 0) {
-			logger.info("파일의 크기가 0이다, 처리 중단!");
-//			freeWrite() 메소드 중단
-			return;
+//		if(files.get(0).getSize() <= 0 ) {
+//			logger.info("파일의 크기가 0이다, 처리 중단!");
+//				freeWrite() 메소드 중단
+//			return;
+//		}
+		
+		//파일이 없을 때 파일 삽입하는 메소드 처리되지 않도록 
+		for(MultipartFile m : files) {
+			if(m.getSize() <= 0) {
+				logger.info("0보다 작음, 처리 중단");
+				return;
+			}
 		}
 		
 		List<FreeFile> upfiles= new ArrayList<>();
@@ -167,10 +182,12 @@ public class FreeServiceImpl implements FreeService{
 		freeDao.updateBoard(freeBoard);
 		
 		
-		if(files.size() <= 0) {
-			logger.info("파일의 크기가 0이다, 처리 중단!");
-//			freeWrite() 메소드 중단
-			return;
+		//파일이 없을 때 파일 삽입하는 메소드 처리되지 않도록 
+		for(MultipartFile m : files) {
+			if(m.getSize() <= 0 ) {
+				logger.info("0보다 작음, 처리 중단");
+				return;
+			}
 		}
 		
 		List<FreeFile> upfiles= new ArrayList<>();
@@ -236,8 +253,14 @@ public class FreeServiceImpl implements FreeService{
 	}
 	
 	@Override
+<<<<<<< HEAD
+	public List<Map<String, Object>> search(Paging paging, String keyword, String freeHead) {
+		
+		return freeDao.selectFreeByKeyword(paging, keyword, freeHead);
+=======
 	public List<Map<String, Object>> search(Paging paging, String keyword) {
 		return freeDao.selectFreeByKeyword(paging, keyword);
+>>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
 	}
 
 	@Override

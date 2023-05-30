@@ -17,30 +17,6 @@
 
 <script type="text/javascript">
 
-/* 썸네일 이미지 클릭했을 때 상세 페이지로 넘어가기 */
-$(document).ready(function(){
-	
-	$("#thumnail1").click(function(){
-		$(location).attr("href", "/info/detail")
-	})
-	$("#thumnail2").click(function(){
-		$(location).attr("href", "/info/detail")
-	})
-	$("#thumnail3").click(function(){
-		$(location).attr("href", "/info/detail")
-	})
-	$("#thumnail4").click(function(){
-		$(location).attr("href", "/info/detail")
-	})
-	$("#thumnail5").click(function(){
-		$(location).attr("href", "/info/detail")
-	})
-	$("#thumnail6").click(function(){
-		$(location).attr("href", "/info/detail")
-	})
-
-
-})
 
 
 </script>
@@ -148,6 +124,12 @@ input {
 	<img class="infoimage" src="../resources/img/info.png" style="width: 100%; height: 500px;">
 	<h1 class="info">정보게시판</h1>
 </div>
+
+<c:if test="${admin == true }">
+<div>
+	<a href="/free/write"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
+</div>
+</c:if>
 
 <div class="nav">
 <button type="button" class="btn btn-outline-success">전체</button>
