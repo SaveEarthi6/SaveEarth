@@ -170,4 +170,11 @@ where user_no = #{userNo}
 ORDER BY free_no DESC
 </select>
 
+<update id= "recommend" parameterType="web.dto.Free">
+   UPDATE free
+   set free = recomm_no + 1
+   where free_no = #{free_no}
+</update>
+
+
 </mapper>
