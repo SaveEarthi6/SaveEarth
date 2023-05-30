@@ -40,6 +40,16 @@ function updateContents() {
 	oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", [])
 }
 
+// function freeHead_check() {
+	
+//     if($("#freeHead").val() != '질문' || $("#freeHead").val() != '정보' || $("#freeHead").val() != '사담'){
+//       alert("사담, 정보, 질문만 입력할 수 있습니다");
+//       $("#freeHead").focus();
+//       return false;
+//     }
+
+
+
 </script>
 
 <style type="text/css">
@@ -86,12 +96,12 @@ form {
 </div>
 
 <div>
-	닉네임 : ${nick }
+	닉네임 : ${memberInfo.userNick }
 </div>
 
 <div class="form-group" style= "margin-top: 50px">
 	<label class="form-label" for="head">말머리글</label>
-	<input type="text" id="head" name="freeHead" class="form-control" style="width: 100px;">
+	<input type="text" id="freeHead" name="freeHead" class="form-control" style="width: 100px;">
 </div>
 
 

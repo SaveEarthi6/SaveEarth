@@ -5,13 +5,21 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
-	<!--  DB접속 정보 -->
+	<!--  DB접속 정보 saveearth -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
 		<property name="url" value="jdbc:oracle:thin:@(description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1521)(host=adb.ap-chuncheon-1.oraclecloud.com))(connect_data=(service_name=g74d87b33832c89_saveearth_medium.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))"/>
 		<property name="username" value="admin"/>
 		<property name="password" value="SaveEarth1234"/>
 	</bean>
+
+	<!--  DB접속 정보 scoot -->
+<!-- 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> -->
+<!-- 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" /> -->
+<!-- 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" /> -->
+<!-- 		<property name="username" value="scott" /> -->
+<!-- 		<property name="password" value="tiger" /> -->
+<!-- 	</bean> -->
 		
 
 	<!-- 마이바티스 수행 객체 설정(SqlSession) -->

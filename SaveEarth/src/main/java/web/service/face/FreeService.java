@@ -62,9 +62,10 @@ public interface FreeService {
 	 * 입력한 검색어와 일치하는 게시글을 조회한다
 	 * @param paging - 페이징 객체
 	 * @param keyword - 입력한 검색어
+	 * @param freeHead - 말머리글
 	 * @return - 입력한 검색어와 일치하는 게시글
 	 */
-	public List<Map<String, Object>> search(Paging paging, String keyword);
+	public List<Map<String, Object>> search(Paging paging, String keyword, String freeHead);
 
 	
 	/**
@@ -73,6 +74,8 @@ public interface FreeService {
 	 * @return
 	 */
 	public List<Free> mypageList(int userno);
+
+	public void recommend(Free freeNo);
 	
 	
 	

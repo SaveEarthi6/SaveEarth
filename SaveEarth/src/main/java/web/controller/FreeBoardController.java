@@ -70,7 +70,7 @@ public class FreeBoardController {
 		
 		//로그인한 회원과 작성자가 같은 회원인지 비교하기 위한 정보
 		String loginId = (String) session.getAttribute("loginId");
-		Member userInfo = memberService.getUserInfo(loginId);
+		Member userInfo = memberService.info(loginId);
 		logger.info("userInfo {}", userInfo);
 		
 		model.addAttribute("view", view);
@@ -89,25 +89,26 @@ public class FreeBoardController {
 		logger.info("/free/write [GET]");
 		
 		String loginId = (String) session.getAttribute("loginId");
-		String loginnick = (String) freeService.getNick(loginId);
 		logger.info("id {}", loginId);
-		logger.info("nick {}", loginnick);
 		
+		Member memberInfo = memberService.info(loginId);
 		model.addAttribute("id", loginId);
-		model.addAttribute("nick", loginnick);
-		
+		model.addAttribute("memberInfo", memberInfo);
 		
 		
 	}
 
 	@PostMapping("/free/write")
-	public String writepost(HttpSession session, Free free, List<MultipartFile> files) {
+	public String writepost(HttpSession session, Free free, @RequestParam(required = false) List<MultipartFile> files) {
 		
 		logger.info("/free/write [POST]");
 		
+		//로그인 정보를 가지고 회원번호랑 관리자 번호를 가져옴
 		String loginId = (String) session.getAttribute("loginId");
-		//로그인한 회원의 정보를 조회해 작성자 정보로 넣어준다
-		Member memberInfo = memberService.info(loginId);
+		Member memberInfo = null;
+		memberInfo = memberService.info(loginId);
+		//만약 회원번호가 있으면 회원번호를 가져오고
+		//관리자번호가 있으면 관리자 번호를 가져오고
 		
 		logger.info("memberInfo {}", memberInfo);
 		logger.info("free {}", free);
@@ -145,7 +146,7 @@ public class FreeBoardController {
 	}
 	
 	@PostMapping("/free/update")
-	public String updatePost(Model model, Free freeBoard, List<MultipartFile> files) {
+	public String updatePost(Model model, Free freeBoard, @RequestParam(required = false) List<MultipartFile> files) {
 		
 		logger.info("/free/update [POST]");
 		
@@ -161,29 +162,32 @@ public class FreeBoardController {
 	
 	//검색기능
 	@RequestMapping("/free/search")
-	public String searchKeyword(Model model,@RequestParam(value = "curPage", defaultValue = "1") int curPage, String keyword, String freeHead) {
+	public void searchKeyword(Model model,@RequestParam(value = "curPage", defaultValue = "1") int curPage, String keyword, String freeHead) {
 		
 		logger.info("/free/search [GET]");
 		
 		Paging paging = freeService.getPaging(curPage);
 		
-		List<Map<String,Object>> list = freeService.search(paging, keyword);
-		
-		logger.info("list {}", list);
 		logger.info("freeHead {}", freeHead);
 		logger.info("keyword {}", keyword);
+
+		List<Map<String,Object>> list = freeService.search(paging, keyword,freeHead);
+		
+		logger.info("list {}", list);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("freeHead", freeHead);
 		
-		if(keyword == null) {
-			return "redirect:/free/main";
-		} else {
-			return "redirect:/free/search";
-		}
-		
-		
 	}
+	
+	@RequestMapping("/free/Recommend")
+	   public String Recommend (Model model,HttpSession session, Free freeNo) {
+	      
+	      freeService.recommend(freeNo);
+	      
+	      return "redirect:/free/main";
+	      
+	   }
 
 	
 }

@@ -57,6 +57,9 @@
 	</select>
 	
 	
+	<select id="selectCntAll2" resultType="int">
+  		 SELECT count(*) FROM campaign
+	</select>
 	
 	
 </mapper>

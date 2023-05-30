@@ -62,8 +62,7 @@
 	<td class="table-light">글번호</td><td colspan="3">${view.FREE_NO }</td>
 </tr>
 <tr>
-	<td class="table-light">아이디</td><td>${view.ID }</td>
-	<td class="table-light">닉네임</td><td>${view.NICK }</td>
+	<td class="table-light">아이디</td><td>${view.USER_ID }</td>
 </tr>
 <tr>
 	<td class="table-light">조회수</td><td>${view.FREE_VIEWS }</td>
@@ -86,21 +85,60 @@
 	<c:forEach items="${freeFile }" var="file">
 		<a href="../upload/${file.freeStoredName }" download="${file.freeOriginName }">
 			${file.freeOriginName }
-		</a>
+		</a><br>
 	</c:forEach>
 	</c:if>
 </div>
 
+<script type="text/javascript">
+
+$function(){
+   $('#btnRecommend').click (function(){
+      
+      //전송
+        $("form").submit();
+
+      
+      $.ajax({
+           url : "./recommend",
+           type : "POST",
+           data : $("#updateForm").serialize(),
+           dataType: 'JSON',
+           success : function (data) {
+               if(data.resultMap.code == "1"){
+                   alert("좋아요!")
+                   
+               } else {
+                   alert("좋아요 취소!")
+               }
+               
+               }
+           });
+      
+   })
+   
+    console.log("btnRecommend click")
+   
+   
+   
+}
+
+
+</script>
+
 
 <!-- 버튼 -->
 <div class="text-center mb-3">
-	<a href= "/free/main"><button id="btnList" class="btn btn-success">목록</button></a>
-	
+   <a href= "/free/main"><button id="btnList" class="btn btn-success">목록</button></a>
+   
+   <button type="button" id="btnRecommend" class="btn btn-success">추천</button>
+   <span id= "recommend" ></span>
+   
 </div>
 
 <!-- 댓글 -->
 	<div class="card my-4">
-		<h5 class="card-header" style="font-weight: bold ;">댓글</h5>
+		<h5 class="card-header" style="font-weight: bold;">댓글</h5>
 		<div class="card-body">
 			<form name="comment-form" action="/board/comment/write" method="post" autocomplete="off">
 					<textarea name="content" class="form-control" rows="3"></textarea>
