@@ -38,10 +38,10 @@ public class MypageController {
 	public void mypageUpdate(HttpSession session, Model model, Member member) {
 		logger.info("/mypage/update[GET]");
 		
-		String loginid = (String) session.getAttribute("loginid");
-		logger.info("{}", loginid);
+		String loginId = (String) session.getAttribute("loginId");
+		logger.info("{}", loginId);
 		
-		Member info = memberService.info(loginid);
+		Member info = memberService.info(loginId);
 		logger.info("info: {}", info);
 		
 		model.addAttribute("info", info);
@@ -54,7 +54,7 @@ public class MypageController {
 	@PostMapping("/update") // 마이페이지 - 개인정보 수정
 	public String mypageUpdateProc(HttpSession session, Member member) {
 		
-		member.setUserId((String)session.getAttribute("loginid"));
+		member.setUserId((String)session.getAttribute("loginId"));
 		logger.info("{}", member);
 		
 		memberService.update(member);
@@ -67,10 +67,10 @@ public class MypageController {
 	public void mypageDelete(HttpSession session, Model model) {
 		logger.info("/mypage/delete[GET]");
 		
-		String loginid = (String) session.getAttribute("loginid");
-		logger.info("{}", loginid);
+		String loginId = (String) session.getAttribute("loginId");
+		logger.info("{}", loginId);
 		
-		Member info = memberService.info(loginid);
+		Member info = memberService.info(loginId);
 		
 		logger.info("info: {}", info);
 		
@@ -81,11 +81,11 @@ public class MypageController {
 	public String mypageDeleteProc(Member member, HttpSession session) {
 		logger.info("/delete/delete[POST]");
 		
-		String loginid = (String) session.getAttribute("loginid");
-		logger.info("controller{}", loginid);
+		String loginId = (String) session.getAttribute("loginId");
+		logger.info("controller{}", loginId);
 		
 		
-		memberService.delete(loginid);
+		memberService.delete(loginId);
 		
 		
 		return "redirect:/member/logout";
@@ -114,10 +114,10 @@ public class MypageController {
 		//---------------- 작업중
 		
 		// 내 정보 불러오기 
-		String loginid = (String) session.getAttribute("loginid");
-		logger.info("{}", loginid);
+		String loginId = (String) session.getAttribute("loginId");
+		logger.info("{}", loginId);
 		
-		Member info = memberService.info(loginid);
+		Member info = memberService.info(loginId);
 		logger.info("info: {}", info);
 
 		// 게시글 리스트 

@@ -35,9 +35,9 @@ public class FreeServiceImpl implements FreeService{
 	ServletContext context;
 	
 	@Override
-	public String getNick(String loginid) {
+	public String getNick(String loginId) {
 		
-		return freeDao.selectNickById(loginid);
+		return freeDao.selectNickById(loginId);
 	}
 
 	@Override

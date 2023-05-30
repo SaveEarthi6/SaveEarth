@@ -305,20 +305,6 @@ input {
 <a href="./order"><button type="button" class="btn btn-outline-success" id ="top">주문내역 수정</button></a>
 </div>
 
-<!-- <ul class="nav nav-pills nav-fill"> -->
-<!--   <li class="nav-item"> -->
-<!--     <a class="nav-link active" aria-current="page" href="./update">회원정보 수정</a> -->
-<!--   </li> -->
-<!--   <li class="nav-item"> -->
-<!--     <a class="nav-link" href="./delete">회원정보 탈퇴</a> -->
-<!--   </li> -->
-<!--   <li class="nav-item"> -->
-<!--     <a class="nav-link" href="./board">게시글, 댓글</a> -->
-<!--   </li> -->
-<!--   <li class="nav-item"> -->
-<!--     <a class="nav-link" href="./order">주문내역</a> -->
-<!--   </li> -->
-<!-- </ul> -->
 
 <br>
 
