@@ -3,128 +3,121 @@ package web.dto;
 
 public class Member {
 	
-	private int userno;
-	private String id;
-	private String pw;
-	private String name;
-	private String nick;
-	private String birth;
-	private String email;
-	private int post;
-	private String addr1;
-	private String addr2;
-	private String phone;
+	private int userNo;
+	private String userId;
+	private String userPw;
+	private String userName;
+	private String userNick;
+	private String userEmail;
+	private int userPostcode;
+	private String userAddr;
+	private String userDetailaddr;
+	private String userPhone;
 	
 public Member() {}
 
-public Member(int userno, String id, String pw, String name, String nick, String birth, String email, int post,
-		String addr1, String addr2, String phone) {
+public Member(int userNo, String userId, String userPw, String userName, String userNick, String userEmail,
+		int userPostcode, String userAddr, String userDetailaddr, String userPhone) {
 	super();
-	this.userno = userno;
-	this.id = id;
-	this.pw = pw;
-	this.name = name;
-	this.nick = nick;
-	this.birth = birth;
-	this.email = email;
-	this.post = post;
-	this.addr1 = addr1;
-	this.addr2 = addr2;
-	this.phone = phone;
+	this.userNo = userNo;
+	this.userId = userId;
+	this.userPw = userPw;
+	this.userName = userName;
+	this.userNick = userNick;
+	this.userEmail = userEmail;
+	this.userPostcode = userPostcode;
+	this.userAddr = userAddr;
+	this.userDetailaddr = userDetailaddr;
+	this.userPhone = userPhone;
 }
 
 @Override
 public String toString() {
-	return "Member [userno=" + userno + ", id=" + id + ", pw=" + pw + ", name=" + name + ", nick=" + nick + ", birth="
-			+ birth + ", email=" + email + ", post=" + post + ", addr1=" + addr1 + ", addr2=" + addr2 + ", phone="
-			+ phone + "]";
+	return "Member [userNo=" + userNo + ", userId=" + userId + ", userPw=" + userPw + ", userName=" + userName
+			+ ", userNick=" + userNick + ", userEmail=" + userEmail + ", userPostcode=" + userPostcode + ", userAddr="
+			+ userAddr + ", userDetailaddr=" + userDetailaddr + ", userPhone=" + userPhone + "]";
 }
 
-public int getUserno() {
-	return userno;
+public int getUserNo() {
+	return userNo;
 }
 
-public void setUserno(int userno) {
-	this.userno = userno;
+public void setUserNo(int userNo) {
+	this.userNo = userNo;
 }
 
-public String getId() {
-	return id;
+public String getUserId() {
+	return userId;
 }
 
-public void setId(String id) {
-	this.id = id;
+public void setUserId(String userId) {
+	this.userId = userId;
 }
 
-public String getPw() {
-	return pw;
+public String getUserPw() {
+	return userPw;
 }
 
-public void setPw(String pw) {
-	this.pw = pw;
+public void setUserPw(String userPw) {
+	this.userPw = userPw;
 }
 
-public String getName() {
-	return name;
+public String getUserName() {
+	return userName;
 }
 
-public void setName(String name) {
-	this.name = name;
+public void setUserName(String userName) {
+	this.userName = userName;
 }
 
-public String getNick() {
-	return nick;
+public String getUserNick() {
+	return userNick;
 }
 
-public void setNick(String nick) {
-	this.nick = nick;
+public void setUserNick(String userNick) {
+	this.userNick = userNick;
 }
 
-public String getBirth() {
-	return birth;
+public String getUserEmail() {
+	return userEmail;
 }
 
-public void setBirth(String birth) {
-	this.birth = birth;
+public void setUserEmail(String userEmail) {
+	this.userEmail = userEmail;
 }
 
-public String getEmail() {
-	return email;
+public int getUserPostcode() {
+	return userPostcode;
 }
 
-public void setEmail(String email) {
-	this.email = email;
+public void setUserPostcode(int userPostcode) {
+	this.userPostcode = userPostcode;
 }
 
-public int getPost() {
-	return post;
+public String getUserAddr() {
+	return userAddr;
 }
 
-public void setPost(int post) {
-	this.post = post;
+public void setUserAddr(String userAddr) {
+	this.userAddr = userAddr;
 }
 
-public String getAddr1() {
-	return addr1;
+public String getUserDetailaddr() {
+	return userDetailaddr;
 }
 
-public void setAddr1(String addr1) {
-	this.addr1 = addr1;
+public void setUserDetailaddr(String userDetailaddr) {
+	this.userDetailaddr = userDetailaddr;
 }
 
-public String getAddr2() {
-	return addr2;
+public String getUserPhone() {
+	return userPhone;
 }
 
-public void setAddr2(String addr2) {
-	this.addr2 = addr2;
+public void setUserPhone(String userPhone) {
+	this.userPhone = userPhone;
 }
 
-public String getPhone() {
-	return phone;
-}
 
-public void setPhone(String phone) {
-	this.phone = phone;
-}
+
 }
