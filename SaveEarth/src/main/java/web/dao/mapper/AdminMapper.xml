@@ -56,13 +56,12 @@
 		WHERE free_no = #{freeNo}
 	</select>
 	
-<<<<<<< HEAD
+
 	<select id="selectCntAll2" resultType="int">
   		 SELECT count(*) FROM campaign
 	</select>
 
-=======
+
 	
-	
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
+
 </mapper>
