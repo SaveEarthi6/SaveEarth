@@ -253,15 +253,11 @@ public class FreeServiceImpl implements FreeService{
 	}
 	
 	@Override
-<<<<<<< HEAD
 	public List<Map<String, Object>> search(Paging paging, String keyword, String freeHead) {
 		
 		return freeDao.selectFreeByKeyword(paging, keyword, freeHead);
-=======
-	public List<Map<String, Object>> search(Paging paging, String keyword) {
-		return freeDao.selectFreeByKeyword(paging, keyword);
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
 	}
+
 
 	@Override
 	public List<Free> mypageList(int userno) {
