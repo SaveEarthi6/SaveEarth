@@ -37,12 +37,6 @@ public interface FreeService {
 	public List<Map<String, Object>> list(Paging paging, String freeHead);
 
 	public Map<String, Object> getView(Free freeBoard);
-	
-	/**
-	 * 게시글 삭제
-	 * @param free
-	 */
-	public void delete(Free free);
 
 	/**
 	 * 파일 정보 가져오기
@@ -55,8 +49,9 @@ public interface FreeService {
 	 * 게시글 정보 수정하기
 	 * @param freeBoard - 입력한 게시글 정보
 	 * @param files - 수정한 파일
+	 * @param freeFile - 수정할 파일 번호
 	 */
-	public void updateFree(Free freeBoard, List<MultipartFile> files);
+	public void updateFree(Free freeBoard, List<MultipartFile> files, List<FreeFile> freeFile);
 
 	/**
 	 * 입력한 검색어와 일치하는 게시글을 조회한다
@@ -76,6 +71,18 @@ public interface FreeService {
 	public List<Free> mypageList(int userno);
 
 	public void recommend(Free freeNo);
+
+	/**
+	 * 자유게시판 게시글 삭제
+	 * @param free - 게시글 번호
+	 */
+	public void deleteFree(Free free);
+
+	/**
+	 * 자유게시판 파일 삭제 
+	 * @param free - 게시글 번호
+	 */
+	public void deleteFreeFile(Free free);
 	
 	
 	

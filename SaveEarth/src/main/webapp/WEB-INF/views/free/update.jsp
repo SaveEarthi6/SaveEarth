@@ -77,8 +77,11 @@ $(document).ready(function() {
 	}
 	
 	$("#deleteFile").click(function() {
-		$("#originFile").toggleClass("through")
-		$("#newFile").toggle();
+// 		$("#originFile").toggleClass("through")
+// 		$("#newFile").toggle();
+		location.href="/free/deleteFile?freeNo=" + ${free.freeNo};
+		alert("삭제되었습니다")
+// 		history.go(-1)
 	})
 })
 
@@ -104,8 +107,8 @@ $(document).ready(function() {
 	<td class="table-light">글번호</td><td colspan="3">${view.FREE_NO}</td>
 </tr>
 <tr>
-	<td class="table-light">아이디</td><td>${view.ID }</td>
-	<td class="table-light">닉네임</td><td>${view.NICK }</td>
+	<td class="table-light">아이디</td><td>${view.USER_ID }</td>
+	<td class="table-light">닉네임</td><td>${view.USER_NICK }</td>
 </tr>
 <tr>
 	<td class="table-light">조회수</td><td>${view.FREE_VIEWS }</td>
@@ -140,7 +143,6 @@ $(document).ready(function() {
 		<button id="btnUpdate" class="btn btn-success">수정완료</button>
 </div>
 
-</form>
 
 <div class="form-group">
 
@@ -154,19 +156,25 @@ $(document).ready(function() {
 		<c:forEach items="${freeFile }" var="file">
 			<a href="../upload/${file.freeStoredName }" download="${file.freeOriginName }">
 				${file.freeOriginName }
-			</a><span id="deleteFile">X</span><br>
+			</a><br>
 		</c:forEach>
 		</c:if>
+		<button id="deleteFile">삭제</button>
 	</div>
+	
+	<!-- 게시글 번호 -->
+	
 
 		<div id="newFile">
-			<label class="form-label" for="file">새로운 첨부파일</label>
-			<input type="file" id="file" name="file" class="form-control">
+			<label class="form-label" for="files">새로운 첨부파일</label>
+			<input type="file" id="file" name="files" class="form-control">
 			<small>** 새로운 파일로 첨부하면 기존 파일은 삭제됩니다</small>
 		</div>
 		
 
 </div>
+
+</form>
 
 <!-- 첨부파일 다운 -->
 <!-- <div class="mb-3"> -->

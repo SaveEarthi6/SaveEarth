@@ -121,11 +121,25 @@ public class FreeBoardController {
 	}
 	
 	
-	@RequestMapping("/free/delete")
-	public String delete (Free free) {
-		freeService.delete(free);
+	@RequestMapping("/free/deleteBoard")
+	public String deleteBoard (Free free) {
+		freeService.deleteFree(free);
 		
 		return "redirect:/mypage/board";
+	}
+	
+	@RequestMapping("/free/deleteFile")
+	public String deleteFile (Free free, Model model) {
+		
+		logger.info("/free/deleteFile");
+		logger.info("free {}", free);
+		
+		freeService.deleteFreeFile(free);
+		
+		model.addAttribute("free", free);
+		
+		return "redirect:/free/update?freeNo=" + free.getFreeNo();
+		
 	}
 	
 	
@@ -152,9 +166,11 @@ public class FreeBoardController {
 		
 		logger.info("freeBoard {}", freeBoard);
 		
-		//자유게시판 내용 수정 + 파일
-		freeService.updateFree(freeBoard, files);
+		List<FreeFile> freeFile = freeService.getFreeFile(freeBoard);
+		logger.info("freeFile {}", freeFile);
 		
+		//자유게시판 내용 수정 + 파일
+		freeService.updateFree(freeBoard, files,freeFile);
 		
 		return "redirect:/free/main";
 		
@@ -166,10 +182,13 @@ public class FreeBoardController {
 		
 		logger.info("/free/search [GET]");
 		
+		logger.info("curPage {}", curPage);
 		Paging paging = freeService.getPaging(curPage);
 		
 		logger.info("freeHead {}", freeHead);
 		logger.info("keyword {}", keyword);
+		
+		logger.info("paging {}", paging);
 
 		List<Map<String,Object>> list = freeService.search(paging, keyword,freeHead);
 		
@@ -177,12 +196,16 @@ public class FreeBoardController {
 		
 		model.addAttribute("list", list);
 		model.addAttribute("freeHead", freeHead);
+		model.addAttribute("paging", paging);
+		model.addAttribute("keyword", keyword);
 		
 	}
 	
-	@RequestMapping("/free/Recommend")
+	@RequestMapping("/free/recommend")
 	   public String Recommend (Model model,HttpSession session, Free freeNo) {
 	      
+		logger.info("/free/recommend");
+		
 	      freeService.recommend(freeNo);
 	      
 	      return "redirect:/free/main";

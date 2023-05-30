@@ -35,6 +35,13 @@ $(function() {
 	
 })
 
+function selectfreeHead() {
+	
+var freeHead = $('#freeHead').val()
+
+
+}
+
 function updateContents() {
 	//스마트 에디터에 작성된 내용을 textarea#content에 반영한다
 	oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", [])
@@ -99,9 +106,46 @@ form {
 	닉네임 : ${memberInfo.userNick }
 </div>
 
-<div class="form-group" style= "margin-top: 50px">
-	<label class="form-label" for="head">말머리글</label>
-	<input type="text" id="freeHead" name="freeHead" class="form-control" style="width: 100px;">
+<!-- <div class="form-group" style= "margin-top: 50px"> -->
+<!-- 	<label class="form-label" for="head">말머리글</label> -->
+<!-- 	<input type="text" id="freeHead" name="freeHead" class="form-control" style="width: 100px;"> -->
+<!-- </div> -->
+
+
+<div class="btn-group" >
+
+  	    말머리글 : 
+  <select id="freeHead" onchange="selectfreeHead()" name="freeHead" >
+
+  	    <c:choose>
+        <c:when test="${freeHead eq '사담' }">
+			<option value= "사담" selected>사담</option>
+			<option value= "정보">정보</option>
+			<option value= "질문">질문</option>
+		</c:when>
+       
+        <c:when test="${freeHead eq '정보' }">
+			<option value= "사담">사담</option>
+			<option value= "정보" selected>정보</option>
+			<option value= "질문">질문</option>
+		</c:when>
+       
+		<c:when test="${freeHead eq '질문' }">
+			<option value= "사담">사담</option>
+			<option value= "정보">정보</option>
+			<option value= "질문" selected>질문</option>
+		</c:when>
+
+		<c:otherwise>
+			<option value= "사담">사담</option>
+			<option value= "정보">정보</option>
+			<option value= "질문">질문</option>
+		</c:otherwise>
+		
+      </c:choose>
+
+  </select>
+  
 </div>
 
 

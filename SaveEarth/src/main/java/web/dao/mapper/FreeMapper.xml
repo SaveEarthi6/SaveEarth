@@ -46,21 +46,21 @@
 	<choose>
 		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('사담')">
 			WHERE free_head = #{freeHead}
-			ORDER BY free_head DESC, free_no DESC
+			ORDER BY free_no DESC
 		</when>
 		
 		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('정보')">
 			WHERE free_head = #{freeHead}
-			ORDER BY free_head DESC, free_no DESC
+			ORDER BY free_no DESC
 		</when>
 		
 		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('질문')">
 			WHERE free_head = #{freeHead}
-			ORDER BY free_head DESC, free_no DESC
+			ORDER BY free_no DESC
 		</when>
 		
 		<otherwise>
-			ORDER BY free_head DESC, free_no DESC
+			ORDER BY free_no DESC
 		</otherwise>
 		
 	</choose>	
@@ -75,7 +75,8 @@
 <select id="selectFreeBoard" parameterType="web.dto.Free" resultType="map">
 	SELECT * FROM(
 		SELECT 
-		(SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) user_id, F.* FROM (
+		(SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) user_id, 
+		(SELECT m.user_nick FROM member m WHERE m.user_no = F.user_no) user_nick, F.* FROM (
 			SELECT
 			*
 			FROM free
@@ -111,7 +112,7 @@
 	WHERE free_no = #{freeNo}
 </update>
 
-<select id="selectFreeByKeyword" resultType="map" parameterType="map">
+<select id="selectFreeByKeyword" resultType="map" parameterType="hashmap">
 
 	SELECT * FROM(
 		SELECT rownum rnum, (SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) user_id, F.* FROM (
@@ -136,7 +137,6 @@
 	) FREEMAIN
 	WHERE rnum BETWEEN #{paging.startNo} and #{paging.endNo}
 	ORDER BY free_no DESC
-	
 </select>
 
 <!-- 댓글 조회 -->

@@ -270,13 +270,13 @@ location.href="?freeHead=" + freeHead
 
 	<%-- 첫 페이지로 이동 --%>
 	<c:if test="${paging.curPage ne 1 }">
-		<li class="page-item"><a href="./main?keyword=${keyword }" class="page-link">&larr; 처음</a></li>	
+		<li class="page-item"><a href="./search?keyword=${keyword }" class="page-link">&larr; 처음</a></li>	
 	</c:if>
 	
 	<%-- 이전 페이징 리스트로 이동 --%>
 	<c:choose>
 	<c:when test="${paging.startPage ne 1 }">
-		<li class="page-item"><a href="./main?curPage=${paging.startPage - paging.pageCount }&keyword=${keyword }" class="page-link">&laquo;</a></li>
+		<li class="page-item"><a href="./search?curPage=${paging.startPage - paging.pageCount }&keyword=${keyword }" class="page-link">&laquo;</a></li>
 	</c:when>
 	<c:when test="${paging.startPage eq 1 }">
 		<li class="page-item disabled"><a class="page-link">&laquo;</a></li>
@@ -285,7 +285,7 @@ location.href="?freeHead=" + freeHead
 	
 	<%-- 이전 페이지로 가기 --%>
 	<c:if test="${paging.curPage > 1 }">
-		<li class="page-item"><a href="./main?curPage=${paging.curPage - 1 }&keyword=${keyword }" class="page-link">&lt;</a></li>
+		<li class="page-item"><a href="./search?curPage=${paging.curPage - 1 }&keyword=${keyword }" class="page-link">&lt;</a></li>
 	</c:if>
 	
 	
@@ -294,10 +294,10 @@ location.href="?freeHead=" + freeHead
 	<%-- 페이징 리스트 --%>
 	<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="i">
 	<c:if test="${paging.curPage eq i }">
-		<li class="page-item active"><a href="./main?curPage=${i }&keyword=${keyword }" class="page-link">${i }</a></li>
+		<li class="page-item active"><a href="./search?curPage=${i }&keyword=${keyword }" class="page-link">${i }</a></li>
 	</c:if>
 	<c:if test="${paging.curPage ne i }">
-		<li class="page-item"><a href="./main?curPage=${i }&keyword=${keyword }" class="page-link">${i }</a></li>
+		<li class="page-item"><a href="./search?curPage=${i }&keyword=${keyword }" class="page-link">${i }</a></li>
 	</c:if>
 	</c:forEach>
 	
@@ -306,13 +306,13 @@ location.href="?freeHead=" + freeHead
 	
 	<%-- 다음 페이지로 가기 --%>
 	<c:if test="${paging.curPage < paging.totalPage }">
-		<li class="page-item"><a href="./main?curPage=${paging.curPage + 1 }&keyword=${keyword }" class="page-link">&gt;</a></li>
+		<li class="page-item"><a href="./search?curPage=${paging.curPage + 1 }&keyword=${keyword }" class="page-link">&gt;</a></li>
 	</c:if>
 	
 	<%-- 다음 페이징 리스트로 이동 --%>
 	<c:choose>
 	<c:when test="${paging.endPage ne paging.totalPage }">
-		<li class="page-item"><a href="./main?curPage=${paging.startPage + paging.pageCount }&keyword=${keyword }" class="page-link">&raquo;</a></li>
+		<li class="page-item"><a href="./search?curPage=${paging.startPage + paging.pageCount }&keyword=${keyword }" class="page-link">&raquo;</a></li>
 	</c:when>
 	<c:when test="${paging.endPage eq paging.totalPage }">
 		<li class="page-item disabled"><a class="page-link" href="./main?curPage=${paging.totalPage }&keyword=${keyword }">&raquo;</a></li>
@@ -321,7 +321,7 @@ location.href="?freeHead=" + freeHead
 
 	<%-- 끝 페이지로 이동 --%>
 	<c:if test="${paging.curPage ne paging.totalPage }">
-		<li class="page-item"><a href="./main?curPage=${paging.totalPage }&keyword=${keyword }" class="page-link">끝 &rarr;</a></li>	
+		<li class="page-item"><a href="./search?curPage=${paging.totalPage }&keyword=${keyword }" class="page-link">끝 &rarr;</a></li>	
 	</c:if>
 	
 	</ul>

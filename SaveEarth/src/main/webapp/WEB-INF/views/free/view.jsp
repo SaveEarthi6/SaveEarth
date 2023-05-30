@@ -63,6 +63,7 @@
 </tr>
 <tr>
 	<td class="table-light">아이디</td><td>${view.USER_ID }</td>
+	<td class="table-light">닉네임</td><td>${view.USER_NICK}</td>
 </tr>
 <tr>
 	<td class="table-light">조회수</td><td>${view.FREE_VIEWS }</td>
@@ -130,10 +131,10 @@ $function(){
 <!-- 버튼 -->
 <div class="text-center mb-3">
    <a href= "/free/main"><button id="btnList" class="btn btn-success">목록</button></a>
-   
+   <form action="/free/recommend">
    <button type="button" id="btnRecommend" class="btn btn-success">추천</button>
    <span id= "recommend" ></span>
-   
+   </form>
 </div>
 
 <!-- 댓글 -->

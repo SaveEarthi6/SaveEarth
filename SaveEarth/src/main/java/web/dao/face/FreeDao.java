@@ -91,7 +91,8 @@ public interface FreeDao {
 	 * @param freeHead 
 	 * @return - 검색어와 일치하는 게시글
 	 */
-	public List<Map<String, Object>> selectFreeByKeyword(@Param("paging") Paging paging, @Param("keyword") String keyword, @Param("freeHead") String freeHead);
+//	public List<Map<String, Object>> selectFreeByKeyword(@Param("paging") Paging paging, @Param("keyword") String keyword, @Param("freeHead") String freeHead);
+	public List<Map<String, Object>> selectFreeByKeyword(Map<String, Object> map);
 
 
 	/**
@@ -102,6 +103,7 @@ public interface FreeDao {
 	public List<Free> mypageList(int userno);
 
 	public void recommend(Free freeNo);
+
 
 
 
