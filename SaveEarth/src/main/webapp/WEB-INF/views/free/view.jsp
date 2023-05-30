@@ -50,7 +50,7 @@
 <div class="container">
 
 <div style= "margin-left: 1100px; padding-top: 50px; padding-bottom: 50px;">
-	<c:if test="${ userInfo.userno eq view.USER_NO }">
+	<c:if test="${ userInfo.userNo eq view.USER_NO }">
 		<button onclick="location.href='./update?freeNo=${view.FREE_NO}'" id="btnUpdate" class="btn btn-success">수정</button>
 		<button onclick="location.href='./delete?freeNo=${view.FREE_NO}'" id="btnDelete" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">삭제</button>
 	</c:if>

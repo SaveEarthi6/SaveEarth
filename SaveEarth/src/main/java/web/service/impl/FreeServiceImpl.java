@@ -60,7 +60,8 @@ public class FreeServiceImpl implements FreeService{
 	@Override
 	public void freeWrite(Free free, List<MultipartFile> files, Member memberInfo) {
 		
-		free.setUserNo(memberInfo.getUserno());
+		free.setAdminNo(1);
+		free.setUserNo(memberInfo.getUserNo());
 		
 //		free.setUserNo(2);
 		logger.info("free {}", free);

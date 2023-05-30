@@ -4,6 +4,12 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="web.dao.face.FreeDao">
 
+
+<select id="selectNickById" parameterType="string" resultType="string">
+	SELECT user_nick FROM member 
+	WHERE user_id=#{userId}
+</select>
+
 <insert id="insertFree" parameterType="web.dto.Free">
 	<selectKey keyProperty="freeNo" order="BEFORE" resultType="int">
 		select free_no_seq.nextval from dual
