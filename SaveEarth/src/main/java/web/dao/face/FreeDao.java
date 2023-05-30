@@ -101,6 +101,8 @@ public interface FreeDao {
 	 */
 	public List<Free> mypageList(int userno);
 
+	public void recommend(Free freeNo);
+
 
 
 	

@@ -225,6 +225,7 @@ location.href="?freeHead=" + freeHead
 		<th style="width: 30px; text-align:center">제목</th>
 		<th style="width: 20px;">작성자</th>
 		<th style="width: 20px;">조회수</th>
+		<th style="width: 20px;">추천수</th>
 		<th style="width: 20px;">작성일</th>
 	</tr>
 	
@@ -238,6 +239,7 @@ location.href="?freeHead=" + freeHead
 				<td class="text-start" style="text-align:center"><a href="/free/view?freeNo=${free.FREE_NO }">${free.FREE_TITLE }</a></td>
 				<td>${free.USER_ID}</td>
 				<td>${free.FREE_VIEWS }</td>
+				<td>${free.RECOMM_NO }</td>
 				<td><fmt:formatDate value="${free.FREE_CREATE}" pattern="yy-MM-dd HH:mm:ss"/></td>
 			</tr>
 

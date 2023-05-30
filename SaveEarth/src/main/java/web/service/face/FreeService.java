@@ -74,6 +74,8 @@ public interface FreeService {
 	 * @return
 	 */
 	public List<Free> mypageList(int userno);
+
+	public void recommend(Free freeNo);
 	
 	
 	
