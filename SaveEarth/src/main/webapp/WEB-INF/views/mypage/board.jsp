@@ -5,10 +5,6 @@
 
 <c:import url="../layout/header.jsp"/>
 
-
-
-
-
 <!DOCTYPE html>
 <html>
 <head>

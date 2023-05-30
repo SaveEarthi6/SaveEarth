@@ -33,10 +33,18 @@
 		WHERE free_no = #{freeNo}
 	</update>
 	
-	<select id="selectFreeBoard" parameterType="web.dto.Free" resultType="web.dto.Free">
-		SELECT * FROM free
-		WHERE free_no = #{freeNo}
-	</select>
+	<select id="selectFreeBoard" parameterType="web.dto.Free" resultType="map">
+	SELECT * FROM(
+		SELECT 
+		(SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) id,
+		(SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) nick, F.* FROM (
+			SELECT
+			*
+			FROM free
+		) F
+	) FREEMAIN
+	WHERE free_no = #{freeBoard.freeNo}
+</select>
 	
 	<select id="selectNickById" parameterType="string" resultType="string">
 		SELECT user_nick FROM member 
@@ -48,8 +56,13 @@
 		WHERE free_no = #{freeNo}
 	</select>
 	
+<<<<<<< HEAD
 	<select id="selectCntAll2" resultType="int">
   		 SELECT count(*) FROM campaign
 	</select>
 
+=======
+	
+	
+>>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
 </mapper>

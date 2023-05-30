@@ -53,21 +53,18 @@ public class AdminServiceimpl implements AdminService {
 		return adminDao.selectList(paging);
 	}
 	@Override
-	public Free getView(Free freeBoard) {
+	public Map<String, Object> getView(Free freeBoard) {
+		
 		adminDao.updateHit(freeBoard);
 		
 		return adminDao.selectFreeBoard(freeBoard);
 		
 	}
 	
-	@Override
-	public String getNick(String loginId) {
-		
-		return adminDao.selectNickById(loginId);
-	}
+	
 	
 	@Override
-	public FreeFile getFreeFile(Free freeBoard) {
+	public List<FreeFile> getFreeFile(Free freeBoard) {
 		
 		return adminDao.selectFreeFile(freeBoard);
 		

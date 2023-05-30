@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+  
 <style>
 /* 툴바 제목 */
 .fc-toolbar-title {
@@ -51,6 +52,11 @@
 	background-color: #7CA621 !important;
 }
 
+.fc-event-title-container {
+	border: none;
+	font-weight: bold;
+}
+
 
 /* 모달 푸터 버튼 */
 .modal-footer {
@@ -87,6 +93,39 @@
 
 <script type="text/javascript">
 
+var eventDay;
+var title;
+var date;
+
+// $.ajax({
+// 	type: "post"
+// 	, url : "./getCalendar"
+// 	, dataType : "JSON"
+// 	, success : function(res) {
+// 		console.log('성공')
+// 		console.log(res)
+		
+// 		$.each(res, function(key, value) {
+			
+// 			title1 = value.calName
+// 			start1 = value.calDate
+			
+// 			console.log(title1)
+// 			console.log(start1)
+			
+			
+// 		})
+		
+// 	}
+// 	, error : function() {
+// 		console.log('실패')
+		
+// 	}
+// })
+
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
 	var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -102,18 +141,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		},
 		headerToolbar: {
-			start: 'prev next today'
-			, center: 'title'
-			, end: 'myCustomButton'
+			<c:if test="${empty isLogin }">
+				start: 'prev'
+				, center: 'title'
+				, end: 'next'
+			</c:if>
+			<c:if test="${not empty isLogin and isLogin }">
+				start: 'prev next today'
+				, center: 'title'
+				, end: 'myCustomButton'
+			</c:if>
 		},
 		events: [
-			<c:forEach var="calendar" items="${calList }">
+			<c:forEach items="${calList}" var="calList">
 			{
-				title: ${calendar.calName}
-				, start: ${calendar.calDate}
-			}
+				title : "${calList.calName}"	,
+				start : "<fmt:formatDate value="${calList.calDate}" pattern="yyyy-MM-dd"/>"
+			},
 			</c:forEach>
-			
+				 
 		],
 		dateClick: function(info) {		//날짜 클릭하면 해당 일 출력
 			var string = info.date
@@ -123,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			//여기에 해당 일자 목록 불러오는 에이젝스..? 혹은 메소드 추가해야 함
 			
 		}
-// 		selectable : true,
+// 		selectable : true
 // 		select: function(arg) {		//날짜 클릭 이벤트
 // 			console.log(calendar.getDate())
 			
@@ -150,6 +196,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 </script>
-
-
 
