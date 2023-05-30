@@ -36,9 +36,10 @@ public class CampaignController {
 		logger.info("/campaign/main [GET]");
 		logger.info("curPage : {}", curPage);
 		
+		//전체글 페이징
 		Paging paging = campService.getPaging(curPage);
 		
-		//캠페인 불러오기
+		//첫 로드시 캠페인 불러오기
 		List<Campaign> campList = campService.getCampList(paging);
 		
 		
@@ -50,8 +51,23 @@ public class CampaignController {
 		model.addAttribute("paging", paging);
 		
 		
+		//모달용 진행중 캠페인 리스트 불러오기
+		List<Campaign> ingList = campService.getIngList();
+		
+		model.addAttribute("ingList", ingList);
+		
+				
+		//로그인 상태에 따라 기념일 혹은 유저 인증글 불러오기
 		if(session.getAttribute("isLogin") != null) {
-//			List<Certification> certList = campService.getcertList(session.getAttribute("loginId"));
+			
+			List<Certification> certList = campService.getcertList((int)session.getAttribute("loginNo"));
+		
+			for(Certification c : certList) {
+				logger.info("{}", c);
+			}
+			
+			model.addAttribute("certList", certList);
+			
 		} else {
 			List<Calendar> calList = campService.getCalendar();
 	
@@ -109,6 +125,8 @@ public class CampaignController {
 		
 		Map<String, Object> campDetail = campService.getCampDetail(campno);
 		logger.info("{}", campDetail);
+		
+		//인증현황 조회해오기
 		
 		model.addAttribute("campDetail", campDetail);
 		

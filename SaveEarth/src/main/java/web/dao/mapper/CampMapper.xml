@@ -64,5 +64,16 @@
 	<select id="selectCalList" resultType="web.dto.Calendar">
 		SELECT * FROM calendar
 	</select>
+	
+	<select id="selectIngList" resultType="web.dto.Campaign">
+		SELECT * FROM campaign
+		WHERE camp_state = '진행중'
+		ORDER BY camp_no DESC
+	</select>
+	
+	<select id="selectCertByUserNo" resultType="web.dto.Certification" parameterType="int">
+		SELECT * FROM certification
+		WHERE user_no = #{userNo}
+	</select>
 
 </mapper>

@@ -32,4 +32,8 @@ public interface CampDao {
 
 	public List<Calendar> selectCalList();
 
+	public List<Campaign> selectIngList();
+
+	public List<Certification> selectCertByUserNo(int userNo);
+
 }

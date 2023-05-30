@@ -135,7 +135,10 @@ document.addEventListener('DOMContentLoaded', function() {
 				text: '인증글 작성하기'
 				, click: function() {
 					//클릭시 모달창 클릭되도록 수정하기
+					document.getElementById('preview').src = "";
+					$("#partForm")[0].reset();
 					$("#btnModal").click()
+					
 				}
 			}
 
@@ -153,12 +156,22 @@ document.addEventListener('DOMContentLoaded', function() {
 			</c:if>
 		},
 		events: [
-			<c:forEach items="${calList}" var="calList">
-			{
-				title : "${calList.calName}"	,
-				start : "<fmt:formatDate value="${calList.calDate}" pattern="yyyy-MM-dd"/>"
-			},
-			</c:forEach>
+			<c:if test="${empty isLogin }">
+				<c:forEach items="${calList}" var="calendar">
+				{
+					title : "${calendar.calName}"	,
+					start : "<fmt:formatDate value="${calendar.calDate}" pattern="yyyy-MM-dd"/>"
+				},
+				</c:forEach>
+			</c:if>
+			<c:if test="${not empty isLogin and isLogin }">
+				<c:forEach items="${certList}" var="certification">
+				{
+					title : "${certification.partTitle}"	,
+					start : "<fmt:formatDate value="${certification.partDate}" pattern="yyyy-MM-dd"/>"
+				},
+				</c:forEach>
+			</c:if>
 				 
 		],
 		dateClick: function(info) {		//날짜 클릭하면 해당 일 출력
