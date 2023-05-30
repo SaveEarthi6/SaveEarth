@@ -10,7 +10,6 @@ import java.util.UUID;
 
 import javax.servlet.ServletContext;
 
-import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import web.dao.face.FreeDao;
 import web.dto.Free;
+import web.dto.FreeComment;
 import web.dto.FreeFile;
 import web.dto.Member;
 import web.service.face.FreeService;
@@ -280,6 +280,26 @@ public class FreeServiceImpl implements FreeService{
 		
       freeDao.recommend(freeNo);
 		
+	}
+
+	@Override
+	public void writeComment(String comment, int freeNo, int userNo) {
+		
+		FreeComment freeComment = null;
+		freeComment.setCommContent(comment);
+		freeComment.setFreeNo(freeNo);
+		freeComment.setUserNo(userNo);
+		
+		logger.info("freeComment {} ", freeComment);
+		
+		freeDao.insertComment(freeComment);
+		
+	}
+	
+	@Override
+	public Map<String, Object> getComment() {
+		
+		return freeDao.selectComment();
 	}
 
 	

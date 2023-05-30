@@ -37,6 +37,10 @@
 	height: 500px;
 }
 
+.rs {
+	border: 1px solid black;
+}
+
 </style>
 
 
@@ -125,6 +129,39 @@ $function(){
 }
 
 
+function callByAjax() {
+	
+	var form = document.commentForm;
+	
+	var comment = form.comment.value;
+	
+	$post(
+		action,
+		{
+			comment:comment
+		},
+		function(data) {
+// 			$('.rs').append(data);
+			$('.rs').text(data);
+		},
+		'json'
+	);
+	
+    $.ajax({
+        url : "./comment",
+        type : "POST",
+        data : $("#commentForm"),
+        dataType: 'JSON',
+        success : function (data) {
+         
+			$('.rs').text(data.commConent);
+			$('.writeDate').text(data.commCreate);
+            
+            }
+        });
+	
+}
+
 </script>
 
 
@@ -137,15 +174,24 @@ $function(){
    </form>
 </div>
 
+<!-- 댓글 작성 위치 -->
+<h3>댓글</h3>
+<h5>작성자 : ${userInfo.userId}</h5>
+<div class="rs"></div>
+<div class="writeDate"></div>
+
 <!-- 댓글 -->
 	<div class="card my-4">
 		<h5 class="card-header" style="font-weight: bold;">댓글</h5>
 		<div class="card-body">
-			<form name="comment-form" action="/board/comment/write" method="post" autocomplete="off">
-					<textarea name="content" class="form-control" rows="3"></textarea>
+			<form name="commentForm" action="./comment" method="post" autocomplete="off" id="commentForm">
+					<textarea name="comment" class="form-control" rows="3"></textarea>
 				<div style= "padding-top: 50px;">
-					<button type="submit" class="btn btn-success">등록</button>
+					<button onclick="callByAjax()" type="button" class="btn btn-success">등록</button>
 				</div>
+				<!-- 회원번호랑 게시글 번호도 함께 보내기 -->
+				<input type="hidden" name="userNo" value=${userInfo.userNo }>
+				<input type="hidden" name="freeNo" value=${view.FREE_NO }>
 			</form>
 		</div>
 	</div>

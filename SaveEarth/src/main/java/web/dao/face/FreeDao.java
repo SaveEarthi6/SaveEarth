@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Free;
+import web.dto.FreeComment;
 import web.dto.FreeFile;
 import web.util.Paging;
 
@@ -103,6 +104,18 @@ public interface FreeDao {
 	public List<Free> mypageList(int userno);
 
 	public void recommend(Free freeNo);
+
+	/**
+	 * 작성한 댓글을 삽입한다
+	 * @param freeComment - 작성한 댓글 내용(정보)
+	 */
+	public void insertComment(FreeComment freeComment);
+
+	/**
+	 * 등록된 댓글 정보를 조회한다
+	 * @return - 모든 댓글 정보
+	 */
+	public Map<String, Object> selectComment();
 
 
 

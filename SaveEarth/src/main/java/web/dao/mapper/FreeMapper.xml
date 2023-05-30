@@ -140,18 +140,15 @@
 </select>
 
 <!-- 댓글 조회 -->
-<!-- <select id="replyList" parameterType="int" resultType="com.board.domain.ReplyVO"> -->
-<!--     select -->
-<!--         rno, bno, writer, content, regDate -->
-<!--     from tbl_reply -->
-<!--         where bno = #{bno}         -->
-<!-- </select> -->
+<select id="selectComment" resultType="map">
+	SELECT * FROM freecomment
+</select>
 
 <!-- 댓글 작성 -->
-<!-- <insert id="replyWrite" parameterType="com.board.domain.ReplyVO"> -->
-<!--     insert into tbl_reply(bno, writer, content, regDate) -->
-<!--         value(#{bno}, #{writer}, #{content}, #{regDate}) -->
-<!-- </insert> -->
+<insert id="insertComment" parameterType="web.dto.FreeComment">
+    insert into freecomment(comm_no, free_no, user_no, comm_content)
+        value (comm_no_seq.nextval, #{freeNo}, #{userNo}, #{commContent})
+</insert>
     
 <!-- 댓글 수정 -->
 <!-- <update id="replyModify" parameterType="com.board.domain.ReplyVO"> -->
@@ -168,6 +165,7 @@
 <!--     where rno = #{rno} -->
 <!--         and bno = ${bno}     -->
 <!-- </delete> -->
+
 
 <!-- <select id="mypageList" resultType="web.dto.Free" parameterType="int"> -->
 <!-- select * from Free -->

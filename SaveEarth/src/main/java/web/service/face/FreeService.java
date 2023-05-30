@@ -83,6 +83,20 @@ public interface FreeService {
 	 * @param free - 게시글 번호
 	 */
 	public void deleteFreeFile(Free free);
+
+	/**
+	 * 댓글을 작성한다
+	 * @param comment  - 입력한 댓글 내용
+	 * @param userNo - 댓글을 작성한 회원의 회원 번호
+	 * @param freeNo - 댓글을 작성한 게시글 번호
+	 */
+	public void writeComment(String comment, int freeNo, int userNo);
+
+	/**
+	 * 회원번호를 가지고 댓글 정보를 조회한다
+	 * @return - 조회한 댓글 정보
+	 */
+	public Map<String, Object> getComment();
 	
 	
 	

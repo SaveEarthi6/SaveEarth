@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Free;
@@ -121,9 +122,12 @@ public class FreeBoardController {
 	}
 	
 	
-	@RequestMapping("/free/deleteBoard")
+	@RequestMapping("/free/delete")
 	public String deleteBoard (Free free) {
+		
 		freeService.deleteFree(free);
+		
+		freeService.deleteFreeFile(free);
 		
 		return "redirect:/mypage/board";
 	}
@@ -211,6 +215,23 @@ public class FreeBoardController {
 	      return "redirect:/free/main";
 	      
 	   }
+	
 
+	@RequestMapping("/free/comment")
+//	@ResponseBody
+//	Map comment(String comment, int freeNo, int userNo) {
+	public void comment(String comment, int freeNo, int userNo, Model model) {
+		
+		//댓글 작성
+		freeService.writeComment(comment, freeNo, userNo);
+		
+		//댓글 정보 조회해서 쏴주기
+		Map<String, Object> rs = freeService.getComment();
+		
+		model.addAttribute("rs", rs);
+		
+//		return rs;
+		
+	}
 	
 }
