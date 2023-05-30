@@ -13,7 +13,7 @@ public interface MemberDao {
 	 * @param loginid
 	 * @return
 	 */
-	public Member selectById(String loginid);
+	public Member selectById(String loginId);
 
 	/**
 	 * 이름 이메일로 아이디 찾기
@@ -32,7 +32,7 @@ public interface MemberDao {
 	 * @param loginid - 로그인한 아이디
 	 * @return - 회원 정보
 	 */
-	public Member selectInfoById(String loginid);
+	public Member selectInfoById(String loginId);
 
 	/**
 	 * 회원가입 아이디 중복확인
@@ -53,7 +53,7 @@ public interface MemberDao {
 	 * 회원정보 삭제
 	 * @param member
 	 */
-	public void delete(String loginid);
+	public void delete(String loginId);
 
 	/**
 	 * 회원정보 수정

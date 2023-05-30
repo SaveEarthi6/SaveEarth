@@ -305,20 +305,6 @@ input {
 <a href="./order"><button type="button" class="btn btn-outline-success" id ="top">주문내역 수정</button></a>
 </div>
 
-<!-- <ul class="nav nav-pills nav-fill"> -->
-<!--   <li class="nav-item"> -->
-<!--     <a class="nav-link active" aria-current="page" href="./update">회원정보 수정</a> -->
-<!--   </li> -->
-<!--   <li class="nav-item"> -->
-<!--     <a class="nav-link" href="./delete">회원정보 탈퇴</a> -->
-<!--   </li> -->
-<!--   <li class="nav-item"> -->
-<!--     <a class="nav-link" href="./board">게시글, 댓글</a> -->
-<!--   </li> -->
-<!--   <li class="nav-item"> -->
-<!--     <a class="nav-link" href="./order">주문내역</a> -->
-<!--   </li> -->
-<!-- </ul> -->
 
 <br>
 
@@ -343,17 +329,15 @@ input {
         <input name="userNick" id="nick" type="text" class="nickname" value="${info.userNick }">
       </div>
       
-
-      
       <div class="textForm">
       <label>이메일</label>
         <input name="userEmail" id ="email" type="text" class="email" value="${info.userEmail }">
       </div>
       
      <div class="textForm">
-       <input type="button" class="form-control" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
-       <input  type="text" disabled class="nickname" id="sample4_postcode" placeholder="우편번호 : ${info.userPostcode}" name="userPostcode"> 
-         <input type="text" disabled class="nickname" id="sample4_roadAddress" placeholder="도로명주소 : ${info.userAddr}" name="userAddr">
+      <input type="button" class="form-control" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
+      <input  type="text" disabled class="nickname" id="sample4_postcode" placeholder="우편번호 : ${info.userPostcode}" name="userPostcode"> 
+      <input type="text" disabled class="nickname" id="sample4_roadAddress" placeholder="도로명주소 : ${info.userAddr}" name="userAddr">
       <span id="guide" style="color:#999;display:none"></span>
       <label>상세주소</label>
       <input type="text" class="nickname" id="sample4_detailAddress" value ="${info.userDetailaddr}" name="userDetailaddr">

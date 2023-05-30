@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import web.dto.Admin;
 import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Member;
@@ -96,6 +95,7 @@ public class FreeBoardController {
 		model.addAttribute("id", loginId);
 		model.addAttribute("memberInfo", memberInfo);
 		
+		
 	}
 
 	@PostMapping("/free/write")
@@ -125,7 +125,7 @@ public class FreeBoardController {
 	public String delete (Free free) {
 		freeService.delete(free);
 		
-		return "redirect:./main";
+		return "redirect:/mypage/board";
 	}
 	
 	

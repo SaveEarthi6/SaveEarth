@@ -220,13 +220,13 @@ location.href="?freeHead=" + freeHead
 
 	<%-- 첫 페이지로 이동 --%>
 	<c:if test="${paging.curPage ne 1 }">
-		<li class="page-item"><a href="./main?freeHead=${freeHead }" class="page-link">&larr; 처음</a></li>	
+		<li class="page-item"><a href="./board?freeHead=${freeHead }" class="page-link">&larr; 처음</a></li>	
 	</c:if>
 	
 	<%-- 이전 페이징 리스트로 이동 --%>
 	<c:choose>
 	<c:when test="${paging.startPage ne 1 }">
-		<li class="page-item"><a href="./main?curPage=${paging.startPage - paging.pageCount }&freeHead=${freeHead}" class="page-link">&laquo;</a></li>
+		<li class="page-item"><a href="./board?curPage=${paging.startPage - paging.pageCount }&freeHead=${freeHead}" class="page-link">&laquo;</a></li>
 	</c:when>
 	<c:when test="${paging.startPage eq 1 }">
 		<li class="page-item disabled"><a class="page-link">&laquo;</a></li>
@@ -235,7 +235,7 @@ location.href="?freeHead=" + freeHead
 	
 	<%-- 이전 페이지로 가기 --%>
 	<c:if test="${paging.curPage > 1 }">
-		<li class="page-item"><a href="./main?curPage=${paging.curPage - 1 }&freeHead=${freeHead}" class="page-link">&lt;</a></li>
+		<li class="page-item"><a href="./board?curPage=${paging.curPage - 1 }&freeHead=${freeHead}" class="page-link">&lt;</a></li>
 	</c:if>
 	
 	
@@ -244,10 +244,10 @@ location.href="?freeHead=" + freeHead
 	<%-- 페이징 리스트 --%>
 	<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="i">
 	<c:if test="${paging.curPage eq i }">
-		<li class="page-item active"><a href="./main?curPage=${i }&freeHead=${freeHead}" class="page-link">${i }</a></li>
+		<li class="page-item active"><a href="./board?curPage=${i }&freeHead=${freeHead}" class="page-link">${i }</a></li>
 	</c:if>
 	<c:if test="${paging.curPage ne i }">
-		<li class="page-item"><a href="./main?curPage=${i }&freeHead=${freeHead}" class="page-link">${i }</a></li>
+		<li class="page-item"><a href="./board?curPage=${i }&freeHead=${freeHead}" class="page-link">${i }</a></li>
 	</c:if>
 	</c:forEach>
 	
@@ -276,6 +276,7 @@ location.href="?freeHead=" + freeHead
 	
 	</ul>
 </div>
+
 
 
 <c:import url="../layout/footer.jsp"></c:import>

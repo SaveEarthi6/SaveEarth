@@ -36,9 +36,9 @@ public class FreeServiceImpl implements FreeService{
 	ServletContext context;
 	
 	@Override
-	public String getNick(String loginid) {
+	public String getNick(String loginId) {
 		
-		return freeDao.selectNickById(loginid);
+		return freeDao.selectNickById(loginId);
 	}
 
 	@Override
@@ -253,9 +253,14 @@ public class FreeServiceImpl implements FreeService{
 	}
 	
 	@Override
+<<<<<<< HEAD
 	public List<Map<String, Object>> search(Paging paging, String keyword, String freeHead) {
 		
 		return freeDao.selectFreeByKeyword(paging, keyword, freeHead);
+=======
+	public List<Map<String, Object>> search(Paging paging, String keyword) {
+		return freeDao.selectFreeByKeyword(paging, keyword);
+>>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
 	}
 
 	@Override

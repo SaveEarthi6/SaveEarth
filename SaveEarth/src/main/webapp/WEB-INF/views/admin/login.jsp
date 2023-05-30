@@ -6,8 +6,8 @@
 
 <c:import url="../layout/adminheader.jsp"></c:import>
 
-<style>
 
+<style type="text/css">
 
 /* base - 브라우저 별로 다를 수도 있는 것을 초기화 */
 *{ padding: 0; margin: 0; } /* 태그 여백 없앰 */
@@ -17,11 +17,6 @@ button{ cursor: pointer; } /* 모든 버튼에 마우스손모양 처리 */
 
 /* body설정 */
 /* body{ background-color: #ededed; } */
-
-
-
-
-
 
 .loginbox{
     width: 780px; height: 550px;
@@ -102,12 +97,11 @@ button{ cursor: pointer; } /* 모든 버튼에 마우스손모양 처리 */
 <title>Insert title here</title>
 </head>
 <body>
-   <div class="loginbox">
+	<div class="loginbox">
   <h2>관리자 로그인</h2>
   <form action="./login" method="post">
     <!--작성하지 않아도 문제는 없음-->
-    <fieldset>
-      <legend>로그인 구역</legend>
+<legend>로그인 구역</legend>
       <label for="id">관리자 아이디</label>
       <input type="text" id="id" name="adminId" placeholder="Admin ID">
       <label for="pw">관리자 비밀번호</label>
