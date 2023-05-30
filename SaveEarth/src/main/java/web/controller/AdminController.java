@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Admin;
 import web.dto.Free;
@@ -55,7 +56,7 @@ public class AdminController {
 		model.addAttribute("paging", paging);
 	}
 	
-	// 자유게시판 상세
+		// 자유게시판 상세
 		@RequestMapping("/freeView")
 		public void detail(Model model, Free freeBoard, HttpSession session) {
 			logger.info("/admin/view [GET]");
@@ -97,15 +98,86 @@ public class AdminController {
          logger.info("로그인 성공");
          session.setAttribute("isLogin", isLogin);
          session.setAttribute("admin", true);
-         return "redirect: ./main";
+         return "redirect: ./free";
          
       } else {
          logger.info("로그인 실패");
          session.invalidate();
          return "redirect: ./login";
       }
-      
-      
+   }
+
+   @GetMapping("/freeWrite") //자유게시판 글쓰기
+   public void adminwrite(HttpSession session, Model model) {
+	   logger.info("/admin/write[GET]");
+	   
+		String loginId = (String) session.getAttribute("loginId");
+		logger.info("로그인 정보{}", loginId);
+		
+		String loginnick = (String) adminService.getNick(loginId);
+		logger.info("id {}", loginId);
+		logger.info("nick {}", loginnick);
+		
+		model.addAttribute("id", loginId);
+		model.addAttribute("nick", loginnick);
+   }
+   
+   @PostMapping("/freeWrite")
+	public String writepost(HttpSession session, Free free, List<MultipartFile> files) {
+		
+		logger.info("/free/write [POST]");
+		
+		String loginId = (String) session.getAttribute("loginId");
+		//로그인한 회원의 정보를 조회해 작성자 정보로 넣어준다
+		Member memberInfo = memberService.info(loginId);
+		
+		logger.info("memberInfo {}", memberInfo);
+		logger.info("free {}", free);
+		logger.info("files {}", files);
+		
+		adminService.freeWrite(free, files, memberInfo);
+		
+		return "redirect:/free/main";
+		
+	}
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   // 켐페인 게시판
+   @RequestMapping("/campaign")
+   public void campMain(Model model, @RequestParam(defaultValue = "0") int curPage) {
+      logger.info("/admin/campaign [GET]");
+      logger.info("curPage : {}", curPage);
+
+      Paging paging = adminService.getPaging2(curPage);
+
    }
 
    

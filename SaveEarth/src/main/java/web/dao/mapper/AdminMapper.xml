@@ -47,5 +47,9 @@
 		SELECT * FROM free_file
 		WHERE free_no = #{freeNo}
 	</select>
+	
+	<select id="selectCntAll2" resultType="int">
+  		 SELECT count(*) FROM campaign
+	</select>
 
 </mapper>

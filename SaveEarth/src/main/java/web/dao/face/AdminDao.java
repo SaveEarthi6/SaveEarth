@@ -24,4 +24,6 @@ public interface AdminDao {
 
    public FreeFile selectFreeFile(Free freeBoard);
 
+   public int selectCntAll2();
+
 }
