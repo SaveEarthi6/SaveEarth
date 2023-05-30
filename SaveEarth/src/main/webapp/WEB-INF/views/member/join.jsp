@@ -33,13 +33,13 @@
 
 
 
-//아이디 중복체크
+//아이디 중복체크()
  $(function(){
 	$("#overlappedID").click(function() {
 		console.log("test")
 
 		const userId = $("#userId").val();
-		$("#signup").attr("type","button");
+//		$("#signup").attr("type","button");
 		$.ajax({
 			type: "get",
 
@@ -49,12 +49,14 @@
 				if(data == 1) {
 					result="이미 사용중인 ID입니다";
 					$("#olmessage").html(result);
-					$("#signup").attr("type","button");
+					$("#idmessage").html("fail");
+//					$("#signup").attr("type","button");
 					
 					
 				} else {
 					$("#olmessage").text("사용가능한 ID입니다");
-					$("#signup").attr("type","submit");
+					$("#idmessage").html("ok");
+//					$("#signup").attr("type","submit");
 				}
 			}
 		})
@@ -70,21 +72,24 @@ $(function(){
 	$("#userEmail").blur(function() {
 		console.log("testemail")
 
-		const email = $("#userEmail").val();
+		const userEmail = $("#userEmail").val();
 		$.ajax({
 			type: "get",
 
 			url: "http://localhost:8888/member/emailCheck",
-			data:{email:email},
+			data:{userEmail:userEmail},
 			success: function(data){
 				if(data == 1) {
 					result="이미 사용중인 E-mail입니다";
 					$("#olEmessage").html(result);
-					$("#signup").attr("type","button");
-					
+
+					$("#emailHidden").html("fail");
 					
 				} else {
-					$("#signup").attr("type","submit");
+					result="사용가능한 E-mail입니다"
+					$("#olEmessage").html(result);
+
+					$("#emailHidden").html("ok"); 
 				  		
 				}
 			}
@@ -110,6 +115,7 @@ $(function(){
 		    alert("비밀번호가 일치하지 않습니다.");
 	    	    $('#userpwcheck').val('');
 	          $('#userpwcheck').focus();
+	          return false;
 	       }
 	    }
 	})  	   
@@ -117,69 +123,30 @@ $(function(){
 
 
 
-// function joinform_check(){
-	
-// 	var id = document.getElementById("id");
-// 	var pw = document.getElementById("pw");
-	
-	
-// 	if(id.value == ""){
-// 		alert("아이디를 입력하세요");
-// 		id.focus();
-// 		$("#signup").attr("type","button");
-// 		return false;
-// 	};
-	
-
-	
-// 	  if (pw.value == "") {
-// 		    alert("비밀번호를 입력하세요.");
-// 		    pw.focus();
-// 		    $("#signup").attr("type","button");
-// 		    return false;
-// 		  } else if(!pwdCheck.test(pw.value)) {
-// 			  //비밀번호 영문자+숫자+특수조합(8~25자리 입력) 정규식
-// 			  var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
-// 			    alert("비밀번호는 영문자+숫자+특수문자 조합으로 8~25자리 사용해야 합니다.");
-// 			    pw.focus();
-// 			    $("#signup").attr("type","button");
-// 			    return false;
-// 			  } else{
-// 				  $("#signup").attr("type","submit");
-// 				  return true;
-// 			  }
-
-/* 		  //비밀번호 영문자+숫자+특수조합(8~25자리 입력) 정규식
-		  var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/; */
-
-/* 		  if (!pwdCheck.test(pw.value)) {
-		    alert("비밀번호는 영문자+숫자+특수문자 조합으로 8~25자리 사용해야 합니다.");
-		    pw.focus();
-		    $("#signup").attr("type","button");
-		    return false;
-		  }; */
-		  
-
 		  
 function joinform_check() {
     var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
     var getCheck= RegExp(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/);
     var getName= RegExp(/^[가-힣|a-z|A-Z]+$/);
-
+    var test = "ok";
+	console.log($("#idmessage").html()== test)
     //아이디 공백 확인
     if($("#userId").val() == ""){
       alert("아이디를 입력해주세요");
       $("#userId").focus();
       return false;
     }
+    
+    //아이디 중복 확인 
+    if(!($("#idmessage").html()=="ok")){
+    	alert("아이디 중복확인을 해주세요");
+    	$("userId").focus();
+    	return false;
+    }
 
-//     //아이디 중복확인 수행
-//     if($("#olmessage").val() == ""){
-//       alert("아이디중복확인을 해주세요");
-//       return false;
-//     }    
+
     
-    
+    //이름 글자수 
     if($('#userName').val().length>7){
 		alert("이름은 7자 까지 입력가능합니다.")
 		return false;
@@ -198,6 +165,15 @@ function joinform_check() {
       $("#userName").focus();
       return false;
     }
+    
+    //닉네임 공백 확인
+    if($("#userNick").val() == ""){
+      alert("닉네임을 입력해주세요");
+      $("#userNick").focus();
+      return false;
+    }    
+    
+    
     //비밀번호 공백 확인
     if($("#userPw").val() == ""){
       alert("비밀번호를 입력해주세요");
@@ -211,6 +187,19 @@ function joinform_check() {
     $("#userPw").focus();
     return false;
     }
+    
+  
+	if(!($("#userPw").val()==$("#userpwcheck").val())){
+		alert("비밀번호 체크확인!!");
+		$("#userpwcheck").val("");
+		$("#userpwcheck").focus();
+		return false;
+	}
+	    	
+    
+    
+    
+    
     //이메일 유효성 검사
     if(!getMail.test($("#userEmail").val())){
       alert("이메일 형식에 맞게 입력해주세요.")
@@ -224,6 +213,13 @@ function joinform_check() {
       $("#userEmail").focus();
       return false;
     }
+   
+    //이메일 중복 확인 
+    if(!($("#emailHidden").html()=="ok")){
+    	alert("중복되는 이메일입니다");
+    	$("userEmail").focus();
+    	return false;
+    }   
 
   return true;
 }		  		    
@@ -271,6 +267,7 @@ function joinform_check() {
   <!-- 20230525추가 id 중복 -->
   <button id="overlappedID" type="button"  >중복확인</button><br>
   <span id="olmessage"></span>
+  <span id="idmessage" style="display:none;"></span>
 
   
   
@@ -300,6 +297,7 @@ function joinform_check() {
     <input type="email" class="form-control" id="userEmail" name="userEmail">
   </div>
   <span id="olEmessage"></span>
+  <span id="emailHidden" style="display:none;"></span>
  
   <div class="col-md-6">
  	<label for="inputCity" class="form-label">주소</label>
