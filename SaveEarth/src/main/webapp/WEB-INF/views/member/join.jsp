@@ -35,10 +35,14 @@
 
 //아이디 중복체크()
  $(function(){
-	$("#overlappedID").click(function() {
+// 	$("#overlappedID").click(function() {
+	$("#userId").focusout(function() {
 		console.log("test")
 
+
 		const userId = $("#userId").val();
+		
+
 //		$("#signup").attr("type","button");
 		$.ajax({
 			type: "get",
@@ -46,20 +50,31 @@
 			url: "http://localhost:8888/member/idCheck",
 			data:{userId:userId},
 			success: function(data){
-				if(data == 1) {
+
+
+			 if(data == 1) {
 					result="이미 사용중인 ID입니다";
 					$("#olmessage").html(result);
 					$("#idmessage").html("fail");
 //					$("#signup").attr("type","button");
 					
 					
-				} else {
+				} else if(data ==0 && userId!=""){
 					$("#olmessage").text("사용가능한 ID입니다");
 					$("#idmessage").html("ok");
 //					$("#signup").attr("type","submit");
-				}
+				}else {
+					$("#olmessage").html("");
+					$("#idmessage").html("");	
+					}
+// 				}
 			}
 		})
+// 		if(userId==""){
+// 			$("#olmessage").html("");
+// 			$("#idmessage").html("");	
+			
+// 		}
 	})
 	
 
@@ -79,10 +94,18 @@ $(function(){
 			url: "http://localhost:8888/member/emailCheck",
 			data:{userEmail:userEmail},
 			success: function(data){
-				if(data == 1) {
+				
+				if(data ==""){
+					
+					$("#olEmessage").html("");
+					$("#emailHidden").html("");				
+				
+				}
+				
+				
+				else if(data == 1) {
 					result="이미 사용중인 E-mail입니다";
 					$("#olEmessage").html(result);
-
 					$("#emailHidden").html("fail");
 					
 				} else {
@@ -188,7 +211,7 @@ function joinform_check() {
     return false;
     }
     
-  
+  	//비밀번호 체크
 	if(!($("#userPw").val()==$("#userpwcheck").val())){
 		alert("비밀번호 체크확인!!");
 		$("#userpwcheck").val("");
@@ -265,9 +288,9 @@ function joinform_check() {
   </div>
   
   <!-- 20230525추가 id 중복 -->
-  <button id="overlappedID" type="button"  >중복확인</button><br>
+<!--   <button id="overlappedID" type="button"  >중복확인</button><br> -->
   <span id="olmessage"></span>
-  <span id="idmessage" style="display:none;"></span>
+  <span id="idmessage" ></span>
 
   
   
