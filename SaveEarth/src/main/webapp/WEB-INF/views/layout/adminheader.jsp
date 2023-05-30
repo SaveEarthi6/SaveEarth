@@ -116,7 +116,7 @@ body {
 <div id="fullHeader">
 <div id="header">
 	<div id="wrap">
-	<a href="../admin/main"><img id="logo" src="../../resources/img/logo2.png"></a>
+	<a href="../admin/free"><img id="logo" src="../../resources/img/logo2.png"></a>
 	
 	<c:if test="${empty isLogin }">
 	<a href="/admin/login"	class="righttop">관리자 로그인 </a>

@@ -20,6 +20,8 @@ public interface AdminService {
 
 	public List<FreeFile> getFreeFile(Free freeBoard);
 
+	public String getNick(String loginId);
+
 
 
 

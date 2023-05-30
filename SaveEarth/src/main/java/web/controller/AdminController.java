@@ -80,19 +80,19 @@ public class AdminController {
 		
 	}
 
-//	// 자유 글쓰기
-//	@GetMapping("/free/write")
-//	public void write(HttpSession session, Model model) {
-//		logger.info("/free/write [GET]");
-//
-//		String loginId = (String) session.getAttribute("loginId");
-//		String loginnick = (String) adminService.getNick(loginId);
-//		logger.info("id {}", loginId);
-//		logger.info("nick {}", loginnick);
-//
-//		model.addAttribute("id", loginId);
-//		model.addAttribute("nick", loginnick);
-//	}
+	// 자유 글쓰기
+	@GetMapping("/freeWrite")
+	public void write(HttpSession session, Model model) {
+		logger.info("/free/write [GET]");
+
+		String loginId = (String) session.getAttribute("loginId");
+		String loginNick = (String) adminService.getNick(loginId);
+		logger.info("id {}", loginId);
+		logger.info("nick {}", loginNick);
+
+		model.addAttribute("id", loginId);
+		model.addAttribute("nick", loginNick);
+	}
 
 	@GetMapping("/login")
 	public void loginpage() {

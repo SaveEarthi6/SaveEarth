@@ -24,6 +24,8 @@ public interface AdminDao {
 
 	public List<FreeFile> selectFreeFile(Free freeBoard);
 
+	public String selectNickById(String loginId);
+
 
 
 

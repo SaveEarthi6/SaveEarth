@@ -82,11 +82,11 @@ form {
 <form action="./freeWrite" method="post" enctype="multipart/form-data">
 
 <div>
-	작성자 아이디 : ${id }
+	작성자 아이디 : ${user_id }
 </div>
 
 <div>
-	닉네임 : ${nick }
+	닉네임 : ${user_nick }
 </div>
 
 <div class="form-group" style= "margin-top: 50px">

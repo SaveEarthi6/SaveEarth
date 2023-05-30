@@ -59,14 +59,18 @@ public class AdminServiceimpl implements AdminService {
 		
 	}
 	
-	
-	
 	@Override
 	public List<FreeFile> getFreeFile(Free freeBoard) {
 		
 		return adminDao.selectFreeFile(freeBoard);
 		
 	}
+	
+	@Override
+		public String getNick(String loginId) {
+		
+		return adminDao.selectNickById(loginId);
+		}
 	
 	// 관리자로그인
    @Override
