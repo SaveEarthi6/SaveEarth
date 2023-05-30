@@ -125,6 +125,10 @@
 	display: none;
 }
 
+label {
+	font-weight: bold;
+}
+
 
 </style>
 
@@ -158,9 +162,11 @@
 		})
 
 	})
-	
+
 
 })
+
+
 
 
 
@@ -235,6 +241,7 @@ myModal.addEventListener('shown.bs.modal', () => {
 						</c:forEach>
 					</select>
 				</div>
+				<br>
 				<div class="form-group">
 					<label for="partTitle">제목</label>
 					<input type="text" class="form-control" id="partTitle" name="partTitle" placeholder="제목을 입력하세요">
@@ -247,7 +254,9 @@ myModal.addEventListener('shown.bs.modal', () => {
 				<br>
 				<div class="form-group">
 					<label for="partFile">첨부파일</label>
-					<input type="file" class="form-control" id="partFile" name="partFile">
+					<input type="file" class="form-control" id="partFile" name="partFile" onchange="previewImg()">
+<!-- 					<img id="preview"/> -->
+					<div id="preview"></div>
 				</div>
 				<div>
 					<input type="hidden" name="userNo" value="1">	<!-- 회원번호 -->
@@ -293,7 +302,50 @@ myModal.addEventListener('shown.bs.modal', () => {
 
 </div>
 
+<script type="text/javascript">
 
-<c:import url="../layout/paging.jsp"/>
+// function previewImg(event) {
+// 	console.log("이미지 미리보기 함수")
+// 	var reader = new FileReader();
+// 	reader.onload = function(event) {
+// 		console.log(event)
+// 	};
+// 	reader.readAsDataURL(document.getElementById("preview"))
+// }
+
+function previewImg() {
+  var preview = document.querySelector('#preview');
+  var files = document.querySelector('input[type=file]').files;
+
+  function readAndPreview(file) {
+    // `file.name` 형태의 확장자 규칙에 주의하세요
+    if (/\.(jpe?g|png|gif)$/i.test(file.name)) {
+      var reader = new FileReader();
+
+      reader.addEventListener(
+        'load',
+        function () {
+          var image = new Image();
+          image.height = 100;
+          image.title = file.name;
+          image.src = this.result;
+          preview.appendChild(image);
+        },
+        false
+      );
+
+      reader.readAsDataURL(file);
+    }
+  }
+
+  if (files) {
+    [].forEach.call(files, readAndPreview);
+  }
+}
+
+</script>
+
+
+<%-- <c:import url="./paging.jsp"/> --%>
 
 <c:import url="../layout/footer.jsp"/>
