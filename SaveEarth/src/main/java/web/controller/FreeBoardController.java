@@ -124,7 +124,7 @@ public class FreeBoardController {
 	public String delete (Free free) {
 		freeService.delete(free);
 		
-		return "redirect:./main";
+		return "redirect:/mypage/board";
 	}
 	
 	
