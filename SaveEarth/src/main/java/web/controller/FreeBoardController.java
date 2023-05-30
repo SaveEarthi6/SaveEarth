@@ -69,8 +69,8 @@ public class FreeBoardController {
 		logger.info("free {}", view);
 		
 		//로그인한 회원과 작성자가 같은 회원인지 비교하기 위한 정보
-		String loginid = (String) session.getAttribute("loginid");
-		Member userInfo = memberService.getUserInfo(loginid);
+		String loginId = (String) session.getAttribute("loginId");
+		Member userInfo = memberService.getUserInfo(loginId);
 		logger.info("userInfo {}", userInfo);
 		
 		model.addAttribute("view", view);
@@ -88,13 +88,14 @@ public class FreeBoardController {
 	public void write(HttpSession session, Model model) {
 		logger.info("/free/write [GET]");
 		
-		String loginid = (String) session.getAttribute("loginid");
-		String loginnick = (String) freeService.getNick(loginid);
-		logger.info("id {}", loginid);
+		String loginId = (String) session.getAttribute("loginId");
+		String loginnick = (String) freeService.getNick(loginId);
+		logger.info("id {}", loginId);
 		logger.info("nick {}", loginnick);
 		
-		model.addAttribute("id", loginid);
+		model.addAttribute("id", loginId);
 		model.addAttribute("nick", loginnick);
+		
 		
 		
 	}
@@ -104,9 +105,9 @@ public class FreeBoardController {
 		
 		logger.info("/free/write [POST]");
 		
-		String loginid = (String) session.getAttribute("loginid");
+		String loginId = (String) session.getAttribute("loginId");
 		//로그인한 회원의 정보를 조회해 작성자 정보로 넣어준다
-		Member memberInfo = memberService.info(loginid);
+		Member memberInfo = memberService.info(loginId);
 		
 		logger.info("memberInfo {}", memberInfo);
 		logger.info("free {}", free);
@@ -123,7 +124,7 @@ public class FreeBoardController {
 	public String delete (Free free) {
 		freeService.delete(free);
 		
-		return "redirect:./main";
+		return "redirect:/mypage/board";
 	}
 	
 	

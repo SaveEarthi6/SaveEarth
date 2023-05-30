@@ -7,8 +7,55 @@
 <mapper namespace="web.dao.face.AdminDao">
 
    <select id="selectCntByIdPw" resultType="int" parameterType="web.dto.Admin">
-      SELECT count(*) FROM admin
-      WHERE admin_id= #{adminId} and admin_pw=#{adminPw} 
+		SELECT count(*) FROM admin
+		WHERE admin_id= #{adminId} and admin_pw=#{adminPw} 
    </select>
 
+	<select id="selectCntAll" resultType="int">
+		SELECT count(*) FROM free
+	</select>
+
+	<select id="selectList" resultType="map" parameterType="web.util.Paging">
+		SELECT * FROM(
+			SELECT rownum rnum, (SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) id, F.* FROM (
+				SELECT
+				*
+				FROM free
+				ORDER BY free_no DESC
+			) F
+		) FREEMAIN
+		WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
+	
+	<update id="updateHit" parameterType="web.dto.Free">
+		UPDATE free set
+		free_views = free_views + 1
+		WHERE free_no = #{freeNo}
+	</update>
+	
+	<select id="selectFreeBoard" parameterType="web.dto.Free" resultType="map">
+	SELECT * FROM(
+		SELECT 
+		(SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) id,
+		(SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) nick, F.* FROM (
+			SELECT
+			*
+			FROM free
+		) F
+	) FREEMAIN
+	WHERE free_no = #{freeBoard.freeNo}
+</select>
+	
+	<select id="selectNickById" parameterType="string" resultType="string">
+		SELECT user_nick FROM member 
+		WHERE user_id=#{user_id}
+	</select>
+	
+	<select id="selectFreeFile" parameterType="web.dto.Free" resultType="web.dto.FreeFile">
+		SELECT * FROM free_file
+		WHERE free_no = #{freeNo}
+	</select>
+	
+	
+	
 </mapper>
