@@ -101,10 +101,10 @@ button{ cursor: pointer; } /* 모든 버튼에 마우스손모양 처리 */
     <!--작성하지 않아도 문제는 없음-->
     <fieldset>
       <legend>로그인 구역</legend>
-      <label for="id">아이디</label>
-      <input type="text" id="id" name="id" placeholder="아이디를 입력해 주세요">
-      <label for="pw">비밀번호</label>
-      <input type="password" id="pw" name="pw" placeholder="비밀번호를 입력해 주세요">
+      <label for="userId">아이디</label>
+      <input type="text" id="userId" name="userId" placeholder="아이디를 입력해 주세요">
+      <label for="userPw">비밀번호</label>
+      <input type="password" id="userPw" name="userPw" placeholder="비밀번호를 입력해 주세요">
       <ul>
         <li><a href="/member/findid">아이디찾기</a></li>
         <li><a href="/member/findpw">비밀번호찾기</a></li>
@@ -123,23 +123,7 @@ button{ cursor: pointer; } /* 모든 버튼에 마우스손모양 처리 */
 <%@ page import="java.math.BigInteger" %>
 
 	  
-<!-- <!-- <script type = "text/javascript" src = "https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script> --> 
- 
-<!-- <!-- <div id = "naver_id_login"></div> --> 
- 
-<!-- <!--  <script type="text/javascript"> --> 
- 
-<!-- //          var naver_id_login = new naver_id_login("GHbqes62pzw1QpLMxiNo", "http://localhost:8888/member/naver");    // Client ID, CallBack URL 삽입 -->
-<!-- //                                             // 단 'localhost'가 포함된 CallBack URL -->
-<!-- //          var state = naver_id_login.getUniqState(); -->
-        
-<!-- //          naver_id_login.setButton("white", 4, 40); -->
-<!-- //          naver_id_login.setDomain("http://localhost:8888/member/naver");    //  URL -->
-<!-- //          naver_id_login.setState(state); -->
-<!-- //          naver_id_login.setPopup(); -->
-<!-- //          naver_id_login.init_naver_id_login(); -->
- 
-<!-- <!-- </script>  --> 
+
 
 <%
     String clientId = "GHbqes62pzw1QpLMxiNo";//애플리케이션 클라이언트 아이디값";

@@ -132,9 +132,9 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void mailSend(Member member) {
 		Mail mail = new Mail();
-		mail.setAddress(member.getEmail());
+		mail.setAddress(member.getUserEmail());
 		mail.setTitle("SaveEarth홈페이지 임시비밀번호 발송");
-		mail.setContent(member.getId() + "님의 임시비밀번호는 "+member.getPw() + "입니다");
+		mail.setContent(member.getUserId() + "님의 임시비밀번호는 "+member.getUserPw() + "입니다");
 		
 		SimpleMailMessage message = new SimpleMailMessage();
 	    message.setTo(mail.getAddress());
@@ -253,8 +253,8 @@ public class MemberServiceImpl implements MemberService {
             
             String userid = String.valueOf(id);
             
-            member.setId(userid);
-            member.setEmail(email);
+            member.setUserId(userid);
+            member.setUserEmail(email);
             
             br.close();
 

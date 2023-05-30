@@ -48,14 +48,14 @@
     	$("#check").click(function() {
     		console.log("test")
 
-    		const id = $("#id").val();
-    		const email = $("#email").val();
+    		const userId = $("#userId").val();
+    		const userEmail = $("#userEmail").val();
     		$("#check").attr("type","button");
     		$.ajax({
     			type: "get",
 
     			url: "http://localhost:8888/member/findIdEmail",
-    			data:{id:id, email:email},
+    			data:{userId:userId, userEmail:userEmail},
     			success: function(data){
     				if(data == 1) {
     					$("#checkemail").text("이메일로 임시비밀번호가 발송되었습니다");
@@ -218,13 +218,13 @@ width: 700px;
 <form action="./findpw" method="POST">
 
       <div class="textForm">
-        <input name="id" id="id" type="text" class="id" placeholder="아이디 ">
+        <input name="userId" id="userId" type="text" class="id" placeholder="아이디 ">
       </div>
       <span id= "checkid"></span>
       
       <div class="textForm">
-      <label for="email">이메일</label>
-      <input name="email" id="email" type="email" class="email" placeholder="이메일 " 
+      <label for="userEmail"></label>
+      <input name="userEmail" id="userEmail" type="email" class="email" placeholder="이메일 " 
         required="/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)?$/i">
       <span id="checkemail"></span>  
         

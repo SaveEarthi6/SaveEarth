@@ -14,9 +14,9 @@
 
 <form action="./findid" method="post">
 <label>이름</label>
-<input type="text" name="name"><br>
+<input type="text" name="userName"><br>
 <label>이메일</label>
-<input type="email" name="email">
+<input type="email" name="userEmail">
 
 
 <button class="button">아이디 확인</button>

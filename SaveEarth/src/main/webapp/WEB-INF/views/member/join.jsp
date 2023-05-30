@@ -38,13 +38,13 @@
 	$("#overlappedID").click(function() {
 		console.log("test")
 
-		const id = $("#id").val();
+		const userId = $("#userId").val();
 		$("#signup").attr("type","button");
 		$.ajax({
 			type: "get",
 
 			url: "http://localhost:8888/member/idCheck",
-			data:{id:id},
+			data:{userId:userId},
 			success: function(data){
 				if(data == 1) {
 					result="이미 사용중인 ID입니다";
@@ -67,10 +67,10 @@
 
 //이메일 중복체크
 $(function(){
-	$("#email").blur(function() {
+	$("#userEmail").blur(function() {
 		console.log("testemail")
 
-		const email = $("#email").val();
+		const email = $("#userEmail").val();
 		$.ajax({
 			type: "get",
 
@@ -105,7 +105,7 @@ $(function(){
 
 //비밀번호 확인
 	$('#userpwcheck').blur(function(){
-	   if($('#pw').val() != $('#userpwcheck').val()){
+	   if($('#userPw').val() != $('#userpwcheck').val()){
 	    	if($('#userpwcheck').val()!=''){
 		    alert("비밀번호가 일치하지 않습니다.");
 	    	    $('#userpwcheck').val('');
@@ -167,9 +167,9 @@ function joinform_check() {
     var getName= RegExp(/^[가-힣|a-z|A-Z]+$/);
 
     //아이디 공백 확인
-    if($("#id").val() == ""){
+    if($("#userId").val() == ""){
       alert("아이디를 입력해주세요");
-      $("#id").focus();
+      $("#userId").focus();
       return false;
     }
 
@@ -180,48 +180,48 @@ function joinform_check() {
 //     }    
     
     
-    if($('#name').val().length>7){
+    if($('#userName').val().length>7){
 		alert("이름은 7자 까지 입력가능합니다.")
 		return false;
     }
 
     //이름 공백 확인
-    if($("#name").val() == ""){
+    if($("#userName").val() == ""){
       alert("이름을 입력해주세요");
-      $("#name").focus();
+      $("#userName").focus();
       return false;
     }
     //이름 유효성
-    if (!getName.test($("#name").val())) {
+    if (!getName.test($("#userName").val())) {
       alert("이름 형식에 맞게 입력해주세요.");
-      $("#name").val("");
-      $("#name").focus();
+      $("#userName").val("");
+      $("#userName").focus();
       return false;
     }
     //비밀번호 공백 확인
-    if($("#pw").val() == ""){
+    if($("#userPw").val() == ""){
       alert("비밀번호를 입력해주세요");
-      $("#pw").focus();
+      $("#userPw").focus();
       return false;
     }
     //비밀번호 유효성
-    if(!getCheck.test($("#pw").val())) {
+    if(!getCheck.test($("#userPw").val())) {
     alert("비밀번호는 영문자+숫자+특수문자 조합으로 8~25자리 사용해야 합니다.");
-    $("#pw").val("");
-    $("#pw").focus();
+    $("#userPw").val("");
+    $("#userPw").focus();
     return false;
     }
     //이메일 유효성 검사
-    if(!getMail.test($("#email").val())){
+    if(!getMail.test($("#userEmail").val())){
       alert("이메일 형식에 맞게 입력해주세요.")
-      $("#email").val("");
-      $("#email").focus();
+      $("#userEmail").val("");
+      $("#userEmail").focus();
       return false;
     }
    //이메일 공백 확인
-    if($("#email").val() == ""){
+    if($("#userEmail").val() == ""){
       alert("이메일을 입력해주세요");
-      $("#email").focus();
+      $("#userEmail").focus();
       return false;
     }
 
@@ -265,7 +265,7 @@ function joinform_check() {
 
   <div class="col-md-6">
     <label for="inputEmail4" class="form-label">아이디</label>
-    <input type="text" class="form-control" id="id" name="id">
+    <input type="text" class="form-control" id="userId" name="userId">
   </div>
   
   <!-- 20230525추가 id 중복 -->
@@ -276,7 +276,7 @@ function joinform_check() {
   
   <div class="col-md-6">
     <label for="inputPassword4" class="form-label">비밀번호</label>
-    <input type="password" class="form-control" id="pw" name="pw">
+    <input type="password" class="form-control" id="userPw" name="userPw">
   </div>
   
    <div class="col-md-6">
@@ -286,22 +286,18 @@ function joinform_check() {
 
   <div class="col-md-6">
     <label for="inputCity" class="form-label">이름</label>
-    <input type="text" class="form-control" id="name" name="name">
+    <input type="text" class="form-control" id="userName" name="userName">
   </div>
   
   <div class="col-md-6">
     <label for="inputCity" class="form-label">닉네임</label>
-    <input type="text" class="form-control" id="nick" name="nick">
-  </div>
+    <input type="text" class="form-control" id="userNick" name="userNick">
+  </div>  
   
-   <div class="col-md-6">
-    <label for="inputCity" class="form-label">생년월일</label>
-    <input type="date" class="form-control" id="birth" name="birth">
-  </div>
   
    <div class="col-md-6">
     <label for="inputCity" class="form-label">이메일</label>
-    <input type="email" class="form-control" id="email" name="email">
+    <input type="email" class="form-control" id="userEmail" name="userEmail">
   </div>
   <span id="olEmessage"></span>
  
@@ -309,15 +305,15 @@ function joinform_check() {
  	<label for="inputCity" class="form-label">주소</label>
  
  	<input type="button" class="form-control" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
-    <input type="text" class="form-control" id="sample4_postcode" placeholder="우편번호" name="post"> 
-    <input type="text" class="form-control" id="sample4_roadAddress" placeholder="도로명주소" name="addr1">
+    <input type="text" class="form-control" id="sample4_postcode" placeholder="우편번호" name="userPostcode"> 
+    <input type="text" class="form-control" id="sample4_roadAddress" placeholder="도로명주소" name="userAddr">
 	<span id="guide" style="color:#999;display:none"></span>
-	<input type="text" class="form-control" id="sample4_detailAddress" placeholder="상세주소" name="addr2">
+	<input type="text" class="form-control" id="sample4_detailAddress" placeholder="상세주소" name="userDetailaddr">
   </div>
   
   <div class="col-md-6">
     <label for="inputCity" class="phone">연락처</label>
-    <input type="text" class="form-control" id="phone" name="phone">
+    <input type="text" class="form-control" id="userPhone" name="userPhone">
   </div>
 
   <div class="col-12">

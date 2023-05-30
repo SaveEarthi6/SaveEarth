@@ -54,7 +54,7 @@ public class MypageController {
 	@PostMapping("/update") // 마이페이지 - 개인정보 수정
 	public String mypageUpdateProc(HttpSession session, Member member) {
 		
-		member.setId((String)session.getAttribute("loginid"));
+		member.setUserId((String)session.getAttribute("loginid"));
 		logger.info("{}", member);
 		
 		memberService.update(member);
@@ -121,8 +121,8 @@ public class MypageController {
 		logger.info("info: {}", info);
 
 		// 게시글 리스트 
-		free.setUserNo(info.getUserno());
-		List<Free> mypageList = freeService.mypageList(info.getUserno());
+		free.setUserNo(info.getUserNo());
+		List<Free> mypageList = freeService.mypageList(info.getUserNo());
 		System.out.println(mypageList);
 		
 		for(Free m : mypageList) {
