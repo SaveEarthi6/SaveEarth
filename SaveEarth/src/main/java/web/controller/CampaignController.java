@@ -47,6 +47,7 @@ public class CampaignController {
 		}
 		
 		model.addAttribute("campList", campList);
+		model.addAttribute("paging", paging);
 		
 		
 		if(session.getAttribute("isLogin") != null) {
@@ -74,6 +75,7 @@ public class CampaignController {
 		
 		campService.writePart(certification, partFile);
 		
+		//재밌는 코딩 놀이 ^~^
 		
 		return "redirect:/campaign/main";
 	}
@@ -132,6 +134,7 @@ public class CampaignController {
 			}
 			
 			model.addAttribute("campList", campList);
+			model.addAttribute("paging", paging);
 			
 		} else {
 			logger.info("마감 혹은 진행중이 선택됨");
@@ -146,6 +149,7 @@ public class CampaignController {
 			
 			
 			model.addAttribute("campList", campList);
+			model.addAttribute("paging", paging);
 		}
 		
 		

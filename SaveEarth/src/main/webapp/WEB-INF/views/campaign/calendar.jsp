@@ -52,6 +52,11 @@
 	background-color: #7CA621 !important;
 }
 
+.fc-event-title-container {
+	border: none;
+	font-weight: bold;
+}
+
 
 /* 모달 푸터 버튼 */
 .modal-footer {
@@ -136,9 +141,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		},
 		headerToolbar: {
-			start: 'prev next today'
-			, center: 'title'
-			, end: 'myCustomButton'
+			<c:if test="${empty isLogin }">
+				start: 'prev'
+				, center: 'title'
+				, end: 'next'
+			</c:if>
+			<c:if test="${not empty isLogin and isLogin }">
+				start: 'prev next today'
+				, center: 'title'
+				, end: 'myCustomButton'
+			</c:if>
 		},
 		events: [
 			<c:forEach items="${calList}" var="calList">
@@ -184,3 +196,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 </script>
+
