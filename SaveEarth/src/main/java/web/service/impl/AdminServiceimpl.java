@@ -13,9 +13,13 @@ import web.service.face.AdminService;
 @Service
 public class AdminServiceimpl implements AdminService {
 
+	
+	
    private final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
    @Autowired AdminDao adminDao;
+   
+   
    
    @Override
    public boolean login(Admin adminParam) {
@@ -27,6 +31,9 @@ logger.info("login() - {}", adminParam);
       if( result > 0 ) {
          return true; //로그인 인증 성공
       }      
+      
+      
+      //dsadasdsadsadsasss
       
       return false; //로그인 인증 실패
    }
