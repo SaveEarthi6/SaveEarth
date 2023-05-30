@@ -5,8 +5,8 @@
 <mapper namespace="web.dao.face.FreeDao">
 
 <select id="selectNickById" parameterType="string" resultType="string">
-	SELECT nick FROM member 
-	WHERE id=#{id}
+	SELECT user_nick FROM member 
+	WHERE user_id=#{userId}
 </select>
 
 <insert id="insertFree" parameterType="web.dto.Free">
@@ -31,7 +31,7 @@
 
 <select id="selectList" resultType="map" parameterType="map">
 	SELECT * FROM(
-		SELECT rownum rnum, (SELECT m.id FROM member m WHERE m.userno = F.user_no) id, F.* FROM (
+		SELECT rownum rnum, (SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) id, F.* FROM (
 			SELECT
 			*
 			FROM free
@@ -71,8 +71,8 @@
 <select id="selectFreeBoard" parameterType="web.dto.Free" resultType="map">
 	SELECT * FROM(
 		SELECT 
-		(SELECT m.id FROM member m WHERE m.userno = F.user_no) id,
-		(SELECT m.id FROM member m WHERE m.userno = F.user_no) nick, F.* FROM (
+		(SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) id,
+		(SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) nick, F.* FROM (
 			SELECT
 			*
 			FROM free
@@ -111,7 +111,7 @@
 <select id="selectFreeByKeyword" resultType="map" parameterType="map">
 
 	SELECT * FROM(
-		SELECT rownum rnum, (SELECT m.id FROM member m WHERE m.userno = F.user_no) id, F.* FROM (
+		SELECT rownum rnum, (SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) id, F.* FROM (
 			SELECT
 			*
 			FROM free

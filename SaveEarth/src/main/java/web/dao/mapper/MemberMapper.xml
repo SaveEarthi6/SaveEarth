@@ -7,61 +7,61 @@
   <mapper namespace="web.dao.face.MemberDao">
   
   <insert id="insert" parameterType="web.dto.Member">
-        INSERT INTO member(userno,id,pw,name,nick,birth,email,post,addr1,addr2,phone)
-  VALUES(userno_seq.nextval,#{id},#{pw},#{name},#{nick},#{birth},#{email},#{post},#{addr1},#{addr2},#{phone})
+        INSERT INTO member(user_no,user_id,user_pw,user_name,user_nick,user_email,user_postcode,user_addr,user_detailaddr,user_phone)
+  VALUES(userno_seq.nextval,#{userId},#{userPw},#{userName},#{userNick},#{userEmail},#{userPostcode},#{userAddr},#{userDetailaddr},#{userPhone})
   </insert>
   
   <select id="selectCntByIdPw" resultType="int" parameterType="web.dto.Member">
         SELECT count(*) FROM member
-     WHERE id = #{id} AND pw = #{pw}
+     WHERE user_id = #{userId} AND user_pw = #{userPw}
   </select>
   
     <select id="selectById" resultType="web.dto.Member" parameterType="string">
         SELECT * FROM member
-     WHERE id= #{id}
+     WHERE user_id= #{userId}
   </select>
 
    <update id="updateUser" parameterType="web.dto.Member" >
       UPDATE member
-         SET id=#{id}, pw=#{pw}, name=#{name}, nick=#{nick}, birth=#{birth}, email=#{email}, post=#{post}, addr1=#{addr2}, phone=#{phone} 
-      WHERE id = #{id} 
+         SET user_id=#{userId}, user_pw=#{userPw}, user_name=#{userName},user_nick=#{userNick},user_email=#{userEmail}, user_postcode=#{userPostcode}, user_addr=#{userAddr}, user_phone=#{userPhone} 
+      WHERE user_id = #{userId} 
    </update>
    
    <delete id="delete" parameterType="String" >
       DELETE 
       FROM member
-      WHERE id = #{id}
+      WHERE user_id = #{userId}
    </delete>
    
 	<select id="checkid" parameterType="web.dto.Member" resultType="int">
 	SELECT COUNT(*) FROM member
-	WHERE name=#{name} and email=#{email}
+	WHERE user_name=#{userName} and user_email=#{userEmail}
 	</select>
 	
 	<select id="selectIdByNameEmail" parameterType="web.dto.Member" resultType="web.dto.Member">
-	SELECT id,name FROM member
-	WHERE name=#{name} and email=#{email}
+	SELECT user_id,user_name FROM member
+	WHERE user_name=#{userName} and user_email=#{userEmail}
 	</select>   
 	
 	<select id="overlappedID" parameterType="web.dto.Member" resultType="int">
-	SELECT COUNT(id) From member
-	WHERE id =#{id}
+	SELECT COUNT(user_id) From member
+	WHERE user_id =#{userId}
 	</select>
 	
 	<select id="overlappedEmail" parameterType="web.dto.Member" resultType="int">
-	SELECT COUNT(email) From member
-	WHERE email =#{email}
+	SELECT COUNT(user_email) From member
+	WHERE user_email =#{userEmail}
 	</select>
 	
 	<select id="existIdEmail" parameterType="web.dto.Member" resultType="int">
 	SELECT COUNT(*) From member
-	WHERE id=#{id} and email=#{email}
+	WHERE user_id=#{userId} and user_email=#{userEmail}
 	</select>
 	
 	<update id="updateTemPw" parameterType="web.dto.Member" >
 	UPDATE member
-	SET pw=#{pw}
-	WHERE id=#{id}
+	SET user_pw=#{userPw}
+	WHERE user_id=#{userId}
 	
 	
 	</update>
@@ -99,7 +99,7 @@
   
   <select id="selectInfoById" resultType="web.dto.Member" parameterType="string">
 	SELECT * FROM member
-	WHERE id=#{loginid}  
+	WHERE user_id=#{loginid}  
   </select>
   
   </mapper>

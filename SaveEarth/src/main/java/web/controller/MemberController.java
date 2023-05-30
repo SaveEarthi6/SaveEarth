@@ -51,14 +51,14 @@ public class MemberController {
 		
 		
 //  2023-05-29 세션에  userno 추가		---------!!
-		member = memberService.info(member.getId());
+		member = memberService.info(member.getUserId());
 		System.out.println(member);
-		System.out.println("유저번호" +member.getUserno());
+		System.out.println("유저번호" +member.getUserNo());
 		
 		if( isLogin) {
 			session.setAttribute("isLogin", isLogin);
-			session.setAttribute("loginid", member.getId());
-			session.setAttribute("loginNO", member.getUserno());
+			session.setAttribute("loginid", member.getUserId());
+			session.setAttribute("loginNO", member.getUserNo());
 			
 //  2023-05-29 세션에  userno 추가		---------!!		
 			
@@ -90,17 +90,17 @@ public class MemberController {
 	}
 	@PostMapping("/findid")
 	public String findid(Member member, Model model) {
-		System.out.println(member.getName());
-		System.out.println(member.getEmail());		
+		System.out.println(member.getUserName());
+		System.out.println(member.getUserEmail());		
 		boolean check = memberService.checkid(member);
 		System.out.println(check);
 
 		if(check) {
-			Member id = memberService.findid(member);
+			Member userId = memberService.findid(member);
 			
-			System.out.println(id);
+			System.out.println(userId);
 			
-			model.addAttribute("id", id);
+			model.addAttribute("id", userId);
 			
 		
 			return "./member/findViewid";
@@ -134,7 +134,10 @@ public class MemberController {
 //	pw찾기 id,email확인해서 있는지	
 	@ResponseBody
 	@GetMapping("/findIdEmail")
-	public int checkIdEmail(Member member) {
+	public int checkIdEmail(Member member,String id,String userId) {
+		System.out.println("멤버값"+member);
+		System.out.println("유저아이디" +userId);
+		System.out.println(id);
 		int result = memberService.checkIdEmail(member);
 		
 		if(result==1) {
@@ -145,7 +148,7 @@ public class MemberController {
 				pw += (char) ((Math.random() * 26) + 97);
 			}	
 			System.out.println(pw);
-			member.setPw(pw);
+			member.setUserPw(pw);
 			
 			
 			//비밀번호 난수로 변경(update)
@@ -218,8 +221,8 @@ public class MemberController {
 			
 			Member member = memberService.getKaKaoinfo(access_token);
 			
-			System.out.println("가져온 유저 아이디" + member.getId());
-			System.out.println("가져온 유저 이메일" + member.getEmail());
+			System.out.println("가져온 유저 아이디" + member.getUserId());
+			System.out.println("가져온 유저 이메일" + member.getUserEmail());
 		//*************************2023-05-26 금요일 kakao정보가져오기까지 이정보로 로그인하기 다음 구현 *************************
 			
 			
