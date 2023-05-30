@@ -16,11 +16,12 @@ public interface AdminService {
 
 	public List<Map<String, Object>> list(Paging paging);
 
-	public Free getView(Free freeBoard);
+	public Map<String, Object> getView(Free freeBoard);
 
-	public String getNick(String loginId);
+	public List<FreeFile> getFreeFile(Free freeBoard);
 
-	public FreeFile getFreeFile(Free freeBoard);
+
+
 
 
 

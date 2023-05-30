@@ -3,6 +3,8 @@ package web.dao.face;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import web.dto.Admin;
 import web.dto.Free;
 import web.dto.FreeFile;
@@ -18,10 +20,12 @@ public interface AdminDao {
 
    public void updateHit(Free freeBoard);
 
-   public Free selectFreeBoard(Free freeBoard);
+	public Map<String, Object> selectFreeBoard(@Param("freeBoard") Free freeBoard);
 
-   public String selectNickById(String loginId);
+	public List<FreeFile> selectFreeFile(Free freeBoard);
 
-   public FreeFile selectFreeFile(Free freeBoard);
+
+
+
 
 }

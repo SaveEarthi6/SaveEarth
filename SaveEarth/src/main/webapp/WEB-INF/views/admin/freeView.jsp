@@ -5,7 +5,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
-<c:import url="../layout/header.jsp"/>
+<c:import url="../layout/adminheader.jsp"/>
+
 
 
 <style type="text/css">
@@ -52,50 +53,45 @@
 <!-- 게시글 상세 -->
 <table class="table table-bordered" style= "font-weight: bold;">
 <tr>
-	<td class="table-light">글번호</td><td colspan="3">${view.freeNo }</td>
+	<td class="table-light">글번호</td><td colspan="3">${view.FREE_NO }</td>
 </tr>
 <tr>
-	<td class="table-light">아이디</td><td>${userInfo.id }</td>
-	<td class="table-light">닉네임</td><td>${nick }</td>
+	<td class="table-light">아이디</td><td>${view.ID }</td>
+	<td class="table-light">닉네임</td><td>${view.NICK }</td>
 </tr>
 <tr>
-	<td class="table-light">조회수</td><td>${view.freeViews }</td>
-	<td class="table-light">작성일</td><td><fmt:formatDate value="${view.freeCreate }" pattern="yy-MM-dd HH:mm:ss"/></td>
+	<td class="table-light">조회수</td><td>${view.FREE_VIEWS }</td>
+	<td class="table-light">작성일</td><td><fmt:formatDate value="${view.FREE_CREATE }" pattern="yy-MM-dd HH:mm:ss"/></td>
 </tr>
 <tr>
-	<td class="table-light">제목</td><td colspan="3">${view.freeTitle }</td>
+	<td class="table-light">제목</td><td colspan="3">${view.FREE_TITLE }</td>
 </tr>
 <tr>
 	<td class="table-light" colspan="4">본문</td>
 </tr>
 <tr>
-	<td colspan="4">${view.freeContent }</td>
+	<td colspan="4">${view.FREE_CONTENT }</td>
 </tr>
 </table>
 
-
-<!-- 첨부파일 다운 -->
+<!-- 첨부파일 다운-->
 <div class="mb-3">
 	<c:if test="${not empty freeFile }">
-		<a href="./download?fileNo=${free.fileNo }">${freeFile.FreeOriginName }</a>
-	</c:if>
-</div>
-
-<!-- 첨부파일 -->
-<div class="mb-3">
-	<c:if test="${not empty freeFile }">
-		<a href="../upload/${freeFile.FreeStoredName }" download="${freeFile.FreeOriginName }">
-			${freeFile.FreeOriginName }
+	<c:forEach items="${freeFile }" var="file">
+		<a href="../upload/${file.freeStoredName }" download="${file.freeOriginName }">
+			${file.freeOriginName }
 		</a>
+	</c:forEach>
 	</c:if>
 </div>
 
 
 <!-- 버튼 -->
 <div class="text-center mb-3">
-	<a href= "/free/main"><button id="btnList" class="btn btn-success">목록</button></a>
+	<a href= "/admin/free"><button id="btnList" class="btn btn-success">목록</button></a>
+	
 </div>
-<button id="btnDelete" class="btn btn-danger">삭제</button>
+
 <!-- 댓글 -->
 	<div class="card my-4">
 		<h5 class="card-header" style="font-weight: bold ;">댓글</h5>
@@ -104,7 +100,6 @@
 					<textarea name="content" class="form-control" rows="3"></textarea>
 				<div style= "padding-top: 50px;">
 					<button type="submit" class="btn btn-success">등록</button>
-					
 				</div>
 			</form>
 		</div>
