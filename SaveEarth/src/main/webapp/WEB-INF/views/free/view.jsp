@@ -90,11 +90,50 @@
 	</c:if>
 </div>
 
+<script type="text/javascript">
+
+$function(){
+   $('#btnRecommend').click (function(){
+      
+      //전송
+        $("form").submit();
+
+      
+      $.ajax({
+           url : "./recommend",
+           type : "POST",
+           data : $("#updateForm").serialize(),
+           dataType: 'JSON',
+           success : function (data) {
+               if(data.resultMap.code == "1"){
+                   alert("좋아요!")
+                   
+               } else {
+                   alert("좋아요 취소!")
+               }
+               
+               }
+           });
+      
+   })
+   
+    console.log("btnRecommend click")
+   
+   
+   
+}
+
+
+</script>
+
 
 <!-- 버튼 -->
 <div class="text-center mb-3">
-	<a href= "/free/main"><button id="btnList" class="btn btn-success">목록</button></a>
-	
+   <a href= "/free/main"><button id="btnList" class="btn btn-success">목록</button></a>
+   
+   <button type="button" id="btnRecommend" class="btn btn-success">추천</button>
+   <span id= "recommend" ></span>
+   
 </div>
 
 <!-- 댓글 -->

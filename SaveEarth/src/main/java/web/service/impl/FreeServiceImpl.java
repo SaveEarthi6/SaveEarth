@@ -263,6 +263,13 @@ public class FreeServiceImpl implements FreeService{
 	public List<Free> mypageList(int userno) {
 		return freeDao.mypageList(userno);
 }
+	
+	@Override
+	public void recommend(Free freeNo) {
+		
+      freeDao.recommend(freeNo);
+		
+	}
 
 	
 

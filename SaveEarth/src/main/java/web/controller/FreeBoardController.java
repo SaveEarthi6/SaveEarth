@@ -179,6 +179,15 @@ public class FreeBoardController {
 		model.addAttribute("freeHead", freeHead);
 		
 	}
+	
+	@RequestMapping("/free/Recommend")
+	   public String Recommend (Model model,HttpSession session, Free freeNo) {
+	      
+	      freeService.recommend(freeNo);
+	      
+	      return "redirect:/free/main";
+	      
+	   }
 
 	
 }
