@@ -97,6 +97,7 @@ public class FreeBoardController {
 		model.addAttribute("nick", loginnick);
 		
 		
+		
 	}
 
 	@PostMapping("/free/write")
