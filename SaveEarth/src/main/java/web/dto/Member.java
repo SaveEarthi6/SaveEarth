@@ -9,7 +9,7 @@ public class Member {
 	private String userName;
 	private String userNick;
 	private String userEmail;
-	private int userPostcode;
+	private String userPostcode;
 	private String userAddr;
 	private String userDetailaddr;
 	private String userPhone;
@@ -17,7 +17,7 @@ public class Member {
 public Member() {}
 
 public Member(int userNo, String userId, String userPw, String userName, String userNick, String userEmail,
-		int userPostcode, String userAddr, String userDetailaddr, String userPhone) {
+		String userPostcode, String userAddr, String userDetailaddr, String userPhone) {
 	super();
 	this.userNo = userNo;
 	this.userId = userId;
@@ -86,11 +86,11 @@ public void setUserEmail(String userEmail) {
 	this.userEmail = userEmail;
 }
 
-public int getUserPostcode() {
+public String getUserPostcode() {
 	return userPostcode;
 }
 
-public void setUserPostcode(int userPostcode) {
+public void setUserPostcode(String userPostcode) {
 	this.userPostcode = userPostcode;
 }
 
