@@ -2,11 +2,15 @@ package web.dto;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Calendar {
 
 	private int calNo;
 	private int adminNo;
 	private String calName;
+	
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date calDate;
 	
 	public Calendar() {}

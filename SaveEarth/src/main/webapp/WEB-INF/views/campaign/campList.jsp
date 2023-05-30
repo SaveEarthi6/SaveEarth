@@ -48,6 +48,6 @@
 		<div class='col-1'></div>
 	</div>
 
-
+<c:import url="./paging.jsp"/>
 	
 
