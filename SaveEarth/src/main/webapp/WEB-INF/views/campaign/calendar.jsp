@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			//여기에 해당 일자 목록 불러오는 에이젝스..? 혹은 메소드 추가해야 함
 			
 		}
-		selectable : true
+// 		selectable : true
 // 		select: function(arg) {		//날짜 클릭 이벤트
 // 			console.log(calendar.getDate())
 			
