@@ -60,7 +60,6 @@ public class FreeServiceImpl implements FreeService{
 	@Override
 	public void freeWrite(Free free, List<MultipartFile> files, Member memberInfo) {
 		
-		free.setAdminNo(1);
 		free.setUserNo(memberInfo.getUserno());
 		
 //		free.setUserNo(2);
@@ -236,10 +235,9 @@ public class FreeServiceImpl implements FreeService{
 	}
 	
 	@Override
-	public List<Map<String, Object>> search(Paging paging, String keyword) {
+	public List<Map<String, Object>> search(Paging paging, String keyword, String freeHead) {
 		
-		
-		return freeDao.selectFreeByKeyword(paging, keyword);
+		return freeDao.selectFreeByKeyword(paging, keyword, freeHead);
 	}
 
 	@Override

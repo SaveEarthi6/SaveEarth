@@ -63,7 +63,6 @@
 </tr>
 <tr>
 	<td class="table-light">아이디</td><td>${view.ID }</td>
-	<td class="table-light">닉네임</td><td>${view.NICK }</td>
 </tr>
 <tr>
 	<td class="table-light">조회수</td><td>${view.FREE_VIEWS }</td>
@@ -100,7 +99,7 @@
 
 <!-- 댓글 -->
 	<div class="card my-4">
-		<h5 class="card-header" style="font-weight: bold ;">댓글</h5>
+		<h5 class="card-header" style="font-weight: bold;">댓글</h5>
 		<div class="card-body">
 			<form name="comment-form" action="/board/comment/write" method="post" autocomplete="off">
 					<textarea name="content" class="form-control" rows="3"></textarea>

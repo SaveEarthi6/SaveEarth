@@ -85,13 +85,13 @@ public interface FreeDao {
 	public void updateBoard(Free freeBoard);
 
 	/**
-<<<<<<< HEAD
 	 * 검색어와 일치하는 게시글을 조회한다
 	 * @param paging - 페이징 객체
 	 * @param keyword - 입력한 검색어
+	 * @param freeHead 
 	 * @return - 검색어와 일치하는 게시글
 	 */
-	public List<Map<String, Object>> selectFreeByKeyword(@Param("paging") Paging paging, @Param("keyword") String keyword);
+	public List<Map<String, Object>> selectFreeByKeyword(@Param("paging") Paging paging, @Param("keyword") String keyword, @Param("freeHead") String freeHead);
 
 
 	/**

@@ -100,6 +100,9 @@ select {
 	vertical-align: middle;
 }
 
+
+
+
 /* 검색아이콘 이미지 */
 .search_icon {
 	margin-top:3px;
@@ -190,14 +193,19 @@ location.href="?freeHead=" + freeHead
 			<option value= "질문" selected>질문</option>
 		</c:when>
 		
-		<c:when test="${freeHead eq '전체' || freeHead == null}">
+		<c:when test="${freeHead eq '전체'}">
 			<option value="전체" selected>전체</option>
 			<option value= "사담">사담</option>
 			<option value= "정보">정보</option>
 			<option value= "질문">질문</option>
 		</c:when>
 		
-
+		<c:otherwise>
+			<option value="전체" selected>전체</option>
+			<option value= "사담">사담</option>
+			<option value= "정보">정보</option>
+			<option value= "질문">질문</option>
+		</c:otherwise>
 		
       </c:choose>
 
@@ -244,7 +252,7 @@ location.href="?freeHead=" + freeHead
 	    <div class="search">
 	        <input type="text" name="keyword" class="search_input"
 	        placeholder="검색어를 입력해주세요" value=${keyword }>
-	        <button class="search_btn"  style="margin-bottom: 3px;"><i class="bi bi-search"></i></button>
+	        <button class="search_btn" style="margin-bottom: 3px;"><i class="bi bi-search"></i></button>
 	    </div>
 	</form>
 </div>

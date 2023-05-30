@@ -85,9 +85,9 @@ form {
 	작성자 아이디 : ${id }
 </div>
 
-<div>
-	닉네임 : ${nick }
-</div>
+<!-- <div> -->
+<%-- 	닉네임 : ${nick } --%>
+<!-- </div> -->
 
 <div class="form-group" style= "margin-top: 50px">
 	<label class="form-label" for="head">말머리글</label>

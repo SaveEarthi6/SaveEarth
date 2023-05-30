@@ -70,7 +70,7 @@ public class FreeBoardController {
 		
 		//로그인한 회원과 작성자가 같은 회원인지 비교하기 위한 정보
 		String loginid = (String) session.getAttribute("loginid");
-		Member userInfo = memberService.getUserInfo(loginid);
+		Member userInfo = memberService.info(loginid);
 		logger.info("userInfo {}", userInfo);
 		
 		model.addAttribute("view", view);
@@ -89,12 +89,12 @@ public class FreeBoardController {
 		logger.info("/free/write [GET]");
 		
 		String loginid = (String) session.getAttribute("loginid");
-		String loginnick = (String) freeService.getNick(loginid);
+//		String loginnick = (String) freeService.getNick(loginid);
 		logger.info("id {}", loginid);
-		logger.info("nick {}", loginnick);
+//		logger.info("nick {}", loginnick);
 		
 		model.addAttribute("id", loginid);
-		model.addAttribute("nick", loginnick);
+//		model.addAttribute("nick", loginnick);
 		
 		
 	}
@@ -160,27 +160,21 @@ public class FreeBoardController {
 	
 	//검색기능
 	@RequestMapping("/free/search")
-	public String searchKeyword(Model model,@RequestParam(value = "curPage", defaultValue = "1") int curPage, String keyword, String freeHead) {
+	public void searchKeyword(Model model,@RequestParam(value = "curPage", defaultValue = "1") int curPage, String keyword, String freeHead) {
 		
 		logger.info("/free/search [GET]");
 		
 		Paging paging = freeService.getPaging(curPage);
 		
-		List<Map<String,Object>> list = freeService.search(paging, keyword);
-		
-		logger.info("list {}", list);
 		logger.info("freeHead {}", freeHead);
 		logger.info("keyword {}", keyword);
+
+		List<Map<String,Object>> list = freeService.search(paging, keyword,freeHead);
+		
+		logger.info("list {}", list);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("freeHead", freeHead);
-		
-		if(keyword == null) {
-			return "redirect:/free/main";
-		} else {
-			return "redirect:/free/search";
-		}
-		
 		
 	}
 
