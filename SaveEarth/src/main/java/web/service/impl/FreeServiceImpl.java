@@ -60,7 +60,11 @@ public class FreeServiceImpl implements FreeService{
 	@Override
 	public void freeWrite(Free free, List<MultipartFile> files, Member memberInfo) {
 		
-		free.setAdminNo(1);
+//		if(memberInfo.getUserNo() != 0) {
+//			free.setUserNo(memberInfo.getUserNo());
+//		} else if()
+		
+//		free.setAdminNo(1);
 		free.setUserNo(memberInfo.getUserNo());
 		
 //		free.setUserNo(2);
@@ -68,13 +72,23 @@ public class FreeServiceImpl implements FreeService{
 		logger.info("files {}", files);
 		logger.info("memberInfo {}", memberInfo);
 		
+		
 		freeDao.insertFree(free);
+		logger.info("size {}", files.get(0).getSize());
 		
 		
-		if(files.size() <= 0) {
-			logger.info("파일의 크기가 0이다, 처리 중단!");
-//			freeWrite() 메소드 중단
-			return;
+//		if(files.get(0).getSize() <= 0 ) {
+//			logger.info("파일의 크기가 0이다, 처리 중단!");
+//				freeWrite() 메소드 중단
+//			return;
+//		}
+		
+		//파일이 없을 때 파일 삽입하는 메소드 처리되지 않도록 
+		for(MultipartFile m : files) {
+			if(m.getSize() <= 0) {
+				logger.info("0보다 작음, 처리 중단");
+				return;
+			}
 		}
 		
 		List<FreeFile> upfiles= new ArrayList<>();

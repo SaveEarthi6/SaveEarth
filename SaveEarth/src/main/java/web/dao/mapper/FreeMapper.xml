@@ -39,21 +39,21 @@
 	<choose>
 		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('사담')">
 			WHERE free_head = #{freeHead}
-			ORDER BY free_no DESC
+			ORDER BY free_head DESC, free_no DESC
 		</when>
 		
 		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('정보')">
 			WHERE free_head = #{freeHead}
-			ORDER BY free_no DESC
+			ORDER BY free_head DESC, free_no DESC
 		</when>
 		
 		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('질문')">
 			WHERE free_head = #{freeHead}
-			ORDER BY free_no DESC
+			ORDER BY free_head DESC, free_no DESC
 		</when>
 		
 		<otherwise>
-			ORDER BY free_no DESC
+			ORDER BY free_head DESC, free_no DESC
 		</otherwise>
 		
 	</choose>	

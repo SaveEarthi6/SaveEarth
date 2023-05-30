@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import web.dto.Admin;
 import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Member;
@@ -69,8 +70,8 @@ public class FreeBoardController {
 		logger.info("free {}", view);
 		
 		//로그인한 회원과 작성자가 같은 회원인지 비교하기 위한 정보
-		String loginid = (String) session.getAttribute("loginid");
-		Member userInfo = memberService.info(loginid);
+		String loginId = (String) session.getAttribute("loginId");
+		Member userInfo = memberService.info(loginId);
 		logger.info("userInfo {}", userInfo);
 		
 		model.addAttribute("view", view);
@@ -88,25 +89,33 @@ public class FreeBoardController {
 	public void write(HttpSession session, Model model) {
 		logger.info("/free/write [GET]");
 		
-		String loginid = (String) session.getAttribute("loginid");
-//		String loginnick = (String) freeService.getNick(loginid);
-		logger.info("id {}", loginid);
-//		logger.info("nick {}", loginnick);
+		String loginId = (String) session.getAttribute("loginId");
+		logger.info("id {}", loginId);
 		
-		model.addAttribute("id", loginid);
-//		model.addAttribute("nick", loginnick);
+		model.addAttribute("id", loginId);
 		
 		
 	}
 
 	@PostMapping("/free/write")
-	public String writepost(HttpSession session, Free free, List<MultipartFile> files) {
+	public String writepost(HttpSession session, Free free, @RequestParam(required = false) List<MultipartFile> files) {
 		
 		logger.info("/free/write [POST]");
 		
-		String loginid = (String) session.getAttribute("loginid");
-		//로그인한 회원의 정보를 조회해 작성자 정보로 넣어준다
-		Member memberInfo = memberService.info(loginid);
+		//로그인 정보를 가지고 회원번호랑 관리자 번호를 가져옴
+		String loginId = (String) session.getAttribute("loginId");
+		Member memberInfo = null;
+		memberInfo = memberService.info(loginId);
+//		if( (boolean) session.getAttribute("admin") == false ) {
+//			continue;
+//		}
+//		Admin adminInfo = null;
+//		if(loginId != null) {
+//			//로그인한 회원의 정보를 조회해 작성자 정보로 넣어준다
+//			memberInfo = memberService.info(loginId);
+//		} else if(admin == true) {
+//			
+//		}
 		
 		logger.info("memberInfo {}", memberInfo);
 		logger.info("free {}", free);
