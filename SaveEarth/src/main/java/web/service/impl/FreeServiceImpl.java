@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dao.face.FreeDao;
@@ -181,10 +182,12 @@ public class FreeServiceImpl implements FreeService{
 		freeDao.updateBoard(freeBoard);
 		
 		
-		if(files.get(0).getSize() <= 0) {
-			logger.info("파일의 크기가 0이다, 처리 중단!");
-//			freeWrite() 메소드 중단
-			return;
+		//파일이 없을 때 파일 삽입하는 메소드 처리되지 않도록 
+		for(MultipartFile m : files) {
+			if(m.getSize() <= 0 ) {
+				logger.info("0보다 작음, 처리 중단");
+				return;
+			}
 		}
 		
 		List<FreeFile> upfiles= new ArrayList<>();

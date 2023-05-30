@@ -146,7 +146,7 @@ public class FreeBoardController {
 	}
 	
 	@PostMapping("/free/update")
-	public String updatePost(Model model, Free freeBoard, List<MultipartFile> files) {
+	public String updatePost(Model model, Free freeBoard, @RequestParam(required = false) List<MultipartFile> files) {
 		
 		logger.info("/free/update [POST]");
 		
