@@ -57,8 +57,8 @@ public class MemberController {
 		
 		if( isLogin) {
 			session.setAttribute("isLogin", isLogin);
-			session.setAttribute("loginid", member.getUserId());
-			session.setAttribute("loginNO", member.getUserNo());
+			session.setAttribute("loginId", member.getUserId());
+			session.setAttribute("loginNo", member.getUserNo());
 			
 //  2023-05-29 세션에  userno 추가		---------!!		
 			
