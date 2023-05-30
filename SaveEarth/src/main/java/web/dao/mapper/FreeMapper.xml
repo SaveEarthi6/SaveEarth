@@ -19,11 +19,8 @@
 </insert>
 
 <insert id="insertFreeFile" parameterType="web.dto.Free">
-	<selectKey keyProperty="freeFileNo" order="BEFORE" resultType="int">
-		select free_file_no_seq.nextval from dual
-	</selectKey>
 	INSERT INTO free_file (free_file_no, free_no, free_origin_name, free_stored_name) 
-	VALUES ( #{freeFileNo}, #{freeNo}, #{freeOriginName}, #{freeStoredName})
+	VALUES ( free_file_no_seq.nextval, #{freeNo}, #{freeOriginName}, #{freeStoredName})
 </insert>
 
 <select id="selectCntAll" resultType="int">

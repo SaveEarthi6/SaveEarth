@@ -64,7 +64,7 @@ public class FreeServiceImpl implements FreeService{
 //			free.setUserNo(memberInfo.getUserNo());
 //		} else if()
 		
-//		free.setAdminNo(1);
+		free.setAdminNo(1);
 		free.setUserNo(memberInfo.getUserNo());
 		
 //		free.setUserNo(2);
@@ -181,7 +181,7 @@ public class FreeServiceImpl implements FreeService{
 		freeDao.updateBoard(freeBoard);
 		
 		
-		if(files.size() <= 0) {
+		if(files.get(0).getSize() <= 0) {
 			logger.info("파일의 크기가 0이다, 처리 중단!");
 //			freeWrite() 메소드 중단
 			return;

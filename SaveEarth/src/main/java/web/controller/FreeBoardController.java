@@ -92,8 +92,9 @@ public class FreeBoardController {
 		String loginId = (String) session.getAttribute("loginId");
 		logger.info("id {}", loginId);
 		
+		Member memberInfo = memberService.info(loginId);
 		model.addAttribute("id", loginId);
-		
+		model.addAttribute("memberInfo", memberInfo);
 		
 	}
 
@@ -106,16 +107,8 @@ public class FreeBoardController {
 		String loginId = (String) session.getAttribute("loginId");
 		Member memberInfo = null;
 		memberInfo = memberService.info(loginId);
-//		if( (boolean) session.getAttribute("admin") == false ) {
-//			continue;
-//		}
-//		Admin adminInfo = null;
-//		if(loginId != null) {
-//			//로그인한 회원의 정보를 조회해 작성자 정보로 넣어준다
-//			memberInfo = memberService.info(loginId);
-//		} else if(admin == true) {
-//			
-//		}
+		//만약 회원번호가 있으면 회원번호를 가져오고
+		//관리자번호가 있으면 관리자 번호를 가져오고
 		
 		logger.info("memberInfo {}", memberInfo);
 		logger.info("free {}", free);

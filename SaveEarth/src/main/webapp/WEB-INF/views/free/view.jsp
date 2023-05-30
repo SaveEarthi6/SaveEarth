@@ -85,7 +85,7 @@
 	<c:forEach items="${freeFile }" var="file">
 		<a href="../upload/${file.freeStoredName }" download="${file.freeOriginName }">
 			${file.freeOriginName }
-		</a>
+		</a><br>
 	</c:forEach>
 	</c:if>
 </div>

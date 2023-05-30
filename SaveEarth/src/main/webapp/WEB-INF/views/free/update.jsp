@@ -144,11 +144,20 @@ $(document).ready(function() {
 
 <div class="form-group">
 
+<!-- 	<div id="fileBox"> -->
+<!-- 		<div id="originFile"> -->
+<%-- 			<a href="./download?freeFileNo=${freeFile.freeFileNo }">${freeFile.freeOriginName }</a> --%>
+<!-- 	</div> -->
+		
 	<div id="fileBox">
-		<div id="originFile">
-			<a href="./download?freeFileNo=${freeFile.freeFileNo }">${freeFile.freeOriginName }</a>
-			<span id="deleteFile">X</span>
-		</div>
+		<c:if test="${not empty freeFile }">
+		<c:forEach items="${freeFile }" var="file">
+			<a href="../upload/${file.freeStoredName }" download="${file.freeOriginName }">
+				${file.freeOriginName }
+			</a><span id="deleteFile">X</span><br>
+		</c:forEach>
+		</c:if>
+	</div>
 
 		<div id="newFile">
 			<label class="form-label" for="file">새로운 첨부파일</label>
@@ -156,7 +165,6 @@ $(document).ready(function() {
 			<small>** 새로운 파일로 첨부하면 기존 파일은 삭제됩니다</small>
 		</div>
 		
-	</div>
 
 </div>
 
