@@ -5,7 +5,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
-<c:import url="../layout/header.jsp"/>
+<c:import url="../layout/adminheader.jsp"/>
+
 
 
 <style type="text/css">
@@ -40,19 +41,12 @@
 </style>
 
 
-<!-- 자유게시판 디테일 이미지 -->
-<div>
-	<img class="free_detail" src="../resources/img/free_detail.png">
-	<h1 class="free">자유게시판</h1>
-	
-</div>
-
 <div class="container">
 
 <div style= "margin-left: 1100px; padding-top: 50px; padding-bottom: 50px;">
-	<c:if test="${ userInfo.userNo eq view.USER_NO }">
-		<button onclick="location.href='./update?freeNo=${view.FREE_NO}'" id="btnUpdate" class="btn btn-success">수정</button>
-		<button onclick="location.href='./delete?freeNo=${view.FREE_NO}'" id="btnDelete" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">삭제</button>
+	<c:if test="${ userInfo.userno eq view.userNo }">
+		<button onclick="location.href='./update?freeNo=${view.freeNo}'" id="btnUpdate" class="btn btn-success">수정</button>
+		<button onclick="location.href='./delete?freeNo=${view.freeNo}'" id="btnDelete" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">삭제</button>
 	</c:if>
 </div>
 
@@ -62,7 +56,8 @@
 	<td class="table-light">글번호</td><td colspan="3">${view.FREE_NO }</td>
 </tr>
 <tr>
-	<td class="table-light">아이디</td><td>${view.USER_ID }</td>
+	<td class="table-light">아이디</td><td>${view.ID }</td>
+	<td class="table-light">닉네임</td><td>${view.NICK }</td>
 </tr>
 <tr>
 	<td class="table-light">조회수</td><td>${view.FREE_VIEWS }</td>
@@ -85,60 +80,21 @@
 	<c:forEach items="${freeFile }" var="file">
 		<a href="../upload/${file.freeStoredName }" download="${file.freeOriginName }">
 			${file.freeOriginName }
-		</a><br>
+		</a>
 	</c:forEach>
 	</c:if>
 </div>
 
-<script type="text/javascript">
-
-$function(){
-   $('#btnRecommend').click (function(){
-      
-      //전송
-        $("form").submit();
-
-      
-      $.ajax({
-           url : "./recommend",
-           type : "POST",
-           data : $("#updateForm").serialize(),
-           dataType: 'JSON',
-           success : function (data) {
-               if(data.resultMap.code == "1"){
-                   alert("좋아요!")
-                   
-               } else {
-                   alert("좋아요 취소!")
-               }
-               
-               }
-           });
-      
-   })
-   
-    console.log("btnRecommend click")
-   
-   
-   
-}
-
-
-</script>
-
 
 <!-- 버튼 -->
 <div class="text-center mb-3">
-   <a href= "/free/main"><button id="btnList" class="btn btn-success">목록</button></a>
-   
-   <button type="button" id="btnRecommend" class="btn btn-success">추천</button>
-   <span id= "recommend" ></span>
-   
+	<a href= "/admin/free"><button id="btnList" class="btn btn-success">목록</button></a>
+	
 </div>
 
 <!-- 댓글 -->
 	<div class="card my-4">
-		<h5 class="card-header" style="font-weight: bold;">댓글</h5>
+		<h5 class="card-header" style="font-weight: bold ;">댓글</h5>
 		<div class="card-body">
 			<form name="comment-form" action="/board/comment/write" method="post" autocomplete="off">
 					<textarea name="content" class="form-control" rows="3"></textarea>

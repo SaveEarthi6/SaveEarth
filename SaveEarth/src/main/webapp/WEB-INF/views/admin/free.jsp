@@ -1,21 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-<c:import url="../layout/header.jsp"/>
-
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>자유게시판</title>
-
-<!-- jQuery 2.2.4 -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<c:import url="../layout/adminheader.jsp"/>
 <style type="text/css">
-
 /* 여백 없애기 */
 body {
 	margin:0;
@@ -100,19 +88,6 @@ select {
 	vertical-align: middle;
 }
 
-/* 초기화 버튼 스타일 */
-.search_reset {
-	font-size: 18px;
-	border: none;
-	background-color: green;
-	width: 80px;
-	height: 30px;
-	border-radius: 15px;
-	color: #fff;
-	cursor: pointer;
-	vertical-align: middle;
-}
-
 /* 검색아이콘 이미지 */
 .search_icon {
 	margin-top:3px;
@@ -132,7 +107,11 @@ select {
 	
 	text-align: center;
 }
-
+/* 게시글 분류 전체(div) 스타일 */
+.nav { 
+ 	margin-left: 30%; 
+ 	margin-bottom: 50px; 
+ } 
 
 
 </style>
@@ -162,61 +141,22 @@ location.href="?freeHead=" + freeHead
 
 }
 
+
 </script>
 
 </head>
 <body>
 
-<!-- 자유게시판 메인 이미지 -->
-<div>
-	<img class="freeimage" src="../resources/img/free.png">
-	<h1 class="free">자유게시판</h1>
-</div>
+<br>
+<div class="nav">
+<a href="./free"><button type="button" class="btn btn-outline-success" id ="top">자유 게시판</button></a>
+<a href="./info"><button type="button" class="btn btn-outline-success" id ="top">정보 게시판</button></a>
+<a href="./campaign"><button type="button" class="btn btn-outline-success" id ="top">켐페인 게시판</button></a>
+</div> 
 
-<!-- 말머리글 -->
-<div class= "head">
-
-<div class="btn-group" >
-
-  <select id="freeHead" onchange="selectfreeHead(this.value)" name="freeHead" >
-
-  	    <c:choose>
-  	    
-        <c:when test="${freeHead eq '사담' }">
-			<option value="전체">전체</option>
-			<option value= "사담" selected>사담</option>
-			<option value= "정보">정보</option>
-			<option value= "질문">질문</option>
-		</c:when>
-       
-        <c:when test="${freeHead eq '정보' }">
-			<option value="전체">전체</option>
-			<option value= "사담">사담</option>
-			<option value= "정보" selected>정보</option>
-			<option value= "질문">질문</option>
-		</c:when>
-       
-		<c:when test="${freeHead eq '질문' }">
-			<option value="전체">전체</option>
-			<option value= "사담">사담</option>
-			<option value= "정보">정보</option>
-			<option value= "질문" selected>질문</option>
-		</c:when>
-		
-		<c:when test="${freeHead eq '전체' || freeHead == null}">
-			<option value="전체" selected>전체</option>
-			<option value= "사담">사담</option>
-			<option value= "정보">정보</option>
-			<option value= "질문">질문</option>
-		</c:when>
-		
-      </c:choose>
-
-  </select>
-  
-</div>
+ <div>
 <!-- 글쓰기 버튼 -->
-	<a href = "/free/write"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
+	<a href = "/admin/freeWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
 </div>
 
 <!-- 게시판 -->
@@ -238,7 +178,7 @@ location.href="?freeHead=" + freeHead
 <!-- 				map에 저장된 컬럼명과 동일하게 지정해주어야 한다 -->
 				<td>${free.FREE_NO }</td>
 				<td>${free.FREE_HEAD}</td>
-				<td class="text-start" style="text-align:center"><a href="/free/view?freeNo=${free.FREE_NO }">${free.FREE_TITLE }</a></td>
+				<td class="text-start" style="text-align:center"><a href="/admin/freeView?freeNo=${free.FREE_NO }">${free.FREE_TITLE }</a></td>
 				<td>${free.ID}</td>
 				<td>${free.FREE_VIEWS }</td>
 				<td><fmt:formatDate value="${free.FREE_CREATE}" pattern="yy-MM-dd HH:mm:ss"/></td>
@@ -251,15 +191,12 @@ location.href="?freeHead=" + freeHead
 
 <!-- 검색창 -->
 <div>
-	<form action="/free/search?freeHead=${freeHead }&keyword=${keyword }" method="get">
+	<form action="/info/main">
 	    <div class="search">
-	        <input type="text" name="keyword" class="search_input" value=${keyword }>
-	        <button class="search_btn"  style="margin-bottom: 3px;"><i class="bi bi-search"></i></button>
+	        <input type="text" name="search" class="search_input">
+	        <button type="button" name="search_btn" class="search_btn"  style="margin-bottom: 3px;"><i class="bi bi-search"></i></button>
 	    </div>
 	</form>
-	    <div class="search">
-	        <a href="/free/main"><button class="search_reset" style="margin-bottom: 3px;">초기화</button></a>
-		</div>
 </div>
 
 <span class="float-end mb-3">${paging.totalCount }</span>
@@ -270,13 +207,13 @@ location.href="?freeHead=" + freeHead
 
 	<%-- 첫 페이지로 이동 --%>
 	<c:if test="${paging.curPage ne 1 }">
-		<li class="page-item"><a href="./main?keyword=${keyword }" class="page-link">&larr; 처음</a></li>	
+		<li class="page-item"><a href="./main?freeHead=${freeHead }" class="page-link">&larr; 처음</a></li>	
 	</c:if>
 	
 	<%-- 이전 페이징 리스트로 이동 --%>
 	<c:choose>
 	<c:when test="${paging.startPage ne 1 }">
-		<li class="page-item"><a href="./main?curPage=${paging.startPage - paging.pageCount }&keyword=${keyword }" class="page-link">&laquo;</a></li>
+		<li class="page-item"><a href="./main?curPage=${paging.startPage - paging.pageCount }&freeHead=${freeHead}" class="page-link">&laquo;</a></li>
 	</c:when>
 	<c:when test="${paging.startPage eq 1 }">
 		<li class="page-item disabled"><a class="page-link">&laquo;</a></li>
@@ -285,7 +222,7 @@ location.href="?freeHead=" + freeHead
 	
 	<%-- 이전 페이지로 가기 --%>
 	<c:if test="${paging.curPage > 1 }">
-		<li class="page-item"><a href="./main?curPage=${paging.curPage - 1 }&keyword=${keyword }" class="page-link">&lt;</a></li>
+		<li class="page-item"><a href="./main?curPage=${paging.curPage - 1 }&freeHead=${freeHead}" class="page-link">&lt;</a></li>
 	</c:if>
 	
 	
@@ -294,10 +231,10 @@ location.href="?freeHead=" + freeHead
 	<%-- 페이징 리스트 --%>
 	<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="i">
 	<c:if test="${paging.curPage eq i }">
-		<li class="page-item active"><a href="./main?curPage=${i }&keyword=${keyword }" class="page-link">${i }</a></li>
+		<li class="page-item active"><a href="./main?curPage=${i }&freeHead=${freeHead}" class="page-link">${i }</a></li>
 	</c:if>
 	<c:if test="${paging.curPage ne i }">
-		<li class="page-item"><a href="./main?curPage=${i }&keyword=${keyword }" class="page-link">${i }</a></li>
+		<li class="page-item"><a href="./main?curPage=${i }&freeHead=${freeHead}" class="page-link">${i }</a></li>
 	</c:if>
 	</c:forEach>
 	
@@ -306,22 +243,22 @@ location.href="?freeHead=" + freeHead
 	
 	<%-- 다음 페이지로 가기 --%>
 	<c:if test="${paging.curPage < paging.totalPage }">
-		<li class="page-item"><a href="./main?curPage=${paging.curPage + 1 }&keyword=${keyword }" class="page-link">&gt;</a></li>
+		<li class="page-item"><a href="./main?curPage=${paging.curPage + 1 }&freeHead=${freeHead}" class="page-link">&gt;</a></li>
 	</c:if>
 	
 	<%-- 다음 페이징 리스트로 이동 --%>
 	<c:choose>
 	<c:when test="${paging.endPage ne paging.totalPage }">
-		<li class="page-item"><a href="./main?curPage=${paging.startPage + paging.pageCount }&keyword=${keyword }" class="page-link">&raquo;</a></li>
+		<li class="page-item"><a href="./main?curPage=${paging.startPage + paging.pageCount }&freeHead=${freeHead}" class="page-link">&raquo;</a></li>
 	</c:when>
 	<c:when test="${paging.endPage eq paging.totalPage }">
-		<li class="page-item disabled"><a class="page-link" href="./main?curPage=${paging.totalPage }&keyword=${keyword }">&raquo;</a></li>
+		<li class="page-item disabled"><a class="page-link" href="./main?curPage=${paging.totalPage }&freeHead=${freeHead}">&raquo;</a></li>
 	</c:when>
 	</c:choose>
 
 	<%-- 끝 페이지로 이동 --%>
 	<c:if test="${paging.curPage ne paging.totalPage }">
-		<li class="page-item"><a href="./main?curPage=${paging.totalPage }&keyword=${keyword }" class="page-link">끝 &rarr;</a></li>	
+		<li class="page-item"><a href="./main?curPage=${paging.totalPage }&freeHead=${freeHead}" class="page-link">끝 &rarr;</a></li>	
 	</c:if>
 	
 	</ul>

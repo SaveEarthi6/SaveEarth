@@ -4,6 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="web.dao.face.FreeDao">
 
+
 <select id="selectNickById" parameterType="string" resultType="string">
 	SELECT user_nick FROM member 
 	WHERE user_id=#{userId}
@@ -18,11 +19,8 @@
 </insert>
 
 <insert id="insertFreeFile" parameterType="web.dto.Free">
-	<selectKey keyProperty="freeFileNo" order="BEFORE" resultType="int">
-		select free_file_no_seq.nextval from dual
-	</selectKey>
 	INSERT INTO free_file (free_file_no, free_no, free_origin_name, free_stored_name) 
-	VALUES ( #{freeFileNo}, #{freeNo}, #{freeOriginName}, #{freeStoredName})
+	VALUES ( free_file_no_seq.nextval, #{freeNo}, #{freeOriginName}, #{freeStoredName})
 </insert>
 
 <select id="selectCntAll" resultType="int">
@@ -31,33 +29,29 @@
 
 <select id="selectList" resultType="map" parameterType="map">
 	SELECT * FROM(
-		SELECT rownum rnum, (SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) id, F.* FROM (
+		SELECT rownum rnum, (SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) user_id, F.* FROM (
 			SELECT
 			*
 			FROM free
 	<choose>
 		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('사담')">
 			WHERE free_head = #{freeHead}
-			ORDER BY free_no DESC
+			ORDER BY free_head DESC, free_no DESC
 		</when>
 		
 		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('정보')">
 			WHERE free_head = #{freeHead}
-			ORDER BY free_no DESC
+			ORDER BY free_head DESC, free_no DESC
 		</when>
 		
 		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('질문')">
 			WHERE free_head = #{freeHead}
-			ORDER BY free_no DESC
+			ORDER BY free_head DESC, free_no DESC
 		</when>
 		
-		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('전체')">
-			ORDER BY free_no DESC
-		</when>
-
-		<when test="freeHead == null">
-			ORDER BY free_no DESC
-		</when>
+		<otherwise>
+			ORDER BY free_head DESC, free_no DESC
+		</otherwise>
 		
 	</choose>	
 		) F
@@ -71,8 +65,7 @@
 <select id="selectFreeBoard" parameterType="web.dto.Free" resultType="map">
 	SELECT * FROM(
 		SELECT 
-		(SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) id,
-		(SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) nick, F.* FROM (
+		(SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) user_id, F.* FROM (
 			SELECT
 			*
 			FROM free
@@ -111,32 +104,60 @@
 <select id="selectFreeByKeyword" resultType="map" parameterType="map">
 
 	SELECT * FROM(
-		SELECT rownum rnum, (SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) id, F.* FROM (
+		SELECT rownum rnum, (SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) user_id, F.* FROM (
 			SELECT
 			*
 			FROM free
-	<choose>
+		<choose>
 		
-		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('전체')
-					&amp;&amp; keyword != null">
-			WHERE free_title LIKE ''%' || #{keyword} || '%'
-			ORDER BY free_no DESC
+		<when test="keyword != null &amp;&amp; freeHead == null">	
+			WHERE free_title LIKE '%' || #{keyword} || '%'
 		</when>
 
-		<when test="freeHead == null &amp;&amp; keyword != null">
-			WHERE free_title LIKE ''%' || #{keyword} || '%'
-			ORDER BY free_no DESC
+		<when test="keyword != null &amp;&amp; freeHead.equals('전체')">	
+			WHERE free_title LIKE '%' || #{keyword} || '%'
 		</when>
 		
-	</choose>	
+		</choose>
+
+			ORDER BY free_no DESC
+		
 		) F
 	) FREEMAIN
 	WHERE rnum BETWEEN #{paging.startNo} and #{paging.endNo}
 	ORDER BY free_no DESC
 	
-	
-
 </select>
+
+<!-- 댓글 조회 -->
+<!-- <select id="replyList" parameterType="int" resultType="com.board.domain.ReplyVO"> -->
+<!--     select -->
+<!--         rno, bno, writer, content, regDate -->
+<!--     from tbl_reply -->
+<!--         where bno = #{bno}         -->
+<!-- </select> -->
+
+<!-- 댓글 작성 -->
+<!-- <insert id="replyWrite" parameterType="com.board.domain.ReplyVO"> -->
+<!--     insert into tbl_reply(bno, writer, content, regDate) -->
+<!--         value(#{bno}, #{writer}, #{content}, #{regDate}) -->
+<!-- </insert> -->
+    
+<!-- 댓글 수정 -->
+<!-- <update id="replyModify" parameterType="com.board.domain.ReplyVO"> -->
+<!--     update tbl_reply set -->
+<!--         writer = #{writer}, -->
+<!--         content = #{content} -->
+<!--     where rno = #{rno} -->
+<!--         and bno = #{bno}     -->
+<!-- </update> -->
+
+<!-- 댓글 삭제 -->
+<!-- <delete id="replyDelete" parameterType="com.board.domain.ReplyVO"> -->
+<!--     delete from tbl_reply -->
+<!--     where rno = #{rno} -->
+<!--         and bno = ${bno}     -->
+<!-- </delete> -->
 
 <!-- <select id="mypageList" resultType="web.dto.Free" parameterType="int"> -->
 <!-- select * from Free -->
@@ -148,4 +169,12 @@ select * from Free
 where user_no = #{userNo}
 ORDER BY free_no DESC
 </select>
+
+<update id= "recommend" parameterType="web.dto.Free">
+   UPDATE free
+   set free = recomm_no + 1
+   where free_no = #{free_no}
+</update>
+
+
 </mapper>

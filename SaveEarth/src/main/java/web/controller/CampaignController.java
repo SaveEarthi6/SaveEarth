@@ -47,20 +47,23 @@ public class CampaignController {
 		}
 		
 		model.addAttribute("campList", campList);
+		model.addAttribute("paging", paging);
 		
-		//달력 불러오기
+		
 		if(session.getAttribute("isLogin") != null) {
 //			List<Certification> certList = campService.getcertList(session.getAttribute("loginId"));
 		} else {
 			List<Calendar> calList = campService.getCalendar();
-			
+	
 			for(Calendar c : calList) {
 				logger.info("{}", c);
+		
 			}
 			
 			model.addAttribute("calList", calList);
-			
+	
 		}
+		
 		
 	}
 	
@@ -72,8 +75,31 @@ public class CampaignController {
 		
 		campService.writePart(certification, partFile);
 		
+		//재밌는 코딩 놀이 ^~^
 		
 		return "redirect:/campaign/main";
+	}
+	
+	@ResponseBody
+	@PostMapping("/getCalendar")
+	public List<Calendar> gerCalendar(HttpSession session, Model model) {
+		
+		//달력 불러오기
+		if(session.getAttribute("isLogin") != null) {
+//					List<Certification> certList = campService.getcertList(session.getAttribute("loginId"));
+		} else {
+			List<Calendar> calList = campService.getCalendar();
+			
+			for(Calendar c : calList) {
+				logger.info("{}", c);
+				
+			}
+			
+			return calList;
+		}
+		
+		return null;
+		
 	}
 	
 	@RequestMapping("/detail")
@@ -108,6 +134,7 @@ public class CampaignController {
 			}
 			
 			model.addAttribute("campList", campList);
+			model.addAttribute("paging", paging);
 			
 		} else {
 			logger.info("마감 혹은 진행중이 선택됨");
@@ -122,6 +149,7 @@ public class CampaignController {
 			
 			
 			model.addAttribute("campList", campList);
+			model.addAttribute("paging", paging);
 		}
 		
 		

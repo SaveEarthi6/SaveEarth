@@ -50,7 +50,6 @@ public class MemberController {
 		boolean isLogin = memberService.login(member);
 		
 		
-//  2023-05-29 세션에  userno 추가		---------!!
 		member = memberService.info(member.getUserId());
 		System.out.println(member);
 		System.out.println("유저번호" +member.getUserNo());
@@ -60,7 +59,6 @@ public class MemberController {
 			session.setAttribute("loginId", member.getUserId());
 			session.setAttribute("loginNo", member.getUserNo());
 			
-//  2023-05-29 세션에  userno 추가		---------!!		
 			
 			
 		} else {
