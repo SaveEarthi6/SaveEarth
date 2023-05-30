@@ -140,9 +140,9 @@ input {
 <div class="container">
 
 <!-- 게시판 -->
-<table id= "board" class= "table table-striped table-hover text-center">
+<table id= "board" class= "table table-hover text-center">
 
-	<tr>
+	<tr style= "background-color: #59A8D9; color: white;">
 		<th style="width: 20px;">글번호</th>
 		<th style="width: 20px;">제목</th>
 		<th style="width: 20px;">작성자</th>
