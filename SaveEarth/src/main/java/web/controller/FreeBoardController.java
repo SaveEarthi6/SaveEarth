@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Free;
+import web.dto.FreeComment;
 import web.dto.FreeFile;
 import web.dto.Member;
 import web.dto.Recommend;
@@ -79,6 +80,7 @@ public class FreeBoardController {
 		
 		model.addAttribute("view", view);
 		model.addAttribute("userInfo", userInfo);
+		model.addAttribute("loginId", loginId);
 		
 		//상세보기 페이지 파일 조회
 //		FreeFile freeFile = freeService.getFreeFile(freeBoard);
@@ -87,11 +89,11 @@ public class FreeBoardController {
 		model.addAttribute("freeFile", freeFile);
 		
 		//등록된 댓글 조회하기
-		List<Map<String, Object>> comment = freeService.getComment(freeBoard);
-		
-		logger.info("comment {}", comment);
-		
-		model.addAttribute("comment", comment);
+//		List<Map<String, Object>> commContent = freeService.getComment(freeBoard);
+//		
+//		logger.info("commContent {}", commContent);
+//		
+//		model.addAttribute("commContent", commContent);
 		
 	}
 	
@@ -217,15 +219,34 @@ public class FreeBoardController {
 
 	@ResponseBody
 	@GetMapping("/free/comment")
-	public int commentCheck(@RequestParam("commContent") String commContent, @RequestParam("freeNo") int freeNo, @RequestParam("userNo") int userNo) {
+	public List<Map<String,Object>> commentCheck(@RequestParam("commContent") String commContent, @RequestParam("freeNo") int freeNo, @RequestParam("userNo") int userNo) {
+//	public String commentCheck(@RequestParam("freeNo") int freeNo) {
 		
 		logger.info("commContent {}", commContent);
 		logger.info("freeNo {}", freeNo);
 		logger.info("userNo {}", userNo);
 		
 		//댓글 작성
-		int res = freeService.writeComment(commContent, freeNo, userNo);
+		freeService.writeComment(commContent, freeNo, userNo);
 		
+		//등록된 댓글 조회하기
+		List<Map<String, Object>> commList = freeService.getCommentByFreeNo(freeNo);
+		
+		logger.info("commContent {}", commList);
+		
+		return commList;
+		
+	}
+
+	@ResponseBody
+	@GetMapping("/free/commdelete")
+	public int commdelete(@RequestParam("commNo") int commNo) {
+		
+		logger.info("commNo {}", commNo);
+		
+		//댓글 삭제
+		int res = freeService.deleteComm(commNo);
+
 		logger.info("res {}", res);
 		
 		return res;

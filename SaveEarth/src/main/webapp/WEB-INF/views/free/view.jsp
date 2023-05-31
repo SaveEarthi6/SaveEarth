@@ -134,7 +134,9 @@ $("#btnRecommend").click(function(){
 
 </script>
 
+<script type="text/javascript">
 
+//댓글 등록 -> 새로고침해야 반영이 됨...
 $(function(){
 	$("#enroll").click(function() {
 		console.log("test")
@@ -153,15 +155,36 @@ $(function(){
 				freeNo:${view.FREE_NO }
 				},
 			success: function(data){
-				if(data == 1) {
-					alert('댓글 작성이 완료되었습니다!')
-// 					$('.comm').append(commContent);
-					//값 비우기
-					$("#commContent").val('');
-					
-				} else {
-					alert('다시 확인해주세요!')
-				}
+				console.log(data)
+				console.log(data.length);
+				
+			      var data = data;
+// 			      var html = "";
+
+			      /** for start **/
+// 			      for (var i = 0; i < data.length ; i++){
+// 			        html += '<div class="commList">'
+// 			        html += '<span>작성자 :</span><span class="writer">' + data[i].USER_ID + '</span>' 
+// 			        html += '<span>댓글 :</span><span class="rs">' + data[i].COMM_CONTENT + '</span>' 
+// 			        html += '<span>작성일 :</span><span class="writeDate">' + data[i].COMM_CREATE + '</span>'
+// 			        html += '</div>';
+
+// 			      }
+			      
+			      <div class="commList">
+			      <c:forEach items="data" var="comment">
+
+			      <span>작성자 :</span><span class="writer">comment.USER_ID</span>
+			      <span>댓글 :</span><span class="rs">comment.COMM_CONTENT</span>
+			      <span>작성일 :</span><span class="writeDate">comment.COMM_CREATE</span>
+
+			      <c:if test="${loginId eq commContent.USER_ID}">
+			      <button type="button" id="deleteComm">삭제</button>
+			      </c:if>
+
+			      </c:forEach>
+			      </div>
+				
 			}
 		})
 	})
@@ -169,12 +192,39 @@ $(function(){
 
 })
 
+//댓글 삭제
+// $(function(){
+// 	$("#deleteComm").click(function() {
+// 		console.log("test")
+// 		console.log(${commContent.COMM_NO });
+		
+// 		$.ajax({
+// 			type: "get",
+
+// 			url: "http://localhost:8888/free/commdelete",
+// 			data:{
+// 				commNo:${commContent.COMM_NO }
+// 				},
+// 			success: function(data){
+// 				if(data == 1) {
+// 					alert('댓글 작성이 완료되었습니다!')
+// // 					$('.comm').append(commContent);
+// 					//값 비우기
+// 					$("#commContent").val('');
+					
+// 				} else {
+// 					alert('다시 확인해주세요!')
+// 				}
+// 			}
+// 		})
+// 	})
+	
+
+// })
+
+
 
 </script>
-
-
-
-
 
 
 <!-- 버튼 -->
@@ -194,13 +244,21 @@ $(function(){
 <h3>댓글</h3>
 <h5>작성자 : ${userInfo.userId}</h5>
 
-<c:forEach items="${comment }" var="comment">
-<div class="commList">
-<span>작성자 :</span><span class="writer">${comment.USER_ID }</span>
-<span>댓글 :</span><span class="rs">${comment.COMM_CONTENT }</span>
-<span>작성일 :</span><span class="writeDate">${comment.COMM_CREATE }</span>
-</div>
-</c:forEach>
+<%-- <c:forEach items="${commContent }" var="commContent"> --%>
+
+<!-- <div class="commList"> -->
+
+<!-- <span>작성자 :</span><span class="writer"></span> -->
+<!-- <span>댓글 :</span><span class="rs"></span> -->
+<!-- <span>작성일 :</span><span class="writeDate"></span> -->
+
+<%-- <c:if test="${loginId eq commContent.USER_ID}"> --%>
+<!-- <button type="button" id="deleteComm">삭제</button> -->
+<%-- </c:if> --%>
+
+<!-- </div> -->
+
+<%-- </c:forEach> --%>
 
 <!-- 댓글 -->
 	<div class="card my-4">
