@@ -239,7 +239,7 @@ location.href="?freeHead=" + freeHead
 				<td class="text-start" style="text-align:center"><a href="/free/view?freeNo=${free.FREE_NO }">${free.FREE_TITLE }</a></td>
 				<td>${free.USER_ID}</td>
 				<td>${free.FREE_VIEWS }</td>
-				<td>${free.RECOMM_NO }</td>
+				<td>${free.RECOMMEND }</td>
 				<td><fmt:formatDate value="${free.FREE_CREATE}" pattern="yy-MM-dd HH:mm:ss"/></td>
 			</tr>
 

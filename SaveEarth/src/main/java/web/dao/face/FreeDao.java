@@ -101,7 +101,34 @@ public interface FreeDao {
 	 */
 	public List<Free> mypageList(int userno);
 
-	public void recommend(Free freeNo);
+	
+	/**
+	 * 로그인한 회원이 게시글을 추천 했는지 확인... 
+	 * 
+	 * @param free
+	 * @return
+	 */
+	public int cntRecommend(Free free);
+
+	/**
+	 * cntRecommend가 0일때 추천수가 +1, 
+	 * 
+	 * @param free
+	 */
+	public void plusRecommend(Free free);
+
+	/**
+	 * 0보다 클 때 -1이 된다
+	 * 
+	 * @param free
+	 */
+	public void minusRecommend(Free free);
+
+	public void insertRecommend(Free free);
+
+	public void deleteRecommend(Free free);
+
+
 
 
 

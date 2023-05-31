@@ -11,14 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Member;
+import web.dto.Recommend;
 import web.service.face.FreeService;
 import web.service.face.MemberService;
 import web.util.Paging;
@@ -30,6 +33,7 @@ public class FreeBoardController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	FreeService freeService;
+	
 	@Autowired
 	MemberService memberService;
 
@@ -125,7 +129,7 @@ public class FreeBoardController {
 	public String delete (Free free) {
 		freeService.delete(free);
 		
-		return "redirect:/mypage/board";
+		return "redirect:/mypage/board"; 
 	}
 	
 	
@@ -180,14 +184,21 @@ public class FreeBoardController {
 		
 	}
 	
-	@RequestMapping("/free/Recommend")
-	   public String Recommend (Model model,HttpSession session, Free freeNo) {
-	      
-	      freeService.recommend(freeNo);
-	      
-	      return "redirect:/free/main";
-	      
-	   }
-
+	//추천기능
+	@GetMapping("/free/recommend")
+	public String recommend (Model model, Free free, HttpSession session ) {
+		
+		logger.info("/free/recommend [GET]");
+		
+		//loginNo가 setUserNo에 넣음
+		free.setUserNo((int)session.getAttribute("loginNo"));
+		
+		System.out.println(free);
+		freeService.checkRecommend(free);
+		
+		return "redirect:/free/view?freeNo="+free.getFreeNo();
+		
+	}
+	
 	
 }
