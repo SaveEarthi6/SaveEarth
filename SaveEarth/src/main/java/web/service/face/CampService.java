@@ -93,4 +93,12 @@ public interface CampService {
 	 */
 	public List<Map<String, Object>> getcertList(int userNo, String calDate);
 
+	/**
+	 * 파라미터와 일치하는 인증글, 인증글 파일 지우기
+	 * 
+	 * @param partNo - 인증글 PK
+	 * @param partFileNo - 인증글 파일 PK
+	 */
+	public void deleteCert(int partNo, int partFileNo);
+
 }

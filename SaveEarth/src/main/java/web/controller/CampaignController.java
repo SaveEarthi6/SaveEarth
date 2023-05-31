@@ -180,8 +180,6 @@ public class CampaignController {
 		logger.info("/campaign/viewCertList [GET]");
 		logger.info("{}", calDate);
 		
-//		List<Certification> userCertList = campService.getcertList((int)session.getAttribute("loginNo"), calDate);
-		
 		List<Map<String, Object>> userCertList = new ArrayList<Map<String,Object>>();
 		userCertList = campService.getcertList((int)session.getAttribute("loginNo"), calDate);
 		
@@ -193,6 +191,16 @@ public class CampaignController {
 		return model;
 	}
 	
+	@RequestMapping("/viewCertDelete")
+	public String viewCertDelete(int partNo, int partFileNo) {
+		logger.info("/campaign/viewCertDelete [GET]");
+		logger.info("partNo : {}", partNo);
+		logger.info("partFileNo : {}", partFileNo);
+		
+		campService.deleteCert(partNo, partFileNo);
+		
+		return "redirect:/campaign/main";
+	}
 
 	
 

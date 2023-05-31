@@ -145,10 +145,8 @@ label {
 
 <script type="text/javascript">
 
-
-
 //캠페인 상태 버튼 ajax
- $(function(){
+$(function(){
 	$(".preface").click(function() {
 		console.log("test")
 		console.log($(this).html())
@@ -184,10 +182,52 @@ label {
 	})
 
 
+	
+	//작성하기 버튼 유효성 검사
+	$("#btnWrite").click({
+		
+		
+		console.log($("#partFile").val())	
+		
+		
+		
+		if($("#partTitle").val() == "") {
+			
+			$("#titleMsg").html("제목을 입력해주세요.")
+			
+		}
+		
+		
+		
+		if($("#partContent").val() == "") {
+			
+			$("#contentMsg").html("내용을 입력해주세요.")
+			
+		}
+		if($("#partFile").val() == "") {
+			
+			$("#fileMsg").html("첨부파일이 없습니다.")
+			
+		}
+		
+		
+		//만약 이거 안할거면 버튼 type submit으로 바꿔야지 폼 제출됨...
+		
+		
+		
+	})
+	
+	
+	
+	
 })
 
 //인증글 첨부파일 미리보기
-function readURL(input) {
+function readURL(input){
+	
+	 $("#fileMsg").html('')
+	
+	
 	if (input.files && input.files[0]) {
 		
 		var reader = new FileReader();
@@ -201,7 +241,10 @@ function readURL(input) {
 	}
 }
 	
-
+//작성하기 클릭시 첨부파일 검사 후 폼 제출
+function deleteMsg() {
+	$("#titleMsg").html("")
+}
 
 </script>
 
@@ -276,17 +319,20 @@ myModal.addEventListener('shown.bs.modal', () => {
 				<br>
 				<div class="form-group">
 					<label for="partTitle">제목</label>
-					<input type="text" class="form-control" id="partTitle" name="partTitle" placeholder="제목을 입력하세요">
+					<input type="text" class="form-control" id="partTitle" name="partTitle" placeholder="제목을 입력하세요" onchange="deleteMsg()">
+					<span id="titleMsg" style="color:red; font-size:0.8em;"></span>
 				</div>
 				<br>
 				<div class="form-group">
 					<label for="partContent">내용</label>
 					<input type="text" class="form-control" id="partContent" name="partContent" placeholder="내용을 입력하세요">				
+					<span id="contentMsg" style="color:red; font-size:0.8em;"></span>
 				</div>
 				<br>
 				<div class="form-group">
 					<label for="partFile">첨부파일</label>
-					<input type="file" class="form-control" id="partFile" name="partFile" onchange="readURL(this);">
+					<input type="file" class="form-control" id="partFile" name="partFile" onchange="readURL(this);" accept="image/gif, image/jpeg, image/png">
+					<span id="fileMsg" style="color:red; font-size:0.8em;"></span>
 					<div id="previewWrap"><img id="preview" style="height: 200px;"/></div>
 				</div>
 				<div>
@@ -298,7 +344,7 @@ myModal.addEventListener('shown.bs.modal', () => {
 			<!-- Modal Footer -->
 			<div class="modal-footer" id="btnWrap">
 		        <button type="button" class="btn btn-secondary" id="btnCancel" data-bs-dismiss="modal" >취소하기</button>
-		        <button type="submit" class="btn btn-primary" id="btnWrite">작성하기</button>
+		        <button type="button" class="btn btn-primary" id="btnWrite">작성하기</button>
 			</div>
 			</form>
 		</div>
@@ -327,10 +373,10 @@ myModal.addEventListener('shown.bs.modal', () => {
       <div class="modal-body" id="viewModalBody">
         인증글 목록 불러올 곳
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary"  id="btnCancel"  data-bs-dismiss="modal">창 닫기</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+<!--       <div class="modal-footer"> -->
+<!--         <button type="button" class="btn btn-secondary"  id="btnCancel"  data-bs-dismiss="modal">창 닫기</button> -->
+<!--         <button type="button" class="btn btn-primary">Save changes</button> -->
+<!--       </div> -->
       
     </div>
   </div>
