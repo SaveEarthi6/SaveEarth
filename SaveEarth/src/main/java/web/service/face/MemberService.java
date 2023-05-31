@@ -106,6 +106,14 @@ public interface MemberService {
 	 */
 	public String getType(Member member);
 
+	/**
+	 * 네이버 acess_token 받아오기
+	 * @param code
+	 * @param state
+	 * @return
+	 */
+	public String getnaverToken(String code, String state);
+
 
 
 	

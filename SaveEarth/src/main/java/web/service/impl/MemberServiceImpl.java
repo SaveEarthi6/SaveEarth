@@ -5,9 +5,11 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashMap;
+import java.net.URLEncoder;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -300,6 +302,57 @@ public class MemberServiceImpl implements MemberService {
 		
 		String loginType = memberDao.getType(member);
 		return loginType;
+	}
+
+	@Override
+	public String getnaverToken(String code, String state)  {
+		String clientId = "GHbqes62pzw1QpLMxiNo";// 애플리케이션 클라이언트 아이디값";
+		String clientSecret = "RmazoV_MRN";// 애플리케이션 클라이언트 시크릿값";
+		String redirectURI = null;
+		try {
+			redirectURI = URLEncoder.encode("http://localhost:8888/member/naver", "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code" + "&client_id=" + clientId
+				+ "&client_secret=" + clientSecret + "&redirect_uri=" + redirectURI + "&code=" + code + "&state="
+				+ state;
+		String access_Token = "";
+		String refresh_token = "";
+		try {
+			URL url = new URL(apiURL);
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con.setRequestMethod("GET");
+			int responseCode = con.getResponseCode();
+			BufferedReader br;
+			if (responseCode == 200) { // 정상 호출
+				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			} else { // 에러 발생
+				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+			}
+			String inputLine;
+			StringBuilder res = new StringBuilder();
+			while ((inputLine = br.readLine()) != null) {
+				res.append(inputLine);
+			}
+			br.close();
+			if (responseCode == 200) {
+				
+				  System.out.println(res.toString());
+				  
+				  JsonParser parser = new JsonParser();
+				  JsonObject jsonObject = parser.parse(res.toString()).getAsJsonObject();
+				  access_Token = jsonObject.get("access_token").getAsString();
+				  refresh_token = jsonObject.get("refresh_token").getAsString();
+				  
+				  System.out.println("엑세스 토큰" +access_Token);
+
+			}
+		} catch (Exception e) {
+			// Exception 로깅
+		}
+		return access_Token;
 	}
 
 	

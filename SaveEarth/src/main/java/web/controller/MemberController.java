@@ -9,6 +9,7 @@ import com.google.gson.JsonObject;
 
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.JsonParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -263,46 +264,56 @@ public class MemberController {
 	public String naver(@RequestParam("code") String code, @RequestParam("state") String state) throws Exception {
 		System.out.println(code);
 		System.out.println(state);
+		
+		// 네이버 access_token 가져오기
+		String access_token = memberService.getnaverToken(code,state);
+		System.out.println("컨트롤러"+access_token);
+		
+		// 네이버 API 엔드포인트 URL
+		String apiUrl = "https://openapi.naver.com/v1/nid/me";
 
-		String clientId = "GHbqes62pzw1QpLMxiNo";// 애플리케이션 클라이언트 아이디값";
-		String clientSecret = "RmazoV_MRN";// 애플리케이션 클라이언트 시크릿값";
-		String redirectURI = URLEncoder.encode("http://localhost:8888/member/naver", "UTF-8");
-		String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code" + "&client_id=" + clientId
-				+ "&client_secret=" + clientSecret + "&redirect_uri=" + redirectURI + "&code=" + code + "&state="
-				+ state;
-		String access_Token = "";
-		String refresh_token = "";
 		try {
-			URL url = new URL(apiURL);
-			HttpURLConnection con = (HttpURLConnection) url.openConnection();
-			con.setRequestMethod("GET");
-			int responseCode = con.getResponseCode();
-			BufferedReader br;
-			if (responseCode == 200) { // 정상 호출
-				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			} else { // 에러 발생
-				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-			}
-			String inputLine;
-			StringBuilder res = new StringBuilder();
-			while ((inputLine = br.readLine()) != null) {
-				res.append(inputLine);
-			}
-			br.close();
-			if (responseCode == 200) {
-				
-				  System.out.println(res.toString());
-				  
-//				  JsonObject jsonObject = new JsonObject(res); access_Token =
-//				  jsonObject.getString("access_token"); refresh_token =
-//				  jsonObject.getString("refresh_token"); System.out.println(access_Token);
-				 
+		    URL url = new URL(apiUrl);
+		    HttpURLConnection con = (HttpURLConnection) url.openConnection();
+		    con.setRequestMethod("GET");
+		    con.setRequestProperty("Authorization", "Bearer " + access_token);
+		    int responseCode = con.getResponseCode();
+		    
+		    BufferedReader br;
+		    if (responseCode == 200) { // 정상 호출
+		        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		    } else { // 에러 발생
+		        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+		    }
+		    
+		    StringBuilder response = new StringBuilder();
+		    String line;
+		    while ((line = br.readLine()) != null) {
+		        response.append(line);
+		    }
+		    br.close();
+		    
+		    // API 응답 결과를 파싱하여 원하는 정보를 추출
+		    JsonParser parser = new JsonParser();
+		    JsonObject profileObject = parser.parse(response.toString()).getAsJsonObject();
+		    JsonObject responseObject = profileObject.getAsJsonObject("response");
+		    
 
-			}
+		    
+		    String naverId = responseObject.get("id").getAsString();
+		    String naverName = responseObject.get("name").getAsString();
+		    String naverEmail = responseObject.get("email").getAsString();
+		    
+		    
+		    System.out.println(naverId);
+		    System.out.println(naverName);
+		    System.out.println(naverEmail);
+		    
 		} catch (Exception e) {
-			// Exception 로깅
+		    // Exception 처리
 		}
 
+	
 		return "member/login";
 	}
 
