@@ -64,5 +64,40 @@
 	<select id="selectCalList" resultType="web.dto.Calendar">
 		SELECT * FROM calendar
 	</select>
+	
+	<select id="selectIngList" resultType="web.dto.Campaign">
+		SELECT * FROM campaign
+		WHERE camp_state = '진행중'
+		ORDER BY camp_no DESC
+	</select>
+	
+	<select id="selectCertByUserNo" resultType="web.dto.Certification" parameterType="int">
+		SELECT * FROM certification
+		WHERE user_no = #{userNo}
+	</select>
+	
+<!-- 	<select id="selectCertByDate" resultType="web.dto.Certification" parameterType="map"> -->
+<!-- 		SELECT * FROM ( -->
+<!-- 		    SELECT to_char(part_date, 'YYYY-MM-DD') dateStr, c.*  -->
+<!-- 		    FROM ( -->
+<!-- 		        SELECT * FROM certification WHERE user_no = #{userNo} -->
+<!-- 		    ) c -->
+<!-- 		) -->
+<!-- 		WHERE datestr = #{calDate} -->
+<!-- 	</select> -->
+	
+	<select id="selectCertByDate" resultType="map" parameterType="map">
+		SELECT cal.camp_title, dstr.*
+		FROM (
+			SELECT * FROM (
+		        SELECT to_char(part_date, 'YYYY-MM-DD') dateStr, c.* 
+		        FROM (
+		            SELECT * FROM certification WHERE user_no = #{userNo}
+		        ) c
+		    )
+		    WHERE datestr = #{calDate}
+		) dstr, campaign cal
+		WHERE cal.camp_no = dstr.camp_no
+	</select>
 
 </mapper>

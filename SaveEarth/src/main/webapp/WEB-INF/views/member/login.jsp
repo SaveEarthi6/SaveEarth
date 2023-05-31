@@ -112,18 +112,17 @@ button{ cursor: pointer; } /* 모든 버튼에 마우스손모양 처리 */
       </ul>
       <!--데이터를 서버로 전송-->
       <button type="submit">로그인</button>
+      
+      <ul>
       <!--  카카오 로그인 버튼 -->
-      <a href="https://kauth.kakao.com/oauth/authorize?client_id=afd568c5b46891ae3dde245d70d25e21&redirect_uri=http://localhost:8888/member/kakao
-&response_type=code"><img src="/resources/img/kakaoLogin.png" style="height:30px"/></a>
+    <li><a href="https://kauth.kakao.com/oauth/authorize?client_id=afd568c5b46891ae3dde245d70d25e21&redirect_uri=http://localhost:8888/member/kakao
+&response_type=code"><img src="/resources/img/kakaoLogin.png" style="height:30px"/></a></li>
  
  	   <!-- 네이버 로그인 버튼 -->	
 	  
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.security.SecureRandom" %>
 <%@ page import="java.math.BigInteger" %>
-
-	  
-
 
 <%
     String clientId = "GHbqes62pzw1QpLMxiNo";//애플리케이션 클라이언트 아이디값";
@@ -136,9 +135,9 @@ button{ cursor: pointer; } /* 모든 버튼에 마우스손모양 처리 */
          + "&state=" + state;
     session.setAttribute("state", state);
  %>
-  <a href="<%=apiURL%>"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
-
-    
+ <li><a href="<%=apiURL%>"><img height="30px" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a></li>
+	
+    </ul>
      
     </fieldset>
   </form>

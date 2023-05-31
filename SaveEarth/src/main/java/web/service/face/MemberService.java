@@ -2,6 +2,7 @@ package web.service.face;
 
 import java.util.HashMap;
 
+import web.dto.Admin;
 import web.dto.Mail;
 import web.dto.Member;
 
@@ -82,8 +83,30 @@ public interface MemberService {
 	 * @return
 	 */
 	public String getToken(String code);
-
+	
+	
+	/**
+	 * 토큰으로 유저정보 가져오기
+	 * @param access_token
+	 * @return
+	 */
 	public Member getKaKaoinfo(String access_token);
+
+	
+	/**
+	 * 카카오 이메일로 가입되어있나 확인
+	 * @param member
+	 * @return
+	 */
+	public boolean kakaoExist(Member member);
+
+	/**
+	 * 회원정보중 로그인타입 가져오기
+	 * @param member
+	 * @return 
+	 */
+	public String getType(Member member);
+
 
 
 
