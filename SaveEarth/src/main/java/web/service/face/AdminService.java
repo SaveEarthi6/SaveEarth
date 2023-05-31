@@ -23,6 +23,11 @@ public interface AdminService {
 	 */
     public boolean login(Admin admin);
 
+    /**
+     * 페이징 
+     * @param curPage
+     * @return
+     */
 	public Paging getPaging(int curPage);
 
 	public List<Map<String, Object>> list(Paging paging);
@@ -30,7 +35,6 @@ public interface AdminService {
 	public Map<String, Object> getView(Free freeBoard);
 
 	public List<FreeFile> getFreeFile(Free freeBoard);
-
 
 	public Paging getPaging2(int curPage);
 
@@ -49,6 +53,10 @@ public interface AdminService {
 	 */
 	public Admin info(String loginId);
 
+	/**
+	 * 관리자페이지 - 회원게시글 삭제
+	 * @param free
+	 */
 	public void delete(Free free);
 
 	public List<Campaign> getCampList(Paging paging);

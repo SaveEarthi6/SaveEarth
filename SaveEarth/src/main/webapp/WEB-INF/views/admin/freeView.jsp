@@ -67,8 +67,8 @@ $(document).ready(function() {
 	<td class="table-light">글번호</td><td colspan="3">${view.FREE_NO }</td>
 </tr>
 <tr>
-	<td class="table-light">아이디</td><td>${view.ID }</td>
-	<td class="table-light">닉네임</td><td>${view.NICK }</td>
+	<td class="table-light">아이디</td><td>${view.USER_ID }</td>
+	<td class="table-light">닉네임</td><td>${view.USER_NICK }</td>
 </tr>
 <tr>
 	<td class="table-light">조회수</td><td>${view.FREE_VIEWS }</td>

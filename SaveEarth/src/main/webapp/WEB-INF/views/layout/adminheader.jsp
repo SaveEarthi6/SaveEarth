@@ -107,6 +107,13 @@ body {
 	right: 18px;
 }
 
+.righttop2{
+	position: absolute;
+	top: 50px;
+	right: 137px;
+}
+
+
 </style>
 
 
@@ -120,10 +127,11 @@ body {
 	
 	<c:if test="${empty isLogin }">
 	<a href="/admin/login"	class="righttop">관리자 로그인 </a>
+	<a href="/saveearth/main"	class="righttop2">메인화면</a>
 	</c:if>
 	
 	<c:if test="${not empty isLogin and isLogin }">
-	<a href="/member/logout" class="lefttop">로그아웃</a>
+	<a href="/member/logout" class="lefttop3">로그아웃</a>
 	</c:if>
 	</div>
 </div>

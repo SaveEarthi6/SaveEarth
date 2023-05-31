@@ -27,12 +27,25 @@ import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Member;
 import web.service.face.AdminService;
+import web.service.face.CampService;
 import web.service.face.MemberService;
 import web.util.Paging;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+<<<<<<< HEAD
+=======
+	
+	   @Autowired AdminService adminService;
+	   @Autowired MemberService memberService;
+	   @Autowired CampService campService;
+	   
+	   private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	   @GetMapping("/login")
+	   public void loginpage() {logger.info("/admin/login[Get]");}
+>>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
 
 	@Autowired
 	AdminService adminService;
@@ -142,9 +155,48 @@ public class AdminController {
 		// 로그인 정보를 가지고 회원번호랑 관리자 번호를 가져옴
 		String loginId = (String) session.getAttribute("loginId");
 //    Member memberInfo = null;      
+<<<<<<< HEAD
 		Admin memberInfo = adminService.info(loginId);
 		// 만약 회원번호가 있으면 회원번호를 가져오고
 		// 관리자번호가 있으면 관리자 번호를 가져오고
+=======
+      Admin memberInfo = adminService.info(loginId);
+      //만약 회원번호가 있으면 회원번호를 가져오고
+      //관리자번호가 있으면 관리자 번호를 가져오고
+      
+      logger.info("memberInfo {}", memberInfo);
+      
+      logger.info("free {}", free);
+      logger.info("files {}", files);
+      
+      adminService.freeWrite(free, files, memberInfo, member);
+      
+      return "redirect:./free";
+      
+   }
+   
+   @RequestMapping("/campaign")
+   public void adminCampaign(HttpSession session, Model model, @RequestParam(defaultValue = "0") int curpage) {
+	   logger.info("/admin/campaign[GET]");
+	   logger.info(" curpage : {}", curpage);
+	   
+	   Paging paging = adminService.getPaging(curpage);
+	   
+	   
+   }
+   
+   
+   @RequestMapping("/freeDelete")
+   public String freeDelete(Free free) {
+	   adminService.delete(free);
+		   
+	   return "redirect:./free";
+   }
+   
+   
+   
+   
+>>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
 
 		logger.info("memberInfo {}", memberInfo);
 
