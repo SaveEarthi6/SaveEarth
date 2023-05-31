@@ -26,6 +26,7 @@ public interface AdminDao {
 
 
 
+	
 
 
    public int selectCntAll2();
