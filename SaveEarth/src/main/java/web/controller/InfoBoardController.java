@@ -28,10 +28,7 @@ public class InfoBoardController {
 //		boolean admin = (boolean) session.getAttribute("admin");
 		
 
-//		
-//		String loginId = (String) session.getAttribute("loginId");
-//		boolean admin = (boolean) session.getAttribute("admin");
-//		
+
 
 //		model.addAttribute("admin", admin);
 	

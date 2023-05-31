@@ -295,7 +295,10 @@ public class FreeServiceImpl implements FreeService{
 		}
 		
 		
+
+	
 	}
+
 
 	@Override
 	public int writeComment(String commContent, int freeNo, int userNo) {
