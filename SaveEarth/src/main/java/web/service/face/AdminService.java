@@ -50,6 +50,10 @@ public interface AdminService {
 	 */
 	public Admin info(String loginId);
 
+	/**
+	 * 관리자페이지 - 회원게시글 삭제
+	 * @param free
+	 */
 	public void delete(Free free);
 
 
