@@ -35,17 +35,15 @@ import web.util.Paging;
 @RequestMapping("/admin")
 public class AdminController {
 	
-   @Autowired AdminService adminService;
-   @Autowired MemberService memberService;
-   @Autowired CampService campService;
+	   @Autowired AdminService adminService;
+	   @Autowired MemberService memberService;
+	   @Autowired CampService campService;
 	   
+	   private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	   @GetMapping("/login")
+	   public void loginpage() {logger.info("/admin/login[Get]");}
 
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-	@GetMapping("/login")
-	public void loginpage() {
-		logger.info("/admin/login[Get]");
-	}
 
 	@PostMapping("/login")
 	public String login(HttpSession session, Admin admin) {
@@ -141,7 +139,6 @@ public class AdminController {
 		// 로그인 정보를 가지고 회원번호랑 관리자 번호를 가져옴
 		String loginId = (String) session.getAttribute("loginId");
 //    Member memberInfo = null;      
-
       Admin memberInfo = adminService.info(loginId);
       //만약 회원번호가 있으면 회원번호를 가져오고
       //관리자번호가 있으면 관리자 번호를 가져오고
@@ -167,28 +164,6 @@ public class AdminController {
 	   
    }
    
-   
-   @RequestMapping("/freeDelete")
-   public String freeDelete(Free free) {
-	   adminService.delete(free);
-		   
-	   return "redirect:./free";
-   }
-   
-   
-   
-   
-
-		logger.info("memberInfo {}", memberInfo);
-
-		logger.info("free {}", free);
-		logger.info("files {}", files);
-
-		adminService.freeWrite(free, files, memberInfo, member);
-
-		return "redirect:./free";
-
-	}
 
 	@RequestMapping("/freeDelete")
 	public String freeDelete(Free free) {

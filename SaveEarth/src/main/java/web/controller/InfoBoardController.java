@@ -22,10 +22,8 @@ public class InfoBoardController {
 	public void info(HttpSession session, Model model) {
 
 		logger.info("/info/main [GET]");
-		
 //		String loginId = (String) session.getAttribute("loginId");
 //		boolean admin = (boolean) session.getAttribute("admin");
-//		
 //		model.addAttribute("admin", admin);
 	
 	}
