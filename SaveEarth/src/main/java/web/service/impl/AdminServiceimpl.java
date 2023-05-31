@@ -52,7 +52,9 @@ public class AdminServiceimpl implements AdminService {
 
 	@Override
 	public List<Map<String, Object>> list(Paging paging) {
-
+			
+		
+		
 		return adminDao.selectList(paging);
 	}
 
@@ -199,4 +201,4 @@ public class AdminServiceimpl implements AdminService {
 		
 		return adminDao.selectById(loginId);
 	}
-}}
+}

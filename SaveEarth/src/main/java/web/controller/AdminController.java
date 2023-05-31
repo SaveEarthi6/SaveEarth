@@ -41,7 +41,7 @@ public class AdminController {
 
       // 페이징
       Paging paging = adminService.getPaging(curPage);
-
+      
       // 페이징을 적용한 리스트 보여주기(userno을 기준으로 join)
       List<Map<String, Object>> list = adminService.list(paging);
       logger.info("list {}", list);
@@ -49,13 +49,12 @@ public class AdminController {
       for (Map m : list) {
          logger.info(" list {} ", m);
       }
-
       // jsp에서 쓰기 위해서는 map의 컬럼명과 동일하게 해주어야 한다
       model.addAttribute("list", list);
       model.addAttribute("paging", paging);
    }
 
-   
+   //게시글 상세 보기
    @GetMapping("/freeView")
    public void detail(Model model, Free freeBoard, HttpSession session) {
       
@@ -82,7 +81,7 @@ public class AdminController {
       
    }
 
-   
+   //관리자 글쓰기
    @GetMapping("/freeWrite")
    public void write(HttpSession session, Model model) {
 	   logger.info("/freeWrite [GET]");
@@ -99,31 +98,31 @@ public class AdminController {
    }
    
  
+//   
+//   @PostMapping("/freeWrite")
+//   public String writepost(HttpSession session, Free free, @RequestParam(required = false) List<MultipartFile> files) {
+//      
+//      logger.info("/freeWrite [POST]");
+//      
+//      //로그인 정보를 가지고 회원번호랑 관리자 번호를 가져옴
+//      String loginId = (String) session.getAttribute("loginId");
+//      Member memberInfo = null;      
+//      memberInfo = memberService.info(loginId);
+//      //만약 회원번호가 있으면 회원번호를 가져오고
+//      //관리자번호가 있으면 관리자 번호를 가져오고
+//      
+//      logger.info("memberInfo {}", memberInfo);
+//      
+//      logger.info("free {}", free);
+//      logger.info("files {}", files);
+//      
+//      adminService.freeWrite(free, files, memberInfo);
+//      
+//      return "redirect:./free";
+//      
+//   }
    
-   @PostMapping("/freeWrite")
-   public String writepost(HttpSession session, Free free, @RequestParam(required = false) List<MultipartFile> files) {
-      
-      logger.info("/freeWrite [POST]");
-      
-      //로그인 정보를 가지고 회원번호랑 관리자 번호를 가져옴
-      String loginId = (String) session.getAttribute("loginId");
-      Member memberInfo = null;      
-      memberInfo = memberService.info(loginId);
-      //만약 회원번호가 있으면 회원번호를 가져오고
-      //관리자번호가 있으면 관리자 번호를 가져오고
-      
-      logger.info("memberInfo {}", memberInfo);
-      
-      logger.info("free {}", free);
-      logger.info("files {}", files);
-      
-      adminService.freeWrite(free, files, memberInfo);
-      
-      return "redirect:./free";
-      
-   }
-   
-
+   //관리자 로그인
    @GetMapping("/login")
    public void loginpage() {
       logger.info("admin/login[Get]");
@@ -151,5 +150,7 @@ public class AdminController {
 		return "redirect:/admin/free";		
 	}
 
+   
+   
 }
 

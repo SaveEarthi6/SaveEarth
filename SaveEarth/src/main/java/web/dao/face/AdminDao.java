@@ -33,7 +33,6 @@ public interface AdminDao {
 	 * @return
 	 */
 	public Admin selectById(String loginId);
-
 	/**
 	 * 게시글 내용 삽입
 	 * 
@@ -48,6 +47,7 @@ public interface AdminDao {
 	 */
 	public void insertFreeFile(FreeFile freeFile);
 
-	public Admin selectById(String adminId);
+	
+
 
 }
