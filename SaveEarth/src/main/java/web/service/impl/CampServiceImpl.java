@@ -142,6 +142,22 @@ public class CampServiceImpl implements CampService {
 
 		return campDao.selectCalList();
 	}
-
 	
+	@Override
+	public List<Campaign> getIngList() {
+
+		return campDao.selectIngList();
+	}
+
+	@Override
+	public List<Certification> getcertList(int userNo) {
+
+		return campDao.selectCertByUserNo(userNo);
+	}
+	
+	@Override
+	public List<Map<String, Object>> getcertList(int userNo, String calDate) {
+
+		return campDao.selectCertByDate(userNo, calDate);
+	}
 }

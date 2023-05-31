@@ -69,6 +69,28 @@ public interface CampService {
 	 */
 	public List<Calendar> getCalendar();
 
-	
+	/**
+	 * [진행중] 상태인 캠페인 불러오기
+	 * 
+	 * @return [진행중] 상태인 캠페인 리스트
+	 */
+	public List<Campaign> getIngList();
+
+	/**
+	 * 회원번호와 일치하는 인증글 불러오기
+	 * 
+	 * @param userNo - 로그인한 회원의 번호
+	 * @return 일치하는 인증글 리스트
+	 */
+	public List<Certification> getcertList(int userNo);
+
+	/**
+	 * userNo
+	 * 
+	 * @param attribute
+	 * @param calDate
+	 * @return
+	 */
+	public List<Map<String, Object>> getcertList(int userNo, String calDate);
 
 }
