@@ -2,6 +2,7 @@ package web.service.face;
 
 import java.util.HashMap;
 
+import web.dto.Admin;
 import web.dto.Mail;
 import web.dto.Member;
 
@@ -84,6 +85,7 @@ public interface MemberService {
 	public String getToken(String code);
 
 	public Member getKaKaoinfo(String access_token);
+
 
 
 

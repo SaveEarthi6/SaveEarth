@@ -13,7 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Admin;
@@ -129,7 +131,7 @@ public class AdminController {
  
    
    @PostMapping("/freeWrite")
-   public String writepost(HttpSession session, Free free, @RequestParam(required = false) List<MultipartFile> files) {
+   public String writepost(HttpSession session, Free free, @RequestParam(required = false) List<MultipartFile> files, Member member ) {
       
       logger.info("/freeWrite [POST]");
       
@@ -145,7 +147,7 @@ public class AdminController {
       logger.info("free {}", free);
       logger.info("files {}", files);
       
-      adminService.freeWrite(free, files, memberInfo);
+      adminService.freeWrite(free, files, memberInfo, member);
       
       return "redirect:./free";
       
@@ -162,6 +164,12 @@ public class AdminController {
    }
    
    
+   @RequestMapping("/freeDelete")
+   public String freeDelete(Free free) {
+	   adminService.delete(free);
+		   
+	   return "redirect:./free";
+   }
    
    
    

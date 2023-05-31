@@ -40,13 +40,24 @@
 
 </style>
 
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#btnList").click(function() {
+		location.href = "/admin/free"
+	})
+	
+	$("#btnDelete").click(function() {
+		location.href = "./freeDelete?freeNo=${view.FREE_NO}"
+	})
+})
+</script>
+
+
 
 <div class="container">
 
 <div style= "margin-left: 1100px; padding-top: 50px; padding-bottom: 50px;">
-	<c:if test="${ userInfo.userno eq view.userNo }">
-		<button onclick="location.href='./delete?freeNo=${view.freeNo}'" id="btnDelete" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">삭제</button>
-	</c:if>
+		<button id="btnDelete" class="btn btn-danger">삭제</button>
 </div>
 
 <!-- 게시글 상세 -->
