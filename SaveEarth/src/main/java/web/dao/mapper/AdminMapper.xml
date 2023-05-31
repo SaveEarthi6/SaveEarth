@@ -6,10 +6,25 @@
 
 <mapper namespace="web.dao.face.AdminDao">
 
-   <select id="selectCntByIdPw" resultType="int" parameterType="web.dto.Admin">
+	<select id="selectCntByIdPw" resultType="int" parameterType="web.dto.Admin">
+        SELECT count(*) FROM admin
+     WHERE admin_id = #{adminid } AND admin_pw = #{adminpw}
+  	</select>
+  	
+  	 <select id="selectById" resultType="web.dto.Admin" parameterType="string">
+        SELECT * FROM admin
+    	WHERE admin_id= #{adminid}
+  </select>
+
+ <!--   <select id="selectCntByIdPw" resultType="int" parameterType="web.dto.Admin">
 		SELECT count(*) FROM admin
 		WHERE admin_id= #{adminId} and admin_pw=#{adminPw} 
    </select>
+   
+     <select id="adminlogin" resultType="web.dto.Admin" parameterType="web.dto.Admin">
+		SELECT * FROM admin
+		WHERE admin_id= #{adminId} and admin_pw=#{adminPw} 
+   </select> -->
 
 	<select id="selectCntAll" resultType="int">
 		SELECT count(*) FROM free
@@ -46,11 +61,11 @@
 	WHERE free_no = #{freeBoard.freeNo}
 </select>
 	
-	<select id="selectNickById" parameterType="string" resultType="string">
-		SELECT user_nick FROM member 
-		WHERE user_id=#{user_id}
+<!-- 	<select id="selectNickById" parameterType="string" resultType="string">
+		SELECT admin_name FROM admin 
+		WHERE admin_id=#{admin_id}
 	</select>
-	
+	 -->
 	<select id="selectFreeFile" parameterType="web.dto.Free" resultType="web.dto.FreeFile">
 		SELECT * FROM free_file
 		WHERE free_no = #{freeNo}

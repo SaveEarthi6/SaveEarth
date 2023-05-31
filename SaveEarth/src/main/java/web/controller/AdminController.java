@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Admin;
 import web.dto.Free;
@@ -58,7 +59,7 @@ public class AdminController {
    @GetMapping("/freeView")
    public void detail(Model model, Free freeBoard, HttpSession session) {
       
-      logger.info("/free/view [GET]");
+      logger.info("/freeView [GET]");
       
       //게시글 조회
       Map<String, Object> view = adminService.getView(freeBoard);
@@ -80,20 +81,21 @@ public class AdminController {
       
    }
 
-	// 자유 글쓰기
-	@GetMapping("/freeWrite")
-	public void write(HttpSession session, Model model) {
-		logger.info("/free/write [GET]");
-
-		String loginId = (String) session.getAttribute("loginId");
-		String loginNick = (String) adminService.getNick(loginId);
-		logger.info("id {}", loginId);
-		logger.info("nick {}", loginNick);
-
-		model.addAttribute("id", loginId);
-		model.addAttribute("nick", loginNick);
-	}
-
+//	// 자유 글쓰기
+//	@GetMapping("/freeWrite")
+//	public void write(HttpSession session, Model model, Admin admin) {
+//		logger.info("/admin/freeWrite [GET]");
+//
+//		String adminId = (String) session.getAttribute("adminId");
+//		String adminName = (String) adminService.getNick(adminId);
+//		logger.info("adminId {}", adminId );
+//		logger.info("adminName {}", adminName );
+//
+//		model.addAttribute("adminId", adminId);
+//		model.addAttribute("adminName", adminName);
+//	}
+ 
+	
 
    @GetMapping("/login")
    public void loginpage() {
@@ -101,26 +103,46 @@ public class AdminController {
    }
 
    @PostMapping("/login")
-   public String login(HttpSession session, Admin adminParam) {
-      logger.info("admin/login [POST]");
-      logger.info("관리자 로그인 ;{}", adminParam);
-
-      boolean isLogin = adminService.login(adminParam);
-      logger.info("isLogin : {}", isLogin);
-
-      if (isLogin) {
-         logger.info("로그인 성공");
-         session.setAttribute("isLogin", isLogin);
-         session.setAttribute("admin", true);
-         return "redirect: ./free";
-
-      } else {
-         logger.info("로그인 실패");
-         session.invalidate();
-         return "redirect: ./login";
-      }
-
+   public String login(HttpSession session, Admin admin) {
+	   
+	   logger.info("/admin/login");
+		logger.info("{}", admin);
+		boolean isLogin = adminService.adminLogin(admin);
+		
+		admin = adminService.info(admin.getAdminId());
+		
+		if( isLogin) {
+			session.setAttribute("isLogin", isLogin);
+			session.setAttribute("adminId", admin.getAdminId());
+			session.setAttribute("adminNo", admin.getAdminNo());
+			
+		} else {
+			session.invalidate();
+		}
+		
+		return "redirect:/saveearth/main";	
    }
+//      logger.info("admin/login [POST]");
+//      logger.info("관리자 로그인 ;{}", adminParam);
+//
+//      boolean isLogin = adminService.login(adminParam);
+//      Admin admin = adminService.logininfo(adminParam);
+//      logger.info("isLogin : {}", isLogin);
+//
+//      if (isLogin) {
+//         logger.info("로그인 성공");
+//         session.setAttribute("isLogin", isLogin);
+//         session.setAttribute("admin", true);
+//         session.setAttribute("admin", admin);
+//         return "redirect: ./free";
+//
+//      } else {
+//         logger.info("로그인 실패");
+//         session.invalidate();
+//         return "redirect: ./login";
+//      }
+//
+//   }
 
 }
 

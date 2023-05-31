@@ -13,7 +13,7 @@ import web.util.Paging;
 
 public interface AdminService {
 
-    public boolean login(Admin adminParam);
+//    public boolean login(Admin adminParam);
 
 	public Paging getPaging(int curPage);
 
@@ -23,14 +23,16 @@ public interface AdminService {
 
 	public List<FreeFile> getFreeFile(Free freeBoard);
 
-	public String getNick(String loginId);
-
-
-
+//	public String getNick(String adminId);
 
 	public Paging getPaging2(int curPage);
 
-	public void freeWrite(Free free, List<MultipartFile> files, Member memberInfo);
+	public boolean adminLogin(Admin admin);
+
+	public Admin info(String adminId);
+
+
+//	public Admin logininfo(Admin adminParam);
 	
 	
 

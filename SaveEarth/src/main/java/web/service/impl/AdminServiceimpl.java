@@ -24,89 +24,109 @@ import web.util.Paging;
 @Service
 public class AdminServiceimpl implements AdminService {
 
-	
-	
-   private final Logger logger = LoggerFactory.getLogger(AdminController.class);
+	private final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
-   @Autowired
+	@Autowired
 	AdminDao adminDao;
 	@Autowired
 	ServletContext context;
 	@Autowired
 	MemberService memberService;
-	
-	
-	//자유게시판
+
+	// 자유게시판
 	@Override
 	public Paging getPaging(int curPage) {
 
 		int totalCount = adminDao.selectCntAll();
-		//페이징 객체
+		// 페이징 객체
 		Paging paging = new Paging(totalCount, curPage);
-	
-		
+
 		return paging;
 	}
+
 	@Override
 	public List<Map<String, Object>> list(Paging paging) {
-		
+
 		return adminDao.selectList(paging);
 	}
+
 	@Override
 	public Map<String, Object> getView(Free freeBoard) {
-		
+
 		adminDao.updateHit(freeBoard);
-		
+
 		return adminDao.selectFreeBoard(freeBoard);
-		
+
 	}
-	
+
 	@Override
 	public List<FreeFile> getFreeFile(Free freeBoard) {
-		
+
 		return adminDao.selectFreeFile(freeBoard);
-		
+
 	}
-	
+
 	@Override
-		public String getNick(String loginId) {
+	public boolean adminLogin(Admin admin) {
+		logger.info("login() - {}", admin );
 		
-		return adminDao.selectNickById(loginId);
+		int result = adminDao.selectCntByIdPw(admin);
+		logger.info("login() -  result {}", result );
+		
+		if (result > 0) {
+			return true;
+		} else {
+
+			return false;
 		}
-	
-	// 관리자로그인
-   @Override
-   public boolean login(Admin adminParam) {
-	   logger.info("login() - {}", adminParam);
-      
-      int result = adminDao.selectCntByIdPw(adminParam);
-      logger.info("login() - result : {}", result);
-      
-      if( result > 0 ) {
-         return true; //로그인 인증 성공
-      }      
-      
-      
-      
-      return false; //로그인 인증 실패
-   }
-   //켐페인
-   @Override
-   public Paging getPaging2(int curPage) {
-      logger.info("getPaging() - curPage : {}", curPage);
-      
-      //총 게시글 수 조회하기
-      int totalCount = adminDao.selectCntAll2();
-      logger.info("totalCount : {}", totalCount);
-      
-      //페이징 객체
-      Paging paging = new Paging(totalCount, curPage, 6);
-      
-      return paging;
-   }
-   @Override
-	public void freeWrite(Free free, List<MultipartFile> files, Member memberInfo) {
-		
 	}
-   
+	@Override
+	public Admin info(String adminId) {
+		logger.info("adminId : {}", adminId);
+		
+		return adminDao.selectById(adminId);
+	}
+
+//	@Override
+//		public String getNick(String adminId) {
+//		
+//		return adminDao.selectNickById(adminId);
+//		}
+//	
+	// 관리자로그인
+//   @Override
+//   public boolean login(Admin adminParam) {
+//	   logger.info("login() - {}", adminParam);
+//      
+//      int result = adminDao.selectCntByIdPw(adminParam);
+//      logger.info("login() - result : {}", result);
+//      
+//      if( result > 0 ) {
+//         return true; //로그인 인증 성공
+//      }      
+//      
+//      return false; //로그인 인증 실패
+//   }
+
+//   @Override
+//	public Admin logininfo(Admin adminParam) {
+//		
+//	   
+//	   return adminDao.adminlogin(adminParam);
+//	}
+	// 켐페인
+	@Override
+	public Paging getPaging2(int curPage) {
+		logger.info("getPaging() - curPage : {}", curPage);
+
+		// 총 게시글 수 조회하기
+		int totalCount = adminDao.selectCntAll2();
+		logger.info("totalCount : {}", totalCount);
+
+		// 페이징 객체
+		Paging paging = new Paging(totalCount, curPage, 6);
+
+		return paging;
+	}
+
 }

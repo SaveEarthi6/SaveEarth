@@ -12,7 +12,7 @@ import web.util.Paging;
 
 public interface AdminDao {
 
-   public int selectCntByIdPw(Admin adminParam);
+//   public int selectCntByIdPw(Admin adminParam);
 
    public int selectCntAll();
 
@@ -24,12 +24,16 @@ public interface AdminDao {
 
 	public List<FreeFile> selectFreeFile(Free freeBoard);
 
-	public String selectNickById(String loginId);
-
-
-
+//	public String selectNickById(String adminId);
 
 
    public int selectCntAll2();
+
+   public int selectCntByIdPw(Admin admin);
+
+   public Admin selectById(String adminId);
+
+//   public Admin adminlogin(Admin adminParam);
+
 
 }
