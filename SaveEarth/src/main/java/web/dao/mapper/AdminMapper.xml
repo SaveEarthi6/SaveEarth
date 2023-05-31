@@ -55,10 +55,6 @@
 		SELECT * FROM free_file
 		WHERE free_no = #{freeNo}
 	</select>
-<<<<<<< HEAD
-	
-=======
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
 
 	<select id="selectCntAll2" resultType="int">
   		 SELECT count(*) FROM campaign
