@@ -55,6 +55,10 @@
 		SELECT * FROM free_file
 		WHERE free_no = #{freeNo}
 	</select>
+<<<<<<< HEAD
+	
+=======
+>>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
 
 	<select id="selectCntAll2" resultType="int">
   		 SELECT count(*) FROM campaign
@@ -119,5 +123,8 @@
 		INSERT INTO certification (part_no, user_no, camp_no, part_title, part_content)
 		VALUES (#{partNo}, #{userNo}, #{campNo}, #{partTitle}, #{partContent})
 	</insert>
+
+
+	
 
 </mapper>

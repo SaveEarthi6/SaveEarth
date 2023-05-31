@@ -13,11 +13,21 @@ public class Free {
 	private int freeViews;
 	private Date freeCreate;
 	private Date freeModify;
+	private int recommend;
 	
-	public Free() {}
+	public Free() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public String toString() {
+		return "Free [freeNo=" + freeNo + ", userNo=" + userNo + ", adminNo=" + adminNo + ", freeHead=" + freeHead
+				+ ", freeTitle=" + freeTitle + ", freeContent=" + freeContent + ", freeViews=" + freeViews
+				+ ", freeCreate=" + freeCreate + ", freeModify=" + freeModify + ", recommend=" + recommend + "]";
+	}
 
 	public Free(int freeNo, int userNo, int adminNo, String freeHead, String freeTitle, String freeContent,
-			int freeViews, Date freeCreate, Date freeModify) {
+			int freeViews, Date freeCreate, Date freeModify, int recommend) {
 		super();
 		this.freeNo = freeNo;
 		this.userNo = userNo;
@@ -28,13 +38,7 @@ public class Free {
 		this.freeViews = freeViews;
 		this.freeCreate = freeCreate;
 		this.freeModify = freeModify;
-	}
-
-	@Override
-	public String toString() {
-		return "Free [freeNo=" + freeNo + ", userNo=" + userNo + ", adminNo=" + adminNo + ", freeHead=" + freeHead
-				+ ", freeTitle=" + freeTitle + ", freeContent=" + freeContent + ", freeViews=" + freeViews
-				+ ", freeCreate=" + freeCreate + ", freeModify=" + freeModify + "]";
+		this.recommend = recommend;
 	}
 
 	public int getFreeNo() {
@@ -108,6 +112,18 @@ public class Free {
 	public void setFreeModify(Date freeModify) {
 		this.freeModify = freeModify;
 	}
+
+	public int getRecommend() {
+		return recommend;
+	}
+
+	public void setRecommend(int recommend) {
+		this.recommend = recommend;
+	}
+	
+	
+	
+
 	
 	
 
