@@ -7,8 +7,8 @@
   <mapper namespace="web.dao.face.MemberDao">
   
   <insert id="insert" parameterType="web.dto.Member">
-        INSERT INTO member(user_no,user_id,user_pw,user_name,user_nick,user_email,user_postcode,user_addr,user_detailaddr,user_phone)
-  VALUES(userno_seq.nextval,#{userId},#{userPw},#{userName},#{userNick},#{userEmail},#{userPostcode},#{userAddr},#{userDetailaddr},#{userPhone})
+        INSERT INTO member(user_no,user_id,user_pw,user_name,user_nick,user_email,user_postcode,user_addr,user_detailaddr,user_phone,user_logintype)
+  VALUES(userno_seq.nextval,#{userId},#{userPw},#{userName},#{userNick},#{userEmail},#{userPostcode},#{userAddr},#{userDetailaddr},#{userPhone},#{userLogintype})
   </insert>
   
   <select id="selectCntByIdPw" resultType="int" parameterType="web.dto.Member">
@@ -63,9 +63,18 @@
 	UPDATE member
 	SET user_pw=#{userPw}
 	WHERE user_id=#{userId}
-	
-	
 	</update>
+	
+	<select id="kakaoExist" parameterType="web.dto.Member" resultType="int">
+	SELECT COUNT(*) From member
+	WHERE user_email=#{userEmail}
+	</select>
+	
+	<select id="getType" parameterType="web.dto.Member" resultType="String">
+	SELECT user_logintype From member
+	WHERE user_email=#{userEmail}
+	
+	</select>
   
   
   

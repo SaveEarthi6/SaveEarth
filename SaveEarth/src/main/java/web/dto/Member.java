@@ -13,6 +13,7 @@ public class Member {
 	private String userAddr;
 	private String userDetailaddr;
 	private String userPhone;
+	private String userLogintype;
 	
 public Member() {}
 
@@ -35,7 +36,7 @@ public Member(int userNo, String userId, String userPw, String userName, String 
 public String toString() {
 	return "Member [userNo=" + userNo + ", userId=" + userId + ", userPw=" + userPw + ", userName=" + userName
 			+ ", userNick=" + userNick + ", userEmail=" + userEmail + ", userPostcode=" + userPostcode + ", userAddr="
-			+ userAddr + ", userDetailaddr=" + userDetailaddr + ", userPhone=" + userPhone + "]";
+			+ userAddr + ", userDetailaddr=" + userDetailaddr + ", userPhone=" + userPhone + ", userLogintype=" + userLogintype + "]";
 }
 
 public int getUserNo() {
@@ -116,6 +117,14 @@ public String getUserPhone() {
 
 public void setUserPhone(String userPhone) {
 	this.userPhone = userPhone;
+}
+
+public String getUserLogintype() {
+	return userLogintype;
+}
+
+public void setUserLogintype(String userLogintype) {
+	this.userLogintype = userLogintype;
 }
 
 
