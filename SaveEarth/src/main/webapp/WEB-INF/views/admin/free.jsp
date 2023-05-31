@@ -172,14 +172,14 @@ location.href="?freeHead=" + freeHead
 	</tr>
 	
 <tbody>
-<c:forEach items="${list }" var="free" varStatus="admin">
+<c:forEach items="${list }" var="free">
 
 			<tr>
 <!-- 				map에 저장된 컬럼명과 동일하게 지정해주어야 한다 -->
 				<td>${free.FREE_NO }</td>
 				<td>${free.FREE_HEAD}</td>
 				<td class="text-start" style="text-align:center"><a href="/admin/freeView?freeNo=${free.FREE_NO }">${free.FREE_TITLE }</a></td>
-				<td>${id}</td>
+				<td>${free.ID }</td>
 				<td>${free.FREE_VIEWS }</td>
 				<td><fmt:formatDate value="${free.FREE_CREATE}" pattern="yy-MM-dd HH:mm:ss"/></td>
 			</tr>

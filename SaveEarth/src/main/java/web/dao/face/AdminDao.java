@@ -47,6 +47,22 @@ public interface AdminDao {
 	 * @param e
 	 */
 	public void insertFreeFile(FreeFile freeFile);
+	
+	/**
+	 * 게시글을 참조하고 있는 모든 첨부파일을 삭제한다
+	 * 
+	 * @param free - 첨부파일을 삭제할 자유게시판 번호 객체
+	 */
+	public void deleteFile(Free free);
+	
+	/**
+	 * 게시글 정보 삭제
+	 * 
+	 * @param free - 삭제할 자유게시글의 글번호
+	 */
+	public void delete(Free free);
+
+
 
 	
 

@@ -17,7 +17,7 @@
 
 	<select id="selectList" resultType="map" parameterType="web.util.Paging">
 		SELECT * FROM(
-			SELECT rownum rnum, (SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) id, F.* FROM (
+			SELECT rownum rnum, (SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) user_id, F.* FROM (
 				SELECT
 				*
 				FROM free
@@ -36,8 +36,8 @@
 	<select id="selectFreeBoard" parameterType="web.dto.Free" resultType="map">
 		SELECT * FROM(
 			SELECT 
-			(SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) id,
-			(SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) nick, F.* FROM (
+			(SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) user_id,
+			(SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) user_nick, F.* FROM (
 				SELECT
 				*
 				FROM free
@@ -69,8 +69,8 @@
 		<selectKey keyProperty="freeNo" order="BEFORE" resultType="int">
 			select free_no_seq.nextval from dual
 		</selectKey>
-		INSERT INTO free (free_no, user_no, admin_no, free_head, free_title, free_content, free_views)
-		VALUES ( #{freeNo}, #{userNo}, #{adminNo}, #{freeHead}, #{freeTitle}, #{freeContent}, #{freeViews} )
+		INSERT INTO free (free_no, admin_no, free_head, free_title, free_content, free_views)
+		VALUES ( #{freeNo}, #{adminNo}, #{freeHead}, #{freeTitle}, #{freeContent}, #{freeViews} )
 	</insert>
 	
 	
@@ -78,5 +78,16 @@
 		INSERT INTO free_file (free_file_no, free_no, free_origin_name, free_stored_name) 
 		VALUES ( free_file_no_seq.nextval, #{freeNo}, #{freeOriginName}, #{freeStoredName})
 	</insert>
+
+
+	<delete id="deleteFile" parameterType="web.dto.Free">
+		DELETE free_file
+		WHERE free_no = #{freeNo}
+	</delete>
+	    
+	<delete id="delete" parameterType="web.dto.Free">
+		DELETE free
+		WHERE free_no = #{freeNo}
+	</delete>
 
 </mapper>
