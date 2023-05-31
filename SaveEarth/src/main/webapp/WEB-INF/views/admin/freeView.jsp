@@ -56,6 +56,7 @@ $(document).ready(function() {
 
 <div class="container">
 
+
 <div style= "margin-left: 1100px; padding-top: 50px; padding-bottom: 50px;">
 		<button id="btnDelete" class="btn btn-danger">삭제</button>
 </div>

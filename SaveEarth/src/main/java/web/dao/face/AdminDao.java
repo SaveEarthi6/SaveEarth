@@ -6,6 +6,9 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import web.dto.Admin;
+import web.dto.Calendar;
+import web.dto.Campaign;
+import web.dto.Certification;
 import web.dto.Free;
 import web.dto.FreeFile;
 import web.util.Paging;
@@ -61,6 +64,17 @@ public interface AdminDao {
 	 * @param free - 삭제할 자유게시글의 글번호
 	 */
 	public void delete(Free free);
+
+	public List<Campaign> selectCampList(Paging paging);
+
+	public List<Calendar> selectCalList();
+
+	public int selectPartNo();
+
+	public void insertCert(Certification certification);
+
+
+
 
 
 }
