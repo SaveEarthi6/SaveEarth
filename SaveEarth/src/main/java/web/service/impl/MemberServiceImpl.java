@@ -19,6 +19,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import web.dao.face.MemberDao;
@@ -240,8 +241,12 @@ public class MemberServiceImpl implements MemberService {
             JsonParser parser = new JsonParser();
             JsonElement element = parser.parse(result);
 
+            JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
+            
             Long id = element.getAsJsonObject().get("id").getAsLong();
 
+            String nickname = properties.getAsJsonObject().get("nickname").getAsString();
+            
             boolean hasEmail = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("has_email").getAsBoolean();
             String email = "";
             if (hasEmail) {
@@ -250,11 +255,14 @@ public class MemberServiceImpl implements MemberService {
 
             System.out.println(id);
             System.out.println(email);
+            System.out.println(nickname);
             
             String userid = String.valueOf(id);
             
-            member.setUserId(userid);
+            member.setUserId(email);
             member.setUserEmail(email);
+            member.setUserNick(nickname);
+            member.setUserName(nickname);
             
             br.close();
 
@@ -265,6 +273,33 @@ public class MemberServiceImpl implements MemberService {
         
         return  member;
         
+	}
+
+	@Override
+	public boolean kakaoExist(Member member) {
+		
+		int kakaoemail = memberDao.kakaoExist(member);
+		
+		System.out.println(kakaoemail);
+		
+		if(kakaoemail<1) {
+			//없을경우
+			return true;
+		} else {
+			//있을경우
+			return false;
+		}
+		
+		
+		
+		
+	}
+
+	@Override
+	public String getType(Member member) {
+		
+		String loginType = memberDao.getType(member);
+		return loginType;
 	}
 
 	

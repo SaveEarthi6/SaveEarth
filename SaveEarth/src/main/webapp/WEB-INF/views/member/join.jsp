@@ -31,19 +31,28 @@
 <script type="text/javascript">
 
 
-
+// 4~12 자리 영 (대,소) 숫자만 입력 받기
+var regExp = /^[A-za-z0-9]{4,12}$/;
+var getMail =  /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 
 //아이디 중복체크()
  $(function(){
 // 	$("#overlappedID").click(function() {
-	$("#userId").focusout(function() {
+	$("#userId").keyup(function() {
 		console.log("test")
 
 
 		const userId = $("#userId").val();
-		
-
-//		$("#signup").attr("type","button");
+		if(userId==""){
+		$("#olmessage").html("");
+		$("#idmessage").html("");
+		return;
+		}
+		if(!(regExp.test(userId))){
+			$("#olmessage").html("<h6 style='color:red;'>4~12 자리 영 (대,소) 숫자만 입력하세요</h6>");
+			$("#idmessage").html("fail");
+			return;
+		}
 		$.ajax({
 			type: "get",
 
@@ -53,28 +62,19 @@
 
 
 			 if(data == 1) {
-					result="이미 사용중인 ID입니다";
-					$("#olmessage").html(result);
+
+					$("#olmessage").html("<h6 style='color:red;'>이미 사용중인 ID입니다</h6>");
 					$("#idmessage").html("fail");
-//					$("#signup").attr("type","button");
+
 					
-					
-				} else if(data ==0 && userId!=""){
-					$("#olmessage").text("사용가능한 ID입니다");
+				} else {
+					$("#olmessage").html("<h6 style='color:blue;'>사용가능한 ID입니다</h6>");
 					$("#idmessage").html("ok");
-//					$("#signup").attr("type","submit");
-				}else {
-					$("#olmessage").html("");
-					$("#idmessage").html("");	
-					}
-// 				}
+
+				}
 			}
 		})
-// 		if(userId==""){
-// 			$("#olmessage").html("");
-// 			$("#idmessage").html("");	
-			
-// 		}
+
 	})
 	
 
@@ -84,10 +84,21 @@
 
 //이메일 중복체크
 $(function(){
-	$("#userEmail").blur(function() {
+	$("#userEmail").keyup(function() {
 		console.log("testemail")
 
 		const userEmail = $("#userEmail").val();
+		if(userEmail==""){
+			$("#olEmessage").html("");
+			$("#emailHidden").html("");
+			return;
+			}
+			if(!(getMail.test(userEmail))){
+				$("#olEmessage").html("<h6 style='color:red;'>이메일형식을 맞춰주세요</h6>");
+				$("#emailHidden").html("fail");
+				return;
+			}
+		
 		$.ajax({
 			type: "get",
 
@@ -95,26 +106,24 @@ $(function(){
 			data:{userEmail:userEmail},
 			success: function(data){
 				
-				if(data ==""){
+// 				if(data ==""){
 					
-					$("#olEmessage").html("");
-					$("#emailHidden").html("");				
+// 					$("#olEmessage").html("");
+// 					$("#emailHidden").html("");				
 				
-				}
+// 				}
 				
 				
-				else if(data == 1) {
-					result="이미 사용중인 E-mail입니다";
-					$("#olEmessage").html(result);
+				 if(data == 1) {
+//					result="이미 사용중인 E-mail입니다";
+					$("#olEmessage").html("<h6 style='color:red;'>이미 사용중인 Email입니다</h6>");
 					$("#emailHidden").html("fail");
 					
-				} else {
-					result="사용가능한 E-mail입니다"
-					$("#olEmessage").html(result);
-
+				} else  {
+					$("#olEmessage").html("<h6 style='color:blue;'>사용가능한 E-mail입니다</h6>");
 					$("#emailHidden").html("ok"); 
 				  		
-				}
+				} 
 			}
 		})
 	})
@@ -162,7 +171,7 @@ function joinform_check() {
     
     //아이디 중복 확인 
     if(!($("#idmessage").html()=="ok")){
-    	alert("아이디 중복확인을 해주세요");
+    	alert("아이디 중복을 확인해주세요");
     	$("userId").focus();
     	return false;
     }
@@ -290,7 +299,7 @@ function joinform_check() {
   <!-- 20230525추가 id 중복 -->
 <!--   <button id="overlappedID" type="button"  >중복확인</button><br> -->
   <span id="olmessage"></span>
-  <span id="idmessage" ></span>
+  <span id="idmessage" style="display:none;" ></span>
 
   
   

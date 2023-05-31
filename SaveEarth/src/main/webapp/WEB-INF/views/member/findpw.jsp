@@ -19,30 +19,6 @@
 
 <!-- 20230525임시비밀번호 -->
 <script>
-//      $("#check").click(function () {
-//         const userEmail = $("#email").val();
-//         const sendEmail = document.forms["sendEmail"];
-//         $.ajax({
-//             type: 'post',
-//             url: 'http://localhost:8888/member/email',
-//             data: {
-//                 'memberEmail': userEmail
-//             },
-//             /* dataType: "text", */
-//             success: function (result) {
-//                 if(result == 1){
-//                     // 중복되는 것이 있다면 no == 일치하는 이메일이 있다!
-//                     alert('임시비밀번호를 전송 했습니다.');
-//                     sendEmail.submit();
-//                 }else {
-//                     alert('가입되지 않은 이메일입니다.');
-//                 }
-
-//             },error: function () {
-//                 console.log('에러 체크!!')
-//             }
-//         })
-//     });  
      
     $(function(){
     	$("#check").click(function() {
@@ -58,12 +34,12 @@
     			data:{userId:userId, userEmail:userEmail},
     			success: function(data){
     				if(data == 1) {
-    					$("#checkemail").text("이메일로 임시비밀번호가 발송되었습니다");
+    					$("#checkemail").html("<h6 style='color:blue;'>이메일로 임시비밀번호가 발송되었습니다</h6>");
     					$("#check").attr("type","button");
     					
     					
     				} else {
-    					$("#checkemail").text("아이디/이메일이 일치하지 않습니다");
+    					$("#checkemail").html("<h6 style='color:red;'>아이디/이메일이 일치하지않습니다</h6>");
     					$("#check").attr("type","submit");
     				}
     			}
@@ -129,25 +105,6 @@ body {
   background: none;
 }
 
-.pw {
-  width: 100%;
-  border:none;
-  outline:none;
-  color: #636e72;
-  font-size:16px;
-  height:25px;
-  background: none;
-}
-
-.name {
-  width: 100%;
-  border:none;
-  outline:none;
-  color: #636e72;
-  font-size:16px;
-  height:25px;
-  background: none;
-}
 
 .email {
   width: 100%;
@@ -159,25 +116,7 @@ body {
   background: none;
 }
 
-.nickname {
-  width: 100%;
-  border:none;
-  outline:none;
-  color: #636e72;
-  font-size:16px;
-  height:25px;
-  background: none;
-}
 
-.cellphoneNo {
-  width: 100%;
-  border:none;
-  outline:none;
-  color: #636e72;
-  font-size:16px;
-  height:25px;
-  background: none;
-}
 
 .btn {
   position:relative;
@@ -223,17 +162,22 @@ width: 700px;
       <span id= "checkid"></span>
       
       <div class="textForm">
-      <label for="userEmail"></label>
-      <input name="userEmail" id="userEmail" type="email" class="email" placeholder="이메일 " 
-        required="/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)?$/i">
-      <span id="checkemail"></span>  
-        
+	      <label for="userEmail"></label>
+	      <input name="userEmail" id="userEmail" type="email" class="email" placeholder="이메일 " >
+	       
       </div>
-     
+      
+      <div style="width:700px; margin: 0 auto; text-align: center;">
+      <p id="checkemail"></p> 
+      </div>
+      
+	  <input type="submit" class="btn" id="check" value="비밀번호찾기">
+	  
 
-        <input type="submit" class="btn" id="check" value="비밀번호찾기">
-        <button class="btn">로그인하러가기</button>
 </form>
+	<div style="width:700px; margin: 0 auto;">
+       <a href="./login"> <button class="btn">로그인하러가기</button></a>
+	</div>
 
 
 </body>
