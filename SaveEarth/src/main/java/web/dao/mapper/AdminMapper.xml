@@ -34,14 +34,14 @@
 	</update>
 	
 	<select id="selectFreeBoard" parameterType="web.dto.Free" resultType="map">
-	SELECT * FROM(
-		SELECT 
-		(SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) id,
-		(SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) nick, F.* FROM (
-			SELECT
-			*
-			FROM free
-		) F
+		SELECT * FROM(
+			SELECT 
+			(SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) id,
+			(SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) nick, F.* FROM (
+				SELECT
+				*
+				FROM free
+			) F
 	) FREEMAIN
 	WHERE free_no = #{freeBoard.freeNo}
 </select>
@@ -66,18 +66,17 @@
 	</select>
 
 	<insert id="insertFree" parameterType="web.dto.Admin">
-	<selectKey keyProperty="freeNo" order="BEFORE" resultType="int">
-		select free_no_seq.nextval from dual
-	</selectKey>
+		<selectKey keyProperty="freeNo" order="BEFORE" resultType="int">
+			select free_no_seq.nextval from dual
+		</selectKey>
 		INSERT INTO free (free_no, user_no, admin_no, free_head, free_title, free_content, free_views)
 		VALUES ( #{freeNo}, #{userNo}, #{adminNo}, #{freeHead}, #{freeTitle}, #{freeContent}, #{freeViews} )
 	</insert>
-
+	
+	
 	<insert id="insertFreeFile" parameterType="web.dto.Admin">
 		INSERT INTO free_file (free_file_no, free_no, free_origin_name, free_stored_name) 
 		VALUES ( free_file_no_seq.nextval, #{freeNo}, #{freeOriginName}, #{freeStoredName})
 	</insert>
-	
-	
 
 </mapper>

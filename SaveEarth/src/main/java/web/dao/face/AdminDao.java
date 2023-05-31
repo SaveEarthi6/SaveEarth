@@ -20,7 +20,7 @@ public interface AdminDao {
 
 	public void updateHit(Free freeBoard);
 
-	public Map<String, Object> selectFreeBoard(@Param("freeBoard") Free freeBoard);
+   public Map<String, Object> selectFreeBoard(@Param("freeBoard") Free freeBoard);
 
 	public List<FreeFile> selectFreeFile(Free freeBoard);
 
@@ -33,6 +33,7 @@ public interface AdminDao {
 	 * @return
 	 */
 	public Admin selectById(String loginId);
+	
 	/**
 	 * 게시글 내용 삽입
 	 * 

@@ -36,7 +36,7 @@ public interface AdminService {
 	 * @param files - 파일 정보
 	 * @param memberInfo - 로그인 회원정보
 	 */
-	public void freeWrite(Free free, List<MultipartFile> files, Member memberInfo);
+	public void freeWrite(Free free, List<MultipartFile> files, Admin memberInfo);
 
 	/**
 	 * 관리자 정보 불러오기

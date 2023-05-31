@@ -98,29 +98,29 @@ public class AdminController {
    }
    
  
-//   
-//   @PostMapping("/freeWrite")
-//   public String writepost(HttpSession session, Free free, @RequestParam(required = false) List<MultipartFile> files) {
-//      
-//      logger.info("/freeWrite [POST]");
-//      
-//      //로그인 정보를 가지고 회원번호랑 관리자 번호를 가져옴
-//      String loginId = (String) session.getAttribute("loginId");
-//      Member memberInfo = null;      
-//      memberInfo = memberService.info(loginId);
-//      //만약 회원번호가 있으면 회원번호를 가져오고
-//      //관리자번호가 있으면 관리자 번호를 가져오고
-//      
-//      logger.info("memberInfo {}", memberInfo);
-//      
-//      logger.info("free {}", free);
-//      logger.info("files {}", files);
-//      
-//      adminService.freeWrite(free, files, memberInfo);
-//      
-//      return "redirect:./free";
-//      
-//   }
+   @PostMapping("/freeWrite")
+   public String writepost(HttpSession session, Free free, @RequestParam(required = false) List<MultipartFile> files) {
+      
+      logger.info("/freeWrite [POST]");
+      
+      //로그인 정보를 가지고 회원번호랑 관리자 번호를 가져옴
+      String loginId = (String) session.getAttribute("loginId");
+//    Member memberInfo = null;      
+      Admin memberInfo = adminService.info(loginId);
+      //만약 회원번호가 있으면 회원번호를 가져오고
+      //관리자번호가 있으면 관리자 번호를 가져오고
+      
+      logger.info("memberInfo {}", memberInfo);
+      
+      logger.info("free {}", free);
+      logger.info("files {}", files);
+      
+      adminService.freeWrite(free, files, memberInfo);
+      
+      return "redirect:./free";
+      
+   }
+   
    
    //관리자 로그인
    @GetMapping("/login")

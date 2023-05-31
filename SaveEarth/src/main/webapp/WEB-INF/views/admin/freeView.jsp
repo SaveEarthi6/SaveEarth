@@ -45,7 +45,6 @@
 
 <div style= "margin-left: 1100px; padding-top: 50px; padding-bottom: 50px;">
 	<c:if test="${ userInfo.userno eq view.userNo }">
-		<button onclick="location.href='./update?freeNo=${view.freeNo}'" id="btnUpdate" class="btn btn-success">수정</button>
 		<button onclick="location.href='./delete?freeNo=${view.freeNo}'" id="btnDelete" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">삭제</button>
 	</c:if>
 </div>
