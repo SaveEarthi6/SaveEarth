@@ -77,6 +77,10 @@ public interface MemberDao {
 	 */
 	public void updateTemPw(Member member);
 
+	public int kakaoExist(Member member);
+
+	public String getType(Member member);
+
 
 	
 
