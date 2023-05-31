@@ -47,7 +47,22 @@
 	margin-bottom: 3px;
 }
 
+#btnRecommend{
+
+	border:0;
+	background-color: white;
+	
+}
+
+.button{
+	width:50px;
+	height: 50px;
+}
+
+
+
 </style>
+
 
 
 <!-- 자유게시판 디테일 이미지 -->
@@ -104,6 +119,22 @@
 <script type="text/javascript">
 
 
+$("#btnRecommend").click(function(){
+	
+	const element = document.getElementById('btnRecommend');
+	
+	location.href='./recommend?freeNo='+ ${view.FREE_NO}
+	
+	element.innertext = '추천취소'
+	
+	
+	
+	
+})
+
+</script>
+
+
 $(function(){
 	$("#enroll").click(function() {
 		console.log("test")
@@ -142,12 +173,20 @@ $(function(){
 </script>
 
 
+
+
+
+
 <!-- 버튼 -->
 <div class="text-center mb-3">
    <a href= "/free/main"><button id="btnList" class="btn btn-success">목록</button></a>
    <form action="/free/recommend">
-   <button type="button" id="btnRecommend" class="btn btn-success">추천</button>
-   <span id= "recommend" ></span>
+   <!-- 추천 기능 버튼 -->
+   
+   <button type="button" id="btnRecommend" onclick="location.href='./recommend?freeNo=${view.FREE_NO}'">
+   <img class="button" src="../resources/img/button_heart.png" ></button>
+   
+
    </form>
 </div>
 

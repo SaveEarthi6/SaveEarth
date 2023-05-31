@@ -55,7 +55,21 @@ public class MemberController {
 			session.setAttribute("isLogin", isLogin);
 			session.setAttribute("loginId", member.getUserId());
 			session.setAttribute("loginNo", member.getUserNo());
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
+			
+<<<<<<< HEAD
+=======
 
+>>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
+=======
+=======
+
+>>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
+>>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
 		} else {
 			session.invalidate();
 		}

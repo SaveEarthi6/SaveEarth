@@ -275,12 +275,28 @@ public class FreeServiceImpl implements FreeService{
 		return freeDao.mypageList(userno);
 }
 	
+	//추천기능
 	@Override
-	public void recommend(Free freeNo) {
+	public void checkRecommend(Free free) {
 		
-      freeDao.recommend(freeNo);
+		int check = freeDao.cntRecommend(free);
+		
+		System.out.println(check);
+		
+		if(check <= 0) {
+			
+			freeDao.insertRecommend(free);
+			freeDao.plusRecommend(free);
+			
+		} else {
+			
+			freeDao.deleteRecommend(free);
+			freeDao.minusRecommend(free);
+		}
+		
 		
 	}
+<<<<<<< HEAD
 
 	@Override
 	public int writeComment(String commContent, int freeNo, int userNo) {
@@ -299,6 +315,8 @@ public class FreeServiceImpl implements FreeService{
 		return res;
 		
 	}
+=======
+>>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
 	
 	@Override
 	public List<Map<String, Object>> getComment(Free freeBoard) {

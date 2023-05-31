@@ -6,18 +6,18 @@
 
 <mapper namespace="web.dao.face.AdminDao">
 
-   <select id="selectCntByIdPw" resultType="int" parameterType="web.dto.Admin">
-		SELECT count(*) FROM admin
+ <select id="selectCntByIdPw" resultType="int" parameterType="web.dto.Admin">
+		SELECT * FROM admin
 		WHERE admin_id= #{adminId} and admin_pw=#{adminPw} 
    </select>
-
+	
 	<select id="selectCntAll" resultType="int">
 		SELECT count(*) FROM free
 	</select>
 
 	<select id="selectList" resultType="map" parameterType="web.util.Paging">
 		SELECT * FROM(
-			SELECT rownum rnum, (SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) id, F.* FROM (
+			SELECT rownum rnum, (SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) user_id, F.* FROM (
 				SELECT
 				*
 				FROM free
@@ -34,14 +34,14 @@
 	</update>
 	
 	<select id="selectFreeBoard" parameterType="web.dto.Free" resultType="map">
-	SELECT * FROM(
-		SELECT 
-		(SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) id,
-		(SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) nick, F.* FROM (
-			SELECT
-			*
-			FROM free
-		) F
+		SELECT * FROM(
+			SELECT 
+			(SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) user_id,
+			(SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) user_nick, F.* FROM (
+				SELECT
+				*
+				FROM free
+			) F
 	) FREEMAIN
 	WHERE free_no = #{freeBoard.freeNo}
 </select>
@@ -50,16 +50,79 @@
 		SELECT user_nick FROM member 
 		WHERE user_id=#{user_id}
 	</select>
-	
+
 	<select id="selectFreeFile" parameterType="web.dto.Free" resultType="web.dto.FreeFile">
 		SELECT * FROM free_file
 		WHERE free_no = #{freeNo}
 	</select>
+<<<<<<< HEAD
 	
+=======
+>>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
 
 	<select id="selectCntAll2" resultType="int">
   		 SELECT count(*) FROM campaign
 	</select>
+	
+	<select id="selectById" resultType="web.dto.Admin" parameterType="String">
+		SELECT * FROM admin
+		where admin_id = #{adminId}
+	</select>
+	
+	
+	
+	
+	
+	
+	<!-- 관리자 자유게시판 글쓰기  -->
+<!-- 	user_no, -->
+	<insert id="insertFree" parameterType="web.dto.Admin">
+		<selectKey keyProperty="freeNo" order="BEFORE" resultType="int">
+			select free_no_seq.nextval from dual
+		</selectKey>
+		INSERT INTO free (free_no, admin_no, free_head, free_title, free_content, free_views)
+		VALUES ( #{freeNo}, #{adminNo}, #{freeHead}, #{freeTitle}, #{freeContent}, #{freeViews} )
+	</insert>
+	
+	
+	<insert id="insertFreeFile" parameterType="web.dto.Admin">
+		INSERT INTO free_file (free_file_no, free_no, free_origin_name, free_stored_name) 
+		VALUES ( free_file_no_seq.nextval, #{freeNo}, #{freeOriginName}, #{freeStoredName})
+	</insert>
+
+
+	<delete id="deleteFile" parameterType="web.dto.Free">
+		DELETE free_file
+		WHERE free_no = #{freeNo}
+	</delete>
+	    
+	<delete id="delete" parameterType="web.dto.Free">
+		DELETE free
+		WHERE free_no = #{freeNo}
+	</delete>
+	
+	<select id="selectCampList" resultType="web.dto.Campaign" parameterType="web.util.Paging">
+		SELECT * FROM (
+	    	SELECT rownum rnum, C.* FROM (
+	        	SELECT * FROM campaign ORDER BY camp_no DESC
+	    	) C
+		) CAMP
+		WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
+	
+	<select id="selectCalList" resultType="web.dto.Calendar">
+		SELECT * FROM calendar
+	</select>
+	
+	
+	<select id="selectPartNo" resultType="int">
+		SELECT certification_seq.nextval FROM dual
+	</select>
+	
+	<insert id="insertCert" parameterType="web.dto.Certification">
+		INSERT INTO certification (part_no, user_no, camp_no, part_title, part_content)
+		VALUES (#{partNo}, #{userNo}, #{campNo}, #{partTitle}, #{partContent})
+	</insert>
 
 
 	

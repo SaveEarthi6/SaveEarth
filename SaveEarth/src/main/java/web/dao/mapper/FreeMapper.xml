@@ -180,10 +180,24 @@ where user_no = #{userNo}
 ORDER BY free_no DESC
 </select>
 
-<update id= "recommend" parameterType="web.dto.Free">
-   UPDATE free
-   set free = recomm_no + 1
-   where free_no = #{free_no}
+	
+<!-- 추천수 조회하기 -->
+<select id= "cntRecommend" resultType="int" parameterType="web.dto.Free">
+	select count(*) from recommend where user_no = #{userNo} and free_no = #{freeNo}
+</select>
+
+<!-- 추천수+1 -->
+<update id="plusRecommend" parameterType="web.dto.Free">
+	UPDATE free SET 
+	recommend  = recommend + 1
+	WHERE free_no = #{freeNo}
+</update>
+
+<!-- 추천수-1 -->
+<update id= "minusRecommend" parameterType="web.dto.Free">
+	UPDATE free SET 
+	recommend  = recommend - 1
+	WHERE free_no = #{freeNo}
 </update>
 
 <!-- 수정 페이지에서 파일 삭제 -->
@@ -192,4 +206,21 @@ ORDER BY free_no DESC
 	WHERE free_file_no = #{freeFileNo}
 </delete>
 
-</mapper>
+
+<!-- 추천 -->
+<insert id="insertRecommend" parameterType="web.dto.Free">
+	INSERT INTO recommend 
+	VALUES (RECOMM_NO_SEQ.nextval, #{freeNo}, #{userNo})
+</insert>
+
+<!-- 추천 -->
+<delete id= "deleteRecommend" parameterType="web.dto.Free">
+	DELETE recommend
+	WHERE free_no = #{freeNo} and user_no = #{userNo}
+</delete>
+</mapper>	
+
+
+
+
+
