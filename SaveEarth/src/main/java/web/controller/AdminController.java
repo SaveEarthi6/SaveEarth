@@ -44,19 +44,7 @@ public class AdminController {
 	   @GetMapping("/login")
 	   public void loginpage() {logger.info("/admin/login[Get]");}
 
-	@Autowired
-	AdminService adminService;
-	@Autowired
-	MemberService memberService;
-	@Autowired
-	ServletContext context;
 
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-	@GetMapping("/login")
-	public void loginpage() {
-		logger.info("/admin/login[Get]");
-	}
 
 	@PostMapping("/login")
 	public String login(HttpSession session, Admin admin) {
