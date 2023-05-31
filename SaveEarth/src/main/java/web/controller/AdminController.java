@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Admin;
 import web.dto.Free;
@@ -58,7 +59,7 @@ public class AdminController {
    @GetMapping("/freeView")
    public void detail(Model model, Free freeBoard, HttpSession session) {
       
-      logger.info("/free/view [GET]");
+      logger.info("/freeView [GET]");
       
       //게시글 조회
       Map<String, Object> view = adminService.getView(freeBoard);
@@ -75,24 +76,52 @@ public class AdminController {
       //상세보기 페이지 파일 조회
 //      FreeFile freeFile = freeService.getFreeFile(freeBoard);
       List<FreeFile> freeFile = adminService.getFreeFile(freeBoard);
+      
       logger.info("freeFile {}", freeFile);
       model.addAttribute("freeFile", freeFile);
       
    }
 
-//   // 자유 글쓰기
-//   @GetMapping("/free/write")
-//   public void write(HttpSession session, Model model) {
-//      logger.info("/free/write [GET]");
-//
-//      String loginId = (String) session.getAttribute("loginId");
-//      String loginnick = (String) adminService.getNick(loginId);
-//      logger.info("id {}", loginId);
-//      logger.info("nick {}", loginnick);
-//
-//      model.addAttribute("id", loginId);
-//      model.addAttribute("nick", loginnick);
-//   }
+   @GetMapping("/freeWrite")
+   public void write(HttpSession session, Model model) {
+	   logger.info("/freeWrite [GET]");
+	   
+		String loginId = (String) session.getAttribute("loginId");
+		logger.info("id {}", loginId);
+		
+		Admin memberInfo = adminService.info(loginId);
+		System.out.println("맴버정보"+memberInfo);
+		model.addAttribute("id", loginId);
+		model.addAttribute("nick", loginId);
+		model.addAttribute("memberInfo", memberInfo);
+	   
+   }
+   
+ 
+   
+   @PostMapping("/freeWrite")
+   public String writepost(HttpSession session, Free free, @RequestParam(required = false) List<MultipartFile> files) {
+      
+      logger.info("/freeWrite [POST]");
+      
+      //로그인 정보를 가지고 회원번호랑 관리자 번호를 가져옴
+      String loginId = (String) session.getAttribute("loginId");
+      Member memberInfo = null;      
+      memberInfo = memberService.info(loginId);
+      //만약 회원번호가 있으면 회원번호를 가져오고
+      //관리자번호가 있으면 관리자 번호를 가져오고
+      
+      logger.info("memberInfo {}", memberInfo);
+      
+      logger.info("free {}", free);
+      logger.info("files {}", files);
+      
+      adminService.freeWrite(free, files, memberInfo);
+      
+      return "redirect:./free";
+      
+   }
+   
 
    @GetMapping("/login")
    public void loginpage() {
@@ -100,26 +129,25 @@ public class AdminController {
    }
 
    @PostMapping("/login")
-   public String login(HttpSession session, Admin adminParam) {
-      logger.info("admin/login [POST]");
-      logger.info("관리자 로그인 ;{}", adminParam);
-
-      boolean isLogin = adminService.login(adminParam);
-      logger.info("isLogin : {}", isLogin);
-
-      if (isLogin) {
-         logger.info("로그인 성공");
-         session.setAttribute("isLogin", isLogin);
-         session.setAttribute("admin", true);
-         return "redirect: ./free";
-
-      } else {
-         logger.info("로그인 실패");
-         session.invalidate();
-         return "redirect: ./login";
-      }
-
-   }
+   public String login(HttpSession session, Admin admin) {
+//		logger.info("/member/login");
+//		logger.info("{}", admin);
+		boolean isLogin = adminService.login(admin);
+		
+		admin = adminService.info(admin.getAdminId());
+		System.out.println(admin);
+		System.out.println("유저번호" +admin.getAdminNo());
+		
+		if( isLogin) {
+			session.setAttribute("isLogin", isLogin);
+			session.setAttribute("loginId", admin.getAdminId());
+			session.setAttribute("loginNo", admin.getAdminNo());
+			
+		} else {
+			session.invalidate();
+		}
+		
+		return "redirect:/admin/free";		
+	}
 
 }
-

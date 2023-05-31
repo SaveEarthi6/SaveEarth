@@ -111,6 +111,7 @@ public class FreeBoardController {
 		//관리자번호가 있으면 관리자 번호를 가져오고
 		
 		logger.info("memberInfo {}", memberInfo);
+
 		logger.info("free {}", free);
 		logger.info("files {}", files);
 		
