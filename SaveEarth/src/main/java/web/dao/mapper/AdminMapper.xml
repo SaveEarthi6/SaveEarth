@@ -6,26 +6,11 @@
 
 <mapper namespace="web.dao.face.AdminDao">
 
-	<select id="selectCntByIdPw" resultType="int" parameterType="web.dto.Admin">
-        SELECT count(*) FROM admin
-     WHERE admin_id = #{adminid } AND admin_pw = #{adminpw}
-  	</select>
-  	
-  	 <select id="selectById" resultType="web.dto.Admin" parameterType="string">
-        SELECT * FROM admin
-    	WHERE admin_id= #{adminid}
-  </select>
-
- <!--   <select id="selectCntByIdPw" resultType="int" parameterType="web.dto.Admin">
-		SELECT count(*) FROM admin
-		WHERE admin_id= #{adminId} and admin_pw=#{adminPw} 
-   </select>
-   
-     <select id="adminlogin" resultType="web.dto.Admin" parameterType="web.dto.Admin">
+ <select id="selectCntByIdPw" resultType="int" parameterType="web.dto.Admin">
 		SELECT * FROM admin
 		WHERE admin_id= #{adminId} and admin_pw=#{adminPw} 
-   </select> -->
-
+   </select>
+	
 	<select id="selectCntAll" resultType="int">
 		SELECT count(*) FROM free
 	</select>
@@ -61,20 +46,38 @@
 	WHERE free_no = #{freeBoard.freeNo}
 </select>
 	
-<!-- 	<select id="selectNickById" parameterType="string" resultType="string">
-		SELECT admin_name FROM admin 
-		WHERE admin_id=#{admin_id}
+	<select id="selectNickById" parameterType="string" resultType="string">
+		SELECT user_nick FROM member 
+		WHERE user_id=#{user_id}
 	</select>
-	 -->
+
 	<select id="selectFreeFile" parameterType="web.dto.Free" resultType="web.dto.FreeFile">
 		SELECT * FROM free_file
 		WHERE free_no = #{freeNo}
 	</select>
-	
-	
+
 	<select id="selectCntAll2" resultType="int">
   		 SELECT count(*) FROM campaign
 	</select>
 	
+	<select id="selectById" resultType="web.dto.Admin" parameterType="String">
+		SELECT * FROM admin
+		where admin_id = #{adminId}
+	</select>
+
+	<insert id="insertFree" parameterType="web.dto.Admin">
+	<selectKey keyProperty="freeNo" order="BEFORE" resultType="int">
+		select free_no_seq.nextval from dual
+	</selectKey>
+		INSERT INTO free (free_no, user_no, admin_no, free_head, free_title, free_content, free_views)
+		VALUES ( #{freeNo}, #{userNo}, #{adminNo}, #{freeHead}, #{freeTitle}, #{freeContent}, #{freeViews} )
+	</insert>
+
+	<insert id="insertFreeFile" parameterType="web.dto.Admin">
+		INSERT INTO free_file (free_file_no, free_no, free_origin_name, free_stored_name) 
+		VALUES ( free_file_no_seq.nextval, #{freeNo}, #{freeOriginName}, #{freeStoredName})
+	</insert>
 	
+	
+
 </mapper>

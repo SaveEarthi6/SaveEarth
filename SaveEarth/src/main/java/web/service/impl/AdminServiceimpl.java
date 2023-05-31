@@ -1,7 +1,11 @@
 package web.service.impl;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.ServletContext;
 
@@ -13,11 +17,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import web.controller.AdminController;
 import web.dao.face.AdminDao;
+import web.dao.face.FreeDao;
 import web.dto.Admin;
 import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Member;
 import web.service.face.AdminService;
+import web.service.face.FreeService;
 import web.service.face.MemberService;
 import web.util.Paging;
 
@@ -66,54 +72,21 @@ public class AdminServiceimpl implements AdminService {
 
 	}
 
-	@Override
-	public boolean adminLogin(Admin admin) {
-		logger.info("login() - {}", admin );
-		
-		int result = adminDao.selectCntByIdPw(admin);
-		logger.info("login() -  result {}", result );
-		
-		if (result > 0) {
-			return true;
-		} else {
-
-			return false;
-		}
-	}
-	@Override
-	public Admin info(String adminId) {
-		logger.info("adminId : {}", adminId);
-		
-		return adminDao.selectById(adminId);
-	}
-
-//	@Override
-//		public String getNick(String adminId) {
-//		
-//		return adminDao.selectNickById(adminId);
-//		}
-//	
 	// 관리자로그인
-//   @Override
-//   public boolean login(Admin adminParam) {
-//	   logger.info("login() - {}", adminParam);
-//      
-//      int result = adminDao.selectCntByIdPw(adminParam);
-//      logger.info("login() - result : {}", result);
-//      
-//      if( result > 0 ) {
-//         return true; //로그인 인증 성공
-//      }      
-//      
-//      return false; //로그인 인증 실패
-//   }
+	@Override
+	public boolean login(Admin admin) {
+		logger.info("login() - {}", admin);
 
-//   @Override
-//	public Admin logininfo(Admin adminParam) {
-//		
-//	   
-//	   return adminDao.adminlogin(adminParam);
-//	}
+		int result = adminDao.selectCntByIdPw(admin);
+		logger.info("login() - result : {}", result);
+
+		if (result > 0) {
+			return true; // 로그인 인증 성공
+		}
+
+		return false; // 로그인 인증 실패
+	}
+
 	// 켐페인
 	@Override
 	public Paging getPaging2(int curPage) {
@@ -129,4 +102,101 @@ public class AdminServiceimpl implements AdminService {
 		return paging;
 	}
 
-}
+	@Override
+		public void freeWrite(Free free, List<MultipartFile> files, Member memberInfo) {
+		   
+//			if(memberInfo.getUserNo() != 0) {
+//			free.setUserNo(memberInfo.getUserNo());
+//		} else if()
+		
+		free.setAdminNo(1);
+		free.setUserNo(memberInfo.getUserNo());
+		
+//		free.setUserNo(2);
+		logger.info("free {}", free);
+		logger.info("files {}", files);
+		logger.info("memberInfo {}", memberInfo);
+		
+		
+		adminDao.insertFree(free);
+		logger.info("size {}", files.get(0).getSize());
+		
+		
+//		if(files.get(0).getSize() <= 0 ) {
+//			logger.info("파일의 크기가 0이다, 처리 중단!");
+//				freeWrite() 메소드 중단
+//			return;
+//		}
+		
+		//파일이 없을 때 파일 삽입하는 메소드 처리되지 않도록 
+		for(MultipartFile m : files) {
+			if(m.getSize() <= 0) {
+				logger.info("0보다 작음, 처리 중단");
+				return;
+			}
+		}
+		
+		List<FreeFile> upfiles= new ArrayList<>();
+		
+		//파일이 저장될 경로 - RealPath - 톰캣 서버 배포 위치
+		String storedPath = context.getRealPath("upload");
+		logger.info("storedPath : {}", storedPath);
+		
+		//upload폴더가 존재하지 않으면 생성한다
+		File storedFolder = new File(storedPath);
+		storedFolder.mkdir();
+		
+		for(int i=0 ; i<files.size() ; i++) {
+			
+		File dest = null;
+		String storedName = null;
+		
+			//저장할 파일 이름 생성하기
+			storedName = files.get(i).getOriginalFilename();//원본 파일명
+			storedName += UUID.randomUUID().toString().split("-")[0]; //UUID추가
+			logger.info("storedName : {}", storedName);
+			
+			//실제 저장될 파일 객체
+			dest = new File(storedFolder, storedName);
+		
+		//-> 중복 이름 검증 코드 do while
+		//이름이 있으면 다시 만들어라 -> 이름이 없으면 빠져나오기
+		
+		try {
+			
+			//업로드된 파일을 upload폴더에 저장하기
+			//여기서 저장
+			files.get(i).transferTo(dest);
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+		}
+		
+		//-------------------------------------------------
+		
+		//DB에 기록할 정보 객체
+		
+		//첨부한 파일 삽입(파일 정보)
+		FreeFile freeFiles = new FreeFile();
+		
+		freeFiles.setFreeNo(free.getFreeNo());
+		freeFiles.setFreeOriginName(files.get(i).getOriginalFilename());
+		freeFiles.setFreeStoredName(storedName);
+		logger.info("boardFile : {}", freeFiles );
+		
+		upfiles.add(freeFiles);
+		
+		}
+		
+		
+		for( FreeFile e : upfiles) {
+			adminDao.insertFreeFile(e);
+		}
+			
+	   }
+
+	  @Override
+	   public Admin info(String loginId) {
+		
+		return adminDao.selectById(loginId);
+	}
+}}

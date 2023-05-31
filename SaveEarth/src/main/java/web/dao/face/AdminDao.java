@@ -12,28 +12,42 @@ import web.util.Paging;
 
 public interface AdminDao {
 
-//   public int selectCntByIdPw(Admin adminParam);
+	public int selectCntByIdPw(Admin admin);
 
-   public int selectCntAll();
+	public int selectCntAll();
 
-   public List<Map<String, Object>> selectList(Paging paging);
+	public List<Map<String, Object>> selectList(Paging paging);
 
-   public void updateHit(Free freeBoard);
+	public void updateHit(Free freeBoard);
 
 	public Map<String, Object> selectFreeBoard(@Param("freeBoard") Free freeBoard);
 
 	public List<FreeFile> selectFreeFile(Free freeBoard);
 
-//	public String selectNickById(String adminId);
+	public int selectCntAll2();
 
+	/**
+	 * 관리자 페이지 - 글작성
+	 * 
+	 * @param loginId
+	 * @return
+	 */
+	public Admin selectById(String loginId);
 
-   public int selectCntAll2();
+	/**
+	 * 게시글 내용 삽입
+	 * 
+	 * @param free - 작성한 게시글 내용
+	 */
+	public void insertFree(Free free);
 
-   public int selectCntByIdPw(Admin admin);
+	/**
+	 * 자유 게시판 첨부파일 삽입
+	 * 
+	 * @param e
+	 */
+	public void insertFreeFile(FreeFile freeFile);
 
-   public Admin selectById(String adminId);
-
-//   public Admin adminlogin(Admin adminParam);
-
+	public Admin selectById(String adminId);
 
 }
