@@ -40,14 +40,24 @@
 
 </style>
 
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#btnList").click(function() {
+		location.href = "/admin/free"
+	})
+	
+	$("#btnDelete").click(function() {
+		location.href = "./freeDelete?freeNo=${view.FREE_NO}"
+	})
+})
+</script>
+
+
 
 <div class="container">
 
 <div style= "margin-left: 1100px; padding-top: 50px; padding-bottom: 50px;">
-	<c:if test="${ userInfo.userno eq view.userNo }">
-		<button onclick="location.href='./update?freeNo=${view.freeNo}'" id="btnUpdate" class="btn btn-success">수정</button>
-		<button onclick="location.href='./delete?freeNo=${view.freeNo}'" id="btnDelete" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">삭제</button>
-	</c:if>
+		<button id="btnDelete" class="btn btn-danger">삭제</button>
 </div>
 
 <!-- 게시글 상세 -->
@@ -56,8 +66,8 @@
 	<td class="table-light">글번호</td><td colspan="3">${view.FREE_NO }</td>
 </tr>
 <tr>
-	<td class="table-light">아이디</td><td>${view.ID }</td>
-	<td class="table-light">닉네임</td><td>${view.NICK }</td>
+	<td class="table-light">아이디</td><td>${view.USER_ID }</td>
+	<td class="table-light">닉네임</td><td>${view.USER_NICK }</td>
 </tr>
 <tr>
 	<td class="table-light">조회수</td><td>${view.FREE_VIEWS }</td>

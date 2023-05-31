@@ -13,28 +13,58 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Admin;
 import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Member;
 import web.service.face.AdminService;
+import web.service.face.CampService;
 import web.service.face.MemberService;
 import web.util.Paging;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+	
+	   @Autowired AdminService adminService;
+	   @Autowired MemberService memberService;
+	   @Autowired CampService campService;
+	   
+	   private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	   @GetMapping("/login")
+	   public void loginpage() {logger.info("/admin/login[Get]");}
 
-   private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	   @PostMapping("/login")
+	   public String login(HttpSession session, Admin admin) {
+			logger.info("/admin/login");
+			logger.info("어드민 로그인 정보 : {}", admin);
+			boolean isLogin = adminService.login(admin);
+			
+			admin = adminService.info(admin.getAdminId());
+			logger.info("어드민 접속 정보:{}", admin);
+			logger.info("어드민 번호:{}", admin.getAdminNo());
+			
+			if( isLogin) {
+				session.setAttribute("isLogin", isLogin);
+				session.setAttribute("loginId", admin.getAdminId());
+				session.setAttribute("loginNo", admin.getAdminNo());
+				
+				} else {
+			
+					session.invalidate();
+			}
+			
+				return "redirect:/admin/free";		
+		}
 
-   @Autowired
-   AdminService adminService;
-   @Autowired
-   MemberService memberService;
 
-   // 자유 게시판
+   // 자유 게시판, 페이징
    @RequestMapping("/free")
    public void main(Model model, @RequestParam(defaultValue = "0") int curPage) {
 
@@ -43,22 +73,22 @@ public class AdminController {
 
       // 페이징을 적용한 리스트 보여주기(userno을 기준으로 join)
       List<Map<String, Object>> list = adminService.list(paging);
-      logger.info("list {}", list);
+      logger.info("자유게시판 list : {}", list);
 
       for (Map m : list) {
          logger.info(" list {} ", m);
       }
 
-      // jsp에서 쓰기 위해서는 map의 컬럼명과 동일하게 해주어야 한다
       model.addAttribute("list", list);
       model.addAttribute("paging", paging);
    }
 
    
-   @GetMapping("/freeView")
+   
+   @GetMapping("/freeView") // 관리자 페이지 (자유게시판 상세보기)
    public void detail(Model model, Free freeBoard, HttpSession session) {
       
-      logger.info("/free/view [GET]");
+      logger.info("/admin/freeView [GET]");
       
       //게시글 조회
       Map<String, Object> view = adminService.getView(freeBoard);
@@ -73,53 +103,78 @@ public class AdminController {
       model.addAttribute("userInfo", userInfo);
       
       //상세보기 페이지 파일 조회
-//      FreeFile freeFile = freeService.getFreeFile(freeBoard);
+//    FreeFile freeFile = freeService.getFreeFile(freeBoard);
       List<FreeFile> freeFile = adminService.getFreeFile(freeBoard);
+      
       logger.info("freeFile {}", freeFile);
       model.addAttribute("freeFile", freeFile);
       
    }
 
-//   // 자유 글쓰기
-//   @GetMapping("/free/write")
-//   public void write(HttpSession session, Model model) {
-//      logger.info("/free/write [GET]");
-//
-//      String loginId = (String) session.getAttribute("loginId");
-//      String loginnick = (String) adminService.getNick(loginId);
-//      logger.info("id {}", loginId);
-//      logger.info("nick {}", loginnick);
-//
-//      model.addAttribute("id", loginId);
-//      model.addAttribute("nick", loginnick);
-//   }
-
-   @GetMapping("/login")
-   public void loginpage() {
-      logger.info("admin/login[Get]");
+   //관리자 페이지(자유게시판 글쓰기)
+   @GetMapping("/freeWrite")
+   public void write(HttpSession session, Model model) {
+	   logger.info("/freeWrite [GET]");
+	   
+		String loginId = (String) session.getAttribute("loginId");
+		logger.info("관리자 id : {}", loginId);
+		
+		Admin memberInfo = adminService.info(loginId);
+		
+		logger.info("관리자 정보 : {}", memberInfo);
+		
+		model.addAttribute("id", loginId);
+		model.addAttribute("memberInfo", memberInfo);
+	   
    }
-
-   @PostMapping("/login")
-   public String login(HttpSession session, Admin adminParam) {
-      logger.info("admin/login [POST]");
-      logger.info("관리자 로그인 ;{}", adminParam);
-
-      boolean isLogin = adminService.login(adminParam);
-      logger.info("isLogin : {}", isLogin);
-
-      if (isLogin) {
-         logger.info("로그인 성공");
-         session.setAttribute("isLogin", isLogin);
-         session.setAttribute("admin", true);
-         return "redirect: ./free";
-
-      } else {
-         logger.info("로그인 실패");
-         session.invalidate();
-         return "redirect: ./login";
-      }
-
+   
+ 
+   
+   @PostMapping("/freeWrite")
+   public String writepost(HttpSession session, Free free, @RequestParam(required = false) List<MultipartFile> files, Member member ) {
+      
+      logger.info("/freeWrite [POST]");
+      
+      //로그인 정보를 가지고 회원번호랑 관리자 번호를 가져옴
+      String loginId = (String) session.getAttribute("loginId");
+//    Member memberInfo = null;      
+      Admin memberInfo = adminService.info(loginId);
+      //만약 회원번호가 있으면 회원번호를 가져오고
+      //관리자번호가 있으면 관리자 번호를 가져오고
+      
+      logger.info("memberInfo {}", memberInfo);
+      
+      logger.info("free {}", free);
+      logger.info("files {}", files);
+      
+      adminService.freeWrite(free, files, memberInfo, member);
+      
+      return "redirect:./free";
+      
    }
+   
+   @RequestMapping("/campaign")
+   public void adminCampaign(HttpSession session, Model model, @RequestParam(defaultValue = "0") int curpage) {
+	   logger.info("/admin/campaign[GET]");
+	   logger.info(" curpage : {}", curpage);
+	   
+	   Paging paging = adminService.getPaging(curpage);
+	   
+	   
+   }
+   
+   
+   @RequestMapping("/freeDelete")
+   public String freeDelete(Free free) {
+	   adminService.delete(free);
+		   
+	   return "redirect:./free";
+   }
+   
+   
+   
+   
+
+
 
 }
-
