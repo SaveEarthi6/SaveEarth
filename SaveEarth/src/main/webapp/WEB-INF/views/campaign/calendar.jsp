@@ -4,33 +4,26 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
   
 <style>
+
+:root {
+  --fc-today-bg-color: #fffad9 !important;
+}
+
 /* 툴바 제목 */
 .fc-toolbar-title {
 	font-weight: bold;
 }
 
 /* 요일 */
-.fc-scrollgrid-sync-inner {
+.fc-col-header-cell {
 	background-color: #7CA621;
-	
 }
+
 
 /* 요일 글씨 */
 .fc-col-header-cell-cushion {
 	color: white;
 	text-decoration: none;
-}
-
-/* 오늘 날짜 !!!수정 필요!!! */
-.fc-day-today {
-  border: 1px solid #7CA621 !important;
-
-
-}
-
-/* 달력 바디 */
-.fc-daygrid-day-frame {
-	background-color: white;
 }
 
 /* 달력 바디 글씨 */
@@ -52,9 +45,22 @@
 	background-color: #7CA621 !important;
 }
 
+/* 이벤트 라벨 */
 .fc-event-title-container {
-	border: none;
 	font-weight: bold;
+}
+
+/* 클릭시 테두리 */
+.fc-highlight{
+   border: solid #7CA621;
+
+}
+
+
+.fc-day-today {
+	color: black;
+	background-color: red;
+	border-color: blue;
 }
 
 
@@ -85,46 +91,7 @@
 <div id="calendar"></div>
 
 
-<!-- 모달 추가해야 함 -->
-
-
-
-
-
 <script type="text/javascript">
-
-var eventDay;
-var title;
-var date;
-
-// $.ajax({
-// 	type: "post"
-// 	, url : "./getCalendar"
-// 	, dataType : "JSON"
-// 	, success : function(res) {
-// 		console.log('성공')
-// 		console.log(res)
-		
-// 		$.each(res, function(key, value) {
-			
-// 			title1 = value.calName
-// 			start1 = value.calDate
-			
-// 			console.log(title1)
-// 			console.log(start1)
-			
-			
-// 		})
-		
-// 	}
-// 	, error : function() {
-// 		console.log('실패')
-		
-// 	}
-// })
-
-
-
 
 document.addEventListener('DOMContentLoaded', function() {
 	var calendarEl = document.getElementById('calendar');
@@ -134,21 +101,28 @@ document.addEventListener('DOMContentLoaded', function() {
 			myCustomButton: {
 				text: '인증글 작성하기'
 				, click: function() {
-					//클릭시 모달창 클릭되도록 수정하기
+					
+					//버튼 클릭시 모달창 초기화
 					document.getElementById('preview').src = "";
 					$("#partForm")[0].reset();
-					$("#btnModal").click()
+					
+					//버튼 클릭시 모달 오픈
+					$("#btnWriteModal").click()
 					
 				}
 			}
 
 		},
 		headerToolbar: {
+			
+			//비로그인 상태
 			<c:if test="${empty isLogin }">
 				start: 'prev'
 				, center: 'title'
 				, end: 'next'
 			</c:if>
+			
+			//로그인 상태
 			<c:if test="${not empty isLogin and isLogin }">
 				start: 'prev next today'
 				, center: 'title'
@@ -156,6 +130,8 @@ document.addEventListener('DOMContentLoaded', function() {
 			</c:if>
 		},
 		events: [
+			
+			//비로그인 상태시 기본 기념일 보여주기
 			<c:if test="${empty isLogin }">
 				<c:forEach items="${calList}" var="calendar">
 				{
@@ -164,6 +140,8 @@ document.addEventListener('DOMContentLoaded', function() {
 				},
 				</c:forEach>
 			</c:if>
+			
+			//로그인 상태시 user의 인증글 보여주기
 			<c:if test="${not empty isLogin and isLogin }">
 				<c:forEach items="${certList}" var="certification">
 				{
@@ -174,15 +152,47 @@ document.addEventListener('DOMContentLoaded', function() {
 			</c:if>
 				 
 		],
-		dateClick: function(info) {		//날짜 클릭하면 해당 일 출력
-			var string = info.date
-			day = string.getDate()
-			console.log(day)
+		selectable: true,
+		dateClick: function(info) {
 			
-			//여기에 해당 일자 목록 불러오는 에이젝스..? 혹은 메소드 추가해야 함
+			//해당 날짜와 일치하는 user의 인증글 목록 보여주기
+			console.log(info.dateStr)
+			const dateStr = info.dateStr
+
+			$.ajax({
+				type: "post"
+				, url : "./viewCertList"
+				, data : {calDate : dateStr}
+				, dataType : "html"
+				, success : function(res) {
+					console.log('성공')
+					console.log(res)
+					
+					//view 모달 바디에 추가해주기
+					$("#viewModalBody").html(res)
+					
+				}
+				, error : function() {
+					console.log('실패')
+					
+				}
+			})
 			
+			
+			
+			//클릭시 모달 창 띄우기
+			$("#btnViewModal").click()
 		}
-// 		selectable : true
+		
+// 		dateClick: function(info) {		//날짜 클릭하면 해당 일 출력
+// 			var string = info.date
+// 			day = string.getDate()
+// 			console.log(day)
+			
+// 			//여기에 해당 일자 목록 불러오는 에이젝스..? 혹은 메소드 추가해야 함
+			
+// 		},
+// 		selectable : true,
 // 		select: function(arg) {		//날짜 클릭 이벤트
 // 			console.log(calendar.getDate())
 			

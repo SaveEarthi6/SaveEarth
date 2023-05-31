@@ -175,6 +175,24 @@ public class CampaignController {
 		
 	}
 	
+	@RequestMapping("/viewCertList")
+	public Model viewCertList(Model model, HttpSession session, String calDate) {
+		logger.info("/campaign/viewCertList [GET]");
+		logger.info("{}", calDate);
+		
+//		List<Certification> userCertList = campService.getcertList((int)session.getAttribute("loginNo"), calDate);
+		
+		List<Map<String, Object>> userCertList = new ArrayList<Map<String,Object>>();
+		userCertList = campService.getcertList((int)session.getAttribute("loginNo"), calDate);
+		
+		logger.info("{}", userCertList);
+		
+		
+		model.addAttribute("userCertList", userCertList);
+		
+		return model;
+	}
+	
 
 	
 

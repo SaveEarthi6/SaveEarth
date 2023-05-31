@@ -36,4 +36,6 @@ public interface CampDao {
 
 	public List<Certification> selectCertByUserNo(int userNo);
 
+	public List<Map<String, Object>> selectCertByDate(@Param("userNo") int userNo, @Param("calDate") String calDate);
+
 }

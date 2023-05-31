@@ -119,7 +119,7 @@
 	color: inherit;
 }
 
-#btnModal {
+.btnModal {
 	width: 0;
 	height: 0;
 	display: none;
@@ -132,6 +132,11 @@ label {
 #previewWrap {
 	text-align: center;
     margin: 10px 0px;
+}
+
+.all {
+	background-color: #198754;
+	color: white;
 }
 
 
@@ -147,6 +152,16 @@ label {
 	$(".preface").click(function() {
 		console.log("test")
 		console.log($(this).html())
+		
+		$(".preface").css({
+			"background-color" : "white",
+			"color" : "#198754"
+		})
+		
+		$(this).css({
+			"background-color" : "#198754",
+			"color" : "white"
+		})
 		
 		const state = $(this).html()
 		
@@ -171,6 +186,7 @@ label {
 
 })
 
+//인증글 첨부파일 미리보기
 function readURL(input) {
 	if (input.files && input.files[0]) {
 		
@@ -185,9 +201,7 @@ function readURL(input) {
 	}
 }
 	
-// $('.insertModal').on(click, function (e) {
-// 		$("#partForm")[0].reset();
-// });
+
 
 
 </script>
@@ -217,25 +231,22 @@ myModal.addEventListener('shown.bs.modal', () => {
 	
 <div id="wrapCalendar">
 
-<!-- 나중에 c:if 로 감싸줘야 함 -->
-
 	<div id="calName">나의 달력</div>
 	
 	<div id="calendarImport">
 	
-	<c:import url="./calendar.jsp"></c:import>
+		<c:import url="./calendar.jsp"></c:import>
 	
 	</div>
 	
-	<!-- 달력 커스텀 해야함 -->
-
 </div>
 
 
+<!-- 인증글 작성 모달 -->
 <div id="writeModal" style="height: 0; width: 0;">
 
 <!-- Button trigger modal -->
-<button id="btnModal" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></button>
+<button id="btnWriteModal" type="button" class="btn btn-primary btnModal" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></button>
 
 
 <!-- Modal -->
@@ -289,7 +300,6 @@ myModal.addEventListener('shown.bs.modal', () => {
 			<div class="modal-footer" id="btnWrap">
 		        <button type="button" class="btn btn-secondary" id="btnCancel" data-bs-dismiss="modal" >취소하기</button>
 		        <button type="submit" class="btn btn-primary" id="btnWrite">작성하기</button>
-		        <!-- onclick시 함수 ajax 함수 호출..? -->
 			</div>
 			</form>
 		</div>
@@ -300,12 +310,46 @@ myModal.addEventListener('shown.bs.modal', () => {
 </div>
 
 
+<!-- 인증글 목록 모달 -->
+<div  id="viewModal" style="height: 0; width: 0;">
+
+<!-- Button trigger modal -->
+<button id="btnViewModal" type="button" class="btn btn-primary btnModal" data-bs-toggle="modal" data-bs-target="#exampleModal"></button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+    
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">인증글 목록</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="viewModalBody">
+        인증글 목록 불러올 곳
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary"  id="btnCancel"  data-bs-dismiss="modal">창 닫기</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+
+
+
 
 <div id="line"><hr></div>
 
 <div id="campList">
 	<div class="nav">
-		<button id="navButton" type="button" class="btn btn-outline-success preface">전체</button>
+		<button id="navButton" type="button" class="btn btn-outline-success preface all">전체</button>
 		<button id="navButton" type="button" class="btn btn-outline-success preface">진행중</button>
 		<button id="navButton" type="button" class="btn btn-outline-success preface">마감</button>
 		

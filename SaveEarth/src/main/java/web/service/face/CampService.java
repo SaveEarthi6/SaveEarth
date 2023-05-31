@@ -84,4 +84,13 @@ public interface CampService {
 	 */
 	public List<Certification> getcertList(int userNo);
 
+	/**
+	 * userNo
+	 * 
+	 * @param attribute
+	 * @param calDate
+	 * @return
+	 */
+	public List<Map<String, Object>> getcertList(int userNo, String calDate);
+
 }
