@@ -134,7 +134,7 @@ $("#btnRecommend").click(function(){
 
 </script>
 
-
+<script type="text/javascript">
 $(function(){
 	$("#enroll").click(function() {
 		console.log("test")
