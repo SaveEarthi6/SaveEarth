@@ -11,11 +11,21 @@
 </select>
 
 <insert id="insertFree" parameterType="web.dto.Free">
+	
 	<selectKey keyProperty="freeNo" order="BEFORE" resultType="int">
 		select free_no_seq.nextval from dual
 	</selectKey>
-	INSERT INTO free (free_no, user_no, admin_no, free_head, free_title, free_content, free_views)
-	VALUES ( #{freeNo}, #{userNo}, #{adminNo}, #{freeHead}, #{freeTitle}, #{freeContent}, #{freeViews} )
+	
+	<if test="adminNo eq 0">
+	INSERT INTO free (free_no, user_no, free_head, free_title, free_content, free_views)
+	VALUES ( #{freeNo}, #{userNo}, #{freeHead}, #{freeTitle}, #{freeContent}, #{freeViews} )
+	</if>
+
+	<if test="userNo eq 0">
+	INSERT INTO free (free_no, admin_no, free_head, free_title, free_content, free_views)
+	VALUES ( #{freeNo}, #{adminNo}, #{freeHead}, #{freeTitle}, #{freeContent}, #{freeViews} )
+	</if>
+	
 </insert>
 
 <insert id="insertFreeFile" parameterType="web.dto.Free">
@@ -36,21 +46,21 @@
 	<choose>
 		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('사담')">
 			WHERE free_head = #{freeHead}
-			ORDER BY free_head DESC, free_no DESC
+			ORDER BY free_no DESC
 		</when>
 		
 		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('정보')">
 			WHERE free_head = #{freeHead}
-			ORDER BY free_head DESC, free_no DESC
+			ORDER BY free_no DESC
 		</when>
 		
 		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('질문')">
 			WHERE free_head = #{freeHead}
-			ORDER BY free_head DESC, free_no DESC
+			ORDER BY free_no DESC
 		</when>
 		
 		<otherwise>
-			ORDER BY free_head DESC, free_no DESC
+			ORDER BY free_no DESC
 		</otherwise>
 		
 	</choose>	
@@ -65,7 +75,8 @@
 <select id="selectFreeBoard" parameterType="web.dto.Free" resultType="map">
 	SELECT * FROM(
 		SELECT 
-		(SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) user_id, F.* FROM (
+		(SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) user_id, 
+		(SELECT m.user_nick FROM member m WHERE m.user_no = F.user_no) user_nick, F.* FROM (
 			SELECT
 			*
 			FROM free
@@ -101,7 +112,7 @@
 	WHERE free_no = #{freeNo}
 </update>
 
-<select id="selectFreeByKeyword" resultType="map" parameterType="map">
+<select id="selectFreeByKeyword" resultType="map" parameterType="hashmap">
 
 	SELECT * FROM(
 		SELECT rownum rnum, (SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) user_id, F.* FROM (
@@ -126,22 +137,20 @@
 	) FREEMAIN
 	WHERE rnum BETWEEN #{paging.startNo} and #{paging.endNo}
 	ORDER BY free_no DESC
-	
 </select>
 
 <!-- 댓글 조회 -->
-<!-- <select id="replyList" parameterType="int" resultType="com.board.domain.ReplyVO"> -->
-<!--     select -->
-<!--         rno, bno, writer, content, regDate -->
-<!--     from tbl_reply -->
-<!--         where bno = #{bno}         -->
-<!-- </select> -->
+<select id="selectComment" resultType="map" parameterType="web.dto.Free">
+	SELECT c.*, (SELECT m.user_id FROM member m WHERE m.user_no = c.user_no) user_id FROM freecomment c
+	WHERE free_no = #{freeNo}
+	ORDER BY comm_no desc
+</select>
 
 <!-- 댓글 작성 -->
-<!-- <insert id="replyWrite" parameterType="com.board.domain.ReplyVO"> -->
-<!--     insert into tbl_reply(bno, writer, content, regDate) -->
-<!--         value(#{bno}, #{writer}, #{content}, #{regDate}) -->
-<!-- </insert> -->
+<insert id="insertComment" parameterType="web.dto.FreeComment">
+    insert into freecomment(comm_no, free_no, user_no, comm_content)
+    values (recomm_no_seq.nextval, #{freeNo}, #{userNo}, #{commContent})
+</insert>
     
 <!-- 댓글 수정 -->
 <!-- <update id="replyModify" parameterType="com.board.domain.ReplyVO"> -->
@@ -159,6 +168,7 @@
 <!--         and bno = ${bno}     -->
 <!-- </delete> -->
 
+
 <!-- <select id="mypageList" resultType="web.dto.Free" parameterType="int"> -->
 <!-- select * from Free -->
 <!-- where user_no = #{userNo} -->
@@ -170,6 +180,7 @@ where user_no = #{userNo}
 ORDER BY free_no DESC
 </select>
 
+	
 <!-- 추천수 조회하기 -->
 <select id= "cntRecommend" resultType="int" parameterType="web.dto.Free">
 	select count(*) from recommend where user_no = #{userNo} and free_no = #{freeNo}
@@ -188,6 +199,13 @@ ORDER BY free_no DESC
 	recommend  = recommend - 1
 	WHERE free_no = #{freeNo}
 </update>
+
+<!-- 수정 페이지에서 파일 삭제 -->
+<delete id="deleteFileByFreeFileNo" parameterType="web.dto.FreeFile">
+	DELETE free_file 
+	WHERE free_file_no = #{freeFileNo}
+</delete>
+
 
 <!-- 추천 -->
 <insert id="insertRecommend" parameterType="web.dto.Free">

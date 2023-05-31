@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Free;
+import web.dto.FreeComment;
 import web.dto.FreeFile;
 import web.util.Paging;
 
@@ -91,7 +92,8 @@ public interface FreeDao {
 	 * @param freeHead 
 	 * @return - 검색어와 일치하는 게시글
 	 */
-	public List<Map<String, Object>> selectFreeByKeyword(@Param("paging") Paging paging, @Param("keyword") String keyword, @Param("freeHead") String freeHead);
+//	public List<Map<String, Object>> selectFreeByKeyword(@Param("paging") Paging paging, @Param("keyword") String keyword, @Param("freeHead") String freeHead);
+	public List<Map<String, Object>> selectFreeByKeyword(Map<String, Object> map);
 
 
 	/**
@@ -128,6 +130,28 @@ public interface FreeDao {
 
 	public void deleteRecommend(Free free);
 
+
+
+	/**
+	 * 작성한 댓글을 삽입한다
+	 * @param freeComment - 작성한 댓글 내용(정보)
+	 * @return - 삽입 결과(성공1, 실패0)
+	 */
+	public int insertComment(FreeComment freeComment);
+
+	/**
+	 * 댓글 정보를 조회한다
+	 * @param freeBoard - 게시글 번호
+	 * @return - 게시글 번호와 일치하는 댓글 정보
+	 */
+	public List<Map<String, Object>> selectComment(Free freeBoard);
+
+	/**
+	 * 선택한 파일을 삭제한다
+	 * @param freeFile - 파일 번호
+	 * @return - 결과 성공:1, 실패:0
+	 */
+	public int deleteFileByFreeFileNo(FreeFile freeFile);
 
 
 

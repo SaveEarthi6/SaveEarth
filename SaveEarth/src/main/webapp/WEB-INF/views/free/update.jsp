@@ -45,6 +45,7 @@
 
 
 <script type="text/javascript">
+/* 스마트 웹에디터 */
 function submitContents(elClickedObj) {
 	oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", [])
 	
@@ -60,26 +61,57 @@ $(document).ready(function() {
 		$("form").submit();
 	})
 })
-</script>
 
-<script type="text/javascript">
 
+/* '취소' 버튼 동작 */
 $(document).ready(function() {
 	$("#cancel").click(function() {
 		history.go(-1)
 	})
 
-	
-	if( ${empty freeFile} ) {
-		$("#newFile").show()
-	} else {
+/* 첨부파일 버튼 동작 */
+	if( ${not empty freeFile} ) {
+// 		console.log(${freeFile})
 		$("#originFile").show()
+		$("#newFile").hide()
+	} else {
+		$("#newFile").show()
+		$("#originFile").hide()
 	}
 	
-	$("#deleteFile").click(function() {
-		$("#originFile").toggleClass("through")
+/* 파일 삭제 버튼 동작 */	
+	$(".deleteFile").click(function() {
+		console.log('삭제 버튼 동작');
+		
+		$("#originFile").toggleClass("through");
 		$("#newFile").toggle();
+
+		console.log($('#fileName').val())
+		
+		$.ajax({
+			type: "get",
+
+			url: "http://localhost:8888/free/deleteFile",
+			data:{
+				fileName:("#fileName").val()
+				},
+			success: function(data){
+				if(data == 1) {
+					alert('댓글 작성이 완료되었습니다!')
+// 					$('.comm').append(commContent);
+					//값 비우기
+// 					$("#commContent").val('');
+					
+				} else {
+					alert('다시 확인해주세요!')
+				}
+			}
+		})
+		
 	})
+	
+	
+	
 })
 
 
@@ -104,8 +136,8 @@ $(document).ready(function() {
 	<td class="table-light">글번호</td><td colspan="3">${view.FREE_NO}</td>
 </tr>
 <tr>
-	<td class="table-light">아이디</td><td>${view.ID }</td>
-	<td class="table-light">닉네임</td><td>${view.NICK }</td>
+	<td class="table-light">아이디</td><td>${view.USER_ID }</td>
+	<td class="table-light">닉네임</td><td>${view.USER_NICK }</td>
 </tr>
 <tr>
 	<td class="table-light">조회수</td><td>${view.FREE_VIEWS }</td>
@@ -140,57 +172,40 @@ $(document).ready(function() {
 		<button id="btnUpdate" class="btn btn-success">수정완료</button>
 </div>
 
-</form>
 
 <div class="form-group">
 
 <!-- 	<div id="fileBox"> -->
-<!-- 		<div id="originFile"> -->
 <%-- 			<a href="./download?freeFileNo=${freeFile.freeFileNo }">${freeFile.freeOriginName }</a> --%>
 <!-- 	</div> -->
 		
-	<div id="fileBox">
+<!-- 	<div id="fileBox"> -->
+		<div id="originFile">
 		<c:if test="${not empty freeFile }">
 		<c:forEach items="${freeFile }" var="file">
-			<a href="../upload/${file.freeStoredName }" download="${file.freeOriginName }">
+			<a href="../upload/${file.freeStoredName }" download="${file.freeOriginName }" id="fileName">
 				${file.freeOriginName }
-			</a><span id="deleteFile">X</span><br>
+			</a><button class="deleteFile" type="button">삭제</button><br>
 		</c:forEach>
 		</c:if>
-	</div>
+		</div>
+<!-- 	</div> -->
 
 		<div id="newFile">
-			<label class="form-label" for="file">새로운 첨부파일</label>
-			<input type="file" id="file" name="file" class="form-control">
+			<label class="form-label" for="files">새로운 첨부파일</label>
+			<input type="file" id="file" name="files" class="form-control" multiple="multiple">
 			<small>** 새로운 파일로 첨부하면 기존 파일은 삭제됩니다</small>
 		</div>
 		
 
 </div>
 
-<!-- 첨부파일 다운 -->
-<!-- <div class="mb-3"> -->
-<%-- 	<c:if test="${not empty freeFile }"> --%>
-<%-- 		<a href="./download?fileNo=${freeFile.freeFileNo }">${freeFile.freeOriginName }</a> --%>
-<%-- 	</c:if> --%>
-<!-- </div> -->
+</form>
+
 
 <div>
 	<input type="reset" id="cancel" class="btn btn-danger" value="취소">
 </div>
-
-<!-- 댓글 -->
-	<div class="card my-4">
-		<h5 class="card-header" style="font-weight: bold;">댓글</h5>
-		<div class="card-body">
-			<form name="comment-form" action="/board/comment/write" method="post" autocomplete="off">
-					<textarea name="content" class="form-control" rows="3"></textarea>
-				<div style= "padding-top: 50px;">
-					<button type="submit" class="btn btn-success">등록</button>
-				</div>
-			</form>
-		</div>
-	</div>
 
 <!-- 버튼 -->
 <div class="text-center mb-3">

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Free;
+import web.dto.FreeComment;
 import web.dto.FreeFile;
 import web.dto.Member;
 import web.util.Paging;
@@ -37,12 +38,6 @@ public interface FreeService {
 	public List<Map<String, Object>> list(Paging paging, String freeHead);
 
 	public Map<String, Object> getView(Free freeBoard);
-	
-	/**
-	 * 게시글 삭제
-	 * @param free
-	 */
-	public void delete(Free free);
 
 	/**
 	 * 파일 정보 가져오기
@@ -55,8 +50,9 @@ public interface FreeService {
 	 * 게시글 정보 수정하기
 	 * @param freeBoard - 입력한 게시글 정보
 	 * @param files - 수정한 파일
+	 * @param freeFile - 수정할 파일 번호
 	 */
-	public void updateFree(Free freeBoard, List<MultipartFile> files);
+	public void updateFree(Free freeBoard, List<MultipartFile> files, List<FreeFile> freeFile);
 
 	/**
 	 * 입력한 검색어와 일치하는 게시글을 조회한다
@@ -83,6 +79,41 @@ public interface FreeService {
 	 * @param free
 	 */
 	public void checkRecommend(Free free);
+
+	/**
+	 * 자유게시판 게시글 삭제
+	 * @param free - 게시글 번호
+	 */
+	public void deleteFree(Free free);
+
+	/**
+	 * 자유게시판 파일 삭제 
+	 * @param free - 게시글 번호
+	 */
+	public void deleteFreeFile(Free free);
+
+	/**
+	 * 댓글을 작성한다
+	 * @param commContent  - 입력한 댓글 내용
+	 * @param userNo - 댓글을 작성한 회원의 회원 번호
+	 * @param freeNo - 댓글을 작성한 게시글 번호
+	 * @return - 작성 성공 유무
+	 */
+	public int writeComment(String commContent, int freeNo, int userNo);
+
+	/**
+	 * 회원번호를 가지고 댓글 정보를 조회한다
+	 * @param freeBoard - 작성한 게시글 번호
+	 * @return - 조회한 댓글 정보
+	 */
+	public List<Map<String, Object>> getComment(Free freeBoard);
+
+	/**
+	 * 파일 번호가 일치하는 파일을 삭제한다
+	 * @param freeFile - 파일 번호
+	 * @return - 결과 성공:1, 실패:0
+	 */
+	public int deleteFile(FreeFile freeFile);
 	
 	
 	
