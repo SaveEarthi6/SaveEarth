@@ -34,25 +34,11 @@ import web.util.Paging;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-<<<<<<< HEAD
-=======
 	
-	   @Autowired AdminService adminService;
-	   @Autowired MemberService memberService;
-	   @Autowired CampService campService;
+   @Autowired AdminService adminService;
+   @Autowired MemberService memberService;
+   @Autowired CampService campService;
 	   
-	   private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	
-	   @GetMapping("/login")
-	   public void loginpage() {logger.info("/admin/login[Get]");}
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
-
-	@Autowired
-	AdminService adminService;
-	@Autowired
-	MemberService memberService;
-	@Autowired
-	ServletContext context;
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -155,11 +141,7 @@ public class AdminController {
 		// 로그인 정보를 가지고 회원번호랑 관리자 번호를 가져옴
 		String loginId = (String) session.getAttribute("loginId");
 //    Member memberInfo = null;      
-<<<<<<< HEAD
-		Admin memberInfo = adminService.info(loginId);
-		// 만약 회원번호가 있으면 회원번호를 가져오고
-		// 관리자번호가 있으면 관리자 번호를 가져오고
-=======
+
       Admin memberInfo = adminService.info(loginId);
       //만약 회원번호가 있으면 회원번호를 가져오고
       //관리자번호가 있으면 관리자 번호를 가져오고
@@ -196,7 +178,6 @@ public class AdminController {
    
    
    
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
 
 		logger.info("memberInfo {}", memberInfo);
 

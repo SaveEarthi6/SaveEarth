@@ -22,17 +22,10 @@ public class InfoBoardController {
 	public void info(HttpSession session, Model model) {
 
 		logger.info("/info/main [GET]");
-<<<<<<< HEAD
 		
 //		String loginId = (String) session.getAttribute("loginId");
 //		boolean admin = (boolean) session.getAttribute("admin");
-		
-=======
 //		
-//		String loginId = (String) session.getAttribute("loginId");
-//		boolean admin = (boolean) session.getAttribute("admin");
-//		
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
 //		model.addAttribute("admin", admin);
 	
 	}
