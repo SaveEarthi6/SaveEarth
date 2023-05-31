@@ -27,38 +27,64 @@ import web.util.Paging;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+	
+	   @Autowired AdminService adminService;
+	   @Autowired MemberService memberService;
+	   
+	   private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	   @GetMapping("/login")
+	   public void loginpage() {logger.info("/admin/login[Get]");}
 
-   private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	   @PostMapping("/login")
+	   public String login(HttpSession session, Admin admin) {
+			logger.info("/admin/login");
+			logger.info("어드민 로그인 정보 : {}", admin);
+			boolean isLogin = adminService.login(admin);
+			
+			admin = adminService.info(admin.getAdminId());
+			logger.info("어드민 접속 정보:{}", admin);
+			logger.info("어드민 번호:{}", admin.getAdminNo());
+			
+			if( isLogin) {
+				session.setAttribute("isLogin", isLogin);
+				session.setAttribute("loginId", admin.getAdminId());
+				session.setAttribute("loginNo", admin.getAdminNo());
+				
+				} else {
+			
+					session.invalidate();
+			}
+			
+				return "redirect:/admin/free";		
+		}
 
-   @Autowired
-   AdminService adminService;
-   @Autowired
-   MemberService memberService;
 
-   // 자유 게시판
+   // 자유 게시판, 페이징
    @RequestMapping("/free")
    public void main(Model model, @RequestParam(defaultValue = "0") int curPage) {
 
       // 페이징
       Paging paging = adminService.getPaging(curPage);
-      
+
       // 페이징을 적용한 리스트 보여주기(userno을 기준으로 join)
       List<Map<String, Object>> list = adminService.list(paging);
-      logger.info("list {}", list);
+      logger.info("자유게시판 list : {}", list);
 
       for (Map m : list) {
          logger.info(" list {} ", m);
       }
-      // jsp에서 쓰기 위해서는 map의 컬럼명과 동일하게 해주어야 한다
+
       model.addAttribute("list", list);
       model.addAttribute("paging", paging);
    }
 
-   //게시글 상세 보기
-   @GetMapping("/freeView")
+   
+   
+   @GetMapping("/freeView") // 관리자 페이지 (자유게시판 상세보기)
    public void detail(Model model, Free freeBoard, HttpSession session) {
       
-      logger.info("/freeView [GET]");
+      logger.info("/admin/freeView [GET]");
       
       //게시글 조회
       Map<String, Object> view = adminService.getView(freeBoard);
@@ -73,7 +99,7 @@ public class AdminController {
       model.addAttribute("userInfo", userInfo);
       
       //상세보기 페이지 파일 조회
-//      FreeFile freeFile = freeService.getFreeFile(freeBoard);
+//    FreeFile freeFile = freeService.getFreeFile(freeBoard);
       List<FreeFile> freeFile = adminService.getFreeFile(freeBoard);
       
       logger.info("freeFile {}", freeFile);
@@ -81,23 +107,25 @@ public class AdminController {
       
    }
 
-   //관리자 글쓰기
+   //관리자 페이지(자유게시판 글쓰기)
    @GetMapping("/freeWrite")
    public void write(HttpSession session, Model model) {
 	   logger.info("/freeWrite [GET]");
 	   
 		String loginId = (String) session.getAttribute("loginId");
-		logger.info("id {}", loginId);
+		logger.info("관리자 id : {}", loginId);
 		
 		Admin memberInfo = adminService.info(loginId);
-		System.out.println("맴버정보"+memberInfo);
+		
+		logger.info("관리자 정보 : {}", memberInfo);
+		
 		model.addAttribute("id", loginId);
-		model.addAttribute("nick", loginId);
 		model.addAttribute("memberInfo", memberInfo);
 	   
    }
    
  
+   
    @PostMapping("/freeWrite")
    public String writepost(HttpSession session, Free free, @RequestParam(required = false) List<MultipartFile> files) {
       
@@ -122,35 +150,10 @@ public class AdminController {
    }
    
    
-   //관리자 로그인
-   @GetMapping("/login")
-   public void loginpage() {
-      logger.info("admin/login[Get]");
-   }
-
-   @PostMapping("/login")
-   public String login(HttpSession session, Admin admin) {
-//		logger.info("/member/login");
-//		logger.info("{}", admin);
-		boolean isLogin = adminService.login(admin);
-		
-		admin = adminService.info(admin.getAdminId());
-		System.out.println(admin);
-		System.out.println("유저번호" +admin.getAdminNo());
-		
-		if( isLogin) {
-			session.setAttribute("isLogin", isLogin);
-			session.setAttribute("loginId", admin.getAdminId());
-			session.setAttribute("loginNo", admin.getAdminNo());
-			
-		} else {
-			session.invalidate();
-		}
-		
-		return "redirect:/admin/free";		
-	}
-
    
    
+   
+
+
+
 }
-

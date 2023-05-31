@@ -12,7 +12,7 @@ import web.dto.Member;
 import web.util.Paging;
 
 public interface AdminService {
-
+	
 	/**
 	 * 관리자
 	 * @param adminParam
@@ -28,8 +28,9 @@ public interface AdminService {
 
 	public List<FreeFile> getFreeFile(Free freeBoard);
 
+
 	public Paging getPaging2(int curPage);
-	
+
 	/**
 	 * 게시글 작성 
 	 * @param free - 작성한 게시글 정보
@@ -44,6 +45,8 @@ public interface AdminService {
 	 * @return
 	 */
 	public Admin info(String loginId);
+
+	
 	
 
 
