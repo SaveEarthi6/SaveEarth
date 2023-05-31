@@ -6,6 +6,9 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Admin;
+import web.dto.Calendar;
+import web.dto.Campaign;
+import web.dto.Certification;
 import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Member;
@@ -47,6 +50,16 @@ public interface AdminService {
 	public Admin info(String loginId);
 
 	public void delete(Free free);
+
+	public List<Campaign> getCampList(Paging paging);
+
+	public List<Calendar> getCalendar();
+
+	public void writePart(Certification certification, MultipartFile partFile);
+
+
+
+
 
 
 	

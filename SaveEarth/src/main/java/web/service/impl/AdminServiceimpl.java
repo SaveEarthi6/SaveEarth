@@ -3,6 +3,7 @@ package web.service.impl;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -19,6 +20,9 @@ import web.controller.AdminController;
 import web.dao.face.AdminDao;
 import web.dao.face.FreeDao;
 import web.dto.Admin;
+import web.dto.Calendar;
+import web.dto.Campaign;
+import web.dto.Certification;
 import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Member;
@@ -205,4 +209,38 @@ public class AdminServiceimpl implements AdminService {
 		adminDao.delete(free);
 		
 	}
+	
+	@Override
+	public List<Campaign> getCampList(Paging paging) {
+
+		logger.info("getList() - paging : {}", paging);
+		
+		return adminDao.selectCampList(paging);
+	}
+	
+	@Override
+	public List<Calendar> getCalendar() {
+
+		return adminDao.selectCalList();
+	}
+	
+	@Override
+	public void writePart(Certification certification, MultipartFile partFile) {
+
+		//partNo 조회해오기
+		int nextVal = adminDao.selectPartNo();
+		
+		logger.info("writePart() - nextVal : {}", nextVal);
+		
+		certification.setPartNo(nextVal);
+		
+		//인증 테이블 삽입
+		adminDao.insertCert(certification);
+		
+		//파일 테이블 삽입
+		if(partFile.getSize() <= 0) {
+			return;
+		}
+	}
+	
 }
