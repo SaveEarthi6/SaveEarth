@@ -315,7 +315,6 @@ public class FreeServiceImpl implements FreeService{
 		return res;
 		
 	}
-
 	
 	@Override
 	public List<Map<String, Object>> getComment(Free freeBoard) {
