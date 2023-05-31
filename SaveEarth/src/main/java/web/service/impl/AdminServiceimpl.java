@@ -103,19 +103,19 @@ public class AdminServiceimpl implements AdminService {
       return paging;
    }
    @Override
-	public void freeWrite(Free free, List<MultipartFile> files, Member memberInfo) {
+	public void freeWrite(Free free, List<MultipartFile> files, Admin adminInfo) {
 	   
 //		if(memberInfo.getUserNo() != 0) {
 //		free.setUserNo(memberInfo.getUserNo());
 //	} else if()
 	
 	free.setAdminNo(1);
-	free.setUserNo(memberInfo.getUserNo());
+	free.setUserNo(adminInfo.getAdminNo());
 	
 //	free.setUserNo(2);
-	logger.info("free {}", free);
-	logger.info("files {}", files);
-	logger.info("memberInfo {}", memberInfo);
+	logger.info("ServiceImpl free :  {}", free);
+	logger.info("ServiceImple files :  {}", files);
+	logger.info("ServiceImple memberInfo : {}", adminInfo);
 	
 	
 	adminDao.insertFree(free);
