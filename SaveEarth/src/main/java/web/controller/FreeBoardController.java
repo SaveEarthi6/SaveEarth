@@ -83,6 +83,13 @@ public class FreeBoardController {
 		logger.info("freeFile {}", freeFile);
 		model.addAttribute("freeFile", freeFile);
 		
+		//등록된 댓글 조회하기
+		List<Map<String, Object>> comment = freeService.getComment(freeBoard);
+		
+		logger.info("comment {}", comment);
+		
+		model.addAttribute("comment", comment);
+		
 	}
 	
 	@GetMapping("/free/write")
@@ -125,26 +132,24 @@ public class FreeBoardController {
 	@RequestMapping("/free/delete")
 	public String deleteBoard (Free free) {
 		
+		freeService.deleteFreeFile(free);
 		freeService.deleteFree(free);
 		
-		freeService.deleteFreeFile(free);
 		
 		return "redirect:/mypage/board";
 	}
 	
-	@RequestMapping("/free/deleteFile")
-	public String deleteFile (Free free, Model model) {
-		
-		logger.info("/free/deleteFile");
-		logger.info("free {}", free);
-		
-		freeService.deleteFreeFile(free);
-		
-		model.addAttribute("free", free);
-		
-		return "redirect:/free/update?freeNo=" + free.getFreeNo();
-		
-	}
+//	@RequestMapping("/free/deleteFile")
+//	public void deleteFile (Free free, Model model) {
+//		
+//		logger.info("/free/deleteFile");
+//		logger.info("free {}", free);
+//		
+//		freeService.deleteFreeFile(free);
+//		
+//		model.addAttribute("free", free);
+//		
+//	}
 	
 	
 	@GetMapping("/free/update")
@@ -217,21 +222,37 @@ public class FreeBoardController {
 	   }
 	
 
-	@RequestMapping("/free/comment")
-//	@ResponseBody
-//	Map comment(String comment, int freeNo, int userNo) {
-	public void comment(String comment, int freeNo, int userNo, Model model) {
+	@ResponseBody
+	@GetMapping("/free/comment")
+	public int commentCheck(@RequestParam("commContent") String commContent, @RequestParam("freeNo") int freeNo, @RequestParam("userNo") int userNo) {
+		
+		logger.info("commContent {}", commContent);
+		logger.info("freeNo {}", freeNo);
+		logger.info("userNo {}", userNo);
 		
 		//댓글 작성
-		freeService.writeComment(comment, freeNo, userNo);
+		int res = freeService.writeComment(commContent, freeNo, userNo);
 		
-		//댓글 정보 조회해서 쏴주기
-		Map<String, Object> rs = freeService.getComment();
+		logger.info("res {}", res);
 		
-		model.addAttribute("rs", rs);
-		
-//		return rs;
+		return res;
 		
 	}
+
+	@ResponseBody
+	@GetMapping("/free/deleteFile")
+	public int updateFile(@RequestParam("fileName") String fileName) {
+		
+		logger.info("originName {}", fileName);
+	
+		//댓글 작성
+//		int res = freeService.deleteFile(freeFile);
+		
+//		logger.info("res {}", res);
+		
+		return 0;
+		
+	}
+	
 	
 }

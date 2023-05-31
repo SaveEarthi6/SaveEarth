@@ -283,25 +283,33 @@ public class FreeServiceImpl implements FreeService{
 	}
 
 	@Override
-	public void writeComment(String comment, int freeNo, int userNo) {
+	public int writeComment(String commContent, int freeNo, int userNo) {
 		
-		FreeComment freeComment = null;
-		freeComment.setCommContent(comment);
+		logger.info("commContent {}", commContent);
+		
+		FreeComment freeComment = new FreeComment();
+		freeComment.setCommContent(commContent);
 		freeComment.setFreeNo(freeNo);
 		freeComment.setUserNo(userNo);
 		
 		logger.info("freeComment {} ", freeComment);
 		
-		freeDao.insertComment(freeComment);
+		int res = freeDao.insertComment(freeComment);
+		
+		return res;
 		
 	}
 	
 	@Override
-	public Map<String, Object> getComment() {
+	public List<Map<String, Object>> getComment(Free freeBoard) {
 		
-		return freeDao.selectComment();
+		return freeDao.selectComment(freeBoard);
 	}
-
 	
+	@Override
+	public int deleteFile(FreeFile freeFile) {
+		
+		return freeDao.deleteFileByFreeFileNo(freeFile);
+	}
 
 }

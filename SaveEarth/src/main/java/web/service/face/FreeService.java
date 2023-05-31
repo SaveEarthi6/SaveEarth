@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Free;
+import web.dto.FreeComment;
 import web.dto.FreeFile;
 import web.dto.Member;
 import web.util.Paging;
@@ -86,17 +87,26 @@ public interface FreeService {
 
 	/**
 	 * 댓글을 작성한다
-	 * @param comment  - 입력한 댓글 내용
+	 * @param commContent  - 입력한 댓글 내용
 	 * @param userNo - 댓글을 작성한 회원의 회원 번호
 	 * @param freeNo - 댓글을 작성한 게시글 번호
+	 * @return - 작성 성공 유무
 	 */
-	public void writeComment(String comment, int freeNo, int userNo);
+	public int writeComment(String commContent, int freeNo, int userNo);
 
 	/**
 	 * 회원번호를 가지고 댓글 정보를 조회한다
+	 * @param freeBoard - 작성한 게시글 번호
 	 * @return - 조회한 댓글 정보
 	 */
-	public Map<String, Object> getComment();
+	public List<Map<String, Object>> getComment(Free freeBoard);
+
+	/**
+	 * 파일 번호가 일치하는 파일을 삭제한다
+	 * @param freeFile - 파일 번호
+	 * @return - 결과 성공:1, 실패:0
+	 */
+	public int deleteFile(FreeFile freeFile);
 	
 	
 	

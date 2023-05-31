@@ -140,14 +140,16 @@
 </select>
 
 <!-- 댓글 조회 -->
-<select id="selectComment" resultType="map">
-	SELECT * FROM freecomment
+<select id="selectComment" resultType="map" parameterType="web.dto.Free">
+	SELECT c.*, (SELECT m.user_id FROM member m WHERE m.user_no = c.user_no) user_id FROM freecomment c
+	WHERE free_no = #{freeNo}
+	ORDER BY comm_no desc
 </select>
 
 <!-- 댓글 작성 -->
 <insert id="insertComment" parameterType="web.dto.FreeComment">
     insert into freecomment(comm_no, free_no, user_no, comm_content)
-        value (comm_no_seq.nextval, #{freeNo}, #{userNo}, #{commContent})
+    values (recomm_no_seq.nextval, #{freeNo}, #{userNo}, #{commContent})
 </insert>
     
 <!-- 댓글 수정 -->
@@ -184,5 +186,10 @@ ORDER BY free_no DESC
    where free_no = #{free_no}
 </update>
 
+<!-- 수정 페이지에서 파일 삭제 -->
+<delete id="deleteFileByFreeFileNo" parameterType="web.dto.FreeFile">
+	DELETE free_file 
+	WHERE free_file_no = #{freeFileNo}
+</delete>
 
 </mapper>

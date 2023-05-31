@@ -30,9 +30,7 @@ $(function() {
 		$("form").submit()
 		
 	})
-	
-	
-	
+
 })
 
 function selectfreeHead() {
@@ -166,14 +164,15 @@ form {
 </div>
 
 <!-- 글쓰기 작성, 취소 버튼 -->
-<div>
+<span>
 	<button class="btn btn-success" id="btnWrite">작성</button>
-	<input type="reset" id="cancel" class="btn btn-danger" value="취소">
-</div>
+</span>
 
 </form>
+<a href="/free/main"><button type="reset" id="cancel" class="btn btn-danger">취소</button></a>
 
-</div>
+
+
 
 </div><!-- container end -->
 <!-- 웹에디터 연결 -->

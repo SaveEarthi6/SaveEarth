@@ -108,14 +108,23 @@ public interface FreeDao {
 	/**
 	 * 작성한 댓글을 삽입한다
 	 * @param freeComment - 작성한 댓글 내용(정보)
+	 * @return - 삽입 결과(성공1, 실패0)
 	 */
-	public void insertComment(FreeComment freeComment);
+	public int insertComment(FreeComment freeComment);
 
 	/**
-	 * 등록된 댓글 정보를 조회한다
-	 * @return - 모든 댓글 정보
+	 * 댓글 정보를 조회한다
+	 * @param freeBoard - 게시글 번호
+	 * @return - 게시글 번호와 일치하는 댓글 정보
 	 */
-	public Map<String, Object> selectComment();
+	public List<Map<String, Object>> selectComment(Free freeBoard);
+
+	/**
+	 * 선택한 파일을 삭제한다
+	 * @param freeFile - 파일 번호
+	 * @return - 결과 성공:1, 실패:0
+	 */
+	public int deleteFileByFreeFileNo(FreeFile freeFile);
 
 
 
