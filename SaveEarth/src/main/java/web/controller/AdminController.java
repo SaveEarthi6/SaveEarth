@@ -21,6 +21,7 @@ import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Member;
 import web.service.face.AdminService;
+import web.service.face.CampService;
 import web.service.face.MemberService;
 import web.util.Paging;
 
@@ -30,6 +31,7 @@ public class AdminController {
 	
 	   @Autowired AdminService adminService;
 	   @Autowired MemberService memberService;
+	   @Autowired CampService campService;
 	   
 	   private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -148,6 +150,17 @@ public class AdminController {
       return "redirect:./free";
       
    }
+   
+   @RequestMapping("/campaign")
+   public void adminCampaign(HttpSession session, Model model, @RequestParam(defaultValue = "0") int curpage) {
+	   logger.info("/admin/campaign[GET]");
+	   logger.info(" curpage : {}", curpage);
+	   
+	   Paging paging = adminService.getPaging(curpage);
+	   
+	   
+   }
+   
    
    
    

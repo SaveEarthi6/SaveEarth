@@ -29,33 +29,32 @@ import web.util.Paging;
 
 @Service
 public class AdminServiceimpl implements AdminService {
-
 	
    private final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
-   @Autowired
-	AdminDao adminDao;
-	@Autowired
-	ServletContext context;
-	@Autowired
-	MemberService memberService;
+   @Autowired AdminDao adminDao;
+   @Autowired ServletContext context;
+   @Autowired MemberService memberService;
 	
-	//자유게시판
+	//관리자 페이지(자유 게시판 페이징)
 	@Override
 	public Paging getPaging(int curPage) {
 
 		int totalCount = adminDao.selectCntAll();
 		//페이징 객체
 		Paging paging = new Paging(totalCount, curPage);
-	
 		
 		return paging;
 	}
+	
+	
 	@Override
 	public List<Map<String, Object>> list(Paging paging) {
 		
 		return adminDao.selectList(paging);
 	}
+	
+	
 	@Override
 	public Map<String, Object> getView(Free freeBoard) {
 		
@@ -66,13 +65,14 @@ public class AdminServiceimpl implements AdminService {
 	}
 	
 	
-	
 	@Override
 	public List<FreeFile> getFreeFile(Free freeBoard) {
 		
 		return adminDao.selectFreeFile(freeBoard);
 		
 	}
+	
+
 	
 	// 관리자로그인
    @Override
@@ -88,7 +88,9 @@ public class AdminServiceimpl implements AdminService {
       
       return false; //로그인 인증 실패
    }
-   //켐페인
+   
+   
+   //캠페인
    @Override
    public Paging getPaging2(int curPage) {
       logger.info("getPaging() - curPage : {}", curPage);
@@ -102,6 +104,8 @@ public class AdminServiceimpl implements AdminService {
       
       return paging;
    }
+   
+   
    @Override
 	public void freeWrite(Free free, List<MultipartFile> files, Admin adminInfo) {
 	   
@@ -109,7 +113,7 @@ public class AdminServiceimpl implements AdminService {
 //		free.setUserNo(memberInfo.getUserNo());
 //	} else if()
 	
-	free.setAdminNo(1);
+	free.setAdminNo(adminInfo.getAdminNo());
 	free.setUserNo(adminInfo.getAdminNo());
 	
 //	free.setUserNo(2);
@@ -190,7 +194,7 @@ public class AdminServiceimpl implements AdminService {
 	
 	for( FreeFile e : upfiles) {
 		adminDao.insertFreeFile(e);
-	}
+		}
 		
    }
    

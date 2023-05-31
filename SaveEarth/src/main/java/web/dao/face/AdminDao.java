@@ -41,7 +41,7 @@ public interface AdminDao {
 
    /**
     * 자유 게시판 첨부파일 삽입
-    * @param e
+    * @param freeFile
     */
    
    public void insertFreeFile(FreeFile freeFile);

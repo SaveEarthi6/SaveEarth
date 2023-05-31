@@ -20,6 +20,11 @@ public interface AdminService {
 	 */
     public boolean login(Admin admin);
 
+    /**
+     * 페이징 
+     * @param curPage
+     * @return
+     */
 	public Paging getPaging(int curPage);
 
 	public List<Map<String, Object>> list(Paging paging);
@@ -27,7 +32,6 @@ public interface AdminService {
 	public Map<String, Object> getView(Free freeBoard);
 
 	public List<FreeFile> getFreeFile(Free freeBoard);
-
 
 	public Paging getPaging2(int curPage);
 
