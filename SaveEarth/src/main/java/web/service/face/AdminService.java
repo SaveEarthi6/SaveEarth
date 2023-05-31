@@ -12,7 +12,6 @@ import web.dto.Member;
 import web.util.Paging;
 
 public interface AdminService {
-
 	
 	/**
 	 * 관리자
