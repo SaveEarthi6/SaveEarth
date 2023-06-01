@@ -1,10 +1,6 @@
 package web.service.face;
 
-import java.util.HashMap;
 
-import com.google.gson.JsonObject;
-
-import web.dto.Mail;
 import web.dto.Member;
 import web.dto.Naver;
 
