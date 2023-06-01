@@ -133,36 +133,8 @@ select {
  	margin-bottom: 50px; 
  } 
 
-
-
 </style>
 
-<!-- 필터 기능 -->
-<script type="text/javascript">
-
-
-// function selectFilter () {
-// 	console.log("click")
-	
-// 	 console.log( $("#filter").val() )
-	   
-// 	   //curPage 초기화
-// 	   var filter = $("#filter").val();
-// 	   location.href = "?filter=" + filter
-
-	
-// }
-function selectfreeHead() {
-	
-var freeHead = $('#freeHead').val()
-
-console.log(freeHead)
-
-location.href="?freeHead=" + freeHead
-
-}
-
-</script>
 
 </head>
 <body>

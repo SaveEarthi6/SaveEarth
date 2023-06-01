@@ -260,9 +260,7 @@ function toggleRecommend() {
 			</form>
 		</div>
 	</div>
-
-</div>
-<!-- .container end -->
+</div><!-- .container end -->
 
 
 <c:import url="../layout/footer.jsp"></c:import>

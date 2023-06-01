@@ -27,6 +27,7 @@ import web.util.Paging;
 public class CampServiceImpl implements CampService {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired CampDao campDao;
 	@Autowired ServletContext context;
 	
@@ -114,10 +115,16 @@ public class CampServiceImpl implements CampService {
 		}
 		
 		String originName = partFile.getOriginalFilename();
-		String storedName = UUID.randomUUID().toString().split("-")[0];
+		String storedName = null; 
 		
 		//실제 저장될 파일 정보 객체
-		File dest = new File(storedFolder, storedName);
+		File dest = null;
+		
+		do {
+			storedName = UUID.randomUUID().toString().split("-")[0];
+			dest = new File(storedFolder, storedName);
+			
+		} while (dest.exists());
 		
 		try {
 			partFile.transferTo(dest);
@@ -144,9 +151,9 @@ public class CampServiceImpl implements CampService {
 	}
 	
 	@Override
-	public List<Campaign> getIngList() {
+	public List<Campaign> getIngList(int userNo) {
 
-		return campDao.selectIngList();
+		return campDao.selectIngList(userNo);
 	}
 
 	@Override
@@ -160,4 +167,18 @@ public class CampServiceImpl implements CampService {
 
 		return campDao.selectCertByDate(userNo, calDate);
 	}
+	
+	@Override
+	public void deleteCert(int partNo, int partFileNo) {
+
+		campDao.deleteCert(partNo, partFileNo);
+	}
+	
+@Override
+	public Map<String, Object> getCert(int userNo, int partNo) {
+
+		return campDao.selectCert(userNo, partNo);
+	}
+	
+	
 }

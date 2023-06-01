@@ -41,6 +41,7 @@
 				</div>
 			</a>
 			</div>
+			
 			</c:forEach>
 			
 		</div>
