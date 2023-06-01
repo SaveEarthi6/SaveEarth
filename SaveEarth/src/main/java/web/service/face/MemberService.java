@@ -1,6 +1,7 @@
 package web.service.face;
 
 import web.dto.Member;
+import web.dto.Naver;
 
 public interface MemberService {
 
@@ -102,6 +103,16 @@ public interface MemberService {
 	 * @return 
 	 */
 	public String getType(Member member);
+
+	/**
+	 * 네이버 acess_token 받아오기
+	 * @param code
+	 * @param state
+	 * @return
+	 */
+	public String getnaverToken(String code, String state);
+
+	public Naver getnaverInfo(String access_token);
 
 
 
