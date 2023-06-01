@@ -136,6 +136,10 @@
  } 
 </style>
 
+ <div>
+<!-- 글쓰기 버튼 -->
+	<a href = "/admin/campaignWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
+</div>
 
 <br>
 <div class="nav">

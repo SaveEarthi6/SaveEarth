@@ -25,6 +25,7 @@ import web.dto.Campaign;
 import web.dto.Certification;
 import web.dto.Free;
 import web.dto.FreeFile;
+import web.dto.Info;
 import web.dto.Member;
 import web.service.face.AdminService;
 import web.service.face.CampService;
@@ -43,10 +44,6 @@ public class AdminController {
 	
 	   @GetMapping("/login")
 	   public void loginpage() {logger.info("/admin/login[Get]");}
-<<<<<<< HEAD
-=======
-
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
 
 	@PostMapping("/login")
 	public String login(HttpSession session, Admin admin) {
@@ -158,20 +155,6 @@ public class AdminController {
       
    }
    
-   @RequestMapping("/campaign")
-   public void adminCampaign(HttpSession session, Model model, @RequestParam(defaultValue = "0") int curpage) {
-	   logger.info("/admin/campaign[GET]");
-	   logger.info(" curpage : {}", curpage);
-	   
-	   Paging paging = adminService.getPaging(curpage);
-	   
-	   
-   }
-   
-<<<<<<< HEAD
-
-=======
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
 
 	@RequestMapping("/freeDelete")
 	public String freeDelete(Free free) {
@@ -216,13 +199,96 @@ public class AdminController {
 	public String campMainPost(MultipartFile partFile, Certification certification ) {
 		logger.info("/campaign/main [POST]");
 		logger.info("{}", partFile);
-		logger.info("********** {}", certification);
 		
 		adminService.writePart(certification, partFile);
 		
-		//재밌는 코딩 놀이 ^~^
 		
 		return "redirect:./campaign";
 	}
+	
+	
+	
+	// 관리자 페이지(캠페인 게시판 글쓰기 GET)
+	@GetMapping("/campaignWrite")
+	public void campaignWrite(HttpSession session, Model model) {
+		logger.info("/campaignWrite [GET]");
+
+		String loginId = (String) session.getAttribute("loginId");
+		logger.info("관리자 id : {}", loginId);
+
+		Admin memberInfo = adminService.info(loginId);
+
+		logger.info("관리자 정보 : {}", memberInfo);
+
+		model.addAttribute("id", loginId);
+		model.addAttribute("memberInfo", memberInfo);
+
+	}
+
+	//관리자 페이지 (캠페인 게시판 글쓰기 POST)
+	@PostMapping("/campaignWrite")
+	public String campaignWritePost(HttpSession session, Campaign campaign, @RequestParam(required = false) List<MultipartFile> files,
+			Member member) {
+
+		logger.info("/campaignWrite [POST]");
+
+		// 로그인 정보를 가지고 회원번호랑 관리자 번호를 가져옴
+		String loginId = (String) session.getAttribute("loginId");
+//      Member memberInfo = null;      
+
+		Admin memberInfo = adminService.info(loginId);
+		// 만약 회원번호가 있으면 회원번호를 가져오고
+		// 관리자번호가 있으면 관리자 번호를 가져오고
+
+      logger.info("memberInfo {}", memberInfo);
+      
+      logger.info("campaign {}", campaign);
+      logger.info("files {}", files);
+      
+      adminService.campaignWrite(campaign, files, memberInfo, member);
+      
+      return "redirect:./campaign";
+      
+   }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@RequestMapping("info")
+	public void adminInfo() {
+		logger.info("Admin/info[Mapping]");
+		
+		
+	}
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

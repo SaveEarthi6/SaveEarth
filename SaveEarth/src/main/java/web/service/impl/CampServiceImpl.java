@@ -27,6 +27,7 @@ import web.util.Paging;
 public class CampServiceImpl implements CampService {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired CampDao campDao;
 	@Autowired ServletContext context;
 	
