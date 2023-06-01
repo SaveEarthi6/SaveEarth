@@ -21,6 +21,7 @@ import web.dto.Free;
 import web.dto.FreeComment;
 import web.dto.FreeFile;
 import web.dto.Member;
+import web.dto.Recommend;
 import web.service.face.FreeService;
 import web.util.Paging;
 
@@ -297,6 +298,7 @@ public class FreeServiceImpl implements FreeService{
 		
 	}
 
+
 	@Override
 	public int writeComment(String commContent, int freeNo, int userNo) {
 		
@@ -325,6 +327,12 @@ public class FreeServiceImpl implements FreeService{
 	public int deleteFile(FreeFile freeFile) {
 		
 		return freeDao.deleteFileByFreeFileNo(freeFile);
+	}
+
+	@Override
+	public int selectRecommend(Recommend recommend) {
+		return freeDao.selectByUserno(recommend);
+		
 	}
 
 }

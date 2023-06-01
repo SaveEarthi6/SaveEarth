@@ -162,13 +162,11 @@ form {
 	<label class="form-label" for="file">첨부파일</label>
 	<input type="file" id="file" name="files" class="form-control" multiple="multiple">
 </div>
+</form>
 
 <!-- 글쓰기 작성, 취소 버튼 -->
-<span>
-	<button class="btn btn-success" id="btnWrite">작성</button>
-</span>
+<button class="btn btn-success" id="btnWrite">작성</button>
 
-</form>
 <a href="/free/main"><button type="reset" id="cancel" class="btn btn-danger">취소</button></a>
 
 

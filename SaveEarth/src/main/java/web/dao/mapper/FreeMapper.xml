@@ -218,6 +218,12 @@ ORDER BY free_no DESC
 	DELETE recommend
 	WHERE free_no = #{freeNo} and user_no = #{userNo}
 </delete>
+
+<select id= "selectByUserno" parameterType="web.dto.Recommend">
+	SELECT count (*) recommend
+	WHERE free_no = #{freeNo} and user_no = #{userNo}
+</select>
+
 </mapper>	
 
 
