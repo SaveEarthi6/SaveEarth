@@ -73,12 +73,14 @@
     align-items: flex-end;
  } 
 
- .search_input { 
- 	width: 300px; 
- 	height: 30px; 
- 	font-size: 18px; 
- 	border: 1px solid #ccc; 
-} 
+/* 검색창 스타일 */
+.search_input {
+   width: 300px;
+   height: 30px;
+   font-size: 18px;
+   border-radius: 8px;
+   border: 1px solid #bbb;
+}
 
  .search_btn { 
  	font-size: 18px; 
@@ -180,47 +182,45 @@ $(function(){
 		})
 
 	})
-
-
-	
-	//작성하기 버튼 유효성 검사
-	$("#btnWrite").click({
-		
-		
-		console.log($("#partFile").val())	
-		
-		
-		
-		if($("#partTitle").val() == "") {
-			
-			$("#titleMsg").html("제목을 입력해주세요.")
-			
-		}
-		
-		
-		
-		if($("#partContent").val() == "") {
-			
-			$("#contentMsg").html("내용을 입력해주세요.")
-			
-		}
-		if($("#partFile").val() == "") {
-			
-			$("#fileMsg").html("첨부파일이 없습니다.")
-			
-		}
-		
-		
-		//만약 이거 안할거면 버튼 type submit으로 바꿔야지 폼 제출됨...
-		
-		
-		
-	})
-	
-	
-	
 	
 })
+
+
+//	//작성하기 버튼 유효성 검사
+//	$("#btnWrite").click({
+	
+	
+//		console.log($("#partFile").val())	
+	
+	
+	
+//		if($("#partTitle").val() == "") {
+		
+//			$("#titleMsg").html("제목을 입력해주세요.")
+		
+//		}
+	
+	
+	
+//		if($("#partContent").val() == "") {
+		
+//			$("#contentMsg").html("내용을 입력해주세요.")
+		
+//		}
+//		if($("#partFile").val() == "") {
+		
+//			$("#fileMsg").html("첨부파일이 없습니다.")
+		
+//		}
+	
+	
+//		//만약 이거 안할거면 버튼 type submit으로 바꿔야지 폼 제출됨...
+	
+	
+	
+//	})
+
+
 
 //인증글 첨부파일 미리보기
 function readURL(input){
@@ -398,11 +398,10 @@ myModal.addEventListener('shown.bs.modal', () => {
 		<button id="navButton" type="button" class="btn btn-outline-success preface">진행중</button>
 		<button id="navButton" type="button" class="btn btn-outline-success preface">마감</button>
 		
-	    <span class="search">
-	        <input type="text" name="search" class="search_input">
-	        <button type="button" name="search_btn" class="search_btn"><i class="bi bi-search"></i></button>
-	    </span>
-		
+		    <span class="search">
+		        <input type="text" name="search" class="search_input" placeholder="검색어를 입력해주세요">
+		        <button type="button" name="search_btn" class="search_btn"><i class="bi bi-search"></i></button>
+		    </span>
 	</div>
 	
 <div id="campListJsp">
