@@ -65,9 +65,10 @@
 		SELECT * FROM calendar
 	</select>
 	
-	<select id="selectIngList" resultType="web.dto.Campaign">
+	<select id="selectIngList" resultType="web.dto.Campaign" parameterType="int">
 		SELECT * FROM campaign
-		WHERE camp_state = '진행중'
+		WHERE camp_no NOT IN (SELECT camp_no FROM certification WHERE user_no = #{userNo})
+		    AND camp_state = '진행중'
 		ORDER BY camp_no DESC
 	</select>
 	
@@ -110,6 +111,15 @@
 			END
 		}
 	</delete>
+	
+	<select id="selectCert" resultType="map" parameterType="map">
+		SELECT cam.camp_title, cfile.part_file_no, cfile.part_origin_name, cfile.part_stored_name, cer.*
+		FROM (
+		    SELECT * FROM certification
+		    WHERE user_no = #{userNo} AND part_no = #{partNo}) cer, campaign cam, certification_file cfile
+		WHERE cam.camp_no = cer.camp_no
+		    AND cfile.part_no = cer.part_no		
+	</select>
 	
 	
 </mapper>

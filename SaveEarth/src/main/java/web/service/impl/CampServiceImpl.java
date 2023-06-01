@@ -150,9 +150,9 @@ public class CampServiceImpl implements CampService {
 	}
 	
 	@Override
-	public List<Campaign> getIngList() {
+	public List<Campaign> getIngList(int userNo) {
 
-		return campDao.selectIngList();
+		return campDao.selectIngList(userNo);
 	}
 
 	@Override
@@ -171,6 +171,12 @@ public class CampServiceImpl implements CampService {
 	public void deleteCert(int partNo, int partFileNo) {
 
 		campDao.deleteCert(partNo, partFileNo);
+	}
+	
+@Override
+	public Map<String, Object> getCert(int userNo, int partNo) {
+
+		return campDao.selectCert(userNo, partNo);
 	}
 	
 	

@@ -74,7 +74,7 @@ public interface CampService {
 	 * 
 	 * @return [진행중] 상태인 캠페인 리스트
 	 */
-	public List<Campaign> getIngList();
+	public List<Campaign> getIngList(int userNo);
 
 	/**
 	 * 회원번호와 일치하는 인증글 불러오기
@@ -85,11 +85,11 @@ public interface CampService {
 	public List<Certification> getcertList(int userNo);
 
 	/**
-	 * userNo
+	 * userNo과 일치하는 회원의 calDate에 작성한 인증글 목록 불러오기
 	 * 
-	 * @param attribute
-	 * @param calDate
-	 * @return
+	 * @param userNo - 로그인한 회원의 번호
+	 * @param calDate - 클릭한 날
+	 * @return 해당 날짜에 작성된 인증글의 목록
 	 */
 	public List<Map<String, Object>> getcertList(int userNo, String calDate);
 
@@ -100,5 +100,14 @@ public interface CampService {
 	 * @param partFileNo - 인증글 파일 PK
 	 */
 	public void deleteCert(int partNo, int partFileNo);
+
+	/**
+	 * userNo과 일치하는 회원의 
+	 * 
+	 * @param userNo - 로그인한 회원의 번호
+	 * @param partNo - 클릭한 인증글의 번호
+	 * @return 인증글 정보
+	 */
+	public Map<String, Object> getCert(int userNo, int partNo);
 
 }
