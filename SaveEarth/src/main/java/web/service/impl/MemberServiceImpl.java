@@ -5,15 +5,17 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashMap;
+import java.net.URLEncoder;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.mail.MailSender;
+
+
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,7 @@ import com.google.gson.JsonParser;
 import web.dao.face.MemberDao;
 import web.dto.Mail;
 import web.dto.Member;
+import web.dto.Naver;
 import web.service.face.MemberService;
 
 @Service
@@ -300,6 +303,112 @@ public class MemberServiceImpl implements MemberService {
 		
 		String loginType = memberDao.getType(member);
 		return loginType;
+	}
+
+	@Override
+	public String getnaverToken(String code, String state)  {
+		String clientId = "GHbqes62pzw1QpLMxiNo";// 애플리케이션 클라이언트 아이디값";
+		String clientSecret = "RmazoV_MRN";// 애플리케이션 클라이언트 시크릿값";
+		String redirectURI = null;
+		try {
+			redirectURI = URLEncoder.encode("http://localhost:8888/member/naver", "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code" + "&client_id=" + clientId
+				+ "&client_secret=" + clientSecret + "&redirect_uri=" + redirectURI + "&code=" + code + "&state="
+				+ state;
+		String access_Token = "";
+		String refresh_token = "";
+		try {
+			URL url = new URL(apiURL);
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con.setRequestMethod("GET");
+			int responseCode = con.getResponseCode();
+			BufferedReader br;
+			if (responseCode == 200) { // 정상 호출
+				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			} else { // 에러 발생
+				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+			}
+			String inputLine;
+			StringBuilder res = new StringBuilder();
+			while ((inputLine = br.readLine()) != null) {
+				res.append(inputLine);
+			}
+			br.close();
+			if (responseCode == 200) {
+				
+				  System.out.println(res.toString());
+				  
+				  JsonParser parser = new JsonParser();
+				  JsonObject jsonObject = parser.parse(res.toString()).getAsJsonObject();
+				  access_Token = jsonObject.get("access_token").getAsString();
+				  refresh_token = jsonObject.get("refresh_token").getAsString();
+				  
+				  System.out.println("엑세스 토큰" +access_Token);
+
+			}
+		} catch (Exception e) {
+			// Exception 로깅
+		}
+		return access_Token;
+	}
+
+	@Override
+	public Naver getnaverInfo(String access_token) {
+		
+		
+		Naver naverinfo = new Naver();
+		// 네이버 API 엔드포인트 URL
+		String apiUrl = "https://openapi.naver.com/v1/nid/me";
+		
+		try {
+		    URL url = new URL(apiUrl);
+		    HttpURLConnection con = (HttpURLConnection) url.openConnection();
+		    con.setRequestMethod("GET");
+		    con.setRequestProperty("Authorization", "Bearer " + access_token);
+		    int responseCode = con.getResponseCode();
+		    
+		    BufferedReader br;
+		    if (responseCode == 200) { // 정상 호출
+		        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		    } else { // 에러 발생
+		        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+		    }
+		    
+		    StringBuilder response = new StringBuilder();
+		    String line;
+		    while ((line = br.readLine()) != null) {
+		        response.append(line);
+		    }
+		    br.close();
+		    
+		    // API 응답 결과를 파싱하여 원하는 정보를 추출
+		    JsonParser parser = new JsonParser();
+		    JsonObject profileObject = parser.parse(response.toString()).getAsJsonObject();
+		    JsonObject responseObject = profileObject.getAsJsonObject("response");
+		    
+		    System.out.println("리스폰스확인"+response);
+		    
+		    String naverId = responseObject.get("id").getAsString();
+		    String naverName = responseObject.get("name").getAsString();
+		    String naverEmail = responseObject.get("email").getAsString();
+		    
+		    
+		    System.out.println(naverId);
+		    System.out.println(naverName);
+		    System.out.println(naverEmail);
+		    
+		    naverinfo.setNaverId(naverId);
+		    naverinfo.setNaverName(naverName);
+		    naverinfo.setNaverEmail(naverEmail);
+		    
+		} catch (Exception e) {
+		    // Exception 처리
+		}		
+		return naverinfo;
 	}
 
 	
