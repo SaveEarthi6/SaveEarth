@@ -64,14 +64,11 @@ public interface AdminDao {
 	 * @param free - 삭제할 자유게시글의 글번호
 	 */
 	public void delete(Free free);
+	
+	public List<Map<String, Object>> selectCamList(Paging paging);
+	
+	
 
-	public List<Campaign> selectCampList(Paging paging);
-
-	public List<Calendar> selectCalList();
-
-	public int selectPartNo();
-
-	public void insertCert(Certification certification);
 
 
 

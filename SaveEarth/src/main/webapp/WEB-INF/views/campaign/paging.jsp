@@ -69,7 +69,7 @@
 		<li class="page-item"><a href="./main?curPage=${paging.totalPage }&freeHead=${freeHead}" class="page-link">&raquo;</a></li>	
 	</c:if>
 	<c:if test="${paging.curPage eq paging.totalPage }">
-		<li class="page-item disabled"><a href="./main?curPage=${paging.totalPage }&freeHead=${freeHead}" class="page-link">&raquo;</a></li>	
+		<li class="page-item disabled"><a href="./z?curPage=${paging.totalPage }&freeHead=${freeHead}" class="page-link">&raquo;</a></li>	
 	</c:if>
 	
 	</ul>

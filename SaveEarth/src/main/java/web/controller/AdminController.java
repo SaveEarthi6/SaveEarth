@@ -3,7 +3,6 @@ package web.controller;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -14,15 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Admin;
-import web.dto.Calendar;
-import web.dto.Campaign;
-import web.dto.Certification;
 import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Member;
@@ -34,16 +28,20 @@ import web.util.Paging;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-	
-	   @Autowired AdminService adminService;
-	   @Autowired MemberService memberService;
-	   @Autowired CampService campService;
-	   
-	   private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	
-	   @GetMapping("/login")
-	   public void loginpage() {logger.info("/admin/login[Get]");}
 
+	@Autowired
+	AdminService adminService;
+	@Autowired
+	MemberService memberService;
+	@Autowired
+	CampService campService;
+
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	@GetMapping("/login")
+	public void loginpage() {
+		logger.info("/admin/login[Get]");
+	}
 
 	@PostMapping("/login")
 	public String login(HttpSession session, Admin admin) {
@@ -57,6 +55,7 @@ public class AdminController {
 
 		if (isLogin) {
 			session.setAttribute("isLogin", isLogin);
+			session.setAttribute("adminLogin", true);
 			session.setAttribute("loginId", admin.getAdminId());
 			session.setAttribute("loginNo", admin.getAdminNo());
 
@@ -87,7 +86,8 @@ public class AdminController {
 		model.addAttribute("paging", paging);
 	}
 
-	@GetMapping("/freeView") // 관리자 페이지 (자유게시판 상세보기)
+	// 관리자 페이지 (자유게시판 상세보기)
+	@GetMapping("/freeView")
 	public void detail(Model model, Free freeBoard, HttpSession session) {
 
 		logger.info("/admin/freeView [GET]");
@@ -130,6 +130,7 @@ public class AdminController {
 
 	}
 
+	// 관리자 자유게시판 페이지 글쓰기
 	@PostMapping("/freeWrite")
 	public String writepost(HttpSession session, Free free, @RequestParam(required = false) List<MultipartFile> files,
 			Member member) {
@@ -139,82 +140,47 @@ public class AdminController {
 		// 로그인 정보를 가지고 회원번호랑 관리자 번호를 가져옴
 		String loginId = (String) session.getAttribute("loginId");
 //    Member memberInfo = null;      
-      Admin memberInfo = adminService.info(loginId);
-      //만약 회원번호가 있으면 회원번호를 가져오고
-      //관리자번호가 있으면 관리자 번호를 가져오고
-      
-      logger.info("memberInfo {}", memberInfo);
-      
-      logger.info("free {}", free);
-      logger.info("files {}", files);
-      
-      adminService.freeWrite(free, files, memberInfo, member);
-      
-      return "redirect:./free";
-      
-   }
-   
-   @RequestMapping("/campaign")
-   public void adminCampaign(HttpSession session, Model model, @RequestParam(defaultValue = "0") int curpage) {
-	   logger.info("/admin/campaign[GET]");
-	   logger.info(" curpage : {}", curpage);
-	   
-	   Paging paging = adminService.getPaging(curpage);
-	   
-	   
-   }
-   
+		Admin memberInfo = adminService.info(loginId);
+		// 만약 회원번호가 있으면 회원번호를 가져오고
+		// 관리자번호가 있으면 관리자 번호를 가져오고
 
+		logger.info("memberInfo {}", memberInfo);
+
+		logger.info("free {}", free);
+		logger.info("files {}", files);
+
+		adminService.freeWrite(free, files, memberInfo, member);
+
+		return "redirect:./free";
+
+	}
+
+	// 관리자 자유게시판 글 삭제
 	@RequestMapping("/freeDelete")
 	public String freeDelete(Free free) {
 		adminService.delete(free);
 
 		return "redirect:./free";
 	}
+	
 
-	// 캠페인 게시판
-	@GetMapping("/campaign")
-	public void campMainGet(HttpSession session, Model model, @RequestParam(defaultValue = "0") int curPage) {
-		logger.info("/campaign/main [GET]");
-		logger.info("curPage : {}", curPage);
 
+	// 자유 게시판, 페이징
+	@RequestMapping("/campaign")
+	public void campaign(Model model, @RequestParam(defaultValue = "0") int curPage) {
+
+		// 페이징
 		Paging paging = adminService.getPaging(curPage);
 
-		// 캠페인 불러오기
-		List<Campaign> campList = adminService.getCampList(paging);
+		// 페이징을 적용한 리스트 보여주기(userno을 기준으로 join)
+		List<Map<String, Object>> camlist = adminService.Camlist(paging);
+		logger.info("자유게시판 Camlist : {}", camlist);
 
-		for (Campaign c : campList) {
-			logger.info("{}", c);
+		for (Map m : camlist) {
+			logger.info(" Camlist {} ", m);
 		}
 
-		model.addAttribute("campList", campList);
+		model.addAttribute("camlist", camlist);
 		model.addAttribute("paging", paging);
-
-		if (session.getAttribute("isLogin") != null) {
-//			List<Certification> certList = campService.getcertList(session.getAttribute("loginId"));
-		} else {
-			List<Calendar> calList = adminService.getCalendar();
-
-			for (Calendar c : calList) {
-				logger.info("{}", c);
-
-			}
-
-			model.addAttribute("calList", calList);
-		}
 	}
-	
-	@PostMapping("/main")
-	public String campMainPost(MultipartFile partFile, Certification certification ) {
-		logger.info("/campaign/main [POST]");
-		logger.info("{}", partFile);
-		logger.info("********** {}", certification);
-		
-		adminService.writePart(certification, partFile);
-		
-		//재밌는 코딩 놀이 ^~^
-		
-		return "redirect:./campaign";
-	}
-
 }

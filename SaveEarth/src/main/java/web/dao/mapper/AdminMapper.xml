@@ -16,15 +16,23 @@
 	</select>
 
 	<select id="selectList" resultType="map" parameterType="web.util.Paging">
-		SELECT * FROM(
-			SELECT rownum rnum, (SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) user_id, F.* FROM (
-				SELECT
-				*
-				FROM free
-				ORDER BY free_no DESC
-			) F
-		) FREEMAIN
+		SELECT * FROM (
+		    SELECT rownum rnum, l.* FROM (
+		        SELECT r.*, a.admin_NAME
+		        FROM (
+		            SELECT f.*, m.user_id 
+		            FROM free f
+		            LEFT OUTER JOIN member m
+		            ON f.user_no = m.user_no
+		        ) r
+		        LEFT OUTER JOIN admin a
+		    ON r.admin_no = a.admin_no
+		    ORDER BY free_no DESC
+		    ) l
+		)
 		WHERE rnum BETWEEN #{startNo} AND #{endNo}
+		
+		
 	</select>
 	
 	<update id="updateHit" parameterType="web.dto.Free">
@@ -56,19 +64,10 @@
 		WHERE free_no = #{freeNo}
 	</select>
 
-	<select id="selectCntAll2" resultType="int">
-  		 SELECT count(*) FROM campaign
-	</select>
-	
 	<select id="selectById" resultType="web.dto.Admin" parameterType="String">
 		SELECT * FROM admin
 		where admin_id = #{adminId}
 	</select>
-	
-	
-	
-	
-	
 	
 	<!-- 관리자 자유게시판 글쓰기  -->
 <!-- 	user_no, -->
@@ -97,30 +96,15 @@
 		WHERE free_no = #{freeNo}
 	</delete>
 	
-	<select id="selectCampList" resultType="web.dto.Campaign" parameterType="web.util.Paging">
-		SELECT * FROM (
-	    	SELECT rownum rnum, C.* FROM (
-	        	SELECT * FROM campaign ORDER BY camp_no DESC
-	    	) C
-		) CAMP
-		WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	<select id="selectCamCntAll" resultType="int">
+		SELECT count(*) FROM CAMPAIGN
 	</select>
-	
-	<select id="selectCalList" resultType="web.dto.Calendar">
-		SELECT * FROM calendar
-	</select>
-	
-	
-	<select id="selectPartNo" resultType="int">
-		SELECT certification_seq.nextval FROM dual
-	</select>
-	
-	<insert id="insertCert" parameterType="web.dto.Certification">
-		INSERT INTO certification (part_no, user_no, camp_no, part_title, part_content)
-		VALUES (#{partNo}, #{userNo}, #{campNo}, #{partTitle}, #{partContent})
-	</insert>
 
-
-	
+	<select id="selectCamList" parameterType="web.util.Paging" resultType="java.util.Map">
+    SELECT * FROM CAM
+    ORDER BY CAM_NO DESC
+    OFFSET #{start} ROWS
+    FETCH NEXT #{perPage} ROWS ONLY
+</select>
 
 </mapper>

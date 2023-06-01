@@ -3,7 +3,6 @@ package web.service.impl;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -18,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import web.controller.AdminController;
 import web.dao.face.AdminDao;
-import web.dao.face.FreeDao;
 import web.dto.Admin;
 import web.dto.Calendar;
 import web.dto.Campaign;
@@ -27,7 +25,6 @@ import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Member;
 import web.service.face.AdminService;
-import web.service.face.FreeService;
 import web.service.face.MemberService;
 import web.util.Paging;
 
@@ -91,21 +88,6 @@ public class AdminServiceimpl implements AdminService {
 		return false; // 로그인 인증 실패
 	}
 
-	// 켐페인
-	@Override
-	public Paging getPaging2(int curPage) {
-		logger.info("getPaging() - curPage : {}", curPage);
-
-		// 총 게시글 수 조회하기
-		int totalCount = adminDao.selectCntAll2();
-		logger.info("totalCount : {}", totalCount);
-
-		// 페이징 객체
-		Paging paging = new Paging(totalCount, curPage, 6);
-
-		return paging;
-	}
-
 	@Override
 	public void freeWrite(Free free, List<MultipartFile> files, Admin adminInfo, Member member) {
 
@@ -121,7 +103,7 @@ public class AdminServiceimpl implements AdminService {
 		logger.info("ServiceImple files :  {}", files);
 		logger.info("ServiceImple adminInfo : {}", adminInfo);
 		logger.info("ServiceImple member : {}", member);
-		
+
 		adminDao.insertFree(free);
 		logger.info("size {}", files.get(0).getSize());
 
@@ -201,46 +183,17 @@ public class AdminServiceimpl implements AdminService {
 
 		return adminDao.selectById(loginId);
 	}
-	
+
 	@Override
 	public void delete(Free free) {
-			
+
 		adminDao.deleteFile(free);
 		adminDao.delete(free);
-		
-	}
-	
-	@Override
-	public List<Campaign> getCampList(Paging paging) {
 
-		logger.info("getList() - paging : {}", paging);
-		
-		return adminDao.selectCampList(paging);
 	}
-	
 	@Override
-	public List<Calendar> getCalendar() {
-
-		return adminDao.selectCalList();
+	public List<Map<String, Object>> Camlist(Paging paging) {
+		
+		return adminDao.selectCamList(paging);
 	}
-	
-	@Override
-	public void writePart(Certification certification, MultipartFile partFile) {
-
-		//partNo 조회해오기
-		int nextVal = adminDao.selectPartNo();
-		
-		logger.info("writePart() - nextVal : {}", nextVal);
-		
-		certification.setPartNo(nextVal);
-		
-		//인증 테이블 삽입
-		adminDao.insertCert(certification);
-		
-		//파일 테이블 삽입
-		if(partFile.getSize() <= 0) {
-			return;
-		}
-	}
-	
 }

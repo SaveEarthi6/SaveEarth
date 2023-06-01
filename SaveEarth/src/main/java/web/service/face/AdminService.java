@@ -36,8 +36,6 @@ public interface AdminService {
 
 	public List<FreeFile> getFreeFile(Free freeBoard);
 
-	public Paging getPaging2(int curPage);
-
 	/**
 	 * 게시글 작성 
 	 * @param free - 작성한 게시글 정보
@@ -59,21 +57,7 @@ public interface AdminService {
 	 */
 	public void delete(Free free);
 
-	public List<Campaign> getCampList(Paging paging);
-
-	public List<Calendar> getCalendar();
-
-	public void writePart(Certification certification, MultipartFile partFile);
-
-
-
-
-
-
-	
-	
-
-
+	public List<Map<String, Object>> Camlist(Paging paging);
 
 
 }
