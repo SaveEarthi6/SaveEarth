@@ -166,56 +166,118 @@
 
    <!-- 댓글 등록 -->
    <script type="text/javascript">
-$(function(){
+// $(function(){
+//    $("#enroll").click(function() {
+//       console.log("test")
+//       console.log($('#commContent').val());
+//       console.log(${userInfo.userNo });
+//       console.log(${view.FREE_NO });
+      
+// //       const res = $("#commentForm").val();
+//       $.ajax({
+//          type: "get",
+
+//          url: "http://localhost:8888/free/comment",
+//          data:{
+//             commContent:$("#commContent").val(),
+//             userNo:${userInfo.userNo },
+//             freeNo:${view.FREE_NO }
+//             },
+//          success: function(data){
+//      		console.log(data)
+//             console.log(data.length)  		
+     		
+//             for (let i = 0; i < data.length; i++) {
+							
+// 				const timestamp = data[i].COMM_CREATE;
+// 				const date = new Date(timestamp);
+
+// 				const formattedDate = date.toLocaleString("ko-KR", {
+// 				  year: "numeric",
+// 				  month: "2-digit",
+// 				  day: "2-digit",
+// 				  hour: "2-digit",
+// 				  minute: "2-digit",
+// 				  hour12: false,
+// 				  second: "2-digit"
+// 				});
+
+// 				console.log(formattedDate);
+
+//             	   $(".writer").eq(i).html(data[i].USER_ID);
+//             	   $(".rs").eq(i).html(data[i].COMM_CONTENT);
+//             	   $(".writeDate").eq(i).html(formattedDate);
+//             }
+     		
+//      		// 남은 요소 초기화
+//             for (let i = data.length; i < $(".writer").length; i++) {
+//                $(".writer").eq(i).html('');
+//                $(".rs").eq(i).html('');
+//                $(".writeDate").eq(i).html('');
+//             }
+     		
+//             //값 비우기
+//             $("#commContent").val('')
+//          }
+//       })
+//    })
+   
+
+// })
+
+$(function() {
    $("#enroll").click(function() {
       console.log("test")
       console.log($('#commContent').val());
-      console.log(${userInfo.userNo });
-      console.log(${view.FREE_NO });
+      console.log(${userInfo.userNo});
+      console.log(${view.FREE_NO});
       
-//       const res = $("#commentForm").val();
       $.ajax({
          type: "get",
-
          url: "http://localhost:8888/free/comment",
-         data:{
-            commContent:$("#commContent").val(),
-            userNo:${userInfo.userNo },
-            freeNo:${view.FREE_NO }
-            },
-         success: function(data){
-     		console.log(data)
-            console.log(data.length)  		
-     		
-            for (i = 0; i < data.length; i++) {
-							
-				const timestamp = data[i].COMM_CREATE;
-				const date = new Date(timestamp);
+         data: {
+            commContent: $("#commContent").val(),
+            userNo: ${userInfo.userNo},
+            freeNo: ${view.FREE_NO}
+         },
+         success: function(data) {
+            console.log(data);
+            console.log(data.length);
+            
+            for (let i = 0; i < data.length; i++) {
+               const timestamp = data[i].COMM_CREATE;
+               const date = new Date(timestamp);
 
-				const formattedDate = date.toLocaleString("ko-KR", {
-				  year: "numeric",
-				  month: "2-digit",
-				  day: "2-digit",
-				  hour: "2-digit",
-				  minute: "2-digit",
-				  hour12: false,
-				  second: "2-digit"
-				});
+               const formattedDate = date.toLocaleString("ko-KR", {
+                  year: "numeric",
+                  month: "2-digit",
+                  day: "2-digit",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  hour12: false,
+                  second: "2-digit"
+               });
 
-				console.log(formattedDate);
+               console.log(formattedDate);
 
-            	   $(".writer").eq(i).html(data[i].USER_ID);
-            	   $(".rs").eq(i).html(data[i].COMM_CONTENT);
-            	   $(".writeDate").eq(i).html(formattedDate);
+               $(".writer").eq(i).html(data[i].USER_ID);
+               $(".rs").eq(i).html(data[i].COMM_CONTENT);
+               $(".writeDate").eq(i).html(formattedDate);
             }
+            
+            // 남은 요소 초기화
+            for (let i = data.length; i < $(".writer").length; i++) {
+               $(".writer").eq(i).html('');
+               $(".rs").eq(i).html('');
+               $(".writeDate").eq(i).html('');
+            }
+            
             //값 비우기
-            $("#commContent").val('')
+            $("#commContent").val('');
          }
-      })
-   })
-   
-
-})
+      });
+   });
+});
 
 
 </script>
