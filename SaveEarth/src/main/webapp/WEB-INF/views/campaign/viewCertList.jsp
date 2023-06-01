@@ -60,82 +60,39 @@
 	font-size: 0.8em;
 }
 
-
-
-
-
 </style>
 
-<script type="text/javascript">
 
-//인증글 삭제 ajax 수행
-// function deleteCert(partNo, partFileNo) {
-	
-// 	console.log(partNo)
-// 	console.log(partFileNo)
-	
-// 	$.ajax({
-// 		type: "post"
-// 		, url : "./viewCertDelete"
-// 		, data : {partNo : partNo, partFileNo : partFileNo}
-// 		, dataType : "html"
-// 		, success : function(res) {
-// 			console.log('성공')
+
+<c:choose>
+	<c:when test="${not empty userCertList }">
+		<c:forEach var="cert" items="${userCertList }">
+			<div id="viewWrap">
 			
-// 			//모달창 강제 닫아
-			
-// 			//href location으로 메인으로 보내기
-			
-// 		}
-// 		, error : function() {
-// 			console.log('실패')
-			
-// 		}
-// 	})
+				<div id="certViewPartNo" name="partNo">${cert.PART_NO }</div>
+				<div id="certViewPartFileNo" name="partFileNo">${cert.PART_FILE_NO }</div>
+				
+				<div id="certCampName">[${cert.CAMP_TITLE }]</div>
+				<div id="certViewTitle">${cert.PART_TITLE }</div>
+				<div id="certCampDate">작성일자 : <fmt:formatDate value="${cert.PART_DATE }" pattern="yyyy-MM-dd"/></div>
+				<hr>
+				<div id="certViewImg">
+					<img id="certImg" alt="" src="/upload/${cert.PART_STORED_NAME }">
+					<!-- 경로 파일을 upload로 맞춰주고 st  -->
+				</div>
+				<div id="certViewContent">${cert.PART_CONTENT }</div>
+				<!-- 버튼은 ajax 필요할듯 아마 -->
+				<hr>
+				<div id="btnWrap">
+			<!-- 		<button id="btnEditCert" class="btnViewModal">수정</button> -->
+					<a href="./viewCertDelete?partNo=${cert.PART_NO }&partFileNo=${cert.PART_FILE_NO }"><button id="btnDeleteCert" class="btnViewModal btn btn-danger btn-sm">삭제</button></a>
+				</div>
+			</div>
+		</c:forEach>
+	</c:when>
 	
-// }
-
-</script>
-
-
-<c:forEach var="cert" items="${userCertList }">
-<div id="viewWrap">
-
-	<div id="certViewPartNo" name="partNo">${cert.PART_NO }</div>
-	<div id="certViewPartFileNo" name="partFileNo">${cert.PART_FILE_NO }</div>
-	
-	<div id="certCampName">[${cert.CAMP_TITLE }]</div>
-	<div id="certViewTitle">${cert.PART_TITLE }</div>
-	<div id="certCampDate">작성일자 : <fmt:formatDate value="${cert.PART_DATE }" pattern="yyyy-MM-dd"/></div>
-	<hr>
-	<div id="certViewImg">
-		<img id="certImg" alt="" src="/upload/${cert.PART_STORED_NAME }">
-		<!-- 경로 파일을 upload로 맞춰주고 st  -->
-	</div>
-	<div id="certViewContent">${cert.PART_CONTENT }</div>
-	<!-- 버튼은 ajax 필요할듯 아마 -->
-	<hr>
-	<div id="btnWrap">
-<!-- 		<button id="btnEditCert" class="btnViewModal">수정</button> -->
-		<a href="./viewCertDelete?partNo=${cert.PART_NO }&partFileNo=${cert.PART_FILE_NO }"><button id="btnDeleteCert" class="btnViewModal btn btn-danger btn-sm">삭제</button></a>
-	</div>
-</div>
-</c:forEach>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	<c:otherwise>
+		작성한 인증글이 없습니다.
+	</c:otherwise>
+</c:choose>
 

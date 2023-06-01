@@ -50,13 +50,6 @@ public class CampaignController {
 		model.addAttribute("campList", campList);
 		model.addAttribute("paging", paging);
 		
-		
-		//모달용 진행중 캠페인 리스트 불러오기
-		List<Campaign> ingList = campService.getIngList();
-		
-		model.addAttribute("ingList", ingList);
-		
-				
 		//로그인 상태에 따라 기념일 혹은 유저 인증글 불러오기
 		if(session.getAttribute("isLogin") != null) {
 			
@@ -68,11 +61,18 @@ public class CampaignController {
 			
 			model.addAttribute("certList", certList);
 			
+			
+			//모달용 진행중 캠페인 리스트 불러오기
+			List<Campaign> ingList = campService.getIngList((int)session.getAttribute("loginNo"));
+			
+			model.addAttribute("ingList", ingList);
+			
+			
 		} else {
 			List<Calendar> calList = campService.getCalendar();
 	
 			for(Calendar c : calList) {
-				logger.info("{}", c);
+//				logger.info("{}", c);
 		
 			}
 			
@@ -189,6 +189,21 @@ public class CampaignController {
 		model.addAttribute("userCertList", userCertList);
 		
 		return model;
+	}
+	
+	@RequestMapping("/viewCert")
+	public Model viewCert(Model model, HttpSession session, int partNo) {
+		logger.info("/campaign/viewCert [GET]");
+		logger.info("{}", partNo);
+		
+		Map<String, Object> userCert = campService.getCert((int)session.getAttribute("loginNo"), partNo);
+		
+		logger.info("{}", userCert);
+		
+		model.addAttribute("userCert", userCert);
+		
+		return model;
+		
 	}
 	
 	@RequestMapping("/viewCertDelete")
