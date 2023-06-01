@@ -89,11 +89,11 @@ public class FreeBoardController {
 		model.addAttribute("freeFile", freeFile);
 		
 		//등록된 댓글 조회하기
-//		List<Map<String, Object>> commContent = freeService.getComment(freeBoard);
-//		
-//		logger.info("commContent {}", commContent);
-//		
-//		model.addAttribute("commContent", commContent);
+		List<Map<String, Object>> commContent = freeService.getComment(freeBoard);
+		
+		logger.info("commContent {}", commContent);
+		
+		model.addAttribute("commContent", commContent);
 		
 	}
 	
@@ -219,7 +219,9 @@ public class FreeBoardController {
 
 	@ResponseBody
 	@GetMapping("/free/comment")
-	public List<Map<String,Object>> commentCheck(@RequestParam("commContent") String commContent, @RequestParam("freeNo") int freeNo, @RequestParam("userNo") int userNo) {
+//	public List<Map<String,Object>> commentCheck(@RequestParam("commContent") String commContent, @RequestParam("freeNo") int freeNo, @RequestParam("userNo") int userNo) {
+	public List<Map<String,Object>> viewList(@RequestParam("commContent") String commContent, @RequestParam("freeNo") int freeNo, @RequestParam("userNo") int userNo, Model model) {
+//	public int commentCheck(@RequestParam("commContent") String commContent, @RequestParam("freeNo") int freeNo, @RequestParam("userNo") int userNo) {
 //	public String commentCheck(@RequestParam("freeNo") int freeNo) {
 		
 		logger.info("commContent {}", commContent);
@@ -232,26 +234,34 @@ public class FreeBoardController {
 		//등록된 댓글 조회하기
 		List<Map<String, Object>> commList = freeService.getCommentByFreeNo(freeNo);
 		
-		logger.info("commContent {}", commList);
+		logger.info("commList {}", commList);
 		
+		model.addAttribute("commList", commList);
+		
+//		return "/free/viewList";
 		return commList;
 		
 	}
-
-	@ResponseBody
-	@GetMapping("/free/commdelete")
-	public int commdelete(@RequestParam("commNo") int commNo) {
-		
-		logger.info("commNo {}", commNo);
-		
-		//댓글 삭제
-		int res = freeService.deleteComm(commNo);
-
-		logger.info("res {}", res);
-		
-		return res;
-		
-	}
+	
+//	@RequestMapping("/free/viewList")
+//	public void viewList(@RequestParam("commList") FreeComment commList) {
+//		
+//	}
+			
+//	@ResponseBody
+//	@GetMapping("/free/commdelete")
+//	public int commdelete(@RequestParam("commNo") int commNo) {
+//		
+//		logger.info("commNo {}", commNo);
+//		
+//		//댓글 삭제
+//		int res = freeService.deleteComm(commNo);
+//
+//		logger.info("res {}", res);
+//		
+//		return res;
+//		
+//	}
 
 	//추천기능
 	@GetMapping("/free/recommend")

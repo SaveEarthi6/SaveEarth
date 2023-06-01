@@ -144,7 +144,7 @@ public interface FreeDao {
 	 * @param freeBoard - 게시글 번호
 	 * @return - 게시글 번호와 일치하는 댓글 정보
 	 */
-//	public List<Map<String, Object>> selectComment(Free freeBoard);
+	public List<Map<String, Object>> selectComment(Free freeBoard);
 
 	/**
 	 * 선택한 파일을 삭제한다

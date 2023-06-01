@@ -321,11 +321,11 @@ public class FreeServiceImpl implements FreeService{
 
 
 	//댓글 조회
-//	@Override
-//	public List<Map<String, Object>> getComment(Free freeBoard) {
-//		
-//		return freeDao.selectComment(freeBoard);
-//	}
+	@Override
+	public List<Map<String, Object>> getComment(Free freeBoard) {
+		
+		return freeDao.selectComment(freeBoard);
+	}
 	
 	@Override
 	public List<Map<String, Object>> getCommentByFreeNo(int freeNo) {

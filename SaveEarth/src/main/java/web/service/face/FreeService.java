@@ -106,7 +106,7 @@ public interface FreeService {
 	 * @param freeBoard - 작성한 게시글 번호
 	 * @return - 조회한 댓글 정보
 	 */
-//	public List<Map<String, Object>> getComment(Free freeBoard);
+	public List<Map<String, Object>> getComment(Free freeBoard);
 
 	/**
 	 * 파일 번호가 일치하는 파일을 삭제한다

@@ -140,11 +140,11 @@
 </select>
 
 <!-- 댓글 조회 -->
-<!-- <select id="selectComment" resultType="map" parameterType="web.dto.Free"> -->
-<!-- 	SELECT c.*, (SELECT m.user_id FROM member m WHERE m.user_no = c.user_no) user_id FROM freecomment c -->
-<!-- 	WHERE free_no = #{freeNo} -->
-<!-- 	ORDER BY comm_no desc -->
-<!-- </select> -->
+<select id="selectComment" resultType="map" parameterType="web.dto.Free">
+	SELECT c.*, (SELECT m.user_id FROM member m WHERE m.user_no = c.user_no) user_id FROM freecomment c
+	WHERE free_no = #{freeNo}
+	ORDER BY comm_no desc
+</select>
 
 <select id="selectCommentByFreeNo" resultType="map" parameterType="int">
 	SELECT c.*, (SELECT m.user_id FROM member m WHERE m.user_no = c.user_no) user_id FROM freecomment c

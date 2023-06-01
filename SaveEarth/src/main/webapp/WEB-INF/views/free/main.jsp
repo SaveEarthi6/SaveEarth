@@ -41,15 +41,6 @@ body {
 	font-family: 'KBO-Dia-Gothic_bold';
 }
 
-
-/* 검색창 스타일 */
-input {
-	width: 100%;
-	border: 1px solid #bbb;
-	border-radius: 8px;
-	font-size: 14px;
-}
-
 /* '자유게시판'문구 폰트 스타일 */
 @font-face {
 	font-family: 'KBO-Dia-Gothic_bold';
@@ -84,7 +75,8 @@ select {
 	width: 300px;
 	height: 30px;
 	font-size: 18px;
-	border: 1px solid #ccc;
+	border-radius: 8px;
+	border: 1px solid #bbb;
 }
 
 /* 검색창 버튼 스타일 */
@@ -261,7 +253,6 @@ location.href="?freeHead=" + freeHead
 
 <input type="hidden" name="freeHead" value="${freeHead }">
 
-<span class="float-end mb-3">${paging.totalCount }</span>
 <div class="clearfix"></div>
 
 <div>
