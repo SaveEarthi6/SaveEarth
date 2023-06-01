@@ -10,7 +10,27 @@
 <head>
 	<meta charset="UTF-8">
 	<title>로그인</title>
+	
+<script>
+    // 실패 시 알림 창
+	$(function(){
+		if("${msg}"=="실패") alert("아이디/비밀번호 다시")
+	})	
+    
+	$(function(){
+		if("${msg}"=="카카오실패") alert("이미 존재하는 이메일입니다")
+	})	
+	
+		$(function(){
+		if("${msg}"=="네이버실패") alert("이미 존재하는 이메일입니다")
+	})	
+</script>	
+	
+	
+	
 <style type="text/css">
+
+
 
 /* base - 브라우저 별로 다를 수도 있는 것을 초기화 */
 *{ padding: 0; margin: 0; } /* 태그 여백 없앰 */
@@ -72,7 +92,7 @@ button{ cursor: pointer; } /* 모든 버튼에 마우스손모양 처리 */
     height: 12px; line-height: 12px;
 }
 .loginbox li:last-child{
-    border-left: 1px solid #333;
+    
     padding-left: 10px; /* 테두리 안쪽 여백 */
     margin-left: 4px; /* 테두리 바깥쪽 여백 */
 }
@@ -111,8 +131,10 @@ button{ cursor: pointer; } /* 모든 버튼에 마우스손모양 처리 */
         <li><a href="/member/join">회원가입</a></li>
       </ul>
       <!--데이터를 서버로 전송-->
-      <button type="submit">로그인</button>
+       <button type="submit" >로그인</button> 
+
       
+      <br>
       <ul>
       <!--  카카오 로그인 버튼 -->
     <li><a href="https://kauth.kakao.com/oauth/authorize?client_id=afd568c5b46891ae3dde245d70d25e21&redirect_uri=http://localhost:8888/member/kakao
@@ -135,11 +157,13 @@ button{ cursor: pointer; } /* 모든 버튼에 마우스손모양 처리 */
          + "&state=" + state;
     session.setAttribute("state", state);
  %>
- <li><a href="<%=apiURL%>"><img height="30px" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a></li>
+ <li><a href="<%=apiURL%>"><img width="120px" height="30px" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a></li>
 	
     </ul>
      
     </fieldset>
   </form>
 </div>
+<br>
+<br>
 <c:import url="../layout/footer.jsp"></c:import>

@@ -7,19 +7,133 @@
 <html>
 
 
+
+<script>
+    // 실패 시 알림 창을 띄우는 함수
+	$(function(){
+		if("${msg}"=="실패") alert("실패")
+	})		
+</script>
+
+
+
+
+
+<style type="text/css">
+* {
+  margin: 0px;
+  padding: 0px;
+  text-decoration: none;
+  font-family:sans-serif; 
+
+}
+
+body {
+  background-image:#34495e;
+}
+
+.joinForm {
+  position:absolute;
+  width:400px;
+  height:400px;
+  padding: 30px, 20px;
+  background-color:#FFFFFF;
+  text-align:center;
+  top:40%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  border-radius: 15px;
+}
+
+.joinForm h2 {
+  text-align: center;
+  margin: 30px;
+}
+
+.textForm {
+  border-bottom: 2px solid #adadad;
+  margin: 30px;
+  padding: 10px 10px;
+}
+
+
+.id {
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:16px;
+  height:25px;
+  background: none;
+}
+
+
+.email {
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:16px;
+  height:25px;
+  background: none;
+}
+
+
+
+.btn {
+  position:relative;
+  left:40%;
+  transform: translateX(-50%);
+  margin-bottom: 40px;
+  width:80%;
+  height:40px;
+  background: linear-gradient(125deg,#81ecec,#6c5ce7,#81ecec);
+  background-position: center;
+  background-size: 200%;
+  color:white;
+  font-weight: bold;
+  border:none;
+  cursor:pointer;
+  transition: 0.4s;
+  display:inline;
+  margin-left: 60px;
+}
+
+.btn:hover {
+  background-position: center;
+}
+
+form{
+margin: 0 auto;
+width: 700px;
+}
+</style>
+
+
 <body>
 <h1> 아이디 찾기 구현 페이지</h1>
 
 
 
-<form action="./findid" method="post">
-<label>이름</label>
-<input type="text" name="userName"><br>
-<label>이메일</label>
-<input type="email" name="userEmail">
+<form action="./findid" method="POST">
 
+      <div class="textForm">
+        <input name="userName" id="userName" type="text" class="id" placeholder="이름 ">
+      </div>
+     
+      <div class="textForm">
+	      <label for="userEmail"></label>
+	      <input name="userEmail" id="userEmail" type="email" class="email" placeholder="이메일 " >
+	       
+      </div>
+      
+      <div style="width:700px; margin: 0 auto; text-align: center;">
+<%-- 		<p id="checkNameEmail">${errorMessage}</p>  --%>
+      </div>
+      <input type="submit" class="btn" id="check" value="아이디확인" onclick="showAlert()">
+	<!--   <input type="submit" class="btn" id="check" value="아이디확인"> -->
+	  
 
-<button class="button">아이디 확인</button>
 </form>
 
 
