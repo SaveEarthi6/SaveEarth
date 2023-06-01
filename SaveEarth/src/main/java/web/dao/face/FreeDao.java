@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import web.dto.Free;
 import web.dto.FreeComment;
 import web.dto.FreeFile;
+import web.dto.Recommend;
 import web.util.Paging;
 
 public interface FreeDao {
@@ -152,6 +153,13 @@ public interface FreeDao {
 	 * @return - 결과 성공:1, 실패:0
 	 */
 	public int deleteFileByFreeFileNo(FreeFile freeFile);
+	
+	/**
+	 * 추천수 조회
+	 * @param recommend
+	 * @return
+	 */
+	public int selectByUserno(Recommend recommend);
 
 	/**
 	 * 댓글 삭제

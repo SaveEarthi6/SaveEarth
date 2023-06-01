@@ -265,15 +265,22 @@ public class FreeBoardController {
 
 	//추천기능
 	@GetMapping("/free/recommend")
-	public String recommend (Model model, Free free, HttpSession session ) {
+	public String recommend (Model model, Free free, Recommend recommend, HttpSession session ) {
 		
 		logger.info("/free/recommend [GET]");
 		
 		//loginNo가 setUserNo에 넣음
 		free.setUserNo((int)session.getAttribute("loginNo"));
+		recommend.setUserNo((int)session.getAttribute("loginNo"));
 		
 		System.out.println(free);
 		freeService.checkRecommend(free);
+		int res = freeService.selectRecommend(recommend);
+		
+		logger.info("{}",res);
+		
+		model.addAttribute("res", res);
+		model.addAttribute("free", free);
 		
 		return "redirect:/free/view?freeNo="+free.getFreeNo();
 		

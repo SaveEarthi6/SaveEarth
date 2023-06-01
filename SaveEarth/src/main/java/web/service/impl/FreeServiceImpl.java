@@ -21,6 +21,7 @@ import web.dto.Free;
 import web.dto.FreeComment;
 import web.dto.FreeFile;
 import web.dto.Member;
+import web.dto.Recommend;
 import web.service.face.FreeService;
 import web.util.Paging;
 
@@ -298,9 +299,14 @@ public class FreeServiceImpl implements FreeService{
 
 	
 	}
+<<<<<<< HEAD
 
 	
 	//댓글 작성
+=======
+
+
+>>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
 	@Override
 	public int writeComment(String commContent, int freeNo, int userNo) {
 		
@@ -348,6 +354,12 @@ public class FreeServiceImpl implements FreeService{
 		int res = freeDao.deleteComm(commNo);
 		
 		return res;
+	}
+
+	@Override
+	public int selectRecommend(Recommend recommend) {
+		return freeDao.selectByUserno(recommend);
+		
 	}
 
 }

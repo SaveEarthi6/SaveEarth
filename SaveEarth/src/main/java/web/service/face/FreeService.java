@@ -9,6 +9,7 @@ import web.dto.Free;
 import web.dto.FreeComment;
 import web.dto.FreeFile;
 import web.dto.Member;
+import web.dto.Recommend;
 import web.util.Paging;
 
 public interface FreeService {
@@ -129,6 +130,14 @@ public interface FreeService {
 	 */
 	public List<Map<String, Object>> getCommentByFreeNo(int freeNo);
 
+
+	
+	/**
+	 * 추천수 조회
+	 * @param recommend
+	 * @return
+	 */
+	public int selectRecommend(Recommend recommend);
 
 	
 	

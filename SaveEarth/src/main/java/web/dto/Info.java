@@ -9,25 +9,22 @@ public class Info {
 	private String infoTitle;
 	private String infoContent;
 	private Date infoUpload;
-	private Date infoModify;
 	
-	public Info() {
-	}
+	public Info() {}
 
-	public Info(int infoNo, int adminNo, String infoTitle, String infoContent, Date infoUpload, Date infoModify) {
+	public Info(int infoNo, int adminNo, String infoTitle, String infoContent, Date infoUpload) {
 		super();
 		this.infoNo = infoNo;
 		this.adminNo = adminNo;
 		this.infoTitle = infoTitle;
 		this.infoContent = infoContent;
 		this.infoUpload = infoUpload;
-		this.infoModify = infoModify;
 	}
 
 	@Override
 	public String toString() {
 		return "Info [infoNo=" + infoNo + ", adminNo=" + adminNo + ", infoTitle=" + infoTitle + ", infoContent="
-				+ infoContent + ", infoUpload=" + infoUpload + ", infoModify=" + infoModify + "]";
+				+ infoContent + ", infoUpload=" + infoUpload + "]";
 	}
 
 	public int getInfoNo() {
@@ -69,15 +66,6 @@ public class Info {
 	public void setInfoUpload(Date infoUpload) {
 		this.infoUpload = infoUpload;
 	}
-
-	public Date getInfoModify() {
-		return infoModify;
-	}
-
-	public void setInfoModify(Date infoModify) {
-		this.infoModify = infoModify;
-	}
-	
 	
 	
 }

@@ -80,8 +80,7 @@
    height: 30px;
 }
 
-#btnRecommend {
-   display: none;
+
 }
 </style>
 
@@ -124,16 +123,10 @@
 
       <!-- 추천 기능 버튼 -->
 
-      <button type="button" id="btnEmpty"
-         onclick="location.href='./recommend?freeNo=${view.FREE_NO}">
-         <img class="button" src="../resources/img/button_empty.png">
-      </button>
+   
+    <img class="button" id="recommendHeart" src="../resources/img/button_heart.png" onclick="toggleRecommend()">
+    <img class="button" id="recommendEmpty" src="../resources/img/button_empty.png" onclick="toggleRecommend()">
 
-
-      <button type="button" id="btnRecommend"
-         onclick="location.href='./recommend?freeNo=${view.FREE_NO}">
-         <img class="button" src="../resources/img/button_heart.png">
-      </button>
 
       ${view.RECOMMEND }
 
@@ -280,8 +273,40 @@ $(function() {
 });
 
 
+
+
 </script>
 
+<!-- 추천 AJAX -->
+<script type="text/javascript">
+
+function toggleRecommend() {
+    var userNo = ${userInfo.userNo};
+    var freeNo = ${view.freeNo};
+
+function toggleRecommend() {
+	$.ajax({
+		type: "GET",
+		url: "/free/recommend",
+		dataType: "json",
+		data: {
+			userNo: userNo,
+			freeNo: freeNo
+		},
+		success: function(data) {
+			if (data.recommend === 1) {
+				$("#recommendHeart").attr("src", "../resources/img/button_heart.png");
+			} else if (data.recommend === 0) {
+				$("#recommendEmpty").attr("src", "../resources/img/button_empty.png");
+			}
+			$("#recommendHeart").empty().append(data.recommend);
+			$("#recommendEmpty").empty().append(data.recommend);
+		}
+	});
+}
+
+
+</script>
 
    <!-- 목록 버튼 -->
    <div class="text-center mb-3">

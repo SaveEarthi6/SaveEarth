@@ -4,6 +4,7 @@
 
 <c:import url="../layout/adminheader.jsp"/>
 
+
 <!-- 풀캘린더 -->
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js'></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
@@ -135,6 +136,10 @@
  } 
 </style>
 
+ <div>
+<!-- 글쓰기 버튼 -->
+	<a href = "/admin/campaignWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
+</div>
 
 <br>
 <div class="nav">

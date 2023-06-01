@@ -2,13 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:import url="../layout/header.jsp"/>
+<c:import url="../layout/adminheader.jsp"/>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>자유게시판 상세</title>
+<title>관리자 캠페인 게시판 글쓰기</title>
 
 <!-- 스마트 에디터 2 로드 -->
 <script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js"></script>
@@ -30,30 +30,15 @@ $(function() {
 		$("form").submit()
 		
 	})
-
-})
-
-function selectfreeHead() {
 	
-var freeHead = $('#freeHead').val()
-
-
-}
+	
+	
+})
 
 function updateContents() {
 	//스마트 에디터에 작성된 내용을 textarea#content에 반영한다
 	oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", [])
 }
-
-// function freeHead_check() {
-	
-//     if($("#freeHead").val() != '질문' || $("#freeHead").val() != '정보' || $("#freeHead").val() != '사담'){
-//       alert("사담, 정보, 질문만 입력할 수 있습니다");
-//       $("#freeHead").focus();
-//       return false;
-//     }
-
-
 
 </script>
 
@@ -94,56 +79,19 @@ form {
 
 <div class="col-8 mx-auto">
 
-<form action="./write" method="post" enctype="multipart/form-data">
+<form action="./campaignWrite" method="post" enctype="multipart/form-data">
 
 <div>
-	작성자 아이디 : ${id }
+	작성자 아이디 : ${memberInfo.adminId }
 </div>
 
 <div>
-	닉네임 : ${memberInfo.userNick }
+	닉네임 : ${memberInfo.adminName }
 </div>
 
-<!-- <div class="form-group" style= "margin-top: 50px"> -->
-<!-- 	<label class="form-label" for="head">말머리글</label> -->
-<!-- 	<input type="text" id="freeHead" name="freeHead" class="form-control" style="width: 100px;"> -->
-<!-- </div> -->
-
-
-<div class="btn-group" >
-
-  	    말머리글 : 
-  <select id="freeHead" onchange="selectfreeHead()" name="freeHead" >
-
-  	    <c:choose>
-        <c:when test="${freeHead eq '사담' }">
-			<option value= "사담" selected>사담</option>
-			<option value= "정보">정보</option>
-			<option value= "질문">질문</option>
-		</c:when>
-       
-        <c:when test="${freeHead eq '정보' }">
-			<option value= "사담">사담</option>
-			<option value= "정보" selected>정보</option>
-			<option value= "질문">질문</option>
-		</c:when>
-       
-		<c:when test="${freeHead eq '질문' }">
-			<option value= "사담">사담</option>
-			<option value= "정보">정보</option>
-			<option value= "질문" selected>질문</option>
-		</c:when>
-
-		<c:otherwise>
-			<option value= "사담">사담</option>
-			<option value= "정보">정보</option>
-			<option value= "질문">질문</option>
-		</c:otherwise>
-		
-      </c:choose>
-
-  </select>
-  
+<div class="form-group" style= "margin-top: 50px">
+	<label class="form-label" for="head">말머리글</label>
+	<input type="text" id="head" name="freeHead" class="form-control" style="width: 100px;">
 </div>
 
 
@@ -162,17 +110,19 @@ form {
 	<label class="form-label" for="file">첨부파일</label>
 	<input type="file" id="file" name="files" class="form-control" multiple="multiple">
 </div>
-</form>
 
 <!-- 글쓰기 작성, 취소 버튼 -->
-<button class="btn btn-success" id="btnWrite">작성</button>
+<div>
+	<button class="btn btn-success" id="btnWrite">작성</button>
+	<input type="reset" id="cancel" class="btn btn-danger" value="취소">
+</div>
 
-<a href="/free/main"><button type="reset" id="cancel" class="btn btn-danger">취소</button></a>
+</form>
 
-
-
+</div>
 
 </div><!-- container end -->
+
 <!-- 웹에디터 연결 -->
 <script type="text/javascript">
 var oEditors = [];
