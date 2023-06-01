@@ -299,14 +299,12 @@ public class FreeServiceImpl implements FreeService{
 
 	
 	}
-<<<<<<< HEAD
+
 
 	
 	//댓글 작성
-=======
 
 
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
 	@Override
 	public int writeComment(String commContent, int freeNo, int userNo) {
 		
