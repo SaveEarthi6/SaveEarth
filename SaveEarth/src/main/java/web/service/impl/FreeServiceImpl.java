@@ -296,7 +296,13 @@ public class FreeServiceImpl implements FreeService{
 		}
 		
 		
+
+	
 	}
+
+
+	
+	//댓글 작성
 
 
 	@Override
@@ -316,7 +322,9 @@ public class FreeServiceImpl implements FreeService{
 		return res;
 		
 	}
-	
+
+
+	//댓글 조회
 	@Override
 	public List<Map<String, Object>> getComment(Free freeBoard) {
 		
@@ -324,9 +332,26 @@ public class FreeServiceImpl implements FreeService{
 	}
 	
 	@Override
+	public List<Map<String, Object>> getCommentByFreeNo(int freeNo) {
+		
+		List<Map<String, Object>> commList = freeDao.selectCommentByFreeNo(freeNo);
+		
+		return commList;
+	}
+	
+	//수정 페이지에서 파일 삭제
+	@Override
 	public int deleteFile(FreeFile freeFile) {
 		
 		return freeDao.deleteFileByFreeFileNo(freeFile);
+	}
+	
+	@Override
+	public int deleteComm(int commNo) {
+		
+		int res = freeDao.deleteComm(commNo);
+		
+		return res;
 	}
 
 	@Override
