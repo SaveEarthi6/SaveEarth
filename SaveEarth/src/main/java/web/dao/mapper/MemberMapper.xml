@@ -39,6 +39,8 @@
 	WHERE user_name=#{userName} and user_email=#{userEmail}
 	</select>
 	
+	
+	
 	<select id="selectIdByNameEmail" parameterType="web.dto.Member" resultType="web.dto.Member">
 	SELECT user_id,user_name FROM member
 	WHERE user_name=#{userName} and user_email=#{userEmail}

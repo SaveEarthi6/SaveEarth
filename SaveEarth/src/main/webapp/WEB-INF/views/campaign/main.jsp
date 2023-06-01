@@ -141,6 +141,11 @@ label {
 	color: white;
 }
 
+.warnMsg {
+	font-size: 0.8em;
+	color: #3788D8;
+}
+
 
 </style>
 
@@ -186,39 +191,81 @@ $(function(){
 })
 
 
-//	//작성하기 버튼 유효성 검사
-//	$("#btnWrite").click({
+//인증글 작성 중 검사
+$(function() {
 	
-	
-//		console.log($("#partFile").val())	
-	
-	
-	
-//		if($("#partTitle").val() == "") {
+	$("#partTitle").blur(function() {
 		
-//			$("#titleMsg").html("제목을 입력해주세요.")
+		if($(this).val() == "") {
+			$("#titleMsg").html("필수 입력요소입니다.")
+		} else {
+			$("#titleMsg").html("")
+		}
 		
-//		}
+	})
 	
-	
-	
-//		if($("#partContent").val() == "") {
+	$("#partContent").blur(function() {
 		
-//			$("#contentMsg").html("내용을 입력해주세요.")
+		if($(this).val() == "") {
+			$("#contentMsg").html("필수 입력요소입니다.")
+		} else {
+			$("#contentMsg").html("")
+		}
 		
-//		}
-//		if($("#partFile").val() == "") {
+	})
+	
+	$("#partFile").blur(function() {
 		
-//			$("#fileMsg").html("첨부파일이 없습니다.")
+		if($(this).val() == "") {
+			$("#fileMsg").html("필수 입력요소입니다.")
+		} else {
+			$("#fileMsg").html("")
+		}
 		
-//		}
+	})
 	
+})
+
+
+//인증글 제출 전 검사
+function validate() {
 	
-//		//만약 이거 안할거면 버튼 type submit으로 바꿔야지 폼 제출됨...
+	if($("#partTitle").val() == "") {
+		$("#titleMsg").html("제목을 입력해주세요.")
+		return false;
+	} else {
+		$("#titleMsg").html("")
+	}
 	
+	if($("#partContent").val() == "") {
+		$("#contentMsg").html("내용을 입력해주세요.")
+		return false;
+	} else {
+		$("#contentMsg").html("")
+	}
 	
+	if($("#partFile").val() == "") {
+		$("#fileMsg").html("첨부파일이 없습니다.")
+		return false;
+	} else {
+		("#fileMsg").html("")
+	}
 	
-//	})
+}
+
+
+//작성하기 버튼 클릭시 유효성 검사
+$(function() {
+	
+	$("#btnWrite").click(function() {
+		
+		if(!validate()) {
+			return false
+		}
+		
+	})
+	
+})
 
 
 
@@ -241,10 +288,6 @@ function readURL(input){
 	}
 }
 	
-//작성하기 클릭시 첨부파일 검사 후 폼 제출
-function deleteMsg() {
-	$("#titleMsg").html("")
-}
 
 </script>
 
@@ -258,8 +301,6 @@ myModal.addEventListener('shown.bs.modal', () => {
   myInput.focus()
 })
 
-//파일 전송 api 제이쿼리
-
 
 </script>
 
@@ -271,11 +312,11 @@ myModal.addEventListener('shown.bs.modal', () => {
 </div>	
 	
 	
-<div id="wrapCalendar">
+<div id="wrapCalendar" >
 
-	<div id="calName">나의 달력</div>
+<!-- 	<div id="calName">나의 달력</div> -->
 	
-	<div id="calendarImport">
+	<div id="calendarImport" style="margin-top: 80px; margin-bottom: 40px;">
 	
 		<c:import url="./calendar.jsp"></c:import>
 	
@@ -319,20 +360,20 @@ myModal.addEventListener('shown.bs.modal', () => {
 				<br>
 				<div class="form-group">
 					<label for="partTitle">제목</label>
-					<input type="text" class="form-control" id="partTitle" name="partTitle" placeholder="제목을 입력하세요" onchange="deleteMsg()">
-					<span id="titleMsg" style="color:red; font-size:0.8em;"></span>
+					<input type="text" class="form-control" id="partTitle" name="partTitle" placeholder="제목을 입력하세요">
+					<span id="titleMsg" class="warnMsg"></span>
 				</div>
 				<br>
 				<div class="form-group">
 					<label for="partContent">내용</label>
 					<input type="text" class="form-control" id="partContent" name="partContent" placeholder="내용을 입력하세요">				
-					<span id="contentMsg" style="color:red; font-size:0.8em;"></span>
+					<span id="contentMsg" class="warnMsg"></span>
 				</div>
 				<br>
 				<div class="form-group">
 					<label for="partFile">첨부파일</label>
 					<input type="file" class="form-control" id="partFile" name="partFile" onchange="readURL(this);" accept="image/gif, image/jpeg, image/png">
-					<span id="fileMsg" style="color:red; font-size:0.8em;"></span>
+					<span id="fileMsg" class="warnMsg" ></span>
 					<div id="previewWrap"><img id="preview" style="height: 200px;"/></div>
 				</div>
 				<div>
@@ -344,7 +385,7 @@ myModal.addEventListener('shown.bs.modal', () => {
 			<!-- Modal Footer -->
 			<div class="modal-footer" id="btnWrap">
 		        <button type="button" class="btn btn-secondary" id="btnCancel" data-bs-dismiss="modal" >취소하기</button>
-		        <button type="button" class="btn btn-primary" id="btnWrite">작성하기</button>
+		        <button type="submit" class="btn btn-primary" id="btnWrite">작성하기</button>
 			</div>
 			</form>
 		</div>
@@ -367,17 +408,12 @@ myModal.addEventListener('shown.bs.modal', () => {
     <div class="modal-content">
     
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">인증글 목록</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">나의 인증글</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" id="viewModalBody">
-        인증글 목록 불러올 곳
+        작성된 인증글이 없습니다.
       </div>
-<!--       <div class="modal-footer"> -->
-<!--         <button type="button" class="btn btn-secondary"  id="btnCancel"  data-bs-dismiss="modal">창 닫기</button> -->
-<!--         <button type="button" class="btn btn-primary">Save changes</button> -->
-<!--       </div> -->
-      
     </div>
   </div>
 </div>
@@ -398,10 +434,10 @@ myModal.addEventListener('shown.bs.modal', () => {
 		<button id="navButton" type="button" class="btn btn-outline-success preface">진행중</button>
 		<button id="navButton" type="button" class="btn btn-outline-success preface">마감</button>
 		
-		    <span class="search">
-		        <input type="text" name="search" class="search_input" placeholder="검색어를 입력해주세요">
-		        <button type="button" name="search_btn" class="search_btn"><i class="bi bi-search"></i></button>
-		    </span>
+<!-- 		    <span class="search"> -->
+<!-- 		        <input type="text" name="search" class="search_input" placeholder="검색어를 입력해주세요"> -->
+<!-- 		        <button type="button" name="search_btn" class="search_btn"><i class="bi bi-search"></i></button> -->
+<!-- 		    </span> -->
 	</div>
 	
 <div id="campListJsp">

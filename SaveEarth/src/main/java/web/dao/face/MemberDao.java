@@ -24,7 +24,12 @@ public interface MemberDao {
 
 
 
+	
+	
+	
 	public Member selectIdByNameEmail(Member member);
+	
+	
 
 
 	/**
@@ -80,6 +85,7 @@ public interface MemberDao {
 	public int kakaoExist(Member member);
 
 	public String getType(Member member);
+
 
 
 	

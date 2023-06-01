@@ -145,13 +145,45 @@ document.addEventListener('DOMContentLoaded', function() {
 			<c:if test="${not empty isLogin and isLogin }">
 				<c:forEach items="${certList}" var="certification">
 				{
-					title : "${certification.partTitle}"	,
+					id: "${certification.partNo}",
+					title : "${certification.partTitle}",
 					start : "<fmt:formatDate value="${certification.partDate}" pattern="yyyy-MM-dd"/>"
 				},
 				</c:forEach>
 			</c:if>
 				 
-		]
+		],
+		dayMaxEventRows: true,
+		eventClick: function(info) {
+			console.log(info.event.id)
+			const partNo = info.event.id
+			
+			$.ajax({
+				type: "post"
+				, url : "./viewCert"
+				, data : {partNo : partNo}
+				, dataType : "html"
+				, success : function(res) {
+					console.log('성공')
+					console.log(res)
+					
+					//view 모달 바디에 추가해주기
+					$("#viewModalBody").html(res)
+					
+				}
+				, error : function() {
+					console.log('실패')
+					
+				}
+			})
+			
+			//more 창 닫기
+			$("#fc-dom-11").css("display", "none");
+			
+			//클릭시 모달 창 띄우기
+			$("#btnViewModal").click()
+			
+		}
 		<c:if test="${not empty isLogin and isLogin }">
 		, selectable: true,
 		dateClick: function(info) {
@@ -183,30 +215,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			$("#btnViewModal").click()
 		}
 		</c:if>
-// 		dateClick: function(info) {		//날짜 클릭하면 해당 일 출력
-// 			var string = info.date
-// 			day = string.getDate()
-// 			console.log(day)
-			
-// 			//여기에 해당 일자 목록 불러오는 에이젝스..? 혹은 메소드 추가해야 함
-			
-// 		},
-// 		selectable : true,
-// 		select: function(arg) {		//날짜 클릭 이벤트
-// 			console.log(calendar.getDate())
-			
-// 			var string = calendar.getDate()
-			
-// 			day = string.getDate()
-			
-// 			console.log(day)
-			
-// 			//현재 어딜 클릭해도 오늘 날짜 출력
-// 			//일단 일 추출하는거까진 성공
-
-			
-		
-// 		},
 
 	});
     calendar.render();
