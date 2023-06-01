@@ -37,7 +37,32 @@
 	height: 500px;
 }
 
+.rs {
+/* 	border: 1px solid black; */
+	width: 70px;
+}
+
+.commList {
+	border : 1px solid green;
+	margin-bottom: 3px;
+}
+
+#btnRecommend{
+
+	border:0;
+	background-color: white;
+	
+}
+
+.button{
+	width:50px;
+	height: 50px;
+}
+
+
+
 </style>
+
 
 
 <!-- 자유게시판 디테일 이미지 -->
@@ -63,6 +88,7 @@
 </tr>
 <tr>
 	<td class="table-light">아이디</td><td>${view.USER_ID }</td>
+	<td class="table-light">닉네임</td><td>${view.USER_NICK}</td>
 </tr>
 <tr>
 	<td class="table-light">조회수</td><td>${view.FREE_VIEWS }</td>
@@ -92,59 +118,102 @@
 
 <script type="text/javascript">
 
-$function(){
-   $('#btnRecommend').click (function(){
-      
-      //전송
-        $("form").submit();
 
-      
-      $.ajax({
-           url : "./recommend",
-           type : "POST",
-           data : $("#updateForm").serialize(),
-           dataType: 'JSON',
-           success : function (data) {
-               if(data.resultMap.code == "1"){
-                   alert("좋아요!")
-                   
-               } else {
-                   alert("좋아요 취소!")
-               }
-               
-               }
-           });
-      
-   })
-   
-    console.log("btnRecommend click")
-   
-   
-   
-}
+$("#btnRecommend").click(function(){
+	
+	const element = document.getElementById('btnRecommend');
+	
+	location.href='./recommend?freeNo='+ ${view.FREE_NO}
+	
+	element.innertext = '추천취소'
+	
+	
+	
+	
+})
+
+</script>
+
+
+$(function(){
+	$("#enroll").click(function() {
+		console.log("test")
+		console.log($('#commContent').val());
+		console.log(${userInfo.userNo });
+		console.log(${view.FREE_NO });
+		
+// 		const res = $("#commentForm").val();
+		$.ajax({
+			type: "get",
+
+			url: "http://localhost:8888/free/comment",
+			data:{
+				commContent:$("#commContent").val(),
+				userNo:${userInfo.userNo },
+				freeNo:${view.FREE_NO }
+				},
+			success: function(data){
+				if(data == 1) {
+					alert('댓글 작성이 완료되었습니다!')
+// 					$('.comm').append(commContent);
+					//값 비우기
+					$("#commContent").val('');
+					
+				} else {
+					alert('다시 확인해주세요!')
+				}
+			}
+		})
+	})
+	
+
+})
 
 
 </script>
 
 
+
+
+
+
 <!-- 버튼 -->
 <div class="text-center mb-3">
    <a href= "/free/main"><button id="btnList" class="btn btn-success">목록</button></a>
+   <form action="/free/recommend">
+   <!-- 추천 기능 버튼 -->
    
-   <button type="button" id="btnRecommend" class="btn btn-success">추천</button>
-   <span id= "recommend" ></span>
+   <button type="button" id="btnRecommend" onclick="location.href='./recommend?freeNo=${view.FREE_NO}'">
+   <img class="button" src="../resources/img/button_heart.png" ></button>
    
+
+   </form>
 </div>
+
+<!-- 댓글 작성 위치 -->
+<h3>댓글</h3>
+<h5>작성자 : ${userInfo.userId}</h5>
+
+<c:forEach items="${comment }" var="comment">
+<div class="commList">
+<span>작성자 :</span><span class="writer">${comment.USER_ID }</span>
+<span>댓글 :</span><span class="rs">${comment.COMM_CONTENT }</span>
+<span>작성일 :</span><span class="writeDate">${comment.COMM_CREATE }</span>
+</div>
+</c:forEach>
 
 <!-- 댓글 -->
 	<div class="card my-4">
 		<h5 class="card-header" style="font-weight: bold;">댓글</h5>
 		<div class="card-body">
-			<form name="comment-form" action="/board/comment/write" method="post" autocomplete="off">
-					<textarea name="content" class="form-control" rows="3"></textarea>
+			<form name="commentForm" action="./comment" method="get" autocomplete="off" id="commentForm">
+					<textarea id="commContent" name="commContent" class="form-control" rows="3"></textarea>
 				<div style= "padding-top: 50px;">
-					<button type="submit" class="btn btn-success">등록</button>
+					<button id="enroll" type="button" class="btn btn-success">등록</button>
 				</div>
+				<!-- 회원번호랑 게시글 번호도 함께 보내기 -->
+<%-- 				<input type="hidden" name="userNo" value=${userInfo.userNo }> --%>
+<%-- 				<input type="hidden" name="freeNo" value=${view.FREE_NO }> --%>
 			</form>
 		</div>
 	</div>

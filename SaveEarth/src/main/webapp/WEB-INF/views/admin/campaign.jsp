@@ -147,10 +147,6 @@
 	
 <div id="wrapCalendar">
 
-<!-- 나중에 c:if 로 감싸줘야 함 -->
-
-<div id="calName">나의 달력</div>
-
 <div id="calendar"></div>
 
 
@@ -247,11 +243,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		<div class='col-1'></div>
 	</div>
 
-
-	
-</div>
-
-	
 
 <c:import url="../layout/paging.jsp"/>
 

@@ -57,7 +57,6 @@ public class MemberController {
 			session.setAttribute("isLogin", isLogin);
 			session.setAttribute("loginId", member.getUserId());
 			session.setAttribute("loginNo", member.getUserNo());
-
 		} else {
 			session.invalidate();
 		}

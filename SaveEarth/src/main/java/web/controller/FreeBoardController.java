@@ -11,14 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Member;
+import web.dto.Recommend;
 import web.service.face.FreeService;
 import web.service.face.MemberService;
 import web.util.Paging;
@@ -30,6 +33,7 @@ public class FreeBoardController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	FreeService freeService;
+	
 	@Autowired
 	MemberService memberService;
 
@@ -82,6 +86,13 @@ public class FreeBoardController {
 		logger.info("freeFile {}", freeFile);
 		model.addAttribute("freeFile", freeFile);
 		
+		//등록된 댓글 조회하기
+		List<Map<String, Object>> comment = freeService.getComment(freeBoard);
+		
+		logger.info("comment {}", comment);
+		
+		model.addAttribute("comment", comment);
+		
 	}
 	
 	@GetMapping("/free/write")
@@ -111,6 +122,7 @@ public class FreeBoardController {
 		//관리자번호가 있으면 관리자 번호를 가져오고
 		
 		logger.info("memberInfo {}", memberInfo);
+
 		logger.info("free {}", free);
 		logger.info("files {}", files);
 		
@@ -122,11 +134,26 @@ public class FreeBoardController {
 	
 	
 	@RequestMapping("/free/delete")
-	public String delete (Free free) {
-		freeService.delete(free);
+	public String deleteBoard (Free free) {
 		
-		return "redirect:/mypage/board";
+		freeService.deleteFreeFile(free);
+		freeService.deleteFree(free);
+		
+		
+		return "redirect:/mypage/board"; 
 	}
+	
+//	@RequestMapping("/free/deleteFile")
+//	public void deleteFile (Free free, Model model) {
+//		
+//		logger.info("/free/deleteFile");
+//		logger.info("free {}", free);
+//		
+//		freeService.deleteFreeFile(free);
+//		
+//		model.addAttribute("free", free);
+//		
+//	}
 	
 	
 	@GetMapping("/free/update")
@@ -152,9 +179,11 @@ public class FreeBoardController {
 		
 		logger.info("freeBoard {}", freeBoard);
 		
-		//자유게시판 내용 수정 + 파일
-		freeService.updateFree(freeBoard, files);
+		List<FreeFile> freeFile = freeService.getFreeFile(freeBoard);
+		logger.info("freeFile {}", freeFile);
 		
+		//자유게시판 내용 수정 + 파일
+		freeService.updateFree(freeBoard, files,freeFile);
 		
 		return "redirect:/free/main";
 		
@@ -166,10 +195,13 @@ public class FreeBoardController {
 		
 		logger.info("/free/search [GET]");
 		
+		logger.info("curPage {}", curPage);
 		Paging paging = freeService.getPaging(curPage);
 		
 		logger.info("freeHead {}", freeHead);
 		logger.info("keyword {}", keyword);
+		
+		logger.info("paging {}", paging);
 
 		List<Map<String,Object>> list = freeService.search(paging, keyword,freeHead);
 		
@@ -177,17 +209,59 @@ public class FreeBoardController {
 		
 		model.addAttribute("list", list);
 		model.addAttribute("freeHead", freeHead);
+		model.addAttribute("paging", paging);
+		model.addAttribute("keyword", keyword);
+		
+	}
+
+
+	@ResponseBody
+	@GetMapping("/free/comment")
+	public int commentCheck(@RequestParam("commContent") String commContent, @RequestParam("freeNo") int freeNo, @RequestParam("userNo") int userNo) {
+		
+		logger.info("commContent {}", commContent);
+		logger.info("freeNo {}", freeNo);
+		logger.info("userNo {}", userNo);
+		
+		//댓글 작성
+		int res = freeService.writeComment(commContent, freeNo, userNo);
+		
+		logger.info("res {}", res);
+		
+		return res;
+		
+	}
+
+	//추천기능
+	@GetMapping("/free/recommend")
+	public String recommend (Model model, Free free, HttpSession session ) {
+		
+		logger.info("/free/recommend [GET]");
+		
+		//loginNo가 setUserNo에 넣음
+		free.setUserNo((int)session.getAttribute("loginNo"));
+		
+		System.out.println(free);
+		freeService.checkRecommend(free);
+		
+		return "redirect:/free/view?freeNo="+free.getFreeNo();
 		
 	}
 	
-	@RequestMapping("/free/Recommend")
-	   public String Recommend (Model model,HttpSession session, Free freeNo) {
-	      
-	      freeService.recommend(freeNo);
-	      
-	      return "redirect:/free/main";
-	      
-	   }
-
+	@ResponseBody
+	@GetMapping("/free/deleteFile")
+	public int updateFile(@RequestParam("fileName") String fileName) {
+		
+		logger.info("originName {}", fileName);
+	
+		//댓글 작성
+//		int res = freeService.deleteFile(freeFile);
+		
+//		logger.info("res {}", res);
+		
+		return 0;
+		
+	}
+	
 	
 }

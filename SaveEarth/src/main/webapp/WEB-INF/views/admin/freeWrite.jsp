@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>자유게시판 상세</title>
+<title>관리자 자유게시판 글쓰기</title>
 
 <!-- 스마트 에디터 2 로드 -->
 <script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js"></script>
@@ -82,11 +82,11 @@ form {
 <form action="./freeWrite" method="post" enctype="multipart/form-data">
 
 <div>
-	작성자 아이디 : ${id }
+	작성자 아이디 : ${memberInfo.adminId }
 </div>
 
 <div>
-	닉네임 : ${nick }
+	닉네임 : ${memberInfo.adminName }
 </div>
 
 <div class="form-group" style= "margin-top: 50px">
@@ -108,7 +108,7 @@ form {
 
 <div class="form-group mb-3" style= "margin-top: 50px">
 	<label class="form-label" for="file">첨부파일</label>
-	<input type="file" id="file" name="file" class="form-control">
+	<input type="file" id="file" name="files" class="form-control" multiple="multiple">
 </div>
 
 <!-- 글쓰기 작성, 취소 버튼 -->
@@ -122,6 +122,7 @@ form {
 </div>
 
 </div><!-- container end -->
+
 <!-- 웹에디터 연결 -->
 <script type="text/javascript">
 var oEditors = [];

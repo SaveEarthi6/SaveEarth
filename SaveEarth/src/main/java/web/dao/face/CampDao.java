@@ -32,4 +32,12 @@ public interface CampDao {
 
 	public List<Calendar> selectCalList();
 
+	public List<Campaign> selectIngList();
+
+	public List<Certification> selectCertByUserNo(int userNo);
+
+	public List<Map<String, Object>> selectCertByDate(@Param("userNo") int userNo, @Param("calDate") String calDate);
+
+	public void deleteCert(@Param("partNo")int partNo, @Param("partFileNo")int partFileNo);
+
 }

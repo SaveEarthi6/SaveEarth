@@ -14,11 +14,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dao.face.FreeDao;
 import web.dto.Free;
+import web.dto.FreeComment;
 import web.dto.FreeFile;
 import web.dto.Member;
 import web.service.face.FreeService;
@@ -61,14 +61,9 @@ public class FreeServiceImpl implements FreeService{
 	@Override
 	public void freeWrite(Free free, List<MultipartFile> files, Member memberInfo) {
 		
-//		if(memberInfo.getUserNo() != 0) {
-//			free.setUserNo(memberInfo.getUserNo());
-//		} else if()
 		
-		free.setAdminNo(1);
 		free.setUserNo(memberInfo.getUserNo());
 		
-//		free.setUserNo(2);
 		logger.info("free {}", free);
 		logger.info("files {}", files);
 		logger.info("memberInfo {}", memberInfo);
@@ -159,11 +154,15 @@ public class FreeServiceImpl implements FreeService{
 	}
 
 	@Override
-	public void delete(Free free) {
+	public void deleteFree(Free free) {
 		
-		freeDao.deleteFile(free);
 		freeDao.delete(free);
 		
+	}
+	
+	public void deleteFreeFile(Free free) {
+		
+		freeDao.deleteFile(free);
 	}
 	
 	@Override
@@ -174,8 +173,9 @@ public class FreeServiceImpl implements FreeService{
 	}
 	
 	@Override
-	public void updateFree(Free freeBoard, List<MultipartFile> files) {
+	public void updateFree(Free freeBoard, List<MultipartFile> files, List<FreeFile> freeFile) {
 		
+		logger.info("updateFree freeBoard {}", freeBoard);
 		logger.info("files {}", files);
 		
 		//수정한 게시글 내용
@@ -183,12 +183,15 @@ public class FreeServiceImpl implements FreeService{
 		
 		
 		//파일이 없을 때 파일 삽입하는 메소드 처리되지 않도록 
+			
 		for(MultipartFile m : files) {
 			if(m.getSize() <= 0 ) {
 				logger.info("0보다 작음, 처리 중단");
 				return;
 			}
 		}
+		
+		
 		
 		List<FreeFile> upfiles= new ArrayList<>();
 		
@@ -200,7 +203,7 @@ public class FreeServiceImpl implements FreeService{
 		File storedFolder = new File(storedPath);
 		storedFolder.mkdir();
 		
-		for(int i=0 ; i<files.size() ; i++) {
+		for(int i=0 ; i< files.size() ; i++) {
 			
 		File dest = null;
 		String storedName = null;
@@ -232,9 +235,11 @@ public class FreeServiceImpl implements FreeService{
 		//첨부한 파일 삽입(파일 정보)
 		FreeFile freeFiles = new FreeFile();
 		
-		freeFiles.setFreeNo(freeFiles.getFreeNo());
+		freeFiles.setFreeNo(freeBoard.getFreeNo());
 		freeFiles.setFreeOriginName(files.get(i).getOriginalFilename());
 		freeFiles.setFreeStoredName(storedName);
+		//여기서 에러
+//		freeFiles.setFreeFileNo(freeFile.get(i).getFreeFileNo());
 		logger.info("freeFiles : {}", freeFiles );
 		
 		upfiles.add(freeFiles);
@@ -255,7 +260,13 @@ public class FreeServiceImpl implements FreeService{
 	@Override
 	public List<Map<String, Object>> search(Paging paging, String keyword, String freeHead) {
 		
-		return freeDao.selectFreeByKeyword(paging, keyword, freeHead);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("paging", paging);
+		map.put("keyword", keyword);
+		map.put("freeHead", freeHead);
+		
+		
+		return freeDao.selectFreeByKeyword(map);
 	}
 
 
@@ -264,13 +275,56 @@ public class FreeServiceImpl implements FreeService{
 		return freeDao.mypageList(userno);
 }
 	
+	//추천기능
 	@Override
-	public void recommend(Free freeNo) {
+	public void checkRecommend(Free free) {
 		
-      freeDao.recommend(freeNo);
+		int check = freeDao.cntRecommend(free);
+		
+		System.out.println(check);
+		
+		if(check <= 0) {
+			
+			freeDao.insertRecommend(free);
+			freeDao.plusRecommend(free);
+			
+		} else {
+			
+			freeDao.deleteRecommend(free);
+			freeDao.minusRecommend(free);
+		}
+		
 		
 	}
 
+	@Override
+	public int writeComment(String commContent, int freeNo, int userNo) {
+		
+		logger.info("commContent {}", commContent);
+		
+		FreeComment freeComment = new FreeComment();
+		freeComment.setCommContent(commContent);
+		freeComment.setFreeNo(freeNo);
+		freeComment.setUserNo(userNo);
+		
+		logger.info("freeComment {} ", freeComment);
+		
+		int res = freeDao.insertComment(freeComment);
+		
+		return res;
+		
+	}
 	
+	@Override
+	public List<Map<String, Object>> getComment(Free freeBoard) {
+		
+		return freeDao.selectComment(freeBoard);
+	}
+	
+	@Override
+	public int deleteFile(FreeFile freeFile) {
+		
+		return freeDao.deleteFileByFreeFileNo(freeFile);
+	}
 
 }
