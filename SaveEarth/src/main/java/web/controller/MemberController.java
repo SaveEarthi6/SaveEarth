@@ -322,7 +322,7 @@ public class MemberController {
 			}
 
 		}		
-		
+		 
 
 	
 		return "redirect:/saveearth/main";
