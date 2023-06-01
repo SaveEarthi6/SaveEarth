@@ -43,6 +43,10 @@ $(document).ready(function(){
 	$("#welcome").click(function(){
 		$(location).attr("href", "/intro/main")
 	})
+	
+	$("#shop").click(function(){
+		$(location).attr("href", "/goods/main")
+	})
 
 })
 
@@ -51,9 +55,11 @@ $(document).ready(function(){
 <style type="text/css">
 
 /* 이미지랑 위에 네비게이션바 여백 없애기 위한 스타일 */
+
 body {
 	margin: 0;
 	padding: 0;
+	
 }
 
 /* 상단, 하단 글씨 가운데 정렬 */
@@ -123,13 +129,18 @@ body {
 	<div id="wrap">
 	<a href="../saveearth/main"><img id="logo" src="../../resources/img/logo2.png"></a>
 	<c:if test="${empty isLogin }">
+<div>
 	<a href="/member/login" class="lefttop">로그인</a>
+	
+	
 	<a href="/admin/login"	class="righttop">관리자 로그인 </a>
+</div>	
 	</c:if>
 	<c:if test="${not empty isLogin and isLogin }">
+	<div>
 	<a href="/member/logout" class="lefttop">로그아웃</a>
 	<a href="/mypage/update" class="righttop">마이페이지</a>
-	
+	</div>
 	</c:if>
 	</div>
 </div>

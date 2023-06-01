@@ -1,15 +1,10 @@
 package web.controller;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import com.google.gson.JsonObject;
+
 
 import javax.servlet.http.HttpSession;
 
-import com.google.gson.JsonParser;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,25 +38,30 @@ public class MemberController {
 
 	@PostMapping("/login")
 
-	public String login(Member member, HttpSession session) {
+	public String login(Member member, HttpSession session, Model model) {
 
 		logger.info("/member/login");
 		logger.info("{}", member);
 		boolean isLogin = memberService.login(member);
 
 		member = memberService.info(member.getUserId());
-		System.out.println(member);
-		System.out.println("유저번호" + member.getUserNo());
+		System.out.println(isLogin);
+
+
 
 		if (isLogin) {
 			session.setAttribute("isLogin", isLogin);
 			session.setAttribute("loginId", member.getUserId());
 			session.setAttribute("loginNo", member.getUserNo());
+			
+			return "redirect:/saveearth/main";
 		} else {
 			session.invalidate();
+			model.addAttribute("msg","실패");
+			return "./member/login";
 		}
 
-		return "redirect:/saveearth/main";
+
 	}
 
 	@GetMapping("/join")
@@ -82,28 +82,32 @@ public class MemberController {
 
 	}
 
+
 	@PostMapping("/findid")
 	public String findid(Member member, Model model) {
 		System.out.println(member.getUserName());
 		System.out.println(member.getUserEmail());
 		boolean check = memberService.checkid(member);
 		System.out.println(check);
-
+		
 		if (check) {
 			Member userId = memberService.findid(member);
 
 			System.out.println(userId);
-
+//			model.addAttribute("msg","성공");
 			model.addAttribute("id", userId);
 
 			return "./member/findViewid";
 		} else {
 
+			model.addAttribute("msg","실패");
 			return "./member/findid";
 
 		}
 
 	}
+	
+	
 
 	@GetMapping("/findViewid")
 	public void findViewid() {
@@ -185,7 +189,7 @@ public class MemberController {
 	}
 
 	@GetMapping("/kakao")
-	public String kakaocode(@RequestParam("code") String code, HttpSession session) {
+	public String kakaocode(@RequestParam("code") String code, HttpSession session, Model model) {
 
 		System.out.println("code : " + code);
 
@@ -234,6 +238,8 @@ public class MemberController {
 			session.setAttribute("isLogin", isLogin);
 			session.setAttribute("loginId", member.getUserId());
 			session.setAttribute("loginNo", member.getUserNo());
+			
+			return "redirect:/saveearth/main";
 
 		} else {
 			// 있는데 다른 로그인 타입이있다
@@ -246,15 +252,20 @@ public class MemberController {
 				session.setAttribute("isLogin", true);
 				session.setAttribute("loginId", member.getUserId());
 				session.setAttribute("loginNo", member.getUserNo());
+				
+				return "redirect:/saveearth/main";
 			} else {
 				// 로그인 타입이 일반이나 네이버일경우
 				// 추가해야함 이제 알리기 이미 존재하는아이디의 이메일이 회원가입이 되어있다고 알리기
 				session.invalidate();
 				System.out.println("로그인안됨");
+				model.addAttribute("msg","카카오실패");
+				
+				return "./member/login";
 			}
 
 		}
-		return "redirect:/saveearth/main";
+		
 	}
 
 	@RequestMapping("/kakaoToken")
@@ -263,7 +274,7 @@ public class MemberController {
 	}
 
 	@GetMapping("/naver")
-	public String naver(@RequestParam("code") String code, @RequestParam("state") String state, HttpSession session) throws Exception {
+	public String naver(@RequestParam("code") String code, @RequestParam("state") String state, HttpSession session, Model model) throws Exception {
 		System.out.println(code);
 		System.out.println(state);
 		
@@ -300,6 +311,8 @@ public class MemberController {
 			session.setAttribute("isLogin", isLogin);
 			session.setAttribute("loginId", navermember.getUserId());
 			session.setAttribute("loginNo", navermember.getUserNo());
+			
+			return "redirect:/saveearth/main";
 
 		} else {
 			// 있는데 다른 로그인 타입이있다
@@ -311,6 +324,8 @@ public class MemberController {
 				session.setAttribute("isLogin", true);
 				session.setAttribute("loginId", navermember.getUserId());
 				session.setAttribute("loginNo", navermember.getUserNo());
+				
+				return "redirect:/saveearth/main";
 			} else {
 				// 로그인 타입이 일반이나 네이버일경우
 				// 추가해야함 이제 알리기 이미 존재하는아이디의 이메일이 회원가입이 되어있다고 알리기
@@ -318,13 +333,16 @@ public class MemberController {
 				access_token = (String)session.getAttribute("access_Token");
 				code = (String)session.getAttribute("code");
 				session.invalidate();
+				
+				model.addAttribute("msg","네이버실패");
+				return "./member/login";
 			}
 
 		}		
 		 
 
 	
-		return "redirect:/saveearth/main";
+		
 	}
 
 }

@@ -84,6 +84,8 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.selectIdByNameEmail(member);
 			
 	}
+	
+
 
 	@Override
 	public void delete(String loginId) {
