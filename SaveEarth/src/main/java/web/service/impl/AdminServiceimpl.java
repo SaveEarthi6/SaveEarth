@@ -42,6 +42,7 @@ public class AdminServiceimpl implements AdminService {
 	ServletContext context;
 	@Autowired
 	MemberService memberService;
+	
 
 	// 자유게시판
 	@Override
@@ -242,5 +243,6 @@ public class AdminServiceimpl implements AdminService {
 			return;
 		}
 	}
+	
 	
 }
