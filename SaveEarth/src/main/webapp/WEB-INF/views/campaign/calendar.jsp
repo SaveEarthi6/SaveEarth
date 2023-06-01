@@ -151,8 +151,9 @@ document.addEventListener('DOMContentLoaded', function() {
 				</c:forEach>
 			</c:if>
 				 
-		],
-		selectable: true,
+		]
+		<c:if test="${not empty isLogin and isLogin }">
+		, selectable: true,
 		dateClick: function(info) {
 			
 			//해당 날짜와 일치하는 user의 인증글 목록 보여주기
@@ -178,12 +179,10 @@ document.addEventListener('DOMContentLoaded', function() {
 				}
 			})
 			
-			
-			
 			//클릭시 모달 창 띄우기
 			$("#btnViewModal").click()
 		}
-		
+		</c:if>
 // 		dateClick: function(info) {		//날짜 클릭하면 해당 일 출력
 // 			var string = info.date
 // 			day = string.getDate()

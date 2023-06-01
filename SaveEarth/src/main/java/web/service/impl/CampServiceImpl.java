@@ -114,10 +114,16 @@ public class CampServiceImpl implements CampService {
 		}
 		
 		String originName = partFile.getOriginalFilename();
-		String storedName = UUID.randomUUID().toString().split("-")[0];
+		String storedName = null; 
 		
 		//실제 저장될 파일 정보 객체
-		File dest = new File(storedFolder, storedName);
+		File dest = null;
+		
+		do {
+			storedName = UUID.randomUUID().toString().split("-")[0];
+			dest = new File(storedFolder, storedName);
+			
+		} while (dest.exists());
 		
 		try {
 			partFile.transferTo(dest);
@@ -160,4 +166,12 @@ public class CampServiceImpl implements CampService {
 
 		return campDao.selectCertByDate(userNo, calDate);
 	}
+	
+	@Override
+	public void deleteCert(int partNo, int partFileNo) {
+
+		campDao.deleteCert(partNo, partFileNo);
+	}
+	
+	
 }

@@ -38,4 +38,6 @@ public interface CampDao {
 
 	public List<Map<String, Object>> selectCertByDate(@Param("userNo") int userNo, @Param("calDate") String calDate);
 
+	public void deleteCert(@Param("partNo")int partNo, @Param("partFileNo")int partFileNo);
+
 }

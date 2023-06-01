@@ -4,7 +4,7 @@
 
 <c:import url="../layout/adminheader.jsp"/>
 
-<<<<<<< HEAD
+
 <!-- 풀캘린더 -->
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js'></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
@@ -200,8 +200,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	</div>
 	
 
-=======
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
 	<div id="campList" class="row">
 		<div class="col-1"></div>
 		
