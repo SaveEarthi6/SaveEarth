@@ -87,17 +87,29 @@
 <!-- 	</select> -->
 	
 	<select id="selectCertByDate" resultType="map" parameterType="map">
-		SELECT cal.camp_title, dstr.*
-		FROM (
-			SELECT * FROM (
+		SELECT cal.camp_title, dstr.*, cfile.part_file_no, cfile.part_origin_name, cfile.part_stored_name
+		FROM (SELECT * FROM (
 		        SELECT to_char(part_date, 'YYYY-MM-DD') dateStr, c.* 
 		        FROM (
 		            SELECT * FROM certification WHERE user_no = #{userNo}
 		        ) c
 		    )
-		    WHERE datestr = #{calDate}
-		) dstr, campaign cal
+		    WHERE datestr = #{calDate}) dstr, campaign cal, certification_file cfile
 		WHERE cal.camp_no = dstr.camp_no
+		    AND cfile.part_no = dstr.part_no
 	</select>
-
+	
+	<delete id="deleteCert" parameterType="map">
+		{CALL
+			BEGIN
+				DELETE FROM certification_file
+				WHERE part_file_no = #{partFileNo};
+				
+				DELETE FROM certification
+				WHERE part_no = #{partNo};
+			END
+		}
+	</delete>
+	
+	
 </mapper>
