@@ -44,8 +44,6 @@ public class AdminController {
 	   @GetMapping("/login")
 	   public void loginpage() {logger.info("/admin/login[Get]");}
 
-
-
 	@PostMapping("/login")
 	public String login(HttpSession session, Admin admin) {
 		logger.info("/admin/login");
