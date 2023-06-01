@@ -157,66 +157,8 @@
       </c:if>
    </div>
 
-   <!-- 댓글 등록 -->
-   <script type="text/javascript">
-// $(function(){
-//    $("#enroll").click(function() {
-//       console.log("test")
-//       console.log($('#commContent').val());
-//       console.log(${userInfo.userNo });
-//       console.log(${view.FREE_NO });
-      
-// //       const res = $("#commentForm").val();
-//       $.ajax({
-//          type: "get",
-
-//          url: "http://localhost:8888/free/comment",
-//          data:{
-//             commContent:$("#commContent").val(),
-//             userNo:${userInfo.userNo },
-//             freeNo:${view.FREE_NO }
-//             },
-//          success: function(data){
-//      		console.log(data)
-//             console.log(data.length)  		
-     		
-//             for (let i = 0; i < data.length; i++) {
-							
-// 				const timestamp = data[i].COMM_CREATE;
-// 				const date = new Date(timestamp);
-
-// 				const formattedDate = date.toLocaleString("ko-KR", {
-// 				  year: "numeric",
-// 				  month: "2-digit",
-// 				  day: "2-digit",
-// 				  hour: "2-digit",
-// 				  minute: "2-digit",
-// 				  hour12: false,
-// 				  second: "2-digit"
-// 				});
-
-// 				console.log(formattedDate);
-
-//             	   $(".writer").eq(i).html(data[i].USER_ID);
-//             	   $(".rs").eq(i).html(data[i].COMM_CONTENT);
-//             	   $(".writeDate").eq(i).html(formattedDate);
-//             }
-     		
-//      		// 남은 요소 초기화
-//             for (let i = data.length; i < $(".writer").length; i++) {
-//                $(".writer").eq(i).html('');
-//                $(".rs").eq(i).html('');
-//                $(".writeDate").eq(i).html('');
-//             }
-     		
-//             //값 비우기
-//             $("#commContent").val('')
-//          }
-//       })
-//    })
-   
-
-// })
+<!-- 댓글 등록 -->
+<script type="text/javascript">
 
 $(function() {
    $("#enroll").click(function() {
@@ -225,54 +167,78 @@ $(function() {
       console.log(${userInfo.userNo});
       console.log(${view.FREE_NO});
       
+      
       $.ajax({
-         type: "get",
-         url: "http://localhost:8888/free/comment",
-         data: {
-            commContent: $("#commContent").val(),
-            userNo: ${userInfo.userNo},
-            freeNo: ${view.FREE_NO}
-         },
-         success: function(data) {
-            console.log(data);
-            console.log(data.length);
-            
-            for (let i = 0; i < data.length; i++) {
-               const timestamp = data[i].COMM_CREATE;
-               const date = new Date(timestamp);
+          type : 'get',           // 타입 (get, post, put 등등)
+          url : 'http://localhost:8888/free/comment',  // 요청할 서버url
+          dataType : 'html',       // 데이터 타입 (html, xml, json, text 등등)
+          data : {  // 보낼 데이터 (Object , String, Array)
+        	  commContent: $("#commContent").val(),
+              userNo: ${userInfo.userNo},
+              freeNo: ${param.freeNo}
+          }, 
+          success : function(result) { // 결과 성공 콜백함수
+        	  console.log(result);
+              console.log(result.length);
+				
+              $(".comm").html(result);
+              //값 비우기
+              $("#commContent").val('');
+          },
+          error : function(request, status, error) { // 결과 에러 콜백함수
+               console.log(error)
+          }
+    })
 
-               const formattedDate = date.toLocaleString("ko-KR", {
-                  year: "numeric",
-                  month: "2-digit",
-                  day: "2-digit",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                  hour12: false,
-                  second: "2-digit"
-               });
-
-               console.log(formattedDate);
-
-               $(".writer").eq(i).html(data[i].USER_ID);
-               $(".rs").eq(i).html(data[i].COMM_CONTENT);
-               $(".writeDate").eq(i).html(formattedDate);
-            }
-            
-            // 남은 요소 초기화
-            for (let i = data.length; i < $(".writer").length; i++) {
-               $(".writer").eq(i).html('');
-               $(".rs").eq(i).html('');
-               $(".writeDate").eq(i).html('');
-            }
-            
-            //값 비우기
-            $("#commContent").val('');
-         }
-      });
    });
 });
 
 
+</script>
+
+<!-- 댓글 삭제 -->
+
+<script type="text/javascript">
+// $(function() {
+// 	   $("#commDelete").click(function() {
+// 	      console.log("test")
+// 	      console.log();
+	      
+	      //ajax start
+// 	      $.ajax({
+// 	          type : 'get',           // 타입 (get, post, put 등등)
+// 	          url : 'http://localhost:8888/free/commdelete',  // 요청할 서버url
+// 	          dataType : 'html',       // 데이터 타입 (html, xml, json, text 등등)
+// 	          data : {  // 보낼 데이터 (Object , String, Array)
+// 	        	  commNo: 1
+// 	          }, 
+// 	          success : function(result) { // 결과 성공 콜백함수
+// 	        	  console.log(result);
+// 	              console.log(result.length);
+					
+// 	              $("#comm").html(result);
+// 	              //값 비우기
+// 	              $("#commContent").val('');
+// 	          },
+// 	          error : function(request, status, error) { // 결과 에러 콜백함수
+// 	               console.log(error)
+// 	          }
+// 	    })
+		//ajax end
+
+// 	   });
+// 	});
+	
+
+
+function commDelete(th) {
+// function commDelete(button) {
+	/* 자식 */
+// 	console.log( $(th).parent("#comm").children(".commNo").val() );
+	/* 자손 */
+	console.log( $(th).closest(".comm").find(".commNo").val() );
+// 	console.log( $(button).closest(".comm").find(".commNo").val() );
+}	
 
 
 </script>
@@ -280,9 +246,10 @@ $(function() {
 <!-- 추천 AJAX -->
 <script type="text/javascript">
 
+
 function toggleRecommend() {
     var userNo = ${userInfo.userNo};
-    var freeNo = ${view.freeNo};
+    var freeNo = ${param.freeNo};
 
 function toggleRecommend() {
 	$.ajax({
@@ -321,20 +288,32 @@ function toggleRecommend() {
    <!-- 댓글 작성 위치 -->
    <h3 id="comment">댓글💚</h3>
   
-   <div id="comm">
+   <div class="comm">
   
    <c:forEach items="${commContent }" var="commContent">
+   
       <img class="commentProfile" src="../resources/img/commentProfile.png">&nbsp;<span
-         class="writer" style="font-weight: bold">${commContent.USER_ID }</span>
+        id="writer" style="font-weight: bold">${commContent.USER_ID }</span>
       <br>
-      <span class="rs">${commContent.COMM_CONTENT }</span>
-ㅣ  <span class="writeDate">
+    <span id="rs">${commContent.COMM_CONTENT }</span>
+ㅣ  <span id="writeDate">
 	<fmt:formatDate value="${commContent.COMM_CREATE}" pattern="yyyy. MM. dd. HH:mm:ss" />
 	</span>
+	
+	<!-- 로그인한 아이디랑 댓글 작성한 아이디랑 같을 때 삭제 버튼이 보인다 -->
+	<c:if test="${loginId eq commContent.USER_ID }">
+	<!-- id값은 중복되면 에러나기 때문에 c:foreach같은 반복문에서는 클래스로 지정해주어야 한다 -->
+	<input type="hidden" value="${commContent.COMM_NO }" class="commNo">
+	<!-- this는 버튼의 요소를 가져가 -->
+	<button id="commDelete" class="btn btn-danger" onclick="commDelete(this)">삭제</button>  
+<!-- 	<button id="commDelete" class="btn btn-danger" onclick="commDelete()">삭제</button>   -->
+    </c:if>
+
       <hr>
+    
    </c:forEach>
-  
-    </div>  
+
+    </div> <!-- <div> comm end -->
 
 
    <!-- 댓글 -->

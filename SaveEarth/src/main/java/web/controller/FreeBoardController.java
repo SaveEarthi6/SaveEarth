@@ -216,11 +216,11 @@ public class FreeBoardController {
 		
 	}
 
-
-	@ResponseBody
+	//이거 빼니까 됨 왜?
+//	@ResponseBody
 	@GetMapping("/free/comment")
 //	public List<Map<String,Object>> commentCheck(@RequestParam("commContent") String commContent, @RequestParam("freeNo") int freeNo, @RequestParam("userNo") int userNo) {
-	public List<Map<String,Object>> viewList(@RequestParam("commContent") String commContent, @RequestParam("freeNo") int freeNo, @RequestParam("userNo") int userNo, Model model) {
+	public void viewList(@RequestParam("commContent") String commContent, @RequestParam("freeNo") int freeNo, @RequestParam("userNo") int userNo, Model model) {
 //	public int commentCheck(@RequestParam("commContent") String commContent, @RequestParam("freeNo") int freeNo, @RequestParam("userNo") int userNo) {
 //	public String commentCheck(@RequestParam("freeNo") int freeNo) {
 		
@@ -239,29 +239,21 @@ public class FreeBoardController {
 		model.addAttribute("commList", commList);
 		
 //		return "/free/viewList";
-		return commList;
 		
 	}
-	
-//	@RequestMapping("/free/viewList")
-//	public void viewList(@RequestParam("commList") FreeComment commList) {
-//		
-//	}
 			
-//	@ResponseBody
-//	@GetMapping("/free/commdelete")
-//	public int commdelete(@RequestParam("commNo") int commNo) {
-//		
-//		logger.info("commNo {}", commNo);
-//		
-//		//댓글 삭제
-//		int res = freeService.deleteComm(commNo);
-//
-//		logger.info("res {}", res);
-//		
-//		return res;
-//		
-//	}
+	@GetMapping("/free/commdelete")
+	public void commdelete(@RequestParam("commNo") int commNo) {
+		
+		logger.info("commNo {}", commNo);
+		
+		//댓글 삭제
+		freeService.deleteComm(commNo);
+		
+		//삭제한 댓글 리스트를 다시 조회
+		
+		
+	}
 
 	//추천기능
 	@GetMapping("/free/recommend")
