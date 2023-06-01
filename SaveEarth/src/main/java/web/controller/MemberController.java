@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import web.dto.Member;
+import web.dto.Naver;
 import web.service.face.MemberService;
 
 @Controller
@@ -240,8 +241,9 @@ public class MemberController {
 			// 로그인 타입 알아아오기!
 			String logintype = memberService.getType(member);
 			System.out.println(logintype);
-
-			if (logintype == "kakao") {
+			
+			if (logintype.equals("kakao")) {
+				System.out.println("로그인됨");
 				session.setAttribute("isLogin", true);
 				session.setAttribute("loginId", member.getUserId());
 				session.setAttribute("loginNo", member.getUserNo());
@@ -249,6 +251,7 @@ public class MemberController {
 				// 로그인 타입이 일반이나 네이버일경우
 				// 추가해야함 이제 알리기 이미 존재하는아이디의 이메일이 회원가입이 되어있다고 알리기
 				session.invalidate();
+				System.out.println("로그인안됨");
 			}
 
 		}
@@ -261,7 +264,7 @@ public class MemberController {
 	}
 
 	@GetMapping("/naver")
-	public String naver(@RequestParam("code") String code, @RequestParam("state") String state) throws Exception {
+	public String naver(@RequestParam("code") String code, @RequestParam("state") String state, HttpSession session) throws Exception {
 		System.out.println(code);
 		System.out.println(state);
 		
@@ -269,52 +272,60 @@ public class MemberController {
 		String access_token = memberService.getnaverToken(code,state);
 		System.out.println("컨트롤러"+access_token);
 		
-		// 네이버 API 엔드포인트 URL
-		String apiUrl = "https://openapi.naver.com/v1/nid/me";
+		//access_token 으로 정보 가져오기
+		Naver naverinfo = memberService.getnaverInfo(access_token);
+		
+		System.out.println("네이버 객체 :"+ naverinfo);
+		
+		Member navermember = new Member();
+		navermember.setUserId(naverinfo.getNaverEmail());
+		navermember.setUserName(naverinfo.getNaverName());
+		navermember.setUserNick(naverinfo.getNaverName());
+		navermember.setUserEmail(naverinfo.getNaverEmail());
+		
+		navermember.setUserLogintype("naver");
+		//비번 설정
+		String password = access_token.substring(5, 12);
+		navermember.setUserPw(password);
+		
+		System.out.println(navermember);
 
-		try {
-		    URL url = new URL(apiUrl);
-		    HttpURLConnection con = (HttpURLConnection) url.openConnection();
-		    con.setRequestMethod("GET");
-		    con.setRequestProperty("Authorization", "Bearer " + access_token);
-		    int responseCode = con.getResponseCode();
-		    
-		    BufferedReader br;
-		    if (responseCode == 200) { // 정상 호출
-		        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-		    } else { // 에러 발생
-		        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-		    }
-		    
-		    StringBuilder response = new StringBuilder();
-		    String line;
-		    while ((line = br.readLine()) != null) {
-		        response.append(line);
-		    }
-		    br.close();
-		    
-		    // API 응답 결과를 파싱하여 원하는 정보를 추출
-		    JsonParser parser = new JsonParser();
-		    JsonObject profileObject = parser.parse(response.toString()).getAsJsonObject();
-		    JsonObject responseObject = profileObject.getAsJsonObject("response");
-		    
+		
+		// 정보 조회
+		boolean isLogin = memberService.kakaoExist(navermember);
+		System.out.println("membercontroller =" + isLogin);
 
-		    
-		    String naverId = responseObject.get("id").getAsString();
-		    String naverName = responseObject.get("name").getAsString();
-		    String naverEmail = responseObject.get("email").getAsString();
-		    
-		    
-		    System.out.println(naverId);
-		    System.out.println(naverName);
-		    System.out.println(naverEmail);
-		    
-		} catch (Exception e) {
-		    // Exception 처리
-		}
+		if (isLogin) {
+			// 없으니까 가입 시키고 로그인
+			memberService.join(navermember);
+			session.setAttribute("isLogin", isLogin);
+			session.setAttribute("loginId", navermember.getUserId());
+			session.setAttribute("loginNo", navermember.getUserNo());
+
+		} else {
+			// 있는데 다른 로그인 타입이있다
+			// 로그인 타입 알아아오기!
+			String logintype = memberService.getType(navermember);
+			System.out.println(logintype);
+
+			if (logintype.equals("naver")) {
+				session.setAttribute("isLogin", true);
+				session.setAttribute("loginId", navermember.getUserId());
+				session.setAttribute("loginNo", navermember.getUserNo());
+			} else {
+				// 로그인 타입이 일반이나 네이버일경우
+				// 추가해야함 이제 알리기 이미 존재하는아이디의 이메일이 회원가입이 되어있다고 알리기
+				System.out.println("로그인안됨");
+				access_token = (String)session.getAttribute("access_Token");
+				code = (String)session.getAttribute("code");
+				session.invalidate();
+			}
+
+		}		
+		
 
 	
-		return "member/login";
+		return "redirect:/saveearth/main";
 	}
 
 }

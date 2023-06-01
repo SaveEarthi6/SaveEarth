@@ -2,8 +2,11 @@ package web.service.face;
 
 import java.util.HashMap;
 
+import com.google.gson.JsonObject;
+
 import web.dto.Mail;
 import web.dto.Member;
+import web.dto.Naver;
 
 public interface MemberService {
 
@@ -113,6 +116,8 @@ public interface MemberService {
 	 * @return
 	 */
 	public String getnaverToken(String code, String state);
+
+	public Naver getnaverInfo(String access_token);
 
 
 
