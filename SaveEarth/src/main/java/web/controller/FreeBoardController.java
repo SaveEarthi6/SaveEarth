@@ -92,7 +92,8 @@ public class FreeBoardController {
 		List<Map<String, Object>> commContent = freeService.getComment(freeBoard);
 		
 		logger.info("commContent {}", commContent);
-		
+		boolean chk = freeService.checkRecommended(loginId, freeBoard);
+		model.addAttribute("chk", chk);
 		model.addAttribute("commContent", commContent);
 		
 	}
@@ -275,25 +276,25 @@ public class FreeBoardController {
 		recommend.setUserNo((int)session.getAttribute("loginNo"));
 		
 		System.out.println(free);
-		int res = freeService.selectRecommend(recommend);
-		freeService.updateRecommend(free);
+		
+		//chk의 값이 true-추천할시에 반환, false-추천취소할시에 반환
 		boolean chk = freeService.checkRecommend(free);
 		
+
+		int res = freeService.selectRecommend(recommend);
+		freeService.updateRecommend(free);
 		logger.info("{}",res);
-		
-		model.addAttribute("res", res);
-		model.addAttribute("free", free);
 		
 		
 //		 개인 추천조회
-		if (chk == true) {
+		if (chk) {	//추천을 했을때 실행되는 코드
 			try {
 				//여기에 값을 두 개 넣을 수 있는 것을 알아보쟈아("{\"result\": false, \"recommend\": " + res + "}")
 				out.write("{\"result\": true, \"recommend\": " + res + "}");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		} else if ( chk == false ) {
+		} else {	//추천을 취소했을때 실행되는 코드
 			try {
 				out.write("{\"result\":false,  \"recommend\":" + res + "}");
 			} catch (IOException e) {

@@ -122,7 +122,15 @@
       ㅣ 조회수 ${view.FREE_VIEWS }
 
     <!-- 추천 기능 버튼 -->
+    
+    <c:if test="${chk eq false }">
 		 <img class="button" id="recommendEmpty" src="../resources/img/button_empty.png" >
+    </c:if>
+    
+    <c:if test="${chk eq true }">
+		 <img class="button" id="recommendEmpty" src="../resources/img/button_heart.png" >
+    </c:if>
+   
 
      	 <span id="result"> ${view.RECOMMEND }</span>
 
@@ -336,10 +344,11 @@ function heart(freeNo) {
             freeNo: freeNo
         },
         success: function(data) {
+        	console.log(data)
             if (data.result == true) {
-                $("#recommendEmpty").attr("src", "../resources/img/button_empty.png");
-            } else if (data.result == false) {
                 $("#recommendEmpty").attr("src", "../resources/img/button_heart.png");
+            } else if (data.result == false) {
+                $("#recommendEmpty").attr("src", "../resources/img/button_empty.png");
             }
             console.log(data.recommend);
             $("#result").html(data.recommend);

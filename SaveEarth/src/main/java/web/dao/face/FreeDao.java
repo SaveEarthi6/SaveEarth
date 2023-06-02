@@ -164,7 +164,22 @@ public interface FreeDao {
 	public List<Map<String, Object>> selectCommentByFreeNo(int freeNo);
 
 	public void updateRecommend(Free free);
+	
+	/**
+	 * 추천이 1이면 추천을 한 것
+	 * 추천이 0이면 추천을 안한 것 
+	 *
+	 * @param freeBoard
+	 * @return
+	 */
+	public int selectRecommendedByloginId(Free freeBoard);
 
+	/**
+	 * userid를 이용하여 userno를 가져오는 메소드
+	 * 
+	 * @param loginId
+	 */
+	public int selectUserNoByLoginId(String loginId);
 	
 	
 
