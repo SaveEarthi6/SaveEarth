@@ -197,35 +197,35 @@ $(function() {
 <!-- 댓글 삭제 -->
 
 <script type="text/javascript">
-// $(function() {
-// 	   $("#commDelete").click(function() {
-// 	      console.log("test")
-// 	      console.log();
+$(function() {
+	   $("#commDelete").click(function() {
+	      console.log("test")
+	      console.log();
 	      
 	      //ajax start
-// 	      $.ajax({
-// 	          type : 'get',           // 타입 (get, post, put 등등)
-// 	          url : 'http://localhost:8888/free/commdelete',  // 요청할 서버url
-// 	          dataType : 'html',       // 데이터 타입 (html, xml, json, text 등등)
-// 	          data : {  // 보낼 데이터 (Object , String, Array)
-// 	        	  commNo: 1
-// 	          }, 
-// 	          success : function(result) { // 결과 성공 콜백함수
-// 	        	  console.log(result);
-// 	              console.log(result.length);
+	      $.ajax({
+	          type : 'get',           // 타입 (get, post, put 등등)
+	          url : 'http://localhost:8888/free/commdelete',  // 요청할 서버url
+	          dataType : 'html',       // 데이터 타입 (html, xml, json, text 등등)
+	          data : {  // 보낼 데이터 (Object , String, Array)
+	        	  commNo: 1
+	          }, 
+	          success : function(result) { // 결과 성공 콜백함수
+	        	  console.log(result);
+	              console.log(result.length);
 					
-// 	              $("#comm").html(result);
-// 	              //값 비우기
-// 	              $("#commContent").val('');
-// 	          },
-// 	          error : function(request, status, error) { // 결과 에러 콜백함수
-// 	               console.log(error)
-// 	          }
-// 	    })
+	              $("#comm").html(result);
+	              //값 비우기
+	              $("#commContent").val('');
+	          },
+	          error : function(request, status, error) { // 결과 에러 콜백함수
+	               console.log(error)
+	          }
+	    })
 		//ajax end
 
-// 	   });
-// 	});
+	   });
+	});
 	
 
 
@@ -235,6 +235,7 @@ function commDelete(th) {
 // 	console.log( $(th).parent("#comm").children(".commNo").val() );
 	/* 자손 */
 	console.log( $(th).closest(".comm").find(".commNo").val() );
+	conaol
 // 	console.log( $(button).closest(".comm").find(".commNo").val() );
 }	
 
@@ -407,8 +408,7 @@ function heart(freeNo) {
 	<!-- id값은 중복되면 에러나기 때문에 c:foreach같은 반복문에서는 클래스로 지정해주어야 한다 -->
 	<input type="hidden" value="${commContent.COMM_NO }" class="commNo">
 	<!-- this는 버튼의 요소를 가져가 -->
-	<button id="commDelete" class="btn btn-danger" onclick="commDelete(this)">삭제</button>  
-<!-- 	<button id="commDelete" class="btn btn-danger" onclick="commDelete()">삭제</button>   -->
+	<button class="commDelete" class="btn btn-danger" onclick="commDelete(this, ${commContent.COMM_NO})">삭제</button>  
     </c:if>
 
       <hr>

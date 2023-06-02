@@ -123,6 +123,11 @@
 			ORDER BY free_no DESC
 		</when>
 		
+		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('공지사항')">
+			WHERE free_head = #{freeHead}
+			ORDER BY free_no DESC
+		</when>
+		
 		<otherwise>
 			ORDER BY free_no DESC
 		</otherwise>
