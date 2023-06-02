@@ -388,7 +388,7 @@ public class FreeServiceImpl implements FreeService{
 		freeDao.updateRecommend(free);
 	}
 	
-<<<<<<< HEAD
+
 	@Override
 	public boolean checkRecommended(String loginId, Free freeBoard) {
 		//loginId를 이용하여 loginno을 가져오는 메소드를 만든다.
@@ -407,8 +407,7 @@ public class FreeServiceImpl implements FreeService{
 			return false;
 		}
 	}
-=======
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
+
 	
 
 	@Override
