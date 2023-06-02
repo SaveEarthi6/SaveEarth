@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Free;
+import web.dto.FreeComment;
 import web.dto.FreeFile;
 import web.dto.Member;
 import web.dto.Recommend;
@@ -246,12 +247,10 @@ public class FreeBoardController {
 		
 		model.addAttribute("commList", commList);
 		
-//		return "/free/viewList";
-		
 	}
 			
 	@GetMapping("/free/commdelete")
-	public void commdelete(@RequestParam("commNo") int commNo) {
+	public void commdelete(@RequestParam("commNo") int commNo, @RequestParam("freeNo") int freeNo, Model model) {
 		
 		logger.info("commNo {}", commNo);
 		
@@ -259,7 +258,11 @@ public class FreeBoardController {
 		freeService.deleteComm(commNo);
 		
 		//삭제한 댓글 리스트를 다시 조회
+		List<Map<String, Object>> commList = freeService.getCommentByFreeNo(freeNo);
 		
+		logger.info("commList {}", commList);
+		
+		model.addAttribute("commList", commList);
 		
 	}
 

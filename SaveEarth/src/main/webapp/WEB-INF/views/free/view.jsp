@@ -176,7 +176,7 @@ $(function() {
       
       $.ajax({
           type : 'get',           // 타입 (get, post, put 등등)
-          url : 'http://localhost:8888/free/comment',  // 요청할 서버url
+          url : '/free/comment',  // 요청할 서버url
           dataType : 'html',       // 데이터 타입 (html, xml, json, text 등등)
           data : {  // 보낼 데이터 (Object , String, Array)
         	  commContent: $("#commContent").val(),
@@ -185,7 +185,6 @@ $(function() {
           }, 
           success : function(result) { // 결과 성공 콜백함수
         	  console.log(result);
-              console.log(result.length);
 				
               $(".comm").html(result);
               //값 비우기
@@ -206,46 +205,41 @@ $(function() {
 
 <script type="text/javascript">
 $(function() {
-	   $("#commDelete").click(function() {
+	   $(".commDelete").click(function() {
 	      console.log("test")
-	      console.log();
+	      console.log($(".commNo").index(this));
+	      
+	      var idx = $(".commDelete").index(this)
+	      var commentNo = $(".commDelete").eq(idx).attr('data-no')
+	      var freeNo = (${param.freeNo})
+	      
+	      console.log("인덱스 확인", commentNo)
+	      console.log("글번호", freeNo)
 	      
 	      //ajax start
 	      $.ajax({
 	          type : 'get',           // 타입 (get, post, put 등등)
-	          url : 'http://localhost:8888/free/commdelete',  // 요청할 서버url
+	          url : '/free/commdelete',  // 요청할 서버url
 	          dataType : 'html',       // 데이터 타입 (html, xml, json, text 등등)
 	          data : {  // 보낼 데이터 (Object , String, Array)
-	        	  commNo: 1
+	        	  "commNo" : commentNo, 
+	        	  "freeNo" : freeNo
 	          }, 
 	          success : function(result) { // 결과 성공 콜백함수
-	        	  console.log(result);
-	              console.log(result.length);
+	              console.log("성공")
+        	  	  console.log(result);
 					
-	              $("#comm").html(result);
-	              //값 비우기
-	              $("#commContent").val('');
+	              $(".comm").html(result);
 	          },
 	          error : function(request, status, error) { // 결과 에러 콜백함수
 	               console.log(error)
+	               console.log("실패")
 	          }
 	    })
 		//ajax end
 
 	   });
 	});
-	
-
-
-function commDelete(th) {
-// function commDelete(button) {
-	/* 자식 */
-// 	console.log( $(th).parent("#comm").children(".commNo").val() );
-	/* 자손 */
-	console.log( $(th).closest(".comm").find(".commNo").val() );
-	conaol
-// 	console.log( $(button).closest(".comm").find(".commNo").val() );
-}	
 
 
 </script>
@@ -318,7 +312,7 @@ function heart(freeNo) {
 	<!-- id값은 중복되면 에러나기 때문에 c:foreach같은 반복문에서는 클래스로 지정해주어야 한다 -->
 	<input type="hidden" value="${commContent.COMM_NO }" class="commNo">
 	<!-- this는 버튼의 요소를 가져가 -->
-	<button class="commDelete" class="btn btn-danger" onclick="commDelete(this, ${commContent.COMM_NO})">삭제</button>  
+	<button class="commDelete" data-no="${commContent.COMM_NO }">삭제</button>  
     </c:if>
 
       <hr>
