@@ -56,7 +56,7 @@ public class goodsController {
 		Map<String, Object> goodsDetail = goodsService.getProdDetail(prodno);
 		logger.info("{}", goodsDetail);
 		
-		//인증현황 조회해오기
+		
 		
 		model.addAttribute("goodsDetail", goodsDetail);
 		
