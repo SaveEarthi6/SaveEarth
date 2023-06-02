@@ -73,12 +73,14 @@
     align-items: flex-end;
  } 
 
- .search_input { 
- 	width: 300px; 
- 	height: 30px; 
- 	font-size: 18px; 
- 	border: 1px solid #ccc; 
-} 
+/* 검색창 스타일 */
+.search_input {
+   width: 300px;
+   height: 30px;
+   font-size: 18px;
+   border-radius: 8px;
+   border: 1px solid #bbb;
+}
 
  .search_btn { 
  	font-size: 18px; 
@@ -139,16 +141,19 @@ label {
 	color: white;
 }
 
+.warnMsg {
+	font-size: 0.8em;
+	color: #3788D8;
+}
+
 
 </style>
 
 
 <script type="text/javascript">
 
-
-
 //캠페인 상태 버튼 ajax
- $(function(){
+$(function(){
 	$(".preface").click(function() {
 		console.log("test")
 		console.log($(this).html())
@@ -182,12 +187,94 @@ label {
 		})
 
 	})
-
-
+	
 })
 
+
+//인증글 작성 중 검사
+$(function() {
+	
+	$("#partTitle").blur(function() {
+		
+		if($(this).val() == "") {
+			$("#titleMsg").html("필수 입력요소입니다.")
+		} else {
+			$("#titleMsg").html("")
+		}
+		
+	})
+	
+	$("#partContent").blur(function() {
+		
+		if($(this).val() == "") {
+			$("#contentMsg").html("필수 입력요소입니다.")
+		} else {
+			$("#contentMsg").html("")
+		}
+		
+	})
+	
+	$("#partFile").blur(function() {
+		
+		if($(this).val() == "") {
+			$("#fileMsg").html("필수 입력요소입니다.")
+		} else {
+			$("#fileMsg").html("")
+		}
+		
+	})
+	
+})
+
+
+//인증글 제출 전 검사
+function validate() {
+	
+	if($("#partTitle").val() == "") {
+		$("#titleMsg").html("제목을 입력해주세요.")
+		return false;
+	} else {
+		$("#titleMsg").html("")
+	}
+	
+	if($("#partContent").val() == "") {
+		$("#contentMsg").html("내용을 입력해주세요.")
+		return false;
+	} else {
+		$("#contentMsg").html("")
+	}
+	
+	if($("#partFile").val() == "") {
+		$("#fileMsg").html("첨부파일이 없습니다.")
+		return false;
+	} else {
+		("#fileMsg").html("")
+	}
+	
+}
+
+
+//작성하기 버튼 클릭시 유효성 검사
+$(function() {
+	
+	$("#btnWrite").click(function() {
+		
+		if(!validate()) {
+			return false
+		}
+		
+	})
+	
+})
+
+
+
 //인증글 첨부파일 미리보기
-function readURL(input) {
+function readURL(input){
+	
+	 $("#fileMsg").html('')
+	
+	
 	if (input.files && input.files[0]) {
 		
 		var reader = new FileReader();
@@ -202,7 +289,6 @@ function readURL(input) {
 }
 	
 
-
 </script>
 
 <script type="text/javascript">
@@ -215,8 +301,6 @@ myModal.addEventListener('shown.bs.modal', () => {
   myInput.focus()
 })
 
-//파일 전송 api 제이쿼리
-
 
 </script>
 
@@ -228,11 +312,11 @@ myModal.addEventListener('shown.bs.modal', () => {
 </div>	
 	
 	
-<div id="wrapCalendar">
+<div id="wrapCalendar" >
 
-	<div id="calName">나의 달력</div>
+<!-- 	<div id="calName">나의 달력</div> -->
 	
-	<div id="calendarImport">
+	<div id="calendarImport" style="margin-top: 80px; margin-bottom: 40px;">
 	
 		<c:import url="./calendar.jsp"></c:import>
 	
@@ -277,16 +361,19 @@ myModal.addEventListener('shown.bs.modal', () => {
 				<div class="form-group">
 					<label for="partTitle">제목</label>
 					<input type="text" class="form-control" id="partTitle" name="partTitle" placeholder="제목을 입력하세요">
+					<span id="titleMsg" class="warnMsg"></span>
 				</div>
 				<br>
 				<div class="form-group">
 					<label for="partContent">내용</label>
 					<input type="text" class="form-control" id="partContent" name="partContent" placeholder="내용을 입력하세요">				
+					<span id="contentMsg" class="warnMsg"></span>
 				</div>
 				<br>
 				<div class="form-group">
 					<label for="partFile">첨부파일</label>
-					<input type="file" class="form-control" id="partFile" name="partFile" onchange="readURL(this);">
+					<input type="file" class="form-control" id="partFile" name="partFile" onchange="readURL(this);" accept="image/gif, image/jpeg, image/png">
+					<span id="fileMsg" class="warnMsg" ></span>
 					<div id="previewWrap"><img id="preview" style="height: 200px;"/></div>
 				</div>
 				<div>
@@ -321,17 +408,12 @@ myModal.addEventListener('shown.bs.modal', () => {
     <div class="modal-content">
     
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">인증글 목록</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">나의 인증글</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" id="viewModalBody">
-        인증글 목록 불러올 곳
+        작성된 인증글이 없습니다.
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary"  id="btnCancel"  data-bs-dismiss="modal">창 닫기</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-      
     </div>
   </div>
 </div>
@@ -352,11 +434,10 @@ myModal.addEventListener('shown.bs.modal', () => {
 		<button id="navButton" type="button" class="btn btn-outline-success preface">진행중</button>
 		<button id="navButton" type="button" class="btn btn-outline-success preface">마감</button>
 		
-	    <span class="search">
-	        <input type="text" name="search" class="search_input">
-	        <button type="button" name="search_btn" class="search_btn"><i class="bi bi-search"></i></button>
-	    </span>
-		
+<!-- 		    <span class="search"> -->
+<!-- 		        <input type="text" name="search" class="search_input" placeholder="검색어를 입력해주세요"> -->
+<!-- 		        <button type="button" name="search_btn" class="search_btn"><i class="bi bi-search"></i></button> -->
+<!-- 		    </span> -->
 	</div>
 	
 <div id="campListJsp">

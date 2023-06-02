@@ -146,6 +146,12 @@
 	ORDER BY comm_no desc
 </select>
 
+<select id="selectCommentByFreeNo" resultType="map" parameterType="int">
+	SELECT c.*, (SELECT m.user_id FROM member m WHERE m.user_no = c.user_no) user_id FROM freecomment c
+	WHERE free_no = #{freeNo}
+	ORDER BY comm_no desc
+</select>
+
 <!-- 댓글 작성 -->
 <insert id="insertComment" parameterType="web.dto.FreeComment">
     insert into freecomment(comm_no, free_no, user_no, comm_content)
@@ -162,11 +168,10 @@
 <!-- </update> -->
 
 <!-- 댓글 삭제 -->
-<!-- <delete id="replyDelete" parameterType="com.board.domain.ReplyVO"> -->
-<!--     delete from tbl_reply -->
-<!--     where rno = #{rno} -->
-<!--         and bno = ${bno}     -->
-<!-- </delete> -->
+<delete id="deleteComm" parameterType="int">
+    delete from freecomment
+    where comm_no = #{commNo}
+</delete>
 
 
 <!-- <select id="mypageList" resultType="web.dto.Free" parameterType="int"> -->
@@ -218,6 +223,12 @@ ORDER BY free_no DESC
 	DELETE recommend
 	WHERE free_no = #{freeNo} and user_no = #{userNo}
 </delete>
+
+<select id= "selectByUserno" parameterType="web.dto.Recommend">
+	SELECT count (*) recommend
+	WHERE free_no = #{freeNo} and user_no = #{userNo}
+</select>
+
 </mapper>	
 
 

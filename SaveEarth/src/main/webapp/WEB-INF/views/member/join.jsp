@@ -19,13 +19,142 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" ></script>
 </head>
 
-<style type="text/css">
 
-.form-control {
-	width : 500px;
+
+
+
+
+
+<style type="text/css">
+* {
+  margin: 0px;
+  padding: 0px;
+  text-decoration: none;
+  font-family:sans-serif;
+
 }
 
+
+
+body {
+  background-image:#34495e;
+}
+
+
+
+.textForm {
+  text-align: left;
+      width: 485px;
+    margin: 0 auto;
+}
+.all {
+  text-align: center;	
+}
+
+
+.userId {
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:16px;
+  height:25px;
+  background: none;
+}
+
+.userPw {
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:16px;
+  height:25px;
+  background: none;
+}
+
+.userName {
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:16px;
+  height:25px;
+  background: none;
+}
+
+.userEmail {
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:16px;
+  height:25px;
+  background: none;
+}
+
+.userNick {
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:16px;
+  height:25px;
+  background: none;
+}
+
+.userPhone {
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:16px;
+  height:25px;
+  background: none;
+}
+
+ .btn-bottom { 
+  position:relative; 
+  left:2%; */
+  transform: translateX(-50%); 
+  margin-bottom: 40px; 
+  width:80%; 
+  height:40px; 
+  background: linear-gradient(125deg,#81ecec,#6c5ce7,#81ecec); 
+  background-position: center; 
+  background-size: 200%; 
+  color:white; 
+  font-weight: bold; 
+  border:none;
+  cursor:pointer; 
+  transition: 0.4s; 
+  display:inline; 
+  margin-left: 60px; 
+ } 
+
+.btn-bottom:hover {
+  background-position: center;
+}
+
+form{
+margin: 0 auto;
+width: 700px;
+}
+
+/* 폰트 스타일 */
+@font-face {
+    font-family: 'KBO-Dia-Gothic_bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+
+
 </style>
+
+
+
+
 
 <!-- 20230525추가 id 중복 -->
 <script type="text/javascript">
@@ -274,25 +403,23 @@ function joinform_check() {
 <h1>회원가입 페이지</h1>
 <hr>
 
-
-
-<br>
-
-<h3 style="margin: 0 680px;/* text-align: center; */">회원가입</h3>
+<div class="all">
 
 <br>
 
-<div style="justify-content: center, margin: 0 auto;">
+<br>
+
+<!--  <div style="justify-content: center, margin: 0 auto;">  -->
 
 
-<form action="./join" onsubmit=" return joinform_check()" style="margin : 0 520px;" method="post">
+<form action="./join" onsubmit=" return joinform_check()"  method="post">
 
 
 
 
 
-  <div class="col-md-6">
-    <label for="inputEmail4" class="form-label">아이디</label>
+  <div class="textForm">
+    <label for="inputEmail4" class="form-label">*아이디</label>
     <input type="text" class="form-control" id="userId" name="userId">
   </div>
   
@@ -303,35 +430,35 @@ function joinform_check() {
 
   
   
-  <div class="col-md-6">
-    <label for="inputPassword4" class="form-label">비밀번호</label>
+  <div class="textForm">
+    <label for="inputPassword4" class="form-label">*비밀번호</label>
     <input type="password" class="form-control" id="userPw" name="userPw">
   </div>
   
-   <div class="col-md-6">
-    <label for="inputPassword4" class="form-label">비밀번호 확인</label>
+   <div class="textForm">
+    <label for="inputPassword4" class="form-label">*비밀번호 확인</label>
     <input type="password" class="form-control" id="userpwcheck" name="userpwcheck">
   </div>
 
-  <div class="col-md-6">
-    <label for="inputCity" class="form-label">이름</label>
+  <div class="textForm">
+    <label for="inputCity" class="form-label">*이름</label>
     <input type="text" class="form-control" id="userName" name="userName">
   </div>
   
-  <div class="col-md-6">
-    <label for="inputCity" class="form-label">닉네임</label>
+  <div class="textForm">
+    <label for="inputCity" class="form-label">*닉네임</label>
     <input type="text" class="form-control" id="userNick" name="userNick">
   </div>  
   
   
-   <div class="col-md-6">
-    <label for="inputCity" class="form-label">이메일</label>
+   <div class="textForm">
+    <label for="inputCity" class="form-label">*이메일</label>
     <input type="email" class="form-control" id="userEmail" name="userEmail">
   </div>
   <span id="olEmessage"></span>
   <span id="emailHidden" style="display:none;"></span>
  
-  <div class="col-md-6">
+  <div class="textForm">
  	<label for="inputCity" class="form-label">주소</label>
  
  	<input type="button" class="form-control" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
@@ -341,18 +468,22 @@ function joinform_check() {
 	<input type="text" class="form-control" id="sample4_detailAddress" placeholder="상세주소" name="userDetailaddr">
   </div>
   
-  <div class="col-md-6">
+  <div class="textForm">
     <label for="inputCity" class="phone">연락처</label>
     <input type="text" class="form-control" id="userPhone" name="userPhone">
   </div>
-
-  <div class="col-12">
-    <button type="submit" class="btn btn-primary" id="signup" >가입하기</button>
+<br>
+<br>
+  <div >
+    <button type="submit" class="btn btn-success" id="signup" >가입하기</button>
   </div>
-  
+<br>
+<br>  
   
 </form>
 
+</div>
+	
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
     //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
@@ -415,6 +546,6 @@ function joinform_check() {
     }
 </script>
 
-</div>
+<!-- </div> -->
 
 <c:import url="../layout/footer.jsp"></c:import>

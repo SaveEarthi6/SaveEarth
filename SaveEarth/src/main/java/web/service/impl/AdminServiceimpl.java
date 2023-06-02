@@ -20,9 +20,11 @@ import web.dao.face.AdminDao;
 import web.dto.Admin;
 import web.dto.Calendar;
 import web.dto.Campaign;
+import web.dto.CampaignFile;
 import web.dto.Certification;
 import web.dto.Free;
 import web.dto.FreeFile;
+import web.dto.Info;
 import web.dto.Member;
 import web.service.face.AdminService;
 import web.service.face.MemberService;
@@ -39,6 +41,7 @@ public class AdminServiceimpl implements AdminService {
 	ServletContext context;
 	@Autowired
 	MemberService memberService;
+	
 
 	// 자유게시판
 	@Override
@@ -88,6 +91,7 @@ public class AdminServiceimpl implements AdminService {
 		return false; // 로그인 인증 실패
 	}
 
+	// 켐페인
 	@Override
 	public void freeWrite(Campaign campaign, List<MultipartFile> files, Admin adminInfo, Member member) {
 
@@ -192,10 +196,16 @@ public class AdminServiceimpl implements AdminService {
 
 	}
 	@Override
-	public List<Map<String, Object>> Camlist(Paging paging) {
+	public List<Campaign> getCampList(Paging paging) {
+
+		logger.info("getList() - paging : {}", paging);
 		
-		return adminDao.selectCamList(paging);
+		return adminDao.selectCampList(paging);
 	}
 	
-	
+	@Override
+	public List<Calendar> getCalendar() {
+
+		return adminDao.selectCalList();
+	}
 }

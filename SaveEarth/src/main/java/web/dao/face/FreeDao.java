@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import web.dto.Free;
 import web.dto.FreeComment;
 import web.dto.FreeFile;
+import web.dto.Recommend;
 import web.util.Paging;
 
 public interface FreeDao {
@@ -133,9 +134,9 @@ public interface FreeDao {
 
 
 	/**
-	 * 작성한 댓글을 삽입한다
+	 * 댓글 작성(작성한 댓글을 삽입한다)
 	 * @param freeComment - 작성한 댓글 내용(정보)
-	 * @return - 삽입 결과(성공1, 실패0)
+	 * @return - 삽입 결과 - 성공:1, 실패:0
 	 */
 	public int insertComment(FreeComment freeComment);
 
@@ -152,6 +153,28 @@ public interface FreeDao {
 	 * @return - 결과 성공:1, 실패:0
 	 */
 	public int deleteFileByFreeFileNo(FreeFile freeFile);
+	
+	/**
+	 * 추천수 조회
+	 * @param recommend
+	 * @return
+	 */
+	public int selectByUserno(Recommend recommend);
+
+	/**
+	 * 댓글 삭제
+	 * @param commNo - 댓글 번호
+	 * @return - 수행 결과 성공:1, 실패:0
+	 */
+	public int deleteComm(int commNo);
+
+	/**
+	 * 댓글 정보를 조회한다
+	 * @param freeNo - 게시글 번호
+	 * @return - 게시글 번호와 일치하는 댓글 정보
+	 */
+	public List<Map<String, Object>> selectCommentByFreeNo(int freeNo);
+
 
 
 

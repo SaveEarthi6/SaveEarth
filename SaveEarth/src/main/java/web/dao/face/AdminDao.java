@@ -8,9 +8,11 @@ import org.apache.ibatis.annotations.Param;
 import web.dto.Admin;
 import web.dto.Calendar;
 import web.dto.Campaign;
+import web.dto.CampaignFile;
 import web.dto.Certification;
 import web.dto.Free;
 import web.dto.FreeFile;
+import web.dto.Info;
 import web.util.Paging;
 
 public interface AdminDao {
@@ -70,6 +72,18 @@ public interface AdminDao {
 
 
 
+
+
+	/**
+	 * 캠페인 게시판 글작성
+	 * @param campaign
+	 */
+	public void insertCampaign(Campaign campaign);
+
+	public void insertCampaignFile(CampaignFile campaignFile);
+
+
+	
 
 
 

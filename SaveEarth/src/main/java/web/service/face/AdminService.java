@@ -8,9 +8,11 @@ import org.springframework.web.multipart.MultipartFile;
 import web.dto.Admin;
 import web.dto.Calendar;
 import web.dto.Campaign;
+import web.dto.CampaignFile;
 import web.dto.Certification;
 import web.dto.Free;
 import web.dto.FreeFile;
+import web.dto.Info;
 import web.dto.Member;
 import web.util.Paging;
 
@@ -58,6 +60,17 @@ public interface AdminService {
 	public void delete(Free free);
 
 	public List<Map<String, Object>> Camlist(Paging paging);
+
+	/**
+	 * 캠페인 게시판 글쓰기
+	 * @param campaign
+	 * @param files
+	 * @param memberInfo
+	 * @param member
+	 */
+	public void campaignWrite(Campaign campaign, List<MultipartFile> files, Admin memberInfo);
+
+	
 
 
 

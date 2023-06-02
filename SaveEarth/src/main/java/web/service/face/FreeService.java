@@ -9,6 +9,7 @@ import web.dto.Free;
 import web.dto.FreeComment;
 import web.dto.FreeFile;
 import web.dto.Member;
+import web.dto.Recommend;
 import web.util.Paging;
 
 public interface FreeService {
@@ -97,12 +98,12 @@ public interface FreeService {
 	 * @param commContent  - 입력한 댓글 내용
 	 * @param userNo - 댓글을 작성한 회원의 회원 번호
 	 * @param freeNo - 댓글을 작성한 게시글 번호
-	 * @return - 작성 성공 유무
+	 * @return - 삽입 결과 성공 : 1, 실패 : 0
 	 */
 	public int writeComment(String commContent, int freeNo, int userNo);
 
 	/**
-	 * 회원번호를 가지고 댓글 정보를 조회한다
+	 * 게시글번호를 가지고 댓글 정보를 조회한다
 	 * @param freeBoard - 작성한 게시글 번호
 	 * @return - 조회한 댓글 정보
 	 */
@@ -114,6 +115,30 @@ public interface FreeService {
 	 * @return - 결과 성공:1, 실패:0
 	 */
 	public int deleteFile(FreeFile freeFile);
+
+	/**
+	 * 댓글 삭제
+	 * @param commNo - 댓글 번호
+	 * @return - 실행 결과 / 성공:1, 실패:0
+	 */
+	public int deleteComm(int commNo);
+
+	/**
+	 * 게시글번호를 가지고 댓글 정보를 조회한다
+	 * @param freeNo - 작성한 게시글 번호
+	 * @return - 조회한 댓글 정보
+	 */
+	public List<Map<String, Object>> getCommentByFreeNo(int freeNo);
+
+
+	
+	/**
+	 * 추천수 조회
+	 * @param recommend
+	 * @return
+	 */
+	public int selectRecommend(Recommend recommend);
+
 	
 	
 	

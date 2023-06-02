@@ -139,27 +139,23 @@ input {
 
 <div class="container">
 
-<!-- 게시판 -->
-<table id= "board" class= "table table-hover text-center">
-
-	<tr style= "background-color: #59A8D9; color: white;">
-		<th style="width: 20px;">글번호</th>
-		<th style="width: 20px;">제목</th>
-		<th style="width: 20px;">작성자</th>
-		<th style="width: 20px;">조회수</th>
-		<th style="width: 20px;">작성일</th>
-	</tr>
-
-</table>
-
-	<form action="/info/search" method="get">
-	    <div class="search">
-	        <input type="text" name="keyword" class="search_input" placeholder="검색어를 입력해주세요">
-	        <button type="button" name="search_btn" class="search_btn"><i class="bi bi-search"></i></button>
-	    </div>
-	</form>
-
-
+<!-- 정보 게시판게시판 -->
+	<div id="list" class="row">
+		<div class="col-1"></div>
+		
+		<div id="list" class="row col-10">
+		
+			<c:forEach var="list" items="${list }" begin="3" end="5">
+				{list.infoNo}
+				{list.infoTitle}
+				{list.infoContent}
+				{list.infoUpload}
+			</c:forEach>
+			
+		</div>
+		
+		<div class='col-1'></div>
+	</div>
 
 </div>
 

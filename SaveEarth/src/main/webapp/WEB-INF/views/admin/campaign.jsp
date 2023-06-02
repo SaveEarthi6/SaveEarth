@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <c:import url="../layout/adminheader.jsp"/>
+
 <style type="text/css">
 /* 여백 없애기 */
 body {
@@ -146,6 +147,21 @@ location.href="?freeHead=" + freeHead
 
 </head>
 <body>
+
+
+/* 게시글 분류 전체(div) 스타일 */
+.nav { 
+ 	margin-left: 30%; 
+ 	margin-bottom: 50px; 
+ 	
+ 	
+ } 
+</style>
+
+ <div>
+<!-- 글쓰기 버튼 -->
+	<a href = "/admin/campaignWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
+</div>
 
 <br>
 <div class="nav">
