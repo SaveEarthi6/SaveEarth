@@ -42,10 +42,7 @@ public class AdminController {
 	   private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	   @GetMapping("/login")
-	   public void loginpage() {logger.info("/admin/login[Get]");}
-
-
-	   
+	   public void loginpage() {logger.info("/admin/login[Get]");}	   
 	@PostMapping("/login")
 	public String login(HttpSession session, Admin admin) {
 		logger.info("/admin/login");
