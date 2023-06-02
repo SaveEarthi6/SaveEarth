@@ -314,6 +314,7 @@ input {
       	<label>아이디</label>
       	<input name="userId" disabled id="userId" type="text" class="id" value = "${info.userId}">
       </div>
+      
       <div class="textForm">
      	 <label>비밀번호</label>
         <input name="userPw" id="pw" type="text" class="pw" value = "${info.userPw}">
@@ -331,13 +332,13 @@ input {
       
       <div class="textForm">
       <label>이메일</label>
-        <input name="userEmail" id ="email" type="text" class="email" value="${info.userEmail }">
+      <input name="userEmail" disabled id ="email" type="text" class="email" value="${info.userEmail }">
       </div>
       
      <div class="textForm">
       <input type="button" class="form-control" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
-      <input  type="text" disabled class="nickname" id="sample4_postcode" placeholder="우편번호 : ${info.userPostcode}" name="userPostcode"> 
-      <input type="text" disabled class="nickname" id="sample4_roadAddress" placeholder="도로명주소 : ${info.userAddr}" name="userAddr">
+      <input  type="text" class="nickname" id="sample4_postcode" placeholder="우편번호 : ${info.userPostcode}" name="userPostcode"> 
+      <input type="text"  class="nickname" id="sample4_roadAddress" placeholder="도로명주소 : ${info.userAddr}" name="userAddr">
       <span id="guide" style="color:#999;display:none"></span>
       <label>상세주소</label>
       <input type="text" class="nickname" id="sample4_detailAddress" value ="${info.userDetailaddr}" name="userDetailaddr">

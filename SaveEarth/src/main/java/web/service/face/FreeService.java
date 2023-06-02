@@ -79,8 +79,9 @@ public interface FreeService {
 	 * 추천수
 	 * 
 	 * @param free
+	 * @return 
 	 */
-	public void checkRecommend(Free free);
+	public boolean checkRecommend(Free free);
 
 	/**
 	 * 자유게시판 게시글 삭제
@@ -130,6 +131,13 @@ public interface FreeService {
 	 * @return
 	 */
 	public int selectRecommend(Recommend recommend);
+	
+	/**
+	 * 추천수 업데이트
+	 * @param free
+	 */
+	public void updateRecommend(Free free);
+
 
 	/**
 	 * 파일 번호를 기준으로 파일을 삭제한다

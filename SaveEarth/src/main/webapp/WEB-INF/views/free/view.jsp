@@ -121,14 +121,10 @@
          pattern="yy-MM-dd HH:mm:ss" />
       ㅣ 조회수 ${view.FREE_VIEWS }
 
-      <!-- 추천 기능 버튼 -->
+    <!-- 추천 기능 버튼 -->
+		 <img class="button" id="recommendEmpty" src="../resources/img/button_empty.png" >
 
-   
-    <img class="button" id="recommendHeart" src="../resources/img/button_heart.png" onclick="toggleRecommend()">
-    <img class="button" id="recommendEmpty" src="../resources/img/button_empty.png" onclick="toggleRecommend()">
-
-
-      ${view.RECOMMEND }
+     	 <span id="result"> ${view.RECOMMEND }</span>
 
    </div>
 
@@ -150,6 +146,8 @@
    <div class="mb-3">
       <c:if test="${not empty freeFile }">
          <c:forEach items="${freeFile }" var="file">
+                <img src="../upload/  ${file.freeStoredName }" style= "width:1000px;">
+                <br>
             <a href="../upload/${file.freeStoredName }"
                download="${file.freeOriginName }"> ${file.freeOriginName } </a>
             <br>
@@ -245,31 +243,135 @@ function commDelete(th) {
 
 <!-- 추천 AJAX -->
 <script type="text/javascript">
+// $(functinon(){
+	
+	
+	
+//     heart();
+//     heart();
+	
 
+// $("#recommendEmpty").click(function() {
+//     var freeNo = ${view.FREE_NO};
+//     heart();
+// //     var userNo = ${userInfo.userNo};
+	
+
+// 	})
+// })
 
 function toggleRecommend() {
     var userNo = ${userInfo.userNo};
     var freeNo = ${param.freeNo};
 
-function toggleRecommend() {
-	$.ajax({
-		type: "GET",
-		url: "/free/recommend",
-		dataType: "json",
-		data: {
-			userNo: userNo,
-			freeNo: freeNo
-		},
-		success: function(data) {
-			if (data.recommend === 1) {
-				$("#recommendHeart").attr("src", "../resources/img/button_heart.png");
-			} else if (data.recommend === 0) {
-				$("#recommendEmpty").attr("src", "../resources/img/button_empty.png");
-			}
-			$("#recommendHeart").empty().append(data.recommend);
-			$("#recommendEmpty").empty().append(data.recommend);
-		}
-	});
+// 	})
+// })
+
+
+// function heart() {
+	
+// 	$.ajax({
+// 		type: "GET",
+// 		url: "/free/recommend",
+// 		dataType: "json",
+// 		data: {
+// // 			userNo: userNo,
+// 			freeNo: freeNo
+// 		},
+// 		success: function(data) {
+// 			if (data.result == true) {
+// 				$("#recommendEmpty").attr("src", "../resources/img/button_empty.png");
+// 			} else if (data.result == false) {
+// 				$("#recommendEmpty").attr("src", "../resources/img/button_heart.png");
+// 			}
+// 			console.log(data.recommend)
+// 			$("#result").html(data.recommend);
+// 		}, error: function() {
+// 			console.log("실패")
+// 		}
+// 	});
+// }
+$(function() {
+
+    $("#recommendEmpty").click(function() {
+        var freeNo = ${view.FREE_NO};
+        heart(freeNo);
+    });
+});
+
+function heart(freeNo) {
+    $.ajax({
+        type: "GET",
+        url: "/free/recommend",
+        dataType: "json",
+        data: {
+            freeNo: freeNo
+        },
+        success: function(data) {
+            if (data.result == true) {
+                $("#recommendEmpty").attr("src", "../resources/img/button_empty.png");
+            } else if (data.result == false) {
+                $("#recommendEmpty").attr("src", "../resources/img/button_heart.png");
+            }
+            console.log(data.recommend);
+            $("#result").html(data.recommend);
+        },
+        error: function() {
+            console.log("실패");
+        }
+    });
+// function heart() {
+	
+// 	$.ajax({
+// 		type: "GET",
+// 		url: "/free/recommend",
+// 		dataType: "json",
+// 		data: {
+// // 			userNo: userNo,
+// 			freeNo: freeNo
+// 		},
+// 		success: function(data) {
+// 			if (data.result == true) {
+// 				$("#recommendEmpty").attr("src", "../resources/img/button_empty.png");
+// 			} else if (data.result == false) {
+// 				$("#recommendEmpty").attr("src", "../resources/img/button_heart.png");
+// 			}
+// 			console.log(data.recommend)
+// 			$("#result").html(data.recommend);
+// 		}, error: function() {
+// 			console.log("실패")
+// 		}
+// 	});
+// }
+$(function() {
+
+    $("#recommendEmpty").click(function() {
+        var freeNo = ${view.FREE_NO};
+        heart(freeNo);
+    });
+});
+
+function heart(freeNo) {
+    $.ajax({
+        type: "GET",
+        url: "/free/recommend",
+        dataType: "json",
+        data: {
+            freeNo: freeNo
+        },
+        success: function(data) {
+            if (data.result == true) {
+                $("#recommendEmpty").attr("src", "../resources/img/button_empty.png");
+            } else if (data.result == false) {
+                $("#recommendEmpty").attr("src", "../resources/img/button_heart.png");
+            }
+            console.log(data.recommend);
+            $("#result").html(data.recommend);
+        },
+        error: function() {
+            console.log("실패");
+        }
+    });
 }
 
 
