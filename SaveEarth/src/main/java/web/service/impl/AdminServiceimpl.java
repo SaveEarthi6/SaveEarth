@@ -33,179 +33,304 @@ import web.util.Paging;
 @Service
 public class AdminServiceimpl implements AdminService {
 
-	private final Logger logger = LoggerFactory.getLogger(AdminController.class);
+   private final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
-	@Autowired
-	AdminDao adminDao;
-	@Autowired
-	ServletContext context;
-	@Autowired
-	MemberService memberService;
-	
+   @Autowired
+   AdminDao adminDao;
+   @Autowired
+   ServletContext context;
+   @Autowired
+   MemberService memberService;
+   
 
-	// 자유게시판
-	@Override
-	public Paging getPaging(int curPage) {
+   // 자유게시판
+   @Override
+   public Paging getPaging(int curPage) {
 
-		int totalCount = adminDao.selectCntAll();
-		// 페이징 객체
-		Paging paging = new Paging(totalCount, curPage);
+      int totalCount = adminDao.selectCntAll();
+      // 페이징 객체
+      Paging paging = new Paging(totalCount, curPage);
 
-		return paging;
-	}
+      return paging;
+   }
 
-	@Override
-	public List<Map<String, Object>> list(Paging paging) {
+   @Override
+   public List<Map<String, Object>> list(Paging paging) {
 
-		return adminDao.selectList(paging);
-	}
+      return adminDao.selectList(paging);
+   }
 
-	@Override
-	public Map<String, Object> getView(Free freeBoard) {
+   @Override
+   public Map<String, Object> getView(Free freeBoard) {
 
-		adminDao.updateHit(freeBoard);
+      adminDao.updateHit(freeBoard);
 
-		return adminDao.selectFreeBoard(freeBoard);
+      return adminDao.selectFreeBoard(freeBoard);
 
-	}
+   }
 
-	@Override
-	public List<FreeFile> getFreeFile(Free freeBoard) {
+   @Override
+   public List<FreeFile> getFreeFile(Free freeBoard) {
 
-		return adminDao.selectFreeFile(freeBoard);
+      return adminDao.selectFreeFile(freeBoard);
 
-	}
+   }
 
-	// 관리자로그인
-	@Override
-	public boolean login(Admin admin) {
-		logger.info("login() - {}", admin);
+   // 관리자로그인
+   @Override
+   public boolean login(Admin admin) {
+      logger.info("login() - {}", admin);
 
-		int result = adminDao.selectCntByIdPw(admin);
-		logger.info("login() - result : {}", result);
+      int result = adminDao.selectCntByIdPw(admin);
+      logger.info("login() - result : {}", result);
 
-		if (result > 0) {
-			return true; // 로그인 인증 성공
-		}
+      if (result > 0) {
+         return true; // 로그인 인증 성공
+      }
 
-		return false; // 로그인 인증 실패
-	}
+      return false; // 로그인 인증 실패
+   }
 
-	// 켐페인
-	@Override
-	public void freeWrite(Campaign campaign, List<MultipartFile> files, Admin adminInfo, Member member) {
+   // 켐페인
+   @Override
+   public Paging getPaging2(int curPage) {
+      logger.info("getPaging() - curPage : {}", curPage);
 
-//		if(memberInfo.getUserNo() != 0) {
-//		free.setUserNo(memberInfo.getUserNo());
-//	} else if()
+      // 총 게시글 수 조회하기
+      int totalCount = adminDao.selectCntAll2();
+      logger.info("totalCount : {}", totalCount);
 
-		campaign.setAdminNo(adminInfo.getAdminNo());
-		campaign.setUserNo(member.getUserNo());
+      // 페이징 객체
+      Paging paging = new Paging(totalCount, curPage, 6);
 
-//	free.setUserNo(2);
-		logger.info("ServiceImpl free :  {}", campaign);
-		logger.info("ServiceImple files :  {}", files);
-		logger.info("ServiceImple adminInfo : {}", adminInfo);
-		logger.info("ServiceImple member : {}", member);
+      return paging;
+   }
 
-		adminDao.insertFree(campaign);
-		logger.info("size {}", files.get(0).getSize());
+   @Override
+   public void freeWrite(Free free, List<MultipartFile> files, Admin adminInfo, Member member) {
 
-//	if(files.get(0).getSize() <= 0 ) {
-//		logger.info("파일의 크기가 0이다, 처리 중단!");
-//			freeWrite() 메소드 중단
-//		return;
-//	}
+      
+      free.setAdminNo(adminInfo.getAdminNo());
+      free.setUserNo(member.getUserNo());
 
-		// 파일이 없을 때 파일 삽입하는 메소드 처리되지 않도록
-		for (MultipartFile m : files) {
-			if (m.getSize() <= 0) {
-				logger.info("0보다 작음, 처리 중단");
-				return;
-			}
-		}
+//   free.setUserNo(2);
+      logger.info("ServiceImpl free :  {}", free);
+      logger.info("ServiceImple files :  {}", files);
+      logger.info("ServiceImple adminInfo : {}", adminInfo);
+      logger.info("ServiceImple member : {}", member);
+      
+      adminDao.insertFree(free);
+      logger.info("size {}", files.get(0).getSize());
 
-		List<FreeFile> upfiles = new ArrayList<>();
+//   if(files.get(0).getSize() <= 0 ) {
+//      logger.info("파일의 크기가 0이다, 처리 중단!");
+//         freeWrite() 메소드 중단
+//      return;
+//   }
 
-		// 파일이 저장될 경로 - RealPath - 톰캣 서버 배포 위치
-		String storedPath = context.getRealPath("upload");
-		logger.info("storedPath : {}", storedPath);
+      // 파일이 없을 때 파일 삽입하는 메소드 처리되지 않도록
+      for (MultipartFile m : files) {
+         if (m.getSize() <= 0) {
+            logger.info("0보다 작음, 처리 중단");
+            return;
+         }
+      }
 
-		// upload폴더가 존재하지 않으면 생성한다
-		File storedFolder = new File(storedPath);
-		storedFolder.mkdir();
+      List<FreeFile> upfiles = new ArrayList<>();
 
-		for (int i = 0; i < files.size(); i++) {
+      // 파일이 저장될 경로 - RealPath - 톰캣 서버 배포 위치
+      String storedPath = context.getRealPath("upload");
+      logger.info("storedPath : {}", storedPath);
 
-			File dest = null;
-			String storedName = null;
+      // upload폴더가 존재하지 않으면 생성한다
+      File storedFolder = new File(storedPath);
+      storedFolder.mkdir();
 
-			// 저장할 파일 이름 생성하기
-			storedName = files.get(i).getOriginalFilename();// 원본 파일명
-			storedName += UUID.randomUUID().toString().split("-")[0]; // UUID추가
-			logger.info("storedName : {}", storedName);
+      for (int i = 0; i < files.size(); i++) {
 
-			// 실제 저장될 파일 객체
-			dest = new File(storedFolder, storedName);
+         File dest = null;
+         String storedName = null;
 
-			// -> 중복 이름 검증 코드 do while
-			// 이름이 있으면 다시 만들어라 -> 이름이 없으면 빠져나오기
+         // 저장할 파일 이름 생성하기
+         storedName = files.get(i).getOriginalFilename();// 원본 파일명
+         storedName += UUID.randomUUID().toString().split("-")[0]; // UUID추가
+         logger.info("storedName : {}", storedName);
 
-			try {
+         // 실제 저장될 파일 객체
+         dest = new File(storedFolder, storedName);
 
-				// 업로드된 파일을 upload폴더에 저장하기
-				// 여기서 저장
-				files.get(i).transferTo(dest);
-			} catch (IllegalStateException | IOException e) {
-				e.printStackTrace();
-			}
+         // -> 중복 이름 검증 코드 do while
+         // 이름이 있으면 다시 만들어라 -> 이름이 없으면 빠져나오기
 
-			// -------------------------------------------------
+         try {
 
-			// DB에 기록할 정보 객체
+            // 업로드된 파일을 upload폴더에 저장하기
+            // 여기서 저장
+            files.get(i).transferTo(dest);
+         } catch (IllegalStateException | IOException e) {
+            e.printStackTrace();
+         }
 
-			// 첨부한 파일 삽입(파일 정보)
-			FreeFile freeFiles = new FreeFile();
+         // -------------------------------------------------
 
-			freeFiles.setFreeNo(campaign.getFreeNo());
-			freeFiles.setFreeOriginName(files.get(i).getOriginalFilename());
-			freeFiles.setFreeStoredName(storedName);
-			logger.info("boardFile : {}", freeFiles);
+         // DB에 기록할 정보 객체
 
-			upfiles.add(freeFiles);
+         // 첨부한 파일 삽입(파일 정보)
+         FreeFile freeFiles = new FreeFile();
 
-		}
+         freeFiles.setFreeNo(free.getFreeNo());
+         freeFiles.setFreeOriginName(files.get(i).getOriginalFilename());
+         freeFiles.setFreeStoredName(storedName);
+         logger.info("boardFile : {}", freeFiles);
 
-		for (FreeFile e : upfiles) {
-			adminDao.insertFreeFile(e);
-		}
+         upfiles.add(freeFiles);
 
-	}
+      }
 
-	@Override
-	public Admin info(String loginId) {
+      for (FreeFile e : upfiles) {
+         adminDao.insertFreeFile(e);
+      }
 
-		return adminDao.selectById(loginId);
-	}
+   }
 
-	@Override
-	public void delete(Free free) {
+   @Override
+   public Admin info(String loginId) {
 
-		adminDao.deleteFile(free);
-		adminDao.delete(free);
+      return adminDao.selectById(loginId);
+   }
+   
+   @Override
+   public void delete(Free free) {
+         
+      adminDao.deleteFile(free);
+      adminDao.delete(free);
+      
+   }
+   
+   @Override
+   public List<Campaign> getCampList(Paging paging) {
 
-	}
-	@Override
-	public List<Campaign> getCampList(Paging paging) {
+      logger.info("getList() - paging : {}", paging);
+      
+      return adminDao.selectCampList(paging);
+   }
+   
+   @Override
+   public List<Calendar> getCalendar() {
 
-		logger.info("getList() - paging : {}", paging);
+      return adminDao.selectCalList();
+   }
+   
+   @Override
+   public void writePart(Certification certification, MultipartFile partFile) {
+
+      //partNo 조회해오기
+      int nextVal = adminDao.selectPartNo();
+      
+      logger.info("writePart() - nextVal : {}", nextVal);
+      
+      certification.setPartNo(nextVal);
+      
+      //인증 테이블 삽입
+      adminDao.insertCert(certification);
+      
+      //파일 테이블 삽입
+      if(partFile.getSize() <= 0) {
+         return;
+      }
+   }
+
+
+   @Override
+   public void campaignWrite(Campaign campaign, List<MultipartFile> files, Admin memberInfo) {
+      
+
+      campaign.setAdminNo(memberInfo.getAdminNo());
+
+//      free.setUserNo(2);
+      logger.info("ServiceImpl campaign :  {}", campaign);
+      logger.info("ServiceImple files :  {}", files);
+//      logger.info("ServiceImple adminInfo : {}", adminInfo);
+      
+      adminDao.insertCampaign(campaign);
+      logger.info("size {}", files.get(0).getSize());
+
+//   if(files.get(0).getSize() <= 0 ) {
+//      logger.info("파일의 크기가 0이다, 처리 중단!");
+//         freeWrite() 메소드 중단
+//      return;
+//   }
+
+      // 파일이 없을 때 파일 삽입하는 메소드 처리되지 않도록
+      for (MultipartFile m : files) {
+         if (m.getSize() <= 0) {
+            logger.info("0보다 작음, 처리 중단");
+            return;
+         }
+      }
+
+      List<CampaignFile> upfiles = new ArrayList<>();
+
+      // 파일이 저장될 경로 - RealPath - 톰캣 서버 배포 위치
+      String storedPath = context.getRealPath("upload");
+      logger.info("storedPath : {}", storedPath);
+
+      // upload폴더가 존재하지 않으면 생성한다
+      File storedFolder = new File(storedPath);
+      storedFolder.mkdir();
+
+      for (int i = 0; i < files.size(); i++) {
+
+         File dest = null;
+         String storedName = null;
+
+         // 저장할 파일 이름 생성하기
+         storedName = files.get(i).getOriginalFilename();// 원본 파일명
+         storedName += UUID.randomUUID().toString().split("-")[0]; // UUID추가
+         logger.info("storedName : {}", storedName);
+
+         // 실제 저장될 파일 객체
+         dest = new File(storedFolder, storedName);
+
+         // -> 중복 이름 검증 코드 do while
+         // 이름이 있으면 다시 만들어라 -> 이름이 없으면 빠져나오기
+
+         try {
+
+            // 업로드된 파일을 upload폴더에 저장하기
+            // 여기서 저장
+            files.get(i).transferTo(dest);
+         } catch (IllegalStateException | IOException e) {
+            e.printStackTrace();
+         }
+
+         // -------------------------------------------------
+
+         // DB에 기록할 정보 객체
+
+         // 첨부한 파일 삽입(파일 정보)
+         CampaignFile campaignFiles = new CampaignFile();
+
+         campaignFiles.setCampNo(campaign.getCampNo());
+         campaignFiles.setCampOriginName(files.get(i).getOriginalFilename());
+         campaignFiles.setCampStoredName(storedName);
+         logger.info("boardFile : {}", campaignFiles);
+
+         upfiles.add(campaignFiles);
+
+      }
+
+      for (CampaignFile e : upfiles) {
+         adminDao.insertCampaignFile(e);
+      }
+      
+   }
+   
+   @Override
+	public List<Map<String, Object>> Camlist(Paging paging) {
 		
-		return adminDao.selectCampList(paging);
+		return adminDao.selectCamList(paging);
 	}
-	
-	@Override
-	public List<Calendar> getCalendar() {
-
-		return adminDao.selectCalList();
-	}
+   
+   
 }

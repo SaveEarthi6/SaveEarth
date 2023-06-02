@@ -149,19 +149,6 @@ location.href="?freeHead=" + freeHead
 <body>
 
 
-/* 게시글 분류 전체(div) 스타일 */
-.nav { 
- 	margin-left: 30%; 
- 	margin-bottom: 50px; 
- 	
- 	
- } 
-</style>
-
- <div>
-<!-- 글쓰기 버튼 -->
-	<a href = "/admin/campaignWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
-</div>
 
 <br>
 <div class="nav">
@@ -201,7 +188,6 @@ location.href="?freeHead=" + freeHead
 </tbody>
 
 </table>	
-
 <!-- 검색창 -->
 <div>
 	<form action="/info/main">
