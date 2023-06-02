@@ -66,8 +66,7 @@ public interface AdminDao {
 	public void delete(Free free);
 	
 	public List<Map<String, Object>> selectCamList(Paging paging);
-	
-	
+
 
 
 

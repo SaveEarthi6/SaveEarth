@@ -101,10 +101,11 @@
 	</select>
 
 	<select id="selectCamList" parameterType="web.util.Paging" resultType="java.util.Map">
-    SELECT * FROM CAM
-    ORDER BY CAM_NO DESC
-    OFFSET #{start} ROWS
-    FETCH NEXT #{perPage} ROWS ONLY
-</select>
+     SELECT * FROM CAMPAIGN
+    ORDER BY CAMP_NO DESC
+	</select>
+	
+	
 
+	
 </mapper>

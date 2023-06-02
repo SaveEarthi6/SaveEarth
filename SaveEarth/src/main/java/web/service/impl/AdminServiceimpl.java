@@ -89,22 +89,22 @@ public class AdminServiceimpl implements AdminService {
 	}
 
 	@Override
-	public void freeWrite(Free free, List<MultipartFile> files, Admin adminInfo, Member member) {
+	public void freeWrite(Campaign campaign, List<MultipartFile> files, Admin adminInfo, Member member) {
 
 //		if(memberInfo.getUserNo() != 0) {
 //		free.setUserNo(memberInfo.getUserNo());
 //	} else if()
 
-		free.setAdminNo(adminInfo.getAdminNo());
-		free.setUserNo(member.getUserNo());
+		campaign.setAdminNo(adminInfo.getAdminNo());
+		campaign.setUserNo(member.getUserNo());
 
 //	free.setUserNo(2);
-		logger.info("ServiceImpl free :  {}", free);
+		logger.info("ServiceImpl free :  {}", campaign);
 		logger.info("ServiceImple files :  {}", files);
 		logger.info("ServiceImple adminInfo : {}", adminInfo);
 		logger.info("ServiceImple member : {}", member);
 
-		adminDao.insertFree(free);
+		adminDao.insertFree(campaign);
 		logger.info("size {}", files.get(0).getSize());
 
 //	if(files.get(0).getSize() <= 0 ) {
@@ -163,7 +163,7 @@ public class AdminServiceimpl implements AdminService {
 			// 첨부한 파일 삽입(파일 정보)
 			FreeFile freeFiles = new FreeFile();
 
-			freeFiles.setFreeNo(free.getFreeNo());
+			freeFiles.setFreeNo(campaign.getFreeNo());
 			freeFiles.setFreeOriginName(files.get(i).getOriginalFilename());
 			freeFiles.setFreeStoredName(storedName);
 			logger.info("boardFile : {}", freeFiles);
@@ -196,4 +196,6 @@ public class AdminServiceimpl implements AdminService {
 		
 		return adminDao.selectCamList(paging);
 	}
+	
+	
 }

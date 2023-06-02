@@ -158,7 +158,7 @@ location.href="?freeHead=" + freeHead
 
  <div>
 <!-- 글쓰기 버튼 -->
-	<a href = "/admin/freeWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
+	<a href = "/admin/CamWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
 </div>
 
 <!-- 게시판 -->
@@ -172,12 +172,11 @@ location.href="?freeHead=" + freeHead
 	</tr>
 	
 <tbody>
-<c:forEach items="${list }" var="campaing">
+<c:forEach items="${camlist }" var="campaing">
 
 			<tr>	
 				<td>${campaing.CAMP_NO }</td>
-				<td>${campaing.CAMP_TITLE}</td>
-				<td class="text-start" style="text-align:center"><a href="/admin/freeView?freeNo=${campaing.CAMP_NO }">${campaing.CAMP_TITLE }</a></td>
+				<td class="text-start" style="text-align:center"><a href="/admin/CamView?freeNo=${campaing.CAMP_NO }">${campaing.CAMP_TITLE }</a></td>
 				<td><fmt:formatDate value="${campaing.CAMP_ENROLL}" pattern="yy-MM-dd HH:mm:ss"/></td>
 				<td>${campaing.CAMP_STATE }</td>
 			</tr>
@@ -229,10 +228,10 @@ location.href="?freeHead=" + freeHead
 	<%-- 페이징 리스트 --%>
 	<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="i">
 	<c:if test="${paging.curPage eq i }">
-		<li class="page-item active"><a href="./free?curPage=${i }&freeHead=${freeHead}" class="page-link">${i }</a></li>
+		<li class="page-item active"><a href="./campaign?curPage=${i }&freeHead=${freeHead}" class="page-link">${i }</a></li>
 	</c:if>
 	<c:if test="${paging.curPage ne i }">
-		<li class="page-item"><a href="./free?curPage=${i }&freeHead=${freeHead}" class="page-link">${i }</a></li>
+		<li class="page-item"><a href="./campaign?curPage=${i }&freeHead=${freeHead}" class="page-link">${i }</a></li>
 	</c:if>
 	</c:forEach>
 	
@@ -241,22 +240,22 @@ location.href="?freeHead=" + freeHead
 	
 	<%-- 다음 페이지로 가기 --%>
 	<c:if test="${paging.curPage < paging.totalPage }">
-		<li class="page-item"><a href="./free?curPage=${paging.curPage + 1 }&freeHead=${freeHead}" class="page-link">&gt;</a></li>
+		<li class="page-item"><a href="./campaign?curPage=${paging.curPage + 1 }&freeHead=${freeHead}" class="page-link">&gt;</a></li>
 	</c:if>
 	
 	<%-- 다음 페이징 리스트로 이동 --%>
 	<c:choose>
 	<c:when test="${paging.endPage ne paging.totalPage }">
-		<li class="page-item"><a href="./free?curPage=${paging.startPage + paging.pageCount }&freeHead=${freeHead}" class="page-link">&raquo;</a></li>
+		<li class="page-item"><a href="./campaign?curPage=${paging.startPage + paging.pageCount }&freeHead=${freeHead}" class="page-link">&raquo;</a></li>
 	</c:when>
 	<c:when test="${paging.endPage eq paging.totalPage }">
-		<li class="page-item disabled"><a class="page-link" href="./free?curPage=${paging.totalPage }&freeHead=${freeHead}">&raquo;</a></li>
+		<li class="page-item disabled"><a class="page-link" href="./campaign?curPage=${paging.totalPage }&freeHead=${freeHead}">&raquo;</a></li>
 	</c:when>
 	</c:choose>
 
 	<%-- 끝 페이지로 이동 --%>
 	<c:if test="${paging.curPage ne paging.totalPage }">
-		<li class="page-item"><a href="./free?curPage=${paging.totalPage }&freeHead=${freeHead}" class="page-link">끝 &rarr;</a></li>	
+		<li class="page-item"><a href="./campaign?curPage=${paging.totalPage }&freeHead=${freeHead}" class="page-link">끝 &rarr;</a></li>	
 	</c:if>
 	
 	</ul>

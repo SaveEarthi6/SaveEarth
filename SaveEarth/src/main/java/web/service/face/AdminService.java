@@ -60,4 +60,13 @@ public interface AdminService {
 	public List<Map<String, Object>> Camlist(Paging paging);
 
 
+
+
+
+
+	
+
+	
+
+
 }

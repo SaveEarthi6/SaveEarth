@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Admin;
+import web.dto.Campaign;
 import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Member;
@@ -165,7 +166,7 @@ public class AdminController {
 	
 
 
-	// 자유 게시판, 페이징
+	// 켐페인 게시판, 페이징
 	@RequestMapping("/campaign")
 	public void campaign(Model model, @RequestParam(defaultValue = "0") int curPage) {
 
@@ -183,4 +184,22 @@ public class AdminController {
 		model.addAttribute("camlist", camlist);
 		model.addAttribute("paging", paging);
 	}
+	
+////	// 관리자 페이지(켐페인게시판 글쓰기)
+//		@GetMapping("/CamWrite")
+//		public void camWrite(HttpSession session, Model model) {
+//			logger.info("/camWrite [GET]");
+//
+//			String loginId = (String) session.getAttribute("loginId");
+//			logger.info("관리자 id : {}", loginId);
+//
+//			Admin memberInfo = adminService.info(loginId);
+//
+//			logger.info("관리자 정보 : {}", memberInfo);
+//
+//			model.addAttribute("id", loginId);
+//			model.addAttribute("memberInfo", memberInfo);
+//
+//		}
+		
 }
