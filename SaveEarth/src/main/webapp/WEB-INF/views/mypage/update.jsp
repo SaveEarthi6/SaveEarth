@@ -314,6 +314,7 @@ input {
       	<label>아이디</label>
       	<input name="userId" disabled id="userId" type="text" class="id" value = "${info.userId}">
       </div>
+      
       <div class="textForm">
      	 <label>비밀번호</label>
         <input name="userPw" id="pw" type="text" class="pw" value = "${info.userPw}">
@@ -331,7 +332,7 @@ input {
       
       <div class="textForm">
       <label>이메일</label>
-        <input name="userEmail" id ="email" type="text" class="email" value="${info.userEmail }">
+      <input name="userEmail" disabled id ="email" type="text" class="email" value="${info.userEmail }">
       </div>
       
      <div class="textForm">

@@ -173,24 +173,36 @@ location.href="?freeHead=" + freeHead
   	    <c:choose>
   	    
         <c:when test="${freeHead eq '사담' }">
-			<option value="전체">전체</option>
+			<option value= "전체">전체</option>
 			<option value= "사담" selected>사담</option>
 			<option value= "정보">정보</option>
 			<option value= "질문">질문</option>
+			<option value= "공지사항">공지사항</option>
 		</c:when>
        
         <c:when test="${freeHead eq '정보' }">
-			<option value="전체">전체</option>
+			<option value=" 전체">전체</option>
 			<option value= "사담">사담</option>
 			<option value= "정보" selected>정보</option>
 			<option value= "질문">질문</option>
+			<option value= "공지사항">공지사항</option>
+
 		</c:when>
        
 		<c:when test="${freeHead eq '질문' }">
-			<option value="전체">전체</option>
+			<option value=" 전체">전체</option>
 			<option value= "사담">사담</option>
 			<option value= "정보">정보</option>
 			<option value= "질문" selected>질문</option>
+			<option value= "공지사항">공지사항</option>
+		</c:when>
+		
+		<c:when test="${freeHead eq '공지사항' }">
+			<option value=" 전체">전체</option>
+			<option value= "사담">사담</option>
+			<option value= "정보">정보</option>
+			<option value= "질문">질문</option>
+			<option value= "공지사항" selected>공지사항</option>
 		</c:when>
 		
 		<c:when test="${freeHead eq '전체'}">
@@ -198,6 +210,7 @@ location.href="?freeHead=" + freeHead
 			<option value= "사담">사담</option>
 			<option value= "정보">정보</option>
 			<option value= "질문">질문</option>
+			<option value= "공지사항">공지사항</option>
 		</c:when>
 		
 		<c:otherwise>
@@ -205,6 +218,7 @@ location.href="?freeHead=" + freeHead
 			<option value= "사담">사담</option>
 			<option value= "정보">정보</option>
 			<option value= "질문">질문</option>
+			<option value= "공지사항">공지사항</option>
 		</c:otherwise>
 		
       </c:choose>

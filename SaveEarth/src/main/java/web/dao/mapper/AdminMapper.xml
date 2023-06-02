@@ -128,7 +128,7 @@
 	<insert id="insertCampaign" parameterType="web.dto.Campaign">
 	
 	<selectKey keyProperty="campNo" order="BEFORE" resultType="int">
-		select free_no_seq.nextval from dual
+		select camp_no_seq.nextval from dual
 	</selectKey>
 
 	INSERT INTO campaign (camp_no,admin_no,camp_title,camp_state)
