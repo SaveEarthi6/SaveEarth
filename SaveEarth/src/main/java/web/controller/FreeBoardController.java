@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Free;
@@ -39,24 +38,33 @@ public class FreeBoardController {
 	MemberService memberService;
 
 	@GetMapping("/free/main")
-	public void free(Model model, @RequestParam(value = "curPage", defaultValue = "1") int curPage, String freeHead, String keyword) {
+	public void free(Model model, @RequestParam(value = "curPage", defaultValue = "1") int curPage, String freeHead) {
 		
 		logger.info("/free/main [GET]");
 		logger.info("freeHead{}", freeHead);
 		
-		//페이징
-		Paging paging = freeService.getPaging(curPage);
-		model.addAttribute("paging", paging);
+		//말머리글 있을 때
+//		Paging paging1 = freeService.getPagingByFreeHead(curPage,freeHead);
 		
+		//전체나 말머리글 없을 때
+//		Paging paging2 = freeService.getPaging(curPage);
+		
+		Paging paging = freeService.getPaging(curPage);
+		
+		//페이징
+			
 		//페이징을 적용한 리스트 보여주기(userno을 기준으로 join)
 		List<Map<String,Object>> list = freeService.list(paging, freeHead);
 		model.addAttribute("list", list);
 		model.addAttribute("freeHead", freeHead);
 		logger.info("list {}", list);
-		
+		logger.info("freeController paging1 {}", paging);
+			
 		for(Map m : list) {
 			logger.info(" list {} ", m);
 		}
+			
+		model.addAttribute("paging", paging);
 		
 		//jsp에서 쓰기 위해서는 map의 컬럼명과 동일하게 해주어야 한다
 		
@@ -198,7 +206,7 @@ public class FreeBoardController {
 		logger.info("/free/search [GET]");
 		
 		logger.info("curPage {}", curPage);
-		Paging paging = freeService.getPaging(curPage);
+		Paging paging = freeService.getPagingByKeyword(curPage, keyword, freeHead);
 		
 		logger.info("freeHead {}", freeHead);
 		logger.info("keyword {}", keyword);
@@ -216,11 +224,10 @@ public class FreeBoardController {
 		
 	}
 
-
-	@ResponseBody
+//	@ResponseBody
 	@GetMapping("/free/comment")
 //	public List<Map<String,Object>> commentCheck(@RequestParam("commContent") String commContent, @RequestParam("freeNo") int freeNo, @RequestParam("userNo") int userNo) {
-	public List<Map<String,Object>> viewList(@RequestParam("commContent") String commContent, @RequestParam("freeNo") int freeNo, @RequestParam("userNo") int userNo, Model model) {
+	public void viewList(@RequestParam("commContent") String commContent, @RequestParam("freeNo") int freeNo, @RequestParam("userNo") int userNo, Model model) {
 //	public int commentCheck(@RequestParam("commContent") String commContent, @RequestParam("freeNo") int freeNo, @RequestParam("userNo") int userNo) {
 //	public String commentCheck(@RequestParam("freeNo") int freeNo) {
 		
@@ -239,29 +246,21 @@ public class FreeBoardController {
 		model.addAttribute("commList", commList);
 		
 //		return "/free/viewList";
-		return commList;
 		
 	}
-	
-//	@RequestMapping("/free/viewList")
-//	public void viewList(@RequestParam("commList") FreeComment commList) {
-//		
-//	}
 			
-//	@ResponseBody
-//	@GetMapping("/free/commdelete")
-//	public int commdelete(@RequestParam("commNo") int commNo) {
-//		
-//		logger.info("commNo {}", commNo);
-//		
-//		//댓글 삭제
-//		int res = freeService.deleteComm(commNo);
-//
-//		logger.info("res {}", res);
-//		
-//		return res;
-//		
-//	}
+	@GetMapping("/free/commdelete")
+	public void commdelete(@RequestParam("commNo") int commNo) {
+		
+		logger.info("commNo {}", commNo);
+		
+		//댓글 삭제
+		freeService.deleteComm(commNo);
+		
+		//삭제한 댓글 리스트를 다시 조회
+		
+		
+	}
 
 	//추천기능
 	@GetMapping("/free/recommend")
@@ -303,21 +302,19 @@ public class FreeBoardController {
 		
 	}
 	
-	
-	
-	
-	@ResponseBody
 	@GetMapping("/free/deleteFile")
-	public int updateFile(@RequestParam("fileName") String fileName) {
+	public void updateFile(@RequestParam("fileNo") int fileNo, @RequestParam("freeNo") int freeNo, Model model) {
+//		public void updateFile(@RequestParam("fileNo") int fileNo) {
 		
-		logger.info("originName {}", fileName);
+		logger.info("fileNo {}", fileNo);
 	
-		//댓글 작성
-//		int res = freeService.deleteFile(freeFile);
+		//파일번호를 기준으로 파일 삭제
+		freeService.deleteFile(fileNo);
 		
-//		logger.info("res {}", res);
-		
-		return 0;
+		//삭제된 후 파일 리스트 조회
+		List<FreeFile> freeFile = freeService.getFreeFile(freeNo);
+		logger.info("freeFile {}", freeFile);
+		model.addAttribute("freeFile", freeFile);
 		
 	}
 	

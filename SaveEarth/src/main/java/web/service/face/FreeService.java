@@ -3,6 +3,7 @@ package web.service.face;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Free;
@@ -111,13 +112,6 @@ public interface FreeService {
 	public List<Map<String, Object>> getComment(Free freeBoard);
 
 	/**
-	 * 파일 번호가 일치하는 파일을 삭제한다
-	 * @param freeFile - 파일 번호
-	 * @return - 결과 성공:1, 실패:0
-	 */
-	public int deleteFile(FreeFile freeFile);
-
-	/**
 	 * 댓글 삭제
 	 * @param commNo - 댓글 번호
 	 * @return - 실행 결과 / 성공:1, 실패:0
@@ -131,8 +125,6 @@ public interface FreeService {
 	 */
 	public List<Map<String, Object>> getCommentByFreeNo(int freeNo);
 
-
-	
 	/**
 	 * 추천수 조회
 	 * @param recommend
@@ -146,6 +138,36 @@ public interface FreeService {
 	 */
 	public void updateRecommend(Free free);
 
+
+	/**
+	 * 파일 번호를 기준으로 파일을 삭제한다
+	 * @param fileNo - 파일 번호
+	 */
+	public void deleteFile(int fileNo);
+
+	/**
+	 * 게시글 번호(정수형)를 기준으로 파일 정보를 조회한다
+	 * @param freeNo - 게시글 번호(정수형)
+	 * @return - 게시글 번호와 일치하는 파일 정보
+	 */
+	public List<FreeFile> getFreeFile(int freeNo);
+
+	/**
+	 * 검색 했을 때 페이징
+	 * @param curPage - 현재 페이지 번호 (기본 1)
+	 * @param keyword - 검색어
+	 * @param freeHead - 말머리글
+	 * @return - 페이징 객체
+	 */
+	public Paging getPagingByKeyword(int curPage, String keyword, String freeHead);
+
+	/**
+	 * 말머리글 필터링 했을 때 페이징
+	 * @param curPage - 현재 페이지 번호 (기본 1)
+	 * @param freeHead - 말머리글
+	 * @return - 페이징 객체
+	 */
+	public Paging getPagingByFreeHead(int curPage, String freeHead);
 
 	
 	

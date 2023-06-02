@@ -86,25 +86,22 @@ $(document).ready(function() {
 		$("#originFile").toggleClass("through");
 		$("#newFile").toggle();
 
-		console.log($('#fileName').val())
+		console.log( $('.fileNo').val() )
+		console.log( ${param.freeNo} )
 		
 		$.ajax({
 			type: "get",
-
+			dataType : "html",
 			url: "http://localhost:8888/free/deleteFile",
 			data:{
-				fileName:("#fileName").val()
+				fileNo:$('.fileNo').val(),
+				freeNo:${param.freeNo}
 				},
 			success: function(data){
-				if(data == 1) {
-					alert('댓글 작성이 완료되었습니다!')
-// 					$('.comm').append(commContent);
-					//값 비우기
-// 					$("#commContent").val('');
-					
-				} else {
-					alert('다시 확인해주세요!')
-				}
+				console.log(data)
+				alert('선택한 파일이 삭제되었습니다!')
+				$("#originFile").html(data)
+							
 			}
 		})
 		
@@ -151,8 +148,39 @@ $(document).ready(function() {
 <input type="hidden" name="freeNo" value="${view.FREE_NO}">
 
 <div class="form-group" style= "margin-top: 50px">
-	<label class="form-label" for="head">말머리글</label>
-	<input type="text" id="head" name="freeHead" class="form-control" style="width: 100px;" value="${view.FREE_HEAD}">
+	<label class="form-label" for="head">말머리글</label><br>
+	
+	 <select id="freeHead" onchange="selectfreeHead()" name="freeHead">
+
+  	    <c:choose>
+        <c:when test="${view.FREE_HEAD eq '사담' }">
+			<option value= "사담" selected>사담</option>
+			<option value= "정보">정보</option>
+			<option value= "질문">질문</option>
+		</c:when>
+       
+        <c:when test="${view.FREE_HEAD eq '정보' }">
+			<option value= "사담">사담</option>
+			<option value= "정보" selected>정보</option>
+			<option value= "질문">질문</option>
+		</c:when>
+       
+		<c:when test="${view.FREE_HEAD eq '질문' }">
+			<option value= "사담">사담</option>
+			<option value= "정보">정보</option>
+			<option value= "질문" selected>질문</option>
+		</c:when>
+
+		<c:otherwise>
+			<option value= "사담">사담</option>
+			<option value= "정보">정보</option>
+			<option value= "질문">질문</option>
+		</c:otherwise>
+		
+      </c:choose>
+
+  </select>
+<%-- 	<input type="text" id="head" name="freeHead" class="form-control" style="width: 100px;" value="${view.FREE_HEAD}"> --%>
 </div>
 
 
@@ -183,9 +211,11 @@ $(document).ready(function() {
 		<div id="originFile">
 		<c:if test="${not empty freeFile }">
 		<c:forEach items="${freeFile }" var="file">
-			<a href="../upload/${file.freeStoredName }" download="${file.freeOriginName }" id="fileName">
+			<a href="../upload/${file.freeStoredName }" download="${file.freeOriginName }">
 				${file.freeOriginName }
-			</a><button class="deleteFile" type="button">삭제</button><br>
+			</a><button class="deleteFile btn btn-outline-warning" type="button">삭제</button><br>
+			<input type="hidden" value="${file.freeFileNo}" class="fileNo">
+			<input type="hidden" value="${file.freeNo}" class="freeNo">
 		</c:forEach>
 		</c:if>
 		</div>
