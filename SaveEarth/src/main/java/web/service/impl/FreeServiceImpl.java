@@ -53,6 +53,8 @@ public class FreeServiceImpl implements FreeService{
 		
 		int totalCount = freeDao.selectCntAll();
 		
+		logger.info("totalCount {}", totalCount);
+		
 		//페이징 객체
 		Paging paging = new Paging(totalCount, curPage);
 		
@@ -61,7 +63,6 @@ public class FreeServiceImpl implements FreeService{
 	
 	@Override
 	public void freeWrite(Free free, List<MultipartFile> files, Member memberInfo) {
-		
 		
 		free.setUserNo(memberInfo.getUserNo());
 		
@@ -341,9 +342,9 @@ public class FreeServiceImpl implements FreeService{
 	
 	//수정 페이지에서 파일 삭제
 	@Override
-	public int deleteFile(FreeFile freeFile) {
+	public void deleteFile(int fileNo) {
 		
-		return freeDao.deleteFileByFreeFileNo(freeFile);
+		freeDao.deleteFileByFileNo(fileNo);
 	}
 	
 	@Override
@@ -361,10 +362,31 @@ public class FreeServiceImpl implements FreeService{
 	}
 	
 	@Override
+	public List<FreeFile> getFreeFile(int freeNo) {
+		
+		return freeDao.selectFileByFreeNo(freeNo);
+	}
+
+	@Override
+	public Paging getPagingByKeyword(int curPage, String keyword, String freeHead) {
+		
+		int totalCount = freeDao.selectCntAllSearch(keyword, freeHead);
+		
+		Paging paging = new Paging(curPage, totalCount);
+	
+		logger.info("freeServiceImpl keyword totalCount {}", totalCount);
+		
+		return paging;
+		
+	}
+	
+	
+	@Override
 	public void updateRecommend(Free free) {
 		freeDao.updateRecommend(free);
 	}
 	
+<<<<<<< HEAD
 	@Override
 	public boolean checkRecommended(String loginId, Free freeBoard) {
 		//loginId를 이용하여 loginno을 가져오는 메소드를 만든다.
@@ -383,6 +405,22 @@ public class FreeServiceImpl implements FreeService{
 			return false;
 		}
 	}
+=======
+>>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
 	
 
+	@Override
+	public Paging getPagingByFreeHead(int curPage, String freeHead) {
+		
+		int totalCount = freeDao.selectCntAllFreeHead(freeHead);
+		
+		Paging paging = new Paging(curPage, totalCount);
+		
+		logger.info("freeServiceImpl freeHead totalCount {}", totalCount);
+		logger.info("freeServiceImpl paging {}", paging);
+		
+		return paging;
+	}
+
+	
 }

@@ -134,13 +134,6 @@ public interface FreeDao {
 	 * @return - 게시글 번호와 일치하는 댓글 정보
 	 */
 	public List<Map<String, Object>> selectComment(Free freeBoard);
-
-	/**
-	 * 선택한 파일을 삭제한다
-	 * @param freeFile - 파일 번호
-	 * @return - 결과 성공:1, 실패:0
-	 */
-	public int deleteFileByFreeFileNo(FreeFile freeFile);
 	
 	/**
 	 * 추천수 조회
@@ -162,6 +155,34 @@ public interface FreeDao {
 	 * @return - 게시글 번호와 일치하는 댓글 정보
 	 */
 	public List<Map<String, Object>> selectCommentByFreeNo(int freeNo);
+
+	/**
+	 * 파일 번호를 기준으로 파일을 삭제
+	 * @param fileNo - 파일 번호
+	 */
+	public void deleteFileByFileNo(int fileNo);
+
+	/**
+	 * 게시글 번호(정수형)을 기준으로 파일 정보를 조회한다
+	 * @param freeNo - 게시글 번호
+	 * @return - 게시글 번호가 일치하는 파일 정보 
+	 */
+	public List<FreeFile> selectFileByFreeNo(int freeNo);
+
+	/**
+	 * 검색 했을 때 전체 게시글 수 조회
+	 * @param keyword - 검색어
+	 * @param freeHead - 말머리글
+	 * @return - 검색어 일치하는 총 게시글 수
+	 */
+	public int selectCntAllSearch(@Param("keyword") String keyword, @Param("freeHead") String freeHead);
+
+	/**
+	 * 말머리글 적용했을 때 전체 게시글 수 조회
+	 * @param freeHead - 말머리글
+	 * @return - 말머리글 일치하는 총 게시글 수
+	 */
+	public int selectCntAllFreeHead(String freeHead);
 
 	public void updateRecommend(Free free);
 	
