@@ -343,6 +343,16 @@ function validate() {
 	} else {
 		$("#contentMsg").html("")
 	}
+
+	if($("#partDate").val() == "") {
+		$("#dateMsg").html("날짜를 선택해주세요.")
+		return false;
+	} else if($("#partDate").val() > dateString) {
+			$("#dateMsg").html("미래는 선택할 수 없습니다.")
+		return false;
+	} else {
+		$("#dateMsg").html("")
+	}
 	
 	if($("#partFile").val() == "") {
 		$("#fileMsg").html("첨부파일이 없습니다.")
@@ -351,16 +361,7 @@ function validate() {
 		("#fileMsg").html("")
 	}
 	
-	if($("#partDate").val() == "") {
-		$("#dateMsg").html("날짜를 선택해주세요.")
-		return false;
-	}
-// 	} else if($("#partDate").val() > dateString) {
-// 		$("#dateMsg").html("미래 작성 불가")
-// 		return false;
-// 	} else {
-// 		$("#dateMsg").html("")
-// 	}
+
 	
 }
 
