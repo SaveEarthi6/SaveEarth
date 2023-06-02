@@ -43,10 +43,7 @@ public class AdminController {
 	
 	   @GetMapping("/login")
 	   public void loginpage() {logger.info("/admin/login[Get]");}
-<<<<<<< HEAD
-=======
 
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
 
 	@PostMapping("/login")
 	public String login(HttpSession session, Admin admin) {
@@ -168,10 +165,7 @@ public class AdminController {
 	   
    }
    
-<<<<<<< HEAD
 
-=======
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
 
 	@RequestMapping("/freeDelete")
 	public String freeDelete(Free free) {

@@ -314,10 +314,7 @@ public class FreeServiceImpl implements FreeService{
 		return res;
 		
 	}
-<<<<<<< HEAD
 
-=======
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
 	
 	@Override
 	public List<Map<String, Object>> getComment(Free freeBoard) {

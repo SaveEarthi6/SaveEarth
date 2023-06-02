@@ -31,7 +31,7 @@ public class InfoBoardController {
 	public void info(Model model, @RequestParam(defaultValue = "0") int curPage) {
 
 		logger.info("/info/main [GET]");
-<<<<<<< HEAD
+
 		
 
 //		// 페이징
@@ -43,16 +43,15 @@ public class InfoBoardController {
 //
 //		for (Map m : list) {
 //			logger.info(" list {} ", m);
-//		}
 //
 //		model.addAttribute("list", list);
 //		model.addAttribute("paging", paging);
-=======
+
 //		String loginId = (String) session.getAttribute("loginId");
 //		boolean admin = (boolean) session.getAttribute("admin");
 //		model.addAttribute("admin", admin);
 	
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
+
 	}
 	
 	//상세보기
