@@ -286,11 +286,12 @@ public class FreeServiceImpl implements FreeService{
 		System.out.println(check);
 		
 		if(check <= 0) {
-			
+			//추천한 적이 없으면 추천을 입력한다
 			freeDao.insertRecommend(free);
 			return true;
 			
 		} else {
+			//추천한 적이 있으면 추천을 삭제한다
 			
 			freeDao.deleteRecommend(free);
 			return false;
@@ -385,6 +386,27 @@ public class FreeServiceImpl implements FreeService{
 		freeDao.updateRecommend(free);
 	}
 	
+<<<<<<< HEAD
+	@Override
+	public boolean checkRecommended(String loginId, Free freeBoard) {
+		//loginId를 이용하여 loginno을 가져오는 메소드를 만든다.
+		int loginNo = freeDao.selectUserNoByLoginId (loginId);
+		
+		//loginno를 freeBoard에 넣는다.(setter사용)
+		freeBoard.setUserNo(loginNo);
+		
+		if(freeDao.selectRecommendedByloginId(freeBoard) > 0) {
+			//추천을 했었다
+			System.out.println("추천을 했었다!");
+			return true;
+		} else {
+			//추천을 안했었다
+			System.out.println("추천을 안했었다!");
+			return false;
+		}
+	}
+=======
+>>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
 	
 
 	@Override
