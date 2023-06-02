@@ -94,6 +94,8 @@
 
 <script type="text/javascript">
 
+var today = new Date().toISOString().split("T")[0];
+
 document.addEventListener('DOMContentLoaded', function() {
 	var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -156,6 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		],
 		dayMaxEventRows: true
 		<c:if test="${not empty isLogin and isLogin }">
+
 		,eventClick: function(info) {
 			console.log(info.event.id)
 			const partNo = info.event.id

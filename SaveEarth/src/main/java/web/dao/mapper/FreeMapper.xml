@@ -307,6 +307,15 @@ ORDER BY free_no DESC
 	WHERE free_no = #{freeNo}
 </update>
 
+<select id= "selectRecommendedByloginId" parameterType="web.dto.Free" resultType="int">
+	select count(*) FROM recommend
+	WHERE free_no = #{freeNo} and user_no = #{userNo}
+</select>
+
+<select id="selectUserNoByLoginId" parameterType="string" resultType="int">
+	SELECT user_no userNo FROM member
+	WHERE user_id = #{loginId}
+</select>
 
 
 </mapper>	

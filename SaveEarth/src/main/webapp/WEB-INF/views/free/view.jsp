@@ -122,7 +122,15 @@
       ㅣ 조회수 ${view.FREE_VIEWS }
 
     <!-- 추천 기능 버튼 -->
+    
+    <c:if test="${chk eq false }">
 		 <img class="button" id="recommendEmpty" src="../resources/img/button_empty.png" >
+    </c:if>
+    
+    <c:if test="${chk eq true }">
+		 <img class="button" id="recommendEmpty" src="../resources/img/button_heart.png" >
+    </c:if>
+   
 
      	 <span id="result"> ${view.RECOMMEND }</span>
 
@@ -244,54 +252,7 @@ function commDelete(th) {
 
 <!-- 추천 AJAX -->
 <script type="text/javascript">
-// $(functinon(){
-	
-	
-	
-//     heart();
-//     heart();
-	
 
-// $("#recommendEmpty").click(function() {
-//     var freeNo = ${view.FREE_NO};
-//     heart();
-// //     var userNo = ${userInfo.userNo};
-	
-
-// 	})
-// })
-
-function toggleRecommend() {
-    var userNo = ${userInfo.userNo};
-    var freeNo = ${param.freeNo};
-
-// 	})
-// })
-
-
-// function heart() {
-	
-// 	$.ajax({
-// 		type: "GET",
-// 		url: "/free/recommend",
-// 		dataType: "json",
-// 		data: {
-// // 			userNo: userNo,
-// 			freeNo: freeNo
-// 		},
-// 		success: function(data) {
-// 			if (data.result == true) {
-// 				$("#recommendEmpty").attr("src", "../resources/img/button_empty.png");
-// 			} else if (data.result == false) {
-// 				$("#recommendEmpty").attr("src", "../resources/img/button_heart.png");
-// 			}
-// 			console.log(data.recommend)
-// 			$("#result").html(data.recommend);
-// 		}, error: function() {
-// 			console.log("실패")
-// 		}
-// 	});
-// }
 $(function() {
 
     $("#recommendEmpty").click(function() {
@@ -309,62 +270,11 @@ function heart(freeNo) {
             freeNo: freeNo
         },
         success: function(data) {
+        	console.log(data)
             if (data.result == true) {
-                $("#recommendEmpty").attr("src", "../resources/img/button_empty.png");
-            } else if (data.result == false) {
                 $("#recommendEmpty").attr("src", "../resources/img/button_heart.png");
-            }
-            console.log(data.recommend);
-            $("#result").html(data.recommend);
-        },
-        error: function() {
-            console.log("실패");
-        }
-    });
-// function heart() {
-	
-// 	$.ajax({
-// 		type: "GET",
-// 		url: "/free/recommend",
-// 		dataType: "json",
-// 		data: {
-// // 			userNo: userNo,
-// 			freeNo: freeNo
-// 		},
-// 		success: function(data) {
-// 			if (data.result == true) {
-// 				$("#recommendEmpty").attr("src", "../resources/img/button_empty.png");
-// 			} else if (data.result == false) {
-// 				$("#recommendEmpty").attr("src", "../resources/img/button_heart.png");
-// 			}
-// 			console.log(data.recommend)
-// 			$("#result").html(data.recommend);
-// 		}, error: function() {
-// 			console.log("실패")
-// 		}
-// 	});
-// }
-$(function() {
-
-    $("#recommendEmpty").click(function() {
-        var freeNo = ${view.FREE_NO};
-        heart(freeNo);
-    });
-});
-
-function heart(freeNo) {
-    $.ajax({
-        type: "GET",
-        url: "/free/recommend",
-        dataType: "json",
-        data: {
-            freeNo: freeNo
-        },
-        success: function(data) {
-            if (data.result == true) {
-                $("#recommendEmpty").attr("src", "../resources/img/button_empty.png");
             } else if (data.result == false) {
-                $("#recommendEmpty").attr("src", "../resources/img/button_heart.png");
+                $("#recommendEmpty").attr("src", "../resources/img/button_empty.png");
             }
             console.log(data.recommend);
             $("#result").html(data.recommend);
