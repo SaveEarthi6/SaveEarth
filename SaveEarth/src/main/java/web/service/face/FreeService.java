@@ -137,6 +137,15 @@ public interface FreeService {
 	 * @param free
 	 */
 	public void updateRecommend(Free free);
+	
+	/**
+	 * 추천수 했는지 확인하는 것
+	 * 
+	 * @param loginId
+	 * @param freeBoard
+	 * @return
+	 */
+	public boolean checkRecommended(String loginId, Free freeBoard);
 
 
 	/**
