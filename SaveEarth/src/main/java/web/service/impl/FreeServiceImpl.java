@@ -373,20 +373,20 @@ public class FreeServiceImpl implements FreeService{
 		
 		Paging paging = new Paging(curPage, totalCount);
 	
-	@Override
-	public void updateRecommend(Free free) {
-		freeDao.updateRecommend(free);
-	}
-	
-	
-	
-
 		logger.info("freeServiceImpl keyword totalCount {}", totalCount);
 		
 		return paging;
 		
 	}
 	
+	
+	@Override
+	public void updateRecommend(Free free) {
+		freeDao.updateRecommend(free);
+	}
+	
+	
+
 	@Override
 	public Paging getPagingByFreeHead(int curPage, String freeHead) {
 		
@@ -399,5 +399,6 @@ public class FreeServiceImpl implements FreeService{
 		
 		return paging;
 	}
+
 	
 }

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Free;
@@ -107,7 +106,7 @@ public class FreeBoardController {
 	}
 	
 	@GetMapping("/free/write")
-	public String write(HttpSession session, Model model) {
+	public void write(HttpSession session, Model model) {
 		logger.info("/free/write [GET]");
 		
 		String loginId = (String) session.getAttribute("loginId");
