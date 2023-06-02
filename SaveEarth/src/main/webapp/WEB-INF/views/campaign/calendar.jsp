@@ -81,6 +81,7 @@
 	border-color: #7CA621;
 	color: #7CA621;
 }
+
   
 </style>
 
@@ -159,6 +160,9 @@ document.addEventListener('DOMContentLoaded', function() {
 			console.log(info.event.id)
 			const partNo = info.event.id
 			
+			//인증 사진 초기화
+			$("#certImg").attr("src", "");
+			
 			$.ajax({
 				type: "post"
 				, url : "./viewCert"
@@ -179,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			})
 			
 			//more 창 닫기
-			$("#fc-dom-11").css("display", "none");
+			$(".fc-more-popover").css("display", "none");
 			
 			//클릭시 모달 창 띄우기
 			$("#btnViewModal").click()
@@ -219,10 +223,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
     calendar.render();
 });
-
-
-
-
 
 
 </script>

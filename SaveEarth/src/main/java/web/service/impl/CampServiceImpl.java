@@ -46,7 +46,8 @@ public class CampServiceImpl implements CampService {
 	}
 	
 	@Override
-	public List<Campaign> getCampList(Paging paging) {
+//	public List<Campaign> getCampList(Paging paging) {
+	public List<Map<String, Object>> getCampList(Paging paging) {
 
 		logger.info("getList() - paging : {}", paging);
 		
@@ -77,7 +78,7 @@ public class CampServiceImpl implements CampService {
 	}
 	
 	@Override
-	public List<Campaign> getListByState(Paging paging, String state) {
+	public List<Map<String, Object>> getListByState(Paging paging, String state) {
 		logger.info("getListByState() - state : {}", state);
 		
 		Map<String, Object> param = new HashMap<>();
