@@ -71,6 +71,16 @@
 				<span id="part">참여현황 : </span>	<!-- DB에서 인증사진 campno으로 count해와서 넣기 -->
 			</div>
 		</div>
+		
+<div class="mb-3">
+	<c:if test="${not empty campaign_file }">
+	<c:forEach items="${campaign_file }" var="file">
+		<a href="../upload/${file.campaignStoredName }" download="${file.campaignOriginName }">
+			${file.campaignOriginName }
+		</a>
+	</c:forEach>
+	</c:if>
+</div>
 	
 		<div id="clear"></div>
 		<hr>

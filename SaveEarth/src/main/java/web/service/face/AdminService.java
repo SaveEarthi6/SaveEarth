@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import web.dto.Admin;
 import web.dto.Calendar;
 import web.dto.Campaign;
+import web.dto.CampaignFile;
 import web.dto.Certification;
 import web.dto.Free;
 import web.dto.FreeFile;
@@ -65,9 +66,7 @@ public interface AdminService {
 	public List<Calendar> getCalendar();
 
 	public void writePart(Certification certification, MultipartFile partFile);
-	
 
-	
 	/**
 	 * 캠페인 게시판 글쓰기
 	 * @param campaign
@@ -75,7 +74,9 @@ public interface AdminService {
 	 * @param memberInfo
 	 * @param member
 	 */
-	public void campaignWrite(Campaign campaign, List<MultipartFile> files, Admin memberInfo, Member member);
+	public void campaignWrite(Campaign campaign, List<MultipartFile> files, Admin memberInfo);
+
+	
 
 
 

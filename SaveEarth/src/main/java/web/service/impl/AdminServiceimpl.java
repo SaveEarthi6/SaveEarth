@@ -20,6 +20,7 @@ import web.dao.face.AdminDao;
 import web.dto.Admin;
 import web.dto.Calendar;
 import web.dto.Campaign;
+import web.dto.CampaignFile;
 import web.dto.Certification;
 import web.dto.Free;
 import web.dto.FreeFile;
@@ -108,10 +109,7 @@ public class AdminServiceimpl implements AdminService {
 	@Override
 	public void freeWrite(Free free, List<MultipartFile> files, Admin adminInfo, Member member) {
 
-//		if(memberInfo.getUserNo() != 0) {
-//		free.setUserNo(memberInfo.getUserNo());
-//	} else if()
-
+		
 		free.setAdminNo(adminInfo.getAdminNo());
 		free.setUserNo(member.getUserNo());
 
@@ -244,17 +242,15 @@ public class AdminServiceimpl implements AdminService {
 
 
 	@Override
-	public void campaignWrite(Campaign campaign, List<MultipartFile> files, Admin memberInfo, Member member) {
+	public void campaignWrite(Campaign campaign, List<MultipartFile> files, Admin memberInfo) {
 		
 
-//		campaign.setAdminNo(adminInfo.getAdminNo());
-		campaign.setCampNo(member.getUserNo());
+		campaign.setAdminNo(memberInfo.getAdminNo());
 
-//	free.setUserNo(2);
-		logger.info("ServiceImpl free :  {}", campaign);
+//		free.setUserNo(2);
+		logger.info("ServiceImpl campaign :  {}", campaign);
 		logger.info("ServiceImple files :  {}", files);
 //		logger.info("ServiceImple adminInfo : {}", adminInfo);
-		logger.info("ServiceImple member : {}", member);
 		
 		adminDao.insertCampaign(campaign);
 		logger.info("size {}", files.get(0).getSize());
@@ -273,7 +269,7 @@ public class AdminServiceimpl implements AdminService {
 			}
 		}
 
-		List<FreeFile> upfiles = new ArrayList<>();
+		List<CampaignFile> upfiles = new ArrayList<>();
 
 		// 파일이 저장될 경로 - RealPath - 톰캣 서버 배포 위치
 		String storedPath = context.getRealPath("upload");
@@ -313,18 +309,18 @@ public class AdminServiceimpl implements AdminService {
 			// DB에 기록할 정보 객체
 
 			// 첨부한 파일 삽입(파일 정보)
-			FreeFile freeFiles = new FreeFile();
+			CampaignFile campaignFiles = new CampaignFile();
 
-			freeFiles.setFreeNo(campaign.getCampNo());
-			freeFiles.setFreeOriginName(files.get(i).getOriginalFilename());
-			freeFiles.setFreeStoredName(storedName);
-			logger.info("boardFile : {}", freeFiles);
+			campaignFiles.setCampNo(campaign.getCampNo());
+			campaignFiles.setCampOriginName(files.get(i).getOriginalFilename());
+			campaignFiles.setCampStoredName(storedName);
+			logger.info("boardFile : {}", campaignFiles);
 
-			upfiles.add(freeFiles);
+			upfiles.add(campaignFiles);
 
 		}
 
-		for (FreeFile e : upfiles) {
+		for (CampaignFile e : upfiles) {
 			adminDao.insertCampaignFile(e);
 		}
 		

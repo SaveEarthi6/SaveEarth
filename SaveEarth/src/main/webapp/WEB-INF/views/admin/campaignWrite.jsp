@@ -89,26 +89,22 @@ form {
 	닉네임 : ${memberInfo.adminName }
 </div>
 
-<div class="form-group" style= "margin-top: 50px">
-	<label class="form-label" for="head">말머리글</label>
-	<input type="text" id="head" name="freeHead" class="form-control" style="width: 100px;">
-</div>
-
 
 <!-- 글쓰기 폼 (웹 에디터) -->
 <div class="form-group" style= "margin-top: 50px">
 	<label class="form-label" for="title">제목</label>
-	<input type="text" id="title" name="freeTitle" class="form-control">
+	<input type="text" id="title" name="campTitle" class="form-control">
 </div>
 
-<div class="form-group" style= "margin-top: 50px">
-	<label class="form-label" for="content">본문</label>
-	<textarea rows="10" style="width: 100%;" id="content" name="freeContent"></textarea>
-</div>
 
 <div class="form-group mb-3" style= "margin-top: 50px">
 	<label class="form-label" for="file">첨부파일</label>
 	<input type="file" id="file" name="files" class="form-control" multiple="multiple">
+</div>
+
+<div class="form-group mb-3" style= "margin-top: 50px">
+	<label class="form-label" for="file">캠페인 상태</label>
+	<input type="text" id="file" name="campState" class="form-control" >
 </div>
 
 <!-- 글쓰기 작성, 취소 버튼 -->
