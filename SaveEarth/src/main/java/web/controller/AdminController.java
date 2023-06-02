@@ -1,5 +1,6 @@
 package web.controller;
 
+import java.nio.file.Files;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import web.dto.Admin;
 import web.dto.Calendar;
 import web.dto.Campaign;
+import web.dto.CampaignFile;
 import web.dto.Certification;
 import web.dto.Free;
 import web.dto.FreeFile;
@@ -233,10 +235,10 @@ public class AdminController {
 		logger.info("/campaignWrite [POST]");
 
 		// 로그인 정보를 가지고 회원번호랑 관리자 번호를 가져옴
-		String loginId = (String) session.getAttribute("loginId");
+	  String loginId = (String) session.getAttribute("loginId");
 //      Member memberInfo = null;      
 
-		Admin memberInfo = adminService.info(loginId);
+	  Admin memberInfo = adminService.info(loginId);
 		// 만약 회원번호가 있으면 회원번호를 가져오고
 		// 관리자번호가 있으면 관리자 번호를 가져오고
 
@@ -245,7 +247,9 @@ public class AdminController {
       logger.info("campaign {}", campaign);
       logger.info("files {}", files);
       
-      adminService.campaignWrite(campaign, files, memberInfo, member);
+      campaign.setAdminNo(memberInfo.getAdminNo());
+      
+      adminService.campaignWrite(campaign, files, memberInfo);
       
       return "redirect:./campaign";
       
