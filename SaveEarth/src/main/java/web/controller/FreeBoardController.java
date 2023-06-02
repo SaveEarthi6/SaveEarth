@@ -1,5 +1,7 @@
 package web.controller;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Free;
-import web.dto.FreeComment;
 import web.dto.FreeFile;
 import web.dto.Member;
 import web.dto.Recommend;
@@ -265,7 +265,8 @@ public class FreeBoardController {
 
 	//추천기능
 	@GetMapping("/free/recommend")
-	public String recommend (Model model, Free free, Recommend recommend, HttpSession session ) {
+	public void recommend (Model model, Free free, Recommend recommend, HttpSession session, Writer out ) {
+		
 		
 		logger.info("/free/recommend [GET]");
 		
@@ -274,17 +275,36 @@ public class FreeBoardController {
 		recommend.setUserNo((int)session.getAttribute("loginNo"));
 		
 		System.out.println(free);
-		freeService.checkRecommend(free);
 		int res = freeService.selectRecommend(recommend);
+		freeService.updateRecommend(free);
+		boolean chk = freeService.checkRecommend(free);
 		
 		logger.info("{}",res);
 		
 		model.addAttribute("res", res);
 		model.addAttribute("free", free);
 		
-		return "redirect:/free/view?freeNo="+free.getFreeNo();
+		
+//		 개인 추천조회
+		if (chk == true) {
+			try {
+				//여기에 값을 두 개 넣을 수 있는 것을 알아보쟈아("{\"result\": false, \"recommend\": " + res + "}")
+				out.write("{\"result\": true, \"recommend\": " + res + "}");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else if ( chk == false ) {
+			try {
+				out.write("{\"result\":false,  \"recommend\":" + res + "}");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		
 	}
+	
+	
+	
 	
 	@ResponseBody
 	@GetMapping("/free/deleteFile")

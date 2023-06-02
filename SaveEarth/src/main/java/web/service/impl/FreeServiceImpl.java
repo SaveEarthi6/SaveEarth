@@ -278,7 +278,7 @@ public class FreeServiceImpl implements FreeService{
 	
 	//추천기능
 	@Override
-	public void checkRecommend(Free free) {
+	public boolean checkRecommend(Free free) {
 		
 		int check = freeDao.cntRecommend(free);
 		
@@ -287,21 +287,20 @@ public class FreeServiceImpl implements FreeService{
 		if(check <= 0) {
 			
 			freeDao.insertRecommend(free);
-			freeDao.plusRecommend(free);
+			return true;
 			
 		} else {
 			
 			freeDao.deleteRecommend(free);
-			freeDao.minusRecommend(free);
+			return false;
 		}
 		
-		
-
-	
 	}
-
+	
 
 	
+	
+
 	//댓글 작성
 
 
@@ -359,5 +358,13 @@ public class FreeServiceImpl implements FreeService{
 		return freeDao.selectByUserno(recommend);
 		
 	}
+	
+	@Override
+	public void updateRecommend(Free free) {
+		freeDao.updateRecommend(free);
+	}
+	
+	
+	
 
 }
