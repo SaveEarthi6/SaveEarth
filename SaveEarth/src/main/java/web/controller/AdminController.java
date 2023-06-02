@@ -48,7 +48,7 @@ public class AdminController {
       public void loginpage() {logger.info("/admin/login[Get]");}
 
    @PostMapping("/login")
-   public String login(HttpSession session, Admin admin) {
+   public String login(HttpSession session, Admin admin, Model model) {
       logger.info("/admin/login");
       logger.info("어드민 로그인 정보 : {}", admin);
       boolean isLogin = adminService.login(admin);
@@ -62,13 +62,20 @@ public class AdminController {
          session.setAttribute("loginId", admin.getAdminId());
          session.setAttribute("loginNo", admin.getAdminNo());
         
+         return "redirect:/admin/free";
       } else {
-    	 
          session.invalidate();
+         return "redirect:/admin/login";
       }
 
-      return "redirect:/admin/free";
+     
    }
+   
+   
+   
+   
+   
+   
 
    // 자유 게시판, 페이징
    @RequestMapping("/free")
@@ -183,18 +190,7 @@ public class AdminController {
       model.addAttribute("campList", campList);
       model.addAttribute("paging", paging);
 
-      if (session.getAttribute("isLogin") != null) {
-//         List<Certification> certList = campService.getcertList(session.getAttribute("loginId"));
-      } else {
-         List<Calendar> calList = adminService.getCalendar();
-
-         for (Calendar c : calList) {
-            logger.info("{}", c);
-
-         }
-
-         model.addAttribute("calList", calList);
-      }
+   
    }
    
    @PostMapping("/main")

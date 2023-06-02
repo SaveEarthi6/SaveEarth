@@ -132,6 +132,7 @@ select {
 
 	
 // }
+
 function selectfreeHead() {
 	
 var freeHead = $('#freeHead').val()
@@ -160,10 +161,6 @@ location.href="?freeHead=" + freeHead
 
 
  <div>
-<!-- 글쓰기 버튼 -->
-	<a href = "/admin/CamWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
-</div>
-
 <!-- 게시판 -->
 <table id= "board" class= "table table-hover text-center">
 
@@ -178,8 +175,8 @@ location.href="?freeHead=" + freeHead
 <c:forEach items="${camlist }" var="campaing">
 
 			<tr>	
-				<td>${campaing.CAMP_NO }</td>
-				<td class="text-start" style="text-align:center"><a href="/admin/CamView?freeNo=${campaing.CAMP_NO }">${campaing.CAMP_TITLE }</a></td>
+				<td>${campaing.campNo }</td>
+				<td class="text-start" style="text-align:center"><a href="/admin/CamView?freeNo=${campaing.campNo }">${campaing.CAMP_TITLE }</a></td>
 				<td><fmt:formatDate value="${campaing.CAMP_ENROLL}" pattern="yy-MM-dd HH:mm:ss"/></td>
 				<td>${campaing.CAMP_STATE }</td>
 			</tr>
@@ -187,7 +184,7 @@ location.href="?freeHead=" + freeHead
 </c:forEach>
 </tbody>
 
-</table>	
+</table>
 <!-- 검색창 -->
 <div>
 	<form action="/info/main">

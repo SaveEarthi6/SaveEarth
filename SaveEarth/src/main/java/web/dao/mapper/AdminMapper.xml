@@ -149,8 +149,8 @@ SELECT * FROM (
    </insert>
 
 <select id="selectCamList" parameterType="web.util.Paging" resultType="java.util.Map">
-    SELECT * FROM CAM
-    ORDER BY CAM_NO DESC
+    SELECT * FROM CAMPAIGN
+    ORDER BY ADMIN_NO DESC
 </select>
 
 
