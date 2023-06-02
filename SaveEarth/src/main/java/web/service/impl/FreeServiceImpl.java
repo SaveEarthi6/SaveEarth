@@ -21,6 +21,7 @@ import web.dto.Free;
 import web.dto.FreeComment;
 import web.dto.FreeFile;
 import web.dto.Member;
+import web.dto.Recommend;
 import web.service.face.FreeService;
 import web.util.Paging;
 
@@ -52,6 +53,8 @@ public class FreeServiceImpl implements FreeService{
 		
 		int totalCount = freeDao.selectCntAll();
 		
+		logger.info("totalCount {}", totalCount);
+		
 		//페이징 객체
 		Paging paging = new Paging(totalCount, curPage);
 		
@@ -60,7 +63,6 @@ public class FreeServiceImpl implements FreeService{
 	
 	@Override
 	public void freeWrite(Free free, List<MultipartFile> files, Member memberInfo) {
-		
 		
 		free.setUserNo(memberInfo.getUserNo());
 		
@@ -277,7 +279,7 @@ public class FreeServiceImpl implements FreeService{
 	
 	//추천기능
 	@Override
-	public void checkRecommend(Free free) {
+	public boolean checkRecommend(Free free) {
 		
 		int check = freeDao.cntRecommend(free);
 		
@@ -286,16 +288,22 @@ public class FreeServiceImpl implements FreeService{
 		if(check <= 0) {
 			
 			freeDao.insertRecommend(free);
-			freeDao.plusRecommend(free);
+			return true;
 			
 		} else {
 			
 			freeDao.deleteRecommend(free);
-			freeDao.minusRecommend(free);
+			return false;
 		}
 		
-		
 	}
+	
+
+	
+	
+
+	//댓글 작성
+
 
 	@Override
 	public int writeComment(String commContent, int freeNo, int userNo) {
@@ -315,7 +323,10 @@ public class FreeServiceImpl implements FreeService{
 		
 	}
 
-	
+
+
+	//댓글 조회
+
 	@Override
 	public List<Map<String, Object>> getComment(Free freeBoard) {
 		
@@ -323,9 +334,73 @@ public class FreeServiceImpl implements FreeService{
 	}
 	
 	@Override
-	public int deleteFile(FreeFile freeFile) {
+	public List<Map<String, Object>> getCommentByFreeNo(int freeNo) {
 		
-		return freeDao.deleteFileByFreeFileNo(freeFile);
+		List<Map<String, Object>> commList = freeDao.selectCommentByFreeNo(freeNo);
+		
+		return commList;
+	}
+	
+	//수정 페이지에서 파일 삭제
+	@Override
+	public void deleteFile(int fileNo) {
+		
+		freeDao.deleteFileByFileNo(fileNo);
+	}
+	
+	@Override
+	public int deleteComm(int commNo) {
+		
+		int res = freeDao.deleteComm(commNo);
+		
+		return res;
 	}
 
+	@Override
+	public int selectRecommend(Recommend recommend) {
+		return freeDao.selectByUserno(recommend);
+		
+	}
+	
+	@Override
+	public List<FreeFile> getFreeFile(int freeNo) {
+		
+		return freeDao.selectFileByFreeNo(freeNo);
+	}
+
+	@Override
+	public Paging getPagingByKeyword(int curPage, String keyword, String freeHead) {
+		
+		int totalCount = freeDao.selectCntAllSearch(keyword, freeHead);
+		
+		Paging paging = new Paging(curPage, totalCount);
+	
+		logger.info("freeServiceImpl keyword totalCount {}", totalCount);
+		
+		return paging;
+		
+	}
+	
+	
+	@Override
+	public void updateRecommend(Free free) {
+		freeDao.updateRecommend(free);
+	}
+	
+	
+
+	@Override
+	public Paging getPagingByFreeHead(int curPage, String freeHead) {
+		
+		int totalCount = freeDao.selectCntAllFreeHead(freeHead);
+		
+		Paging paging = new Paging(curPage, totalCount);
+		
+		logger.info("freeServiceImpl freeHead totalCount {}", totalCount);
+		logger.info("freeServiceImpl paging {}", paging);
+		
+		return paging;
+	}
+
+	
 }

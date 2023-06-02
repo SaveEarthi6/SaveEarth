@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import web.controller.AdminController;
 import web.dao.face.InfoDao;
+import web.dto.Info;
 import web.service.face.InfoService;
 import web.util.Paging;
 
@@ -25,19 +26,22 @@ public class InfoServiceImpl implements InfoService {
 	public Paging getPaging(int curPage) {
 		
 		int totalCount = infoDao.selectCntAll();
+		logger.info("totalCount{}", totalCount);
 		
-		Paging paging = new Paging(totalCount, curPage);
+		Paging paging = new Paging(totalCount, curPage, 3);
 		
 		return paging;
 	}
 
 	@Override
-	public List<Map<String, Object>> list(Paging paging) {
+	public List<Info> getInfoList(Paging paging) {
 		
-		return infoDao.selectList(paging) ;
+		logger.info("infolist{}", paging);
+		
+		return infoDao.selectList(paging);
+		
+		
 	}
-	
-	
 	
 
 }

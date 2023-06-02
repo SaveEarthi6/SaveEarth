@@ -26,7 +26,8 @@ public interface CampService {
 	 * @param paging - 계산된 페이징 객체
 	 * @return 해당 페이지에 로드될 캠페인 목록
 	 */
-	public List<Campaign> getCampList(Paging paging);
+//	public List<Campaign> getCampList(Paging paging);
+	public List<Map<String, Object>> getCampList(Paging paging);
 
 	/**
 	 * 전달파라미터로 전달된 캠페인 번호와 일치하는 캠페인 정보 얻기
@@ -52,7 +53,7 @@ public interface CampService {
 	 * @param state - 말머리
 	 * @return 페이지에 로드될 캠페인 목록
 	 */
-	public List<Campaign> getListByState(Paging paging, String state);
+	public List<Map<String, Object>> getListByState(Paging paging, String state);
 
 	/**
 	 * 입력받은 인증글 객체와 첨부파일을 DB에 저장하기
@@ -60,7 +61,7 @@ public interface CampService {
 	 * @param certification - 입력받은 인증글 정보가 담긴 DTO
 	 * @param partFile - 첨부파일
 	 */
-	public void writePart(Certification certification, MultipartFile partFile);
+	public void writePart(Map<String, String> certification, MultipartFile partFile);
 
 	/**
 	 * DB에서 달력 기념일 불러오기

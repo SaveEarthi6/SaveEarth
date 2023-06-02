@@ -27,6 +27,7 @@ import web.util.Paging;
 public class CampServiceImpl implements CampService {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired CampDao campDao;
 	@Autowired ServletContext context;
 	
@@ -45,7 +46,8 @@ public class CampServiceImpl implements CampService {
 	}
 	
 	@Override
-	public List<Campaign> getCampList(Paging paging) {
+//	public List<Campaign> getCampList(Paging paging) {
+	public List<Map<String, Object>> getCampList(Paging paging) {
 
 		logger.info("getList() - paging : {}", paging);
 		
@@ -76,7 +78,7 @@ public class CampServiceImpl implements CampService {
 	}
 	
 	@Override
-	public List<Campaign> getListByState(Paging paging, String state) {
+	public List<Map<String, Object>> getListByState(Paging paging, String state) {
 		logger.info("getListByState() - state : {}", state);
 		
 		Map<String, Object> param = new HashMap<>();
@@ -88,14 +90,18 @@ public class CampServiceImpl implements CampService {
 	}
 	
 	@Override
-	public void writePart(Certification certification, MultipartFile partFile) {
+	public void writePart(Map<String, String> certification, MultipartFile partFile) {
 
 		//partNo 조회해오기
 		int nextVal = campDao.selectPartNo();
 		
 		logger.info("writePart() - nextVal : {}", nextVal);
 		
-		certification.setPartNo(nextVal);
+		//여기도 바깠어
+		certification.put("partNo", Integer.toString(nextVal));
+		
+		
+		
 		
 		//인증 테이블 삽입
 		campDao.insertCert(certification);
@@ -136,7 +142,12 @@ public class CampServiceImpl implements CampService {
 		CertificationFile certFile = new CertificationFile();
 		
 		certFile.setPartNo(nextVal);
-		certFile.setCampNo(certification.getCampNo());
+		
+		//바꾼 곳
+		certFile.setCampNo(Integer.parseInt(certification.get("campNo")));
+		
+		
+		
 		certFile.setPartOriginName(originName);
 		certFile.setPartStoredName(storedName);
 		

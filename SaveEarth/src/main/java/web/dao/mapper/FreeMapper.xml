@@ -4,12 +4,13 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="web.dao.face.FreeDao">
 
-
+<!-- 아이디로 닉네임 조회 -->
 <select id="selectNickById" parameterType="string" resultType="string">
 	SELECT user_nick FROM member 
 	WHERE user_id=#{userId}
 </select>
 
+<!-- 게시글 작성 - 게시글 내용 삽입 -->
 <insert id="insertFree" parameterType="web.dto.Free">
 	
 	<selectKey keyProperty="freeNo" order="BEFORE" resultType="int">
@@ -28,21 +29,84 @@
 	
 </insert>
 
+<!-- 게시글 작성 - 파일 첨부 -->
 <insert id="insertFreeFile" parameterType="web.dto.Free">
 	INSERT INTO free_file (free_file_no, free_no, free_origin_name, free_stored_name) 
 	VALUES ( free_file_no_seq.nextval, #{freeNo}, #{freeOriginName}, #{freeStoredName})
 </insert>
 
+<!-- 페이징에서 전체 게시글 수 조회 -->
 <select id="selectCntAll" resultType="int">
 	SELECT count(*) FROM free
 </select>
 
+<!-- 페이징에서 검색어 일치하는 게시글 수 조회 -->
+<select id="selectCntAllSearch" resultType="int" parameterType="map">
+	SELECT count(*) FROM free
+		
+		<choose>
+		
+		<when test="keyword != null &amp;&amp; freeHead == null">	
+			WHERE free_title LIKE '%' || #{keyword} || '%'
+		</when>
+
+		<when test="keyword != null &amp;&amp; freeHead.equals('전체')">	
+			WHERE free_title LIKE '%' || #{keyword} || '%'
+		</when>
+		
+		</choose>
+	
+</select>
+
+<!-- 페이징에서 말머리글 일치하는 게시글 수 조회 -->
+<select id="selectCntAllfreeHead" resultType="int" parameterType="map">
+	SELECT count(*) FROM free
+		
+		<choose>
+		
+		<when test="keyword != null &amp;&amp; freeHead == null">	
+			WHERE free_title LIKE '%' || #{keyword} || '%'
+		</when>
+
+		<when test="keyword != null &amp;&amp; freeHead.equals('전체')">	
+			WHERE free_title LIKE '%' || #{keyword} || '%'
+		</when>
+		
+		</choose>
+	
+</select>
+
+<!-- 페이징에서 말머리글 일치하는 게시글 수 조회 -->
+<select id="selectCntAllFreeHead" resultType="int" parameterType="map">
+		
+	SELECT count(*) FROM free
+		<choose>
+		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('사담')">
+			WHERE free_head = #{freeHead}
+		</when>
+		
+		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('정보')">
+			WHERE free_head = #{freeHead}
+		</when>
+		
+		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('질문')">
+			WHERE free_head = #{freeHead}
+		</when>
+		
+		<otherwise>
+		</otherwise>
+		
+	</choose>	
+	
+</select>
+
+<!-- 메인에 보이는 게시글 목록 조회 -> 말머리글을 기준으로 조회할 수 있도록 조건 추가 -->
 <select id="selectList" resultType="map" parameterType="map">
 	SELECT * FROM(
 		SELECT rownum rnum, (SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) user_id, F.* FROM (
 			SELECT
 			*
-			FROM free
+			FROM free f
 	<choose>
 		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('사담')">
 			WHERE free_head = #{freeHead}
@@ -72,6 +136,7 @@
 	
 </select>
 
+<!-- 게시글 번호를 기준으로 게시글 목록에 뜰 게시글 정보 조회 -->
 <select id="selectFreeBoard" parameterType="web.dto.Free" resultType="map">
 	SELECT * FROM(
 		SELECT 
@@ -85,33 +150,45 @@
 	WHERE free_no = #{freeBoard.freeNo}
 </select>
 
+<!-- 조회수 올리기 -->
 <update id="updateHit" parameterType="web.dto.Free">
 	UPDATE free set
 	free_views = free_views + 1
 	WHERE free_no = #{freeNo}
 </update>
 
+<!-- 게시글 내용 삭제 -->
 <delete id="delete" parameterType="web.dto.Free">
 	DELETE free
 	WHERE free_no = #{freeNo}
 </delete>
 
+<!-- 게시글 파일 삭제 -->
 <delete id="deleteFile" parameterType="web.dto.Free">
 	DELETE free_file
 	WHERE free_no = #{freeNo}
 </delete>
 
+<!-- 상세보기에서 파일 정보 조회 -->
 <select id="selectFreeFile" parameterType="web.dto.Free" resultType="web.dto.FreeFile">
 	SELECT * FROM free_file
 	WHERE free_no = #{freeNo}
 </select>
 
+<!-- 수정 페이지에서 파일 삭제 후 파일 정보 조회 -->
+<select id="selectFileByFreeNo" parameterType="int" resultType="web.dto.FreeFile">
+	SELECT * FROM free_file
+	WHERE free_no = #{freeNo}
+</select>
+
+<!-- 게시글 번호를 기준으로 게시글 내용 수정 -->
 <update id="updateBoard" parameterType="web.dto.Free">
 	UPDATE free SET
 	free_title = #{freeTitle}, free_content = #{freeContent}, free_head = #{freeHead}
 	WHERE free_no = #{freeNo}
 </update>
 
+<!-- 게시글 목록에서 검색 기능 - 입력한 검색어 중 제목에 일치하는 내용이 있는 게시글 조회 -->
 <select id="selectFreeByKeyword" resultType="map" parameterType="hashmap">
 
 	SELECT * FROM(
@@ -139,8 +216,15 @@
 	ORDER BY free_no DESC
 </select>
 
-<!-- 댓글 조회 -->
+<!-- 댓글 조회 - 게시글 상세보기에서 -->
 <select id="selectComment" resultType="map" parameterType="web.dto.Free">
+	SELECT c.*, (SELECT m.user_id FROM member m WHERE m.user_no = c.user_no) user_id FROM freecomment c
+	WHERE free_no = #{freeNo}
+	ORDER BY comm_no desc
+</select>
+
+<!-- 댓글 조회 - 댓글 등록 후 게시글 상세보기에서 -->
+<select id="selectCommentByFreeNo" resultType="map" parameterType="int">
 	SELECT c.*, (SELECT m.user_id FROM member m WHERE m.user_no = c.user_no) user_id FROM freecomment c
 	WHERE free_no = #{freeNo}
 	ORDER BY comm_no desc
@@ -162,11 +246,10 @@
 <!-- </update> -->
 
 <!-- 댓글 삭제 -->
-<!-- <delete id="replyDelete" parameterType="com.board.domain.ReplyVO"> -->
-<!--     delete from tbl_reply -->
-<!--     where rno = #{rno} -->
-<!--         and bno = ${bno}     -->
-<!-- </delete> -->
+<delete id="deleteComm" parameterType="int">
+    delete from freecomment
+    where comm_no = #{commNo}
+</delete>
 
 
 <!-- <select id="mypageList" resultType="web.dto.Free" parameterType="int"> -->
@@ -181,31 +264,20 @@ ORDER BY free_no DESC
 </select>
 
 	
-<!-- 추천수 조회하기 -->
-<select id= "cntRecommend" resultType="int" parameterType="web.dto.Free">
-	select count(*) from recommend where user_no = #{userNo} and free_no = #{freeNo}
-</select>
 
-<!-- 추천수+1 -->
-<update id="plusRecommend" parameterType="web.dto.Free">
-	UPDATE free SET 
-	recommend  = recommend + 1
-	WHERE free_no = #{freeNo}
-</update>
 
-<!-- 추천수-1 -->
-<update id= "minusRecommend" parameterType="web.dto.Free">
-	UPDATE free SET 
-	recommend  = recommend - 1
-	WHERE free_no = #{freeNo}
-</update>
+
 
 <!-- 수정 페이지에서 파일 삭제 -->
-<delete id="deleteFileByFreeFileNo" parameterType="web.dto.FreeFile">
+<delete id="deleteFileByFileNo" parameterType="int">
 	DELETE free_file 
 	WHERE free_file_no = #{freeFileNo}
 </delete>
 
+<!-- 추천수 조회하기 -->
+<select id= "cntRecommend" resultType="int" parameterType="web.dto.Free">
+	select count(*) from recommend where user_no = #{userNo} and free_no = #{freeNo}
+</select>
 
 <!-- 추천 -->
 <insert id="insertRecommend" parameterType="web.dto.Free">
@@ -218,8 +290,21 @@ ORDER BY free_no DESC
 	DELETE recommend
 	WHERE free_no = #{freeNo} and user_no = #{userNo}
 </delete>
-</mapper>	
 
+<select id= "selectByUserno" parameterType="web.dto.Recommend" resultType="int">
+	SELECT count (*) FROM recommend
+	WHERE free_no = #{freeNo} 
+</select>
+
+<update id= "updateRecommend" parameterType="web.dto.Free">
+	UPDATE free set
+	recommend = (select count(*) from recommend where free_no = #{freeNo})
+	WHERE free_no = #{freeNo}
+</update>
+
+
+
+</mapper>	
 
 
 

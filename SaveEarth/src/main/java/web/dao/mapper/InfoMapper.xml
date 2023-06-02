@@ -6,11 +6,19 @@
   
   <mapper namespace="web.dao.face.InfoDao">
   
-<!--   <select id="selectCntAll" resultType="int"> -->
+  <select id="selectCntAll" resultType="int">
+  		select count(*) FROM Info
+  </select>
   
-<!--   select count(*) FROM Info -->
+  <select id="selectList" resultType="web.dto.Info" parameterType="web.util.Paging">
+		SELECT * FROM (
+	    	SELECT rownum rnum, I.* FROM (
+	        	SELECT * FROM info ORDER BY info_no DESC
+	    	) I
+		) INFO
+		WHERE rnum BETWEEN #{startNo} AND #{endNo}
+  </select>
   
   
-<!--   </select> -->
   
   </mapper>

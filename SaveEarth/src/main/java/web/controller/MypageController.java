@@ -82,9 +82,7 @@ public class MypageController {
 		String loginId = (String) session.getAttribute("loginId");
 		logger.info("controller{}", loginId);
 		
-		
 		memberService.delete(loginId);
-		
 		
 		return "redirect:/member/logout";
 	}
@@ -95,7 +93,6 @@ public class MypageController {
 		logger.info("/mypage/board[RequestMapping]");
 		logger.info("freeHead{}", freeHead);
 		
-		//---------------- 작업중
 		Paging paging = freeService.getPaging(curPage);
 		
 		List<Map<String,Object>> list = freeService.list(paging, freeHead);
@@ -108,8 +105,6 @@ public class MypageController {
 		
 		model.addAttribute("freeHead", freeHead);
 		model.addAttribute("paging", paging);
-//		model.addAttribute("list", list);
-		//---------------- 작업중
 		
 		// 내 정보 불러오기 
 		String loginId = (String) session.getAttribute("loginId");
@@ -126,7 +121,6 @@ public class MypageController {
 		for(Free m : mypageList) {
 			logger.info(" list {} ", m);
 		}
-		
 		
 		model.addAttribute("mypageList", mypageList);
 

@@ -81,6 +81,7 @@
 	border-color: #7CA621;
 	color: #7CA621;
 }
+
   
 </style>
 
@@ -92,6 +93,8 @@
 
 
 <script type="text/javascript">
+
+var today = new Date().toISOString().split("T")[0];
 
 document.addEventListener('DOMContentLoaded', function() {
 	var calendarEl = document.getElementById('calendar');
@@ -153,10 +156,15 @@ document.addEventListener('DOMContentLoaded', function() {
 			</c:if>
 				 
 		],
-		dayMaxEventRows: true,
-		eventClick: function(info) {
+		dayMaxEventRows: true
+		<c:if test="${not empty isLogin and isLogin }">
+
+		,eventClick: function(info) {
 			console.log(info.event.id)
 			const partNo = info.event.id
+			
+			//인증 사진 초기화
+			$("#certImg").attr("src", "");
 			
 			$.ajax({
 				type: "post"
@@ -178,13 +186,12 @@ document.addEventListener('DOMContentLoaded', function() {
 			})
 			
 			//more 창 닫기
-			$("#fc-dom-11").css("display", "none");
+			$(".fc-more-popover").css("display", "none");
 			
 			//클릭시 모달 창 띄우기
 			$("#btnViewModal").click()
 			
 		}
-		<c:if test="${not empty isLogin and isLogin }">
 		, selectable: true,
 		dateClick: function(info) {
 			
@@ -219,10 +226,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
     calendar.render();
 });
-
-
-
-
 
 
 </script>

@@ -41,15 +41,6 @@ body {
 	font-family: 'KBO-Dia-Gothic_bold';
 }
 
-
-/* 검색창 스타일 */
-input {
-	width: 100%;
-	border: 1px solid #bbb;
-	border-radius: 8px;
-	font-size: 14px;
-}
-
 /* '자유게시판'문구 폰트 스타일 */
 @font-face {
 	font-family: 'KBO-Dia-Gothic_bold';
@@ -84,7 +75,8 @@ select {
 	width: 300px;
 	height: 30px;
 	font-size: 18px;
-	border: 1px solid #ccc;
+	border-radius: 8px;
+	border: 1px solid #bbb;
 }
 
 /* 검색창 버튼 스타일 */
@@ -122,6 +114,7 @@ select {
 	
 	text-align: center;
 }
+
 
 
 
@@ -173,24 +166,36 @@ location.href="?freeHead=" + freeHead
   	    <c:choose>
   	    
         <c:when test="${freeHead eq '사담' }">
-			<option value="전체">전체</option>
+			<option value= "전체">전체</option>
 			<option value= "사담" selected>사담</option>
 			<option value= "정보">정보</option>
 			<option value= "질문">질문</option>
+			<option value= "공지사항">공지사항</option>
 		</c:when>
        
         <c:when test="${freeHead eq '정보' }">
-			<option value="전체">전체</option>
+			<option value=" 전체">전체</option>
 			<option value= "사담">사담</option>
 			<option value= "정보" selected>정보</option>
 			<option value= "질문">질문</option>
+			<option value= "공지사항">공지사항</option>
+
 		</c:when>
        
 		<c:when test="${freeHead eq '질문' }">
-			<option value="전체">전체</option>
+			<option value=" 전체">전체</option>
 			<option value= "사담">사담</option>
 			<option value= "정보">정보</option>
 			<option value= "질문" selected>질문</option>
+			<option value= "공지사항">공지사항</option>
+		</c:when>
+		
+		<c:when test="${freeHead eq '공지사항' }">
+			<option value=" 전체">전체</option>
+			<option value= "사담">사담</option>
+			<option value= "정보">정보</option>
+			<option value= "질문">질문</option>
+			<option value= "공지사항" selected>공지사항</option>
 		</c:when>
 		
 		<c:when test="${freeHead eq '전체'}">
@@ -198,6 +203,7 @@ location.href="?freeHead=" + freeHead
 			<option value= "사담">사담</option>
 			<option value= "정보">정보</option>
 			<option value= "질문">질문</option>
+			<option value= "공지사항">공지사항</option>
 		</c:when>
 		
 		<c:otherwise>
@@ -205,6 +211,7 @@ location.href="?freeHead=" + freeHead
 			<option value= "사담">사담</option>
 			<option value= "정보">정보</option>
 			<option value= "질문">질문</option>
+			<option value= "공지사항">공지사항</option>
 		</c:otherwise>
 		
       </c:choose>
@@ -239,7 +246,7 @@ location.href="?freeHead=" + freeHead
 				<td class="text-start" style="text-align:center"><a href="/free/view?freeNo=${free.FREE_NO }">${free.FREE_TITLE }</a></td>
 				<td>${free.USER_ID}</td>
 				<td>${free.FREE_VIEWS }</td>
-				<td>${free.RECOMMEND }</td>
+				<td>${free.RECOMMEND}</td>
 				<td><fmt:formatDate value="${free.FREE_CREATE}" pattern="yy-MM-dd HH:mm:ss"/></td>
 			</tr>
 
@@ -261,12 +268,11 @@ location.href="?freeHead=" + freeHead
 
 <input type="hidden" name="freeHead" value="${freeHead }">
 
-<span class="float-end mb-3">${paging.totalCount }</span>
 <div class="clearfix"></div>
 
 <div>
 	<ul class="pagination pagination-sm justify-content-center">
-
+	
 	<%-- 첫 페이지로 이동 --%>
 	<c:if test="${paging.curPage ne 1 }">
 		<li class="page-item"><a href="./main?freeHead=${freeHead }" class="page-link">&larr; 처음</a></li>	

@@ -152,8 +152,28 @@ label {
 
 <script type="text/javascript">
 
-//캠페인 상태 버튼 ajax
+//페이징 변수 선언
+var curPage = ${paging.curPage};
+var totalCount = ${paging.totalCount};
+var totalPage = ${paging.totalPage};
+var listCount =${paging.listCount};
+var pageCount = ${paging.pageCount};
+var startPage = ${paging.startPage};
+var endPage = ${paging.endPage};
+var startno = ${paging.startNo};
+var endno = ${paging.endNo};
+var state = "전체";
+
+//인증날짜 변수 선언
+var today = new Date();
+var year = today.getFullYear();
+var month = ('0' + (today.getMonth() + 1)).slice(-2);
+var day = ('0' + today.getDate()).slice(-2);
+var dateString = year + '-' + month  + '-' + day;
+
 $(function(){
+	
+	//캠페인 상태 버튼 ajax
 	$(".preface").click(function() {
 		console.log("test")
 		console.log($(this).html())
@@ -168,7 +188,7 @@ $(function(){
 			"color" : "white"
 		})
 		
-		const state = $(this).html()
+		state = $(this).html()
 		
 		$.ajax({
 			type: "post"
@@ -177,7 +197,6 @@ $(function(){
 			, dataType : "html"
 			, success : function(res) {
 				console.log('성공')
-				
 				$("#campListJsp").html(res)
 			}
 			, error : function() {
@@ -188,6 +207,77 @@ $(function(){
 
 	})
 	
+	
+	
+	//페이징 숫자
+	$(document).on("click", ".number", function() {
+      
+		curPage = $(this).html();
+			console.log("페이징 넘버", curPage)
+			
+			$.ajax({
+			   type: "post"
+			   , url: "./preface"
+			   , data:  {state : state, curPage : curPage}
+			   , dataType: "html" 
+			   , success: function( res ) {
+			      console.log("AJAX 성공 , 페이징 숫자버튼")
+			      $("#campListJsp").html(res)
+			   }
+			   , error: function() {
+			      console.log("AJAX 실패")
+			   }
+			})
+		})
+
+		
+	//페이징 첫 페이지
+	$(document).on("click", ".first", function() {
+		curPage = 1
+	     
+		console.log(" 페이징 첫페이지 및 curpage", curPage)
+	     
+	     
+		$.ajax({
+	        type: "post"
+	        , url: "./preface"
+	        , data:  {state : state, curPage : curPage}
+	        , dataType: "html" 
+	        , success: function( res ) {
+	           console.log("AJAX 성공, 페이징 첫페이지")
+	           $("#campListJsp").html(res)
+	        }
+	        , error: function() {
+	           console.log("AJAX 실패")
+	        }
+		})
+	     
+	})
+	   
+	
+	//페이징 마지막 페이지
+	$(document).on("click", ".end", function() {
+		curPage = totalPage;
+	   
+		console.log("엔드페이지", curPage);
+	   
+		$.ajax({
+			type: "post"
+		   , url: "./preface"
+		   , data:  {state : state, curPage : curPage}
+		   , dataType: "html" 
+		   , success: function( res ) {
+		      console.log("AJAX 성공, 페이징 첫페이지")
+		      $("#campListJsp").html(res)
+		   }
+		   , error: function() {
+		      console.log("AJAX 실패")
+		   }
+		})
+	   
+	})
+   
+   
 })
 
 
@@ -224,6 +314,16 @@ $(function() {
 		
 	})
 	
+	$("#partDate").blur(function() {
+		
+		if($(this).val() == "") {
+			$("#dateMsg").html("필수 입력요소입니다.")
+		} else {
+			$("#dateMsg").html("")
+		}
+		
+	})
+	
 })
 
 
@@ -243,6 +343,16 @@ function validate() {
 	} else {
 		$("#contentMsg").html("")
 	}
+
+	if($("#partDate").val() == "") {
+		$("#dateMsg").html("날짜를 선택해주세요.")
+		return false;
+	} else if($("#partDate").val() > dateString) {
+			$("#dateMsg").html("미래는 선택할 수 없습니다.")
+		return false;
+	} else {
+		$("#dateMsg").html("")
+	}
 	
 	if($("#partFile").val() == "") {
 		$("#fileMsg").html("첨부파일이 없습니다.")
@@ -250,6 +360,8 @@ function validate() {
 	} else {
 		("#fileMsg").html("")
 	}
+	
+
 	
 }
 
@@ -266,7 +378,6 @@ $(function() {
 	})
 	
 })
-
 
 
 //인증글 첨부파일 미리보기
@@ -287,7 +398,12 @@ function readURL(input){
 	    document.getElementById('preview').src = "";
 	}
 }
-	
+
+
+
+
+
+
 
 </script>
 
@@ -371,6 +487,12 @@ myModal.addEventListener('shown.bs.modal', () => {
 				</div>
 				<br>
 				<div class="form-group">
+					<label for="partDate">인증일</label>
+					<input type="date" class="form-control" id="partDate" name="partDate">	
+					<span id="dateMsg" class="warnMsg"></span>			
+				</div>
+				<br>
+				<div class="form-group">
 					<label for="partFile">첨부파일</label>
 					<input type="file" class="form-control" id="partFile" name="partFile" onchange="readURL(this);" accept="image/gif, image/jpeg, image/png">
 					<span id="fileMsg" class="warnMsg" ></span>
@@ -423,9 +545,6 @@ myModal.addEventListener('shown.bs.modal', () => {
 </div>
 
 
-
-
-
 <div id="line"><hr></div>
 
 <div id="campList">
@@ -433,28 +552,13 @@ myModal.addEventListener('shown.bs.modal', () => {
 		<button id="navButton" type="button" class="btn btn-outline-success preface all">전체</button>
 		<button id="navButton" type="button" class="btn btn-outline-success preface">진행중</button>
 		<button id="navButton" type="button" class="btn btn-outline-success preface">마감</button>
-		
-<!-- 		    <span class="search"> -->
-<!-- 		        <input type="text" name="search" class="search_input" placeholder="검색어를 입력해주세요"> -->
-<!-- 		        <button type="button" name="search_btn" class="search_btn"><i class="bi bi-search"></i></button> -->
-<!-- 		    </span> -->
+
 	</div>
 	
 <div id="campListJsp">
-
-<c:import url="./campList.jsp"/>
-
+	<c:import url="./campList.jsp"/>
 </div>
 
 </div>
-
-<script type="text/javascript">
-
-
-
-</script>
-
-
-<%-- <c:import url="./paging.jsp"/> --%>
 
 <c:import url="../layout/footer.jsp"/>

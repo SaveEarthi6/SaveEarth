@@ -1,140 +1,154 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <c:import url="../layout/adminheader.jsp"/>
 
-
-<!-- 풀캘린더 -->
-<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js'></script>
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js"></script>
-
-
 <style type="text/css">
-
-.campimage {
-	position: relative;
+/* 여백 없애기 */
+body {
+	margin:0;
+	padding: 0;
 }
 
-.camp {
+/* 게시판 메인 이미지 스타일 */
+.freeimage {
+	/* 이미지랑 네비게이션바 띄우기 */
+	position: relative;
+	width: 100%;
+	height: 500px;
+}
+
+/* 이미지 안에 자유게시판 문구 스타일 */
+.free {
 	position: absolute;
-	top: 38%; 
-	left: 45%; 
-/* 	transform: translate(-50%, -50%);  */
-	color: #fff; 
+	top: 38%;
+	left: 45%;
+	color: #fff;
 	font-weight: bold;
 	font-size: 50px;
-    font-family: 'KBO-Dia-Gothic_bold';
+	font-family: 'KBO-Dia-Gothic_bold';
 }
 
 
+/* 검색창 스타일 */
+input {
+	width: 100%;
+	border: 1px solid #bbb;
+	border-radius: 8px;
+	font-size: 14px;
+}
+
+/* '자유게시판'문구 폰트 스타일 */
 @font-face {
-    font-family: 'KBO-Dia-Gothic_bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff') format('woff');
-    font-weight: 700;
-    font-style: normal;
+	font-family: 'KBO-Dia-Gothic_bold';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff')
+		format('woff');
+		
+	font-weight: 700;
+	font-style: normal;
 }
 
-#wrapCalendar {
-	width: 1000px;
-	margin: 0 auto;
+/* 말머리글 (드롭다운) 크기 늘리기 */
+select {
+	width:100px;
 }
 
-#calName {
+.head {
+	padding-left: 1200px;
+	padding-top: 50px;
+	
+}
+
+/* 검색 전체 div태그 스타일 */
+.search {
 	text-align: center;
-	font-weight: bold;
-	font-size: 2em;
-	padding: 40px;
+	width: 100%;
+	height: 100px;
 }
 
-#line {
-	width: 1700px;
-	margin: 0 auto;
+/* 검색창 스타일 */
+.search_input {
+	width: 300px;
+	height: 30px;
+	font-size: 18px;
+	border: 1px solid #ccc;
 }
 
-#navButton  {  
-  	margin-left: 30px;  
-	margin-top: 20px;  
- 	width: 100px;  
-}  
-
-.nav { 
- 	margin-left: 100px; 
- 	margin-bottom: 50px; 
-} 
-
-
-.search { 
- 	text-align: center; 
- 	margin-left: 925px;
- 	display: flex;
-    align-items: flex-end;
- } 
-
- .search_input { 
- 	width: 300px; 
- 	height: 30px; 
- 	font-size: 18px; 
- 	border: 1px solid #ccc; 
-} 
-
- .search_btn { 
- 	font-size: 18px; 
- 	border: none; 
- 	background-color: green; 
- 	width: 50px; 
- 	height: 30px; 
- 	border-radius: 15px; 
- 	color: #fff; 
- 	cursor: pointer; 
-  	vertical-align: middle;  
-  	margin-left: 5px;
- } 
-
- .search_icon { 
- 	width: 20px; 
- 	height: 20px; 
- 	margin-bottom: 3px; 
- } 
-
-#camp {
-  width: 225px;
-  text-align: center;
-  display: block;
-  margin-left:10px;
-  margin-right: 10px;
-  margin-bottom: 80px;
-  
+/* 검색창 버튼 스타일 */
+.search_btn {
+	font-size: 18px;
+	border: none;
+	background-color: green;
+	width: 50px;
+	height: 30px;
+	border-radius: 15px;
+	color: #fff;
+	cursor: pointer;
+	vertical-align: middle;
 }
 
-#campTitle {
-	font-size: 1.5em;
-	font-weight: bold;
+/* 검색아이콘 이미지 */
+.search_icon {
+	margin-top:3px;
+	margin-bottom:3px;
+	width: 20px;
+	height: 20px;
 }
 
-#campTag {
-	text-decoration: none;
-	color: inherit;
+/* 게시판 목록 */
+#board {
+	width:1300px;
+	
+	margin-top: 100px;
+	
+	margin-left:auto;
+	margin-right:auto;
+	
+	text-align: center;
 }
-
-
-/* 게시판 분류 버튼 스타일 */
-.nav button {  
-  	margin-left: 30px;  
-	margin-top: 20px;  
- 	width: 100px;  
-  }  
-
-
 /* 게시글 분류 전체(div) 스타일 */
 .nav { 
  	margin-left: 30%; 
  	margin-bottom: 50px; 
- 	
- 	
  } 
+
+
 </style>
+
+<!-- 필터 기능 -->
+<script type="text/javascript">
+
+
+// function selectFilter () {
+// 	console.log("click")
+	
+// 	 console.log( $("#filter").val() )
+	   
+// 	   //curPage 초기화
+// 	   var filter = $("#filter").val();
+// 	   location.href = "?filter=" + filter
+
+	
+// }
+
+function selectfreeHead() {
+	
+var freeHead = $('#freeHead').val()
+
+console.log(freeHead)
+
+location.href="?freeHead=" + freeHead
+
+}
+
+
+</script>
+
+</head>
+<body>
+
 
 
 <br>
@@ -143,108 +157,113 @@
 <a href="./info"><button type="button" class="btn btn-outline-success" id ="top">정보 게시판</button></a>
 <a href="./campaign"><button type="button" class="btn btn-outline-success" id ="top">켐페인 게시판</button></a>
 </div> 
-<br>
+
+
+
+ <div>
+<!-- 게시판 -->
+<table id= "board" class= "table table-hover text-center">
+
+	<tr style= "background-color: #59A8D9; color: white;">
+		<th style="width: 20px;">글번호</th>
+		<th style="width: 30px; text-align:center">제목</th>
+		<th style="width: 20px;">작성일</th>
+		<th style="width: 20px;">상태</th>
+	</tr>
 	
-	
-<div id="wrapCalendar">
+<tbody>
+<c:forEach items="${camlist }" var="campaing">
 
-<div id="calendar"></div>
+			<tr>	
+				<td>${campaing.campNo }</td>
+				<td class="text-start" style="text-align:center"><a href="/admin/CamView?freeNo=${campaing.campNo }">${campaing.CAMP_TITLE }</a></td>
+				<td><fmt:formatDate value="${campaing.CAMP_ENROLL}" pattern="yy-MM-dd HH:mm:ss"/></td>
+				<td>${campaing.CAMP_STATE }</td>
+			</tr>
 
+</c:forEach>
+</tbody>
 
-<script>
-
-document.addEventListener('DOMContentLoaded', function() {
-	var calendarEl = document.getElementById('calendar');
-	var calendar = new FullCalendar.Calendar(calendarEl, {
-		themeSystem: 'bootstrap5'
-		, customButtons: {
-			myCustomButton: {
-				text: '인증글 작성하기'
-				, click: function() {
-					alert('인증글 작성하기 모달')
-				}
-			}
-
-		}
-		, initialView: 'dayGridMonth'		//초기 로드될 때 보이는 캘린더화면(month)
-		, headerToolbar: {
-			start: 'prev next today'
-			, center: 'title'
-			, end: 'myCustomButton'
-		}
-		//타이틀 포멧
-		, locale: 'ko'	//한국어 설정
-	});
-	calendar.render();
-});
-
-</script>
-
-<!-- 달력 커스텀 해야함 -->
-
+</table>
+<!-- 검색창 -->
+<div>
+	<form action="/info/main">
+	    <div class="search">
+	        <input type="text" name="search" class="search_input">
+	        <button type="button" name="search_btn" class="search_btn"  style="margin-bottom: 3px;"><i class="bi bi-search"></i></button>
+	    </div>
+	</form>
 </div>
 
-<div id="line"><hr></div>
+<span class="float-end mb-3">${paging.totalCount }</span>
+<div class="clearfix"></div>
 
-<div id="campList">
-	<div class="nav">
-		<button id="navButton" type="button" class="btn btn-outline-success">전체</button>
-		<button id="navButton" type="button" class="btn btn-outline-success">진행중</button>
-		<button id="navButton" type="button" class="btn btn-outline-success">마감</button>
-		
-	    <span class="search">
-	        <input type="text" name="search" class="search_input">
-	        <button type="button" name="search_btn" class="search_btn"><i class="bi bi-search"></i></button>
-	    </span>
-		
-	</div>
+<div>
+	<ul class="pagination pagination-sm justify-content-center">
+
+	<%-- 첫 페이지로 이동 --%>
+	<c:if test="${paging.curPage ne 1 }">
+		<li class="page-item"><a href="./free?freeHead=${freeHead }" class="page-link">&larr; 처음</a></li>	
+	</c:if>
+	
+	<%-- 이전 페이징 리스트로 이동 --%>
+	<c:choose>
+	<c:when test="${paging.startPage ne 1 }">
+		<li class="page-item"><a href="./free?curPage=${paging.startPage - paging.pageCount }&freeHead=${freeHead}" class="page-link">&laquo;</a></li>
+	</c:when>
+	<c:when test="${paging.startPage eq 1 }">
+		<li class="page-item disabled"><a class="page-link">&laquo;</a></li>
+	</c:when>
+	</c:choose>
+	
+	<%-- 이전 페이지로 가기 --%>
+	<c:if test="${paging.curPage > 1 }">
+		<li class="page-item"><a href="./free?curPage=${paging.curPage - 1 }&freeHead=${freeHead}" class="page-link">&lt;</a></li>
+	</c:if>
+	
+	
+	
+	
+	<%-- 페이징 리스트 --%>
+	<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="i">
+	<c:if test="${paging.curPage eq i }">
+		<li class="page-item active"><a href="./campaign?curPage=${i }&freeHead=${freeHead}" class="page-link">${i }</a></li>
+	</c:if>
+	<c:if test="${paging.curPage ne i }">
+		<li class="page-item"><a href="./campaign?curPage=${i }&freeHead=${freeHead}" class="page-link">${i }</a></li>
+	</c:if>
+	</c:forEach>
 	
 
-	<div id="campList" class="row">
-		<div class="col-1"></div>
-		
-		<div id="camps" class="row col-10">
-		
-			<c:forEach var="campaign" items="${campList }" begin="0" end="2">
-			<div id="camp" class="col">
-			<a href="./detail?campno=${campaign.campNo }" id="campTag">
-				<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
-				<div id="campTitle">
-					<span id="titleTag">[${campaign.campState }]</span>
-					<span id="title">${campaign.campTitle }</span>
-				</div>
-			</a>
-			</div>
-			</c:forEach>
-			
-		</div>
-		
-		<div class='col-1'></div>
-	</div>
+	
+	
+	<%-- 다음 페이지로 가기 --%>
+	<c:if test="${paging.curPage < paging.totalPage }">
+		<li class="page-item"><a href="./campaign?curPage=${paging.curPage + 1 }&freeHead=${freeHead}" class="page-link">&gt;</a></li>
+	</c:if>
+	
+	<%-- 다음 페이징 리스트로 이동 --%>
+	<c:choose>
+	<c:when test="${paging.endPage ne paging.totalPage }">
+		<li class="page-item"><a href="./campaign?curPage=${paging.startPage + paging.pageCount }&freeHead=${freeHead}" class="page-link">&raquo;</a></li>
+	</c:when>
+	<c:when test="${paging.endPage eq paging.totalPage }">
+		<li class="page-item disabled"><a class="page-link" href="./campaign?curPage=${paging.totalPage }&freeHead=${freeHead}">&raquo;</a></li>
+	</c:when>
+	</c:choose>
 
-	<div id="campList" class="row">
-		<div class="col-1"></div>
-		
-		<div id="camps" class="row col-10">
-		
-			<c:forEach var="campaign" items="${campList }" begin="3" end="5">
-			<div id="camp" class="col">
-			<a href="./detail?campno=${campaign.campNo }" id="campTag">
-				<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
-				<div id="campTitle">
-					<span id="titleTag">[${campaign.campState }]</span>
-					<span id="title">${campaign.campTitle }</span>
-				</div>
-			</a>
-			</div>
-			</c:forEach>
-			
-		</div>
-		
-		<div class='col-1'></div>
-	</div>
+	<%-- 끝 페이지로 이동 --%>
+	<c:if test="${paging.curPage ne paging.totalPage }">
+		<li class="page-item"><a href="./campaign?curPage=${paging.totalPage }&freeHead=${freeHead}" class="page-link">끝 &rarr;</a></li>	
+	</c:if>
+	
+	</ul>
+</div>
 
 
-<c:import url="../layout/paging.jsp"/>
+<c:import url="../layout/footer.jsp"></c:import>
 
-<c:import url="../layout/footer.jsp"/>
+
+</body>
+
+</html>

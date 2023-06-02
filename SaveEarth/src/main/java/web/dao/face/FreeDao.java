@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import web.dto.Free;
 import web.dto.FreeComment;
 import web.dto.FreeFile;
+import web.dto.Recommend;
 import web.util.Paging;
 
 public interface FreeDao {
@@ -112,19 +113,7 @@ public interface FreeDao {
 	 */
 	public int cntRecommend(Free free);
 
-	/**
-	 * cntRecommend가 0일때 추천수가 +1, 
-	 * 
-	 * @param free
-	 */
-	public void plusRecommend(Free free);
-
-	/**
-	 * 0보다 클 때 -1이 된다
-	 * 
-	 * @param free
-	 */
-	public void minusRecommend(Free free);
+	
 
 	public void insertRecommend(Free free);
 
@@ -133,9 +122,9 @@ public interface FreeDao {
 
 
 	/**
-	 * 작성한 댓글을 삽입한다
+	 * 댓글 작성(작성한 댓글을 삽입한다)
 	 * @param freeComment - 작성한 댓글 내용(정보)
-	 * @return - 삽입 결과(성공1, 실패0)
+	 * @return - 삽입 결과 - 성공:1, 실패:0
 	 */
 	public int insertComment(FreeComment freeComment);
 
@@ -145,13 +134,61 @@ public interface FreeDao {
 	 * @return - 게시글 번호와 일치하는 댓글 정보
 	 */
 	public List<Map<String, Object>> selectComment(Free freeBoard);
+	
+	/**
+	 * 추천수 조회
+	 * @param recommend
+	 * @return
+	 */
+	public int selectByUserno(Recommend recommend);
 
 	/**
-	 * 선택한 파일을 삭제한다
-	 * @param freeFile - 파일 번호
-	 * @return - 결과 성공:1, 실패:0
+	 * 댓글 삭제
+	 * @param commNo - 댓글 번호
+	 * @return - 수행 결과 성공:1, 실패:0
 	 */
-	public int deleteFileByFreeFileNo(FreeFile freeFile);
+	public int deleteComm(int commNo);
+
+	/**
+	 * 댓글 정보를 조회한다
+	 * @param freeNo - 게시글 번호
+	 * @return - 게시글 번호와 일치하는 댓글 정보
+	 */
+	public List<Map<String, Object>> selectCommentByFreeNo(int freeNo);
+
+	/**
+	 * 파일 번호를 기준으로 파일을 삭제
+	 * @param fileNo - 파일 번호
+	 */
+	public void deleteFileByFileNo(int fileNo);
+
+	/**
+	 * 게시글 번호(정수형)을 기준으로 파일 정보를 조회한다
+	 * @param freeNo - 게시글 번호
+	 * @return - 게시글 번호가 일치하는 파일 정보 
+	 */
+	public List<FreeFile> selectFileByFreeNo(int freeNo);
+
+	/**
+	 * 검색 했을 때 전체 게시글 수 조회
+	 * @param keyword - 검색어
+	 * @param freeHead - 말머리글
+	 * @return - 검색어 일치하는 총 게시글 수
+	 */
+	public int selectCntAllSearch(@Param("keyword") String keyword, @Param("freeHead") String freeHead);
+
+	/**
+	 * 말머리글 적용했을 때 전체 게시글 수 조회
+	 * @param freeHead - 말머리글
+	 * @return - 말머리글 일치하는 총 게시글 수
+	 */
+	public int selectCntAllFreeHead(String freeHead);
+
+	public void updateRecommend(Free free);
+
+	
+	
+
 
 
 

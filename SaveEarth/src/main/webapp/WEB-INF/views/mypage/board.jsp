@@ -133,36 +133,8 @@ select {
  	margin-bottom: 50px; 
  } 
 
-
-
 </style>
 
-<!-- 필터 기능 -->
-<script type="text/javascript">
-
-
-// function selectFilter () {
-// 	console.log("click")
-	
-// 	 console.log( $("#filter").val() )
-	   
-// 	   //curPage 초기화
-// 	   var filter = $("#filter").val();
-// 	   location.href = "?filter=" + filter
-
-	
-// }
-function selectfreeHead() {
-	
-var freeHead = $('#freeHead').val()
-
-console.log(freeHead)
-
-location.href="?freeHead=" + freeHead
-
-}
-
-</script>
 
 </head>
 <body>
@@ -204,7 +176,7 @@ location.href="?freeHead=" + freeHead
 
 <!-- 검색창 -->
 <div>
-	<form action="/info/main">
+	<form action="/info/board">
 	    <div class="search">
 	        <input type="text" name="search" class="search_input">
 	        <button type="button" name="search_btn" class="search_btn"  style="margin-bottom: 3px;"><i class="bi bi-search"></i></button>
@@ -228,6 +200,7 @@ location.href="?freeHead=" + freeHead
 	<c:when test="${paging.startPage ne 1 }">
 		<li class="page-item"><a href="./board?curPage=${paging.startPage - paging.pageCount }&freeHead=${freeHead}" class="page-link">&laquo;</a></li>
 	</c:when>
+	
 	<c:when test="${paging.startPage eq 1 }">
 		<li class="page-item disabled"><a class="page-link">&laquo;</a></li>
 	</c:when>
@@ -237,9 +210,6 @@ location.href="?freeHead=" + freeHead
 	<c:if test="${paging.curPage > 1 }">
 		<li class="page-item"><a href="./board?curPage=${paging.curPage - 1 }&freeHead=${freeHead}" class="page-link">&lt;</a></li>
 	</c:if>
-	
-	
-	
 	
 	<%-- 페이징 리스트 --%>
 	<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="i">
@@ -256,22 +226,22 @@ location.href="?freeHead=" + freeHead
 	
 	<%-- 다음 페이지로 가기 --%>
 	<c:if test="${paging.curPage < paging.totalPage }">
-		<li class="page-item"><a href="./main?curPage=${paging.curPage + 1 }&freeHead=${freeHead}" class="page-link">&gt;</a></li>
+		<li class="page-item"><a href="./board?curPage=${paging.curPage + 1 }&freeHead=${freeHead}" class="page-link">&gt;</a></li>
 	</c:if>
 	
 	<%-- 다음 페이징 리스트로 이동 --%>
 	<c:choose>
 	<c:when test="${paging.endPage ne paging.totalPage }">
-		<li class="page-item"><a href="./main?curPage=${paging.startPage + paging.pageCount }&freeHead=${freeHead}" class="page-link">&raquo;</a></li>
+		<li class="page-item"><a href="./board?curPage=${paging.startPage + paging.pageCount }&freeHead=${freeHead}" class="page-link">&raquo;</a></li>
 	</c:when>
 	<c:when test="${paging.endPage eq paging.totalPage }">
-		<li class="page-item disabled"><a class="page-link" href="./main?curPage=${paging.totalPage }&freeHead=${freeHead}">&raquo;</a></li>
+		<li class="page-item disabled"><a class="page-link" href="./board?curPage=${paging.totalPage }&freeHead=${freeHead}">&raquo;</a></li>
 	</c:when>
 	</c:choose>
 
 	<%-- 끝 페이지로 이동 --%>
 	<c:if test="${paging.curPage ne paging.totalPage }">
-		<li class="page-item"><a href="./main?curPage=${paging.totalPage }&freeHead=${freeHead}" class="page-link">끝 &rarr;</a></li>	
+		<li class="page-item"><a href="./board?curPage=${paging.totalPage }&freeHead=${freeHead}" class="page-link">끝 &rarr;</a></li>	
 	</c:if>
 	
 	</ul>
