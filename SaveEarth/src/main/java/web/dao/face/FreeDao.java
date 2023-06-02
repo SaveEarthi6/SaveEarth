@@ -113,19 +113,7 @@ public interface FreeDao {
 	 */
 	public int cntRecommend(Free free);
 
-	/**
-	 * cntRecommend가 0일때 추천수가 +1, 
-	 * 
-	 * @param free
-	 */
-	public void plusRecommend(Free free);
-
-	/**
-	 * 0보다 클 때 -1이 된다
-	 * 
-	 * @param free
-	 */
-	public void minusRecommend(Free free);
+	
 
 	public void insertRecommend(Free free);
 
@@ -174,6 +162,11 @@ public interface FreeDao {
 	 * @return - 게시글 번호와 일치하는 댓글 정보
 	 */
 	public List<Map<String, Object>> selectCommentByFreeNo(int freeNo);
+
+	public void updateRecommend(Free free);
+
+	
+	
 
 
 

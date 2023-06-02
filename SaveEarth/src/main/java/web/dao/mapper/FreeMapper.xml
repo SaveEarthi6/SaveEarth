@@ -28,7 +28,7 @@
 	
 </insert>
 
-<insert id="insertFreeFile" parameterType="web.dto.Free">
+<insert id="insertFreeFile" parameterType="web.dto.FreeFile">
 	INSERT INTO free_file (free_file_no, free_no, free_origin_name, free_stored_name) 
 	VALUES ( free_file_no_seq.nextval, #{freeNo}, #{freeOriginName}, #{freeStoredName})
 </insert>
@@ -42,7 +42,7 @@
 		SELECT rownum rnum, (SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) user_id, F.* FROM (
 			SELECT
 			*
-			FROM free
+			FROM free f
 	<choose>
 		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('사담')">
 			WHERE free_head = #{freeHead}
@@ -186,24 +186,7 @@ ORDER BY free_no DESC
 </select>
 
 	
-<!-- 추천수 조회하기 -->
-<select id= "cntRecommend" resultType="int" parameterType="web.dto.Free">
-	select count(*) from recommend where user_no = #{userNo} and free_no = #{freeNo}
-</select>
 
-<!-- 추천수+1 -->
-<update id="plusRecommend" parameterType="web.dto.Free">
-	UPDATE free SET 
-	recommend  = recommend + 1
-	WHERE free_no = #{freeNo}
-</update>
-
-<!-- 추천수-1 -->
-<update id= "minusRecommend" parameterType="web.dto.Free">
-	UPDATE free SET 
-	recommend  = recommend - 1
-	WHERE free_no = #{freeNo}
-</update>
 
 <!-- 수정 페이지에서 파일 삭제 -->
 <delete id="deleteFileByFreeFileNo" parameterType="web.dto.FreeFile">
@@ -211,6 +194,10 @@ ORDER BY free_no DESC
 	WHERE free_file_no = #{freeFileNo}
 </delete>
 
+<!-- 추천수 조회하기 -->
+<select id= "cntRecommend" resultType="int" parameterType="web.dto.Free">
+	select count(*) from recommend where user_no = #{userNo} and free_no = #{freeNo}
+</select>
 
 <!-- 추천 -->
 <insert id="insertRecommend" parameterType="web.dto.Free">
@@ -224,13 +211,20 @@ ORDER BY free_no DESC
 	WHERE free_no = #{freeNo} and user_no = #{userNo}
 </delete>
 
-<select id= "selectByUserno" parameterType="web.dto.Recommend">
-	SELECT count (*) recommend
-	WHERE free_no = #{freeNo} and user_no = #{userNo}
+<select id= "selectByUserno" parameterType="web.dto.Recommend" resultType="int">
+	SELECT count (*) FROM recommend
+	WHERE free_no = #{freeNo} 
 </select>
 
-</mapper>	
+<update id= "updateRecommend" parameterType="web.dto.Free">
+	UPDATE free set
+	recommend = (select count(*) from recommend where free_no = #{freeNo})
+	WHERE free_no = #{freeNo}
+</update>
 
+
+
+</mapper>	
 
 
 
