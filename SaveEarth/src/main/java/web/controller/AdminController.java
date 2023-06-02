@@ -1,4 +1,8 @@
+<<<<<<< HEAD
    package web.controller;
+=======
+	package web.controller;
+>>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
 
 import java.nio.file.Files;
 import java.util.List;

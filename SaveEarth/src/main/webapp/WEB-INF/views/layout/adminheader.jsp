@@ -28,15 +28,15 @@
 /* '정보게시판' 클릭했을 때 지정한 href로 이동 */
 $(document).ready(function(){
 
-	$("#infoBoard").click(function(){
-		$(location).attr("href", "/admin/board")
+	$("#adminFree").click(function(){
+		$(location).attr("href", "/admin/free")
 	})
 
-	$("#freeBoard").click(function(){
+	$("#adminProduct").click(function(){
 		$(location).attr("href", "/admin/product")
 	})
 	
-	$("#campBoard").click(function(){
+	$("#adminInquiry").click(function(){
 		$(location).attr("href", "/admin/inquiry")
 	})
 })
@@ -123,7 +123,7 @@ body {
 <div id="fullHeader">
 <div id="header">
 	<div id="wrap">
-	<a href="../saveearth/main"><img id="logo" src="../../resources/img/logo2.png"></a>
+	<a href="../admin/free"><img id="logo" src="../../resources/img/logo2.png"></a>
 	
 	<c:if test="${empty isLogin }">
 	<a href="/admin/login"	class="righttop">관리자 로그인 </a>
@@ -141,9 +141,9 @@ body {
 <table class="menu">
 
 <tr>
-	<td id="welcome">게시판 관리</td>
-	<td id="infoBoard">상품 관리</td>
-	<td id="freeBoard">문의 관리</td>
+	<td id="adminFree">게시판 관리</td>
+	<td id="adminProduct">상품 관리</td>
+	<td id="admininquiry">문의 관리</td>
 </tr>
 
 </table>

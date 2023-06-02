@@ -9,12 +9,22 @@
 		SELECT count(*) FROM campaign
 	</select>
 	
-	<select id="selectCampList" resultType="web.dto.Campaign" parameterType="web.util.Paging">
+<!-- 	<select id="selectCampList" resultType="web.dto.Campaign" parameterType="web.util.Paging"> -->
+	<select id="selectCampList" resultType="map" parameterType="web.util.Paging">
+<!-- 		SELECT * FROM ( -->
+<!-- 	    	SELECT rownum rnum, C.* FROM ( -->
+<!-- 	        	SELECT * FROM campaign ORDER BY camp_no DESC -->
+<!-- 	    	) C -->
+<!-- 		) CAMP -->
+<!-- 		WHERE rnum BETWEEN #{startNo} AND #{endNo} -->
 		SELECT * FROM (
-	    	SELECT rownum rnum, C.* FROM (
-	        	SELECT * FROM campaign ORDER BY camp_no DESC
-	    	) C
-		) CAMP
+		    SELECT rownum rnum, A.* FROM (
+		        SELECT c.*, f.camp_origin_name, f.camp_stored_name
+		        FROM campaign c LEFT OUTER JOIN  campaign_file f
+		        ON c.camp_no = f.camp_no
+		        ORDER BY c.camp_no DESC
+		    ) A
+		)
 		WHERE rnum BETWEEN #{startNo} AND #{endNo}
 	</select>
 	
@@ -36,14 +46,24 @@
 <!-- 		WHERE camp_state = #{state} -->
 <!-- 	</select> -->
 	
-	<select id="selectCampListByState" resultType="web.dto.Campaign" parameterType="map">
+	<select id="selectCampListByState" resultType="map" parameterType="map">
+<!-- 		SELECT * FROM ( -->
+<!-- 	    	SELECT rownum rnum, C.* FROM ( -->
+<!-- 	        	SELECT * FROM campaign  -->
+<!-- 	        		WHERE camp_state = #{state}  -->
+<!-- 	        		ORDER BY camp_no DESC -->
+<!-- 	    	) C -->
+<!-- 		) CAMP -->
+<!-- 		WHERE rnum BETWEEN #{paging.startNo} AND #{paging.endNo} -->
 		SELECT * FROM (
-	    	SELECT rownum rnum, C.* FROM (
-	        	SELECT * FROM campaign 
-	        		WHERE camp_state = #{state} 
-	        		ORDER BY camp_no DESC
-	    	) C
-		) CAMP
+		    SELECT rownum rnum, A.* FROM (
+		        SELECT c.*, f.camp_origin_name, f.camp_stored_name
+		        FROM campaign c LEFT OUTER JOIN campaign_file f
+		        ON c.camp_no = f.camp_no
+		            WHERE camp_state = #{state}
+		        ORDER BY c.camp_no DESC
+		    ) A
+		)
 		WHERE rnum BETWEEN #{paging.startNo} AND #{paging.endNo}
 	</select>
 	
