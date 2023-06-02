@@ -351,17 +351,6 @@ function heart(freeNo) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
 </script>
 
    <!-- 목록 버튼 -->
