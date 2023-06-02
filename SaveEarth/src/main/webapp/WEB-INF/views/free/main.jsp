@@ -258,7 +258,7 @@ location.href="?freeHead=" + freeHead
 
 <div>
 	<ul class="pagination pagination-sm justify-content-center">
-
+	
 	<%-- 첫 페이지로 이동 --%>
 	<c:if test="${paging.curPage ne 1 }">
 		<li class="page-item"><a href="./main?freeHead=${freeHead }" class="page-link">&larr; 처음</a></li>	

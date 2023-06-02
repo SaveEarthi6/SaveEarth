@@ -41,9 +41,6 @@ public class InfoBoardController {
 			logger.info("info list : {}", i);
 		}
 
-
-
-
 		
 		model.addAttribute("infoList", infoList);
 		model.addAttribute("paging", paging);
