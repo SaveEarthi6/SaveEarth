@@ -37,6 +37,7 @@ import web.util.Paging;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+
    
       @Autowired AdminService adminService;
       @Autowired MemberService memberService;
@@ -56,6 +57,7 @@ public class AdminController {
       admin = adminService.info(admin.getAdminId());
       logger.info("어드민 접속 정보:{}", admin);
       logger.info("어드민 번호:{}", admin.getAdminNo());
+
 
       if (isLogin) {
          session.setAttribute("isLogin", isLogin);
@@ -193,6 +195,7 @@ public class AdminController {
    
    }
    
+
    @PostMapping("/main")
    public String campMainPost(MultipartFile partFile, Certification certification ) {
       logger.info("/campaign/main [POST]");
@@ -211,8 +214,11 @@ public class AdminController {
    public void campaignWrite(HttpSession session, Model model) {
       logger.info("/campaignWrite [GET]");
 
+
+
       String loginId = (String) session.getAttribute("loginId");
       logger.info("관리자 id : {}", loginId);
+
 
       Admin memberInfo = adminService.info(loginId);
 

@@ -325,7 +325,9 @@ public class FreeServiceImpl implements FreeService{
 	}
 
 
+
 	//댓글 조회
+
 	@Override
 	public List<Map<String, Object>> getComment(Free freeBoard) {
 		
@@ -386,6 +388,7 @@ public class FreeServiceImpl implements FreeService{
 		freeDao.updateRecommend(free);
 	}
 	
+
 	@Override
 	public boolean checkRecommended(String loginId, Free freeBoard) {
 		//loginId를 이용하여 loginno을 가져오는 메소드를 만든다.
@@ -404,6 +407,7 @@ public class FreeServiceImpl implements FreeService{
 			return false;
 		}
 	}
+
 	
 
 	@Override

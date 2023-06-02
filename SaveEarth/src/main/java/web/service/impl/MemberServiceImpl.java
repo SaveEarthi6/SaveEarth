@@ -140,7 +140,7 @@ public class MemberServiceImpl implements MemberService {
 		Mail mail = new Mail();
 		mail.setAddress(member.getUserEmail());
 		mail.setTitle("SaveEarth홈페이지 임시비밀번호 발송");
-		mail.setContent(member.getUserId() + "님의 임시비밀번호는 "+member.getUserPw() + "입니다");
+		mail.setContent(member.getUserId() + "님의 임시비밀번호는 "+member.getUserPw() + "입니다"+ "로그인하고 비밀번호바꿔");
 		
 		SimpleMailMessage message = new SimpleMailMessage();
 	    message.setTo(mail.getAddress());
