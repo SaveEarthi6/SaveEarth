@@ -67,7 +67,7 @@
 			<p id="clear"></p>
 			<div id="info">
 				<span id="enroll">등록일 : <fmt:formatDate value="${campDetail.CAMP_ENROLL }" pattern="yyyy/MM/dd"/></span>
-				<span>|</span><
+				<span>|</span>
 				<span id="part">참여현황 : </span>	<!-- DB에서 인증사진 campno으로 count해와서 넣기 -->
 			</div>
 		</div>

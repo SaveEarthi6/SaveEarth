@@ -153,8 +153,9 @@ document.addEventListener('DOMContentLoaded', function() {
 			</c:if>
 				 
 		],
-		dayMaxEventRows: true,
-		eventClick: function(info) {
+		dayMaxEventRows: true
+		<c:if test="${not empty isLogin and isLogin }">
+		,eventClick: function(info) {
 			console.log(info.event.id)
 			const partNo = info.event.id
 			
@@ -184,7 +185,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			$("#btnViewModal").click()
 			
 		}
-		<c:if test="${not empty isLogin and isLogin }">
 		, selectable: true,
 		dateClick: function(info) {
 			

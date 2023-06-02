@@ -56,7 +56,7 @@ public class CampaignController {
 			List<Certification> certList = campService.getcertList((int)session.getAttribute("loginNo"));
 		
 			for(Certification c : certList) {
-				logger.info("{}", c);
+//				logger.info("{}", c);
 			}
 			
 			model.addAttribute("certList", certList);
