@@ -189,7 +189,7 @@
 <!-- 게시글 번호를 기준으로 게시글 내용 수정 -->
 <update id="updateBoard" parameterType="web.dto.Free">
 	UPDATE free SET
-	free_title = #{freeTitle}, free_content = #{freeContent}, free_head = #{freeHead}
+	free_title = #{freeTitle}, free_content = #{freeContent}, free_head = #{freeHead}, free_modify = CURRENT_DATE 
 	WHERE free_no = #{freeNo}
 </update>
 

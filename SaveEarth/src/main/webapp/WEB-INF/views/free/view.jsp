@@ -117,8 +117,20 @@
       <br> <br>
       <div id="head">${view.FREE_HEAD }</div>
       작성일
-      <fmt:formatDate value="${view.FREE_CREATE }"
-         pattern="yy-MM-dd HH:mm:ss" />
+<%-- 	  <fmt:formatDate value="${view.FREE_CREATE}" pattern="yy-MM-dd HH:mm:ss"/> --%>
+
+	  <c:choose>
+	  			
+      <c:when test="${view.FREE_CREATE != view.FREE_MODIFY }">
+      <fmt:formatDate value="${view.FREE_MODIFY }"
+      pattern="yy-MM-dd HH:mm:ss" /> 
+       </c:when> 
+
+     <c:otherwise> 
+	 <fmt:formatDate value="${view.FREE_CREATE}" pattern="yy-MM-dd HH:mm:ss"/>
+  	 </c:otherwise> 
+  	 
+	 </c:choose> 
       ㅣ 조회수 ${view.FREE_VIEWS }
 
     <!-- 추천 기능 버튼 -->
@@ -191,7 +203,7 @@ $(function() {
               $("#commContent").val('');
           },
           error : function(request, status, error) { // 결과 에러 콜백함수
-               console.log(error)
+               console.log('로그인이 필요합니다!')
           }
     })
 
@@ -321,7 +333,7 @@ function heart(freeNo) {
 
     </div> <!-- <div> comm end -->
 
-
+<c:if test="${loginId != null }">
    <!-- 댓글 -->
    <div class="card my-4">
       <h5 class="card-header" style="font-weight: bold;">댓글</h5>
@@ -333,12 +345,10 @@ function heart(freeNo) {
             <div style="padding-top: 50px;">
                <button id="enroll" type="button" class="btn btn-success">등록</button>
             </div>
-            <!-- 회원번호랑 게시글 번호도 함께 보내기 -->
-            <%--             <input type="hidden" name="userNo" value=${userInfo.userNo }> --%>
-            <%--             <input type="hidden" name="freeNo" value=${view.FREE_NO }> --%>
          </form>
       </div>
    </div>
+</c:if>
 
 </div>
 <!-- .container end -->
