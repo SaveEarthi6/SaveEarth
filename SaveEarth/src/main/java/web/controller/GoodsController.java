@@ -8,11 +8,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/goods")
-public class goodsController {
+public class GoodsController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@GetMapping("/main")
 	public void goodsmainget(){
+		
+	}
+	
+	@RequestMapping("/purchase")
+	public void purchase() {
+		
+		logger.info("/goods/purchase [GET]");
 		
 	}
 
