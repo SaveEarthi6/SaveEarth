@@ -25,4 +25,19 @@
 		WHERE p.prod_no = #{prodNo}
 	
 	</select>
+	
+	<insert id="addCart" parameterType="web.dto.Cart">
+	INSERT INTO cart(cart_no,user_no,prod_no,prod_count)
+	values(#{cartNo},#{userNo},#{prodNo},#{prodCount})
+	
+	</insert>
+	
+
+	<select id="selectCartListByuserno" resultType="map" parameterType="int">
+	    SELECT c.prod_no, c.prod_count, p.*, f.*
+	    FROM cart c
+	    INNER JOIN prod_file f ON c.prod_no = f.prod_no
+	    INNER JOIN product p ON f.prod_no = p.prod_no
+	    WHERE c.user_no = #{userNo}
+	</select>
 </mapper>
