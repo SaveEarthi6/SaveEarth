@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import web.dao.face.GoodsDao;
 import web.dto.Campaign;
+import web.dto.Cart;
 import web.dto.Product;
 import web.service.face.GoodsService;
 import web.util.Paging;
@@ -50,6 +51,21 @@ public class GoodsServiceImpl implements GoodsService {
 		logger.info("getCampDetail() - campno : {}", prodno);
 		
 		return goodsDao.selectProd(prodno);
+	}
+
+	@Override
+	public void addCart(Cart cart) {
+		
+		goodsDao.addCart(cart);
+		
+	}
+
+	@Override
+	public List<Map<String, Object>> getcartList(int userNo) {
+		
+		
+		
+		return goodsDao.selectCartListByuserno(userNo);
 	}
 
 }
