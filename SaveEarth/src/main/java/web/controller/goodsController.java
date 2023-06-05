@@ -52,8 +52,8 @@ public class goodsController {
 	
 	@RequestMapping("/detail")
 	public void prodDetail(Model model, int prodno) {
-		logger.info("/campaign/detail [GET]");
-		logger.info("campno : {}", prodno);
+		logger.info("/goods/detail [GET]");
+		logger.info("prodno : {}", prodno);
 		
 		Map<String, Object> goodsDetail = goodsService.getProdDetail(prodno);
 		logger.info("{}", goodsDetail);
@@ -119,6 +119,15 @@ public class goodsController {
 		//장바구니 담고 다시 상세페이지 창으로 돌아가
 		return "redirect:/goods/detail?prodno=" + prodno; 
 		
+	}
+	
+	@ResponseBody
+	@PostMapping("/deleteCart")
+	public int deleteCart(HttpSession session, @RequestParam("chbox[]") List<String> chArr, Cart cart) {
+		logger.info("/goods/deleteCart [POST]");
+		logger.info("{}", chArr);
+		
+		return 0;
 	}
 
 }

@@ -34,10 +34,10 @@
 	
 
 	<select id="selectCartListByuserno" resultType="map" parameterType="int">
-	    SELECT c.prod_no, c.prod_count, p.*, f.*
-	    FROM cart c
-	    INNER JOIN prod_file f ON c.prod_no = f.prod_no
-	    INNER JOIN product p ON f.prod_no = p.prod_no
-	    WHERE c.user_no = #{userNo}
+		SELECT c.*, p.prod_name, p.prod_price, p.prod_detail, f.prod_origin_name, f.prod_stored_name
+		FROM cart c
+		LEFT OUTER JOIN product p ON c.prod_no = p.prod_no
+		LEFT OUTER JOIN prod_file f ON p.prod_no = f.prod_no
+		WHERE user_no = #{userNo}
 	</select>
 </mapper>
