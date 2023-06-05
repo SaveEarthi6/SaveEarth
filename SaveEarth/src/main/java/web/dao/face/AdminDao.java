@@ -89,6 +89,13 @@ public interface AdminDao {
 
    public List<Map<String, Object>> selectCamList(Paging paging);
 
+   /**
+    * 관리자 정보 조회
+    * @param loginId - 로그인한 관리자 아이디
+    * @return - 로그인한 관리자 정보
+    */
+   public Admin selectAdmin(String loginId);
+
 
 
 }

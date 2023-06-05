@@ -19,6 +19,22 @@
 		WHERE rnum BETWEEN #{startNo} AND #{endNo}
   </select>
   
-  
+ <insert id="insertInfo" parameterType="web.dto.Info">
+ 	
+ 	<selectKey keyProperty="infoNo" order="BEFORE" resultType="int">
+		select info_no_seq.nextval from dual
+	</selectKey>
+	
+	INSERT INTO info (info_no, admin_no, info_title, info_content, info_state)
+	VALUES ( #{infoNo}, #{adminNo}, #{infoTitle}, #{infoContent}, #{infoState})
+ 	
+ </insert>
+ 
+ <insert id="insertInfoFile" parameterType="web.dto.InfoFile">
+ 
+ 	INSERT INTO info_file (info_file_no, info_no, info_origin_name, info_stored_name) 
+	VALUES ( info_file_seq.nextval, #{infoNo}, #{infoOriginName}, #{infoStroedName})
+ 
+ </insert>  
   
   </mapper>

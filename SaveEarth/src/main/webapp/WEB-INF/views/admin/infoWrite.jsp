@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자 캠페인게시판 글쓰기</title>
+<title>관리자 정보게시판 글쓰기</title>
 
 <!-- 스마트 에디터 2 로드 -->
 <script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js"></script>
@@ -67,7 +67,7 @@ form {
 	font-weight: bold;
 }
 
-#freeHead {
+#notice {
 	border: 1px solid #ccc;
 }
 
@@ -75,11 +75,11 @@ form {
 
 <div class="container">
 
-<h1 style= "text-align: center;">글쓰기</h1>
+<h1 style= "text-align: center;">정보게시판 글쓰기</h1>
 
 <div class="col-8 mx-auto">
 
-<form action="./freeWrite" method="post" enctype="multipart/form-data">
+<form action="./infoWrite" method="post" enctype="multipart/form-data">
 
 <div>
 	작성자 아이디 : ${memberInfo.adminId }
@@ -89,21 +89,20 @@ form {
 	닉네임 : ${memberInfo.adminName }
 </div>
 
-<div class="form-group" style= "margin-top: 50px">
-	<label class="form-label" for="head">말머리글</label>
-	<input type="text" id="head" name="freeHead" class="form-control" style="width: 100px;">
-</div>
+<div>
+말머리글 :<input type="text" id="infoState" name="infoState" class="form-control" style="width: 90px;" value="정보">
+ </div>
 
 
 <!-- 글쓰기 폼 (웹 에디터) -->
 <div class="form-group" style= "margin-top: 50px">
 	<label class="form-label" for="title">제목</label>
-	<input type="text" id="title" name="freeTitle" class="form-control">
+	<input type="text" id="title" name="infoTitle" class="form-control">
 </div>
 
 <div class="form-group" style= "margin-top: 50px">
 	<label class="form-label" for="content">본문</label>
-	<textarea rows="10" style="width: 100%;" id="content" name="freeContent"></textarea>
+	<textarea rows="10" style="width: 100%;" id="content" name="infoContent"></textarea>
 </div>
 
 <div class="form-group mb-3" style= "margin-top: 50px">

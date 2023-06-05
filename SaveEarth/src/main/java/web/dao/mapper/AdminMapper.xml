@@ -153,7 +153,10 @@ SELECT * FROM (
     ORDER BY ADMIN_NO DESC
 </select>
 
-
+<select id="selectAdmin" parameterType="string" resultType="web.dto.Admin">
+	SELECT * FROM admin
+	WHERE admin_id = #{adminId}
+</select>
 
    
 

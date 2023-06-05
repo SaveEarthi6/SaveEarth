@@ -18,6 +18,18 @@
 	margin-left: 30%;
 	margin-bottom: 50px;
 }
+
+h1 {
+	text-align: center;
+}
+
+#write {
+    text-align: right;
+    margin-right: 100px;
+}
+
+
+
 </style>
 
 <br>
@@ -29,10 +41,17 @@
 		href="./campaign"><button type="button"
 			class="btn btn-outline-success" id="top">켐페인 게시판</button></a>
 </div>
+
+<div id="write">
+<!-- 글쓰기 버튼 -->
+	<a href = "/admin/infoWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
+</div>
+
 <br>
 
 
 <h1>정보게시판</h1>
+
 
 
 </body>

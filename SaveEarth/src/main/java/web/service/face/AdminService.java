@@ -80,6 +80,15 @@ public interface AdminService {
 
    public List<Map<String, Object>> Camlist(Paging paging);
 
+   /**
+    * 로그인한 관리자 아이디로 관리자 정보를 조회한다
+    * @param loginId - 로그인한 관리자 아이디
+    * @return - 로그인한 관리자 정보
+    */
+   public Admin getAdmin(String loginId);
+
+
+
 
 
 

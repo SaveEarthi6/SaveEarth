@@ -1,10 +1,8 @@
    package web.controller;
 
-import java.nio.file.Files;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -15,15 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Admin;
-import web.dto.Calendar;
 import web.dto.Campaign;
-import web.dto.CampaignFile;
 import web.dto.Certification;
 import web.dto.Free;
 import web.dto.FreeFile;
@@ -31,6 +25,7 @@ import web.dto.Info;
 import web.dto.Member;
 import web.service.face.AdminService;
 import web.service.face.CampService;
+import web.service.face.InfoService;
 import web.service.face.MemberService;
 import web.util.Paging;
 
@@ -42,6 +37,7 @@ public class AdminController {
       @Autowired AdminService adminService;
       @Autowired MemberService memberService;
       @Autowired CampService campService;
+      @Autowired InfoService infoService;
       
       private final Logger logger = LoggerFactory.getLogger(this.getClass());
    
@@ -300,7 +296,42 @@ public class AdminController {
    
 
    
+   @GetMapping("/infoWrite")
+   public void adminInfo(HttpSession session, Model model) {
+	   logger.info("Adimn/infoWrite[GET]");
+	   
+	   String loginId = (String) session.getAttribute("loginId");
+	      logger.info("관리자 id : {}", loginId);
+
+	      Admin memberInfo = adminService.info(loginId);
+
+	      logger.info("관리자 정보 : {}", memberInfo);
+
+	      model.addAttribute("id", loginId);
+	      model.addAttribute("memberInfo", memberInfo);
+	   
+   }
    
+   @PostMapping("/infoWrite")
+   public String adminInfoWrite(HttpSession session, Model model, Info info, @RequestParam(required = false) List<MultipartFile> files) {
+	   logger.info("Adimn/infoWrite[POST]");
+	   
+	   String loginId = (String) session.getAttribute("loginId");
+	   
+	   Admin adminInfo = adminService.getAdmin(loginId);
+	   logger.info("adminInfo {}" , adminInfo);
+	   logger.info("info {}" , info);
+	   logger.info("files {}" , files);
+	   
+	   
+	   int adminNo = adminInfo.getAdminNo();
+	   
+	   //정보게시판 게시글 작성
+	   infoService.infoWrite(adminNo, info, files);
+	   
+	   return "redirect:./info";
+	   
+   }
    
    
    

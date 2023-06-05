@@ -332,5 +332,10 @@ public class AdminServiceimpl implements AdminService {
 		return adminDao.selectCamList(paging);
 	}
    
+   @Override
+	public Admin getAdmin(String loginId) {
+		return adminDao.selectAdmin(loginId);
+	}
+   
    
 }
