@@ -53,6 +53,8 @@ public class FreeServiceImpl implements FreeService{
 		
 		int totalCount = freeDao.selectCntAll();
 		
+		logger.info("totalCount {}", totalCount);
+		
 		//페이징 객체
 		Paging paging = new Paging(totalCount, curPage);
 		
@@ -61,7 +63,6 @@ public class FreeServiceImpl implements FreeService{
 	
 	@Override
 	public void freeWrite(Free free, List<MultipartFile> files, Member memberInfo) {
-		
 		
 		free.setUserNo(memberInfo.getUserNo());
 		
@@ -278,30 +279,30 @@ public class FreeServiceImpl implements FreeService{
 	
 	//추천기능
 	@Override
-	public void checkRecommend(Free free) {
+	public boolean checkRecommend(Free free) {
 		
 		int check = freeDao.cntRecommend(free);
 		
 		System.out.println(check);
 		
 		if(check <= 0) {
-			
+			//추천한 적이 없으면 추천을 입력한다
 			freeDao.insertRecommend(free);
-			freeDao.plusRecommend(free);
+			return true;
 			
 		} else {
+			//추천한 적이 있으면 추천을 삭제한다
 			
 			freeDao.deleteRecommend(free);
-			freeDao.minusRecommend(free);
+			return false;
 		}
 		
-		
-
-	
 	}
-
+	
 
 	
+	
+
 	//댓글 작성
 
 
@@ -324,7 +325,9 @@ public class FreeServiceImpl implements FreeService{
 	}
 
 
+
 	//댓글 조회
+
 	@Override
 	public List<Map<String, Object>> getComment(Free freeBoard) {
 		
@@ -341,9 +344,9 @@ public class FreeServiceImpl implements FreeService{
 	
 	//수정 페이지에서 파일 삭제
 	@Override
-	public int deleteFile(FreeFile freeFile) {
+	public void deleteFile(int fileNo) {
 		
-		return freeDao.deleteFileByFreeFileNo(freeFile);
+		freeDao.deleteFileByFileNo(fileNo);
 	}
 	
 	@Override
@@ -359,5 +362,66 @@ public class FreeServiceImpl implements FreeService{
 		return freeDao.selectByUserno(recommend);
 		
 	}
+	
+	@Override
+	public List<FreeFile> getFreeFile(int freeNo) {
+		
+		return freeDao.selectFileByFreeNo(freeNo);
+	}
 
+	@Override
+	public Paging getPagingByKeyword(int curPage, String keyword, String freeHead) {
+		
+		int totalCount = freeDao.selectCntAllSearch(keyword, freeHead);
+		
+		Paging paging = new Paging(curPage, totalCount);
+	
+		logger.info("freeServiceImpl keyword totalCount {}", totalCount);
+		
+		return paging;
+		
+	}
+	
+	
+	@Override
+	public void updateRecommend(Free free) {
+		freeDao.updateRecommend(free);
+	}
+	
+
+	@Override
+	public boolean checkRecommended(String loginId, Free freeBoard) {
+		//loginId를 이용하여 loginno을 가져오는 메소드를 만든다.
+		int loginNo = freeDao.selectUserNoByLoginId (loginId);
+		
+		//loginno를 freeBoard에 넣는다.(setter사용)
+		freeBoard.setUserNo(loginNo);
+		
+		if(freeDao.selectRecommendedByloginId(freeBoard) > 0) {
+			//추천을 했었다
+			System.out.println("추천을 했었다!");
+			return true;
+		} else {
+			//추천을 안했었다
+			System.out.println("추천을 안했었다!");
+			return false;
+		}
+	}
+
+	
+
+	@Override
+	public Paging getPagingByFreeHead(int curPage, String freeHead) {
+		
+		int totalCount = freeDao.selectCntAllFreeHead(freeHead);
+		
+		Paging paging = new Paging(curPage, totalCount);
+		
+		logger.info("freeServiceImpl freeHead totalCount {}", totalCount);
+		logger.info("freeServiceImpl paging {}", paging);
+		
+		return paging;
+	}
+
+	
 }

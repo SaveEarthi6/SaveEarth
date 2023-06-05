@@ -113,6 +113,20 @@ input {
 	font-size: 14px;
 }
 
+/* 게시판 목록 */
+#board {
+	width:1300px;
+	
+	margin-top: 70px;
+	
+	margin-left:auto;
+	margin-right:auto;
+	
+	text-align: center;
+}
+
+
+
 </style>
 
 
@@ -139,7 +153,7 @@ input {
 
 <div class="container">
 
-<!-- 정보 게시판게시판 -->
+<!-- 정보 게시판 -->
 	<div id="list" class="row">
 		<div class="col-1"></div>
 		
@@ -158,5 +172,30 @@ input {
 	</div>
 
 </div>
+
+
+
+<!-- 정보 게시판 list CSS -->
+<table id= "board" class= "table table-hover text-center">
+
+	<tr style= "background-color: #59A8D9; color: white;">
+		<th style="width: 20px;">글번호</th>
+		<th style="width: 30px; text-align:center">제목</th>
+		<th style="width: 20px;">조회수</th>
+		<th style="width: 20px;">작성일</th>
+	</tr>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
 
 <c:import url="../layout/footer.jsp"></c:import>

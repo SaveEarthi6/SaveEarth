@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="web.dao.face.GoodsDao">
+
+	<select id="selectCntAll" resultType="int">
+	SELECT count(*) FROM product
+	</select>
+	
+	<select id="selectProdList" resultType="web.dto.Product" parameterType="web.util.Paging">
+		SELECT * FROM (
+	    	SELECT rownum rnum, P.* FROM (
+	        	SELECT * FROM product ORDER BY prod_no DESC
+	    	) P
+		) Goods
+		WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
+	
+	<select id="selectProd" resultType="map" parameterType="int">
+			SELECT p.*, f.*
+		FROM product p 
+		LEFT OUTER JOIN prod_file f
+		ON p.prod_no = f.prod_no
+		WHERE p.prod_no = #{prodNo}
+	
+	</select>
+	
+	<insert id="addCart" parameterType="web.dto.Cart">
+	INSERT INTO cart(cart_no,user_no,prod_no,prod_count)
+	values(#{cartNo},#{userNo},#{prodNo},#{prodCount})
+	
+	</insert>
+	
+
+	<select id="selectCartListByuserno" resultType="map" parameterType="int">
+		SELECT c.*, p.prod_name, p.prod_price, p.prod_detail, f.prod_origin_name, f.prod_stored_name
+		FROM cart c
+		LEFT OUTER JOIN product p ON c.prod_no = p.prod_no
+		LEFT OUTER JOIN prod_file f ON p.prod_no = f.prod_no
+		WHERE user_no = #{userNo}
+	</select>
+</mapper>
