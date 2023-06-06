@@ -100,7 +100,7 @@ public class goodsController {
 
 		//Cart cart에 값 넣기
 		//20230604 장바구니 시퀀스 추가해서 Mapper까지 수정해야함(아직 시퀀스 x 제약조건x) 일단 이건 장바구니 들어가나 테스트!!!!!!!!!!!!!!!!!!!! 확인(o)
-		cart.setCartNo(1);
+
 		//유저번호
 		cart.setUserNo(userNo);
 		//수량

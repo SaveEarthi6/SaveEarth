@@ -28,7 +28,7 @@
 	
 	<insert id="addCart" parameterType="web.dto.Cart">
 	INSERT INTO cart(cart_no,user_no,prod_no,prod_count)
-	values(#{cartNo},#{userNo},#{prodNo},#{prodCount})
+	values(cart_seq.nextval,#{userNo},#{prodNo},#{prodCount})
 	
 	</insert>
 	
