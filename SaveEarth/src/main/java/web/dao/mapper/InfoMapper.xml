@@ -19,6 +19,23 @@
 		WHERE rnum BETWEEN #{startNo} AND #{endNo}
   </select>
   
+  <select id= "selctCntAllByState" resultType="int" parameterType="string">
+  	SELECT count (*) FROM info
+  	where info_state = # {state}
+  </select>
+  
+  <select id="selectInfoListByState" resultType="map" parameterType="map">
+  	SELECT * FROM (
+  		SELECT rownum rnum A * FROM (
+  			SELECT i.*,f.info_origin_name, f.info_stored_name
+  			FROM campaign c LEFT OUTER JOIN campaging_file f
+  			ON i.info_no = f.info_no
+  				WHERE info_state = # {state}
+  			ORDER BY i.info_no DESC
+  		)A
+  	)
+  	WHERE rnum BETWEEN #{paging.startNo} AND #{paging.enoNo}
+  </select>
   
   
   </mapper>

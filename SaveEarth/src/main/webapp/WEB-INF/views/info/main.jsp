@@ -126,12 +126,66 @@ input {
 }
 
 
+#navButton  {  
+  	margin-left: 30px;  
+	margin-top: 20px;  
+ 	width: 100px;  
+}  
+
+.nav { 
+ 	margin-left: 100px; 
+ 	margin-bottom: 50px; 
+} 
+
 
 </style>
 
 
 </head>
 <body>
+
+<script type="text/javascript">
+
+var state = "정보";
+
+$(function(){
+	
+	//캠페인 상태 버튼 ajax
+	$(".preface").click(function() {
+		console.log("test")
+		console.log($(this).html())
+		
+		$(".preface").css({
+			"background-color" : "white",
+			"color" : "#198754"
+		})
+		
+		$(this).css({
+			"background-color" : "#198754",
+			"color" : "white"
+		})
+		
+		state = $(this).html()
+		
+		$.ajax({
+			type: "post"
+			, url : "./preface"
+			, data : {state : state}
+			, dataType : "html"
+			, success : function(res) {
+				console.log('성공')
+				$("#infoListJsp").html(res)
+			}
+			, error : function() {
+				console.log('실패')
+				
+			}
+		})
+
+	})
+	
+
+</script>
 
 
 <div>
@@ -144,12 +198,6 @@ input {
 	<a href="/free/write"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
 </div>
 </c:if>
-
-<div class="nav">
-<button type="button" class="btn btn-outline-success">전체</button>
-<button type="button" class="btn btn-outline-success">정보</button>
-<button type="button" class="btn btn-outline-success">자유</button>
-</div>
 
 <div class="container">
 
@@ -187,6 +235,16 @@ input {
 </table>
 
 
+<!-- 검색창 -->
+<div>
+	<form action="/free/search?freeHead=${freeHead }&keyword=${keyword }" method="get">
+	    <div class="search">
+	        <input type="text" name="keyword" class="search_input"
+	        placeholder="검색어를 입력해주세요" value=${keyword }>
+	        <button class="search_btn" style="margin-bottom: 3px;"><i class="bi bi-search"></i></button>
+	    </div>
+	</form>
+</div>
 
 
 
@@ -195,6 +253,119 @@ input {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="clearfix"></div>
+
+<div>
+	<ul class="pagination pagination-sm justify-content-center">
+	
+	<%-- 첫 페이지로 이동 --%>
+	<c:if test="${paging.curPage ne 1 }">
+		<li class="page-item"><a href="./main?freeHead=${freeHead }" class="page-link">&larr; 처음</a></li>	
+	</c:if>
+	
+	<%-- 이전 페이징 리스트로 이동 --%>
+	<c:choose>
+	<c:when test="${paging.startPage ne 1 }">
+		<li class="page-item"><a href="./main?curPage=${paging.startPage - paging.pageCount }&freeHead=${freeHead}" class="page-link">&laquo;</a></li>
+	</c:when>
+	<c:when test="${paging.startPage eq 1 }">
+		<li class="page-item disabled"><a class="page-link">&laquo;</a></li>
+	</c:when>
+	</c:choose>
+	
+	<%-- 이전 페이지로 가기 --%>
+	<c:if test="${paging.curPage > 1 }">
+		<li class="page-item"><a href="./main?curPage=${paging.curPage - 1 }&freeHead=${freeHead}" class="page-link">&lt;</a></li>
+	</c:if>
+	
+	
+	
+	
+	<%-- 페이징 리스트 --%>
+	<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="i">
+	<c:if test="${paging.curPage eq i }">
+		<li class="page-item active"><a href="./main?curPage=${i }&freeHead=${freeHead}" class="page-link">${i }</a></li>
+	</c:if>
+	<c:if test="${paging.curPage ne i }">
+		<li class="page-item"><a href="./main?curPage=${i }&freeHead=${freeHead}" class="page-link">${i }</a></li>
+	</c:if>
+	</c:forEach>
+	
+
+	
+	
+	<%-- 다음 페이지로 가기 --%>
+	<c:if test="${paging.curPage < paging.totalPage }">
+		<li class="page-item"><a href="./main?curPage=${paging.curPage + 1 }&freeHead=${freeHead}" class="page-link">&gt;</a></li>
+	</c:if>
+	
+	<%-- 다음 페이징 리스트로 이동 --%>
+	<c:choose>
+	<c:when test="${paging.endPage ne paging.totalPage }">
+		<li class="page-item"><a href="./main?curPage=${paging.startPage + paging.pageCount }&freeHead=${freeHead}" class="page-link">&raquo;</a></li>
+	</c:when>
+	<c:when test="${paging.endPage eq paging.totalPage }">
+		<li class="page-item disabled"><a class="page-link" href="./main?curPage=${paging.totalPage }&freeHead=${freeHead}">&raquo;</a></li>
+	</c:when>
+	</c:choose>
+
+	<%-- 끝 페이지로 이동 --%>
+	<c:if test="${paging.curPage ne paging.totalPage }">
+		<li class="page-item"><a href="./main?curPage=${paging.totalPage }&freeHead=${freeHead}" class="page-link">끝 &rarr;</a></li>	
+	</c:if>
+	
+	</ul>
+</div>
+
+
+
+<div id = "infoList">
+	<div class="nav">
+		<button id="navButton" type="button" class="btn btn-outline-success preface">정보</button>
+		<button id="navButton" type="button" class="btn btn-outline-success preface">자유</button>
+	</div>
+
+<div id = "infoListJsp">
+	<c:import url="./detail.jsp"/>
+</div>
+
+</div>
 
 
 
