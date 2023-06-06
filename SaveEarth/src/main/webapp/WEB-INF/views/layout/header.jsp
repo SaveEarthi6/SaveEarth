@@ -128,6 +128,7 @@ body {
 <div id="header">
 	<div id="wrap">
 	<a href="../saveearth/main"><img id="logo" src="../../resources/img/logo2.png"></a>
+	<a href="/goods/cart">장바구니</a>
 	<c:if test="${empty isLogin }">
 <div>
 	<a href="/member/login" class="lefttop">로그인</a>
