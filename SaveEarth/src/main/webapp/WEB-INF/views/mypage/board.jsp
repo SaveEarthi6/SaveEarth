@@ -164,7 +164,9 @@ select {
 				<td>${free.freeNo }</td> 
 				<td>${free.freeHead}</td>
 				<td class="text-start" style="text-align:center"><a href="/free/view?freeNo=${free.freeNo }">${free.freeTitle }</a></td>
-				<td>${free.freeNo}</td>
+				
+				<td>${sessionScope.loginId}</td>
+				
 				<td>${free.freeViews }</td>
 				<td><fmt:formatDate value="${free.freeCreate}" pattern="yy-MM-dd HH:mm:ss"/></td>
 			</tr>
@@ -176,10 +178,11 @@ select {
 
 <!-- 검색창 -->
 <div>
-	<form action="/info/board">
+	<form action="/free/search?freeHead=${freeHead }&keyword=${keyword }" method="get">
 	    <div class="search">
-	        <input type="text" name="search" class="search_input">
-	        <button type="button" name="search_btn" class="search_btn"  style="margin-bottom: 3px;"><i class="bi bi-search"></i></button>
+	        <input type="text" name="keyword" class="search_input"
+	        placeholder="검색어를 입력해주세요" value=${keyword }>
+	        <button class="search_btn" style="margin-bottom: 3px;"><i class="bi bi-search"></i></button>
 	    </div>
 	</form>
 </div>
