@@ -172,6 +172,36 @@ SELECT * FROM (
 </select>
 
 
+<select id="selectProdList" resultType="web.dto.Product" parameterType="web.util.Paging">
+		SELECT * FROM (
+	    	SELECT rownum rnum, P.* FROM (
+	        	SELECT * FROM product ORDER BY prod_no DESC
+	    	) P
+		) Goods
+		WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
+
+
+	<!-- 관리자 굿즈샵 상품 등록 글쓰기  -->
+<!-- 	user_no, -->
+	<insert id="insertProduct" parameterType="web.dto.Product">
+
+	<selectKey keyProperty="prodNo" order="BEFORE" resultType="int">
+		select PROD_NO_seq.nextval from dual
+	</selectKey>
+
+  		INSERT INTO product (prod_no, admin_no, prod_name, prod_price, prod_amount)
+   			VALUES ( #{prodNo}, #{adminNo}, #{prodName}, #{prodPrice}, #{prodAmount} )
+
+   </insert>
+   
+   
+   <insert id="insertProductFile" parameterType="web.dto.Admin">
+      INSERT INTO prod_file (prod_file_no, prod_no, prod_origin_name, prod_stored_name) 
+      	VALUES ( prod_files_no_seq.nextval, #{prodNo}, #{prodOriginName}, #{prodStroedName})
+   </insert>
+
+
    
 
 </mapper>

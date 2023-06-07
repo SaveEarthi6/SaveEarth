@@ -13,6 +13,8 @@ import web.dto.Certification;
 import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Info;
+import web.dto.Product;
+import web.dto.ProductFile;
 import web.util.Paging;
 
 public interface AdminDao {
@@ -101,6 +103,13 @@ public interface AdminDao {
    //public void deleteCam(int campNo);
 
    public void deleteCam(Campaign campNo);
+
+   
+   public List<Product> selectProdList(Paging paging);
+
+   public void insertProductFile(ProductFile productFile);
+
+   public void insertProduct(Product product);
 
 
 }
