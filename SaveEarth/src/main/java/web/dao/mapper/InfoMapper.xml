@@ -6,19 +6,120 @@
   
   <mapper namespace="web.dao.face.InfoDao">
   
+<!-- 페이징 - 총 게시물 수 -->  
   <select id="selectCntAll" resultType="int">
   		select count(*) FROM Info
   </select>
+
+<!-- 전체 게시글 조회 -->
+  <select id="selectList" resultType="map" parameterType="web.util.Paging">
   
-  <select id="selectList" resultType="web.dto.Info" parameterType="web.util.Paging">
-		SELECT * FROM (
-	    	SELECT rownum rnum, I.* FROM (
-	        	SELECT * FROM info ORDER BY info_no DESC
-	    	) I
-		) INFO
+  	SELECT * FROM (
+	    	SELECT rownum rnum, INFO.* FROM (
+	        	SELECT I.*, F.info_origin_name, F.info_stored_name, T.thumb_origin_name, T.thumb_stored_name
+                FROM info I LEFT OUTER JOIN info_file F
+                ON I.info_no = F.info_no 
+                LEFT OUTER JOIN info_thumbnail T
+                ON I.info_no = T.info_no
+                ORDER BY I.info_no DESC
+	    	) INFO
+		) 
 		WHERE rnum BETWEEN #{startNo} AND #{endNo}
+
   </select>
   
+<!-- 게시글 상세 조회 -->
+  <select id="selectInfoByInfoNo" resultType="map" parameterType="int">
+  
+	SELECT * FROM (
+	    	SELECT rownum rnum, INFO.* FROM (
+	        	SELECT I.*, F.info_origin_name, F.info_stored_name
+                FROM info I LEFT OUTER JOIN info_file F
+                ON I.info_no = F.info_no 
+                ORDER BY I.info_no DESC
+	    	) INFO
+		) 
+		WHERE info_no = #{infoNo}
+
+  </select>
+  
+
+  
+<!-- 게시글 내용 삽입 -->
+ <insert id="insertInfo" parameterType="web.dto.Info">
+ 	
+ 	<selectKey keyProperty="infoNo" order="BEFORE" resultType="int">
+		select info_no_seq.nextval from dual
+	</selectKey>
+	
+	INSERT INTO info (info_no, admin_no, info_title, info_content, info_state)
+	VALUES ( #{infoNo}, #{adminNo}, #{infoTitle}, #{infoContent}, #{infoState})
+ 	
+ </insert>
+
+<!-- 썸네일 삽입 --> 
+ <insert id="insertinfoThumb" parameterType="web.dto.InfoThumbnail">
+ 
+ 	INSERT INTO info_thumbnail (thumb_no, info_no, thumb_origin_name, thumb_stored_name) 
+	VALUES ( thumb_no_seq.nextval, #{infoNo}, #{thumbOriginName}, #{thumbStoredName})
+ 
+ </insert>  
+
+ <!-- 첨부파일 삽입 -->
+ <insert id="insertInfoFile" parameterType="web.dto.InfoFile">
+ 
+ 	INSERT INTO info_file (info_file_no, info_no, info_origin_name, info_stored_name) 
+	VALUES ( info_file_seq.nextval, #{infoNo}, #{infoOriginName}, #{infoStroedName})
+ 
+ </insert>  
   
   
+<!-- 검색어와 일치하는 총 게시글 수 조회 -->
+<select id="selectCntAllSearch" parameterType="string" resultType="int">
+		SELECT count(*) FROM info
+		
+		<if test="keyword != null">	
+			WHERE info_title LIKE '%' || #{keyword} || '%'
+		</if>
+	
+</select>
+  
+<!-- 게시글 목록에서 검색 기능 - 입력한 검색어 중 제목에 일치하는 내용이 있는 게시글 조회 -->
+<select id="selectInfoByKeyword" resultType="map" parameterType="hashmap">
+
+  	SELECT * FROM (
+	    	SELECT rownum rnum, INFO.* FROM (
+	        	SELECT I.*, F.info_origin_name, F.info_stored_name, T.thumb_origin_name, T.thumb_stored_name
+                FROM info I LEFT OUTER JOIN info_file F
+                ON I.info_no = F.info_no 
+                LEFT OUTER JOIN info_thumbnail T
+                ON I.info_no = T.info_no
+                
+                <if test="keyword != null">	
+				WHERE info_title LIKE '%' || #{keyword} || '%'
+				</if>
+                ORDER BY I.info_no DESC
+	    	) INFO
+		) 
+		WHERE rnum BETWEEN #{paging.startNo} AND #{paging.endNo}
+	
+</select>  
+
+<delete id="deleteInfo" parameterType="int">
+	DELETE info 
+	WHERE info_no = #{infoNo}
+</delete>
+
+<delete id="deleteInfoFile" parameterType="int">
+	DELETE info_file 
+	WHERE info_no = #{infoNo}
+</delete>
+
+<delete id="deleteThumb" parameterType="int">
+	DELETE info_thumbnail 
+	WHERE info_no = #{infoNo}
+</delete>
+
+
+
   </mapper>

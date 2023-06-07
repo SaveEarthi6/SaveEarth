@@ -13,6 +13,8 @@ import web.dto.Certification;
 import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Info;
+import web.dto.Product;
+import web.dto.ProductFile;
 import web.util.Paging;
 
 public interface AdminDao {
@@ -89,6 +91,25 @@ public interface AdminDao {
 
    public List<Map<String, Object>> selectCamList(Paging paging);
 
+   /**
+    * 관리자 정보 조회
+    * @param loginId - 로그인한 관리자 아이디
+    * @return - 로그인한 관리자 정보
+    */
+   public Admin selectAdmin(String loginId);
+
+   //캠페인 게시글 삭제
+
+   //public void deleteCam(int campNo);
+
+   public void deleteCam(Campaign campNo);
+
+   
+   public List<Product> selectProdList(Paging paging);
+
+   public void insertProductFile(ProductFile productFile);
+
+   public void insertProduct(Product product);
 
 
 }
