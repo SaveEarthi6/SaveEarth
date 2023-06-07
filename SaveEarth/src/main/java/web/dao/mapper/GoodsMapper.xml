@@ -54,4 +54,9 @@
 	where user_no=#{userNo} and prod_no=#{prodNo}
 	
 	</select>
+	
+	<delete id="deleteCart" parameterType="map">
+		DELETE FROM cart
+		WHERE user_no = #{userNo} AND cart_no = #{cartNo}
+	</delete>
 </mapper>
