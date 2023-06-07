@@ -84,6 +84,13 @@ public class GoodsServiceImpl implements GoodsService {
 		
 		return goodsDao.selectCartListByuserno(userNo);
 	}
+	
+	@Override
+	public void deleteCart(int userNo, String cartNo) {
+
+		goodsDao.deleteCart(userNo, cartNo);
+		
+	}
 
 	@Override
 	public List<Map<String, Object>> getOptionList(int prodno) {

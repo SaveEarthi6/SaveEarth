@@ -1,5 +1,6 @@
 package web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -135,11 +136,40 @@ public class goodsController {
 	
 	@ResponseBody
 	@PostMapping("/deleteCart")
-	public int deleteCart(HttpSession session, @RequestParam("chbox[]") List<String> chArr, Cart cart) {
+	public int deleteCart(HttpSession session, @RequestParam("chbox[]") List<String> chArr) {
 		logger.info("/goods/deleteCart [POST]");
 		logger.info("{}", chArr);
+		logger.info("{}", session.getAttribute("loginNo"));
 		
-		return 0;
+		//로그인 된 상태이면
+		if(session.getAttribute("isLogin") != null) {
+			for(String cartNo : chArr) {
+				goodsService.deleteCart((int)session.getAttribute("loginNo"), cartNo);
+			}
+			
+			return 1;
+			
+		} else {
+			return 0;
+		}
+		
+	}
+	
+	@RequestMapping("/orderAll")
+	public void orderAll(HttpSession session, @RequestParam("chbox[]") List<String> chArr, Model model) {
+		//주문페이지로 이동
+		logger.info("/goods/orderAll [POST]");
+		
+//		List<Map<String, Object>> cartList = new ArrayList<>();
+//		
+//		for(String cartNo : chArr) {
+//			cartList.add(goodsService.getcartList((int)session.getAttribute("loginNo"), cartNo));
+//		}
+//		logger.info("{}", cartList);
+//		
+//		model.addAttribute("cartList",cartList);
+		
+		
 	}
 	
 
