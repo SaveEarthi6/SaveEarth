@@ -27,31 +27,39 @@
 	</select>
 	
 	<insert id="addCart" parameterType="web.dto.Cart">
-	INSERT INTO cart(cart_no,user_no,prod_no,prod_count)
-	values(cart_seq.nextval,#{userNo},#{prodNo},#{prodCount})
+	INSERT INTO cart(cart_no,user_no,prod_no,prod_count,prod_opt_no)
+	values(cart_seq.nextval,#{userNo},#{prodNo},#{prodCount},#{prodOptNo})
 	
 	</insert>
 	
 	<update id="updateCart" parameterType="web.dto.Cart">
 	UPDATE cart 
-	SET  prod_count=#{prodCount}
-	WHERE user_no=#{userNo} and prod_no=#{prodNo}
+	SET  prod_count=#{prodCount} , prod_opt_no=#{prodOptNo}
+	WHERE user_no=#{userNo} and prod_no=#{prodNo} and prod_opt_no=#{prodOptNo}
 	
 	
 	</update>
 	
 
 	<select id="selectCartListByuserno" resultType="map" parameterType="int">
-		SELECT c.*, p.prod_name, p.prod_price, p.prod_detail, f.prod_origin_name, f.prod_stored_name
-		FROM cart c
-		LEFT OUTER JOIN product p ON c.prod_no = p.prod_no
-		LEFT OUTER JOIN prod_file f ON p.prod_no = f.prod_no
-		WHERE user_no = #{userNo}
+		select c.*, p.prod_name, p.prod_price, p.prod_detail, f.prod_origin_name, f.prod_stored_name, o.prod_color, o.prod_size from cart c
+		join product p on c.prod_no = p.prod_no
+		join prod_option o on o.prod_opt_no = c.prod_opt_no 
+		join prod_file f on f.prod_no = c.prod_no
+		where c.user_no = #{userNo}
+
 	</select>
 	
 	<select id="existCart" parameterType="web.dto.Cart" resultType="int" >
 	SELECT count(*) FROM cart
-	where user_no=#{userNo} and prod_no=#{prodNo}
+	where user_no=#{userNo} and prod_no=#{prodNo} and prod_opt_no=#{prodOptNo}
+	
+	</select>
+	
+	<select id="getOption" parameterType="int" resultType="map">
+	SELECT * FROM  prod_option
+	WHERE prod_no=#{prodNo}
+	
 	
 	</select>
 	
