@@ -135,7 +135,6 @@ SELECT * FROM (
 	<selectKey keyProperty="campNo" order="BEFORE" resultType="int">
 		select camp_no_seq.nextval from dual
 	</selectKey>
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
 
    INSERT INTO campaign (camp_no,admin_no,camp_title,camp_state)
    VALUES ( #{campNo}, #{adminNo}, #{campTitle}, #{campState} )

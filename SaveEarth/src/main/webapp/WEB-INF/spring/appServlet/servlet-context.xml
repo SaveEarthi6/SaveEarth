@@ -23,27 +23,27 @@
 	<!-- @Aspect 어노테이션을 이용한 AOP객체 관리 활성화 -->
 	<aop:aspectj-autoproxy />
 	
+	<interceptors>
 	
-	
-	<!-- 인터셉터들 설정 -->
-<!-- 	<interceptors> -->
-	
-		<!-- 개별 인터셉터 -->
-<!-- 		<interceptor> -->
+	<interceptor>
+	<!-- 인터셉터가 적용될 URL -->
+		<mapping path="/admin/free"/>
+		<!-- 인터셉터가 적용되지 않도록 제외할 예외 페이지 URL -->
+		<exclude-mapping path="./admin/s/fail"/>
+	<!-- 인터셉터 클래스 지정 -->
+	<beans:bean class="web.interceptor.AdminInterceptor"> 
 		
-			<!-- 인터셉터가 적용될 URL -->
-<!-- 			<mapping path="/interceptor/admin/**"/> -->
-			
-			<!-- 인터셉터가 적용되지 않도록 제외할 예외 페이지 URL -->
-<!-- 			<exclude-mapping path="/interceptor/admin/fail"/> -->
-			
-			<!-- 인터셉터 클래스 지정 -->
-<!-- 			<beans:bean class="interceptor.interceptor.AdminInterceptor"/> -->
-<!-- 		</interceptor> -->
-		
-<!-- 	</interceptors> -->
+	</beans:bean>
+	</interceptor>
+	
+	</interceptors>
 	
 	
+	
+	<!-- 인터셉터들 설정  -->
+	
+	<!-- Dispatcher-servlet.xml -->
+
 	
 	<!-- 정적자원에 대한 URL(mapping 속성)을 폴더(location)에서 찾아서 응답 -->
 	<resources mapping="/resources/**" location="/resources/" />

@@ -70,7 +70,10 @@ public class AdminController {
 
      
    }
-   
+   @RequestMapping("/fail")
+	public void adminFail() {
+		logger.info("./fail");
+	}
    
    
    
