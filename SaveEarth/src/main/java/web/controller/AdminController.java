@@ -313,7 +313,7 @@ public class AdminController {
    }
    
    @PostMapping("/infoWrite")
-   public String adminInfoWrite(HttpSession session, Model model, Info info, @RequestParam(required = false) List<MultipartFile> files) {
+   public String adminInfoWrite(HttpSession session, Model model, Info info, @RequestParam(required = false) List<MultipartFile> files, MultipartFile thumb) {
 	   logger.info("Adimn/infoWrite[POST]");
 	   
 	   String loginId = (String) session.getAttribute("loginId");
@@ -327,7 +327,7 @@ public class AdminController {
 	   int adminNo = adminInfo.getAdminNo();
 	   
 	   //정보게시판 게시글 작성
-	   infoService.infoWrite(adminNo, info, files);
+	   infoService.infoWrite(adminNo, info, files, thumb);
 	   
 	   return "redirect:./info";
 	   

@@ -61,6 +61,7 @@ h1 {
 	font-weight: bold;
 	font-size: 50px;
 	font-family: 'KBO-Dia-Gothic_bold';
+	margin-bottom: 30px;
 }
 
 form {
@@ -106,12 +107,17 @@ form {
 </div>
 
 <div class="form-group mb-3" style= "margin-top: 50px">
+	<label class="form-label" for="file">썸네일</label>
+	<input type="file" id="file" name="thumb" class="form-control">
+</div>
+
+<div class="form-group mb-3" style= "margin-top: 20px;">
 	<label class="form-label" for="file">첨부파일</label>
 	<input type="file" id="file" name="files" class="form-control" multiple="multiple">
 </div>
 
 <!-- 글쓰기 작성, 취소 버튼 -->
-<div>
+<div style="text-align: center; margin-bottom: 30px;">
 	<button class="btn btn-success" id="btnWrite">작성</button>
 	<input type="reset" id="cancel" class="btn btn-danger" value="취소">
 </div>

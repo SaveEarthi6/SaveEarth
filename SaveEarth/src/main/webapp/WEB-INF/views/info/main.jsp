@@ -64,7 +64,6 @@
 /* 게시물 전체 감싸는 태그 */
 .row {
 	text-align: center;
-	margin-bottom: 50px;
 	cursor: pointer;
 }
 
@@ -113,22 +112,41 @@ input {
 	font-size: 14px;
 }
 
-/* 게시판 목록 */
-#board {
-	width:1300px;
-	
-	margin-top: 70px;
-	
-	margin-left:auto;
-	margin-right:auto;
-	
-	text-align: center;
+/* .row { */
+/* 	margin-bottom: 30px; */
+/* } */
+
+#infoTitle {
+	margin-top: 10px;
+}
+
+
+#title {
+	font-weight: bold;
 }
 
 
 
+#info {
+    width: 225px;
+    text-align: center;
+    display: block;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 80px;
+
 </style>
 
+
+<script type="text/javascript">
+
+function selectInfo() {
+	console.log("test")
+	document.getElementById('info').className = 'btn btn-success'
+// 	location.href='./main'
+}
+
+</script>
 
 </head>
 <body>
@@ -146,56 +164,41 @@ input {
 </c:if>
 
 <div class="nav">
-<button type="button" class="btn btn-outline-success">전체</button>
-<button type="button" class="btn btn-outline-success">정보</button>
-<button type="button" class="btn btn-outline-success">자유</button>
+<button type="button" class="btn btn-outline-success" id="infobtn" onclick="selectInfo()">정보</button>
+<button type="button" class="btn btn-outline-success" id="freebtn">자유</button>
 </div>
 
-<div class="container">
-
-<!-- 정보 게시판 -->
-	<div id="list" class="row">
+		
+  	<div id="infoList" class="row">
 		<div class="col-1"></div>
 		
-		<div id="list" class="row col-10">
+		<div id="infos" class="row col-10">
 		
-			<c:forEach var="list" items="${list }" begin="3" end="5">
-				{list.infoNo}
-				{list.infoTitle}
-				{list.infoContent}
-				{list.infoUpload}
+			<c:forEach var="infoList" items="${infoList }" begin="0" end="2">
+			<div id="info" class="col">
+			<a href="./detail?infoNo=${infoList.INFO_NO }" id="infoNo">
+				<c:if test="${infoList.THUMB_STORED_NAME ne null }">
+					<div><img alt="" src="/upload/${infoList.THUMB_STORED_NAME }" style="width: 400px; height: 300px;"></div>
+				</c:if>
+				<c:if test="${infoList.THUMB_STORED_NAME eq null }">
+					<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
+				</c:if>
+				<div id="infoTitle">
+					<span id="title">${infoList.INFO_TITLE }</span>
+				</div>
+			</a>
+			</div>
 			</c:forEach>
 			
 		</div>
-		
-		<div class='col-1'></div>
-	</div>
-
-</div>
 
 
-
-<!-- 정보 게시판 list CSS -->
-<table id= "board" class= "table table-hover text-center">
-
-	<tr style= "background-color: #59A8D9; color: white;">
-		<th style="width: 20px;">글번호</th>
-		<th style="width: 30px; text-align:center">제목</th>
-		<th style="width: 20px;">조회수</th>
-		<th style="width: 20px;">작성일</th>
-	</tr>
-</table>
+</div><!-- infoList end	 -->
 
 
 
 
-
-
-
-
-
-
-
+<c:import url="../layout/paging.jsp"></c:import>
 
 
 <c:import url="../layout/footer.jsp"></c:import>

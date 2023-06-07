@@ -6,19 +6,46 @@
   
   <mapper namespace="web.dao.face.InfoDao">
   
+<!-- 페이징 - 총 게시물 수 -->  
   <select id="selectCntAll" resultType="int">
   		select count(*) FROM Info
   </select>
+
+<!-- 전체 게시글 조회 -->
+  <select id="selectList" resultType="map" parameterType="web.util.Paging">
   
-  <select id="selectList" resultType="web.dto.Info" parameterType="web.util.Paging">
-		SELECT * FROM (
-	    	SELECT rownum rnum, I.* FROM (
-	        	SELECT * FROM info ORDER BY info_no DESC
-	    	) I
-		) INFO
+  	SELECT * FROM (
+	    	SELECT rownum rnum, INFO.* FROM (
+	        	SELECT I.*, F.info_origin_name, F.info_stored_name, T.thumb_origin_name, T.thumb_stored_name
+                FROM info I LEFT OUTER JOIN info_file F
+                ON I.info_no = F.info_no 
+                LEFT OUTER JOIN info_thumbnail T
+                ON I.info_no = T.info_no
+                ORDER BY I.info_no DESC
+	    	) INFO
+		) 
 		WHERE rnum BETWEEN #{startNo} AND #{endNo}
+
   </select>
   
+<!-- 게시글 상세 조회 -->
+  <select id="selectInfoByInfoNo" resultType="map" parameterType="int">
+  
+	SELECT * FROM (
+	    	SELECT rownum rnum, INFO.* FROM (
+	        	SELECT I.*, F.info_origin_name, F.info_stored_name
+                FROM info I LEFT OUTER JOIN info_file F
+                ON I.info_no = F.info_no 
+                ORDER BY I.info_no DESC
+	    	) INFO
+		) 
+		WHERE info_no = #{infoNo}
+
+  </select>
+  
+
+  
+<!-- 게시글 내용 삽입 -->
  <insert id="insertInfo" parameterType="web.dto.Info">
  	
  	<selectKey keyProperty="infoNo" order="BEFORE" resultType="int">
@@ -29,7 +56,16 @@
 	VALUES ( #{infoNo}, #{adminNo}, #{infoTitle}, #{infoContent}, #{infoState})
  	
  </insert>
+
+<!-- 썸네일 삽입 --> 
+ <insert id="insertinfoThumb" parameterType="web.dto.InfoThumbnail">
  
+ 	INSERT INTO info_thumbnail (thumb_no, info_no, thumb_origin_name, thumb_stored_name) 
+	VALUES ( thumb_no_seq.nextval, #{infoNo}, #{thumbOriginName}, #{thumbStoredName})
+ 
+ </insert>  
+
+ <!-- 첨부파일 삽입 -->
  <insert id="insertInfoFile" parameterType="web.dto.InfoFile">
  
  	INSERT INTO info_file (info_file_no, info_no, info_origin_name, info_stored_name) 
