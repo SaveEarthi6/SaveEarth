@@ -140,19 +140,19 @@ public class goodsController {
 		
 	}
 	
-	@RequestMapping("/orderAll")
-	public void orderAll(HttpSession session, @RequestParam("chbox[]") List<String> chArr, Model model) {
-		//주문페이지로 이동
-		logger.info("/goods/orderAll [POST]");
+	//전체 주문하기
+	@RequestMapping("/order")
+	public void orderAll(HttpSession session, Model model) {
+		logger.info("/goods/order [GET]");
 		
-//		List<Map<String, Object>> cartList = new ArrayList<>();
-//		
-//		for(String cartNo : chArr) {
-//			cartList.add(goodsService.getcartList((int)session.getAttribute("loginNo"), cartNo));
-//		}
-//		logger.info("{}", cartList);
-//		
-//		model.addAttribute("cartList",cartList);
+		//회원정보와 일치하는 카트List 전체 출력
+		List<Map<String, Object>> cartList = goodsService.getcartList((int)session.getAttribute("loginNo"));
+		logger.info("{}", cartList);
+		
+		model.addAttribute("cartList",cartList);
+		
+		//회원 정보 불러오기
+		
 		
 		
 	}

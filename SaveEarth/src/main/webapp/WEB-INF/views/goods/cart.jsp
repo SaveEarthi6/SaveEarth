@@ -152,7 +152,7 @@ tr:hover {
         <c:forEach var="item" items="${cartList}">
             <tr>
                 <td><input type="checkbox" data-cartNo="${item.CART_NO}" value="${item.CART_NO}" name="cartArr"></td>
-				<td><img src="" alt="제품 사진 이미지 " width="100px" height="100px"></td>
+				<td><img src="" width="100px" height="100px"></td>
                 <td>${item.PROD_NAME}</td>
                 <td><fmt:formatNumber pattern="###,###,###" value="${item.PROD_PRICE}" />원</td>
                 <td>${item.PROD_COUNT}</td>
@@ -181,7 +181,7 @@ tr:hover {
 <button type="button" id="btnDelete">선택 삭제</button>
 <button>선택 주문</button>
 
-<button type="button" id="btnOrderAll">전체 주문</button>
+<button type="button" id="btnOrderAll" onclick="location.href='./order'">전체 주문</button>
  
  
 <script>
