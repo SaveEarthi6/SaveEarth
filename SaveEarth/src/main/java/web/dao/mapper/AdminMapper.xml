@@ -152,6 +152,18 @@ SELECT * FROM (
     SELECT * FROM CAMPAIGN
     ORDER BY ADMIN_NO DESC
 	</select>
+	
+	<delete id="deleteCam" parameterType="int">
+		{CALL
+			BEGIN
+				DELETE FROM campaign_file
+				WHERE camp_no = ${campNo};
+				
+				DELETE FROM campaign
+				WHERE camp_no = ${campNo};
+			END
+		}
+	</delete>
 
 
 <select id="selectAdmin" parameterType="string" resultType="web.dto.Admin">

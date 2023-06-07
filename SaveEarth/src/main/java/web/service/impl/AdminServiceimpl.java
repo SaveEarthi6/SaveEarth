@@ -337,7 +337,13 @@ public class AdminServiceimpl implements AdminService {
 		return adminDao.selectAdmin(loginId);
 	}
    
-	public void deleteCam(int campFileNo, int campNo) {
-	   
+//   @Override
+//	public void deleteCam(int campNo) {
+//		adminDao.deleteCam(campNo);
+//	}
+   @Override
+	public void deleteCam(Campaign campNo) {
+	   adminDao.deleteCam(campNo);
+		
 	}
 }
