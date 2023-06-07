@@ -142,6 +142,7 @@ tr:hover {
              <th><input type="checkbox" id="chkAll"></th> 
              <th>상품이미지</th> 
 	<th>상품이름</th>
+	   <th>옵션</th>
              <th>가격</th>
              <th>수량</th>
              <th>소계</th>
@@ -151,9 +152,11 @@ tr:hover {
     	<c:set var="sum" value="0"/>
         <c:forEach var="item" items="${cartList}">
             <tr>
+      
                 <td><input type="checkbox" data-cartNo="${item.CART_NO}" value="${item.CART_NO}" name="cartArr"></td>
 				<td><img src="" alt="제품 사진 이미지 " width="100px" height="100px"></td>
                 <td>${item.PROD_NAME}</td>
+                                  <td>사이즈:${item.PROD_SIZE}색상:${item.PROD_COLOR}</td>
                 <td><fmt:formatNumber pattern="###,###,###" value="${item.PROD_PRICE}" />원</td>
                 <td>${item.PROD_COUNT}</td>
 <!-- 				<td> -->
@@ -165,7 +168,7 @@ tr:hover {
 <!-- 				</td> -->
                 <td><fmt:formatNumber pattern="###,###,###" value="${item.PROD_COUNT * item.PROD_PRICE }" />원</td>
                 
-            </tr>
+			</tr>
         <c:set var="sum" value="${sum + (item.PROD_PRICE * item.PROD_COUNT) }"></c:set>    
         </c:forEach>
     </tbody>
@@ -258,6 +261,7 @@ $(function(){
 	})
 
 })
+
 
 
 
