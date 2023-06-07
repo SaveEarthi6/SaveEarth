@@ -23,6 +23,7 @@ import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Info;
 import web.dto.Member;
+import web.dto.Product;
 import web.service.face.AdminService;
 import web.service.face.CampService;
 import web.service.face.InfoService;
@@ -282,6 +283,81 @@ public class AdminController {
 	   return "redirect:./campaign";
   }
    
+   
+   
+   //관리자 페이지 쇼핑몰 리스트
+   @RequestMapping("/product")
+   public void adminProduct(HttpSession session, Model model, @RequestParam(defaultValue = "0")int curPage) {
+      System.out.println("adminProduct");
+      
+  		//상품을 불러온다
+
+		//전체글 페이징
+		Paging paging = adminService.getPaging(curPage);
+		
+		//첫 로드시 상품 불러오기
+		List<Product> prodList = adminService.getproductList(paging);
+		
+		
+		for(Product c : prodList) {
+			logger.info("{}", c);
+		}
+		
+		model.addAttribute("prodList", prodList);
+		model.addAttribute("paging", paging);	
+      
+      
+      
+      
+   }
+   
+   @GetMapping("/productWrite")
+   public void adminProductWrite(HttpSession session, Model model) {
+      System.out.println("상품목록 글쓰기 GET");
+      
+      String loginId = (String) session.getAttribute("loginId");
+      System.out.println("세션값 안에 들어있는거 : " + loginId);
+
+
+      Admin memberInfo = adminService.info(loginId);
+
+      System.out.println("맴버 인포에 들어있는거 : " + memberInfo);
+      
+      model.addAttribute("id", loginId);
+      model.addAttribute("memberInfo", memberInfo);
+      
+   }
+   
+   
+   
+   
+   
+   //관리자 페이지 상품목록 글쓰기 Post
+   @PostMapping("/productWrite")
+   public String adminProductWritePost(HttpSession session, Product product, @RequestParam(required = false) List<MultipartFile> files,
+	         Member member) {
+      System.out.println("상품목록 글쓰기 POST");
+      
+      String loginId = (String) session.getAttribute("loginId");
+
+      Admin memberInfo = adminService.info(loginId);
+
+      System.out.println("맴버인포에 들어있는거 :" + memberInfo);	
+       
+      System.out.println("product에 들어있는거 :" + product);	
+      System.out.println("files에 들어있는거 :" + files);	
+      
+       
+      product.setAdminNo(memberInfo.getAdminNo());
+       
+      adminService.productnWrite(product, files, memberInfo);
+      
+      
+      return "redirect:./free";
+      
+      
+   }
+   
 
    
    
@@ -389,11 +465,6 @@ public class AdminController {
 	   return "redirect:./info";
 	   
    }
-//   @RequestMapping("/info")
-//   public void info() {
-//	   
-//   }
-   
    
    
    
