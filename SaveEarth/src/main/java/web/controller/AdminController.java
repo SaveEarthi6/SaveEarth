@@ -72,12 +72,17 @@ public class AdminController {
 
      
    }
+   
+   // 관리자 로그인 안 했을 시 페이지
    @RequestMapping("/fail")
 	public void adminFail() {
 		logger.info("./fail");
 	}
    
-   
+   @RequestMapping("/nLogin")
+	public void FreeNologin() {
+		logger.info("./fail");
+	}
    
    
    
