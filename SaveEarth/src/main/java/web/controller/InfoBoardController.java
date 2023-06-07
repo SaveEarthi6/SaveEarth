@@ -3,8 +3,6 @@ package web.controller;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import web.dto.Info;
+import web.dto.InfoThumbnail;
 import web.service.face.InfoService;
 import web.util.Paging;
 
@@ -29,7 +27,7 @@ public class InfoBoardController {
 	
 	//메인 화면
 	@GetMapping("/main")
-	public void info(Model model, @RequestParam(defaultValue = "0") int curPage) {
+	public void info(Model model, @RequestParam(defaultValue = "1") int curPage) {
 		logger.info("/info/main [GET]");
 
 		logger.info("curPage : {}", curPage);
@@ -37,17 +35,13 @@ public class InfoBoardController {
 		
 		Paging paging = infoService.getPaging(curPage);
 		
-		List<Info> infoList = infoService.getInfoList(paging);
+		//정보게시판 게시글 조회
+		List<Map<String, Object>> infoList = infoService.getInfoList(paging);
 		
-		for(Info i : infoList) {
-			logger.info("info list : {}", i);
+		for(Map i : infoList) {
+			logger.info("infoList : {}", i);
 		}
 
-
-
-
-
-		
 		model.addAttribute("infoList", infoList);
 		model.addAttribute("paging", paging);
 		
@@ -58,21 +52,41 @@ public class InfoBoardController {
 	
 	//상세보기
 	@GetMapping("/detail")
-	public void detail() {
+	public void detail(Model model, @RequestParam(value="infoNo") int infoNo) {
 		
 		logger.info("/info/detail [GET]");
+
+		//정보게시판 게시글 조회(게시글 번호와 일치하는 게시글 내용)
+		List<Map<String, Object>> info = infoService.getInfo(infoNo);
+		
+		logger.info("info {}", info);
+		
+		model.addAttribute("info", info);
 		
 	}
 
 	//검색기능
-//	@GetMapping("/search")
-//	public String search(@RequestParam(value="keyword") String keyword, Model model) {
-//		
-//		List<Map<String,Object>>
-//		
-//		return "redirect:./main";
-//		
-//	}
+	@RequestMapping("/search")
+	public void searchKeyword(Model model,@RequestParam(value = "curPage", defaultValue = "1") int curPage, String keyword) {
+		
+		logger.info("/info/search [GET]");
+		
+		logger.info("curPage {}", curPage);
+		Paging paging = infoService.getPagingByKeyword(curPage, keyword);
+		
+		logger.info("keyword {}", keyword);
+		
+		logger.info("paging {}", paging);
+
+		List<Map<String,Object>> list = infoService.search(paging, keyword);
+		
+		logger.info("list {}", list);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("paging", paging);
+		model.addAttribute("keyword", keyword);
+		
+	}
 	
 	
 	
