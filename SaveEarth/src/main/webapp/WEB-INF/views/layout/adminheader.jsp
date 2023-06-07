@@ -113,6 +113,8 @@ body {
 	right: 137px;
 }
 
+a{ text-decoration: none; } /* 링크텍스트에 밑줄없앰 */
+button{ cursor: pointer; } /* 모든 버튼에 마우스손모양 처리 */
 
 </style>
 
@@ -123,7 +125,7 @@ body {
 <div id="fullHeader">
 <div id="header">
 	<div id="wrap">
-	<a href="../admin/free"><img id="logo" src="../../resources/img/logo2.png"></a>
+	<a href="/saveearth/main"><img id="logo" src="../../resources/img/logo2.png"></a>
 	
 	<c:if test="${empty isLogin }">
 	<a href="/admin/login"	class="righttop">관리자 로그인 </a>

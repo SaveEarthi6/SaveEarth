@@ -24,7 +24,7 @@
 	
 	<!-- 로그인한 아이디랑 댓글 작성한 아이디랑 같을 때 삭제 버튼이 보인다 -->
 	<c:if test="${loginId eq commList.USER_ID }">
-	<button id="commDelete" class="btn btn-danger">삭제</button>  
+	<button class="commDelete" data-no="${commContent.COMM_NO }">삭제</button>  
     </c:if>
 	
       <hr>
