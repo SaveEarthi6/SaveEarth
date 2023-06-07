@@ -109,13 +109,12 @@ select {
 }
 /* 게시글 분류 전체(div) 스타일 */
 .nav { 
- 	margin-left: 30%; 
- 	margin-bottom: 50px; 
+ 	margin: 0 auto; 
+    width: fit-content;
+    
  } 
 
-
 </style>
-
 <!-- 필터 기능 -->
 <script type="text/javascript">
 
@@ -196,15 +195,7 @@ location.href="?freeHead=" + freeHead
 
 </table>	
 
-<!-- 검색창 -->
-<div>
-	<form action="/info/main">
-	    <div class="search">
-	        <input type="text" name="search" class="search_input">
-	        <button type="button" name="search_btn" class="search_btn"  style="margin-bottom: 3px;"><i class="bi bi-search"></i></button>
-	    </div>
-	</form>
-</div>
+
 
 <span class="float-end mb-3">${paging.totalCount }</span>
 <div class="clearfix"></div>
