@@ -6,21 +6,23 @@ public class Cart {
 	private int userNo;
 	private int prodNo;
 	private int prodCount;
+	private int prodOptNo;
 	
 	public Cart() {}
 
-	public Cart(int cartNo, int userNo, int prodNo, int prodCount) {
+	public Cart(int cartNo, int userNo, int prodNo, int prodCount, int prodOptNo) {
 		super();
 		this.cartNo = cartNo;
 		this.userNo = userNo;
 		this.prodNo = prodNo;
 		this.prodCount = prodCount;
+		this.prodOptNo = prodOptNo;
 	}
 
 	@Override
 	public String toString() {
 		return "Cart [cartNo=" + cartNo + ", userNo=" + userNo + ", prodNo=" + prodNo + ", prodCount=" + prodCount
-				+ "]";
+				+ ", prodOptNo=" + prodOptNo + "]";
 	}
 
 	public int getCartNo() {
@@ -55,6 +57,13 @@ public class Cart {
 		this.prodCount = prodCount;
 	}
 
+	public int getProdOptNo() {
+		return prodOptNo;
+	}
+
+	public void setProdOptNo(int prodOptNo) {
+		this.prodOptNo = prodOptNo;
+	}
 
 	
 }

@@ -381,10 +381,25 @@ $(function(){
 
                        
                         <div class="count">
-    <button class="decrease" onclick="decreaseValue()">-</button>
-    <input type="text" name="num" id="num" value="1" readonly>
-    <button class="increase" onclick="increaseValue()">+</button>
+						    <button class="decrease" onclick="decreaseValue()">-</button>
+						    <input type="text" name="num" id="num" value="1" readonly>
+						    <button class="increase" onclick="increaseValue()">+</button>
                         </div>
+                        
+                        <!-- 옵션주기 -->
+						<div id="optionsDiv">
+						  <select id="optionSelect">
+						    
+						  <c:forEach items="${prodOption }" var="prodOption">
+						    <option value="${prodOption.PROD_OPT_NO }">Color: ${prodOption.PROD_COLOR } Size: ${prodOption.PROD_SIZE }</option>
+						  </c:forEach>
+						  </select>
+						</div>               
+                        
+                        
+                        
+                        
+                        
                         <div class="total">
                             <span class="totalprice" id="totalprice">${goodsDetail.PROD_PRICE }</span>
                             <span>원</span>
@@ -395,8 +410,10 @@ $(function(){
     <input type="button" class="cart" value="장바구니" onclick="addToCart()">
                             <input type="hidden" name="prodCount" class="prodCount">
                                 <button onclick="requestPay()">결제하기</button> 
-                            <input type="button" class="order" value="구매하기">
+                             <form>
+                            <input type="button" class="order" value="구매하기" onclick="detailbuy()">
                             
+                            </form>   
                         </div>
                     </div>
                 </article>
@@ -430,13 +447,38 @@ $(function(){
 	 /* 스크립트로 상품 번호랑 갯수 넘기기 */
     function addToCart() {
 		 alert("장바구니 담기 완료");
+		let prodOptNo = document.getElementById('optionSelect').value;
         let prodno = '${goodsDetail.PROD_NO}';
         let prodCount = document.getElementById('num').value;
-        let url = './addCart?prodno=' + prodno + '&prodCount=' + prodCount;
+        let url = './addCart?prodno=' + prodno + '&prodCount=' + prodCount + '&prodOptNo=' + prodOptNo;
         location.href = url;
     }    
-</script>
+	 
+	function detailbuy(){
+		let prodOptNo = document.getElementById('optionSelect').value;
+        let prodno = '${goodsDetail.PROD_NO}';
+        let prodCount = document.getElementById('num').value;
+		let url = './detailbuy';
+		
+		
+		 // XMLHttpRequest 객체 생성
+		  let xhr = new XMLHttpRequest();
+		  
+		  // POST 요청 설정
+		  xhr.open('POST', url, true);
+		  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		  
+		  // POST 데이터 생성
+		  let data = 'prodno=' + prodno + '&prodCount=' + prodCount + '&prodOptNo=' + prodOptNo;
+		  
+		  // 요청 전송
+		  xhr.send(data);
+		  
 
+	} 
+</script>
+<form >
+</form>
 
     
     
