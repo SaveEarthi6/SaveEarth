@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import web.dto.Cart;
+import web.dto.ProdOption;
 import web.dto.Product;
 import web.util.Paging;
 
@@ -22,6 +23,8 @@ public interface GoodsDao {
 	public int existCart(Cart cart);
 
 	public void updateCart(Cart cart);
+
+	public List<Map<String, Object>> getOption(int prodno);
 
 
 }

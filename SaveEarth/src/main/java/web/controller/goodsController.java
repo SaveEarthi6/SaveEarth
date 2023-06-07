@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import web.dto.Campaign;
+
 import web.dto.Cart;
+import web.dto.Member;
+import web.dto.ProdOption;
 import web.dto.Product;
 import web.service.face.GoodsService;
+import web.service.face.MemberService;
 import web.util.Paging;
 
 @Controller
@@ -27,6 +30,7 @@ import web.util.Paging;
 public class goodsController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired GoodsService goodsService;
+	@Autowired MemberService memberService;
 	
 	@GetMapping("/main")
 	public void goodsmainget(HttpSession session, Model model, @RequestParam(defaultValue = "0") int curPage){
@@ -40,6 +44,9 @@ public class goodsController {
 		List<Product> prodList = goodsService.getgoodsList(paging);
 		
 		// 파일 가져오기
+		
+		
+
 		
 		for(Product c : prodList) {
 			logger.info("{}", c);
@@ -60,10 +67,15 @@ public class goodsController {
 		Map<String, Object> goodsDetail = goodsService.getProdDetail(prodno);
 		logger.info("{}", goodsDetail);
 		
+		//옵션 가져오기
+		List<Map<String, Object>> prodOption = goodsService.getOptionList(prodno);
+		for(Map<String, Object> o : prodOption) {
+			logger.info("{}", o);
+		}		
 		
 		
 		model.addAttribute("goodsDetail", goodsDetail);
-		
+		model.addAttribute("prodOption", prodOption);
 	}
 	
 	@ResponseBody
@@ -83,7 +95,7 @@ public class goodsController {
 		int userNo=(int)session.getAttribute("loginNo");
 		
 		List<Map<String, Object>> cartList = goodsService.getcartList(userNo);
-		logger.info("{}", cartList);
+		logger.info("카드리스트{}", cartList);
 		
 		model.addAttribute("cartList",cartList);
 		
@@ -93,13 +105,13 @@ public class goodsController {
 	}
 	
 	@GetMapping("/addCart")
-	public String  addCart(HttpSession session,@RequestParam("prodno") int prodno,@RequestParam("prodCount") int prodCount, Cart cart) {
+	public String  addCart(HttpSession session,@RequestParam("prodOptNo") int prodOptNo,@RequestParam("prodno") int prodno,@RequestParam("prodCount") int prodCount, Cart cart) {
 		
 		//가져온 값들로 장바구니로 Insert 시켜봄
 		System.out.println(session.getAttribute("loginNo"));
 		
 		int userNo=(int)session.getAttribute("loginNo");
-
+		System.out.println("옵션번호"+ prodOptNo);
 
 		//유저번호
 		cart.setUserNo(userNo);
@@ -107,6 +119,9 @@ public class goodsController {
 		cart.setProdCount(prodCount);
 		//상품번호
 		cart.setProdNo(prodno);
+		//옵션번호
+		cart.setProdOptNo(prodOptNo);
+		
 		
 		System.out.println(cart);
 		
@@ -125,6 +140,25 @@ public class goodsController {
 		logger.info("{}", chArr);
 		
 		return 0;
+	}
+	
+
+	
+	
+//	@GetMapping("/detailbuy")
+//	public void detailbuy(HttpSession session,@RequestParam("prodOptNo") int prodOptNo,@RequestParam("prodno") int prodno,@RequestParam("prodCount") int prodCount, Member member) {
+//		String loginId = (String) session.getAttribute("loginId");
+//		logger.info("{}", loginId);
+//		
+//		Member info = memberService.info(loginId);
+//		logger.info("info: {}", info);
+//		
+//		
+//	}
+	
+	@PostMapping("/detailbuy")
+	public void detailbuy() {
+		
 	}
 
 }

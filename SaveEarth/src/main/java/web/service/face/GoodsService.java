@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import web.dto.Cart;
+import web.dto.ProdOption;
 import web.dto.Product;
 import web.util.Paging;
 
@@ -40,6 +41,14 @@ public interface GoodsService {
 	 * @return
 	 */
 	public List<Map<String, Object>> getcartList(int userNo);
+
+	
+	/**
+	 *  상품 번호에 맞는 옵션 가져오기
+	 * @param prodno
+	 * @return
+	 */
+	public List<Map<String, Object>> getOptionList(int prodno);
 
 	
 	
