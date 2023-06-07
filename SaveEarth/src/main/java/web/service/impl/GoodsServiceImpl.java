@@ -56,7 +56,23 @@ public class GoodsServiceImpl implements GoodsService {
 	@Override
 	public void addCart(Cart cart) {
 		
-		goodsDao.addCart(cart);
+		int existCart = goodsDao.existCart(cart);
+		
+		System.out.println("cart확인"+cart);
+		System.out.println("존재 유무 확인"+existCart);
+		if(existCart<1) {
+			
+			//인서트
+			goodsDao.addCart(cart);
+			
+		} else {
+			
+			//업데이트
+			goodsDao.updateCart(cart);
+			
+		}
+		
+		
 		
 	}
 
@@ -67,5 +83,14 @@ public class GoodsServiceImpl implements GoodsService {
 		
 		return goodsDao.selectCartListByuserno(userNo);
 	}
+	
+	@Override
+	public void deleteCart(int userNo, String cartNo) {
+
+		goodsDao.deleteCart(userNo, cartNo);
+		
+	}
+
+
 
 }

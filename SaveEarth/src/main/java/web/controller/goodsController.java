@@ -1,5 +1,6 @@
 package web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -39,6 +40,7 @@ public class goodsController {
 		//첫 로드시 상품 불러오기
 		List<Product> prodList = goodsService.getgoodsList(paging);
 		
+		// 파일 가져오기
 		
 		for(Product c : prodList) {
 			logger.info("{}", c);
@@ -46,6 +48,7 @@ public class goodsController {
 		
 		model.addAttribute("prodList", prodList);
 		model.addAttribute("paging", paging);		
+		
 		
 		
 	}
@@ -98,8 +101,6 @@ public class goodsController {
 		
 		int userNo=(int)session.getAttribute("loginNo");
 
-		//Cart cart에 값 넣기
-		//20230604 장바구니 시퀀스 추가해서 Mapper까지 수정해야함(아직 시퀀스 x 제약조건x) 일단 이건 장바구니 들어가나 테스트!!!!!!!!!!!!!!!!!!!! 확인(o)
 
 		//유저번호
 		cart.setUserNo(userNo);
@@ -112,9 +113,6 @@ public class goodsController {
 		
 		goodsService.addCart(cart);
 		
-		//장바구니에 유저넘버랑 상품넘버랑 값줘서 있나 없나 비교 먼저하고 없으면 insert 하고 이미 장바구니에 있으면  갯수만 변경해주는 걸로 코드 짜면 될듯?!
-		
-
 		
 		//장바구니 담고 다시 상세페이지 창으로 돌아가
 		return "redirect:/goods/detail?prodno=" + prodno; 
@@ -123,11 +121,40 @@ public class goodsController {
 	
 	@ResponseBody
 	@PostMapping("/deleteCart")
-	public int deleteCart(HttpSession session, @RequestParam("chbox[]") List<String> chArr, Cart cart) {
+	public int deleteCart(HttpSession session, @RequestParam("chbox[]") List<String> chArr) {
 		logger.info("/goods/deleteCart [POST]");
 		logger.info("{}", chArr);
+		logger.info("{}", session.getAttribute("loginNo"));
 		
-		return 0;
+		//로그인 된 상태이면
+		if(session.getAttribute("isLogin") != null) {
+			for(String cartNo : chArr) {
+				goodsService.deleteCart((int)session.getAttribute("loginNo"), cartNo);
+			}
+			
+			return 1;
+			
+		} else {
+			return 0;
+		}
+		
+	}
+	
+	@RequestMapping("/orderAll")
+	public void orderAll(HttpSession session, @RequestParam("chbox[]") List<String> chArr, Model model) {
+		//주문페이지로 이동
+		logger.info("/goods/orderAll [POST]");
+		
+//		List<Map<String, Object>> cartList = new ArrayList<>();
+//		
+//		for(String cartNo : chArr) {
+//			cartList.add(goodsService.getcartList((int)session.getAttribute("loginNo"), cartNo));
+//		}
+//		logger.info("{}", cartList);
+//		
+//		model.addAttribute("cartList",cartList);
+		
+		
 	}
 
 }
