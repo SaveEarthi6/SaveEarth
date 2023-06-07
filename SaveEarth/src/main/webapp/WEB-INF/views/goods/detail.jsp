@@ -6,6 +6,47 @@
 
 
 
+<!--  결제하기 실험해보기 -->
+   <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+    <script>
+        var IMP = window.IMP; 
+        IMP.init("imp42576077"); // 가맹점 식별코드
+      
+        var today = new Date();   
+        var hours = today.getHours(); // 시
+        var minutes = today.getMinutes();  // 분
+        var seconds = today.getSeconds();  // 초
+        var milliseconds = today.getMilliseconds();
+        var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+        
+
+        function requestPay() {
+            IMP.request_pay({
+                pg : 'html5_inicis.INIpayTest  ', // PG사 코드표에서 코드 맞춰놓았음
+                pay_method : 'card', // 결제 방식
+                merchant_uid: "IMP"+makeMerchantUid, // 결제 고유 번호
+                name : '${goodsDetail.PROD_NAME }', // 제품명 변경
+                amount : document.getElementById("totalprice").innerText, // 가격
+                buyer_email : 'Iamport@chai.finance',
+                buyer_name : '아임포트 기술지원팀',
+                buyer_tel : '010-1234-5678',
+                buyer_addr : '서울특별시 강남구 삼성동',
+                buyer_postcode : '123-456'
+            }, function (rsp) { // callback
+                if (rsp.success) {
+                    console.log(rsp);
+                } else {
+                    console.log(rsp);
+                }
+            });
+        }
+
+	</script>
+
+
+
+
+
 
 <script>
 
@@ -18,7 +59,6 @@ $(function(){
 		const price = ${goodsDetail.PROD_PRICE };
 	
 		console.log($("#num").val());
-		console.log(${goodsDetail.PROD_PRICE });
 		$.ajax({
 			type: "get",
 
@@ -40,7 +80,7 @@ $(function(){
 		const price = ${goodsDetail.PROD_PRICE };
 	
 		console.log($("#num").val());
-		console.log(${goodsDetail.PROD_PRICE });
+		
 		$.ajax({
 			type: "get",
 
@@ -61,8 +101,6 @@ $(function(){
 	
 
 })
-
-
 
 </script>
     
@@ -183,7 +221,7 @@ $(function(){
         }
 
         #product > .view > .info > .summary .total > span {
-            float: right;
+/*             float: right; */
             display: inline-block;
             line-height: 38px;
             font-size: 24px;
@@ -343,19 +381,20 @@ $(function(){
 
                        
                         <div class="count">
-                            <button class="decrease">-</button>
-                            <input type="text" name="num" id="num" value="1" readonly>
-                            <button class="increase">+</button>
+    <button class="decrease" onclick="decreaseValue()">-</button>
+    <input type="text" name="num" id="num" value="1" readonly>
+    <button class="increase" onclick="increaseValue()">+</button>
                         </div>
                         <div class="total">
-                            <span class="totalprice">${goodsDetail.PROD_PRICE }</span>
+                            <span class="totalprice" id="totalprice">${goodsDetail.PROD_PRICE }</span>
+                            <span>원</span>
                         
                         </div>
                         <div class="button">
                        
-                            <input type="button" class="cart" value="장바구니" onclick="location.href='./cart?prodno=${goodsDetail.PROD_NO}'">
+    <input type="button" class="cart" value="장바구니" onclick="addToCart()">
                             <input type="hidden" name="prodCount" class="prodCount">
-                        
+                                <button onclick="requestPay()">결제하기</button> 
                             <input type="button" class="order" value="구매하기">
                             
                         </div>
@@ -371,30 +410,32 @@ $(function(){
     </div>
     
     
-<script>
-    
-    const decreaseBtn = document.querySelector('.decrease');
-    const increaseBtn = document.querySelector('.increase');
-    const inputField = document.querySelector('input[name="num"]');
 
-    decreaseBtn.addEventListener('click', () => {
+
+<script>
+     /* JavaScript 코드 더하기 빼기 */
+    function decreaseValue() {
+        let inputField = document.getElementById('num');
         let currentValue = parseInt(inputField.value);
         if (currentValue > 1) {
             inputField.value = --currentValue;
-          
-
         }
-    });
+    }
 
-    increaseBtn.addEventListener('click', () => {
+    function increaseValue() {
+        let inputField = document.getElementById('num');
         let currentValue = parseInt(inputField.value);
         inputField.value = ++currentValue;
-    });
-    
-
-
-
-</script>  
+    }
+	 /* 스크립트로 상품 번호랑 갯수 넘기기 */
+    function addToCart() {
+		 alert("장바구니 담기 완료");
+        let prodno = '${goodsDetail.PROD_NO}';
+        let prodCount = document.getElementById('num').value;
+        let url = './addCart?prodno=' + prodno + '&prodCount=' + prodCount;
+        location.href = url;
+    }    
+</script>
 
 
     
