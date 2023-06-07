@@ -9,22 +9,26 @@ public class Info {
 	private String infoTitle;
 	private String infoContent;
 	private Date infoUpload;
+	private String infoState;
 	
-	public Info() {}
+	public Info() {
+		// TODO Auto-generated constructor stub
+	}
 
-	public Info(int infoNo, int adminNo, String infoTitle, String infoContent, Date infoUpload) {
+	@Override
+	public String toString() {
+		return "Info [infoNo=" + infoNo + ", adminNo=" + adminNo + ", infoTitle=" + infoTitle + ", infoContent="
+				+ infoContent + ", infoUpload=" + infoUpload + ", infoState=" + infoState + "]";
+	}
+
+	public Info(int infoNo, int adminNo, String infoTitle, String infoContent, Date infoUpload, String infoState) {
 		super();
 		this.infoNo = infoNo;
 		this.adminNo = adminNo;
 		this.infoTitle = infoTitle;
 		this.infoContent = infoContent;
 		this.infoUpload = infoUpload;
-	}
-
-	@Override
-	public String toString() {
-		return "Info [infoNo=" + infoNo + ", adminNo=" + adminNo + ", infoTitle=" + infoTitle + ", infoContent="
-				+ infoContent + ", infoUpload=" + infoUpload + "]";
+		this.infoState = infoState;
 	}
 
 	public int getInfoNo() {
@@ -66,6 +70,16 @@ public class Info {
 	public void setInfoUpload(Date infoUpload) {
 		this.infoUpload = infoUpload;
 	}
-	
+
+	public String getInfoState() {
+		return infoState;
+	}
+
+	public void setInfoState(String infoState) {
+		this.infoState = infoState;
+	}
 	
 }
+	
+	
+	

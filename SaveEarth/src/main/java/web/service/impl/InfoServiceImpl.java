@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import web.controller.AdminController;
 import web.dao.face.InfoDao;
+import web.dto.Free;
 import web.dto.Info;
 import web.service.face.InfoService;
 import web.util.Paging;
@@ -45,27 +46,9 @@ public class InfoServiceImpl implements InfoService {
 	}
 
 	@Override
-	public Paging getPagingByState(int curPage, String state) {
-		
-		//총 게시글 수 조회하기
-		int totalCount = infoDao.selctCntAllByState(state);
-		logger.info("totalCount : {}", totalCount);
-		
-		//페이징 객체
-		Paging paging = new Paging(totalCount, curPage , 3);
-		
-		return paging;
+	public List<Free> getTopRecommend(int count) {
+		return infoDao.getTopFreeRecommend(count);
 	}
 
-	@Override
-	public List<Map<String, Object>> getInfoListState(Paging paging, String state) {
-		
-		Map <String, Object >param = new HashMap<>();
-		param.put("paging", paging);
-		param.put("state", state);
-		
-		return infoDao.selectInfoListByState(paging,state);
-	}
-	
 
 }

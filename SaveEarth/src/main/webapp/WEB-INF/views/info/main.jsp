@@ -126,16 +126,7 @@ input {
 }
 
 
-#navButton  {  
-  	margin-left: 30px;  
-	margin-top: 20px;  
- 	width: 100px;  
-}  
 
-.nav { 
- 	margin-left: 100px; 
- 	margin-bottom: 50px; 
-} 
 
 
 </style>
@@ -144,48 +135,6 @@ input {
 </head>
 <body>
 
-<script type="text/javascript">
-
-var state = "정보";
-
-$(function(){
-	
-	//캠페인 상태 버튼 ajax
-	$(".preface").click(function() {
-		console.log("test")
-		console.log($(this).html())
-		
-		$(".preface").css({
-			"background-color" : "white",
-			"color" : "#198754"
-		})
-		
-		$(this).css({
-			"background-color" : "#198754",
-			"color" : "white"
-		})
-		
-		state = $(this).html()
-		
-		$.ajax({
-			type: "post"
-			, url : "./preface"
-			, data : {state : state}
-			, dataType : "html"
-			, success : function(res) {
-				console.log('성공')
-				$("#infoListJsp").html(res)
-			}
-			, error : function() {
-				console.log('실패')
-				
-			}
-		})
-
-	})
-	
-
-</script>
 
 
 <div>
@@ -199,40 +148,15 @@ $(function(){
 </div>
 </c:if>
 
-<div class="container">
-
-<!-- 정보 게시판 -->
-	<div id="list" class="row">
-		<div class="col-1"></div>
-		
-		<div id="list" class="row col-10">
-		
-			<c:forEach var="list" items="${list }" begin="3" end="5">
-				{list.infoNo}
-				{list.infoTitle}
-				{list.infoContent}
-				{list.infoUpload}
-			</c:forEach>
-			
-		</div>
-		
-		<div class='col-1'></div>
+<div id = "infoList">
+	<div class="nav">
+		<button id="navButton" type="button" class="btn btn-outline-success preface">정보</button>
+		<button id="navButton" type="button" class="btn btn-outline-success preface">자유</button>
 	</div>
 
 </div>
+<div class="container">
 
-
-
-<!-- 정보 게시판 list CSS -->
-<table id= "board" class= "table table-hover text-center">
-
-	<tr style= "background-color: #59A8D9; color: white;">
-		<th style="width: 20px;">글번호</th>
-		<th style="width: 30px; text-align:center">제목</th>
-		<th style="width: 20px;">조회수</th>
-		<th style="width: 20px;">작성일</th>
-	</tr>
-</table>
 
 
 <!-- 검색창 -->
@@ -355,18 +279,11 @@ $(function(){
 
 
 
-<div id = "infoList">
-	<div class="nav">
-		<button id="navButton" type="button" class="btn btn-outline-success preface">정보</button>
-		<button id="navButton" type="button" class="btn btn-outline-success preface">자유</button>
-	</div>
-
-<div id = "infoListJsp">
-	<c:import url="./detail.jsp"/>
-</div>
-
-</div>
 
 
 
 <c:import url="../layout/footer.jsp"></c:import>
+
+</div>
+</body>
+</html>

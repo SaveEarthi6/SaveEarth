@@ -177,6 +177,8 @@ public interface FreeService {
 	 * @return - 페이징 객체
 	 */
 	public Paging getPagingByFreeHead(int curPage, String freeHead);
+	
+
 
 	
 	
