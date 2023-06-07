@@ -32,6 +32,10 @@ public interface GoodsDao {
 
 	public void deleteCart(@Param("userNo") int userNo, @Param("cartNo") String cartNo);
 
+	public Product getProdinfo(int prodNo);
+
+	public ProdOption getProdopt(int prodOptNo);
+
 
 
 }
