@@ -8,18 +8,13 @@
 </head>
 <body>
 
-<h1 style="color: red;">관리자 아니면 나가세요~~~~~~~~</h1>
+<h1 style="color: red;">게시글쓰기는 로그인 후에 사용할 수 있습니다</h1>
 <hr>
 
-<h3>이 페이지가 보이면 관리자로 로그인하지 않은 상태입니다!</h3>
+<a href="../main"><button>메인 페이지로</button></a>
 
-<a href="./login">메인 페이지로</a>
-  
-  
-  
 </body>
 </html>
-
 
 
 

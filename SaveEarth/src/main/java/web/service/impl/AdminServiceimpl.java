@@ -332,5 +332,7 @@ public class AdminServiceimpl implements AdminService {
 		return adminDao.selectCamList(paging);
 	}
    
-   
+	public void deleteCam(int campFileNo, int campNo) {
+	   
+	}
 }

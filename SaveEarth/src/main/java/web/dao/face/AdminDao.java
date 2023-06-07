@@ -89,6 +89,9 @@ public interface AdminDao {
 
    public List<Map<String, Object>> selectCamList(Paging paging);
 
+   //캠페인 게시글 삭제
+
+   public void deleteCam(@Param ("campFileNo")int campFileNo, @Param("campNo")  int campNo);
 
 
 }

@@ -80,6 +80,8 @@ public interface AdminService {
 
    public List<Map<String, Object>> Camlist(Paging paging);
 
+   public void deleteCam(int campFileNo, int campNo);
+   
 
 
 
