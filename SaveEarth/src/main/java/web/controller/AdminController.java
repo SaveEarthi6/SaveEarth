@@ -38,6 +38,7 @@ import web.util.Paging;
 @RequestMapping("/admin")
 public class AdminController {
 
+	
    
       @Autowired AdminService adminService;
       @Autowired MemberService memberService;
