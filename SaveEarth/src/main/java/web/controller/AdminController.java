@@ -279,21 +279,6 @@ public class AdminController {
 	}
    
    
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
    @RequestMapping("info")
    public void adminInfo() {
       logger.info("Admin/info[Mapping]");
