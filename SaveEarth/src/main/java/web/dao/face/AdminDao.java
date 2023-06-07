@@ -91,7 +91,9 @@ public interface AdminDao {
 
    //캠페인 게시글 삭제
 
-   public void deleteCam(@Param ("campFileNo")int campFileNo, @Param("campNo")  int campNo);
+   //public void deleteCam(int campNo);
+
+   public void deleteCam(Campaign campNo);
 
 
 }

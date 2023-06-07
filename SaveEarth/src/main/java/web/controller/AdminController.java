@@ -289,13 +289,12 @@ public class AdminController {
    
    //게시글 삭제하기
    @RequestMapping("/camDelete")
-   public String camDelete(int campFileNo, int campNo ) {
+   public String camDelete(Campaign campNo ) {
 	   
 	   	logger.info("/campaign/campDelete [GET]");
 		logger.info("campNo : {}", campNo);
-		logger.info("campFileNo : {}", campFileNo);
 	   
-		adminService.deleteCam(campFileNo, campNo);
+		adminService.deleteCam(campNo);
 		
 	   return "redirect:./campaign";
   }
