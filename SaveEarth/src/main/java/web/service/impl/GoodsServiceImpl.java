@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import web.dao.face.GoodsDao;
 import web.dto.Campaign;
 import web.dto.Cart;
+import web.dto.Order;
 import web.dto.ProdOption;
 import web.dto.Product;
 import web.service.face.GoodsService;
@@ -86,11 +87,19 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 	
 	@Override
-	public void deleteCart(int userNo, String cartNo) {
+	public void deleteCartBySelect(int userNo, String cartNo) {
 
-		goodsDao.deleteCart(userNo, cartNo);
+		goodsDao.deleteCartBySelect(userNo, cartNo);
 		
 	}
+	
+	@Override
+	public void deleteCart(int userNo) {
+		
+		goodsDao.deleteCartAll(userNo);
+		
+	}
+
 
 	@Override
 	public List<Map<String, Object>> getOptionList(int prodno) {
@@ -98,6 +107,18 @@ public class GoodsServiceImpl implements GoodsService {
 		return goodsDao.getOption(prodno);
 	}
 
+	@Override
+	public void makeOrder(Order order) {
+
+		goodsDao.insertOrder(order);
+		
+	}
+	
+	@Override
+	public List<Order> orderList(int userNo) {
+		
+		return goodsDao.selectOrderList(userNo);
+	}
 
 
 }

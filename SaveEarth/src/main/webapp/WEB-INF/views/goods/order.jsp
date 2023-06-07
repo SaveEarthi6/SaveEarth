@@ -84,8 +84,8 @@ tr:hover {
 	</div>
 
 	<div class="textForm">
-	  <label for="orderPhon" class="phone">연락처</label>
-	  <input type="text" class="form-control" id="orderPhon" name="orderPhon">
+	  <label for="orderPhone" class="phone">연락처</label>
+	  <input type="text" class="form-control" id="orderPhone" name="orderPhone">
 	</div>
 	
 	<input type="hidden" name="orderPrice" value="${sum}">
@@ -93,7 +93,7 @@ tr:hover {
 	<br>
 	<br>
 	  <div >
-	    <button type="submit" class="btn btn-success" id="orderMade" >주문하기</button>
+	    <button type="submit" class="btn btn-success" id="orderMade" >결제하기</button>
 	  </div>
 	<br>
 	<br>  

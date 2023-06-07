@@ -1,8 +1,11 @@
 package web.controller;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import web.dto.Cart;
 import web.dto.Member;
+import web.dto.Order;
 import web.dto.ProdOption;
 import web.dto.Product;
 import web.service.face.GoodsService;
@@ -144,7 +148,7 @@ public class goodsController {
 		//로그인 된 상태이면
 		if(session.getAttribute("isLogin") != null) {
 			for(String cartNo : chArr) {
-				goodsService.deleteCart((int)session.getAttribute("loginNo"), cartNo);
+				goodsService.deleteCartBySelect((int)session.getAttribute("loginNo"), cartNo);
 			}
 			
 			return 1;
@@ -156,7 +160,7 @@ public class goodsController {
 	}
 	
 	//전체 주문하기
-	@RequestMapping("/order")
+	@GetMapping("/order")
 	public void orderAll(HttpSession session, Model model) {
 		logger.info("/goods/order [GET]");
 		
@@ -170,6 +174,42 @@ public class goodsController {
 		
 		
 		
+	}
+	
+	@PostMapping("/order")
+	public String orderinsert(HttpSession session, Order order) {
+		logger.info("/goods/order [POST]");
+		
+		//주문 DB에 넣기
+		
+		//주문번호
+		Calendar cal = Calendar.getInstance();
+		String date = cal.get(Calendar.YEAR) + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1) + new DecimalFormat("00").format(cal.get(Calendar.DATE));
+		String orderNo = cal.get(Calendar.YEAR) + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1) + new DecimalFormat("00").format(cal.get(Calendar.DATE)) + "_" + UUID.randomUUID().toString().split("-")[0];
+		
+		logger.info("{}", orderNo);		
+		
+		order.setOrderNo(orderNo);
+		order.setUserNo((int)session.getAttribute("loginNo"));
+		
+		logger.info("{}", order);
+		
+		goodsService.makeOrder(order);
+		
+		goodsService.deleteCart((int)session.getAttribute("loginNo"));
+		
+		return "redirect:./orderList";
+		
+	}
+	
+	//주문목록 불러오기
+	@RequestMapping("/orderList")
+	public void orderList(HttpSession session, Model model) {
+		logger.info("/goods/orderList [GET]");
+		
+		List<Order> orderList = goodsService.orderList((int)session.getAttribute("loginNo"));
+		
+		model.addAttribute("orderList", orderList);
 	}
 	
 
