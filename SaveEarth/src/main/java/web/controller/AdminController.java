@@ -203,20 +203,6 @@ public class AdminController {
    
    }
    
-
-   @PostMapping("/main")
-   public String campMainPost(MultipartFile partFile, Certification certification ) {
-      logger.info("/campaign/main [POST]");
-      logger.info("{}", partFile);
-      
-      adminService.writePart(certification, partFile);
-      
-      
-      return "redirect:./campaign";
-   }
-   
-   
-   
    // 관리자 페이지(캠페인 게시판 글쓰기 GET)
    @GetMapping("/campaignWrite")
    public void campaignWrite(HttpSession session, Model model) {
@@ -284,7 +270,7 @@ public class AdminController {
 	}
    
    
-   //게시글 삭제하기
+   //켐페인 게시글 삭제하기
    @RequestMapping("/camDelete")
    public String camDelete(Campaign campNo ) {
 	   
@@ -299,14 +285,21 @@ public class AdminController {
 
    
    
-   
-   
-   
-   
-   
-   
-   
-   
+ //캠페인 상세보기
+ 	@RequestMapping("/campDetail")
+ 	public void campDetail(Model model, int campno) {
+ 		logger.info("/campaign/detail [GET]");
+ 		logger.info("campno : {}", campno);
+ 		
+ 		Map<String, Object> campDetail = campService.getCampDetail(campno);
+ 		logger.info("{}", campDetail);
+ 		
+ 		//인증현황 조회해오기
+ 		
+ 		model.addAttribute("campDetail", campDetail);
+ 		
+ 	}
+ 	
    
    
    
