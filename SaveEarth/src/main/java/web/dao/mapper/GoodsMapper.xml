@@ -28,9 +28,17 @@
 	
 	<insert id="addCart" parameterType="web.dto.Cart">
 	INSERT INTO cart(cart_no,user_no,prod_no,prod_count)
-	values(#{cartNo},#{userNo},#{prodNo},#{prodCount})
+	values(cart_seq.nextval,#{userNo},#{prodNo},#{prodCount})
 	
 	</insert>
+	
+	<update id="updateCart" parameterType="web.dto.Cart">
+	UPDATE cart 
+	SET  prod_count=#{prodCount}
+	WHERE user_no=#{userNo} and prod_no=#{prodNo}
+	
+	
+	</update>
 	
 
 	<select id="selectCartListByuserno" resultType="map" parameterType="int">
@@ -39,5 +47,11 @@
 		LEFT OUTER JOIN product p ON c.prod_no = p.prod_no
 		LEFT OUTER JOIN prod_file f ON p.prod_no = f.prod_no
 		WHERE user_no = #{userNo}
+	</select>
+	
+	<select id="existCart" parameterType="web.dto.Cart" resultType="int" >
+	SELECT count(*) FROM cart
+	where user_no=#{userNo} and prod_no=#{prodNo}
+	
 	</select>
 </mapper>
