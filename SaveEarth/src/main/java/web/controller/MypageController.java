@@ -53,6 +53,7 @@ public class MypageController {
 		
 		member.setUserId((String)session.getAttribute("loginId"));
 		logger.info("{}", member);
+
 		
 		memberService.update(member);
 		

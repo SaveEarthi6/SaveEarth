@@ -71,9 +71,9 @@
 		SELECT certification_seq.nextval FROM dual
 	</select>
 	
-	<insert id="insertCert" parameterType="web.dto.Certification">
-		INSERT INTO certification (part_no, user_no, camp_no, part_title, part_content)
-		VALUES (#{partNo}, #{userNo}, #{campNo}, #{partTitle}, #{partContent})
+	<insert id="insertCert" parameterType="map">
+		INSERT INTO certification (part_no, user_no, camp_no, part_title, part_content, part_date)
+		VALUES (#{partNo}, #{userNo}, #{campNo}, #{partTitle}, #{partContent}, #{partDate})
 	</insert>
 	
 	<insert id="insertFile" parameterType="web.dto.CertificationFile">

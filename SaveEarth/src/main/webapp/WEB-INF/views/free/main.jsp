@@ -246,7 +246,7 @@ location.href="?freeHead=" + freeHead
 				<td class="text-start" style="text-align:center"><a href="/free/view?freeNo=${free.FREE_NO }">${free.FREE_TITLE }</a></td>
 				<td>${free.USER_ID}</td>
 				<td>${free.FREE_VIEWS }</td>
-				<td>${free.RECOMMEND }</td>
+				<td>${free.RECOMMEND}</td>
 				<td><fmt:formatDate value="${free.FREE_CREATE}" pattern="yy-MM-dd HH:mm:ss"/></td>
 			</tr>
 
@@ -272,7 +272,7 @@ location.href="?freeHead=" + freeHead
 
 <div>
 	<ul class="pagination pagination-sm justify-content-center">
-
+	
 	<%-- 첫 페이지로 이동 --%>
 	<c:if test="${paging.curPage ne 1 }">
 		<li class="page-item"><a href="./main?freeHead=${freeHead }" class="page-link">&larr; 처음</a></li>	

@@ -27,7 +27,7 @@ public interface CampDao {
 
 	public int selectPartNo();
 
-	public void insertCert(Certification certification);
+	public void insertCert(Map<String, String> certification);
 
 	public void insertFile(CertificationFile certFile);
 

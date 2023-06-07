@@ -31,7 +31,9 @@ public class InfoBoardController {
 	@GetMapping("/main")
 	public void info(Model model, @RequestParam(defaultValue = "0") int curPage) {
 		logger.info("/info/main [GET]");
+
 		logger.info("curPage : {}", curPage);
+
 		
 		Paging paging = infoService.getPaging(curPage);
 		
@@ -44,11 +46,14 @@ public class InfoBoardController {
 
 
 
+
 		
 		model.addAttribute("infoList", infoList);
 		model.addAttribute("paging", paging);
 		
+
 	
+
 	}
 	
 	//상세보기

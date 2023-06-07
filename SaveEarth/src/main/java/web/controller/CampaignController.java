@@ -90,7 +90,7 @@ public class CampaignController {
 	
 	//인증글 작성
 	@PostMapping("/main")
-	public String campMainPost(MultipartFile partFile, Certification certification ) {
+	public String campMainPost(MultipartFile partFile, @RequestParam Map<String, String> certification ) {
 		logger.info("/campaign/main [POST]");
 		logger.info("{}", partFile);
 		logger.info("********** {}", certification);

@@ -61,7 +61,7 @@ public interface CampService {
 	 * @param certification - 입력받은 인증글 정보가 담긴 DTO
 	 * @param partFile - 첨부파일
 	 */
-	public void writePart(Certification certification, MultipartFile partFile);
+	public void writePart(Map<String, String> certification, MultipartFile partFile);
 
 	/**
 	 * DB에서 달력 기념일 불러오기
