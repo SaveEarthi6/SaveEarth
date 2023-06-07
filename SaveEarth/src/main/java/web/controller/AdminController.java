@@ -131,23 +131,23 @@ public class AdminController {
       model.addAttribute("freeFile", freeFile);
 
    }
-
-   // 관리자 페이지(자유게시판 글쓰기)
-   @GetMapping("/freeWrite")
-   public void write(HttpSession session, Model model) {
-      logger.info("/freeWrite [GET]");
-
-      String loginId = (String) session.getAttribute("loginId");
-      logger.info("관리자 id : {}", loginId);
-
-      Admin memberInfo = adminService.info(loginId);
-
-      logger.info("관리자 정보 : {}", memberInfo);
-
-      model.addAttribute("id", loginId);
-      model.addAttribute("memberInfo", memberInfo);
-
-   }
+//
+//   // 관리자 페이지(자유게시판 글쓰기)
+//   @GetMapping("/freeWrite")
+//   public void write(HttpSession session, Model model) {
+//      logger.info("/freeWrite [GET]");
+//
+//      String loginId = (String) session.getAttribute("loginId");
+//      logger.info("관리자 id : {}", loginId);
+//
+//      Admin memberInfo = adminService.info(loginId);
+//
+//      logger.info("관리자 정보 : {}", memberInfo);
+//
+//      model.addAttribute("id", loginId);
+//      model.addAttribute("memberInfo", memberInfo);
+//
+//   }
 
    @PostMapping("/freeWrite")
    public String writepost(HttpSession session, Free free, @RequestParam(required = false) List<MultipartFile> files,
@@ -178,8 +178,11 @@ public class AdminController {
    @RequestMapping("/freeDelete")
    public String freeDelete(Free free) {
       adminService.delete(free);
-
+      
+      System.out.println("프리안에 들어있는거 " + free);
+      
       return "redirect:./free";
+      
    }
 
    // 캠페인 게시판
@@ -284,19 +287,23 @@ public class AdminController {
 	}
    
    
-
-   @RequestMapping("info")
-   public void adminInfo() {
-      logger.info("Admin/info[Mapping]");
-      
-      
+   //게시글 삭제하기
+   @RequestMapping("/camDelete")
+   public String camDelete(int campFileNo, int campNo ) {
+	   
+	   	logger.info("/campaign/campDelete [GET]");
+		logger.info("campNo : {}", campNo);
+		logger.info("campFileNo : {}", campFileNo);
+	   
+		adminService.deleteCam(campFileNo, campNo);
+		
+	   return "redirect:./campaign";
+  }
+   
+   @RequestMapping("/info")
+   public void info() {
+	   
    }
-   
-
-   
-   
-   
-   
    
    
    
