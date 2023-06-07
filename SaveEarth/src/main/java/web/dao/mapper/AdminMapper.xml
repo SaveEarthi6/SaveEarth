@@ -148,15 +148,17 @@ SELECT * FROM (
       VALUES ( campaign_files_no_seq.nextval, #{campNo}, #{campOriginName}, #{campStoredName})
    </insert>
 
-<select id="selectCamList" parameterType="web.util.Paging" resultType="java.util.Map">
+	<select id="selectCamList" parameterType="web.util.Paging" resultType="java.util.Map">
     SELECT * FROM CAMPAIGN
     ORDER BY ADMIN_NO DESC
-</select>
+	</select>
+
 
 <select id="selectAdmin" parameterType="string" resultType="web.dto.Admin">
 	SELECT * FROM admin
 	WHERE admin_id = #{adminId}
 </select>
+
 
    
 

@@ -89,6 +89,8 @@ public interface AdminService {
 
 
 
+   public void deleteCam(int campFileNo, int campNo);
+   
 
 
 

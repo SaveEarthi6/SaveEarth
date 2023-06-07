@@ -96,6 +96,9 @@ public interface AdminDao {
     */
    public Admin selectAdmin(String loginId);
 
+   //캠페인 게시글 삭제
+
+   public void deleteCam(@Param ("campFileNo")int campFileNo, @Param("campNo")  int campNo);
 
 
 }

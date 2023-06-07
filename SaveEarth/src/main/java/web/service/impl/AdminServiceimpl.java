@@ -337,5 +337,7 @@ public class AdminServiceimpl implements AdminService {
 		return adminDao.selectAdmin(loginId);
 	}
    
-   
+	public void deleteCam(int campFileNo, int campNo) {
+	   
+	}
 }
