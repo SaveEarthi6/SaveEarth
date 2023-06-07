@@ -134,7 +134,7 @@ input {
     margin-left: 10px;
     margin-right: 10px;
     margin-bottom: 65px;
-}
+
 </style>
 
 
@@ -142,7 +142,7 @@ input {
 
 function selectInfo() {
 	console.log("test")
-	document.getElementById('freebtn').className = 'btn btn-success'
+	document.getElementById('info').className = 'btn btn-success'
 // 	location.href='./main'
 }
 
@@ -164,7 +164,7 @@ function selectInfo() {
 </c:if>
 
 <div class="nav">
-<button type="button" class="btn btn-success" id="infobtn">정보</button>
+<button type="button" class="btn btn-outline-success" id="infobtn" onclick="selectInfo()">정보</button>
 <button type="button" class="btn btn-outline-success" id="freebtn">자유</button>
 </div>
 
@@ -174,17 +174,17 @@ function selectInfo() {
 		
 		<div id="infos" class="row col-10">
 		
-			<c:forEach var="infoList" items="${infoList }">
+			<c:forEach var="list" items="${list }" begin="0" end="2">
 			<div id="info" class="col">
-			<a href="./detail?infoNo=${infoList.INFO_NO }" id="infoNo">
-				<c:if test="${infoList.THUMB_STORED_NAME ne null }">
-					<div><img alt="" src="/upload/${infoList.THUMB_STORED_NAME }" style="width: 400px; height: 300px;"></div>
+			<a href="./detail?infoNo=${list.INFO_NO }" id="infoNo">
+				<c:if test="${list.THUMB_STORED_NAME ne null }">
+					<div><img alt="" src="/upload/${list.THUMB_STORED_NAME }" style="width: 400px; height: 300px;"></div>
 				</c:if>
-				<c:if test="${infoList.THUMB_STORED_NAME eq null }">
+				<c:if test="${list.THUMB_STORED_NAME eq null }">
 					<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
 				</c:if>
 				<div id="infoTitle">
-					<span id="title">${infoList.INFO_TITLE }</span>
+					<span id="title">${list.INFO_TITLE }</span>
 				</div>
 			</a>
 			</div>
@@ -197,7 +197,7 @@ function selectInfo() {
 
 
 <div>
-	<form action="//search?keyword=${keyword }" method="get">
+	<form action="/info/search?keyword=${keyword }" method="get">
 	    <div class="search">
 	        <input type="text" name="keyword" class="search_input"
 	        placeholder="검색어를 입력해주세요" value=${keyword }>
@@ -207,7 +207,68 @@ function selectInfo() {
 </div>
 
 
-<c:import url="../layout/paging.jsp"></c:import>
+<div>
+	<ul class="pagination pagination-sm justify-content-center">
+
+	<%-- 첫 페이지로 이동 --%>
+	<c:if test="${paging.curPage ne 1 }">
+		<li class="page-item"><a href="./search?keyword=${keyword }" class="page-link">&larr; 처음</a></li>	
+	</c:if>
+	
+	<%-- 이전 페이징 리스트로 이동 --%>
+	<c:choose>
+	<c:when test="${paging.startPage ne 1 }">
+		<li class="page-item"><a href="./search?curPage=${paging.startPage - paging.pageCount }&keyword=${keyword }" class="page-link">&laquo;</a></li>
+	</c:when>
+	<c:when test="${paging.startPage eq 1 }">
+		<li class="page-item disabled"><a class="page-link">&laquo;</a></li>
+	</c:when>
+	</c:choose>
+	
+	<%-- 이전 페이지로 가기 --%>
+	<c:if test="${paging.curPage > 1 }">
+		<li class="page-item"><a href="./search?curPage=${paging.curPage - 1 }&keyword=${keyword }" class="page-link">&lt;</a></li>
+	</c:if>
+	
+	
+	
+	
+	<%-- 페이징 리스트 --%>
+	<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="i">
+	<c:if test="${paging.curPage eq i }">
+		<li class="page-item active"><a href="./search?curPage=${i }&keyword=${keyword }" class="page-link">${i }</a></li>
+	</c:if>
+	<c:if test="${paging.curPage ne i }">
+		<li class="page-item"><a href="./search?curPage=${i }&keyword=${keyword }" class="page-link">${i }</a></li>
+	</c:if>
+	</c:forEach>
+	
+
+	
+	
+	<%-- 다음 페이지로 가기 --%>
+	<c:if test="${paging.curPage < paging.totalPage }">
+		<li class="page-item"><a href="./search?curPage=${paging.curPage + 1 }&keyword=${keyword }" class="page-link">&gt;</a></li>
+	</c:if>
+	
+	<%-- 다음 페이징 리스트로 이동 --%>
+	<c:choose>
+	<c:when test="${paging.endPage ne paging.totalPage }">
+		<li class="page-item"><a href="./search?curPage=${paging.startPage + paging.pageCount }&keyword=${keyword }" class="page-link">&raquo;</a></li>
+	</c:when>
+	<c:when test="${paging.endPage eq paging.totalPage }">
+		<li class="page-item disabled"><a class="page-link" href="./main?curPage=${paging.totalPage }&keyword=${keyword }">&raquo;</a></li>
+	</c:when>
+	</c:choose>
+
+	<%-- 끝 페이지로 이동 --%>
+	<c:if test="${paging.curPage ne paging.totalPage }">
+		<li class="page-item"><a href="./search?curPage=${paging.totalPage }&keyword=${keyword }" class="page-link">끝 &rarr;</a></li>	
+	</c:if>
+	
+	</ul>
+</div>
+
 
 
 <c:import url="../layout/footer.jsp"></c:import>

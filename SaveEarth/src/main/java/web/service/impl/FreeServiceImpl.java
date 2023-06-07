@@ -49,13 +49,34 @@ public class FreeServiceImpl implements FreeService{
 	}
 
 	@Override
+	public Paging getPagingHead(int curPage, String freeHead) {
+		
+		int totalCount = freeDao.selectCntAll();
+		
+		int totalCountHead = freeDao.selectCntAllFreeHead(freeHead);
+		
+		logger.info("totalCount {}", totalCount);
+
+		logger.info("totalCountHead {}", totalCountHead);
+		
+		Paging paging = null;
+		
+		if(freeHead == null) {
+			paging = new Paging(totalCount, curPage);
+			
+		} else {
+			paging = new Paging(totalCountHead, curPage);
+		}
+		
+		//페이징 객체
+		return paging;
+	}
+	
+	@Override
 	public Paging getPaging(int curPage) {
 		
 		int totalCount = freeDao.selectCntAll();
 		
-		logger.info("totalCount {}", totalCount);
-		
-		//페이징 객체
 		Paging paging = new Paging(totalCount, curPage);
 		
 		return paging;
@@ -326,8 +347,6 @@ public class FreeServiceImpl implements FreeService{
 
 
 
-	//댓글 조회
-
 	@Override
 	public List<Map<String, Object>> getComment(Free freeBoard) {
 		
@@ -408,20 +427,7 @@ public class FreeServiceImpl implements FreeService{
 		}
 	}
 
-	
 
-	@Override
-	public Paging getPagingByFreeHead(int curPage, String freeHead) {
-		
-		int totalCount = freeDao.selectCntAllFreeHead(freeHead);
-		
-		Paging paging = new Paging(curPage, totalCount);
-		
-		logger.info("freeServiceImpl freeHead totalCount {}", totalCount);
-		logger.info("freeServiceImpl paging {}", paging);
-		
-		return paging;
-	}
 
 	
 }

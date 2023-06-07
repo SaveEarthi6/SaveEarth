@@ -84,8 +84,8 @@ SELECT * FROM (
       <selectKey keyProperty="freeNo" order="BEFORE" resultType="int">
          select free_no_seq.nextval from dual
       </selectKey>
-      INSERT INTO free (free_no, admin_no, free_head, free_title, free_content, free_views)
-      VALUES ( #{freeNo}, #{adminNo}, #{freeHead}, #{freeTitle}, #{freeContent}, #{freeViews} )
+      INSERT INTO free (free_no, admin_no, free_head, free_title, free_content, free_views, pin)
+      VALUES ( #{freeNo}, #{adminNo}, #{freeHead}, #{freeTitle}, #{freeContent}, #{freeViews}, -1 )
    </insert>
    
    
@@ -153,7 +153,12 @@ SELECT * FROM (
     ORDER BY ADMIN_NO DESC
 	</select>
 
-	
+
+<select id="selectAdmin" parameterType="string" resultType="web.dto.Admin">
+	SELECT * FROM admin
+	WHERE admin_id = #{adminId}
+</select>
+
 
    
 

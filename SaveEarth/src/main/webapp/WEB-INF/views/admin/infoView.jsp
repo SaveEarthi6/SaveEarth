@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<c:import url="../layout/header.jsp"/>
+<c:import url="../layout/adminheader.jsp"/>
 
 <!DOCTYPE html>
 <html>
@@ -56,6 +56,12 @@ h1 {
 	margin-bottom: 30px;
 }
 
+#btnGruop {
+	text-align: right;
+	margin-right: 350px;
+	margin-bottom: 40px;
+}
+
 </style>
 
 </head>
@@ -64,6 +70,10 @@ h1 {
 
 <c:forEach var="info" items="${info }">
 <h1>${info.INFO_TITLE }</h1>
+
+<div id="btnGruop">
+	<a href="./infoDelete?infoNo=${info.INFO_NO }"><button type="button" class="btn btn-success">삭제</button></a>
+</div>
 
 <div id="thumnail1">
 	<img src="/upload/${info.INFO_STORED_NAME }" class="img-thumbnail" alt="...">
@@ -79,7 +89,7 @@ ${info.INFO_CONTENT }
 </div>
 
 <div class="list">
-<a href="./main"><button type="button" class="btn btn-success" style="width: 500px; margin-top: 20px;">목록으로</button></a>
+<a href="/admin/info"><button type="button" class="btn btn-success" style="width: 500px; margin-top: 20px;">목록으로</button></a>
 </div>
 
 <c:import url="../layout/footer.jsp"/>

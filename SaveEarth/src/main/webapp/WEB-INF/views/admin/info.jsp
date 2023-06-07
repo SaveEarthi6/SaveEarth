@@ -114,6 +114,33 @@ select {
     
  } 
 
+#write {
+	text-align: right;
+	margin-right: 100px;
+}
+
+#info {
+	margin-left: 10px;
+}
+
+#camp {
+	margin-left: 10px;
+}
+
+h1 {
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+#info {
+    width: 225px;
+    text-align: center;
+    display: block;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 65px;
+}
+
 </style>
 
 
@@ -129,46 +156,46 @@ $(document).ready(function() {
 })
 </script>
 
- <div>
+
+<br>
+<div class="nav">
+<a href="./free"><button type="button" class="btn btn-outline-success" id ="free">자유 게시판</button></a>
+<a href="./info"><button type="button" class="btn btn-outline-success" id ="info">정보 게시판</button></a>
+<a href="./campaign"><button type="button" class="btn btn-outline-success" id ="camp">켐페인 게시판</button></a>
+</div> 
+
+<br>
+
+<div id="write">
 <!-- 글쓰기 버튼 -->
    <a href = "/admin/infoWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
 </div>
 
-<br>
-<div class="nav">
-<a href="./free"><button type="button" class="btn btn-outline-success" id ="top">자유 게시판</button></a>
-<a href="./info"><button type="button" class="btn btn-outline-success" id ="top">정보 게시판</button></a>
-<a href="./campaign"><button type="button" class="btn btn-outline-success" id ="top">켐페인 게시판</button></a>
-</div> 
-<br>
+<h1>정보게시판</h1>
 
-   <!-- 게시판 -->
-
-<table id= "board" class= "table table-hover text-center">
-   <tr style= "background-color: #59A8D9; color: white;">
-    	<th style="width: 20px;">글번호</th>
-		<th style="width: 30px; text-align:center">제목</th>
-		<th style="width: 20px;">작성자</th>
-		<th style="width: 20px;">작성일</th>
-		<th style="width: 20px;">조회수</th>
-   </tr>
-
-   
-<tbody>
-<!-- <form action="./campaignDelete" method="post"> -->
-<c:forEach items="${infoList }" var="info">
-         <tr>
-            <td>${info.infoNo }</td>
-            <td class="text-start" style="text-align:center"><a href="/campaign/detail?campno=${info.infoNo }">${info.infoTitle }</a></td>
-            <td><fmt:formatDate value="${info.infoUpload}" pattern="yy-MM-dd HH:mm:ss"/></td>
-         </tr>
-</c:forEach>
-<!-- </form> -->
-
-</tbody>
-
-</table>   
-
+  	<div id="infoList" class="row">
+		<div class="col-1"></div>
+		
+		<div id="infos" class="row col-10">
+		
+			<c:forEach var="infoList" items="${infoList }">
+			<div id="info" class="col">
+			<a href="./detail?infoNo=${infoList.INFO_NO }" id="infoNo">
+				<c:if test="${infoList.THUMB_STORED_NAME ne null }">
+					<div><img alt="" src="/upload/${infoList.THUMB_STORED_NAME }" style="width: 400px; height: 300px;"></div>
+				</c:if>
+				<c:if test="${infoList.THUMB_STORED_NAME eq null }">
+					<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
+				</c:if>
+				<div id="infoTitle">
+					<span id="title">${infoList.INFO_TITLE }</span>
+				</div>
+			</a>
+			</div>
+			</c:forEach>
+			
+		</div>
+</div>
 
 <span class="float-end mb-3">${paging.totalCount }</span>
 <div class="clearfix"></div>

@@ -10,8 +10,7 @@ public class InfoFile {
 	private String infoStroedName;
 	private Date infoFileDate;
 	
-	public InfoFile() {
-	}
+	public InfoFile() {}
 
 	public InfoFile(int infoFileNo, int infoNo, String infoOriginName, String infoStroedName, Date infoFileDate) {
 		super();
@@ -67,6 +66,9 @@ public class InfoFile {
 	public void setInfoFileDate(Date infoFileDate) {
 		this.infoFileDate = infoFileDate;
 	}
+
+	
+	
 	
 	
 

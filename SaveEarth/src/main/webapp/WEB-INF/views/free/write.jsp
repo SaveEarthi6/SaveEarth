@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>자유게시판 상세</title>"src/main/webapp/WEB-INF/views/free/write.jsp"
+<title>자유게시판 상세</title>
 
 <!-- 스마트 에디터 2 로드 -->
 <script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js"></script>
