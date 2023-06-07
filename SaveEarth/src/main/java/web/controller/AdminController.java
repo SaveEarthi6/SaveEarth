@@ -129,22 +129,22 @@ public class AdminController {
 
    }
 //
-//   // 관리자 페이지(자유게시판 글쓰기)
-//   @GetMapping("/freeWrite")
-//   public void write(HttpSession session, Model model) {
-//      logger.info("/freeWrite [GET]");
-//
-//      String loginId = (String) session.getAttribute("loginId");
-//      logger.info("관리자 id : {}", loginId);
-//
-//      Admin memberInfo = adminService.info(loginId);
-//
-//      logger.info("관리자 정보 : {}", memberInfo);
-//
-//      model.addAttribute("id", loginId);
-//      model.addAttribute("memberInfo", memberInfo);
-//
-//   }
+   // 관리자 페이지(자유게시판 글쓰기)
+   @GetMapping("/freeWrite")
+   public void write(HttpSession session, Model model) {
+      logger.info("/freeWrite [GET]");
+
+      String loginId = (String) session.getAttribute("loginId");
+      logger.info("관리자 id : {}", loginId);
+
+      Admin memberInfo = adminService.info(loginId);
+
+      logger.info("관리자 정보 : {}", memberInfo);
+
+      model.addAttribute("id", loginId);
+      model.addAttribute("memberInfo", memberInfo);
+
+   }
 
    @PostMapping("/freeWrite")
    public String writepost(HttpSession session, Free free, @RequestParam(required = false) List<MultipartFile> files,

@@ -31,7 +31,7 @@
 /* '정보게시판' 문구 스타일 */
 .info {
 	position: absolute;
-	top: 38%; 
+	top: 50%; 
 	left: 45%; 
 	color: #fff; 
 	font-weight: bold;
@@ -135,6 +135,7 @@ input {
     margin-right: 10px;
     margin-bottom: 65px;
 }
+
 </style>
 
 

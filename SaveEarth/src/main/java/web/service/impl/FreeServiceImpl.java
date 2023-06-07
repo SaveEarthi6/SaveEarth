@@ -411,6 +411,8 @@ public class FreeServiceImpl implements FreeService{
 	@Override
 	public boolean checkRecommended(String loginId, Free freeBoard) {
 		//loginId를 이용하여 loginno을 가져오는 메소드를 만든다.
+		
+		//비로그인시 이 부분에서 에러
 		int loginNo = freeDao.selectUserNoByLoginId (loginId);
 		
 		//loginno를 freeBoard에 넣는다.(setter사용)

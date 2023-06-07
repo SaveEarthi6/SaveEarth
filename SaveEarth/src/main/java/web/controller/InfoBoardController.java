@@ -41,7 +41,7 @@ public class InfoBoardController {
 		for(Map i : infoList) {
 			logger.info("infoList : {}", i);
 		}
-
+		
 		model.addAttribute("infoList", infoList);
 		model.addAttribute("paging", paging);
 		
@@ -69,7 +69,7 @@ public class InfoBoardController {
 	@RequestMapping("/search")
 	public void searchKeyword(Model model,@RequestParam(value = "curPage", defaultValue = "1") int curPage, String keyword) {
 		
-		logger.info("/info/search [GET]");
+		logger.info("/info/search");
 		
 		logger.info("curPage {}", curPage);
 		Paging paging = infoService.getPagingByKeyword(curPage, keyword);
@@ -80,7 +80,7 @@ public class InfoBoardController {
 
 		List<Map<String,Object>> list = infoService.search(paging, keyword);
 		
-		logger.info("list {}", list);
+		logger.info("InfoBoardController search list {}", list);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("paging", paging);

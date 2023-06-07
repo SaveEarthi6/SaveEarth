@@ -25,6 +25,7 @@
 	    	) INFO
 		) 
 		WHERE rnum BETWEEN #{startNo} AND #{endNo}
+		ORDER BY info_no desc
 
   </select>
   

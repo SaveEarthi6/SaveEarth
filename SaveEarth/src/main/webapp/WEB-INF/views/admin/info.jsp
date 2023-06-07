@@ -111,28 +111,36 @@ select {
 .nav { 
     margin: 0 auto; 
     width: fit-content;
+    margin-top: 20px;
     
  } 
 
+/* 글쓰기 버튼 스타일 */
 #write {
 	text-align: right;
 	margin-right: 100px;
+	margin-bottom: 20px;
 }
 
-#info {
+/* 정보게시판 버튼 스타일 */
+#infobtn {
 	margin-left: 10px;
 }
 
-#camp {
+/* 캠페인 게시판 버튼 스타일 */
+#campbtn {
 	margin-left: 10px;
 }
 
+/* '정보게시판' 문구 스타일 */
 h1 {
 	text-align: center;
 	margin-bottom: 30px;
 }
 
+/* 썸네일 스타일 */
 #info {
+	margin-left: 10px;
     width: 225px;
     text-align: center;
     display: block;
@@ -159,9 +167,9 @@ $(document).ready(function() {
 
 <br>
 <div class="nav">
-<a href="./free"><button type="button" class="btn btn-outline-success" id ="free">자유 게시판</button></a>
-<a href="./info"><button type="button" class="btn btn-outline-success" id ="info">정보 게시판</button></a>
-<a href="./campaign"><button type="button" class="btn btn-outline-success" id ="camp">켐페인 게시판</button></a>
+<a href="./free"><button type="button" class="btn btn-outline-success" id ="freebtn">자유 게시판</button></a>
+<a href="./info"><button type="button" class="btn btn-outline-success" id ="infobtn">정보 게시판</button></a>
+<a href="./campaign"><button type="button" class="btn btn-outline-success" id ="campbtn">켐페인 게시판</button></a>
 </div> 
 
 <br>
@@ -171,7 +179,7 @@ $(document).ready(function() {
    <a href = "/admin/infoWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
 </div>
 
-<h1>정보게시판</h1>
+<!-- <h1>정보게시판</h1> -->
 
   	<div id="infoList" class="row">
 		<div class="col-1"></div>
@@ -180,7 +188,7 @@ $(document).ready(function() {
 		
 			<c:forEach var="infoList" items="${infoList }">
 			<div id="info" class="col">
-			<a href="./detail?infoNo=${infoList.INFO_NO }" id="infoNo">
+			<a href="./infoView?infoNo=${infoList.INFO_NO }" id="infoNo">
 				<c:if test="${infoList.THUMB_STORED_NAME ne null }">
 					<div><img alt="" src="/upload/${infoList.THUMB_STORED_NAME }" style="width: 400px; height: 300px;"></div>
 				</c:if>
@@ -205,13 +213,13 @@ $(document).ready(function() {
 
    <%-- 첫 페이지로 이동 --%>
    <c:if test="${paging.curPage ne 1 }">
-      <li class="page-item"><a href="./campaign?freeHead=${freeHead }" class="page-link">&larr; 처음</a></li>   
+      <li class="page-item"><a href="./info" class="page-link">&larr; 처음</a></li>   
    </c:if>
    
    <%-- 이전 페이징 리스트로 이동 --%>
    <c:choose>
    <c:when test="${paging.startPage ne 1 }">
-      <li class="page-item"><a href="./campaign?curPage=${paging.startPage - paging.pageCount }&freeHead=${freeHead}" class="page-link">&laquo;</a></li>
+      <li class="page-item"><a href="./info?curPage=${paging.startPage - paging.pageCount }" class="page-link">&laquo;</a></li>
    </c:when>
    <c:when test="${paging.startPage eq 1 }">
       <li class="page-item disabled"><a class="page-link">&laquo;</a></li>
@@ -221,7 +229,7 @@ $(document).ready(function() {
    
    <%-- 이전 페이지로 가기 --%>
    <c:if test="${paging.curPage > 1 }">
-      <li class="page-item"><a href="./campaign?curPage=${paging.curPage - 1 }&freeHead=${freeHead}" class="page-link">&lt;</a></li>
+      <li class="page-item"><a href="./info?curPage=${paging.curPage - 1 }" class="page-link">&lt;</a></li>
    </c:if>
    
    
@@ -230,10 +238,10 @@ $(document).ready(function() {
    <%-- 페이징 리스트 --%>
    <c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="i">
    <c:if test="${paging.curPage eq i }">
-      <li class="page-item active"><a href="./campaign?curPage=${i }&freeHead=${freeHead}" class="page-link">${i }</a></li>
+      <li class="page-item active"><a href="./info?curPage=${i }" class="page-link">${i }</a></li>
    </c:if>
    <c:if test="${paging.curPage ne i }">
-      <li class="page-item"><a href="./campaign?curPage=${i }&freeHead=${freeHead}" class="page-link">${i }</a></li>
+      <li class="page-item"><a href="./info?curPage=${i }" class="page-link">${i }</a></li>
    </c:if>
    </c:forEach>
    
@@ -242,22 +250,22 @@ $(document).ready(function() {
    
    <%-- 다음 페이지로 가기 --%>
    <c:if test="${paging.curPage < paging.totalPage }">
-      <li class="page-item"><a href="./campaign?curPage=${paging.curPage + 1 }&freeHead=${freeHead}" class="page-link">&gt;</a></li>
+      <li class="page-item"><a href="./info?curPage=${paging.curPage + 1 }" class="page-link">&gt;</a></li>
    </c:if>
    
    <%-- 다음 페이징 리스트로 이동 --%>
    <c:choose>
    <c:when test="${paging.endPage ne paging.totalPage }">
-      <li class="page-item"><a href="./campaign?curPage=${paging.startPage + paging.pageCount }&freeHead=${freeHead}" class="page-link">&raquo;</a></li>
+      <li class="page-item"><a href="./info?curPage=${paging.startPage + paging.pageCount }" class="page-link">&raquo;</a></li>
    </c:when>
    <c:when test="${paging.endPage eq paging.totalPage }">
-      <li class="page-item disabled"><a class="page-link" href="./campaign?curPage=${paging.totalPage }&freeHead=${freeHead}">&raquo;</a></li>
+      <li class="page-item disabled"><a class="page-link" href="./info?curPage=${paging.totalPage }">&raquo;</a></li>
    </c:when>
    </c:choose>
 
    <%-- 끝 페이지로 이동 --%>
    <c:if test="${paging.curPage ne paging.totalPage }">
-      <li class="page-item"><a href="./campaign?curPage=${paging.totalPage }&freeHead=${freeHead}" class="page-link">끝 &rarr;</a></li>   
+      <li class="page-item"><a href="./info?curPage=${paging.totalPage }" class="page-link">끝 &rarr;</a></li>   
    </c:if>
    
    </ul>

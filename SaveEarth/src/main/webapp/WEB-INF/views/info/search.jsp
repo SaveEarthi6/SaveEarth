@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -140,9 +141,9 @@ input {
 
 <script type="text/javascript">
 
-function selectInfo() {
-	console.log("test")
-	document.getElementById('info').className = 'btn btn-success'
+// function selectInfo() {
+// 	console.log("test")
+// 	document.getElementById('info').className = 'btn btn-success'
 // 	location.href='./main'
 }
 
@@ -197,7 +198,7 @@ function selectInfo() {
 
 
 <div>
-	<form action="/info/search?keyword=${keyword }" method="get">
+	<form action="localhost:8888/info/search?keyword=${keyword }" method="get">
 	    <div class="search">
 	        <input type="text" name="keyword" class="search_input"
 	        placeholder="검색어를 입력해주세요" value=${keyword }>
@@ -257,7 +258,7 @@ function selectInfo() {
 		<li class="page-item"><a href="./search?curPage=${paging.startPage + paging.pageCount }&keyword=${keyword }" class="page-link">&raquo;</a></li>
 	</c:when>
 	<c:when test="${paging.endPage eq paging.totalPage }">
-		<li class="page-item disabled"><a class="page-link" href="./main?curPage=${paging.totalPage }&keyword=${keyword }">&raquo;</a></li>
+		<li class="page-item disabled"><a class="page-link" href="./search?curPage=${paging.totalPage }&keyword=${keyword }">&raquo;</a></li>
 	</c:when>
 	</c:choose>
 
