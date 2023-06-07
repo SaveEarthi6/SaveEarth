@@ -58,6 +58,8 @@ public class GoodsServiceImpl implements GoodsService {
 		
 		int existCart = goodsDao.existCart(cart);
 		
+		System.out.println("cart확인"+cart);
+		System.out.println("존재 유무 확인"+existCart);
 		if(existCart<1) {
 			
 			//인서트
