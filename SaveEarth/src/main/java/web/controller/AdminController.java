@@ -286,7 +286,7 @@ public class AdminController {
    
    
    
-<<<<<<< HEAD
+
    //정보게시판 조회
    @RequestMapping("/info")
    public void adminInfo(Model model, @RequestParam(defaultValue = "0") int curPage) {
@@ -307,16 +307,9 @@ public class AdminController {
 
 	   model.addAttribute("infoList", infoList);
 	   model.addAttribute("paging", paging);
-=======
    
-   
-   @RequestMapping("info")
-   public void adminInfo() {
-      logger.info("Admin/info[Mapping]");
-      
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
-      
-   }
+   }   
+
    
    
    @RequestMapping("/infoView") 

@@ -344,19 +344,8 @@ public class FreeServiceImpl implements FreeService{
 		return res;
 		
 	}
-<<<<<<< HEAD
-
-=======
 
 
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
-
-<<<<<<< HEAD
-
-	//댓글 조회
-=======
-	//댓글 조회
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
 
 	@Override
 	public List<Map<String, Object>> getComment(Free freeBoard) {
@@ -417,11 +406,7 @@ public class FreeServiceImpl implements FreeService{
 	public void updateRecommend(Free free) {
 		freeDao.updateRecommend(free);
 	}
-<<<<<<< HEAD
 	
-=======
-	
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
 
 	@Override
 	public boolean checkRecommended(String loginId, Free freeBoard) {
@@ -440,27 +425,9 @@ public class FreeServiceImpl implements FreeService{
 			System.out.println("추천을 안했었다!");
 			return false;
 		}
-<<<<<<< HEAD
-	}
-=======
 	}
 
-	
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
 
-	
-	// 말머리글 필터 페이징
-//	@Override
-//	public Paging getPagingByFreeHead(int curPage, String freeHead) {
-//		
-//		
-//		Paging paging = new Paging(curPage, totalCount);
-//		
-//		logger.info("freeServiceImpl freeHead totalCount {}", totalCount);
-//		logger.info("freeServiceImpl paging {}", paging);
-//		
-//		return paging;
-//	}
 
 	
 }
