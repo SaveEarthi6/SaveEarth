@@ -27,7 +27,7 @@ public class InfoBoardController {
 	
 	//메인 화면
 	@GetMapping("/main")
-	public void info(Model model, @RequestParam(defaultValue = "0") int curPage) {
+	public void info(Model model, @RequestParam(defaultValue = "1") int curPage) {
 		logger.info("/info/main [GET]");
 
 		logger.info("curPage : {}", curPage);
@@ -66,14 +66,27 @@ public class InfoBoardController {
 	}
 
 	//검색기능
-//	@GetMapping("/search")
-//	public String search(@RequestParam(value="keyword") String keyword, Model model) {
-//		
-//		List<Map<String,Object>>
-//		
-//		return "redirect:./main";
-//		
-//	}
+	@RequestMapping("/search")
+	public void searchKeyword(Model model,@RequestParam(value = "curPage", defaultValue = "1") int curPage, String keyword) {
+		
+		logger.info("/info/search [GET]");
+		
+		logger.info("curPage {}", curPage);
+		Paging paging = infoService.getPagingByKeyword(curPage, keyword);
+		
+		logger.info("keyword {}", keyword);
+		
+		logger.info("paging {}", paging);
+
+		List<Map<String,Object>> list = infoService.search(paging, keyword);
+		
+		logger.info("list {}", list);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("paging", paging);
+		model.addAttribute("keyword", keyword);
+		
+	}
 	
 	
 	

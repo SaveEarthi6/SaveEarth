@@ -3,6 +3,7 @@ package web.service.impl;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -196,6 +197,39 @@ public class InfoServiceImpl implements InfoService {
 		logger.info("infoServiceImpl getInfo()");
 		
 		return infoDao.selectInfoByInfoNo(infoNo);
+		
+	}
+	
+	
+	@Override
+	public Paging getPagingByKeyword(int curPage, String keyword) {
+		
+		int totalCount = infoDao.selectCntAllSearch(keyword);
+		
+		Paging paging = new Paging(curPage, totalCount);
+		
+		return paging;
+	}
+	
+	
+	@Override
+	public List<Map<String, Object>> search(Paging paging, String keyword) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("paging", paging);
+		map.put("keyword", keyword);
+		
+		return infoDao.selectInfoByKeyword(map);
+		
+	}
+	
+	
+	@Override
+	public void deleteInfo(int infoNo) {
+		
+		infoDao.deleteThumb(infoNo);
+		infoDao.deleteInfoFile(infoNo);
+		infoDao.deleteInfo(infoNo);
 		
 	}
 	

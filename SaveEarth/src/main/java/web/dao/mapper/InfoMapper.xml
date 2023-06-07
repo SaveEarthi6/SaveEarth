@@ -73,4 +73,53 @@
  
  </insert>  
   
+  
+<!-- 검색어와 일치하는 총 게시글 수 조회 -->
+<select id="selectCntAllSearch" parameterType="string" resultType="int">
+		SELECT count(*) FROM info
+		
+		<if test="keyword != null">	
+			WHERE info_title LIKE '%' || #{keyword} || '%'
+		</if>
+	
+</select>
+  
+<!-- 게시글 목록에서 검색 기능 - 입력한 검색어 중 제목에 일치하는 내용이 있는 게시글 조회 -->
+<select id="selectInfoByKeyword" resultType="map" parameterType="hashmap">
+
+  	SELECT * FROM (
+	    	SELECT rownum rnum, INFO.* FROM (
+	        	SELECT I.*, F.info_origin_name, F.info_stored_name, T.thumb_origin_name, T.thumb_stored_name
+                FROM info I LEFT OUTER JOIN info_file F
+                ON I.info_no = F.info_no 
+                LEFT OUTER JOIN info_thumbnail T
+                ON I.info_no = T.info_no
+                
+                <if test="keyword != null">	
+				WHERE info_title LIKE '%' || #{keyword} || '%'
+				</if>
+                ORDER BY I.info_no DESC
+	    	) INFO
+		) 
+		WHERE rnum BETWEEN #{paging.startNo} AND #{paging.endNo}
+	
+</select>  
+
+<delete id="deleteInfo" parameterType="int">
+	DELETE info 
+	WHERE info_no = #{infoNo}
+</delete>
+
+<delete id="deleteInfoFile" parameterType="int">
+	DELETE info_file 
+	WHERE info_no = #{infoNo}
+</delete>
+
+<delete id="deleteThumb" parameterType="int">
+	DELETE info_thumbnail 
+	WHERE info_no = #{infoNo}
+</delete>
+
+
+
   </mapper>

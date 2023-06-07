@@ -49,6 +49,39 @@ public interface InfoDao {
 	 */
 	public List<Map<String, Object>> selectInfoByInfoNo(int infoNo);
 
+	/**
+	 * 검색 했을 때 전체 게시글 수 조회
+	 * @param keyword - 검색어
+	 * @return - 검색어 일치하는 총 게시글 수
+	 */
+	public int selectCntAllSearch(String keyword);
+
+	/**
+	 * 입력한 검색어와 일치하는 게시글 조회
+	 * @param map - 검색어, 페이징
+	 * @return - 입력한 검색어와 일치하는 게시글
+	 */
+	public List<Map<String, Object>> selectInfoByKeyword(Map<String, Object> map);
+
+	/**
+	 * 게시글 번호가 일치하는 파일(정보)를 삭제한다
+	 * @param infoNo - 게시글 번호
+	 */
+	public void deleteInfoFile(int infoNo);
+
+	/**
+	 * 게시글 번호가 일치하는 게시글 내용을 삭제한다
+	 * @param infoNo - 게시글 번호
+	 */
+	public void deleteInfo(int infoNo);
+
+	/**
+	 * 게시글 번호가 일치하는 썸네일을 삭제한다
+	 * @param infoNo - 게시글 번호
+	 */
+	public void deleteThumb(int infoNo);
+
+
 
 	
 

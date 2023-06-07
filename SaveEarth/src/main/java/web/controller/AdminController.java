@@ -286,14 +286,42 @@ public class AdminController {
    
    
    
-   
-   @RequestMapping("info")
-   public void adminInfo() {
-      logger.info("Admin/info[Mapping]");
-      
+   //정보게시판 조회
+   @RequestMapping("/info")
+   public void adminInfo(Model model, @RequestParam(defaultValue = "0") int curPage) {
+	   
+	   logger.info("Admin/info[Mapping]");
+
+	   logger.info("curPage : {}", curPage);
+
+
+	   Paging paging = infoService.getPaging(curPage);
+
+	   //정보게시판 게시글 조회
+	   List<Map<String, Object>> infoList = infoService.getInfoList(paging);
+
+	   for(Map i : infoList) {
+		   logger.info("infoList : {}", i);
+	   }
+
+	   model.addAttribute("infoList", infoList);
+	   model.addAttribute("paging", paging);
       
    }
    
+   
+   @RequestMapping("/infoView") 
+   public void infoView(Model model, @RequestParam(value="infoNo") int infoNo) {
+	   logger.info("/admin/infoView");
+
+	   //정보게시판 게시글 조회(게시글 번호와 일치하는 게시글 내용)
+	   List<Map<String, Object>> info = infoService.getInfo(infoNo);
+
+	   logger.info("info {}", info);
+
+	   model.addAttribute("info", info);
+	   
+   }
 
    
    @GetMapping("/infoWrite")
@@ -333,11 +361,15 @@ public class AdminController {
 	   
    }
    
-   
-   
-   
-   
-   
+
+   @RequestMapping("/infoDelete")
+   public String adminDelete(int infoNo) {
+	   
+	   infoService.deleteInfo(infoNo);
+	   
+	   return "redirect:./info";
+	   
+   }
    
    
    

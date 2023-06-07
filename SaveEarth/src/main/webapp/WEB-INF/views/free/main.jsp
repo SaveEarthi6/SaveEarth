@@ -234,7 +234,17 @@ location.href="?freeHead=" + freeHead
 				<td>${free.FREE_NO }</td>
 				<td>${free.FREE_HEAD}</td>
 				<td class="text-start" style="text-align:center"><a href="/free/view?freeNo=${free.FREE_NO }">${free.FREE_TITLE }</a></td>
+				<c:choose>
+				
+				<c:when test="${free.USER_ID != null }">
 				<td>${free.USER_ID}</td>
+				</c:when>
+				
+				<c:otherwise>
+				<td>관리자</td>
+				</c:otherwise>
+				
+				</c:choose>
 				<td>${free.FREE_VIEWS }</td>
 				<td>${free.RECOMMEND}</td>
 				<td>

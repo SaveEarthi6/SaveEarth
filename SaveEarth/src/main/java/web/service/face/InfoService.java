@@ -41,5 +41,27 @@ public interface InfoService {
 	 */
 	public List<Map<String, Object>> getInfo(int infoNo);
 
+	/**
+	 * 검색했을 때 페이징
+	 * @param curPage - 현재 페이지
+	 * @param keyword - 검색어
+	 * @return - 페이징 객체
+	 */
+	public Paging getPagingByKeyword(int curPage, String keyword);
+
+	/**
+	 * 입력한 검색어와 일치하는 게시글을 조회한다
+	 * @param paging - 페이징
+	 * @param keyword - 검색어
+	 * @return - 검색어와 일치하는 게시글
+	 */
+	public List<Map<String, Object>> search(Paging paging, String keyword);
+
+	/**
+	 * 게시글 번호가 일치하는 게시글을 삭제한다
+	 * @param infoNo - 게시글 번호
+	 */
+	public void deleteInfo(int infoNo);
+
 
 }

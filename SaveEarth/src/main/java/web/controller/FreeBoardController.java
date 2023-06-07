@@ -44,15 +44,10 @@ public class FreeBoardController {
 		logger.info("/free/main [GET]");
 		logger.info("freeHead{}", freeHead);
 		
-		//말머리글 있을 때
-//		Paging paging1 = freeService.getPagingByFreeHead(curPage,freeHead);
 		
-		//전체나 말머리글 없을 때
-//		Paging paging2 = freeService.getPaging(curPage);
+		//페이징(말머리글 필터링)
+		Paging paging = freeService.getPagingHead(curPage, freeHead);
 		
-		Paging paging = freeService.getPaging(curPage);
-		
-		//페이징
 			
 		//페이징을 적용한 리스트 보여주기(userno을 기준으로 join)
 		List<Map<String,Object>> list = freeService.list(paging, freeHead);

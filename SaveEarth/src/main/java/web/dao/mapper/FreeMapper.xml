@@ -18,13 +18,13 @@
 	</selectKey>
 	
 	<if test="adminNo eq 0">
-	INSERT INTO free (free_no, user_no, free_head, free_title, free_content, free_views)
-	VALUES ( #{freeNo}, #{userNo}, #{freeHead}, #{freeTitle}, #{freeContent}, #{freeViews} )
+	INSERT INTO free (free_no, user_no, free_head, free_title, free_content, free_views, pin)
+	VALUES ( #{freeNo}, #{userNo}, #{freeHead}, #{freeTitle}, #{freeContent}, #{freeViews}, 0 )
 	</if>
 
 	<if test="userNo eq 0">
-	INSERT INTO free (free_no, admin_no, free_head, free_title, free_content, free_views)
-	VALUES ( #{freeNo}, #{adminNo}, #{freeHead}, #{freeTitle}, #{freeContent}, #{freeViews} )
+	INSERT INTO free (free_no, admin_no, free_head, free_title, free_content, free_views, pin)
+	VALUES ( #{freeNo}, #{adminNo}, #{freeHead}, #{freeTitle}, #{freeContent}, #{freeViews}, -1 )
 	</if>
 	
 </insert>
@@ -110,33 +110,33 @@
 	<choose>
 		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('사담')">
 			WHERE free_head = #{freeHead}
-			ORDER BY free_no DESC
+			ORDER BY pin, recommend desc, free_no DESC
 		</when>
 		
 		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('정보')">
 			WHERE free_head = #{freeHead}
-			ORDER BY free_no DESC
+			ORDER BY pin, recommend desc, free_no DESC
 		</when>
 		
 		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('질문')">
 			WHERE free_head = #{freeHead}
-			ORDER BY free_no DESC
+			ORDER BY pin, recommend desc, free_no DESC
 		</when>
 		
 		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('공지사항')">
 			WHERE free_head = #{freeHead}
-			ORDER BY free_no DESC
+			ORDER BY pin, recommend desc, free_no DESC
 		</when>
 		
 		<otherwise>
-			ORDER BY free_no DESC
+			ORDER BY pin, recommend desc, free_no DESC
 		</otherwise>
 		
 	</choose>	
 		) F
 	) FREEMAIN
 	WHERE rnum BETWEEN #{paging.startNo} and #{paging.endNo}
-	ORDER BY free_no DESC
+<!-- 	ORDER BY pin, free_no DESC -->
 	
 	
 </select>
