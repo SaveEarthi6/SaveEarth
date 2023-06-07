@@ -4,19 +4,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <c:import url="../layout/adminheader.jsp"/>
 <style type="text/css">
-<<<<<<< HEAD
-
-/* 게시판 분류 버튼 스타일 */
-.nav button {
-	margin-left: 30px;
-	margin-top: 20px;
-	width: 120px;
-=======
 /* 여백 없애기 */
 body {
    margin:0;
    padding: 0;
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
 }
 
 /* 게시판 메인 이미지 스타일 */
@@ -117,32 +108,29 @@ select {
    text-align: center;
 }
 /* 게시글 분류 전체(div) 스타일 */
-<<<<<<< HEAD
-.nav {
-	margin-left: 30%;
-	margin-bottom: 50px;
+.nav { 
+    margin: 0 auto; 
+    width: fit-content;
+    
+ } 
+
+#write {
+	text-align: right;
+	margin-right: 100px;
+}
+
+#info {
+	margin-left: 10px;
+}
+
+#camp {
+	margin-left: 10px;
 }
 
 h1 {
 	text-align: center;
 	margin-bottom: 30px;
 }
-
-#write {
-    text-align: right;
-    margin-right: 100px;
-}
-
-#infoTitle {
-	margin-top: 10px;
-}
-
-
-#title {
-	font-weight: bold;
-}
-
-
 
 #info {
     width: 225px;
@@ -151,14 +139,7 @@ h1 {
     margin-left: 10px;
     margin-right: 10px;
     margin-bottom: 65px;
-
-=======
-.nav { 
-    margin: 0 auto; 
-    width: fit-content;
-    
- } 
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
+}
 
 </style>
 
@@ -175,62 +156,22 @@ $(document).ready(function() {
 })
 </script>
 
- <div>
+
+<br>
+<div class="nav">
+<a href="./free"><button type="button" class="btn btn-outline-success" id ="free">자유 게시판</button></a>
+<a href="./info"><button type="button" class="btn btn-outline-success" id ="info">정보 게시판</button></a>
+<a href="./campaign"><button type="button" class="btn btn-outline-success" id ="camp">켐페인 게시판</button></a>
+</div> 
+
+<br>
+
+<div id="write">
 <!-- 글쓰기 버튼 -->
    <a href = "/admin/infoWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
 </div>
 
-<br>
-<div class="nav">
-<<<<<<< HEAD
-	<a href="./free"><button type="button"
-			class="btn btn-outline-success" id="top">자유 게시판</button></a> <a
-		href="./info"><button type="button"
-			class="btn btn-outline-success" id="top">정보 게시판</button></a> <a
-		href="./campaign"><button type="button"
-			class="btn btn-outline-success" id="top" style="width: 130px;">켐페인 게시판</button></a>
-</div>
-
-
-<div id="write">
-<!-- 글쓰기 버튼 -->
-	<a href = "/admin/infoWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
-</div>
-
-=======
-<a href="./free"><button type="button" class="btn btn-outline-success" id ="top">자유 게시판</button></a>
-<a href="./info"><button type="button" class="btn btn-outline-success" id ="top">정보 게시판</button></a>
-<a href="./campaign"><button type="button" class="btn btn-outline-success" id ="top">켐페인 게시판</button></a>
-</div> 
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
-<br>
-
-   <!-- 게시판 -->
-
-<table id= "board" class= "table table-hover text-center">
-   <tr style= "background-color: #59A8D9; color: white;">
-    	<th style="width: 20px;">글번호</th>
-		<th style="width: 30px; text-align:center">제목</th>
-		<th style="width: 20px;">작성자</th>
-		<th style="width: 20px;">작성일</th>
-		<th style="width: 20px;">조회수</th>
-   </tr>
-
-   
-<tbody>
-<!-- <form action="./campaignDelete" method="post"> -->
-<c:forEach items="${infoList }" var="info">
-         <tr>
-            <td>${info.infoNo }</td>
-            <td class="text-start" style="text-align:center"><a href="/campaign/detail?campno=${info.infoNo }">${info.infoTitle }</a></td>
-            <td><fmt:formatDate value="${info.infoUpload}" pattern="yy-MM-dd HH:mm:ss"/></td>
-         </tr>
-</c:forEach>
-<!-- </form> -->
-
-</tbody>
-
-</table>   
+<h1>정보게시판</h1>
 
   	<div id="infoList" class="row">
 		<div class="col-1"></div>
@@ -239,7 +180,7 @@ $(document).ready(function() {
 		
 			<c:forEach var="infoList" items="${infoList }">
 			<div id="info" class="col">
-			<a href="./infoView?infoNo=${infoList.INFO_NO }" id="infoNo">
+			<a href="./detail?infoNo=${infoList.INFO_NO }" id="infoNo">
 				<c:if test="${infoList.THUMB_STORED_NAME ne null }">
 					<div><img alt="" src="/upload/${infoList.THUMB_STORED_NAME }" style="width: 400px; height: 300px;"></div>
 				</c:if>
@@ -254,76 +195,8 @@ $(document).ready(function() {
 			</c:forEach>
 			
 		</div>
-
-<<<<<<< HEAD
-
-</div><!-- infoList end	 -->
-
-<div>
-	<ul class="pagination pagination-sm justify-content-center">
-
-	<%-- 첫 페이지로 이동 --%>
-	<c:if test="${paging.curPage ne 1 }">
-		<li class="page-item"><a href="./info" class="page-link">&larr; 처음</a></li>	
-	</c:if>
-	
-	<%-- 이전 페이징 리스트로 이동 --%>
-	<c:choose>
-	<c:when test="${paging.startPage ne 1 }">
-		<li class="page-item"><a href="./info?curPage=${paging.startPage - paging.pageCount }" class="page-link">&laquo;</a></li>
-	</c:when>
-	<c:when test="${paging.startPage eq 1 }">
-		<li class="page-item disabled"><a class="page-link">&laquo;</a></li>
-	</c:when>
-	</c:choose>
-	
-	<%-- 이전 페이지로 가기 --%>
-	<c:if test="${paging.curPage > 1 }">
-		<li class="page-item"><a href="./info?curPage=${paging.curPage - 1 }" class="page-link">&lt;</a></li>
-	</c:if>
-	
-	
-	
-	
-	<%-- 페이징 리스트 --%>
-	<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="i">
-	<c:if test="${paging.curPage eq i }">
-		<li class="page-item active"><a href="./info?curPage=${i }" class="page-link">${i }</a></li>
-	</c:if>
-	<c:if test="${paging.curPage ne i }">
-		<li class="page-item"><a href="./info?curPage=${i }" class="page-link">${i }</a></li>
-	</c:if>
-	</c:forEach>
-	
-
-	
-	
-	<%-- 다음 페이지로 가기 --%>
-	<c:if test="${paging.curPage < paging.totalPage }">
-		<li class="page-item"><a href="./info?curPage=${paging.curPage + 1 }" class="page-link">&gt;</a></li>
-	</c:if>
-	
-	<%-- 다음 페이징 리스트로 이동 --%>
-	<c:choose>
-	<c:when test="${paging.endPage ne paging.totalPage }">
-		<li class="page-item"><a href="./info?curPage=${paging.startPage + paging.pageCount }" class="page-link">&raquo;</a></li>
-	</c:when>
-	<c:when test="${paging.endPage eq paging.totalPage }">
-		<li class="page-item disabled"><a class="page-link" href="./info?curPage=${paging.totalPage }">&raquo;</a></li>
-	</c:when>
-	</c:choose>
-
-	<%-- 끝 페이지로 이동 --%>
-	<c:if test="${paging.curPage ne paging.totalPage }">
-		<li class="page-item"><a href="./info?curPage=${paging.totalPage }" class="page-link">끝 &rarr;</a></li>	
-	</c:if>
-	
-	</ul>
 </div>
 
-
-<c:import url="../layout/footer.jsp"></c:import>
-=======
 <span class="float-end mb-3">${paging.totalCount }</span>
 <div class="clearfix"></div>
 
@@ -391,4 +264,3 @@ $(document).ready(function() {
 </div>
 
 <c:import url="../layout/footer.jsp"/>
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
