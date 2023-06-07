@@ -14,6 +14,7 @@ import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Info;
 import web.dto.Member;
+import web.dto.Product;
 import web.util.Paging;
 
 public interface AdminService {
@@ -77,12 +78,15 @@ public interface AdminService {
    public void campaignWrite(Campaign campaign, List<MultipartFile> files, Admin memberInfo);
 
    
+   
 
    public List<Map<String, Object>> Camlist(Paging paging);
+ 
+   public void campDelete(Campaign campaign);
 
    public Admin getAdmin(String loginId);
 
-   // public void deleteCam(int campNo);
+
    /**
     * 로그인한 관리자 아이디로 관리자 정보를 조회한다
     * @param loginId - 로그인한 관리자 아이디
@@ -92,6 +96,24 @@ public interface AdminService {
 
 
    
+   /**
+    * 굿즈 게시판 상품 불러오기 
+    * @param paging
+    * @return
+    */
+   public List<Product> getproductList(Paging paging);
+
+   /**
+    * 관리자 페이지 - 굿즈샵 상품등록
+    * @param product
+    * @param files
+    * @param memberInfo
+    */
+   public void productnWrite(Product product, List<MultipartFile> files, Admin memberInfo);
+
+
+   
+
 
 
 
