@@ -40,4 +40,7 @@ public interface GoodsService {
 	 * @return
 	 */
 	public List<Map<String, Object>> getcartList(int userNo);
+
+	
+	
 }

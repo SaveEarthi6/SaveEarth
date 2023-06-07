@@ -19,5 +19,9 @@ public interface GoodsDao {
 
 	public List<Map<String, Object>> selectCartListByuserno(int userNo);
 
+	public int existCart(Cart cart);
+
+	public void updateCart(Cart cart);
+
 
 }
