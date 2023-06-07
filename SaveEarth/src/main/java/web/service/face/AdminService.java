@@ -78,7 +78,6 @@ public interface AdminService {
    public void campaignWrite(Campaign campaign, List<MultipartFile> files, Admin memberInfo);
 
    
-   
 
    public List<Map<String, Object>> Camlist(Paging paging);
  
