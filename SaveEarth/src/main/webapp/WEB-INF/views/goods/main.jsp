@@ -31,6 +31,17 @@
 	margin-bottom: 20px;
 }
 
+/* 문구 폰트 스타일 */
+@font-face {
+	font-family:'KBO-Dia-Gothic_bold';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff')
+		format('woff');
+		
+	font-weight: 700;
+	font-style: normal;
+}
+
 /* '굿즈샵' 문구 스타일 */
 .goods {
 	position: absolute;
@@ -91,8 +102,9 @@
 
 </div><!-- infoList end	 -->
 
+<!-- TOP으로 가기 -->
+<div style="cursor:pointer; text-align:right; margin-right: 20px;" onclick="window.scrollTo(0,0);"><i class="bi bi-arrow-up-circle-fill" ></i></div>
 
-<c:import url="./paging.jsp"/>
+<c:import url="../layout/paging.jsp"/>
 	
-
 <c:import url="../layout/footer.jsp"/>

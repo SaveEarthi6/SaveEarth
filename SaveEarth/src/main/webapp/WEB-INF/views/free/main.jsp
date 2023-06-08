@@ -33,7 +33,7 @@ body {
 /* 이미지 안에 자유게시판 문구 스타일 */
 .free {
 	position: absolute;
-	top: 38%;
+	top: 50%;
 	left: 45%;
 	color: #fff;
 	font-weight: bold;
@@ -149,7 +149,7 @@ location.href="?freeHead=" + freeHead
 
 <div class="btn-group" >
 
-  <select id="freeHead" onchange="selectfreeHead(this.value)" name="freeHead" >
+  <select id="freeHead" onchange="selectfreeHead()" name="freeHead" >
 
   	    <c:choose>
   	    

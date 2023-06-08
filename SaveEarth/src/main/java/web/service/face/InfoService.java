@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Info;
 import web.dto.InfoFile;
+import web.dto.InfoThumbnail;
 import web.util.Paging;
 
 public interface InfoService {
@@ -81,6 +82,40 @@ public interface InfoService {
 		 * @return - 게시글 번호 일치하는 게시글 내용
 		 */
 		public List<Map<String, Object>> getfreeTopDetail(int freeNo);
+
+		/**
+		 * 첨부된 썸네일을 삭제한다
+		 * @param thumbNo - 썸네일 번호
+		 */
+		public void deleteThumb(int thumbNo);
+
+		/**
+		 * 썸네일을 삭제한 후 조회
+		 * @param infoNo - 게시글 번호
+		 * @return - 게시글 번호가 지워진 리스트
+		 */
+		public List<InfoThumbnail> getInfoThumb(int infoNo);
+
+		/**
+		 * 파일 번호와 일치하는 파일을 삭제한다
+		 * @param infoFileNo - 파일 번호
+		 */
+		public void deleteFile(int infoFileNo);
+
+		/**
+		 * 삭제한 후 파일 정보 조회
+		 * @param infoNo - 게시글 번호
+		 * @return - 삭제한 후 파일 정보
+		 */
+		public List<InfoFile> getInfoFile(int infoNo);
+
+		/**
+		 * 정보게시판 게시글 수정
+		 * @param info - 게시글 내용
+		 * @param infoFiles - 첨부파일(들)
+		 * @param thumb - 썸네일
+		 */
+		public void updateInfo(Info info, List<MultipartFile> infoFiles, MultipartFile thumb);
 
 
 }

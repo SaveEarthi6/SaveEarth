@@ -1,7 +1,6 @@
 package web.controller;
 
 import java.util.List;
-
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -14,8 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import web.dto.Free;
-import web.service.face.FreeService;
+import web.dto.InfoFile;
 import web.dto.InfoThumbnail;
+import web.service.face.FreeService;
 import web.service.face.InfoService;
 import web.service.face.MemberService;
 import web.util.Paging;
@@ -49,6 +49,7 @@ public class InfoBoardController {
 		for(Map i : infoList) {
 			logger.info("infoList : {}", i);
 		}
+		
 
 		model.addAttribute("infoList", infoList);
 		model.addAttribute("paging", paging);
@@ -73,11 +74,11 @@ public class InfoBoardController {
 		
 	}
 
-	//검색기능
-	@RequestMapping("/info/search")
-	public void searchKeyword(Model model,@RequestParam(value = "curPage", defaultValue = "1") int curPage, String keyword) {
+	//정보게시판 - 정보게시글 검색기능
+	@RequestMapping("/searchInfo")
+	public void searchInfoKeyword(Model model,@RequestParam(value = "curPage", defaultValue = "1") int curPage, String keyword) {
 		
-		logger.info("/info/search [GET]");
+		logger.info("/info/searchInfo");
 		
 		logger.info("curPage {}", curPage);
 		Paging paging = infoService.getPagingByKeyword(curPage, keyword);
@@ -88,73 +89,13 @@ public class InfoBoardController {
 
 		List<Map<String,Object>> list = infoService.search(paging, keyword);
 		
-		logger.info("list {}", list);
+		logger.info("InfoBoardController search list {}", list);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("paging", paging);
 		model.addAttribute("keyword", keyword);
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -169,6 +110,34 @@ public class InfoBoardController {
 		logger.info("/top [GET]");
 	}
 	
+	@RequestMapping("/deleteThumb")
+	public void deleteThumb(@RequestParam("thumbNo") int thumbNo, @RequestParam("infoNo") int infoNo, Model model) {
+		
+		logger.info("thumbNo {}", thumbNo);
+	
+		//파일번호를 기준으로 파일 삭제
+		infoService.deleteThumb(infoNo);
+		
+		//삭제된 후 파일 리스트 조회
+		List<InfoThumbnail> infoThumb = infoService.getInfoThumb(infoNo);
+		logger.info("freeFile {}", infoThumb);
+		model.addAttribute("freeFile", infoThumb);
+	}
+
+	@RequestMapping("/deleteFile")
+	public void deleteFile(@RequestParam("infoFileNo") int infoFileNo, @RequestParam("infoNo") int infoNo, Model model) {
+		
+		logger.info("thumbNo {}", infoFileNo);
+		
+		//파일번호를 기준으로 파일 삭제
+		infoService.deleteFile(infoFileNo);
+		
+		//삭제된 후 파일 리스트 조회
+		List<InfoFile> infoFile = infoService.getInfoFile(infoNo);
+		logger.info("freeFile {}", infoFile);
+		model.addAttribute("freeFile", infoFile);
+	}
+
 	//자유게시판 TOP 추천수 상세보기 불러오기
 	@RequestMapping ("/free/view")
 	public void FreeTopDetail(Model model, @RequestParam(value="freeNo") int freeNo) {
@@ -185,3 +154,4 @@ public class InfoBoardController {
 	}
 	
 }
+	

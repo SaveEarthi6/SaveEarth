@@ -128,9 +128,23 @@ input {
 
 
 
-
 </style>
 
+<script type="text/javascript">
+
+function selectFree() {
+	console.log("test")
+	document.getElementById('freebtn').className = 'btn btn-success'
+	location.href='./top'
+}
+
+function selectInfo() {
+	console.log("test")
+	document.getElementById('infobtn').className = 'btn btn-success'
+	location.href='./main'
+}
+
+</script>
 
 </head>
 <body>
@@ -148,16 +162,13 @@ input {
 </div>
 </c:if>
 
-<div id = "infoList">
 	<div class="nav">
-		<button id="navButton" type="button" class="btn btn-outline-success preface">정보</button>
-		<button id="navButton" type="button" class="btn btn-outline-success preface">자유</button>
+		<button type="button" class="btn btn-outline-success" id="infobtn" onclick="selectInfo()">정보</button>
+		<button type="button" class="btn btn-success" id="freebtn" onclick="selectFree()">자유</button>
 	</div>
 
-</div>
-
 <h2 style="text-align: center; font-family: KBO-Dia-Gothic_bold ; color: #2B4DA2" >⭐자유게시판 BEST 게시글⭐</h2>
-<div class="container">
+<div class="container" style="margin-bottom: 90px;">
 
 <!-- 정보 게시판 list CSS -->
 <table id= "board" class= "table table-hover text-center">
@@ -207,23 +218,8 @@ input {
 </table>
 
 
-<!-- 검색창 -->
-<div>
-	<form action="/free/search?freeHead=${freeHead }&keyword=${keyword }" method="get">
-	    <div class="search">
-	        <input type="text" name="keyword" class="search_input"
-	        placeholder="검색어를 입력해주세요" value=${keyword }>
-	        <button class="search_btn" style="margin-bottom: 3px;"><i class="bi bi-search"></i></button>
-	    </div>
-	</form>
-</div>
 
-
-
-
+</div><!-- container end -->
 
 <c:import url="../layout/footer.jsp"></c:import>
 
-</div>
-</body>
-</html>

@@ -72,7 +72,8 @@ h1 {
 <h1>${info.INFO_TITLE }</h1>
 
 <div id="btnGruop">
-	<a href="./infoDelete?infoNo=${info.INFO_NO }"><button type="button" class="btn btn-success">삭제</button></a>
+	<a href="./infoUpdate?infoNo=${info.INFO_NO }"><button type="button" class="btn btn-danger">수정</button></a>
+	<a href="./infoDelete?infoNo=${info.INFO_NO }"><button type="button" class="btn btn-danger">삭제</button></a>
 </div>
 
 <div id="thumnail1">

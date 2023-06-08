@@ -213,7 +213,89 @@ SELECT * FROM (
       INSERT INTO prod_file (prod_file_no, prod_no, prod_origin_name, prod_stored_name) 
       	VALUES ( prod_file_no_seq.nextval, #{prodNo}, #{prodOriginName}, #{prodStroedName})
    </insert>
+
+<!-- 게시글 내용 삽입 -->
+ <insert id="insertInfo" parameterType="web.dto.Info">
+ 	
+ 	<selectKey keyProperty="infoNo" order="BEFORE" resultType="int">
+		select info_no_seq.nextval from dual
+	</selectKey>
+	
+	INSERT INTO info (info_no, admin_no, info_title, info_content, info_state)
+	VALUES ( #{infoNo}, #{adminNo}, #{infoTitle}, #{infoContent}, #{infoState})
+ 	
+</insert>
+
+	<!-- 썸네일 삽입 --> 
+ <insert id="insertinfoThumb" parameterType="web.dto.InfoThumbnail">
+ 
+ 	INSERT INTO info_thumbnail (thumb_no, info_no, thumb_origin_name, thumb_stored_name) 
+	VALUES ( thumb_no_seq.nextval, #{infoNo}, #{thumbOriginName}, #{thumbStoredName})
+ 
+ </insert>  
+
+ <!-- 첨부파일 삽입 -->
+ <insert id="insertInfoFile" parameterType="web.dto.InfoFile">
+ 
+ 	INSERT INTO info_file (info_file_no, info_no, info_origin_name, info_stored_name) 
+	VALUES ( info_file_seq.nextval, #{infoNo}, #{infoOriginName}, #{infoStroedName})
+ 
+ </insert>  
+ 
+<!-- 관리자 정보게시판 게시글 삭제 --> 
+
+<!-- 게시글 내용 삭제 -->
+<delete id="deleteInfo" parameterType="int">
+	DELETE info 
+	WHERE info_no = #{infoNo}
+</delete>
+
+<!-- 게시글 첨부파일 삭제 -->
+<delete id="deleteInfoFile" parameterType="int">
+	DELETE info_file 
+	WHERE info_no = #{infoNo}
+</delete>
+
+<!-- 게시글 썸네일 삭제 -->
+<delete id="deleteThumb" parameterType="int">
+	DELETE info_thumbnail 
+	WHERE info_no = #{infoNo}
+</delete>
+
+ <!-- 게시글 상세 조회 -->
+ <select id="selectInfoByInfoNo" resultType="map" parameterType="int">
+  
+  	SELECT * FROM (
+	    	SELECT INFO.* FROM (
+	        	SELECT I.*, F.info_origin_name, F.info_stored_name, F.info_file_no, T.thumb_no, T.thumb_origin_name, T.thumb_stored_name
+                FROM info I LEFT OUTER JOIN info_file F
+                ON I.info_no = F.info_no 
+                LEFT OUTER JOIN info_thumbnail T
+                ON I.info_no = T.info_no
+                ORDER BY I.info_no DESC
+	    	) INFO
+		) 
+		WHERE info_no = #{infoNo}
+
+ </select>
    
+<!-- 게시글 전체 조회 -->
+<select id="selectInfoList" parameterType="web.util.Paging" resultType="map">
+	  	SELECT * FROM (
+	    	SELECT rownum rnum, INFO.* FROM (
+	        	SELECT I.*, F.info_origin_name, F.info_stored_name, F.info_file_no, T.thumb_no, T.thumb_origin_name, T.thumb_stored_name
+                FROM info I LEFT OUTER JOIN info_file F
+                ON I.info_no = F.info_no 
+                LEFT OUTER JOIN info_thumbnail T
+                ON I.info_no = T.info_no
+                ORDER BY I.info_no DESC
+	    	) INFO
+		) 
+		WHERE rnum BETWEEN #{startNo} AND #{endNo}
+		ORDER BY info_no desc
+</select>
+
+
    	<delete id="deleteGoods" parameterType="int">
 		{CALL
 			BEGIN
@@ -226,10 +308,17 @@ SELECT * FROM (
 		}
 	</delete>
 
+<!-- 총 게시글 수 조회 -->
+<select id="selectCntInfo" resultType="int">
+	SELECT count(*) FROM info
+</select>
+
 	
 	<update id="updateBoard" parameterType="web.dto.Free">
   	UPDATE free SET
 	free_title = #{freeTitle}, free_content = #{freeContent}, free_head = #{freeHead}, free_modify = CURRENT_DATE 
 	WHERE free_no = #{freeNo}
 	</update>
+	
+
 </mapper>
