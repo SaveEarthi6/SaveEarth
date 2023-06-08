@@ -1,6 +1,7 @@
 package web.controller;
 
 import java.util.List;
+
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -12,8 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import web.dto.Free;
+import web.service.face.FreeService;
 import web.dto.InfoThumbnail;
 import web.service.face.InfoService;
+import web.service.face.MemberService;
 import web.util.Paging;
 
 
@@ -23,12 +27,17 @@ public class InfoBoardController {
 	
 	@Autowired InfoService infoService;
 	
+	@Autowired FreeService freeService;
+	
+	@Autowired MemberService memberService;
+	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	//메인 화면
 	@GetMapping("/main")
 	public void info(Model model, @RequestParam(defaultValue = "1") int curPage) {
 		logger.info("/info/main [GET]");
+
 
 		logger.info("curPage : {}", curPage);
 
@@ -47,8 +56,8 @@ public class InfoBoardController {
 		
 
 	
-
 	}
+	
 	
 	//상세보기
 	@GetMapping("/detail")
@@ -89,5 +98,76 @@ public class InfoBoardController {
 	}
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//자유게시판 TOP추천수 불러오기
+	@RequestMapping("/top")
+	public void FreeTop (Model model, @RequestParam(defaultValue = "10") int count) {
+		
+		List<Free> topRecommend = infoService.getTopRecommend(count);
+		
+		model.addAttribute("recommend", topRecommend);
+		
+		logger.info("/top [GET]");
+	}
 	
 }
