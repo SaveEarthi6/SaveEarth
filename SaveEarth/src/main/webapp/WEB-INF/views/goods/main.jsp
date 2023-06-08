@@ -45,13 +45,25 @@
 /* '굿즈샵' 문구 스타일 */
 .goods {
 	position: absolute;
-	top: 53%; 
+	top: 38%; 
 	left: 45%; 
 	color: #fff; 
 	font-weight: bold;
 	font-size: 50px;
     font-family: 'KBO-Dia-Gothic_bold';
 }
+
+/* '굿즈'문구 폰트 스타일 */
+@font-face {
+	font-family: 'KBO-Dia-Gothic_bold';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff')
+		format('woff');
+		
+	font-weight: 700;
+	font-style: normal;
+}
+
 
 .col {
 	margin-bottom: 10px;
@@ -62,7 +74,7 @@
 <body>
 
 <div style="text-align: center;">
-	<img class="goodsimage" src="../resources/img/ggoods.jpg">
+	<img class="goodsimage" src="../resources/img/goods.jpg">
 	<h1 class="goods">굿즈샵 메인</h1>
 </div>
 

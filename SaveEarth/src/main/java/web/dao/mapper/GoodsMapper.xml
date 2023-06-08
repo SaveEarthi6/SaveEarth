@@ -67,4 +67,15 @@
 		DELETE FROM cart
 		WHERE user_no = #{userNo} AND cart_no = #{cartNo}
 	</delete>
+	
+	
+	<select id="getProdinfo" parameterType="int" resultType="web.dto.Product">
+	select * FROM product
+	where prod_no=#{prodNo}
+	</select>
+	
+	<select id="getProdopt" parameterType="int" resultType="web.dto.ProdOption">
+	select * FROM prod_option
+	where prod_opt_no=#{prodOptNo}
+	</select>
 </mapper>

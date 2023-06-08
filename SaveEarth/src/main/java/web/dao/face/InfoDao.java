@@ -109,5 +109,21 @@ public interface InfoDao {
 	 */
 	public List<InfoFile> selectFileByInfoNo(int infoNo);
 	
+	/**
+	 * 자유게시판 추천수 TOP인 게시글 10개 조회 
+	 * 
+	 * @param count
+	 * @return
+	 */
+	public List<Map<String, Object>> getTopFreeRecommend(int count);
+	
+	/**
+	 * 게시글 번호가 일치하는 게시글을 조회
+	 * 
+	 * @param freeNo
+	 * @return
+	 */
+	public List<Map<String, Object>> selectInfoByfreeNo(int freeNo);
+	
 
 }

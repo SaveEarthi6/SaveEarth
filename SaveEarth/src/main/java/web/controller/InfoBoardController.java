@@ -21,7 +21,6 @@ import web.service.face.MemberService;
 import web.util.Paging;
 
 
-@RequestMapping("/info")
 @Controller
 public class InfoBoardController {
 	
@@ -34,7 +33,7 @@ public class InfoBoardController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	//메인 화면
-	@GetMapping("/main")
+	@GetMapping("/info/main")
 	public void info(Model model, @RequestParam(defaultValue = "1") int curPage) {
 		logger.info("/info/main [GET]");
 
@@ -61,7 +60,7 @@ public class InfoBoardController {
 	
 	
 	//상세보기
-	@GetMapping("/detail")
+	@GetMapping("/info/detail")
 	public void detail(Model model, @RequestParam(value="infoNo") int infoNo) {
 		
 		logger.info("/info/detail [GET]");
@@ -101,10 +100,10 @@ public class InfoBoardController {
 	
 	
 	//자유게시판 TOP추천수 불러오기
-	@RequestMapping("/top")
+	@RequestMapping("/info/top")
 	public void FreeTop (Model model, @RequestParam(defaultValue = "10") int count) {
 		
-		List<Free> topRecommend = infoService.getTopRecommend(count);
+		List<Map<String, Object>> topRecommend = infoService.getTopRecommend(count);
 		
 		model.addAttribute("recommend", topRecommend);
 		
@@ -139,5 +138,20 @@ public class InfoBoardController {
 		model.addAttribute("freeFile", infoFile);
 	}
 
+	//자유게시판 TOP 추천수 상세보기 불러오기
+	@RequestMapping ("/free/view")
+	public void FreeTopDetail(Model model, @RequestParam(value="freeNo") int freeNo) {
+		logger.info("/info/detail [GET]");
+		
+		//정보게시판 게시글 조회(게시글 번호와 일치하는 게시글 내용)
+		List<Map<String, Object>> freeTopDetail = infoService.getfreeTopDetail(freeNo);
+		
+		logger.info("info {}", freeTopDetail);
+		
+		model.addAttribute("info", freeTopDetail);
+
+		
+	}
+	
 }
 	

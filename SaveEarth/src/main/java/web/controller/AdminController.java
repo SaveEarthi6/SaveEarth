@@ -28,6 +28,7 @@ import web.dto.Member;
 import web.dto.Product;
 import web.service.face.AdminService;
 import web.service.face.CampService;
+import web.service.face.FreeService;
 import web.service.face.InfoService;
 import web.service.face.MemberService;
 import web.util.Paging;
@@ -42,6 +43,7 @@ public class AdminController {
       @Autowired MemberService memberService;
       @Autowired CampService campService;
       @Autowired InfoService infoService;
+      @Autowired FreeService freeService;
       
       private final Logger logger = LoggerFactory.getLogger(this.getClass());
    
@@ -131,7 +133,11 @@ public class AdminController {
       model.addAttribute("freeFile", freeFile);
 
    }
+<<<<<<< HEAD
 //
+=======
+
+>>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
    // 관리자 페이지(자유게시판 글쓰기)
    @GetMapping("/freeWrite")
    public void write(HttpSession session, Model model) {
@@ -312,10 +318,16 @@ public class AdminController {
 		Paging paging = adminService.getPaging(curPage);
 		
 		//첫 로드시 상품 불러오기
-		List<Product> prodList = adminService.getproductList(paging);
+//		List<Product> prodList = adminService.getproductList(paging);
+		List<Map<String, Object>> prodList = adminService.getProductList(paging);
 		
 		
-		for(Product c : prodList) {
+		System.out.println("prodList" + prodList);
+//		for(Product c : prodList) {
+//			logger.info("{}", c);
+//		}
+		
+		for(Map c : prodList) {
 			logger.info("{}", c);
 		}
 		
@@ -369,9 +381,27 @@ public class AdminController {
       adminService.productnWrite(product, files, memberInfo);
       
       
-      return "redirect:./free";
+      return "redirect:./product";
       
       
+   }
+   
+   //굿즈 게시판 상품 삭제
+   @RequestMapping("/goodsDelete")
+   public String goodsDelete(Product prodNo ) {
+	   
+	   System.out.println("굿즈삭제 : goodsDelete");
+	   System.out.println("ProdNo :" + prodNo);
+	   
+	   
+		adminService.deleteGoods(prodNo);
+		
+	   return "redirect:./product";
+  }
+   
+   @RequestMapping("/productView")
+   public void productView() {
+	   System.out.println("관리자 페이지 굿즈샵 상세페이지 접속");
    }
    
 
@@ -512,6 +542,56 @@ public class AdminController {
 	   
    }
    
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   //공지사항 수정
+   @GetMapping("/noticeUpdate")
+   public void noticeUpdate (Model model, Free freeBoard, HttpSession session ) {
+	   
+	   logger.info("admin/noticeUpdate {GET}");
+	   
+	   //수정 할 게시판 조회 (공지사항)
+	   Map<String, Object> view = adminService.getView(freeBoard);
+	   
+	   //수정할 파일 정보 조회
+	   List <FreeFile> freeFile = adminService.getFreeFile(freeBoard);
+	   
+	   model.addAttribute("view", view);
+	   model.addAttribute("freeFile", freeFile);
+	   
+   }
+   
+   @PostMapping("/noticeUpdate") 
+   public String updateNotice (Model model, Free freeBoard, @RequestParam(required = false) List<MultipartFile> files) {
+	   
+	   List<FreeFile> freeFile = adminService.getFreeFile(freeBoard);
+	   
+	   adminService.updateFree(freeBoard,files,freeFile);
+	   
+	   return "redirect:/admin/free";
+   
+   
+   }
    
    
    
