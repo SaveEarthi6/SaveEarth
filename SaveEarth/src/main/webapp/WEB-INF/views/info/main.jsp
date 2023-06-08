@@ -141,10 +141,16 @@ input {
 
 <script type="text/javascript">
 
-function selectInfo() {
+function selectFree() {
 	console.log("test")
 	document.getElementById('freebtn').className = 'btn btn-success'
-// 	location.href='./main'
+	location.href='./top'
+}
+
+function selectInfo() {
+	console.log("test")
+	document.getElementById('infobtn').className = 'btn btn-success'
+	location.href='./main'
 }
 
 </script>
@@ -165,8 +171,8 @@ function selectInfo() {
 </c:if>
 
 <div class="nav">
-<button type="button" class="btn btn-success" id="infobtn">정보</button>
-<button type="button" class="btn btn-outline-success" id="freebtn">자유</button>
+<button type="button" class="btn btn-success" id="infobtn" onclick="selectInfo()">정보</button>
+<button type="button" class="btn btn-outline-success" id="freebtn" onclick="selectFree()">자유</button>
 </div>
 
 		
@@ -198,7 +204,7 @@ function selectInfo() {
 
 
 <div>
-	<form action="//search?keyword=${keyword }" method="get">
+	<form action="/info/searchInfo?keyword=${keyword }" method="get">
 	    <div class="search">
 	        <input type="text" name="keyword" class="search_input"
 	        placeholder="검색어를 입력해주세요" value=${keyword }>
@@ -208,7 +214,7 @@ function selectInfo() {
 </div>
 
 
-<c:import url="../layout/paging.jsp"></c:import>
+<c:import url="../layout/paging.jsp" />
 
 
-<c:import url="../layout/footer.jsp"></c:import>
+<c:import url="../layout/footer.jsp" />

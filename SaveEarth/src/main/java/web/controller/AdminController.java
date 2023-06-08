@@ -22,6 +22,8 @@ import web.dto.Certification;
 import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Info;
+import web.dto.InfoFile;
+import web.dto.InfoThumbnail;
 import web.dto.Member;
 import web.dto.Product;
 import web.service.face.AdminService;
@@ -389,17 +391,16 @@ public class AdminController {
 
    //정보게시판 조회
    @RequestMapping("/info")
-   public void adminInfo(Model model, @RequestParam(defaultValue = "0") int curPage) {
+   public void adminInfo(Model model, @RequestParam(defaultValue = "1") int curPage) {
 	   
 	   logger.info("Admin/info[Mapping]");
 
 	   logger.info("curPage : {}", curPage);
 
-
-	   Paging paging = infoService.getPaging(curPage);
+	   Paging paging = adminService.getInfoPaging(curPage);
 
 	   //정보게시판 게시글 조회
-	   List<Map<String, Object>> infoList = infoService.getInfoList(paging);
+	   List<Map<String, Object>> infoList = adminService.getInfoList(paging);
 
 	   for(Map i : infoList) {
 		   logger.info("infoList : {}", i);
@@ -457,7 +458,7 @@ public class AdminController {
 	   int adminNo = adminInfo.getAdminNo();
 	   
 	   //정보게시판 게시글 작성
-	   infoService.infoWrite(adminNo, info, files, thumb);
+	   adminService.infoWrite(adminNo, info, files, thumb);
 	   
 	   return "redirect:./info";
 	   
@@ -467,13 +468,49 @@ public class AdminController {
    @RequestMapping("/infoDelete")
    public String adminDelete(int infoNo) {
 	   
-	   infoService.deleteInfo(infoNo);
+	   adminService.deleteInfo(infoNo);
 	   
 	   return "redirect:./info";
 	   
    }
    
+   @GetMapping("/infoUpdate")
+   public void update(Model model, @RequestParam(value="infoNo") int infoNo, HttpSession session) {
+	   
+	   logger.info("/admin/infoUpdate");
+	   
+	   String loginId = (String) session.getAttribute("loginId");
+	   logger.info("관리자 id : {}", loginId);
+
+	   Admin memberInfo = adminService.info(loginId);
+	   
+	   //정보게시판 게시글 조회(게시글 번호와 일치하는 게시글 내용)
+	   List<Map<String, Object>> info = adminService.getInfo(infoNo);
+
+	   logger.info("infoUpdate info {}", info);
+	   
+	   model.addAttribute("info", info);
+	   model.addAttribute("memberInfo", memberInfo);
+	   
+   }
    
+   @PostMapping("/infoUpdate")
+   public void updateProc(Model model, Info info, @RequestParam(required = false) List<MultipartFile> infoFiles,@RequestParam(required = false)  MultipartFile thumb) {
+	   
+	   logger.info("/admin/infoUpdate [post]");
+	  
+	   logger.info("info {}", info);
+	   logger.info("infoFiles {}", infoFiles);
+	   logger.info("thumb {}", thumb);
+	   
+	   //게시글 내용 + 파일 수정
+	   infoService.updateInfo(info, infoFiles, thumb);
+	   
+	   logger.info("infoUpdate info {}", info);
+	   
+	   model.addAttribute("info", info);
+	   
+   }
    
    
    

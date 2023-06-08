@@ -45,6 +45,8 @@ public class InfoServiceImpl implements InfoService {
 		
 		Paging paging = new Paging(totalCount, curPage, 3);
 		
+		logger.info("infoServiceImpl paging{}", paging);
+		
 		return paging;
 	}
 
@@ -240,6 +242,46 @@ public class InfoServiceImpl implements InfoService {
 		infoDao.deleteInfo(infoNo);
 		
 	}
+	
+	@Override
+	public void deleteThumb(int infoNo) {
+
+		infoDao.deleteThumb(infoNo);
+		
+	}
+	
+	@Override
+	public List<InfoThumbnail> getInfoThumb(int infoNo) {
+		
+		return infoDao.selectThumbByInfoNo(infoNo);
+		
+	}
+	
+	
+	@Override
+	public void deleteFile(int infoFileNo) {
+		
+		infoDao.deleteFile(infoFileNo);
+		
+	}
+	
+	
+	@Override
+	public List<InfoFile> getInfoFile(int infoNo) {
+		
+		return infoDao.selectFileByInfoNo(infoNo);
+	}
+	
+	@Override
+	public void updateInfo(Info info, List<MultipartFile> infoFiles, MultipartFile thumb) {
+
+		//게시글 내용 수정
+		
+		//지금 들어온 파일 있는지 검사하고 삭제 후 새로 넣기
+		
+		
+	}
+	
 	
 	
 }

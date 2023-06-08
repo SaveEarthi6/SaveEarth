@@ -16,7 +16,7 @@
   
   	SELECT * FROM (
 	    	SELECT rownum rnum, INFO.* FROM (
-	        	SELECT I.*, F.info_origin_name, F.info_stored_name, T.thumb_origin_name, T.thumb_stored_name
+	        	SELECT I.*, F.info_origin_name, F.info_stored_name, F.info_file_no, T.thumb_no, T.thumb_origin_name, T.thumb_stored_name
                 FROM info I LEFT OUTER JOIN info_file F
                 ON I.info_no = F.info_no 
                 LEFT OUTER JOIN info_thumbnail T
@@ -39,15 +39,18 @@
   <!-- 게시글 상세 조회 -->
   <select id="selectInfoByInfoNo" resultType="map" parameterType="int">
   
-	SELECT * FROM (
-	    	SELECT rownum rnum, INFO.* FROM (
-	        	SELECT I.*, F.info_origin_name, F.info_stored_name
+  	SELECT * FROM (
+	    	SELECT INFO.* FROM (
+	        	SELECT I.*, F.info_origin_name, F.info_stored_name, T.thumb_origin_name, T.thumb_stored_name
                 FROM info I LEFT OUTER JOIN info_file F
                 ON I.info_no = F.info_no 
+                LEFT OUTER JOIN info_thumbnail T
+                ON I.info_no = T.info_no
                 ORDER BY I.info_no DESC
 	    	) INFO
 		) 
 		WHERE info_no = #{infoNo}
+		ORDER BY info_no desc
 
   </select>
   
@@ -130,6 +133,20 @@
 	WHERE info_no = #{infoNo}
 </delete>
 
+<select id="selectThumbByInfoNo" parameterType="int" resultType="map">
+	SELECT * FROM info_thumbnail
+	WHERE info_no = #{infoNo}
+</select>
 
+<!-- 게시글 수정 -->
+<delete id="deleteFile" parameterType="int">
+	DELETE info_file
+	WHERE info_file_no = #{infoFileNo}
+</delete>
+
+<select id="selectFileByInfoNo" parameterType="int" resultType="web.dto.InfoFile">
+	SELECT * FROM info_file
+	WHERE info_no = #{infoNo}
+</select>
 
   </mapper>

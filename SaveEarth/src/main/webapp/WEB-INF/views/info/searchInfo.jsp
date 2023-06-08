@@ -127,7 +127,6 @@ input {
 }
 
 
-
 #info {
     width: 225px;
     text-align: center;
@@ -136,15 +135,27 @@ input {
     margin-right: 10px;
     margin-bottom: 65px;
 
+/* 초기화 버튼 스타일 */
+.search_reset {
+	font-size: 18px;
+	border: none;
+	background-color: green;
+	width: 80px;
+	height: 30px;
+	border-radius: 15px;
+	color: #fff;
+	cursor: pointer;
+	vertical-align: middle;
+}
+
 </style>
 
 
 <script type="text/javascript">
 
-// function selectInfo() {
-// 	console.log("test")
-// 	document.getElementById('info').className = 'btn btn-success'
-// 	location.href='./main'
+function selectInfo() {
+	console.log("test")
+	location.href='./main'
 }
 
 </script>
@@ -165,7 +176,7 @@ input {
 </c:if>
 
 <div class="nav">
-<button type="button" class="btn btn-outline-success" id="infobtn" onclick="selectInfo()">정보</button>
+<button type="button" class="btn btn-success" id="infobtn" onclick="selectInfo()">정보</button>
 <button type="button" class="btn btn-outline-success" id="freebtn">자유</button>
 </div>
 
@@ -198,14 +209,21 @@ input {
 
 
 <div>
-	<form action="/info/search?keyword=${keyword }" method="get">
+	<form action="/info/searchInfo?keyword=${keyword }" method="get">
 	    <div class="search">
 	        <input type="text" name="keyword" class="search_input"
 	        placeholder="검색어를 입력해주세요" value=${keyword }>
 	        <button class="search_btn" style="margin-bottom: 3px;"><i class="bi bi-search"></i></button>
 	    </div>
 	</form>
+	
+	<div class="search">
+		<a href="/info/main"><button class="search_reset btn btn-success" style="margin-bottom: 3px;">초기화</button></a>
+	</div>
+	
 </div>
+
+
 
 
 <div>
