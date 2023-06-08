@@ -18,7 +18,11 @@
 		
 			<c:forEach var="prod" items="${prodList }" begin="0" end="2">
 			<div id="camp" class="col">
-			<a href="goods/detail?prodno=${prod.prodNo }" id="campTag">
+			
+			<td><a href = "./goodsDelete?prodNo=${prod.prodNo}"><button id="btnDelete" class="btn btn-danger">삭제</button></a></td>
+			<a href="/productView?prodno=${prod.prodNo }" id="campTag">
+			
+			
 				<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
 				<div id="campTitle">
 					<span id="titleTag">[${prod.prodName }]</span>
@@ -39,8 +43,11 @@
 		<div id="camps" class="row col-10">
 		
 			<c:forEach var="prod" items="${prodList }" begin="3" end="5">
-			<div id="camp" class="col">
-			<a href="goods/detail?prodno=${prod.prodNo }" id="campTag">
+			<div id="prod" class="col">
+		
+			<td><a href = "./goodsDelete?prodNo=${prod.prodNo}"><button id="btnDelete" class="btn btn-danger">삭제</button></a></td>
+			<a href="/productView?prodno=${prod.prodNo }" id="campTag">
+			
 				<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
 				<div id="campTitle">
 					<span id="titleTag">[${prod.prodName }]</span>

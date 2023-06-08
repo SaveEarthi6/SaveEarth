@@ -338,10 +338,7 @@ public class AdminServiceimpl implements AdminService {
 		return adminDao.selectAdmin(loginId);
 	}
    
-//   @Override
-//	public void deleteCam(int campNo) {
-//		adminDao.deleteCam(campNo);
-//	}
+
    @Override
 	public void deleteCam(Campaign campNo) {
 	   adminDao.deleteCam(campNo);
@@ -427,7 +424,7 @@ public void productnWrite(Product product, List<MultipartFile> files, Admin memb
          productFile.setProdFileNo(product.getProdNo());
          productFile.setProdOriginName(files.get(i).getOriginalFilename());
          productFile.setProdStroedName(storedName);
-         System.out.println(productFile);
+         System.out.println("productfile임"+productFile);
          
          upfiles.add(productFile);
 
@@ -438,5 +435,12 @@ public void productnWrite(Product product, List<MultipartFile> files, Admin memb
       }
       
    }
+
+	@Override
+	public void deleteGoods(Product prodNo) {
+		System.out.println("서비스임플 굿즈삭제 prodNo : " + prodNo);
+		adminDao.deleteGoods(prodNo);
+	}
+	
    
 }

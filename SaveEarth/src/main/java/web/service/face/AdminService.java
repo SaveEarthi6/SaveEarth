@@ -110,6 +110,12 @@ public interface AdminService {
     */
    public void productnWrite(Product product, List<MultipartFile> files, Admin memberInfo);
 
+   /**
+    * 굿즈 게시판 상품 삭제 
+    * @param prodNo - 상품번호
+    */
+   public void deleteGoods(Product prodNo);
+
 
    
 

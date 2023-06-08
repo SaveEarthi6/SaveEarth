@@ -98,9 +98,6 @@ public interface AdminDao {
     */
    public Admin selectAdmin(String loginId);
 
-   //캠페인 게시글 삭제
-
-   //public void deleteCam(int campNo);
 
    public void deleteCam(Campaign campNo);
 
@@ -110,6 +107,12 @@ public interface AdminDao {
    public void insertProductFile(ProductFile productFile);
 
    public void insertProduct(Product product);
+
+   /**
+    * 굿즈 게시판 삭제 
+    * @param prodNo - 굿즈게시판 번호
+    */
+   public void deleteGoods(Product prodNo);
 
 
 }

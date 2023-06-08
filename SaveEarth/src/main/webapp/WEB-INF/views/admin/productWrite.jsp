@@ -100,22 +100,22 @@ form {
 <!-- 글쓰기 폼 (웹 에디터) -->
 <div class="form-group" style= "margin-top: 50px">
 	<label class="form-label" for="title">상품명</label>
-	<input type="text" id="title" name="freeTitle" class="form-control">
+	<input type="text" id="prodName" name="prodName" class="form-control">
 </div>
 
 <div class="form-group" style= "margin-top: 50px">
 	<label class="form-label" for="title">상품가격</label>
-	<input type="text" id="title" name="freeTitle" class="form-control">
+	<input type="text" id="prodPrice" name="prodPrice" class="form-control">
 </div>
 
 <div class="form-group" style= "margin-top: 50px">
 	<label class="form-label" for="title">상세내용</label>
-	<input type="text" id="title" name="freeTitle" class="form-control">
+	<input type="text" id="prodDetail" name="prodDetail" class="form-control">
 </div>
 
 <div class="form-group" style= "margin-top: 50px">
 	<label class="form-label" for="title">재고 수</label>
-	<input type="text" id="title" name="freeTitle" class="form-control">
+	<input type="text" id="prodAmount" name="prodAmount" class="form-control">
 </div>
 
 
@@ -129,7 +129,7 @@ form {
 
 
 
-<a href="/admin/main"><button type="reset" id="cancel" class="btn btn-danger">취소</button></a>
+<a href="/admin/product"><button type="reset" id="cancel" class="btn btn-danger">취소</button></a>
 
 
 
