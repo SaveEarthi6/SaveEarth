@@ -98,18 +98,40 @@ public interface AdminDao {
     */
    public Admin selectAdmin(String loginId);
 
-   //캠페인 게시글 삭제
-
-   //public void deleteCam(int campNo);
-
    public void deleteCam(Campaign campNo);
 
-   
    public List<Product> selectProdList(Paging paging);
 
    public void insertProductFile(ProductFile productFile);
 
    public void insertProduct(Product product);
 
+   public Map<String, Object> selectCampBoard(@Param("campaign") Campaign campaign);
+
+   public List<CampaignFile> selectCampFile(Campaign campaign);
+   
+   /**
+	 * 게시글 정보 수정
+	 * @param campaign - 수정할 게시글 정보
+	 */
+   public void updateCamp(Campaign campaign);
+   
+   /**
+    *  게시글을 참조하고 있는 모든 첨부파일을 삭제
+    * @param campaign - 첨부파일을 삭제할 게시글 번호
+    */
+   public void deleteCampFile(Campaign campaign);
+   
+   /**
+    * 자유게시판에 첨부한 파일(들)을 삽입한다
+    * @param e - 첨부파일들
+    */
+   public void insertCampFile(CampaignFile campFiles);
+
+
+   
+	
+	
+	
 
 }

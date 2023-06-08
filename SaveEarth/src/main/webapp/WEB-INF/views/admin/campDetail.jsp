@@ -89,8 +89,7 @@
 	<div class="col-1"></div>
 </div>
 
-<div id="toList"><button onclick="location.href='admin/campaign';"  id="navButton" type="button" class="btn btn-outline-success">목록으로</button></div>
-<div id="toList"><button onclick="location.href='admin/campaign';"  id="navButton" type="button" class="btn btn-outline-success">수정</button>
-</div>
+<div id="toList"><button onclick="location.href='admin/campaign'"  id="navButton" type="button" class="btn btn-outline-success">목록으로</button></div>
+<div id="toList"><button onclick="location.href='./campUpdate?campNo=${campDetail.CAMP_NO}'"  id="navButton" type="button" class="btn btn-outline-success">수정</button></div>
 
 <c:import url="../layout/footer.jsp"></c:import>

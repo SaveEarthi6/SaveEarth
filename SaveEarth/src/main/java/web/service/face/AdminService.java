@@ -110,6 +110,26 @@ public interface AdminService {
     */
    public void productnWrite(Product product, List<MultipartFile> files, Admin memberInfo);
 
+   public Map<String, Object> getView(Campaign campaign);
+
+   public List<CampaignFile> getCampFile(Campaign campaign);
+   
+	/**
+	 * 게시글 정보 수정하기   
+	 * @param campaign - 입력한 게시글 정보
+	 * @param files - 수정한 파일
+	 * @param campFile - 수정할 파일 번호
+	 */
+   public void updateCamp(Campaign campaign, List<MultipartFile> files, List<CampaignFile> campFile);
+   
+
+   
+   
+
+
+   
+
+   
 
    
 
