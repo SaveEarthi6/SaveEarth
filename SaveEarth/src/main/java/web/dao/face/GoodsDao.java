@@ -28,7 +28,6 @@ public interface GoodsDao {
 
 	public void updateCart(Cart cart);
  
-
 	public List<Map<String, Object>> getOption(int prodno);
 
 	public void deleteCartBySelect(@Param("userNo") int userNo, @Param("cartNo") String cartNo);
@@ -43,8 +42,8 @@ public interface GoodsDao {
 
 	public ProdOption getProdopt(int prodOptNo);
 
-
-
 	public void updateAmount(Map<String, Object> param);
+
+	public Map<String, Object> selectCartListBySelect(@Param("userNo") int userNo, @Param("cartNo") String cartNo);
 
 }

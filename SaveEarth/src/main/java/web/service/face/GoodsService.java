@@ -113,6 +113,15 @@ public interface GoodsService {
 	 */
 	public ProdOption getProdopt(int prodOptNo);
 
+	/**
+	 * 회원번호와 일치하는 cart 목록 가져오기
+	 * 
+	 * @param userNo - 로그인한 회원의 번호
+	 * @param cartNo - 주문하려는 cart의 번호
+	 * @return
+	 */
+	public Map<String, Object> getCartListBySelect(int userNo, String cartNo);
+
 	
 	
 }

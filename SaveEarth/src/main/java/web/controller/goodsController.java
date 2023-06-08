@@ -177,11 +177,10 @@ public class goodsController {
 		
 	}
 	
+	//주문 배송지 폼 DB 삽입
 	@PostMapping("/order")
-	public String orderinsert(HttpSession session, Order order) {
+	public void orderinsert(HttpSession session, Order order) {
 		logger.info("/goods/order [POST]");
-		
-		//주문 DB에 넣기
 		
 		//주문번호
 		Calendar cal = Calendar.getInstance();
@@ -199,8 +198,6 @@ public class goodsController {
 		
 		goodsService.deleteCart((int)session.getAttribute("loginNo"));
 		
-		return "redirect:./orderList";
-		
 	}
 	
 	//주문목록 불러오기
@@ -211,6 +208,34 @@ public class goodsController {
 		List<Order> orderList = goodsService.orderList((int)session.getAttribute("loginNo"));
 		
 		model.addAttribute("orderList", orderList);
+	}
+	
+	//선택 주문
+	@RequestMapping("/orderSelect")
+	public void orderSelect(HttpSession session, @RequestParam("chbox[]") List<String> chArr, Model model) {
+		logger.info("/goods/orderSelect [GET]");
+		logger.info("{}", chArr);
+		logger.info("{}", session.getAttribute("loginNo"));
+		
+		// order.jsp로 model값 넘겨주기
+		
+		List<Map<String, Object>> cartList = new ArrayList<>();
+		
+		//로그인 된 상태이면
+		if(session.getAttribute("isLogin") != null) {
+			for(String cartNo : chArr) {
+//				goodsService.getCartListBySelect((int)session.getAttribute("loginNo"), cartNo);
+				cartList.add(goodsService.getCartListBySelect((int)session.getAttribute("loginNo"), cartNo));
+			}
+			
+//			model.addAttribute("cartList",cartList);
+			logger.info("{}", cartList);
+//			return 1;
+			
+		} else {
+//			return 0;
+		}
+		
 	}
 	
 
@@ -244,11 +269,17 @@ public class goodsController {
 	}
 	
 	@RequestMapping("/payment")
-	public void payment(HttpServletRequest request) {
+	public void payment(HttpServletRequest request, HttpSession session, Order order) {
 		logger.info("/goods/payment [GET]");
-		logger.info("{}", request.getAttribute("val"));
+		
+		
 		
 		goodsService.paymentTest(request);
+		
+		
+		
+		
+		
 		
 	}
 	

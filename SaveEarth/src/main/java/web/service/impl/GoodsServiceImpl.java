@@ -31,6 +31,7 @@ import org.springframework.stereotype.Service;
 import web.dao.face.GoodsDao;
 import web.dto.Cart;
 import web.dto.Order;
+import web.dto.ProdOption;
 import web.dto.Product;
 import web.service.face.GoodsService;
 import web.util.Paging;
@@ -233,6 +234,10 @@ public class GoodsServiceImpl implements GoodsService {
 		return goodsDao.getProdopt(prodOptNo);
 	}
 
+	@Override
+	public Map<String, Object> getCartListBySelect(int userNo, String cartNo) {
 
+		return goodsDao.selectCartListBySelect(userNo, cartNo);
+	}
 
 }
