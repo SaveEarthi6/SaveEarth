@@ -40,7 +40,7 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
-	public List<Product> getgoodsList(Paging paging) {
+	public List<Map<String, Object>> getgoodsList(Paging paging) {
 		logger.info("getList() - paging : {}", paging);
 		
 		return goodsDao.selectProdList(paging);

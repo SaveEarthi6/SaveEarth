@@ -17,7 +17,7 @@ public interface GoodsService {
 	 * @param paging
 	 * @return
 	 */
-	public List<Product> getgoodsList(Paging paging);
+	List<Map<String, Object>> getgoodsList(Paging paging);
 
 	
 	/**

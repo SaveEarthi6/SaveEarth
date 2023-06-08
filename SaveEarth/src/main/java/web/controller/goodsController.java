@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.util.UriUtils;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 
 import web.dto.Cart;
+
 import web.dto.Member;
 import web.dto.ProdOption;
 import web.dto.Product;
@@ -43,16 +51,17 @@ public class goodsController {
 		Paging paging = goodsService.getPaging(curPage);
 		
 		//첫 로드시 상품 불러오기
-		List<Product> prodList = goodsService.getgoodsList(paging);
+//		List<Product> prodList = goodsService.getgoodsList(paging);
 		
 		// 파일 가져오기
+		List<Map<String, Object>> prodList = goodsService.getgoodsList(paging);
 		
 		
 
 		
-		for(Product c : prodList) {
-			logger.info("{}", c);
-		}
+//		for(List<Map<String, Object>> c : prodList) {
+//			logger.info("{}", c);
+//		}
 		
 		model.addAttribute("prodList", prodList);
 		model.addAttribute("paging", paging);		
@@ -208,23 +217,29 @@ public class goodsController {
 
 
 	  @PostMapping("/complete")
-	  public String completePayment(HttpServletRequest request) {
-	    // 아임포트 결제 정보를 가져옵니다.
-	    String merchantUid = request.getParameter("merchant_uid");
-	    String status = request.getParameter("status");
-	    String impUid = request.getParameter("imp_uid");
-	    
-	    System.out.println(merchantUid);
-	    System.out.println(status);
-	    System.out.println(impUid);
-	    
-	    // 원하는 값으로 SQL INSERT 작업 수행
-//	    Payment payment = new Payment();
-//	    payment.setMerchantUid(merchantUid);
-//	    payment.setStatus(status);
-//	    payment.setImpUid(impUid);
-//	    paymentService.insertPayment(payment); 
-	    
+	  public String complete( String prodCount,@RequestParam("totalPrice") int totalPrice) {
+//		@RequestParam("totalPrice") int totalPrice,	
+		  System.out.println("totalPrice확인"+totalPrice);
+		  System.out.println("prodCount확인"+prodCount);
+	
+
+		    
+		  
+		    
+	
+          
+	       
+	  
+	       
+        
+
+	       
+
+	       
+		  
+	
+
+		  
 	    return "goods/paycomplete"; // 결제 완료 페이지로 이동
 	  }
 	

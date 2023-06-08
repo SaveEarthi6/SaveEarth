@@ -4,6 +4,234 @@
 <c:import url="../layout/header.jsp"/> 
 <!--  결제하기  -->
    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+
+
+
+<style type="text/css">
+* {
+  margin: 0px;
+  padding: 0px;
+  text-decoration: none;
+  font-family:sans-serif;
+
+}
+
+body {
+  background-image:#34495e;
+}
+
+.joinForm {
+  position:absolute;
+  width:400px;
+  height:400px;
+  padding: 30px, 20px;
+  background-color:#FFFFFF;
+  text-align:center;
+  top:40%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  border-radius: 15px;
+}
+
+.joinForm h2 {
+  text-align: center;
+  margin: 30px;
+}
+
+.textForm {
+  border-bottom: 2px solid #adadad;
+  margin: 30px;
+  padding: 10px 10px;
+}
+
+
+.id {
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:16px;
+  height:25px;
+  background: none;
+}
+
+.pw {
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:16px;
+  height:25px;
+  background: none;
+}
+
+.name {
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:16px;
+  height:25px;
+  background: none;
+}
+
+.email {
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:16px;
+  height:25px;
+  background: none;
+}
+
+.nickname {
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:16px;
+  height:25px;
+  background: none;
+}
+
+.cellphoneNo {
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:16px;
+  height:25px;
+  background: none;
+}
+
+ .btn-bottom { 
+  position:relative; 
+  left:2%; */
+  transform: translateX(-50%); 
+  margin-bottom: 40px; 
+  width:80%; 
+  height:40px; 
+  background: linear-gradient(125deg,#81ecec,#6c5ce7,#81ecec); 
+  background-position: center; 
+  background-size: 200%; 
+  color:white; 
+  font-weight: bold; 
+  border:none;
+  cursor:pointer; 
+  transition: 0.4s; 
+  display:inline; 
+  margin-left: 60px; 
+ } 
+
+.btn-bottom:hover {
+  background-position: center;
+}
+
+form{
+margin: 0 auto;
+width: 700px;
+}
+
+/*  */
+/* 게시판 이미지 스타일 */
+.infoimage {
+	position: relative;
+}
+
+/* '정보게시판' 문구 스타일 */
+.info {
+	position: absolute;
+	top: 38%; 
+	left: 45%; 
+	color: #fff; 
+	font-weight: bold;
+	font-size: 50px;
+    font-family: 'KBO-Dia-Gothic_bold';
+}
+
+/* 폰트 스타일 */
+@font-face {
+    font-family: 'KBO-Dia-Gothic_bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+/* 게시판 분류 버튼 스타일 */
+.nav button {  
+  	margin-left: 30px;  
+	margin-top: 20px;  
+ 	width: 100px;  
+  }  
+
+
+/* 게시글 분류 전체(div) 스타일 */
+.nav { 
+ 	margin-left: 100px; 
+ 	margin-bottom: 50px; 
+ } 
+
+/* 게시물 전체 감싸는 태그 */
+.row {
+	text-align: center;
+	margin-bottom: 50px;
+	cursor: pointer;
+}
+
+/* 검색 전체 div태그 스타일 */
+.search {
+	text-align: center;
+	width: 100%;
+	height: 100px;
+}
+
+/* 검색창 스타일 */
+.search_input {
+	width: 300px;
+	height: 30px;
+	font-size: 18px;
+	border: 1px solid #ccc;
+	margin-top: 10px;
+/* 	border-bottom: 1px black solid; */
+}
+
+/* 검색창 버튼 스타일 */
+.search_btn {
+	font-size: 18px;
+	border: none;
+	background-color: green;
+	width: 50px;
+	height: 30px;
+	border-radius: 15px;
+	color: #fff;
+	cursor: pointer;
+}
+
+/* 검색아이콘 이미지 */
+.search_icon {
+	width: 20px;
+	height: 20px;
+	margin-bottom: 3px;
+	color: white;
+}
+
+/* 검색창 스타일 */
+input {
+	width: 100%;
+	border: 1px solid #bbb;
+	border-radius: 8px;
+	font-size: 14px;
+}
+
+</style>
+
+
+
+
+
+
+
     <script>
         var IMP = window.IMP; 
         IMP.init("imp42576077"); // 가맹점 식별코드
@@ -27,29 +255,50 @@
                 buyer_name : $("input[name=userName]").val(),
                 buyer_tel : $("input[name=userPhone]").val(),
                 buyer_addr : $('input[name=userAddr]').val()+" "+$('input[name=userDetailaddr]').val(),
-                buyer_addr2 :$('input[name=userDetailaddr]').val(),
+
                 buyer_postcode : $("input[name=userPostcode]").val()
-            }, function (rsp) { // callback
+            }, function (rsp) { 
                 if (rsp.success) {
                     console.log(rsp);
                     
-                //결제완료하고 값보내기
-                    // AJAX 요청으로 결제 정보를 컨트롤러로 전송
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "http://localhost:8888/goods/complete", true);
-                    xhr.setRequestHeader("Content-Type", "application/json");
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState === 4 && xhr.status === 200) {
-                            // 요청 완료 후에 수행할 작업
-                            console.log(xhr.responseText);
-                        }
-                    };
-                    var data = {
-                        merchant_uid: rsp.merchant_uid,
-                        status: rsp.status,
-                        imp_uid: rsp.imp_uid
-                    };
-                    xhr.send(JSON.stringify(data));                
+                    var form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = './complete';
+
+
+                    
+
+                    var prodCountInput = document.createElement('input');
+                    prodCountInput.type = 'hidden';
+                    prodCountInput.name = 'prodCount';
+                    prodCountInput.value = ${prodCount};
+                    
+                    var totalPriceInput = document.createElement('input');
+                    totalPriceInput.type = 'hidden';
+                    totalPriceInput.name = 'totalPrice';
+                    totalPriceInput.value = ${prodCount * product.prodPrice};
+
+                    var totalPriceInput = document.createElement('input');
+                    totalPriceInput.type = 'hidden';
+                    totalPriceInput.name = 'totalPrice';
+                    totalPriceInput.value = ${prodCount * product.prodPrice};
+                    
+                    var totalPriceInput = document.createElement('input');
+                    totalPriceInput.type = 'hidden';
+                    totalPriceInput.name = 'totalPrice';
+                    totalPriceInput.value = ${prodCount * product.prodPrice};
+                    
+        
+
+                    form.appendChild(prodCountInput);
+                    form.appendChild(totalPriceInput);
+                  
+
+
+
+                    document.body.appendChild(form);
+                    form.submit(); 
+                    
                     
                 } else {
                     console.log(rsp);
@@ -120,8 +369,32 @@
     }
 </script>	
 
+<style>
+.formleft{
+	float : left;
+	width: 50%;
+	height: 700px;
+}
+.formright{
+	float : right;
+	width: 50%;
+	height: 700px;
+}
+.line{
+	width: 100%;
+	border-top: 1px solid;
+}
+.content{
+	width: 1100px;
+	margin: 10%;
+}
 
 
+</style>
+	
+<div class="content">
+	<div class="content_form"> 
+	<div class="formleft">
       <div class="textForm">
       	<label>수령인</label>
       	<input name="userName" id="userName" type="text" class="userName" value = "${info.userName }">
@@ -159,9 +432,17 @@
       	<label>총가격</label>
       	<input name="totalprice" disabled id="totalprice" type="text" class="totalprice" value = " ${prodCount * product.prodPrice}">
       </div>
+	</div>
+	
+	<div class="formright">
+	
+	
+	</div>
+	</div>
+<div class="line">
+</div>
 
-
-
+<div>
 ${info.userName }
 ${info.userNo }
 이메일:${info.userEmail }
@@ -175,8 +456,9 @@ ${product.prodName }
 개수${prodCount}
 가격${product.prodPrice }
 총 가격: ${prodCount * product.prodPrice}원
+</div>
 
+ </div>
 <button onclick="requestPay()">결제하기</button> 
- 
  
 <c:import url="../layout/footer.jsp"/> 
