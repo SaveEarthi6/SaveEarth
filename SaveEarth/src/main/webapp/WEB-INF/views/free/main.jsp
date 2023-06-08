@@ -278,7 +278,7 @@ location.href="?freeHead=" + freeHead
 	        placeholder="검색어를 입력해주세요" value=${keyword }>
 	        <button class="search_btn" style="margin-bottom: 3px;"><i class="bi bi-search"></i></button>
 	    </div>
-	</form>
+	</form>	
 </div>
 
 <input type="hidden" name="freeHead" value="${freeHead }">

@@ -186,6 +186,8 @@ public interface FreeService {
 	 */
 //	public Paging getPagingByFreeHead(int curPage, String freeHead);
 
+	
+
 
 	
 	

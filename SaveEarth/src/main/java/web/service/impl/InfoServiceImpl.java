@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import web.controller.AdminController;
 import web.dao.face.InfoDao;
+import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Info;
 import web.dto.InfoFile;
@@ -56,6 +57,12 @@ public class InfoServiceImpl implements InfoService {
 		
 		
 	}
+
+	@Override
+	public List<Free> getTopRecommend(int count) {
+		return infoDao.getTopFreeRecommend(count);
+	}
+	
 	
 	@Override
 	public void infoWrite(int adminNo, Info info, List<MultipartFile> files, MultipartFile thumb) {
@@ -69,6 +76,7 @@ public class InfoServiceImpl implements InfoService {
 		infoDao.insertInfo(info);
 		
 		//파일이 없을 때 파일 삽입하는 메소드 처리되지 않도록 
+
 
 		//썸네일
 		if(thumb.getSize() <= 0) {
