@@ -310,10 +310,16 @@ public class AdminController {
 		Paging paging = adminService.getPaging(curPage);
 		
 		//첫 로드시 상품 불러오기
-		List<Product> prodList = adminService.getproductList(paging);
+//		List<Product> prodList = adminService.getproductList(paging);
+		List<Map<String, Object>> prodList = adminService.getProductList(paging);
 		
 		
-		for(Product c : prodList) {
+		System.out.println("prodList" + prodList);
+//		for(Product c : prodList) {
+//			logger.info("{}", c);
+//		}
+		
+		for(Map c : prodList) {
 			logger.info("{}", c);
 		}
 		

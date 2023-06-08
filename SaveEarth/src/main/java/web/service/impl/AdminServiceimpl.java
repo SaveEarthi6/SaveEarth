@@ -351,17 +351,18 @@ public void campDelete(Campaign campaign) {
 	
 }
 
-@Override
-public List<Product> getproductList(Paging paging) {
-	   System.out.println("서비스 임플 페이징"+ paging);
-	   
-	   return adminDao.selectProdList(paging);
-}
+//@Override
+//public List<Product> getproductList(Paging paging) {
+//	   System.out.println("서비스 임플 페이징"+ paging);
+//	   
+//	   return adminDao.selectProdList(paging);
+//}
 
 @Override
 public void productnWrite(Product product, List<MultipartFile> files, Admin memberInfo) {
 
      product.setAdminNo(memberInfo.getAdminNo());
+//     product.setProdNo(1);
 
      
      System.out.println("서비스임플 product :" + product);
@@ -421,7 +422,8 @@ public void productnWrite(Product product, List<MultipartFile> files, Admin memb
          ProductFile productFile = new ProductFile();
          
          
-         productFile.setProdFileNo(product.getProdNo());
+         productFile.setProdNo(product.getProdNo());
+         System.out.println("product 테스트"+product.getProdNo());
          productFile.setProdOriginName(files.get(i).getOriginalFilename());
          productFile.setProdStroedName(storedName);
          System.out.println("productfile임"+productFile);
@@ -441,6 +443,14 @@ public void productnWrite(Product product, List<MultipartFile> files, Admin memb
 		System.out.println("서비스임플 굿즈삭제 prodNo : " + prodNo);
 		adminDao.deleteGoods(prodNo);
 	}
+
+	@Override
+	public List<Map<String, Object>> getProductList(Paging paging) {
+		System.out.println(paging);
+		
+		return adminDao.selectProductList(paging);
+	}
+
 	
    
 }

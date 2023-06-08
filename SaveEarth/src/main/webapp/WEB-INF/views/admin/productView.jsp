@@ -105,18 +105,6 @@ $(function(){
 </script>
     
 
-
-
-
-
-
-
-
-
-
-
-
-
 <style>
         #product > .view > .info > div {
             float: left;

@@ -12,12 +12,15 @@
 			<c:forEach var="campaign" items="${campList }" begin="0" end="2">
 			<div id="camp" class="col">
 			<a href="./detail?campno=${campaign.CAMP_NO }" id="campTag">
+				
 				<c:if test="${campaign.CAMP_STORED_NAME ne null }">
 					<div><img alt="" src="/upload/${campaign.CAMP_STORED_NAME }" style="width: 400px; height: 300px;"></div>
 				</c:if>
+				
 				<c:if test="${campaign.CAMP_STORED_NAME eq null }">
 					<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
 				</c:if>
+				
 				<div id="campTitle">
 					<span id="titleTag">[${campaign.CAMP_STATE }]</span>
 					<span id="title">${campaign.CAMP_TITLE }</span>

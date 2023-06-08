@@ -23,7 +23,6 @@ public interface AdminDao {
 
    public int selectCntAll();
 
-   public List<Map<String, Object>> selectList(Paging paging);
 
    public void updateHit(Free freeBoard);
 
@@ -102,7 +101,7 @@ public interface AdminDao {
    public void deleteCam(Campaign campNo);
 
    
-   public List<Product> selectProdList(Paging paging);
+//   public List<Product> selectProdList(Paging paging);
 
    public void insertProductFile(ProductFile productFile);
 
@@ -113,6 +112,17 @@ public interface AdminDao {
     * @param prodNo - 굿즈게시판 번호
     */
    public void deleteGoods(Product prodNo);
+
+   /**
+    * 쇼핑몰 리스트로 보여주기
+    * @param paging
+    * @return
+    */
+   public List<Map<String, Object>> selectProductList(Paging paging);
+
+   public List<Map<String, Object>> selectList(Paging paging);
+
+
 
 
 }
