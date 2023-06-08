@@ -65,6 +65,7 @@ public class AdminController {
          return "redirect:/admin/free";
       } else {
          session.invalidate();
+         model.addAttribute("msg", "실패");
          return "redirect:/admin/login";
       }
 
