@@ -198,7 +198,7 @@ input {
 
 
 <div>
-	<form action="localhost:8888/info/search?keyword=${keyword }" method="get">
+	<form action="/info/search?keyword=${keyword }" method="get">
 	    <div class="search">
 	        <input type="text" name="keyword" class="search_input"
 	        placeholder="검색어를 입력해주세요" value=${keyword }>

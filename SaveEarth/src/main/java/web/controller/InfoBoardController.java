@@ -66,7 +66,7 @@ public class InfoBoardController {
 	}
 
 	//검색기능
-	@RequestMapping("/search")
+	@GetMapping("/search")
 	public void searchKeyword(Model model,@RequestParam(value = "curPage", defaultValue = "1") int curPage, String keyword) {
 		
 		logger.info("/info/search");
