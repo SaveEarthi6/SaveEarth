@@ -86,9 +86,6 @@ public interface InfoDao {
 	public void deleteThumb(int infoNo);
 
 
-
-	public List<Free> getTopFreeRecommend(int count);
-
 	/**
 	 * 썸네일 삭제 후 리스트 조회
 	 * @param infoNo - 게시글 번호
@@ -108,7 +105,6 @@ public interface InfoDao {
 	 * @return - 파일 삭제 후 리스트
 	 */
 	public List<InfoFile> selectFileByInfoNo(int infoNo);
-	
 	/**
 	 * 자유게시판 추천수 TOP인 게시글 10개 조회 
 	 * 

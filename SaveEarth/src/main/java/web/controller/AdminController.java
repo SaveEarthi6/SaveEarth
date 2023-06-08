@@ -133,11 +133,8 @@ public class AdminController {
       model.addAttribute("freeFile", freeFile);
 
    }
-<<<<<<< HEAD
 //
-=======
 
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
    // 관리자 페이지(자유게시판 글쓰기)
    @GetMapping("/freeWrite")
    public void write(HttpSession session, Model model) {
