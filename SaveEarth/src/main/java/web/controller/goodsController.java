@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.servlet.ModelAndView;
 
 import web.dto.Cart;
 import web.dto.Member;
@@ -93,8 +94,8 @@ public class goodsController {
 		System.out.println(result);
 		return result;
 	}
-	//장바구니 리스트 보여주기(2023-06-04일단 리스트 가져오기까지)
-	//( 카트랑 상품,상품파일 3개 조인 where 유저넘버=세션유저넘버) 이용해서 가져와야함
+
+	
 	@GetMapping("/cart")
 	public String getCart(HttpSession session, Model model) {
 		int userNo=(int)session.getAttribute("loginNo");
@@ -228,6 +229,30 @@ public class goodsController {
 	
 	@PostMapping("/detailbuy")
 	public void detailbuy() {
+		
+	}
+	
+	@RequestMapping("/payment")
+	public void payment(HttpServletRequest request) {
+		logger.info("/goods/payment [GET]");
+		logger.info("{}", request.getAttribute("val"));
+		
+		goodsService.paymentTest(request);
+		
+	}
+	
+	@RequestMapping("/cartAmount")
+	public String cartAmount(@RequestParam Map<String, Object> param, Model model, HttpSession session) {
+		logger.info("/cartAmount [POST]");
+		logger.info("{}", param);
+		
+		goodsService.updateAmount(param);
+		
+		List<Map<String, Object>> cartList = goodsService.getcartList((int)session.getAttribute("loginNo"));
+		logger.info("asdsaadsd{}", cartList);
+		model.addAttribute("cartList", cartList);
+		
+		return "/goods/cartList";
 		
 	}
 

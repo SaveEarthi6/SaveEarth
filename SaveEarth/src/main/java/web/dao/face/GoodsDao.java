@@ -37,4 +37,6 @@ public interface GoodsDao {
 
 	public List<Order> selectOrderList(int userNo);
 
+	public void updateAmount(Map<String, Object> param);
+
 }

@@ -3,6 +3,8 @@ package web.service.face;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import web.dto.Cart;
 import web.dto.Order;
 import web.dto.ProdOption;
@@ -82,6 +84,20 @@ public interface GoodsService {
 	 * @return 회원의 주문목록 리스트
 	 */
 	public List<Order> orderList(int userNo);
+
+	/**
+	 * 일치하는 cartNo의 수량 변경
+	 * 
+	 * @param param - cartNo과 변경할 수량
+	 */
+	public void updateAmount(Map<String, Object> param);
+
+	/**
+	 * 결제 테스트
+	 * 
+	 * @param request
+	 */
+	public void paymentTest(HttpServletRequest request);
 
 	
 	

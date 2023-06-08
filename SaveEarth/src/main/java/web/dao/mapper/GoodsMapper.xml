@@ -92,4 +92,10 @@
 		WHERE user_no = #{userNo}
 	</select>
 	
+	<update id="updateAmount" parameterType="map">
+		UPDATE cart
+		SET prod_count = #{prodCount}
+		WHERE cart_no = #{cartNo}
+	</update>
+	
 </mapper>
