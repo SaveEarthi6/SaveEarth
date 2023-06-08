@@ -28,11 +28,16 @@
 
   </select>
   
-  <select id= "getTopFreeRecommend" resultType="web.dto.Free">
-	   select * from(
-	   select * from free
-	  order by recommend desc
-	  )
+  <!-- 자유게시판 추천수 BEST 조회 -->
+  <select id= "getTopFreeRecommend" resultType="map" parameterType="int">
+	   SELECT * FROM(
+      SELECT (SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) user_id, F.* FROM (
+         SELECT
+         *
+         FROM free
+         ORDER BY recommend desc, free_no DESC
+      ) F
+    )
   </select>
   
   <!-- 게시글 상세 조회 -->
@@ -130,5 +135,32 @@
 </delete>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 자유게시판 추천수 BEST 상세조회 -->
+<select id="selectInfoByfreeNo" parameterType="int" resultType="map">
+	SELECT * FROM free WHERE free_no = #{freeNo}
+</select>
 
   </mapper>

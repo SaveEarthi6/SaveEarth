@@ -176,7 +176,12 @@ location.href="?freeHead=" + freeHead
 
 			<tr>
 				<td>${free.FREE_NO }</td>
-				<td>${free.FREE_HEAD}</td>
+				<td>
+					<c:if test="${free.FREE_HEAD eq '공지사항' }" > 
+						<img class="notice" src="../resources/img/notice.png" width= "35px;" > <!-- 공지사항 이미지 띄우게 하기 -->
+					</c:if>
+					${free.FREE_HEAD}
+				</td>
 				<td class="text-start" style="text-align:center"><a href="/admin/freeView?freeNo=${free.FREE_NO }">${free.FREE_TITLE }</a></td>
 				<c:choose>
 				<c:when test="${free.USER_ID != null }">

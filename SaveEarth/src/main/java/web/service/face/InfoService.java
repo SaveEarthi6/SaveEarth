@@ -33,7 +33,7 @@ public interface InfoService {
 	 * @param count
 	 * @return
 	 */
-	public List<Free> getTopRecommend(int count);
+	public List<Map<String, Object>> getTopRecommend(int count);
 	
 	
 	 /**
@@ -73,6 +73,14 @@ public interface InfoService {
 		 * @param infoNo - 게시글 번호
 		 */
 		public void deleteInfo(int infoNo);
+		
+		/**
+		 * 자유게시판 번호와 일치하는 게시글 내용 가져오기
+		 * 
+		 * @param freeNo - 자유게시판 번호
+		 * @return - 게시글 번호 일치하는 게시글 내용
+		 */
+		public List<Map<String, Object>> getfreeTopDetail(int freeNo);
 
 
 }

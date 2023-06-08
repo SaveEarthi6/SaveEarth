@@ -110,6 +110,8 @@ public interface AdminService {
     */
    public void productnWrite(Product product, List<MultipartFile> files, Admin memberInfo);
 
+public void updateFree(Free freeBoard, List<MultipartFile> files, List<FreeFile> freeFile);
+
 
    
 

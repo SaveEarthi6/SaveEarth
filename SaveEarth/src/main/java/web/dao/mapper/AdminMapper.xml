@@ -201,7 +201,10 @@ SELECT * FROM (
       	VALUES ( prod_files_no_seq.nextval, #{prodNo}, #{prodOriginName}, #{prodStroedName})
    </insert>
 
-
-   
-
+	
+	<update id="updateBoard" parameterType="web.dto.Free">
+  	UPDATE free SET
+	free_title = #{freeTitle}, free_content = #{freeContent}, free_head = #{freeHead}, free_modify = CURRENT_DATE 
+	WHERE free_no = #{freeNo}
+	</update>
 </mapper>
