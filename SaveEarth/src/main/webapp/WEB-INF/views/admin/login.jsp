@@ -122,6 +122,14 @@ button {
 }
 </style>
 
+<script>
+
+$(function(){
+	if("${msg}"=="실패") alert("아이디/비밀번호 다시")
+})	
+
+</script>
+
 
 <html>
 <head>
