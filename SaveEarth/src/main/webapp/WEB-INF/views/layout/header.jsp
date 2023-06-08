@@ -110,13 +110,23 @@ body {
 .lefttop {
 	position : absolute;
 	top: 50px;
-	right:150px
+	right:250px
 }
 .righttop{
 	position: absolute;
 	top: 50px;
-	right: 18px;
+	right: 117px;
 }
+
+.top {
+	position: absolute;
+	top: 50px;
+	right: 22px;
+	
+}
+
+a{ text-decoration: none; } /* 링크텍스트에 밑줄없앰 */
+button{ cursor: pointer; } /* 모든 버튼에 마우스손모양 처리 */
 
 </style>
 
@@ -128,19 +138,18 @@ body {
 <div id="header">
 	<div id="wrap">
 	<a href="../saveearth/main"><img id="logo" src="../../resources/img/logo2.png"></a>
-	<a href="/goods/cart">장바구니</a>
 	<c:if test="${empty isLogin }">
 <div>
 	<a href="/member/login" class="lefttop">로그인</a>
-	
-	
 	<a href="/admin/login"	class="righttop">관리자 로그인 </a>
+	<a href="/goods/cart" class="top">장바구니</a>
 </div>	
 	</c:if>
 	<c:if test="${not empty isLogin and isLogin }">
 	<div>
 	<a href="/member/logout" class="lefttop">로그아웃</a>
 	<a href="/mypage/update" class="righttop">마이페이지</a>
+	<a href="/goods/cart" class="top">장바구니</a>
 	</div>
 	</c:if>
 	</div>

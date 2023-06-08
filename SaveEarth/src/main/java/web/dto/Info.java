@@ -21,6 +21,7 @@ public class Info {
 				+ infoContent + ", infoUpload=" + infoUpload + ", infoState=" + infoState + "]";
 	}
 
+
 	public Info(int infoNo, int adminNo, String infoTitle, String infoContent, Date infoUpload, String infoState) {
 		super();
 		this.infoNo = infoNo;
@@ -31,41 +32,51 @@ public class Info {
 		this.infoState = infoState;
 	}
 
+
 	public int getInfoNo() {
 		return infoNo;
 	}
+
 
 	public void setInfoNo(int infoNo) {
 		this.infoNo = infoNo;
 	}
 
+
 	public int getAdminNo() {
 		return adminNo;
 	}
+
 
 	public void setAdminNo(int adminNo) {
 		this.adminNo = adminNo;
 	}
 
+
 	public String getInfoTitle() {
 		return infoTitle;
 	}
+
 
 	public void setInfoTitle(String infoTitle) {
 		this.infoTitle = infoTitle;
 	}
 
+
 	public String getInfoContent() {
 		return infoContent;
 	}
+
 
 	public void setInfoContent(String infoContent) {
 		this.infoContent = infoContent;
 	}
 
+
 	public Date getInfoUpload() {
 		return infoUpload;
 	}
+
 
 	public void setInfoUpload(Date infoUpload) {
 		this.infoUpload = infoUpload;

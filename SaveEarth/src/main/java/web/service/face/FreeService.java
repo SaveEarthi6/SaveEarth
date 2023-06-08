@@ -31,8 +31,16 @@ public interface FreeService {
 	public void freeWrite(Free free, List<MultipartFile> files, Member memberInfo);
 
 	/**
-	 * 게시글에 페이징을 적용한다
-	 * @param curPage - 현재 페이지 번호
+	 * 페이징
+	 * @param curPage - 현재 페이지
+	 * @param freeHead - 말머리글
+	 * @return - 페이징 객체
+	 */
+	public Paging getPagingHead(int curPage, String freeHead);
+	
+	/**
+	 * 페이징
+	 * @param curPage - 현재 페이지
 	 * @return - 페이징 객체
 	 */
 	public Paging getPaging(int curPage);
@@ -176,7 +184,8 @@ public interface FreeService {
 	 * @param freeHead - 말머리글
 	 * @return - 페이징 객체
 	 */
-	public Paging getPagingByFreeHead(int curPage, String freeHead);
+//	public Paging getPagingByFreeHead(int curPage, String freeHead);
+
 	
 
 

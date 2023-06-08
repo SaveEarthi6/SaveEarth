@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Free;
+import web.dto.FreeComment;
 import web.dto.FreeFile;
 import web.dto.Member;
 import web.dto.Recommend;
@@ -38,33 +39,33 @@ public class FreeBoardController {
 	MemberService memberService;
 
 	@GetMapping("/free/main")
-	public void free(Model model, @RequestParam(value = "curPage", defaultValue = "1") int curPage, String freeHead) {
+	public void free(Model model, @RequestParam(value = "curPage", defaultValue = "1") int curPage, String freeHead, HttpSession session) {
 		
 		logger.info("/free/main [GET]");
 		logger.info("freeHead{}", freeHead);
 		
-		//말머리글 있을 때
-//		Paging paging1 = freeService.getPagingByFreeHead(curPage,freeHead);
 		
-		//전체나 말머리글 없을 때
-//		Paging paging2 = freeService.getPaging(curPage);
+		//페이징(말머리글 필터링)
+		Paging paging = freeService.getPagingHead(curPage, freeHead);
 		
-		Paging paging = freeService.getPaging(curPage);
-		
-		//페이징
 			
 		//페이징을 적용한 리스트 보여주기(userno을 기준으로 join)
 		List<Map<String,Object>> list = freeService.list(paging, freeHead);
-		model.addAttribute("list", list);
-		model.addAttribute("freeHead", freeHead);
+		
+		String loginId = (String) session.getAttribute("loginId");
+		
 		logger.info("list {}", list);
-		logger.info("freeController paging1 {}", paging);
-			
+		logger.info("freeController paging {} ", paging);
+		logger.info("loginId {} ", loginId);
+		
 		for(Map m : list) {
 			logger.info(" list {} ", m);
 		}
 			
+		model.addAttribute("list", list);
+		model.addAttribute("freeHead", freeHead);
 		model.addAttribute("paging", paging);
+		model.addAttribute("loginId", loginId);
 		
 		//jsp에서 쓰기 위해서는 map의 컬럼명과 동일하게 해주어야 한다
 		
@@ -246,12 +247,10 @@ public class FreeBoardController {
 		
 		model.addAttribute("commList", commList);
 		
-//		return "/free/viewList";
-		
 	}
 			
 	@GetMapping("/free/commdelete")
-	public void commdelete(@RequestParam("commNo") int commNo) {
+	public void commdelete(@RequestParam("commNo") int commNo, @RequestParam("freeNo") int freeNo, Model model) {
 		
 		logger.info("commNo {}", commNo);
 		
@@ -259,7 +258,11 @@ public class FreeBoardController {
 		freeService.deleteComm(commNo);
 		
 		//삭제한 댓글 리스트를 다시 조회
+		List<Map<String, Object>> commList = freeService.getCommentByFreeNo(freeNo);
 		
+		logger.info("commList {}", commList);
+		
+		model.addAttribute("commList", commList);
 		
 	}
 
@@ -318,6 +321,6 @@ public class FreeBoardController {
 		model.addAttribute("freeFile", freeFile);
 		
 	}
-	
+
 	
 }

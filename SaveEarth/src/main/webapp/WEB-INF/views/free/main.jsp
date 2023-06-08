@@ -123,18 +123,6 @@ select {
 <!-- 필터 기능 -->
 <script type="text/javascript">
 
-
-// function selectFilter () {
-// 	console.log("click")
-	
-// 	 console.log( $("#filter").val() )
-	   
-// 	   //curPage 초기화
-// 	   var filter = $("#filter").val();
-// 	   location.href = "?filter=" + filter
-
-	
-// }
 function selectfreeHead() {
 	
 var freeHead = $('#freeHead').val()
@@ -217,10 +205,12 @@ location.href="?freeHead=" + freeHead
       </c:choose>
 
   </select>
-  
+
 </div>
+<c:if test="${loginId != null }">
 <!-- 글쓰기 버튼 -->
 	<a href = "/free/write"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
+</c:if>
 </div>
 
 <!-- 게시판 -->
@@ -244,10 +234,35 @@ location.href="?freeHead=" + freeHead
 				<td>${free.FREE_NO }</td>
 				<td>${free.FREE_HEAD}</td>
 				<td class="text-start" style="text-align:center"><a href="/free/view?freeNo=${free.FREE_NO }">${free.FREE_TITLE }</a></td>
+				<c:choose>
+				
+				<c:when test="${free.USER_ID != null }">
 				<td>${free.USER_ID}</td>
+				</c:when>
+				
+				<c:otherwise>
+				<td>관리자</td>
+				</c:otherwise>
+				
+				</c:choose>
 				<td>${free.FREE_VIEWS }</td>
 				<td>${free.RECOMMEND}</td>
-				<td><fmt:formatDate value="${free.FREE_CREATE}" pattern="yy-MM-dd HH:mm:ss"/></td>
+				<td>
+				
+				<c:choose>
+	  			
+      			<c:when test="${free.FREE_CREATE != free.FREE_MODIFY }">
+      			<fmt:formatDate value="${free.FREE_MODIFY }"
+         		pattern="yy-MM-dd HH:mm:ss" />
+      			</c:when>
+      			
+      			<c:otherwise>
+				<fmt:formatDate value="${free.FREE_CREATE}" pattern="yy-MM-dd HH:mm:ss"/>
+				</c:otherwise>
+				
+				</c:choose>
+				
+				</td>
 			</tr>
 
 </c:forEach>

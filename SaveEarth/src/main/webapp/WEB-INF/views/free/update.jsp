@@ -138,7 +138,25 @@ $(document).ready(function() {
 </tr>
 <tr>
 	<td class="table-light">조회수</td><td>${view.FREE_VIEWS }</td>
-	<td class="table-light">작성일</td><td><fmt:formatDate value="${view.FREE_CREATE }" pattern="yy-MM-dd HH:mm:ss"/></td>
+	<td class="table-light">작성일</td>
+	<td>
+	
+	<c:choose>
+	  			
+	<c:when test="${view.FREE_CREATE != view.FREE_MODIFY }">
+	<fmt:formatDate value="${view.FREE_MODIFY }"
+    pattern="yy-MM-dd HH:mm:ss" /> 
+    </c:when> 
+
+	<c:otherwise> 
+	<fmt:formatDate value="${view.FREE_CREATE}" pattern="yy-MM-dd HH:mm:ss"/>
+	</c:otherwise>
+	
+	</c:choose> 
+	
+<%-- 	<fmt:formatDate value="${view.FREE_CREATE }" pattern="yy-MM-dd HH:mm:ss"/> --%>
+	
+	</td>
 </tr>
 
 </table>

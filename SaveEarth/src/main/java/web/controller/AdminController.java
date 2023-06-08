@@ -1,10 +1,8 @@
    package web.controller;
 
-import java.nio.file.Files;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -15,22 +13,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Admin;
-import web.dto.Calendar;
 import web.dto.Campaign;
-import web.dto.CampaignFile;
 import web.dto.Certification;
 import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Info;
 import web.dto.Member;
+import web.dto.Product;
 import web.service.face.AdminService;
 import web.service.face.CampService;
+import web.service.face.InfoService;
 import web.service.face.MemberService;
 import web.util.Paging;
 
@@ -38,10 +34,12 @@ import web.util.Paging;
 @RequestMapping("/admin")
 public class AdminController {
 
+	
    
       @Autowired AdminService adminService;
       @Autowired MemberService memberService;
       @Autowired CampService campService;
+      @Autowired InfoService infoService;
       
       private final Logger logger = LoggerFactory.getLogger(this.getClass());
    
@@ -73,8 +71,16 @@ public class AdminController {
      
    }
    
+   // 관리자 로그인 안 했을 시 페이지
+   @RequestMapping("/fail")
+	public void adminFail() {
+		logger.info("./fail");
+	}
    
-   
+   @RequestMapping("/nLogin")
+	public void FreeNologin() {
+		logger.info("./fail");
+	}
    
    
    
@@ -123,23 +129,23 @@ public class AdminController {
       model.addAttribute("freeFile", freeFile);
 
    }
-
-   // 관리자 페이지(자유게시판 글쓰기)
-   @GetMapping("/freeWrite")
-   public void write(HttpSession session, Model model) {
-      logger.info("/freeWrite [GET]");
-
-      String loginId = (String) session.getAttribute("loginId");
-      logger.info("관리자 id : {}", loginId);
-
-      Admin memberInfo = adminService.info(loginId);
-
-      logger.info("관리자 정보 : {}", memberInfo);
-
-      model.addAttribute("id", loginId);
-      model.addAttribute("memberInfo", memberInfo);
-
-   }
+//
+//   // 관리자 페이지(자유게시판 글쓰기)
+//   @GetMapping("/freeWrite")
+//   public void write(HttpSession session, Model model) {
+//      logger.info("/freeWrite [GET]");
+//
+//      String loginId = (String) session.getAttribute("loginId");
+//      logger.info("관리자 id : {}", loginId);
+//
+//      Admin memberInfo = adminService.info(loginId);
+//
+//      logger.info("관리자 정보 : {}", memberInfo);
+//
+//      model.addAttribute("id", loginId);
+//      model.addAttribute("memberInfo", memberInfo);
+//
+//   }
 
    @PostMapping("/freeWrite")
    public String writepost(HttpSession session, Free free, @RequestParam(required = false) List<MultipartFile> files,
@@ -170,8 +176,11 @@ public class AdminController {
    @RequestMapping("/freeDelete")
    public String freeDelete(Free free) {
       adminService.delete(free);
-
+      
+      System.out.println("프리안에 들어있는거 " + free);
+      
       return "redirect:./free";
+      
    }
 
    // 캠페인 게시판
@@ -276,25 +285,89 @@ public class AdminController {
 	}
    
    
+   //게시글 삭제하기
+   @RequestMapping("/camDelete")
+   public String camDelete(Campaign campNo ) {
+	   
+	   	logger.info("/campaign/campDelete [GET]");
+		logger.info("campNo : {}", campNo);
+	   
+		adminService.deleteCam(campNo);
+		
+	   return "redirect:./campaign";
+  }
+   
+   
+   
+   //관리자 페이지 쇼핑몰 리스트
+   @RequestMapping("/product")
+   public void adminProduct(HttpSession session, Model model, @RequestParam(defaultValue = "0")int curPage) {
+      System.out.println("adminProduct");
+      
+  		//상품을 불러온다
+
+		//전체글 페이징
+		Paging paging = adminService.getPaging(curPage);
+		
+		//첫 로드시 상품 불러오기
+		List<Product> prodList = adminService.getproductList(paging);
+		
+		
+		for(Product c : prodList) {
+			logger.info("{}", c);
+		}
+		
+		model.addAttribute("prodList", prodList);
+		model.addAttribute("paging", paging);	
+      
+      
+      
+      
+   }
+   
+   @GetMapping("/productWrite")
+   public void adminProductWrite(HttpSession session, Model model) {
+      System.out.println("상품목록 글쓰기 GET");
+      
+      String loginId = (String) session.getAttribute("loginId");
+      System.out.println("세션값 안에 들어있는거 : " + loginId);
+
+
+      Admin memberInfo = adminService.info(loginId);
+
+      System.out.println("맴버 인포에 들어있는거 : " + memberInfo);
+      
+      model.addAttribute("id", loginId);
+      model.addAttribute("memberInfo", memberInfo);
+      
+   }
    
    
    
    
    
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   @RequestMapping("info")
-   public void adminInfo() {
-      logger.info("Admin/info[Mapping]");
+   //관리자 페이지 상품목록 글쓰기 Post
+   @PostMapping("/productWrite")
+   public String adminProductWritePost(HttpSession session, Product product, @RequestParam(required = false) List<MultipartFile> files,
+	         Member member) {
+      System.out.println("상품목록 글쓰기 POST");
+      
+      String loginId = (String) session.getAttribute("loginId");
+
+      Admin memberInfo = adminService.info(loginId);
+
+      System.out.println("맴버인포에 들어있는거 :" + memberInfo);	
+       
+      System.out.println("product에 들어있는거 :" + product);	
+      System.out.println("files에 들어있는거 :" + files);	
+      
+       
+      product.setAdminNo(memberInfo.getAdminNo());
+       
+      adminService.productnWrite(product, files, memberInfo);
+      
+      
+      return "redirect:./free";
       
       
    }
@@ -305,6 +378,100 @@ public class AdminController {
    
    
    
+   
+   
+   
+   
+   
+   
+   
+   
+
+   //정보게시판 조회
+   @RequestMapping("/info")
+   public void adminInfo(Model model, @RequestParam(defaultValue = "0") int curPage) {
+	   
+	   logger.info("Admin/info[Mapping]");
+
+	   logger.info("curPage : {}", curPage);
+
+
+	   Paging paging = infoService.getPaging(curPage);
+
+	   //정보게시판 게시글 조회
+	   List<Map<String, Object>> infoList = infoService.getInfoList(paging);
+
+	   for(Map i : infoList) {
+		   logger.info("infoList : {}", i);
+	   }
+
+	   model.addAttribute("infoList", infoList);
+	   model.addAttribute("paging", paging);
+   
+   }   
+
+   
+   
+   @RequestMapping("/infoView") 
+   public void infoView(Model model, @RequestParam(value="infoNo") int infoNo) {
+	   logger.info("/admin/infoView");
+
+	   //정보게시판 게시글 조회(게시글 번호와 일치하는 게시글 내용)
+	   List<Map<String, Object>> info = infoService.getInfo(infoNo);
+
+	   logger.info("info {}", info);
+
+	   model.addAttribute("info", info);
+	   
+   }
+
+   
+   @GetMapping("/infoWrite")
+   public void adminInfo(HttpSession session, Model model) {
+	   logger.info("Adimn/infoWrite[GET]");
+	   
+	   String loginId = (String) session.getAttribute("loginId");
+	      logger.info("관리자 id : {}", loginId);
+
+	      Admin memberInfo = adminService.info(loginId);
+
+	      logger.info("관리자 정보 : {}", memberInfo);
+
+	      model.addAttribute("id", loginId);
+	      model.addAttribute("memberInfo", memberInfo);
+	   
+   }
+   
+   @PostMapping("/infoWrite")
+   public String adminInfoWrite(HttpSession session, Model model, Info info, @RequestParam(required = false) List<MultipartFile> files, MultipartFile thumb) {
+	   logger.info("Adimn/infoWrite[POST]");
+	   
+	   String loginId = (String) session.getAttribute("loginId");
+	   
+	   Admin adminInfo = adminService.getAdmin(loginId);
+	   logger.info("adminInfo {}" , adminInfo);
+	   logger.info("info {}" , info);
+	   logger.info("files {}" , files);
+	   
+	   
+	   int adminNo = adminInfo.getAdminNo();
+	   
+	   //정보게시판 게시글 작성
+	   infoService.infoWrite(adminNo, info, files, thumb);
+	   
+	   return "redirect:./info";
+	   
+   }
+   
+
+   @RequestMapping("/infoDelete")
+   public String adminDelete(int infoNo) {
+	   
+	   infoService.deleteInfo(infoNo);
+	   
+	   return "redirect:./info";
+	   
+   }
    
    
    

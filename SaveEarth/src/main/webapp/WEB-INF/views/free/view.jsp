@@ -117,8 +117,20 @@
       <br> <br>
       <div id="head">${view.FREE_HEAD }</div>
       작성일
-      <fmt:formatDate value="${view.FREE_CREATE }"
-         pattern="yy-MM-dd HH:mm:ss" />
+<%-- 	  <fmt:formatDate value="${view.FREE_CREATE}" pattern="yy-MM-dd HH:mm:ss"/> --%>
+
+	  <c:choose>
+	  			
+      <c:when test="${view.FREE_CREATE != view.FREE_MODIFY }">
+      <fmt:formatDate value="${view.FREE_MODIFY }"
+      pattern="yy-MM-dd HH:mm:ss" /> 
+       </c:when> 
+
+     <c:otherwise> 
+	 <fmt:formatDate value="${view.FREE_CREATE}" pattern="yy-MM-dd HH:mm:ss"/>
+  	 </c:otherwise> 
+  	 
+	 </c:choose> 
       ㅣ 조회수 ${view.FREE_VIEWS }
 
     <!-- 추천 기능 버튼 -->
@@ -176,7 +188,7 @@ $(function() {
       
       $.ajax({
           type : 'get',           // 타입 (get, post, put 등등)
-          url : 'http://localhost:8888/free/comment',  // 요청할 서버url
+          url : '/free/comment',  // 요청할 서버url
           dataType : 'html',       // 데이터 타입 (html, xml, json, text 등등)
           data : {  // 보낼 데이터 (Object , String, Array)
         	  commContent: $("#commContent").val(),
@@ -185,14 +197,13 @@ $(function() {
           }, 
           success : function(result) { // 결과 성공 콜백함수
         	  console.log(result);
-              console.log(result.length);
 				
               $(".comm").html(result);
               //값 비우기
               $("#commContent").val('');
           },
           error : function(request, status, error) { // 결과 에러 콜백함수
-               console.log(error)
+               console.log('로그인이 필요합니다!')
           }
     })
 
@@ -205,46 +216,42 @@ $(function() {
 <!-- 댓글 삭제 -->
 
 <script type="text/javascript">
-// $(function() {
-// 	   $("#commDelete").click(function() {
-// 	      console.log("test")
-// 	      console.log();
+$(function() {
+	   $(".commDelete").click(function() {
+	      console.log("test")
+	      console.log($(".commNo").index(this));
+	      
+	      var idx = $(".commDelete").index(this)
+	      var commentNo = $(".commDelete").eq(idx).attr('data-no')
+	      var freeNo = (${param.freeNo})
+	      
+	      console.log("인덱스 확인", commentNo)
+	      console.log("글번호", freeNo)
 	      
 	      //ajax start
-// 	      $.ajax({
-// 	          type : 'get',           // 타입 (get, post, put 등등)
-// 	          url : 'http://localhost:8888/free/commdelete',  // 요청할 서버url
-// 	          dataType : 'html',       // 데이터 타입 (html, xml, json, text 등등)
-// 	          data : {  // 보낼 데이터 (Object , String, Array)
-// 	        	  commNo: 1
-// 	          }, 
-// 	          success : function(result) { // 결과 성공 콜백함수
-// 	        	  console.log(result);
-// 	              console.log(result.length);
+	      $.ajax({
+	          type : 'get',           // 타입 (get, post, put 등등)
+	          url : '/free/commdelete',  // 요청할 서버url
+	          dataType : 'html',       // 데이터 타입 (html, xml, json, text 등등)
+	          data : {  // 보낼 데이터 (Object , String, Array)
+	        	  "commNo" : commentNo, 
+	        	  "freeNo" : freeNo
+	          }, 
+	          success : function(result) { // 결과 성공 콜백함수
+	              console.log("성공")
+        	  	  console.log(result);
 					
-// 	              $("#comm").html(result);
-// 	              //값 비우기
-// 	              $("#commContent").val('');
-// 	          },
-// 	          error : function(request, status, error) { // 결과 에러 콜백함수
-// 	               console.log(error)
-// 	          }
-// 	    })
+	              $(".comm").html(result);
+	          },
+	          error : function(request, status, error) { // 결과 에러 콜백함수
+	               console.log(error)
+	               console.log("실패")
+	          }
+	    })
 		//ajax end
 
-// 	   });
-// 	});
-	
-
-
-function commDelete(th) {
-// function commDelete(button) {
-	/* 자식 */
-// 	console.log( $(th).parent("#comm").children(".commNo").val() );
-	/* 자손 */
-	console.log( $(th).closest(".comm").find(".commNo").val() );
-// 	console.log( $(button).closest(".comm").find(".commNo").val() );
-}	
+	   });
+	});
 
 
 </script>
@@ -317,8 +324,7 @@ function heart(freeNo) {
 	<!-- id값은 중복되면 에러나기 때문에 c:foreach같은 반복문에서는 클래스로 지정해주어야 한다 -->
 	<input type="hidden" value="${commContent.COMM_NO }" class="commNo">
 	<!-- this는 버튼의 요소를 가져가 -->
-	<button id="commDelete" class="btn btn-danger" onclick="commDelete(this)">삭제</button>  
-<!-- 	<button id="commDelete" class="btn btn-danger" onclick="commDelete()">삭제</button>   -->
+	<button class="commDelete" data-no="${commContent.COMM_NO }">삭제</button>  
     </c:if>
 
       <hr>
@@ -327,7 +333,7 @@ function heart(freeNo) {
 
     </div> <!-- <div> comm end -->
 
-
+<c:if test="${loginId != null }">
    <!-- 댓글 -->
    <div class="card my-4">
       <h5 class="card-header" style="font-weight: bold;">댓글</h5>
@@ -339,12 +345,10 @@ function heart(freeNo) {
             <div style="padding-top: 50px;">
                <button id="enroll" type="button" class="btn btn-success">등록</button>
             </div>
-            <!-- 회원번호랑 게시글 번호도 함께 보내기 -->
-            <%--             <input type="hidden" name="userNo" value=${userInfo.userNo }> --%>
-            <%--             <input type="hidden" name="freeNo" value=${view.FREE_NO }> --%>
          </form>
       </div>
    </div>
+</c:if>
 
 </div>
 <!-- .container end -->
