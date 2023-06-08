@@ -161,6 +161,14 @@ public void updateFree(Free freeBoard, List<MultipartFile> files, List<FreeFile>
     * @return
     */
    public List<Map<String, Object>> getProductList(Paging paging);
+
+   /**
+    * 정보게시판 게시글 수정
+    * @param info - 게시글 내용
+    * @param files - 첨부파일(들)
+    * @param thumb - 썸네일 파일
+    */
+   public void updateInfo(Info info, List<MultipartFile> files, MultipartFile thumb);
 	
 
 

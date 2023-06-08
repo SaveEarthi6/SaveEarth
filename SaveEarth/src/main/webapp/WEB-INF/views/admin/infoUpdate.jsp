@@ -187,6 +187,7 @@ form {
 <div class="form-group" style= "margin-top: 50px">
 	<label class="form-label" for="title">제목</label>
 	<input type="text" id="title" name="infoTitle" class="form-control" value="${info.INFO_TITLE }">
+	<input type="hidden" id="infoNo" name="infoNo" class="form-control" value="${info.INFO_NO }">
 </div>
 
 <div class="form-group" style= "margin-top: 50px">
@@ -211,7 +212,7 @@ form {
 
 		<div id="newFile1">
 			<label class="form-label" for="files">새로운 썸네일</label>
-			<input type="file" id="file" name="files" class="form-control">
+			<input type="file" id="thumb" name="thumb" class="form-control">
 			<small>** 새로운 파일로 첨부하면 기존 파일은 삭제됩니다</small>
 		</div>
 		

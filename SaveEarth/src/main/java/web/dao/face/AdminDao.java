@@ -188,6 +188,12 @@ public interface AdminDao {
 	 * @return - 게시글 총 개수
 	 */
 	public int selectCntInfo();
+
+	/**
+	 * 게시글 내용을 수정한다
+	 * @param info - 게시글 번호를 가지고 있는 객체
+	 */
+	public void updateInfoBoard(Info info);
 	
 	
 

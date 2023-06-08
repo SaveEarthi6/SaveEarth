@@ -31,10 +31,10 @@ public class MainController {
 	
 	@GetMapping("/main") 
 	public void main(HttpSession session, Model model, @RequestParam(defaultValue = "0") int curPage ) {
-	logger.info("/saveearth/main [GET]");
+		logger.info("/saveearth/main [GET]");
 	
-	
-	
+		
+		
 	}
 	
 	

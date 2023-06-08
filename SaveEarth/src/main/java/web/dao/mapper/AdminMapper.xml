@@ -319,6 +319,12 @@ SELECT * FROM (
 	free_title = #{freeTitle}, free_content = #{freeContent}, free_head = #{freeHead}, free_modify = CURRENT_DATE 
 	WHERE free_no = #{freeNo}
 	</update>
-	
+
+<!-- 정보게시판 게시글 내용 수정 -->	
+<update id="updateInfoBoard" parameterType="web.dto.Info">
+  	UPDATE info SET
+	info_title = #{infoTitle}, info_content = #{infoContent}, info_state = #{infoState}, info_upload = CURRENT_DATE 
+	WHERE info_no = #{infoNo}
+</update>
 
 </mapper>
