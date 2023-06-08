@@ -410,10 +410,15 @@ $(function(){
     <input type="button" class="cart" value="장바구니" onclick="addToCart()">
                             <input type="hidden" name="prodCount" class="prodCount">
                                 <button onclick="requestPay()">결제하기</button> 
-                             <form>
-                            <input type="button" class="order" value="구매하기" onclick="detailbuy()">
+                            <form action="./detailbuy" method="post">
+                            <input type="hidden" name="prodNo" value="${goodsDetail.PROD_NO }">
+                            <input type="hidden" name="prodCount" value="">
+                            <input type="hidden" name="prodOptNo" value="">
                             
-                            </form>   
+<!--                             <input type="button" class="order" value="구매하기" > -->
+                            <button type="submit" class="order" id="signup" onclick="detailbuy()" >구매하기</button>
+                            </form>
+                              
                         </div>
                     </div>
                 </article>
@@ -456,25 +461,13 @@ $(function(){
 	 
 	function detailbuy(){
 		let prodOptNo = document.getElementById('optionSelect').value;
-        let prodno = '${goodsDetail.PROD_NO}';
+        
         let prodCount = document.getElementById('num').value;
-		let url = './detailbuy';
 		
 		
-		 // XMLHttpRequest 객체 생성
-		  let xhr = new XMLHttpRequest();
-		  
-		  // POST 요청 설정
-		  xhr.open('POST', url, true);
-		  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-		  
-		  // POST 데이터 생성
-		  let data = 'prodno=' + prodno + '&prodCount=' + prodCount + '&prodOptNo=' + prodOptNo;
-		  
-		  // 요청 전송
-		  xhr.send(data);
-		  
-
+		$('input[name=prodCount]').attr('value',prodCount);
+		$('input[name=prodOptNo]').attr('value',prodOptNo);
+	
 	} 
 </script>
 <form >

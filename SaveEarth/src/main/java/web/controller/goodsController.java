@@ -216,20 +216,31 @@ public class goodsController {
 
 	
 	
-//	@GetMapping("/detailbuy")
-//	public void detailbuy(HttpSession session,@RequestParam("prodOptNo") int prodOptNo,@RequestParam("prodno") int prodno,@RequestParam("prodCount") int prodCount, Member member) {
-//		String loginId = (String) session.getAttribute("loginId");
-//		logger.info("{}", loginId);
-//		
-//		Member info = memberService.info(loginId);
-//		logger.info("info: {}", info);
-//		
-//		
-//	}
-	
+
+
 	@PostMapping("/detailbuy")
-	public void detailbuy() {
+	public void detailbuy(HttpSession session,@RequestParam("prodNo") int prodNo, @RequestParam("prodCount") int prodCount, @RequestParam("prodOptNo") int prodOptNo,Model model) {
+		System.out.println("상품넘버확인"+prodNo);
+		System.out.println("상품갯수확인"+prodCount);
+		System.out.println("상품옵션확인"+prodOptNo);
+		//로그인 정보
+		String loginId = (String) session.getAttribute("loginId");
+		logger.info("{}", loginId);
+		Member info = memberService.info(loginId);
+		logger.info("info: {}", info);
+
+		//상품정보
+		Product product = goodsService.getProdinfo(prodNo);
+		logger.info("상품정보 :{}", product);
 		
+		//상품옵션
+		ProdOption option = goodsService.getProdopt(prodOptNo);
+		logger.info("상품옵션 :{}", option);
+		
+		model.addAttribute("info", info);
+		model.addAttribute("product", product );
+		model.addAttribute("option", option );
+		model.addAttribute("prodCount",prodCount);
 	}
 	
 	@RequestMapping("/payment")
@@ -255,5 +266,31 @@ public class goodsController {
 		return "/goods/cartList";
 		
 	}
+	
+
+	  
+
+
+	  @PostMapping("/complete")
+	  public String completePayment(HttpServletRequest request) {
+	    // 아임포트 결제 정보를 가져옵니다.
+	    String merchantUid = request.getParameter("merchant_uid");
+	    String status = request.getParameter("status");
+	    String impUid = request.getParameter("imp_uid");
+	    
+	    System.out.println(merchantUid);
+	    System.out.println(status);
+	    System.out.println(impUid);
+	    
+	    // 원하는 값으로 SQL INSERT 작업 수행
+//	    Payment payment = new Payment();
+//	    payment.setMerchantUid(merchantUid);
+//	    payment.setStatus(status);
+//	    payment.setImpUid(impUid);
+//	    paymentService.insertPayment(payment); 
+	    
+	    return "goods/paycomplete"; // 결제 완료 페이지로 이동
+	  }
+	
 
 }

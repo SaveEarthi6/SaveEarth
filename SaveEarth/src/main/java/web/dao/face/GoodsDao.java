@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import web.dto.Cart;
 import web.dto.Order;
+import web.dto.ProdOption;
 import web.dto.Product;
 import web.util.Paging;
 
@@ -25,7 +27,7 @@ public interface GoodsDao {
 	public int existCart(Cart cart);
 
 	public void updateCart(Cart cart);
-
+ 
 
 	public List<Map<String, Object>> getOption(int prodno);
 
@@ -36,6 +38,12 @@ public interface GoodsDao {
 	public void deleteCartAll(int userNo);
 
 	public List<Order> selectOrderList(int userNo);
+
+	public Product getProdinfo(int prodNo);
+
+	public ProdOption getProdopt(int prodOptNo);
+
+
 
 	public void updateAmount(Map<String, Object> param);
 

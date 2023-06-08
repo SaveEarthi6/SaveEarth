@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -126,7 +127,6 @@ input {
 }
 
 
-
 #info {
     width: 225px;
     text-align: center;
@@ -135,6 +135,19 @@ input {
     margin-right: 10px;
     margin-bottom: 65px;
 
+/* 초기화 버튼 스타일 */
+.search_reset {
+	font-size: 18px;
+	border: none;
+	background-color: green;
+	width: 80px;
+	height: 30px;
+	border-radius: 15px;
+	color: #fff;
+	cursor: pointer;
+	vertical-align: middle;
+}
+
 </style>
 
 
@@ -142,8 +155,7 @@ input {
 
 function selectInfo() {
 	console.log("test")
-	document.getElementById('info').className = 'btn btn-success'
-// 	location.href='./main'
+	location.href='./main'
 }
 
 </script>
@@ -164,7 +176,7 @@ function selectInfo() {
 </c:if>
 
 <div class="nav">
-<button type="button" class="btn btn-outline-success" id="infobtn" onclick="selectInfo()">정보</button>
+<button type="button" class="btn btn-success" id="infobtn" onclick="selectInfo()">정보</button>
 <button type="button" class="btn btn-outline-success" id="freebtn">자유</button>
 </div>
 
@@ -197,14 +209,21 @@ function selectInfo() {
 
 
 <div>
-	<form action="/info/search?keyword=${keyword }" method="get">
+	<form action="/info/searchInfo?keyword=${keyword }" method="get">
 	    <div class="search">
 	        <input type="text" name="keyword" class="search_input"
 	        placeholder="검색어를 입력해주세요" value=${keyword }>
 	        <button class="search_btn" style="margin-bottom: 3px;"><i class="bi bi-search"></i></button>
 	    </div>
 	</form>
+	
+	<div class="search">
+		<a href="/info/main"><button class="search_reset btn btn-success" style="margin-bottom: 3px;">초기화</button></a>
+	</div>
+	
 </div>
+
+
 
 
 <div>
@@ -257,7 +276,7 @@ function selectInfo() {
 		<li class="page-item"><a href="./search?curPage=${paging.startPage + paging.pageCount }&keyword=${keyword }" class="page-link">&raquo;</a></li>
 	</c:when>
 	<c:when test="${paging.endPage eq paging.totalPage }">
-		<li class="page-item disabled"><a class="page-link" href="./main?curPage=${paging.totalPage }&keyword=${keyword }">&raquo;</a></li>
+		<li class="page-item disabled"><a class="page-link" href="./search?curPage=${paging.totalPage }&keyword=${keyword }">&raquo;</a></li>
 	</c:when>
 	</c:choose>
 

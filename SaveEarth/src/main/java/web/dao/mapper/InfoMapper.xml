@@ -16,7 +16,7 @@
   
   	SELECT * FROM (
 	    	SELECT rownum rnum, INFO.* FROM (
-	        	SELECT I.*, F.info_origin_name, F.info_stored_name, T.thumb_origin_name, T.thumb_stored_name
+	        	SELECT I.*, F.info_origin_name, F.info_stored_name, F.info_file_no, T.thumb_no, T.thumb_origin_name, T.thumb_stored_name
                 FROM info I LEFT OUTER JOIN info_file F
                 ON I.info_no = F.info_no 
                 LEFT OUTER JOIN info_thumbnail T
@@ -25,21 +25,37 @@
 	    	) INFO
 		) 
 		WHERE rnum BETWEEN #{startNo} AND #{endNo}
+		ORDER BY info_no desc
 
   </select>
   
-<!-- 게시글 상세 조회 -->
+  <!-- 자유게시판 추천수 BEST 조회 -->
+  <select id= "getTopFreeRecommend" resultType="map" parameterType="int">
+	   SELECT * FROM(
+      SELECT (SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) user_id, F.* FROM (
+         SELECT
+         *
+         FROM free
+         ORDER BY recommend desc, free_no DESC
+      ) F
+    )
+  </select>
+  
+  <!-- 게시글 상세 조회 -->
   <select id="selectInfoByInfoNo" resultType="map" parameterType="int">
   
-	SELECT * FROM (
-	    	SELECT rownum rnum, INFO.* FROM (
-	        	SELECT I.*, F.info_origin_name, F.info_stored_name
+  	SELECT * FROM (
+	    	SELECT INFO.* FROM (
+	        	SELECT I.*, F.info_origin_name, F.info_stored_name, T.thumb_origin_name, T.thumb_stored_name
                 FROM info I LEFT OUTER JOIN info_file F
                 ON I.info_no = F.info_no 
+                LEFT OUTER JOIN info_thumbnail T
+                ON I.info_no = T.info_no
                 ORDER BY I.info_no DESC
 	    	) INFO
 		) 
 		WHERE info_no = #{infoNo}
+		ORDER BY info_no desc
 
   </select>
   
@@ -72,6 +88,8 @@
 	VALUES ( info_file_seq.nextval, #{infoNo}, #{infoOriginName}, #{infoStroedName})
  
  </insert>  
+  
+  
   
   
 <!-- 검색어와 일치하는 총 게시글 수 조회 -->
@@ -120,6 +138,47 @@
 	WHERE info_no = #{infoNo}
 </delete>
 
+<select id="selectThumbByInfoNo" parameterType="int" resultType="map">
+	SELECT * FROM info_thumbnail
+	WHERE info_no = #{infoNo}
+</select>
 
+<!-- 게시글 수정 -->
+<delete id="deleteFile" parameterType="int">
+	DELETE info_file
+	WHERE info_file_no = #{infoFileNo}
+</delete>
+
+<select id="selectFileByInfoNo" parameterType="int" resultType="web.dto.InfoFile">
+	SELECT * FROM info_file
+	WHERE info_no = #{infoNo}
+</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 자유게시판 추천수 BEST 상세조회 -->
+<select id="selectInfoByfreeNo" parameterType="int" resultType="map">
+	SELECT * FROM free WHERE free_no = #{freeNo}
+</select>
 
   </mapper>

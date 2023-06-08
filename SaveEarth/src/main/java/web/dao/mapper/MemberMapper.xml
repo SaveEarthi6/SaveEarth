@@ -23,7 +23,7 @@
 
    <update id="updateUser" parameterType="web.dto.Member" >
       UPDATE member
-         SET user_id=#{userId}, user_pw=#{userPw}, user_name=#{userName}, user_nick=#{userNick}, user_email=#{userEmail}, user_postcode=#{userPostcode}, user_addr=#{userAddr}, user_phone=#{userPhone}, user_detailaddr=#{userDetailaddr} 
+         SET user_id=#{userId}, user_pw=#{userPw}, user_name=#{userName}, user_nick=#{userNick},  user_postcode=#{userPostcode}, user_addr=#{userAddr}, user_phone=#{userPhone}, user_detailaddr=#{userDetailaddr} 
          
       WHERE user_id = #{userId} 
    </update>

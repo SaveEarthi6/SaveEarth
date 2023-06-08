@@ -226,12 +226,8 @@ public class FreeBoardController {
 		
 	}
 
-//	@ResponseBody
 	@GetMapping("/free/comment")
-//	public List<Map<String,Object>> commentCheck(@RequestParam("commContent") String commContent, @RequestParam("freeNo") int freeNo, @RequestParam("userNo") int userNo) {
 	public void viewList(@RequestParam("commContent") String commContent, @RequestParam("freeNo") int freeNo, @RequestParam("userNo") int userNo, Model model) {
-//	public int commentCheck(@RequestParam("commContent") String commContent, @RequestParam("freeNo") int freeNo, @RequestParam("userNo") int userNo) {
-//	public String commentCheck(@RequestParam("freeNo") int freeNo) {
 		
 		logger.info("commContent {}", commContent);
 		logger.info("freeNo {}", freeNo);

@@ -24,6 +24,9 @@ import web.dto.CampaignFile;
 import web.dto.Certification;
 import web.dto.Free;
 import web.dto.FreeFile;
+import web.dto.Info;
+import web.dto.InfoFile;
+import web.dto.InfoThumbnail;
 import web.dto.Member;
 import web.dto.Product;
 import web.dto.ProductFile;
@@ -338,10 +341,7 @@ public class AdminServiceimpl implements AdminService {
 		return adminDao.selectAdmin(loginId);
 	}
    
-//   @Override
-//	public void deleteCam(int campNo) {
-//		adminDao.deleteCam(campNo);
-//	}
+
    @Override
 	public void deleteCam(Campaign campNo) {
 	   adminDao.deleteCam(campNo);
@@ -354,17 +354,18 @@ public void campDelete(Campaign campaign) {
 	
 }
 
-@Override
-public List<Product> getproductList(Paging paging) {
-	   System.out.println("서비스 임플 페이징"+ paging);
-	   
-	   return adminDao.selectProdList(paging);
-}
+//@Override
+//public List<Product> getproductList(Paging paging) {
+//	   System.out.println("서비스 임플 페이징"+ paging);
+//	   
+//	   return adminDao.selectProdList(paging);
+//}
 
 @Override
 public void productnWrite(Product product, List<MultipartFile> files, Admin memberInfo) {
 
      product.setAdminNo(memberInfo.getAdminNo());
+//     product.setProdNo(1);
 
      
      System.out.println("서비스임플 product :" + product);
@@ -424,10 +425,11 @@ public void productnWrite(Product product, List<MultipartFile> files, Admin memb
          ProductFile productFile = new ProductFile();
          
          
-         productFile.setProdFileNo(product.getProdNo());
+         productFile.setProdNo(product.getProdNo());
+         System.out.println("product 테스트"+product.getProdNo());
          productFile.setProdOriginName(files.get(i).getOriginalFilename());
          productFile.setProdStroedName(storedName);
-         System.out.println(productFile);
+         System.out.println("productfile임"+productFile);
          
          upfiles.add(productFile);
 
@@ -438,5 +440,277 @@ public void productnWrite(Product product, List<MultipartFile> files, Admin memb
       }
       
    }
+
+@Override
+public void infoWrite(int adminNo, Info info, List<MultipartFile> files, MultipartFile thumb) {
+	
+	info.setAdminNo(adminNo);
+	
+	logger.info("info {}", info);
+	logger.info("files {}", files);
+	
+	
+	adminDao.insertInfo(info);
+	
+	//파일이 없을 때 파일 삽입하는 메소드 처리되지 않도록 
+
+
+	//썸네일
+	if(thumb.getSize() <= 0) {
+		logger.info("0보다 작음, 처리 중단");
+		return;
+	}
+	
+	//파일이 저장될 경로 - RealPath - 톰캣 서버 배포 위치
+	String storedPath = context.getRealPath("upload");
+	logger.info("storedPath : {}", storedPath);
+	
+	//thumb폴더가 존재하지 않으면 생성한다
+	File storedFolder = new File(storedPath);
+	storedFolder.mkdir();
+	
+	File dest = null;
+	String storedName = null;
+	
+		//저장할 파일 이름 생성하기
+		storedName = thumb.getOriginalFilename();//원본 파일명
+		storedName += UUID.randomUUID().toString().split("-")[0]; //UUID추가
+		logger.info("storedName : {}", storedName);
+		
+		//실제 저장될 파일 객체
+		dest = new File(storedFolder, storedName);
+	
+	//-> 중복 이름 검증 코드 do while
+	//이름이 있으면 다시 만들어라 -> 이름이 없으면 빠져나오기
+	
+	try {
+		
+		//업로드된 파일을 thumb폴더에 저장하기
+		//여기서 저장
+		thumb.transferTo(dest);
+	} catch (IllegalStateException | IOException e) {
+		e.printStackTrace();
+	}
+	
+	//-------------------------------------------------
+	
+	//DB에 기록할 정보 객체
+	
+	//첨부한 파일 삽입(파일 정보)
+	InfoThumbnail thumbnail = new InfoThumbnail();
+	
+	thumbnail.setInfoNo(info.getInfoNo());
+	thumbnail.setThumbOriginName(thumb.getOriginalFilename());
+	thumbnail.setThumbStoredName(storedName);
+	logger.info("thumbnail : {}", thumbnail );
+	
+	adminDao.insertinfoThumb(thumbnail);
+	
+	
+	//================================================
+	
+	
+	//(첨부파일(들))
+	for(MultipartFile m : files) {
+		if(m.getSize() <= 0) {
+			logger.info("0보다 작음, 처리 중단");
+			return;
+		}
+	}
+	
+	
+	List<InfoFile> upfiles= new ArrayList<>();
+	
+	//파일이 저장될 경로 - RealPath - 톰캣 서버 배포 위치
+	String storedPath1 = context.getRealPath("upload");
+	logger.info("storedPath1 : {}", storedPath1);
+	
+	//upload폴더가 존재하지 않으면 생성한다
+	File storedFolder1 = new File(storedPath1);
+	storedFolder1.mkdir();
+	
+	for(int i=0 ; i < files.size() ; i++) {
+		
+	File dest1 = null;
+	String storedName1 = null;
+	
+		//저장할 파일 이름 생성하기
+		storedName1 = files.get(i).getOriginalFilename();//원본 파일명
+		storedName1 += UUID.randomUUID().toString().split("-")[0]; //UUID추가
+		logger.info("storedName1 : {}", storedName1);
+		
+		//실제 저장될 파일 객체
+		dest1 = new File(storedFolder1, storedName1);
+	
+	//-> 중복 이름 검증 코드 do while
+	//이름이 있으면 다시 만들어라 -> 이름이 없으면 빠져나오기
+	
+	try {
+		
+		//업로드된 파일을 upload폴더에 저장하기
+		//여기서 저장
+		files.get(i).transferTo(dest1);
+	} catch (IllegalStateException | IOException e) {
+		e.printStackTrace();
+	}
+	
+	//-------------------------------------------------
+	
+	//DB에 기록할 정보 객체
+	
+	//첨부한 파일 삽입(파일 정보)
+	InfoFile infoFiles = new InfoFile();
+	
+	infoFiles.setInfoNo(info.getInfoNo());
+	infoFiles.setInfoOriginName(files.get(i).getOriginalFilename());;
+	infoFiles.setInfoStroedName(storedName1);
+	logger.info("infoFiles : {}", infoFiles );
+	
+	upfiles.add(infoFiles);
+	
+	}
+	
+	for( InfoFile e : upfiles) {
+		adminDao.insertInfoFile(e);
+	}
+	
+}
+
+	@Override
+	public void deleteInfo(int infoNo) {
+	
+		adminDao.deleteThumb(infoNo);
+		adminDao.deleteInfoFile(infoNo);
+		adminDao.deleteInfo(infoNo);
+	
+	}
+	
+	@Override
+	public List<Map<String, Object>> getInfo(int infoNo) {
+		
+		logger.info("infoServiceImpl getInfo()");
+		
+		return adminDao.selectInfoByInfoNo(infoNo);
+	
+	}
+
+
+ @Override
+	public void updateFree(Free freeBoard, List<MultipartFile> files, List<FreeFile> freeFile) {
+		
+	 	adminDao.updateBoard(freeBoard);
+	 	
+	 	//파일이 없을 때 파일 삽입하는 메소드 처리되지 않도록 
+		
+		for(MultipartFile m : files) {
+			if(m.getSize() <= 0 ) {
+				logger.info("0보다 작음, 처리 중단");
+				return;
+			}
+		}
+		
+		
+		List<FreeFile> upfiles = new ArrayList<>();
+		//파일이 저장될 경로 - RealPath - 톰캣 서버 배포 위치
+			String storedPath = context.getRealPath("upload");
+			logger.info("storedPath : {}", storedPath);
+			
+			//upload폴더가 존재하지 않으면 생성한다
+			File storedFolder = new File(storedPath);
+			storedFolder.mkdir();
+			
+			for(int i=0 ; i< files.size() ; i++) {
+				
+			File dest = null;
+			String storedName = null;
+			
+				//저장할 파일 이름 생성하기
+				storedName = files.get(i).getOriginalFilename();//원본 파일명
+				storedName += UUID.randomUUID().toString().split("-")[0]; //UUID추가
+				logger.info("storedName : {}", storedName);
+				
+				//실제 저장될 파일 객체
+				dest = new File(storedFolder, storedName);
+			
+			//-> 중복 이름 검증 코드 do while
+			//이름이 있으면 다시 만들어라 -> 이름이 없으면 빠져나오기
+			
+			try {
+				
+				//업로드된 파일을 upload폴더에 저장하기
+				//여기서 저장
+				files.get(i).transferTo(dest);
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+			}
+			
+			//-------------------------------------------------
+			
+			//DB에 기록할 정보 객체
+			
+			//첨부한 파일 삽입(파일 정보)
+			FreeFile freeFiles = new FreeFile();
+			
+			freeFiles.setFreeNo(freeBoard.getFreeNo());
+			freeFiles.setFreeOriginName(files.get(i).getOriginalFilename());
+			freeFiles.setFreeStoredName(storedName);
+			//여기서 에러
+//				freeFiles.setFreeFileNo(freeFile.get(i).getFreeFileNo());
+			logger.info("freeFiles : {}", freeFiles );
+			
+			upfiles.add(freeFiles);
+			
+			}
+			
+			//기존에 첨부되어있는 파일을 삭제한다
+			adminDao.deleteFile(freeBoard);
+			
+			//새로 첨부된 파일들을 저장한다
+			for( FreeFile e : upfiles) {
+				adminDao.insertFreeFile(e);
+			}
+				
+				
+			}
+ 
+ 
+	@Override
+	public void deleteGoods(Product prodNo) {
+		System.out.println("서비스임플 굿즈삭제 prodNo : " + prodNo);
+		adminDao.deleteGoods(prodNo);
+	}
+
+	@Override
+	public List<Map<String, Object>> getProductList(Paging paging) {
+		System.out.println(paging);
+		
+		return adminDao.selectProductList(paging);
+	}
+
+
    
+	@Override
+	public List<Map<String, Object>> getInfoList(Paging paging) {
+		
+		logger.info("adminServiceImpl getInfoList()");
+		
+		return adminDao.selectInfoList(paging);
+	}
+	
+	@Override
+	public Paging getInfoPaging(int curPage) {
+		
+		int totalCount = adminDao.selectCntInfo();
+		
+		logger.info("AdminServiceImpl getInfoPaging {}", totalCount);
+		
+		//한 페이지 당 보여질 게시글 수 listCount를 3으로 설정
+		//파라미터 순서....
+		Paging paging = new Paging(totalCount, curPage, 3);
+		
+		logger.info("AdminServiceImpl paging {}", paging);
+		
+		return paging;
+	}
+	
 }

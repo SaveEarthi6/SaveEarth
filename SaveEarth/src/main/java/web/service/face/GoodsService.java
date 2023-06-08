@@ -99,6 +99,20 @@ public interface GoodsService {
 	 */
 	public void paymentTest(HttpServletRequest request);
 
+	/**
+	 * 바로구매 상품정보 가져오기
+	 * @param prodNo
+	 * @return
+	 */
+	public Product getProdinfo(int prodNo);
+
+	/**
+	 * 바로구매 상품옵션 가져오기
+	 * @param prodOptNo
+	 * @return
+	 */
+	public ProdOption getProdopt(int prodOptNo);
+
 	
 	
 }
