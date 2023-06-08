@@ -63,10 +63,41 @@
 	
 	</select>
 	
-	<delete id="deleteCart" parameterType="map">
+	<delete id="deleteCartBySelect" parameterType="map">
 		DELETE FROM cart
 		WHERE user_no = #{userNo} AND cart_no = #{cartNo}
 	</delete>
+	
+	<delete id="deleteCartAll" parameterType="int">
+		DELETE FROM cart
+		WHERE user_no = #{userNo}
+	</delete>
+	
+	<insert id="insertOrder" parameterType="web.dto.Order">
+		{CALL
+			BEGIN
+				INSERT INTO ordertb (order_no, user_no, order_rec, order_addr_postcode, order_addr, order_addr_detail, order_phone, order_price)
+				VALUES (#{orderNo}, #{userNo}, #{orderRec}, #{orderAddrPostcode}, #{orderAddr}, #{orderAddrDetail}, #{orderPhone}, #{orderPrice});
+				
+				INSERT INTO order_detail
+					SELECT order_detail_seq.nextval, #{orderNo}, prod_no, cart_no, prod_opt_no
+					FROM cart
+					WHERE user_no = #{userNo};
+			END
+		}
+	</insert>
+	
+	<select id="selectOrderList" parameterType="int" resultType="web.dto.Order">
+		SELECT * FROM ordertb
+		WHERE user_no = #{userNo}
+	</select>
+	
+	<update id="updateAmount" parameterType="map">
+		UPDATE cart
+		SET prod_count = #{prodCount}
+		WHERE cart_no = #{cartNo}
+	</update>
+	
 	
 	
 	<select id="getProdinfo" parameterType="int" resultType="web.dto.Product">
