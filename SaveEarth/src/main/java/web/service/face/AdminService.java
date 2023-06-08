@@ -100,7 +100,7 @@ public interface AdminService {
     * @param paging
     * @return
     */
-   public List<Product> getproductList(Paging paging);
+//   public List<Product> getproductList(Paging paging);
 
    /**
     * 관리자 페이지 - 굿즈샵 상품등록
@@ -122,14 +122,59 @@ public interface AdminService {
 	 */
    public void updateCamp(Campaign campaign, List<MultipartFile> files, List<CampaignFile> campFile);
    
-
+   /**
+    * 관리자 페이지에서 정보게시판 글 작성
+    * @param adminNo - 관리자 번호
+    * @param info - 작성한 게시글 내용
+    * @param files - 첨부한 파일 정보
+    * @param thumb - 첨부한 썸네일 정보
+    */
+   public void infoWrite(int adminNo, Info info, List<MultipartFile> files, MultipartFile thumb);
    
+   /**
+    * 
+    * @param infoNo
+    */
+   public void deleteInfo(int infoNo);
+
+   /**
+	 * 게시글 번호와 일치하는 게시글 내용 가져오기
+	 * @param infoNo - 게시글 번호
+	 * @return - 게시글 번호 일치하는 게시글 내용
+	 */
+   public List<Map<String, Object>> getInfo(int infoNo);
    
+   /**
+    * 정보게시판 게시글 조회
+    * @param paging - 페이징 객체
+    * @return - 정보게시판 게시글
+    */
+   public List<Map<String, Object>> getInfoList(Paging paging);
+   
+   /**
+    * 정보게시판 게시글 총 개수 조회
+    * @param curPage - 현재 페이지
+    * @return - 페이징 객체
+    */
+   public Paging getInfoPaging(int curPage);
 
 
-   
+public void updateFree(Free freeBoard, List<MultipartFile> files, List<FreeFile> freeFile);
 
-   
+   /**
+    * 굿즈 게시판 상품 삭제 
+    * @param prodNo - 상품번호
+    */
+   public void deleteGoods(Product prodNo);
+
+   /**
+    * 리스트로 보여주기
+    * @param paging
+    * @return
+    */
+   public List<Map<String, Object>> getProductList(Paging paging);
+	
+
 
    
 

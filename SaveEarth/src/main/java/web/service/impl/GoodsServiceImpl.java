@@ -98,6 +98,18 @@ public class GoodsServiceImpl implements GoodsService {
 		return goodsDao.getOption(prodno);
 	}
 
+	@Override
+	public Product getProdinfo(int prodNo) {
+		
+		return goodsDao.getProdinfo(prodNo);
+	}
+	
+	@Override
+	public ProdOption getProdopt(int prodOptNo) {
+		
+		return goodsDao.getProdopt(prodOptNo);
+	}
+
 
 
 }

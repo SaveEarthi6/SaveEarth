@@ -26,10 +26,13 @@ import web.dto.Certification;
 import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Info;
+import web.dto.InfoFile;
+import web.dto.InfoThumbnail;
 import web.dto.Member;
 import web.dto.Product;
 import web.service.face.AdminService;
 import web.service.face.CampService;
+import web.service.face.FreeService;
 import web.service.face.InfoService;
 import web.service.face.MemberService;
 import web.util.Paging;
@@ -46,6 +49,7 @@ public class AdminController {
 	CampService campService;
 	@Autowired
 	InfoService infoService;
+	@Autowired FreeService freeService;
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -72,6 +76,7 @@ public class AdminController {
 			return "redirect:/admin/free";
 		} else {
 			session.invalidate();
+			model.addAttribute("msg", "실패");
 			return "redirect:/admin/login";
 		}
 
@@ -422,63 +427,150 @@ public class AdminController {
 
 	}
 
-	@RequestMapping("/infoView")
-	public void infoView(Model model, @RequestParam(value = "infoNo") int infoNo) {
-		logger.info("/admin/infoView");
+	   @RequestMapping("/infoView") 
+	   public void infoView(Model model, @RequestParam(value="infoNo") int infoNo) {
+		   logger.info("/admin/infoView");
 
-		// 정보게시판 게시글 조회(게시글 번호와 일치하는 게시글 내용)
-		List<Map<String, Object>> info = infoService.getInfo(infoNo);
+		   //정보게시판 게시글 조회(게시글 번호와 일치하는 게시글 내용)
+		   List<Map<String, Object>> info = infoService.getInfo(infoNo);
 
-		logger.info("info {}", info);
+		   logger.info("info {}", info);
 
-		model.addAttribute("info", info);
+		   model.addAttribute("info", info);
+		   
+	   }
 
-	}
+	   
+	   @GetMapping("/infoWrite")
+	   public void adminInfo(HttpSession session, Model model) {
+		   logger.info("Adimn/infoWrite[GET]");
+		   
+		   String loginId = (String) session.getAttribute("loginId");
+		      logger.info("관리자 id : {}", loginId);
 
-	@GetMapping("/infoWrite")
-	public void adminInfo(HttpSession session, Model model) {
-		logger.info("Adimn/infoWrite[GET]");
+		      Admin memberInfo = adminService.info(loginId);
 
-		String loginId = (String) session.getAttribute("loginId");
-		logger.info("관리자 id : {}", loginId);
+		      logger.info("관리자 정보 : {}", memberInfo);
 
-		Admin memberInfo = adminService.info(loginId);
+		      model.addAttribute("id", loginId);
+		      model.addAttribute("memberInfo", memberInfo);
+		   
+	   }
+	   
+	   @PostMapping("/infoWrite")
+	   public String adminInfoWrite(HttpSession session, Model model, Info info, @RequestParam(required = false) List<MultipartFile> files, MultipartFile thumb) {
+		   logger.info("Adimn/infoWrite[POST]");
+		   
+		   String loginId = (String) session.getAttribute("loginId");
+		   
+		   Admin adminInfo = adminService.getAdmin(loginId);
+		   logger.info("adminInfo {}" , adminInfo);
+		   logger.info("info {}" , info);
+		   logger.info("files {}" , files);
+		   
+		   
+		   int adminNo = adminInfo.getAdminNo();
+		   
+		   //정보게시판 게시글 작성
+		   adminService.infoWrite(adminNo, info, files, thumb);
+		   
+		   return "redirect:./info";
+		   
+	   }
+	   
 
-		logger.info("관리자 정보 : {}", memberInfo);
+	   @RequestMapping("/infoDelete")
+	   public String adminDelete(int infoNo) {
+		   
+		   adminService.deleteInfo(infoNo);
+		   
+		   return "redirect:./info";
+		   
+	   }
 
-		model.addAttribute("id", loginId);
-		model.addAttribute("memberInfo", memberInfo);
+		   
+		   @GetMapping("/infoUpdate")
+		   public void update(Model model, @RequestParam(value="infoNo") int infoNo, HttpSession session) {
+			   
+			   logger.info("/admin/infoUpdate");
+			   
+			   String loginId = (String) session.getAttribute("loginId");
+			   logger.info("관리자 id : {}", loginId);
 
-	}
+			   Admin memberInfo = adminService.info(loginId);
+			   
+			   //정보게시판 게시글 조회(게시글 번호와 일치하는 게시글 내용)
+			   List<Map<String, Object>> info = adminService.getInfo(infoNo);
 
-	@PostMapping("/infoWrite")
-	public String adminInfoWrite(HttpSession session, Model model, Info info,
-			@RequestParam(required = false) List<MultipartFile> files, MultipartFile thumb) {
-		logger.info("Adimn/infoWrite[POST]");
-
-		String loginId = (String) session.getAttribute("loginId");
-
-		Admin adminInfo = adminService.getAdmin(loginId);
-		logger.info("adminInfo {}", adminInfo);
-		logger.info("info {}", info);
-		logger.info("files {}", files);
-
-		int adminNo = adminInfo.getAdminNo();
-
-		// 정보게시판 게시글 작성
-		infoService.infoWrite(adminNo, info, files, thumb);
-
-		return "redirect:./info";
-
-	}
-
-	@RequestMapping("/infoDelete")
-	public String adminDelete(int infoNo) {
-
-		infoService.deleteInfo(infoNo);
-
-		return "redirect:./info";
-
-	}
-
-}
+			   logger.info("infoUpdate info {}", info);
+			   
+			   model.addAttribute("info", info);
+			   model.addAttribute("memberInfo", memberInfo);
+			   
+		   }
+		   
+		   @PostMapping("/infoUpdate")
+		   public void updateProc(Model model, Info info, @RequestParam(required = false) List<MultipartFile> infoFiles,@RequestParam(required = false)  MultipartFile thumb) {
+			   
+			   logger.info("/admin/infoUpdate [post]");
+			  
+			   logger.info("info {}", info);
+			   logger.info("infoFiles {}", infoFiles);
+			   logger.info("thumb {}", thumb);
+			   
+			   //게시글 내용 + 파일 수정
+			   infoService.updateInfo(info, infoFiles, thumb);
+			   
+			   logger.info("infoUpdate info {}", info);
+			   
+			   model.addAttribute("info", info);
+			   
+		   }
+		   
+		   
+		   
+		   
+		   
+		   
+		   
+		   
+		   
+		   
+		   
+		   
+		   
+		   
+		   
+		   
+		   
+		   
+		   //공지사항 수정
+		   @GetMapping("/noticeUpdate")
+		   public void noticeUpdate (Model model, Free freeBoard, HttpSession session ) {
+			   
+			   logger.info("admin/noticeUpdate {GET}");
+			   
+			   //수정 할 게시판 조회 (공지사항)
+			   Map<String, Object> view = adminService.getView(freeBoard);
+			   
+			   //수정할 파일 정보 조회
+			   List <FreeFile> freeFile = adminService.getFreeFile(freeBoard);
+			   
+			   model.addAttribute("view", view);
+			   model.addAttribute("freeFile", freeFile);
+			   
+		   }
+		   
+		   @PostMapping("/noticeUpdate") 
+		   public String updateNotice (Model model, Free freeBoard, @RequestParam(required = false) List<MultipartFile> files) {
+			   
+			   List<FreeFile> freeFile = adminService.getFreeFile(freeBoard);
+			   
+			   adminService.updateFree(freeBoard,files,freeFile);
+			   
+			   return "redirect:/admin/free";
+		   
+		   
+		   }
+		   
+		}

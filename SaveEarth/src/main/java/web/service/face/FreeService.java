@@ -178,13 +178,9 @@ public interface FreeService {
 	 */
 	public Paging getPagingByKeyword(int curPage, String keyword, String freeHead);
 
-	/**
-	 * 말머리글 필터링 했을 때 페이징
-	 * @param curPage - 현재 페이지 번호 (기본 1)
-	 * @param freeHead - 말머리글
-	 * @return - 페이징 객체
-	 */
-//	public Paging getPagingByFreeHead(int curPage, String freeHead);
+
+
+	
 
 
 	
