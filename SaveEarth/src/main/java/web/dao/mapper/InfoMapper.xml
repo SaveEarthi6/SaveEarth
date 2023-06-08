@@ -29,7 +29,14 @@
 
   </select>
   
-<!-- 게시글 상세 조회 -->
+  <select id= "getTopFreeRecommend" resultType="web.dto.Free">
+	   select * from(
+	   select * from free
+	  order by recommend desc
+	  )
+  </select>
+  
+  <!-- 게시글 상세 조회 -->
   <select id="selectInfoByInfoNo" resultType="map" parameterType="int">
   
 	SELECT * FROM (
@@ -73,6 +80,8 @@
 	VALUES ( info_file_seq.nextval, #{infoNo}, #{infoOriginName}, #{infoStroedName})
  
  </insert>  
+  
+  
   
   
 <!-- 검색어와 일치하는 총 게시글 수 조회 -->

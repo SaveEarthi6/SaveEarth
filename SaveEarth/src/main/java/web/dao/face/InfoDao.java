@@ -3,6 +3,9 @@ package web.dao.face;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
+import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Info;
 import web.dto.InfoFile;
@@ -10,6 +13,7 @@ import web.dto.InfoThumbnail;
 import web.util.Paging;
 
 public interface InfoDao {
+
 
 	/**
 	 * 총 게시글 수를 조회한다
@@ -83,6 +87,8 @@ public interface InfoDao {
 
 
 
+
+	public List<Free> getTopFreeRecommend(int count);
 	
 
 }

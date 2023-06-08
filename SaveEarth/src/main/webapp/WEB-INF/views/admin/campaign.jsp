@@ -123,9 +123,9 @@ $(document).ready(function() {
       location.href = "/admin/campagign"
    })
    
-   $("#btnDelete").click(function() {
-      location.href = "./campaignDelete?campNo=${view.CAMP_NO}"
-   })
+//    $("#btnDelete").click(function() {
+//       location.href = "./campaignDelete?campNo=${view.CAMP_NO}"
+//    })
 })
 </script>
 
@@ -162,7 +162,7 @@ $(document).ready(function() {
             <td>${camp.campState }</td>
             <td class="text-start" style="text-align:center"><a href="/campaign/detail?campno=${camp.campNo }">${camp.campTitle }</a></td>
             <td><fmt:formatDate value="${camp.campEnroll}" pattern="yy-MM-dd HH:mm:ss"/></td>
-            <td><a href="./campaign"> <button id="btnDelete" class="btn btn-danger">삭제</button></td> </a>
+            <td><a href = "./camDelete?campNo=${camp.campNo}"><button id="btnDelete" class="btn btn-danger">삭제</button></a></td>
          </tr>
 </c:forEach>
 <!-- </form> -->

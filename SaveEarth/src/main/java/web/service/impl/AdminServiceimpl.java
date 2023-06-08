@@ -24,8 +24,9 @@ import web.dto.CampaignFile;
 import web.dto.Certification;
 import web.dto.Free;
 import web.dto.FreeFile;
-import web.dto.Info;
 import web.dto.Member;
+import web.dto.Product;
+import web.dto.ProductFile;
 import web.service.face.AdminService;
 import web.service.face.MemberService;
 import web.util.Paging;
@@ -337,7 +338,105 @@ public class AdminServiceimpl implements AdminService {
 		return adminDao.selectAdmin(loginId);
 	}
    
-	public void deleteCam(int campFileNo, int campNo) {
-	   
+//   @Override
+//	public void deleteCam(int campNo) {
+//		adminDao.deleteCam(campNo);
+//	}
+   @Override
+	public void deleteCam(Campaign campNo) {
+	   adminDao.deleteCam(campNo);
+		
 	}
+
+@Override
+public void campDelete(Campaign campaign) {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public List<Product> getproductList(Paging paging) {
+	   System.out.println("서비스 임플 페이징"+ paging);
+	   
+	   return adminDao.selectProdList(paging);
+}
+
+@Override
+public void productnWrite(Product product, List<MultipartFile> files, Admin memberInfo) {
+
+     product.setAdminNo(memberInfo.getAdminNo());
+
+     
+     System.out.println("서비스임플 product :" + product);
+     System.out.println("서비스 임플 files :" + files);
+      
+     adminDao.insertProduct(product);
+      logger.info("서비스 임플 파일 사이즈 {}", files.get(0).getSize());
+
+      // 파일이 없을 때 파일 삽입하는 메소드 처리되지 않도록
+      for (MultipartFile m : files) {
+         if (m.getSize() <= 0) {
+            logger.info("0보다 작음, 처리 중단");
+            return;
+         }
+      }
+
+      List<ProductFile> upfiles = new ArrayList<>();
+
+      // 파일이 저장될 경로 - RealPath - 톰캣 서버 배포 위치
+      String storedPath = context.getRealPath("upload");
+      logger.info("storedPath : {}", storedPath);
+
+      // upload폴더가 존재하지 않으면 생성한다
+      File storedFolder = new File(storedPath);
+      storedFolder.mkdir();
+
+      for (int i = 0; i < files.size(); i++) {
+
+         File dest = null;
+         String storedName = null;
+
+         // 저장할 파일 이름 생성하기
+         storedName = files.get(i).getOriginalFilename();// 원본 파일명
+         storedName += UUID.randomUUID().toString().split("-")[0]; // UUID추가
+         logger.info("storedName : {}", storedName);
+
+         // 실제 저장될 파일 객체
+         dest = new File(storedFolder, storedName);
+
+         // -> 중복 이름 검증 코드 do while
+         // 이름이 있으면 다시 만들어라 -> 이름이 없으면 빠져나오기
+
+         try {
+
+            // 업로드된 파일을 upload폴더에 저장하기
+            // 여기서 저장
+            files.get(i).transferTo(dest);
+         } catch (IllegalStateException | IOException e) {
+            e.printStackTrace();
+         }
+
+         // -------------------------------------------------
+
+         // DB에 기록할 정보 객체
+
+         // 첨부한 파일 삽입(파일 정보)
+         ProductFile productFile = new ProductFile();
+         
+         
+         productFile.setProdFileNo(product.getProdNo());
+         productFile.setProdOriginName(files.get(i).getOriginalFilename());
+         productFile.setProdStroedName(storedName);
+         System.out.println(productFile);
+         
+         upfiles.add(productFile);
+
+      }
+
+      for (ProductFile e : upfiles) {
+         adminDao.insertProductFile(e);
+      }
+      
+   }
+   
 }
