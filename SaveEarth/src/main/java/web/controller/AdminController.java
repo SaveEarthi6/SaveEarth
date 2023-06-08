@@ -129,23 +129,23 @@ public class AdminController {
       model.addAttribute("freeFile", freeFile);
 
    }
-//
-//   // 관리자 페이지(자유게시판 글쓰기)
-//   @GetMapping("/freeWrite")
-//   public void write(HttpSession session, Model model) {
-//      logger.info("/freeWrite [GET]");
-//
-//      String loginId = (String) session.getAttribute("loginId");
-//      logger.info("관리자 id : {}", loginId);
-//
-//      Admin memberInfo = adminService.info(loginId);
-//
-//      logger.info("관리자 정보 : {}", memberInfo);
-//
-//      model.addAttribute("id", loginId);
-//      model.addAttribute("memberInfo", memberInfo);
-//
-//   }
+
+   // 관리자 페이지(자유게시판 글쓰기)
+   @GetMapping("/freeWrite")
+   public void write(HttpSession session, Model model) {
+      logger.info("/freeWrite [GET]");
+
+      String loginId = (String) session.getAttribute("loginId");
+      logger.info("관리자 id : {}", loginId);
+
+      Admin memberInfo = adminService.info(loginId);
+
+      logger.info("관리자 정보 : {}", memberInfo);
+
+      model.addAttribute("id", loginId);
+      model.addAttribute("memberInfo", memberInfo);
+
+   }
 
    @PostMapping("/freeWrite")
    public String writepost(HttpSession session, Free free, @RequestParam(required = false) List<MultipartFile> files,
@@ -310,10 +310,16 @@ public class AdminController {
 		Paging paging = adminService.getPaging(curPage);
 		
 		//첫 로드시 상품 불러오기
-		List<Product> prodList = adminService.getproductList(paging);
+//		List<Product> prodList = adminService.getproductList(paging);
+		List<Map<String, Object>> prodList = adminService.getProductList(paging);
 		
 		
-		for(Product c : prodList) {
+		System.out.println("prodList" + prodList);
+//		for(Product c : prodList) {
+//			logger.info("{}", c);
+//		}
+		
+		for(Map c : prodList) {
 			logger.info("{}", c);
 		}
 		
@@ -367,9 +373,27 @@ public class AdminController {
       adminService.productnWrite(product, files, memberInfo);
       
       
-      return "redirect:./free";
+      return "redirect:./product";
       
       
+   }
+   
+   //굿즈 게시판 상품 삭제
+   @RequestMapping("/goodsDelete")
+   public String goodsDelete(Product prodNo ) {
+	   
+	   System.out.println("굿즈삭제 : goodsDelete");
+	   System.out.println("ProdNo :" + prodNo);
+	   
+	   
+		adminService.deleteGoods(prodNo);
+		
+	   return "redirect:./product";
+  }
+   
+   @RequestMapping("/productView")
+   public void productView() {
+	   System.out.println("관리자 페이지 굿즈샵 상세페이지 접속");
    }
    
 
