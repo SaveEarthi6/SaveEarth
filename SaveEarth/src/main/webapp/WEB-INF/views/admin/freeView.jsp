@@ -46,10 +46,7 @@ $(document).ready(function() {
 		location.href = "/admin/free"
 	})
 	
-	$("#btnDelete").click(function() {
-		location.href = "./freeDelete?freeNo=${view.FREE_NO}"
-	})
-})
+
 </script>
 
 
@@ -58,7 +55,15 @@ $(document).ready(function() {
 
 
 <div style= "margin-left: 1100px; padding-top: 50px; padding-bottom: 50px;">
-		<button id="btnDelete" class="btn btn-danger">삭제</button>
+
+	<c:if test="${ view.FREE_HEAD eq '공지사항'}">
+	
+		<button onclick="location.href='./noticeUpdate?freeNo=${view.FREE_NO}'"
+            id="btnUpdate" class="btn btn-success">수정</button>
+	</c:if>
+	
+		<a href = "./freeDelete?freeNo=${view.FREE_NO}"><button id="btnDelete" class="btn btn-danger">삭제</button></a>
+		
 </div>
 
 <!-- 게시글 상세 -->

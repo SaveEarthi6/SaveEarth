@@ -59,7 +59,7 @@ public class InfoServiceImpl implements InfoService {
 	}
 
 	@Override
-	public List<Free> getTopRecommend(int count) {
+	public List<Map<String, Object>> getTopRecommend(int count) {
 		return infoDao.getTopFreeRecommend(count);
 	}
 	
@@ -239,6 +239,11 @@ public class InfoServiceImpl implements InfoService {
 		infoDao.deleteInfoFile(infoNo);
 		infoDao.deleteInfo(infoNo);
 		
+	}
+	
+	@Override
+	public List<Map<String, Object>> getfreeTopDetail(int freeNo) {
+		return infoDao.selectInfoByfreeNo(freeNo);
 	}
 	
 	

@@ -26,6 +26,7 @@ import web.dto.Member;
 import web.dto.Product;
 import web.service.face.AdminService;
 import web.service.face.CampService;
+import web.service.face.FreeService;
 import web.service.face.InfoService;
 import web.service.face.MemberService;
 import web.util.Paging;
@@ -40,6 +41,7 @@ public class AdminController {
       @Autowired MemberService memberService;
       @Autowired CampService campService;
       @Autowired InfoService infoService;
+      @Autowired FreeService freeService;
       
       private final Logger logger = LoggerFactory.getLogger(this.getClass());
    
@@ -499,6 +501,56 @@ public class AdminController {
    
    
    
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   //공지사항 수정
+   @GetMapping("/noticeUpdate")
+   public void noticeUpdate (Model model, Free freeBoard, HttpSession session ) {
+	   
+	   logger.info("admin/noticeUpdate {GET}");
+	   
+	   //수정 할 게시판 조회 (공지사항)
+	   Map<String, Object> view = adminService.getView(freeBoard);
+	   
+	   //수정할 파일 정보 조회
+	   List <FreeFile> freeFile = adminService.getFreeFile(freeBoard);
+	   
+	   model.addAttribute("view", view);
+	   model.addAttribute("freeFile", freeFile);
+	   
+   }
+   
+   @PostMapping("/noticeUpdate") 
+   public String updateNotice (Model model, Free freeBoard, @RequestParam(required = false) List<MultipartFile> files) {
+	   
+	   List<FreeFile> freeFile = adminService.getFreeFile(freeBoard);
+	   
+	   adminService.updateFree(freeBoard,files,freeFile);
+	   
+	   return "redirect:/admin/free";
+   
+   
+   }
    
    
    

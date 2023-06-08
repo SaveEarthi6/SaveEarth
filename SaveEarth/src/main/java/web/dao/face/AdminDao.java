@@ -106,6 +106,13 @@ public interface AdminDao {
    public void insertProductFile(ProductFile productFile);
 
    public void insertProduct(Product product);
+   
+   /**
+    * 공지사항 수정
+    * 
+    * @param freeBoard - 수정할 게시글 정보
+    */
+   public void updateBoard(Free freeBoard);
 
    /**
     * 굿즈 게시판 삭제 

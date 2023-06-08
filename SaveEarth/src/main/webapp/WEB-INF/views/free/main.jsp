@@ -183,7 +183,7 @@ location.href="?freeHead=" + freeHead
 			<option value= "사담">사담</option>
 			<option value= "정보">정보</option>
 			<option value= "질문">질문</option>
-			<option value= "공지사항" selected>공지사항</option>
+			<option value= "공지사항" selected >공지사항</option>
 		</c:when>
 		
 		<c:when test="${freeHead eq '전체'}">
@@ -199,7 +199,7 @@ location.href="?freeHead=" + freeHead
 			<option value= "사담">사담</option>
 			<option value= "정보">정보</option>
 			<option value= "질문">질문</option>
-			<option value= "공지사항">공지사항</option>
+			<option value= "공지사항" >공지사항</option>
 		</c:otherwise>
 		
       </c:choose>
@@ -232,7 +232,16 @@ location.href="?freeHead=" + freeHead
 			<tr>
 <!-- 				map에 저장된 컬럼명과 동일하게 지정해주어야 한다 -->
 				<td>${free.FREE_NO }</td>
-				<td>${free.FREE_HEAD}</td>
+				
+				
+				<td>
+					<c:if test="${free.FREE_HEAD eq '공지사항' }" > 
+						<img class="notice" src="../resources/img/notice.png" width= "35px;" > <!-- 공지사항 이미지 띄우게 하기 -->
+					</c:if>
+					${free.FREE_HEAD}
+				</td>
+				
+				
 				<td class="text-start" style="text-align:center"><a href="/free/view?freeNo=${free.FREE_NO }">${free.FREE_TITLE }</a></td>
 				<c:choose>
 				

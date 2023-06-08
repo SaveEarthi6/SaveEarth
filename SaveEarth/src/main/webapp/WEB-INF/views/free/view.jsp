@@ -134,17 +134,24 @@
       ㅣ 조회수 ${view.FREE_VIEWS }
 
     <!-- 추천 기능 버튼 -->
-    
-    <c:if test="${chk eq false }">
-		 <img class="button" id="recommendEmpty" src="../resources/img/button_empty.png" >
-    </c:if>
-    
-    <c:if test="${chk eq true }">
-		 <img class="button" id="recommendEmpty" src="../resources/img/button_heart.png" >
-    </c:if>
-   
-
-     	 <span id="result"> ${view.RECOMMEND }</span>
+   <c:choose>
+		<c:when test="${view.FREE_HEAD eq '공지사항' }">
+		<!-- 추천수가 뜨질 않게!! 공지사항엔 추천 할 수 없습니다. -->
+     	 </c:when>
+     	 
+     	 <c:otherwise>
+			    
+			    <c:if test="${chk eq false }">
+					 <img class="button" id="recommendEmpty" src="../resources/img/button_empty.png" >
+			    </c:if>
+			    
+			    <c:if test="${chk eq true }">
+					 <img class="button" id="recommendEmpty" src="../resources/img/button_heart.png" >
+			    </c:if>
+	     	 <span id="result"> ${view.RECOMMEND }</span>
+     	 </c:otherwise>
+     	 
+   </c:choose>
 
    </div>
 
