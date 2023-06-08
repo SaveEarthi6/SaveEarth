@@ -26,11 +26,17 @@ public interface GoodsDao {
 	public int existCart(Cart cart);
 
 	public void updateCart(Cart cart);
-
+ 
 
 	public List<Map<String, Object>> getOption(int prodno);
 
 	public void deleteCart(@Param("userNo") int userNo, @Param("cartNo") String cartNo);
+
+
+	public Product getProdinfo(int prodNo);
+
+	public ProdOption getProdopt(int prodOptNo);
+
 
 
 

@@ -100,7 +100,7 @@ public interface AdminService {
     * @param paging
     * @return
     */
-   public List<Product> getproductList(Paging paging);
+//   public List<Product> getproductList(Paging paging);
 
    /**
     * 관리자 페이지 - 굿즈샵 상품등록
@@ -111,6 +111,20 @@ public interface AdminService {
    public void productnWrite(Product product, List<MultipartFile> files, Admin memberInfo);
 
 public void updateFree(Free freeBoard, List<MultipartFile> files, List<FreeFile> freeFile);
+
+   /**
+    * 굿즈 게시판 상품 삭제 
+    * @param prodNo - 상품번호
+    */
+   public void deleteGoods(Product prodNo);
+
+   /**
+    * 캠페인 리스트로 보여주기
+    * @param paging
+    * @return
+    */
+   public List<Map<String, Object>> getProductList(Paging paging);
+	
 
 
    
