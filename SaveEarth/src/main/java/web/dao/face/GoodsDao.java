@@ -26,7 +26,7 @@ public interface GoodsDao {
 	public int existCart(Cart cart);
 
 	public void updateCart(Cart cart);
-
+ 
 
 	public List<Map<String, Object>> getOption(int prodno);
 
