@@ -34,22 +34,34 @@
                     console.log(rsp);
                     
                 //결제완료하고 값보내기
-                    // AJAX 요청으로 결제 정보를 컨트롤러로 전송
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "http://localhost:8888/goods/complete", true);
-                    xhr.setRequestHeader("Content-Type", "application/json");
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState === 4 && xhr.status === 200) {
-                            // 요청 완료 후에 수행할 작업
-                            console.log(xhr.responseText);
-                        }
-                    };
-                    var data = {
-                        merchant_uid: rsp.merchant_uid,
-                        status: rsp.status,
-                        imp_uid: rsp.imp_uid
-                    };
-                    xhr.send(JSON.stringify(data));                
+                    // 결제 정보를 컨트롤러로 전송
+                    var form = document.createElement("form");
+                    form.method = "POST";
+                    form.action = "http://localhost:8888/goods/complete";
+
+                    var nameInput = document.createElement("input");
+                    nameInput.type = "hidden";
+                    nameInput.name = "name";
+                    nameInput.value = rsp.name;
+                    form.appendChild(nameInput);
+
+                    var amountInput = document.createElement("input");
+                    amountInput.type = "hidden";
+                    amountInput.name = "amount";
+                    amountInput.value = ${prodCount * product.prodPrice};
+                    form.appendChild(amountInput);
+
+                    
+                    var prodCountInput = document.createElement("input");
+                    prodCountInput.type = "hidden";
+                    prodCountInput.name = "prodCount";
+                    prodCountInput.value = ${prodCount};
+                    form.appendChild(prodCountInput);
+
+                    document.body.appendChild(form);
+                    form.submit();     
+                    
+
                     
                 } else {
                     console.log(rsp);
@@ -171,6 +183,7 @@ ${info.userDetailaddr }
 
 <br>
 ${product.prodName }
+${product.prodNo }
 <br>
 개수${prodCount}
 가격${product.prodPrice }

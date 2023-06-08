@@ -1,5 +1,6 @@
 package web.controller;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -14,10 +15,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import web.dto.Cart;
 import web.dto.Member;
@@ -208,23 +212,22 @@ public class goodsController {
 
 
 	  @PostMapping("/complete")
-	  public String completePayment(HttpServletRequest request) {
-	    // 아임포트 결제 정보를 가져옵니다.
-	    String merchantUid = request.getParameter("merchant_uid");
-	    String status = request.getParameter("status");
-	    String impUid = request.getParameter("imp_uid");
-	    
-	    System.out.println(merchantUid);
-	    System.out.println(status);
-	    System.out.println(impUid);
-	    
-	    // 원하는 값으로 SQL INSERT 작업 수행
-//	    Payment payment = new Payment();
-//	    payment.setMerchantUid(merchantUid);
-//	    payment.setStatus(status);
-//	    payment.setImpUid(impUid);
-//	    paymentService.insertPayment(payment); 
-	    
+
+	  public String completePayment(HttpServletRequest request,@RequestParam("amount") String amount) {
+		    // 전송된 데이터 가져오기
+		    String name = request.getParameter("name");
+//		    String amount = request.getParameter("amount");
+		    
+		    String prodCount = request.getParameter("prodCount");
+
+		    // 필요한 처리 수행
+		    // 예: 가져온 값들을 활용하여 결제 정보 처리 로직 작성
+		    // merchantUid, status, impUid 등을 활용하여 결제 정보를 처리할 수 있습니다.
+		    System.out.println("Name: " + name);
+		    System.out.println("Amount: " + amount);
+		    
+		    System.out.println("Product Count: " + prodCount);
+
 	    return "goods/paycomplete"; // 결제 완료 페이지로 이동
 	  }
 	
