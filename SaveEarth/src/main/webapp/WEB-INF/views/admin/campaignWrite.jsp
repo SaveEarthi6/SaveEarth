@@ -96,16 +96,17 @@ form {
 	<input type="text" id="title" name="campTitle" class="form-control">
 </div>
 
+<div>
+말머리글 <input type="text" id="campState" name="campState" class="form-control" style="width: 90px;" value="진행중">
+ </div>
+
 
 <div class="form-group mb-3" style= "margin-top: 50px">
 	<label class="form-label" for="file">첨부파일</label>
 	<input type="file" id="file" name="files" class="form-control" multiple="multiple">
 </div>
 
-<div class="form-group mb-3" style= "margin-top: 50px">
-	<label class="form-label" for="file">캠페인 상태</label>
-	<input type="text" id="file" name="campState" class="form-control" >
-</div>
+
 
 <!-- 글쓰기 작성, 취소 버튼 -->
 <div>

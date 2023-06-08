@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import web.dto.Free;
+import web.dto.FreeComment;
 import web.dto.Member;
 import web.service.face.FreeService;
 import web.service.face.MemberService;
@@ -129,6 +130,17 @@ public class MypageController {
 	@RequestMapping("/order")
 	public void mypageOrder() {
 		logger.info("/mypage/order");
+	}
+	
+	@RequestMapping("/comment")
+	public void mypagecomment(HttpSession session, Model model, FreeComment freeComment) {
+		System.out.println("마이페이지 내가 쓴 댓글 보기");
+		
+		String loginId = (String) session.getAttribute("loginId");
+		System.out.println("loginId에 들어있는거 : " + loginId);
+		
+		
+		
 	}
 
 }

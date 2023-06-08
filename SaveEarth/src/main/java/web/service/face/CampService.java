@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Calendar;
 import web.dto.Campaign;
+import web.dto.CampaignFile;
 import web.dto.Certification;
 import web.util.Paging;
 
@@ -110,5 +111,9 @@ public interface CampService {
 	 * @return 인증글 정보
 	 */
 	public Map<String, Object> getCert(int userNo, int partNo);
+
+
+
+	
 
 }
