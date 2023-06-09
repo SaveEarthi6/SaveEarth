@@ -27,6 +27,12 @@
 	
 	<dependencies>
 	
+      <dependency>
+         <groupId>com.googlecode.json-simple</groupId>
+         <artifactId>json-simple</artifactId>
+         <version>1.1.1</version>
+      </dependency>
+	
 		<!-- Jackson Databind 2.15.0 -->
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
@@ -34,6 +40,11 @@
 		    <version>2.15.0</version>
 		</dependency>
 	
+		<dependency>
+		    <groupId>com.atlassian.commonmark</groupId>
+		    <artifactId>commonmark</artifactId>
+		    <version>0.12.1</version>
+		</dependency>
 	
 		<!-- OJDBC 6 12.1.0.1 -->
 <!-- 		<dependency> -->

@@ -184,7 +184,7 @@ public class CampServiceImpl implements CampService {
 		campDao.deleteCert(partNo, partFileNo);
 	}
 	
-@Override
+	@Override
 	public Map<String, Object> getCert(int userNo, int partNo) {
 
 		return campDao.selectCert(userNo, partNo);
