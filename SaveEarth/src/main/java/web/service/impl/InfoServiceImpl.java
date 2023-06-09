@@ -188,7 +188,7 @@ public class InfoServiceImpl implements InfoService {
 		
 		infoFiles.setInfoNo(info.getInfoNo());
 		infoFiles.setInfoOriginName(files.get(i).getOriginalFilename());;
-		infoFiles.setInfoStroedName(storedName1);
+		infoFiles.setInfoStoredName(storedName1);
 		logger.info("infoFiles : {}", infoFiles );
 		
 		upfiles.add(infoFiles);
@@ -244,9 +244,9 @@ public class InfoServiceImpl implements InfoService {
 	}
 	
 	@Override
-	public void deleteThumb(int infoNo) {
+	public void deleteThumb(int thumbNo) {
 
-		infoDao.deleteThumb(infoNo);
+		infoDao.deleteThumb(thumbNo);
 		
 	}
 	
