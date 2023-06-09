@@ -9,7 +9,7 @@
 $(function() {
 	
 	//전체 선택 / 해제
-	$("#chkAll").click(function() {
+	$(document).on("click", "#chkAll", function() {
 		if($("#chkAll").is(":checked")) {
 			$("input[name=cartArr]").prop("checked", true)
 		} else {
@@ -17,7 +17,7 @@ $(function() {
 		}
 	})
 	
-	$("input[name=cartArr]").click(function() {
+	$(document).on("click", "input[name=cartArr]", function() {
 		var totalArr = $("input[name=cartArr]").length
 		var checked = $("input[name=cartArr]:checked").length
 		
@@ -71,41 +71,46 @@ $(function() {
 })
 
 
-//전체 주문
-// $(function() {
+
+$(function() {
 	
-// 	$("#btnOrderAll").click(function() {
-// 		console.log("전체주문 선택")
+	//선택 주문
+	$("#btnOrder").click(function() {
+		console.log("선택주문 선택")
 		
-// 		$("#chkAll").click()
-		
-// 		var chkArr = new Array();
-		
-// 		$("input[name=cartArr]:checked").each(function() {
-// 			chkArr.push($(this).attr("data-cartNo"))
-// 		})
-		
-// 		console.log(chkArr)
-		
-		
-// 		$.ajax({
-// 			url: "./orderAll"
-// 			, type: "post"
-// 			, data: {chbox : chkArr}
-// 			, success: function(res) {
-// 				console.log("성공")
-				
-// 			}
-// 			, error: function() {
-// 				console.log("실패")
-// 			}
+		var totalArr = $("input[name=cartArr]").length
+		var checked = $("input[name=cartArr]:checked").length
+
+		if(checked == 0) {
+			console.log("선택된 상품이 없습니다.")
+			alert("선택된 상품이 없습니다.")
+			return false;
+		} else {
 			
-// 		})
+			//전체 선택되었다면 전체주문
+			if(totalArr == checked) {
+				$("#btnOrderAll").click()
+				console.log("선택주문에서 전체주문으로 넘어감")
+				
+			  //선택 항목이 전체가 아니라면	
+			} else if(totalArr != checked) {
+				console.log("선택주문으로 넘어감")
+				
+				var chkArr = new Array();
+				
+				$("input[name=cartArr]:checked").each(function() {
+					chkArr.push($(this).attr("data-cartNo"))
+				})
+				
+				console.log(chkArr)
+				location.href="./order?cartArr=" + chkArr;
+			}
 		
-// 	})
+		}
+	})
 	
 	
-// })
+})
 
 
 
@@ -182,36 +187,11 @@ tr:hover {
 </div>
 	
 	<button type="button" id="btnDelete">선택 삭제</button>
-	<button>선택 주문</button>
-	
+	<button type="button" id="btnOrder">선택 주문</button>
 	<button type="button" id="btnOrderAll" onclick="location.href='./order'">전체 주문</button>
  
  
 <script>
- 
-//  /* JavaScript 코드 더하기 빼기 */
-// function decreaseValue() {
-// 	let inputField = document.getElementById('num');
-// 	let currentValue = parseInt(inputField.value);
-// 	if (currentValue > 1) {
-// 	    inputField.value = --currentValue;
-// 	}
-// }
-
-// function increaseValue() {
-// 	let inputField = document.getElementById('num');
-// 	let currentValue = parseInt(inputField.value);
-// 	inputField.value = ++currentValue;
-// }
-//  /* 스크립트로 상품 번호랑 갯수 넘기기 */
-// function addToCart() {
-//  	alert("장바구니 담기 완료");
-//     let prodno = '${goodsDetail.PROD_NO}';
-//     let prodCount = document.getElementById('num').value;
-//     let url = './addCart?prodno=' + prodno + '&prodCount=' + prodCount;
-//     location.href = url;
-// }   
-
  
 $(function(){
 	
@@ -220,9 +200,7 @@ $(function(){
 	var amount;
 	var cartNo;
 	
-	//수량 증가 -> EL태그 내꺼에 맞게 수정하기
-	//	-> for문을 돌고있어서 특정 상품의 값이 인식이 안됨..
-	
+	//수량 증가
 	$(document).on("click", ".increase", function() {
 		console.log("수량 증가")
 		
@@ -301,11 +279,6 @@ $(function(){
 
 })
 
-
-
-
-
- 
 </script>
 
 

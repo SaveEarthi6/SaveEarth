@@ -55,7 +55,7 @@ public class goodsController {
 		List<Map<String, Object>> prodList = goodsService.getgoodsList(paging);
 		
 		
-
+		System.out.println(prodList);
 		
 //		for(List<Map<String, Object>> c : prodList) {
 //			logger.info("{}", c);
@@ -69,22 +69,29 @@ public class goodsController {
 	}
 	
 	@RequestMapping("/detail")
-	public void prodDetail(Model model, int prodno) {
-		logger.info("/goods/detail [GET]");
-		logger.info("prodno : {}", prodno);
+	public void prodDetail(Model model, int prodno, HttpSession session) {
+//		logger.info("/goods/detail [GET]");
+//		logger.info("prodno : {}", prodno);
+		
+
 		
 		Map<String, Object> goodsDetail = goodsService.getProdDetail(prodno);
-		logger.info("{}", goodsDetail);
+//		logger.info("{}", goodsDetail);
+		System.out.println(goodsDetail);
 		
 		//옵션 가져오기
 		List<Map<String, Object>> prodOption = goodsService.getOptionList(prodno);
 		for(Map<String, Object> o : prodOption) {
-			logger.info("{}", o);
-		}		
+//			logger.info("{}", o);
+		}	
 		
+
 		
-		model.addAttribute("goodsDetail", goodsDetail);
-		model.addAttribute("prodOption", prodOption);
+			
+			model.addAttribute("goodsDetail", goodsDetail);
+			model.addAttribute("prodOption", prodOption);
+	
+		
 	}
 	
 	@ResponseBody
@@ -121,24 +128,27 @@ public class goodsController {
 		
 		int userNo=(int)session.getAttribute("loginNo");
 		System.out.println("옵션번호"+ prodOptNo);
+		
+			//유저번호
+			cart.setUserNo(userNo);
+			//수량
+			cart.setProdCount(prodCount);
+			//상품번호
+			cart.setProdNo(prodno);
+			//옵션번호
+			cart.setProdOptNo(prodOptNo);
+			
+			
+			System.out.println(cart);
+			
+			goodsService.addCart(cart);
+			
+			
+			//장바구니 담고 다시 상세페이지 창으로 돌아가
+			return "redirect:/goods/detail?prodno=" + prodno; 			
+			
+		
 
-		//유저번호
-		cart.setUserNo(userNo);
-		//수량
-		cart.setProdCount(prodCount);
-		//상품번호
-		cart.setProdNo(prodno);
-		//옵션번호
-		cart.setProdOptNo(prodOptNo);
-		
-		
-		System.out.println(cart);
-		
-		goodsService.addCart(cart);
-		
-		
-		//장바구니 담고 다시 상세페이지 창으로 돌아가
-		return "redirect:/goods/detail?prodno=" + prodno; 
 		
 	}
 	
@@ -163,28 +173,45 @@ public class goodsController {
 		
 	}
 	
-	//전체 주문하기
+	//주문하기 페이지
 	@GetMapping("/order")
-	public void orderAll(HttpSession session, Model model) {
+	public void orderAll(HttpSession session, Model model, String cartArr) {
 		logger.info("/goods/order [GET]");
+		logger.info("{}", cartArr);
 		
-		//회원정보와 일치하는 카트List 전체 출력
-		List<Map<String, Object>> cartList = goodsService.getcartList((int)session.getAttribute("loginNo"));
-		logger.info("{}", cartList);
-		
-		model.addAttribute("cartList",cartList);
-		
-		//회원 정보 불러오기
-		
-		
+		//선택 주문 장바구니 불러오기
+		if(cartArr != null) {
+			
+			String[] cartNo = cartArr.split(",");
+			
+			List<Map<String, Object>> cartList = new ArrayList<>();
+			
+			for(int i = 0; i<cartNo.length; i++) {
+				logger.info("{}", cartNo[i]);
+				
+				cartList.add(goodsService.getCartListBySelect((int)session.getAttribute("loginNo"), cartNo[i]));
+				
+			}
+			
+			model.addAttribute("cartList",cartList);
+			logger.info("{}", cartList);
+			
+		  //전체 주문 장바구니 불러오기	
+		} else if(cartArr == null) {
+			
+			//회원정보와 일치하는 카트List 전체 출력
+			List<Map<String, Object>> cartList = goodsService.getcartList((int)session.getAttribute("loginNo"));
+			logger.info("{}", cartList);
+			
+			model.addAttribute("cartList",cartList);
+		}
 		
 	}
 	
+	//주문 배송지 폼 DB 삽입
 	@PostMapping("/order")
-	public String orderinsert(HttpSession session, Order order) {
+	public void orderinsert(HttpSession session, Order order) {
 		logger.info("/goods/order [POST]");
-		
-		//주문 DB에 넣기
 		
 		//주문번호
 		Calendar cal = Calendar.getInstance();
@@ -202,8 +229,6 @@ public class goodsController {
 		
 		goodsService.deleteCart((int)session.getAttribute("loginNo"));
 		
-		return "redirect:./orderList";
-		
 	}
 	
 	//주문목록 불러오기
@@ -214,6 +239,34 @@ public class goodsController {
 		List<Order> orderList = goodsService.orderList((int)session.getAttribute("loginNo"));
 		
 		model.addAttribute("orderList", orderList);
+	}
+	
+	//선택 주문
+	@RequestMapping("/orderSelect")
+	public Model orderSelect(HttpSession session, @RequestParam("chbox[]") List<String> chArr, Model model) {
+		logger.info("/goods/orderSelect [GET]");
+		logger.info("{}", chArr);
+		logger.info("{}", session.getAttribute("loginNo"));
+		
+		// order.jsp로 model값 넘겨주기
+		
+		List<Map<String, Object>> cartList = new ArrayList<>();
+		
+		//로그인 된 상태이면
+		if(session.getAttribute("isLogin") != null) {
+			for(String cartNo : chArr) {
+//				goodsService.getCartListBySelect((int)session.getAttribute("loginNo"), cartNo);
+				cartList.add(goodsService.getCartListBySelect((int)session.getAttribute("loginNo"), cartNo));
+			}
+			
+			model.addAttribute("cartList",cartList);
+			logger.info("{}", cartList);
+			return model;
+			
+		} else {
+			return model;
+		}
+		
 	}
 	
 
@@ -247,11 +300,17 @@ public class goodsController {
 	}
 	
 	@RequestMapping("/payment")
-	public void payment(HttpServletRequest request) {
+	public void payment(HttpServletRequest request, HttpSession session, Order order) {
 		logger.info("/goods/payment [GET]");
-		logger.info("{}", request.getAttribute("val"));
+		
+		
 		
 		goodsService.paymentTest(request);
+		
+		
+		
+		
+		
 		
 	}
 	
@@ -273,25 +332,28 @@ public class goodsController {
 
 	  
 
+	
+	
 
-	  @PostMapping("/complete")
-	  public String complete( String userName,String userPostcode, String userAddr, String userDetailaddr, String userPhone, String totalPrice, String prodNo, HttpSession session ) {
-		  
+//	  @PostMapping("/complete")
+	  @RequestMapping("/complete")
+//	  public String complete( String userName,String userPostcode, String userAddr, String userDetailaddr, String userPhone, String totalPrice, String prodNo, HttpSession session ) {
+		  public String complete(  ) {		  
 
-		  Ordertb ordertb = new Ordertb();
-		  ordertb.setOrderRec(userName);
-		  ordertb.setOrderAddrPostcode(userPostcode);
-		  ordertb.setOrderAddr(userAddr);
-		  ordertb.setOrderAddrDetail(userDetailaddr);
-		  ordertb.setOrderPhone(userPhone);
-		  ordertb.setOrderPrice(totalPrice);
-		  //주문번호
-		 System.out.println(session.getAttribute("loginNo"));
-			
-		 int userNo=(int)session.getAttribute("loginNo");
-		 ordertb.setOrderNo(1);	
-		 ordertb.setUserNo(userNo);
-		 goodsService.insertordertb(ordertb);
+//		  Ordertb ordertb = new Ordertb();
+//		  ordertb.setOrderRec(userName);
+//		  ordertb.setOrderAddrPostcode(userPostcode);
+//		  ordertb.setOrderAddr(userAddr);
+//		  ordertb.setOrderAddrDetail(userDetailaddr);
+//		  ordertb.setOrderPhone(userPhone);
+//		  ordertb.setOrderPrice(totalPrice);
+//		  //주문번호
+//		 System.out.println(session.getAttribute("loginNo"));
+//			
+//		 int userNo=(int)session.getAttribute("loginNo");
+//		 ordertb.setOrderNo(1);	
+//		 ordertb.setUserNo(userNo);
+//		 goodsService.insertordertb(ordertb);
 		  
 		  
 		  
@@ -311,6 +373,17 @@ public class goodsController {
 
 		  
 	    return "goods/paycomplete"; // 결제 완료 페이지로 이동
+	  }
+	  
+	  @ResponseBody
+	  //주문자 배송정보 불러오기
+	  @RequestMapping("/getShipInfo")
+	  public Member getShipInfo(HttpSession session, Member member) {
+		  logger.info("/goods/getShipInfo [GET]");
+		  
+		  Member memberinfo = goodsService.getUserShipInfo((int)session.getAttribute("loginNo"));
+		  
+		  return memberinfo;
 	  }
 	
 

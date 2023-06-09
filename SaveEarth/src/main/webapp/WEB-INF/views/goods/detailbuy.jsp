@@ -1,487 +1,197 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:import url="../layout/header.jsp"/> 
-<!--  결제하기  -->
-   <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<c:import url="../layout/header.jsp"></c:import>
 
-
-<style type="text/css">
-* {
-  margin: 0px;
-  padding: 0px;
-  text-decoration: none;
-  font-family:sans-serif;
-
-}
-
-body {
-  background-image:#34495e;
-}
-
-.joinForm {
-  position:absolute;
-  width:400px;
-  height:400px;
-  padding: 30px, 20px;
-  background-color:#FFFFFF;
-  text-align:center;
-  top:40%;
-  left:50%;
-  transform: translate(-50%,-50%);
-  border-radius: 15px;
-}
-
-.joinForm h2 {
-  text-align: center;
-  margin: 30px;
-}
-
-.textForm {
-  border-bottom: 2px solid #adadad;
-  margin: 30px;
-  padding: 10px 10px;
-}
-
-
-.id {
-  width: 100%;
-  border:none;
-  outline:none;
-  color: #636e72;
-  font-size:16px;
-  height:25px;
-  background: none;
-}
-
-.pw {
-  width: 100%;
-  border:none;
-  outline:none;
-  color: #636e72;
-  font-size:16px;
-  height:25px;
-  background: none;
-}
-
-.name {
-  width: 100%;
-  border:none;
-  outline:none;
-  color: #636e72;
-  font-size:16px;
-  height:25px;
-  background: none;
-}
-
-.email {
-  width: 100%;
-  border:none;
-  outline:none;
-  color: #636e72;
-  font-size:16px;
-  height:25px;
-  background: none;
-}
-
-.nickname {
-  width: 100%;
-  border:none;
-  outline:none;
-  color: #636e72;
-  font-size:16px;
-  height:25px;
-  background: none;
-}
-
-.cellphoneNo {
-  width: 100%;
-  border:none;
-  outline:none;
-  color: #636e72;
-  font-size:16px;
-  height:25px;
-  background: none;
-}
-
- .btn-bottom { 
-  position:relative; 
-  left:2%; */
-  transform: translateX(-50%); 
-  margin-bottom: 40px; 
-  width:80%; 
-  height:40px; 
-  background: linear-gradient(125deg,#81ecec,#6c5ce7,#81ecec); 
-  background-position: center; 
-  background-size: 200%; 
-  color:white; 
-  font-weight: bold; 
-  border:none;
-  cursor:pointer; 
-  transition: 0.4s; 
-  display:inline; 
-  margin-left: 60px; 
- } 
-
-.btn-bottom:hover {
-  background-position: center;
-}
-
-form{
-margin: 0 auto;
-width: 700px;
-}
-
-/*  */
-/* 게시판 이미지 스타일 */
-.infoimage {
-	position: relative;
-}
-
-/* '정보게시판' 문구 스타일 */
-.info {
-	position: absolute;
-	top: 38%; 
-	left: 45%; 
-	color: #fff; 
-	font-weight: bold;
-	font-size: 50px;
-    font-family: 'KBO-Dia-Gothic_bold';
-}
-
-/* 폰트 스타일 */
-@font-face {
-    font-family: 'KBO-Dia-Gothic_bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff') format('woff');
-    font-weight: 700;
-    font-style: normal;
-}
-
-/* 게시판 분류 버튼 스타일 */
-.nav button {  
-  	margin-left: 30px;  
-	margin-top: 20px;  
- 	width: 100px;  
-  }  
-
-
-/* 게시글 분류 전체(div) 스타일 */
-.nav { 
- 	margin-left: 100px; 
- 	margin-bottom: 50px; 
- } 
-
-/* 게시물 전체 감싸는 태그 */
-.row {
-	text-align: center;
-	margin-bottom: 50px;
-	cursor: pointer;
-}
-
-/* 검색 전체 div태그 스타일 */
-.search {
-	text-align: center;
-	width: 100%;
-	height: 100px;
-}
-
-/* 검색창 스타일 */
-.search_input {
-	width: 300px;
-	height: 30px;
-	font-size: 18px;
-	border: 1px solid #ccc;
-	margin-top: 10px;
-/* 	border-bottom: 1px black solid; */
-}
-
-/* 검색창 버튼 스타일 */
-.search_btn {
-	font-size: 18px;
-	border: none;
-	background-color: green;
-	width: 50px;
-	height: 30px;
-	border-radius: 15px;
-	color: #fff;
-	cursor: pointer;
-}
-
-/* 검색아이콘 이미지 */
-.search_icon {
-	width: 20px;
-	height: 20px;
-	margin-bottom: 3px;
-	color: white;
-}
-
-/* 검색창 스타일 */
-input {
-	width: 100%;
-	border: 1px solid #bbb;
-	border-radius: 8px;
-	font-size: 14px;
-}
-
-</style>
-
-
-
-
-
-
-
-    <script>
-        var IMP = window.IMP; 
-        IMP.init("imp42576077"); // 가맹점 식별코드
-      
-        var today = new Date();   
-        var hours = today.getHours(); // 시
-        var minutes = today.getMinutes();  // 분
-        var seconds = today.getSeconds();  // 초
-        var milliseconds = today.getMilliseconds();
-        var makeMerchantUid = hours +  minutes + seconds + milliseconds;
-        var address = $('input[name=userAddr]').val()+" "+$('input[name=userDetailaddr]').val();
-
-        function requestPay() {
-            IMP.request_pay({
-                pg : 'html5_inicis.INIpayTest  ', // PG사 코드표에서 코드 맞춰놓았음
-                pay_method : 'card', // 결제 방식
-                merchant_uid: "IMP"+makeMerchantUid, // 결제 고유 번호
-                name : '${product.prodName }', // 제품명 변경
-                amount : ${prodCount * product.prodPrice}, // 가격
-                buyer_email : '${info.userEmail }',
-                buyer_name : $("input[name=userName]").val(),
-                buyer_tel : $("input[name=userPhone]").val(),
-                buyer_addr : $('input[name=userAddr]').val()+" "+$('input[name=userDetailaddr]').val(),
-
-                buyer_postcode : $("input[name=userPostcode]").val()
-            }, function (rsp) { 
-                if (rsp.success) {
-                    console.log(rsp);
-                    
-                    var form = document.createElement('form');
-                    form.method = 'POST';
-                    form.action = './complete';
-
-
-                    
-
-                    var userNameInput = document.createElement('input');
-                    userNameInput.type = 'hidden';
-                    userNameInput.name = 'userName';
-                    userNameInput.value = document.getElementById('userName').value;
-                    
-                    var userPostcodeInput = document.createElement('input');
-                    userPostcodeInput.type = 'hidden';
-                    userPostcodeInput.name = 'userPostcode';
-                    userPostcodeInput.value = document.getElementById('sample4_postcode').value;                  
-                   
-                    var userAddrInput = document.createElement('input');
-                    userAddrInput.type = 'hidden';
-                    userAddrInput.name = 'userAddr';
-                    userAddrInput.value = document.getElementById('sample4_roadAddress').value;                     
-                    
-                    var userDetailaddrInput = document.createElement('input');
-                    userDetailaddrInput.type = 'hidden';
-                    userDetailaddrInput.name = 'userDetailaddr';
-                    userDetailaddrInput.value = document.getElementById('sample4_detailAddress').value;   
-                    
-                    var userPhoneInput = document.createElement('input');
-                    userPhoneInput.type = 'hidden';
-                    userPhoneInput.name = 'userPhone';
-                    userPhoneInput.value = document.getElementById('userPhone').value;   
-                    
-                    
-                    var totalPriceInput = document.createElement('input');
-                    totalPriceInput.type = 'hidden';
-                    totalPriceInput.name = 'totalPrice';
-                    totalPriceInput.value = ${prodCount * product.prodPrice};
-
-                    var prodNoInput = document.createElement('input');
-                    prodNoInput.type = 'hidden';
-                    prodNoInput.name = 'prodNo';
-                    prodNoInput.value = ${product.prodNo };
-                    
-              
-                   
-
-                    form.appendChild(userNameInput);
-                    form.appendChild(userPostcodeInput);
-                    form.appendChild(userAddrInput);
-                    form.appendChild(userDetailaddrInput);
-                    form.appendChild(userPhoneInput);
-                    form.appendChild(totalPriceInput);
-                    form.appendChild(prodNoInput);
-                  
-
-
-
-                    document.body.appendChild(form);
-                    form.submit(); 
-                    
-                    
-                } else {
-                    console.log(rsp);
-                }
-            });
-        }
-
-	</script>
-	
-	
-	
+<!-- 결제위젯 SDK 추가 -->
+<script src="https://js.tosspayments.com/v1/payment-widget"></script>
+<!-- 우편번호 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 <script>
-    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
-    function sample4_execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+//본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+function sample4_execDaumPostcode() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var roadAddr = data.roadAddress; // 도로명 주소 변수
-                var extraRoadAddr = ''; // 참고 항목 변수
+            // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var roadAddr = data.roadAddress; // 도로명 주소 변수
+            var extraRoadAddr = ''; // 참고 항목 변수
 
-                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                    extraRoadAddr += data.bname;
-                }
-                // 건물명이 있고, 공동주택일 경우 추가한다.
-                if(data.buildingName !== '' && data.apartment === 'Y'){
-                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                }
-                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                if(extraRoadAddr !== ''){
-                    extraRoadAddr = ' (' + extraRoadAddr + ')';
-                }
-
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('sample4_postcode').value = data.zonecode;
-                document.getElementById("sample4_roadAddress").value = roadAddr;
-                document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
-                
-                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-                if(roadAddr !== ''){
-                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
-                } else {
-                    document.getElementById("sample4_extraAddress").value = '';
-                }
-
-                var guideTextBox = document.getElementById("guide");
-                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-                if(data.autoRoadAddress) {
-                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-                    guideTextBox.style.display = 'block';
-
-                } else if(data.autoJibunAddress) {
-                    var expJibunAddr = data.autoJibunAddress;
-                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-                    guideTextBox.style.display = 'block';
-                } else {
-                    guideTextBox.innerHTML = '';
-                    guideTextBox.style.display = 'none';
-                }
+            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                extraRoadAddr += data.bname;
             }
-        }).open();
-    }
-</script>	
+            // 건물명이 있고, 공동주택일 경우 추가한다.
+            if(data.buildingName !== '' && data.apartment === 'Y'){
+               extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+            }
+            // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+            if(extraRoadAddr !== ''){
+                extraRoadAddr = ' (' + extraRoadAddr + ')';
+            }
+
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('sample4_postcode').value = data.zonecode;
+            document.getElementById("sample4_roadAddress").value = roadAddr;
+//             document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+            
+            // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+            if(roadAddr !== ''){
+//                 document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+            } else {
+                document.getElementById("sample4_extraAddress").value = '';
+            }
+
+        }
+    }).open();
+    
+    
+}
+</script>
+
 
 <style>
-.formleft{
-	float : left;
-	width: 50%;
-	height: 700px;
+table {
+    
+    width: 100%;
+    border-collapse: collapse;
 }
-.formright{
-	float : right;
-	width: 50%;
-	height: 700px;
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
 }
-.line{
-	width: 100%;
-	border-top: 1px solid;
+
+tr:hover {
+    background-color: #f5f5f5;
 }
-.content{
-	width: 1100px;
-	margin: 10%;
+
+.titleTag {
+	font-size: 1.8em;
+	font-weight: bold;
 }
 
 
 </style>
-	
-<div class="content">
-	<div class="content_form"> 
-	<div class="formleft">
-      <div class="textForm">
-      	<label>수령인</label>
-      	<input name="userName" id="userName" type="text" class="userName" value = "${info.userName }">
-      </div>
-      
-      <div class="textForm">
-	      <input type="button" class="form-control" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
-	
-	      <input  type="text" class="nickname" id="sample4_postcode" value="${info.userPostcode}" name="userPostcode"> 
-	
-	      <input type="text"  class="nickname" id="sample4_roadAddress" value="${info.userAddr}" name="userAddr">
-	      <span id="guide" style="color:#999;display:none"></span>
-	      <label>상세주소</label>
-	      <input type="text" class="nickname" id="sample4_detailAddress" value ="${info.userDetailaddr}" name="userDetailaddr">
-     </div>
-      
-      
-      
-       <div class="textForm">
-      	<label>이메일</label>
-      	<input name="userEmail" id="userEmail" type="email" class="email" value = "${info.userEmail }">
-      </div>
-      
-      <div class="textForm">
-      	<label>전화번호</label>
-      	<input name="userPhone" id="userPhone" type="text" class="phone" value = "${info.userPhone }">
-      </div>
-      
-      <div class="textForm">
-      	<label>상품</label>
-      	<input name="prod" disabled id="prod" type="text" class="prod" value = "${product.prodName }">
-      </div>
 
-      <div class="textForm">
-      	<label>총가격</label>
-      	<input name="totalprice" disabled id="totalprice" type="text" class="totalprice" value = " ${prodCount * product.prodPrice}">
-      </div>
+
+<div class="container">
+
+<div id="listWrap">
+<div class="titleTag">주문목록</div>
+<table>
+	<thead>
+         <tr>
+            <th>상품이미지</th> 
+			<th>상품이름</th>
+            <th>가격</th>
+            <th>수량</th>
+         </tr>
+	</thead>
+    <tbody>
+    
+            <tr>
+				<td><img src="" width="100px" height="100px"></td>
+                <td>${product.prodName }</td>
+                <td><fmt:formatNumber pattern="###,###,###" value="${product.prodPrice }" />원</td>
+                <td>${prodCount}</td>
+            </tr>
+
+    </tbody>
+</table>
+<div id="sumWrap">
+	<div id="sum">
+		총 합계 : <fmt:formatNumber pattern="###,###,###" value="${prodCount * product.prodPrice}" />원
+	</div>
+</div>
+</div> <!-- listWrap -->
+<hr>
+<div id="shipInfo">
+<div class="titleTag">배송정보</div>
+
+<form action="" method="post">
+
+	<div class="textForm">
+	  <label for="orderRec" class="form-label">받으시는 분</label>
+	  <input type="text" class="form-control" id="userName" name="userName" value = "${info.userName }">
 	</div>
 	
-	<div class="formright">
+	<div class="textForm">
+		<label for="inputCity" class="form-label">주소</label>
 	
+		<input type="button" class="form-control" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
+	    <input type="text" class="form-control" id="sample4_postcode" placeholder="우편번호" name="userPostcode" value="${info.userPostcode}"> 
+	    <input type="text" class="form-control" id="sample4_roadAddress" placeholder="도로명주소" name="userAddr" value="${info.userAddr}">
+		<input type="text" class="form-control" id="sample4_detailAddress" placeholder="상세주소" name="userDetailaddr" value ="${info.userDetailaddr}">
+  </div>
+
+	<div class="textForm">
+	  <label for="orderPhone" class="phone">연락처</label>
+	  <input type="text" class="form-control" id="userPhone" name="userPhone" value = "${info.userPhone }">
+	</div>
 	
-	</div>
-	</div>
-<div class="line">
+	<input type="hidden" name="orderPrice" value="${prodCount * product.prodPrice}">
+	
+	<br>
+	<br>
+	  <div >
+	    <button type="submit" class="btn btn-success" id="orderMade" >DB 결제하기</button>
+	  </div>
+	<br>
+	<br>  
+  
+</form>
+
+<!-- 결제위젯, 이용약관 영역 -->
+<div id="payment-method"></div>
+<div id="agreement"></div>
+<!-- 결제하기 버튼 -->
+<button id="payment-button">토스 결제하기</button>
+<script>
+const clientKey = "test_ck_lpP2YxJ4K87vZ9PKpAvrRGZwXLOb"
+const customerKey = "swfA_xX4Vg5HeRU1AZveQ" // 내 상점의 고객을 식별하는 고유한 키
+const button = document.getElementById("payment-button")
+// ------  결제위젯 초기화 ------ 
+// 비회원 결제에는 customerKey 대신 ANONYMOUS를 사용하세요.
+const paymentWidget = PaymentWidget(clientKey, customerKey) // 회원 결제
+// const paymentWidget = PaymentWidget(clientKey, PaymentWidget.ANONYMOUS) // 비회원 결제
+// ------  결제위젯 렌더링 ------ 
+// 결제위젯이 렌더링될 DOM 요소를 지정하는 CSS 선택자 및 결제 금액을 넣어주세요. 
+// https://docs.tosspayments.com/reference/widget-sdk#renderpaymentmethods선택자-결제-금액-옵션
+paymentWidget.renderPaymentMethods("#payment-method", { value: 100 })
+// ------  이용약관 렌더링 ------
+// 이용약관이 렌더링될 DOM 요소를 지정하는 CSS 선택자를 넣어주세요.
+// https://docs.tosspayments.com/reference/widget-sdk#renderagreement선택자
+paymentWidget.renderAgreement('#agreement')
+// ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
+// 더 많은 결제 정보 파라미터는 결제위젯 SDK에서 확인하세요.
+// https://docs.tosspayments.com/reference/widget-sdk#requestpayment결제-정보
+button.addEventListener("click", function () {
+  paymentWidget.requestPayment({
+    orderId: "RkluNBM8DMR923bZ09aZA" + new Date().getTime(),            // 주문 ID(직접 만들어주세요)
+    orderName: "토스 티셔츠 외 2건",                 // 주문명
+    successUrl: "http://localhost:8888/goods/complete",  // 결제에 성공하면 이동하는 페이지(직접 만들어주세요)
+    failUrl: "https://my-store.com/fail",        // 결제에 실패하면 이동하는 페이지(직접 만들어주세요)
+    customerEmail: "customer123@gmail.com",
+    customerName: "김토스"
+  })
+})
+
+</script>
+
+
+
+
+
 </div>
 
-<div>
-${info.userName }
-${info.userNo }
-이메일:${info.userEmail }
-주소:${info.userAddr }
-${info.userDetailaddr }
-전화번호:${info.userPhone }
 
-<br>
-${product.prodName }
-${product.prodNo }
-<br>
-개수${prodCount}
-가격${product.prodPrice }
-총 가격: ${prodCount * product.prodPrice}원
 </div>
-
- </div>
-<button onclick="requestPay()">결제하기</button> 
- 
-<c:import url="../layout/footer.jsp"/> 
+<c:import url="../layout/footer.jsp"></c:import>

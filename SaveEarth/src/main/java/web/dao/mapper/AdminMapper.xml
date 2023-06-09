@@ -368,6 +368,14 @@
 	free_title = #{freeTitle}, free_content = #{freeContent}, free_head = #{freeHead}, free_modify = CURRENT_DATE 
 	WHERE free_no = #{freeNo}
 	</update>
+
+<!-- 정보게시판 게시글 내용 수정 -->	
+<update id="updateInfoBoard" parameterType="web.dto.Info">
+  	UPDATE info SET
+	info_title = #{infoTitle}, info_content = #{infoContent}, info_state = #{infoState}, info_upload = CURRENT_DATE 
+	WHERE info_no = #{infoNo}
+</update>
+
 	
 	<!-- 캠페인 게시글 번호를 기준으로 게시글 목록에 뜰 게시글 정보 조회 -->
 	<select id="selectCampBoard" parameterType="web.dto.Campaign"
@@ -408,6 +416,21 @@
 		INSERT INTO campaign_file (camp_file_no, camp_no, camp_origin_name, camp_stored_name) 
 		VALUES ( camp_file_no_seq.nextval, #{campNo}, #{campOriginName}, #{campStoredName})
 	</insert>
+
+<select id="selectContent" resultType="web.dto.Info" parameterType="int">
+	SELECT * FROM info
+	WHERE info_no = #{infoNo}
+</select>
+
+<select id="selectThumb" resultType="web.dto.InfoThumbnail" parameterType="int">
+	SELECT * FROM info_thumbnail
+	WHERE info_no = #{infoNo}
+</select>
+
+<select id="selectFile" resultType="web.dto.InfoFile" parameterType="int">
+	SELECT * FROM info_file
+	WHERE info_no = #{infoNo}
+</select>
 	
 	<!-- 캠페인 참여 현황  -->
 	<select id="campParticipate" parameterType="int" resultType="web.dto.Certification">
