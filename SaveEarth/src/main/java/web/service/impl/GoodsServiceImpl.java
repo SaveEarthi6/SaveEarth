@@ -30,6 +30,7 @@ import org.springframework.stereotype.Service;
 
 import web.dao.face.GoodsDao;
 import web.dto.Cart;
+import web.dto.Member;
 import web.dto.Ordertb;
 import web.dto.Order;
 import web.dto.ProdOption;
@@ -236,11 +237,22 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
+	public Map<String, Object> getCartListBySelect(int userNo, String cartNo) {
+		
+		return goodsDao.selectCartListBySelect(userNo, cartNo);
+	}
+	
+	@Override
 	public void insertordertb(Ordertb ordertb) {
 		goodsDao.insertordertb(ordertb);
 		
 	}
 
+	@Override
+	public Member getUserShipInfo(int userNo) {
 
+		return goodsDao.selectUserShipInfo(userNo);
+	}
+	
 
 }

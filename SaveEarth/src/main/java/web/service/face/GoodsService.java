@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import web.dto.Cart;
+import web.dto.Member;
 import web.dto.Ordertb;
 import web.dto.Order;
 import web.dto.ProdOption;
@@ -114,7 +115,24 @@ public interface GoodsService {
 	 */
 	public ProdOption getProdopt(int prodOptNo);
 
+	/**
+	 * 회원번호와 일치하는 cart 목록 가져오기
+	 * 
+	 * @param userNo - 로그인한 회원의 번호
+	 * @param cartNo - 주문하려는 cart의 번호
+	 * @return
+	 */
+	public Map<String, Object> getCartListBySelect(int userNo, String cartNo);
+
 	public  void insertordertb(Ordertb ordertb);
+
+	/**
+	 * 회원번호와 일치하는 회원의 배송정보 가져오기
+	 * 
+	 * @param userNo - 로그인한 회원의 번호
+	 * @return 회원의 배송정보
+	 */
+	public Member getUserShipInfo(int userNo);
 
 	
 	
