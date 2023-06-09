@@ -148,7 +148,7 @@ button{ cursor: pointer; } /* 모든 버튼에 마우스손모양 처리 */
 	<div id="wrap">
 	<a href="../saveearth/main"><img id="logo" src="../../resources/img/logo2.png"></a>
 	<c:if test="${empty isLogin }">
-<div>
+<div style= "font-family: GmarketSansMedium">
 	<a href="/member/login" class="lefttop">로그인</a>
 	<a href="/admin/login"	class="righttop">관리자 로그인 </a>
 	<a href="/goods/cart" class="top";>장바구니</a>

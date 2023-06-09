@@ -5,11 +5,8 @@
 
 <c:import url="../layout/header.jsp"></c:import>
 
-<<<<<<< HEAD
 <!-- 풀캘린더 -->
-=======
 
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
 
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
@@ -81,6 +78,28 @@ body {
 	margin: 0 auto;
 }
 
+/* 굿즈샵 이미지 스타일 */
+.goodsimage {
+	width: 100%; 
+	height: 500px; 
+	position: relative;
+	margin-bottom: 30px;
+}
+
+/* 굿즈샵 상품 목록 스타일 */
+#goodsList {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+#quizForm {
+	border: 5px solid #59A8D9;
+	padding-bottom: 50px;
+	padding-top: 50px;
+	margin-left: 400px;
+	margin-right: 400px;
+	padding-left: 60px;
+}
 </style>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -135,6 +154,10 @@ $(function() {
 
 </div>
 
+
+
+
+
 <!--  달력(기념일) -->
 
 <!-- 내 달력으로 가기 -->
@@ -155,11 +178,41 @@ $(function() {
 
  
 
+
+
 <!-- 인증사진 모아보기 -->
- <h1 style="font-family: 'KBO-Dia-Gothic_bold'; text-align: center; padding-top: 100px;">🤳🏻SAVE EARTH의 캠페인 참여🤳🏻</h1>
+ <h1 style="font-family: 'KBO-Dia-Gothic_bold'; text-align: center; padding-top: 100px; padding-bottom: 30px;">🤳🏻SAVE EARTH의 캠페인 참여🤳🏻</h1>
  
- 
- 
+ 	<div id="certList" class="row">
+		<div class="col-1"></div>
+		
+		<div id="cert" class="row col-10" >
+		
+			<c:forEach var="cert" items="${cert }" varStatus="status">
+			
+			<c:if test="${status.index < 9}">
+			
+			<div id="info" class="col">
+			<a href="./detail?prodno=${prod.PROD_NO }" id="prodNo">
+			
+				<c:if test="${prod.PROD_STORED_NAME ne null }" >
+				
+					<div>
+						<img alt="" src="/upload/${prod.PROD_STORED_NAME }" style="width: 400px; height: 300px; margin-bottom: 10px;">
+					</div>
+				</c:if>	
+				<c:if test="${prod.PROD_STORED_NAME eq null }">
+					<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
+				</c:if>
+			</a>
+			</div>
+			
+			</c:if>
+			</c:forEach>
+			
+		</div>
+	
+	</div>
  
  
  
@@ -193,7 +246,7 @@ $(function() {
  <h1 style="font-family: 'KBO-Dia-Gothic_bold'; text-align: center; padding-top: 100px;  padding-bottom: 30px;">🎲랜덤 퀴즈🎲</h1>
   <form action="/saveearth/main" method="get">
   
-  <div style= "padding-left: 500px;" >
+  <div id = "quizForm" >
   <c:forEach items="${quiz }" var="quiz" varStatus="status">
   
   	<c:if test="${status.index < 1}">
@@ -204,6 +257,8 @@ $(function() {
     <input type="radio" name="q1" class= "ch" value="${quiz. quizOpt3}"> ${quiz. quizOpt3}<br>
     <input type="radio" name="q1" class= "ch" value="${quiz. quizOpt4}"> ${quiz. quizOpt4}<br>
            
+           <br>
+           
        <button type="button" id="answer" data-no="${quiz.quizAnswer }">정답확인</button>
   	</c:if>
   	  	
@@ -211,8 +266,9 @@ $(function() {
   
   </div>
   
-   </form>
 	<h5 style= "padding-left: 1000px ; font-family: omyu_pretty; ">⚠️퀴즈는 3개로 랜덤입니다</h5>
+   </form>
+   
 </div>
 
 	<div id="campList" class="row">
@@ -245,19 +301,56 @@ $(function() {
 		<div class='col-1'></div>
 	</div>
 
+
+
+
+
+
 <!-- 굿즈샵 예시보기 -->
 <h1 style="font-family: 'KBO-Dia-Gothic_bold'; text-align: center; padding-top: 100px;">🛍️굿즈샵🛍️</h1>
-  
+  	
+	<div style= "padding-left: 1200px; padding-bottom: 50px;">
+		<a href="/goods/main">
+		<button type="button" class="btn btn-outline-success" >
+		굿즈샵 </button></a>
+  	</div>
+  	
+	<div id="goodsList" class="row" style="padding-bottom:100px;">
+		<div class="col-1"></div>
+		
+		<div id="infos" class="row col-10">
+		
+			<c:forEach var="prod" items="${product }" varStatus="status">
+			
+  			<c:if test="${status.index < 3}">
+			
+			<div id="info" class="col">
+			<a href="/goods/detail?prodno=${prod.PROD_NO }" id="prodNo">
+			
+				
+<!-- 					<div><img alt="" src="" style="width: 400px; height: 300px; margin-bottom: 10px;"></div> -->
+				<c:if test="${prod.PROD_STORED_NAME ne null }" >
+					<div>
+						<img alt="" src="/upload/${prod.PROD_STORED_NAME }" style="width: 400px; height: 300px; ">
+					</div>
+				</c:if>	
+				<c:if test="${prod.PROD_STORED_NAME eq null }">
+					<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
+				</c:if>
+				<div id="CampTitle">
+					<span id="titleTag">[${prod.PROD_NAME }]</span>
+					<span id="title">${prod.PROD_PRICE }원</span>
+				</div>
+			</a>
+			</div>
+			
+			</c:if>
+			</c:forEach>
+			
+		</div>
 
-
-
-<<<<<<< HEAD
-=======
+</div>
 
 
 	
-	
-
-</tbody>
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
 <c:import url="../layout/footer.jsp"></c:import>

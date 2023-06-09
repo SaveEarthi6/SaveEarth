@@ -1,6 +1,7 @@
 package web.service.face;
 
 import java.util.List;
+import java.util.Map;
 
 import web.dto.Calendar;
 import web.dto.Quiz;
@@ -19,5 +20,18 @@ public interface MainService {
 	 * @return 달력 DB에 존재하는 기념일 리스트
 	 */
 	public List<Calendar> getCalendar();
+	
+	/**
+	 * 굿즈 상품 다 가져오기
+	 * @return
+	 */
+	public List<Map<String, Object>> getProduct();
+	
+	/**
+	 * 캠페인 참여 파일 가져오기
+	 * 
+	 * @return
+	 */
+	public List<Map<String, Object>> getCert();
 
 }
