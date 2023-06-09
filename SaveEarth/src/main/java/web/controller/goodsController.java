@@ -55,7 +55,7 @@ public class goodsController {
 		List<Map<String, Object>> prodList = goodsService.getgoodsList(paging);
 		
 		
-
+		System.out.println(prodList);
 		
 //		for(List<Map<String, Object>> c : prodList) {
 //			logger.info("{}", c);
@@ -69,22 +69,29 @@ public class goodsController {
 	}
 	
 	@RequestMapping("/detail")
-	public void prodDetail(Model model, int prodno) {
-		logger.info("/goods/detail [GET]");
-		logger.info("prodno : {}", prodno);
+	public void prodDetail(Model model, int prodno, HttpSession session) {
+//		logger.info("/goods/detail [GET]");
+//		logger.info("prodno : {}", prodno);
+		
+
 		
 		Map<String, Object> goodsDetail = goodsService.getProdDetail(prodno);
-		logger.info("{}", goodsDetail);
+//		logger.info("{}", goodsDetail);
+		System.out.println(goodsDetail);
 		
 		//옵션 가져오기
 		List<Map<String, Object>> prodOption = goodsService.getOptionList(prodno);
 		for(Map<String, Object> o : prodOption) {
-			logger.info("{}", o);
-		}		
+//			logger.info("{}", o);
+		}	
 		
+
 		
-		model.addAttribute("goodsDetail", goodsDetail);
-		model.addAttribute("prodOption", prodOption);
+			
+			model.addAttribute("goodsDetail", goodsDetail);
+			model.addAttribute("prodOption", prodOption);
+	
+		
 	}
 	
 	@ResponseBody
@@ -121,24 +128,27 @@ public class goodsController {
 		
 		int userNo=(int)session.getAttribute("loginNo");
 		System.out.println("옵션번호"+ prodOptNo);
+		
+			//유저번호
+			cart.setUserNo(userNo);
+			//수량
+			cart.setProdCount(prodCount);
+			//상품번호
+			cart.setProdNo(prodno);
+			//옵션번호
+			cart.setProdOptNo(prodOptNo);
+			
+			
+			System.out.println(cart);
+			
+			goodsService.addCart(cart);
+			
+			
+			//장바구니 담고 다시 상세페이지 창으로 돌아가
+			return "redirect:/goods/detail?prodno=" + prodno; 			
+			
+		
 
-		//유저번호
-		cart.setUserNo(userNo);
-		//수량
-		cart.setProdCount(prodCount);
-		//상품번호
-		cart.setProdNo(prodno);
-		//옵션번호
-		cart.setProdOptNo(prodOptNo);
-		
-		
-		System.out.println(cart);
-		
-		goodsService.addCart(cart);
-		
-		
-		//장바구니 담고 다시 상세페이지 창으로 돌아가
-		return "redirect:/goods/detail?prodno=" + prodno; 
 		
 	}
 	
@@ -322,25 +332,28 @@ public class goodsController {
 
 	  
 
+	
+	
 
-	  @PostMapping("/complete")
-	  public String complete( String userName,String userPostcode, String userAddr, String userDetailaddr, String userPhone, String totalPrice, String prodNo, HttpSession session ) {
-		  
+//	  @PostMapping("/complete")
+	  @RequestMapping("/complete")
+//	  public String complete( String userName,String userPostcode, String userAddr, String userDetailaddr, String userPhone, String totalPrice, String prodNo, HttpSession session ) {
+		  public String complete(  ) {		  
 
-		  Ordertb ordertb = new Ordertb();
-		  ordertb.setOrderRec(userName);
-		  ordertb.setOrderAddrPostcode(userPostcode);
-		  ordertb.setOrderAddr(userAddr);
-		  ordertb.setOrderAddrDetail(userDetailaddr);
-		  ordertb.setOrderPhone(userPhone);
-		  ordertb.setOrderPrice(totalPrice);
-		  //주문번호
-		 System.out.println(session.getAttribute("loginNo"));
-			
-		 int userNo=(int)session.getAttribute("loginNo");
-		 ordertb.setOrderNo(1);	
-		 ordertb.setUserNo(userNo);
-		 goodsService.insertordertb(ordertb);
+//		  Ordertb ordertb = new Ordertb();
+//		  ordertb.setOrderRec(userName);
+//		  ordertb.setOrderAddrPostcode(userPostcode);
+//		  ordertb.setOrderAddr(userAddr);
+//		  ordertb.setOrderAddrDetail(userDetailaddr);
+//		  ordertb.setOrderPhone(userPhone);
+//		  ordertb.setOrderPrice(totalPrice);
+//		  //주문번호
+//		 System.out.println(session.getAttribute("loginNo"));
+//			
+//		 int userNo=(int)session.getAttribute("loginNo");
+//		 ordertb.setOrderNo(1);	
+//		 ordertb.setUserNo(userNo);
+//		 goodsService.insertordertb(ordertb);
 		  
 		  
 		  

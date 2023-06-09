@@ -87,11 +87,19 @@
 		
 			<c:forEach var="prod" items="${prodList }">
 			<div id="info" class="col">
-			<a href="./detail?prodno=${prod.prodNo }" id="prodNo">
-					<div><img alt="" src="" style="width: 400px; height: 300px; margin-bottom: 10px;"></div>
-				<div id="campTitle">
-					<span id="titleTag">[${prod.prodName }]</span>
-					<span id="title">${prod.prodPrice }원</span>
+			<a href="./detail?prodno=${prod.PROD_NO }" id="prodNo">
+			
+				
+<!-- 					<div><img alt="" src="" style="width: 400px; height: 300px; margin-bottom: 10px;"></div> -->
+				<c:if test="${prod.PROD_STORED_NAME ne null }" >
+					<div><img alt="" src="/upload/${prod.PROD_STORED_NAME }" style="width: 400px; height: 300px; margin-bottom: 10px;"></div>
+				</c:if>	
+				<c:if test="${prod.PROD_STORED_NAME eq null }">
+					<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
+				</c:if>
+				<div id="CampTitle">
+					<span id="titleTag">[${prod.PROD_NAME }]</span>
+					<span id="title">${prod.PROD_PRICE }원</span>
 				</div>
 			</a>
 			</div>
