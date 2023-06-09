@@ -268,30 +268,52 @@ input {
 
                     
 
-                    var prodCountInput = document.createElement('input');
-                    prodCountInput.type = 'hidden';
-                    prodCountInput.name = 'prodCount';
-                    prodCountInput.value = ${prodCount};
+                    var userNameInput = document.createElement('input');
+                    userNameInput.type = 'hidden';
+                    userNameInput.name = 'userName';
+                    userNameInput.value = document.getElementById('userName').value;
+                    
+                    var userPostcodeInput = document.createElement('input');
+                    userPostcodeInput.type = 'hidden';
+                    userPostcodeInput.name = 'userPostcode';
+                    userPostcodeInput.value = document.getElementById('sample4_postcode').value;                  
+                   
+                    var userAddrInput = document.createElement('input');
+                    userAddrInput.type = 'hidden';
+                    userAddrInput.name = 'userAddr';
+                    userAddrInput.value = document.getElementById('sample4_roadAddress').value;                     
+                    
+                    var userDetailaddrInput = document.createElement('input');
+                    userDetailaddrInput.type = 'hidden';
+                    userDetailaddrInput.name = 'userDetailaddr';
+                    userDetailaddrInput.value = document.getElementById('sample4_detailAddress').value;   
+                    
+                    var userPhoneInput = document.createElement('input');
+                    userPhoneInput.type = 'hidden';
+                    userPhoneInput.name = 'userPhone';
+                    userPhoneInput.value = document.getElementById('userPhone').value;   
+                    
                     
                     var totalPriceInput = document.createElement('input');
                     totalPriceInput.type = 'hidden';
                     totalPriceInput.name = 'totalPrice';
                     totalPriceInput.value = ${prodCount * product.prodPrice};
 
-                    var totalPriceInput = document.createElement('input');
-                    totalPriceInput.type = 'hidden';
-                    totalPriceInput.name = 'totalPrice';
-                    totalPriceInput.value = ${prodCount * product.prodPrice};
+                    var prodNoInput = document.createElement('input');
+                    prodNoInput.type = 'hidden';
+                    prodNoInput.name = 'prodNo';
+                    prodNoInput.value = ${product.prodNo };
                     
-                    var totalPriceInput = document.createElement('input');
-                    totalPriceInput.type = 'hidden';
-                    totalPriceInput.name = 'totalPrice';
-                    totalPriceInput.value = ${prodCount * product.prodPrice};
-                    
-        
+              
+                   
 
-                    form.appendChild(prodCountInput);
+                    form.appendChild(userNameInput);
+                    form.appendChild(userPostcodeInput);
+                    form.appendChild(userAddrInput);
+                    form.appendChild(userDetailaddrInput);
+                    form.appendChild(userPhoneInput);
                     form.appendChild(totalPriceInput);
+                    form.appendChild(prodNoInput);
                   
 
 
@@ -452,6 +474,7 @@ ${info.userDetailaddr }
 
 <br>
 ${product.prodName }
+${product.prodNo }
 <br>
 개수${prodCount}
 가격${product.prodPrice }

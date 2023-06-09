@@ -81,4 +81,9 @@
 	select * FROM prod_option
 	where prod_opt_no=#{prodOptNo}
 	</select>
+	
+	<insert id="insertordertb" parameterType="web.dto.Ordertb" >
+	insert into ordertb(ORDER_NO,USER_NO,ORDER_REC,ORDER_ADDR_POSTCODE,ORDER_ADDR,ORDER_ADDR_DETAIL,ORDER_PHONE,ORDER_PRICE)
+	VALUES(#{orderNo},#{userNo},#{orderRec},#{orderAddrPostcode},#{orderAddr},#{orderAddrDetail},#{orderPhone},#{orderPrice})
+	</insert>
 </mapper>

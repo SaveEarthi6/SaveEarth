@@ -1,10 +1,10 @@
 package web.controller;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+
 import javax.servlet.http.HttpSession;
 
 
@@ -15,20 +15,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.util.UriUtils;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
+
+
 
 import web.dto.Cart;
 
 import web.dto.Member;
+import web.dto.Ordertb;
 import web.dto.ProdOption;
 import web.dto.Product;
 import web.service.face.GoodsService;
@@ -192,6 +190,9 @@ public class goodsController {
 		System.out.println("상품넘버확인"+prodNo);
 		System.out.println("상품갯수확인"+prodCount);
 		System.out.println("상품옵션확인"+prodOptNo);
+
+
+	
 		//로그인 정보
 		String loginId = (String) session.getAttribute("loginId");
 		logger.info("{}", loginId);
@@ -217,13 +218,25 @@ public class goodsController {
 
 
 	  @PostMapping("/complete")
-	  public String complete( String prodCount,@RequestParam("totalPrice") int totalPrice) {
-//		@RequestParam("totalPrice") int totalPrice,	
-		  System.out.println("totalPrice확인"+totalPrice);
-		  System.out.println("prodCount확인"+prodCount);
-	
+	  public String complete( String userName,String userPostcode, String userAddr, String userDetailaddr, String userPhone, String totalPrice, String prodNo, HttpSession session ) {
+		  
 
-		    
+		  Ordertb ordertb = new Ordertb();
+		  ordertb.setOrderRec(userName);
+		  ordertb.setOrderAddrPostcode(userPostcode);
+		  ordertb.setOrderAddr(userAddr);
+		  ordertb.setOrderAddrDetail(userDetailaddr);
+		  ordertb.setOrderPhone(userPhone);
+		  ordertb.setOrderPrice(totalPrice);
+		  //주문번호
+		 System.out.println(session.getAttribute("loginNo"));
+			
+		 int userNo=(int)session.getAttribute("loginNo");
+		 ordertb.setOrderNo(1);	
+		 ordertb.setUserNo(userNo);
+		 goodsService.insertordertb(ordertb);
+		  
+		  
 		  
 		    
 	

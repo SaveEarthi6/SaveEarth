@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import web.dto.Cart;
+import web.dto.Ordertb;
 import web.dto.ProdOption;
 import web.dto.Product;
 import web.util.Paging;
@@ -36,6 +37,8 @@ public interface GoodsDao {
 	public Product getProdinfo(int prodNo);
 
 	public ProdOption getProdopt(int prodOptNo);
+
+	public void insertordertb(Ordertb ordertb);
 
 
 

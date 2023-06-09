@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import web.dto.Cart;
+import web.dto.Ordertb;
 import web.dto.ProdOption;
 import web.dto.Product;
 import web.util.Paging;
@@ -73,6 +74,8 @@ public interface GoodsService {
 	 * @return
 	 */
 	public ProdOption getProdopt(int prodOptNo);
+
+	public  void insertordertb(Ordertb ordertb);
 
 	
 	

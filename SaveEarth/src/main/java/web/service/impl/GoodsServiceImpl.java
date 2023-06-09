@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import web.dao.face.GoodsDao;
 import web.dto.Campaign;
 import web.dto.Cart;
+import web.dto.Ordertb;
 import web.dto.ProdOption;
 import web.dto.Product;
 import web.service.face.GoodsService;
@@ -108,6 +109,12 @@ public class GoodsServiceImpl implements GoodsService {
 	public ProdOption getProdopt(int prodOptNo) {
 		
 		return goodsDao.getProdopt(prodOptNo);
+	}
+
+	@Override
+	public void insertordertb(Ordertb ordertb) {
+		goodsDao.insertordertb(ordertb);
+		
 	}
 
 
