@@ -244,9 +244,9 @@ public class InfoServiceImpl implements InfoService {
 	}
 	
 	@Override
-	public void deleteThumb(int infoNo) {
+	public void deleteThumb(int thumbNo) {
 
-		infoDao.deleteThumb(infoNo);
+		infoDao.deleteThumb(thumbNo);
 		
 	}
 	

@@ -47,8 +47,8 @@ $(document).ready(function() {
 		history.go(-1)
 	})
 
-/* 첨부파일 버튼 동작 */
-	if( ${not empty info} ) {
+/* 썸네일 버튼 동작 */
+	if( ${not empty infoThumb} ) {
 // 		console.log(${freeFile})
 		$("#originFile1").show()
 		$("#newFile1").hide()
@@ -87,13 +87,13 @@ $(document).ready(function() {
 
 
 	/* 첨부파일 버튼 동작 */
-	if( ${not empty info} ) {
+	if( ${not empty infoFile} ) {
 // 		console.log(${freeFile})
-		$("#originFile1").show()
-		$("#newFile1").hide()
+		$("#originFile2").show()
+		$("#newFile2").hide()
 	} else {
-		$("#newFile1").show()
-		$("#originFile1").hide()
+		$("#newFile2").show()
+		$("#originFile2").hide()
 	}
 	
 /* 파일 삭제 버튼 동작 */	
@@ -177,36 +177,33 @@ form {
 	닉네임 : ${memberInfo.adminName }
 </div>
 
+
 <div>
 말머리글 :<input type="text" id="infoState" name="infoState" class="form-control" style="width: 90px;" value="정보">
 </div>
 
-<c:forEach items="${info }" var="info">
 
 <!-- 글쓰기 폼 (웹 에디터) -->
 <div class="form-group" style= "margin-top: 50px">
 	<label class="form-label" for="title">제목</label>
-	<input type="text" id="title" name="infoTitle" class="form-control" value="${info.INFO_TITLE }">
-	<input type="hidden" id="infoNo" name="infoNo" class="form-control" value="${info.INFO_NO }">
+	<input type="text" id="title" name="infoTitle" class="form-control" value="${infoContent.infoTitle}">
+	<input type="hidden" id="infoNo" name="infoNo" class="form-control" value="${infoContent.infoNo}">
 </div>
 
 <div class="form-group" style= "margin-top: 50px">
 	<label class="form-label" for="content">본문</label>
-	<textarea rows="10" style="width: 100%;" id="content" name="infoContent">${info.INFO_CONTENT}</textarea>
+	<textarea rows="10" style="width: 100%;" id="content" name="infoContent">${infoContent.infoContent}</textarea>
 </div>
 
-</c:forEach>
 
 파일 수정 : 
-
+	
 		<div id="originFile1">
-		<c:if test="${not empty info }">
-		<c:forEach items="${info }" var="info">
-			<a href="../upload/${info.THUMB_STORED_NAME }" download="${info.THUMB_ORIGIN_NAME}">
-				${info.THUMB_ORIGIN_NAME }
+		<c:if test="${ not empty infoThumb }">
+			<a href="../upload/${infoThumb.thumbStoredName }" download="${infoThumb.thumbOriginName}">
+				${infoThumb.thumbOriginName }
 			</a><button class="deleteThumb btn btn-outline-warning" type="button">삭제</button><br>
-			<input type="hidden" value="${info.THUMB_NO}" class="thumbNo">
-		</c:forEach>
+			<input type="hidden" value="${infoThumb.thumbNo}" class="thumbNo" name="thumbNo">
 		</c:if>
 		</div>
 
@@ -216,22 +213,26 @@ form {
 			<small>** 새로운 파일로 첨부하면 기존 파일은 삭제됩니다</small>
 		</div>
 		
+	
+	
+		<c:forEach items="${infoFile}" var="file">
 		<div id="originFile2">
-		<c:if test="${not empty info }">
-		<c:forEach items="${info }" var="info">
-			<a href="../upload/${info.INFO_STORED_NAME }" download="${info.INFO_ORIGIN_NAME}">
-				${info.INFO_ORIGIN_NAME }
+		<c:if test="${not empty file }">
+			<a href="../upload/${file.infoStoredName }" download="${file.infoOriginName}">
+				${file.infoOriginName }
 			</a><button class="deleteFile btn btn-outline-warning" type="button">삭제</button><br>
-			<input type="hidden" value="${info.INFO_FILE_NO}" class="infoFileNo">
-		</c:forEach>
+			<input type="hidden" value="${file.infoFileNo}" class="infoFileNo" name="infoFileNo">
 		</c:if>
 		</div>
+		</c:forEach>
 
 		<div id="newFile2">
 			<label class="form-label" for="files">새로운 첨부파일</label>
 			<input type="file" id="file" name="files" class="form-control" multiple="multiple">
 			<small>** 새로운 파일로 첨부하면 기존 파일은 삭제됩니다</small>
 		</div>
+	
+
 
 <!-- 글쓰기 작성, 취소 버튼 -->
 <div style="text-align: center; margin-bottom: 30px;">

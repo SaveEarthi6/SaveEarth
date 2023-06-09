@@ -219,6 +219,27 @@ public interface AdminDao {
     */
    public void insertCampFile(CampaignFile campFiles);
 
+   /**
+    * 게시글 번호가 일치하는 정보게시판 게시글 내용을 조회한다
+    * @param infoNo - 게시글 번호
+    * @return 정보게시판 게시글 내용
+    */
+   public Info selectContent(int infoNo);
+
+   /**
+    * 게시글 번호가 일치하는 정보게시판 썸네일 정보를 조회한다
+    * @param infoNo - 게시글 번호
+    * @return 정보게시판 썸네일 정보
+    */
+   public InfoThumbnail selectThumb(int infoNo);
+
+   /**
+    * 게시글 번호가 일치하는 정보게시판 첨부파일 정보를 조회한다
+    * @param infoNo - 게시글 번호
+    * @return 정보게시판 첨부파일 정보
+    */
+   public List<InfoFile> selectFile(int infoNo);
+
 
    
 	

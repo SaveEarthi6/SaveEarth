@@ -442,91 +442,9 @@ public class AdminController {
 
 		Paging paging = infoService.getPaging(curPage);
 
-<<<<<<< HEAD
-	   logger.info("infoUpdate info {}", info);
 	   
-	   model.addAttribute("info", info);
-	   model.addAttribute("memberInfo", memberInfo);
-	   
-   }
-   
-   @PostMapping("/infoUpdate")
-   public String updateProc(Model model, Info info, @RequestParam(required = false) List<MultipartFile> files,@RequestParam(required = false)  MultipartFile thumb) {
-	   
-	   logger.info("/admin/infoUpdate [post]");
-	  
-	   logger.info("info {}", info);
-	   logger.info("infoFiles {}", files);
-	   logger.info("thumb {}", thumb);
-	  
-	   //게시글 내용 + 파일 수정
-	   adminService.updateInfo(info, files, thumb);
-	   
-	   logger.info("infoUpdate info {}", info);
-	   
-	   return "redirect:./info";
-	   
-	   
-   }
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   //공지사항 수정
-   @GetMapping("/noticeUpdate")
-   public void noticeUpdate (Model model, Free freeBoard, HttpSession session ) {
-	   
-	   logger.info("admin/noticeUpdate {GET}");
-	   
-	   //수정 할 게시판 조회 (공지사항)
-	   Map<String, Object> view = adminService.getView(freeBoard);
-	   
-	   //수정할 파일 정보 조회
-	   List <FreeFile> freeFile = adminService.getFreeFile(freeBoard);
-	   
-	   model.addAttribute("view", view);
-	   model.addAttribute("freeFile", freeFile);
-	   
-   }
-   
-   @PostMapping("/noticeUpdate") 
-   public String updateNotice (Model model, Free freeBoard, @RequestParam(required = false) List<MultipartFile> files) {
-	   
-	   List<FreeFile> freeFile = adminService.getFreeFile(freeBoard);
-	   
-	   adminService.updateFree(freeBoard,files,freeFile);
-	   
-	   return "redirect:/admin/free";
-   
-   
-   }
-   
-   
-   
-   
-=======
-		// 정보게시판 게시글 조회
+	// 정보게시판 게시글 조회
 		List<Map<String, Object>> infoList = infoService.getInfoList(paging);
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
 
 		for (Map i : infoList) {
 			logger.info("infoList : {}", i);
@@ -534,8 +452,11 @@ public class AdminController {
 
 		model.addAttribute("infoList", infoList);
 		model.addAttribute("paging", paging);
+	   
+	   
+   }
 
-	}
+
 
 	   @RequestMapping("/infoView") 
 	   public void infoView(Model model, @RequestParam(value="infoNo") int infoNo) {
@@ -599,53 +520,54 @@ public class AdminController {
 	   }
 
 		   
-		   @GetMapping("/infoUpdate")
-		   public void update(Model model, @RequestParam(value="infoNo") int infoNo, HttpSession session) {
-			   
-			   logger.info("/admin/infoUpdate");
-			   
-			   String loginId = (String) session.getAttribute("loginId");
-			   logger.info("관리자 id : {}", loginId);
+	   @GetMapping("/infoUpdate")
+	   public void update(Model model, @RequestParam(value="infoNo") int infoNo, HttpSession session) {
+		   
+		   logger.info("/admin/infoUpdate");
+		   
+		   String loginId = (String) session.getAttribute("loginId");
+		   logger.info("관리자 id : {}", loginId);
 
-			   Admin memberInfo = adminService.info(loginId);
-			   
-			   //정보게시판 게시글 조회(게시글 번호와 일치하는 게시글 내용)
-			   List<Map<String, Object>> info = adminService.getInfo(infoNo);
+		   Admin memberInfo = adminService.info(loginId);
+		   
+		   //정보게시판 게시글 조회(게시글 번호와 일치하는 게시글 내용)
+//		   List<Map<String, Object>> infoUpdate = adminService.getInfo(infoNo);
 
-			   logger.info("infoUpdate info {}", info);
-			   
-			   model.addAttribute("info", info);
-			   model.addAttribute("memberInfo", memberInfo);
-			   
-		   }
+//		   logger.info("infoUpdate info {}", infoUpdate);
 		   
-		   @PostMapping("/infoUpdate")
-		   public void updateProc(Model model, Info info, @RequestParam(required = false) List<MultipartFile> infoFiles,@RequestParam(required = false)  MultipartFile thumb) {
-			   
-			   logger.info("/admin/infoUpdate [post]");
-			  
-			   logger.info("info {}", info);
-			   logger.info("infoFiles {}", infoFiles);
-			   logger.info("thumb {}", thumb);
-			   
-			   //게시글 내용 + 파일 수정
-			   infoService.updateInfo(info, infoFiles, thumb);
-			   
-			   logger.info("infoUpdate info {}", info);
-			   
-			   model.addAttribute("info", info);
-			   
-		   }
+//		   model.addAttribute("infoUpdate", infoUpdate);
+
+		   //정보게시판 게시글 내용 조회
+		   Info infoContent = adminService.getContent(infoNo);
 		   
+		   //정보게시판 썸네일 정보 조회
+		   InfoThumbnail infoThumb = adminService.getThumb(infoNo);
 		   
+		   //정보게시판 첨부파일 정보 조회
+		   List<InfoFile> infoFile = adminService.getFile(infoNo);
 		   
+		   model.addAttribute("infoContent", infoContent);
+		   model.addAttribute("infoThumb", infoThumb);
+		   model.addAttribute("infoFile", infoFile);
+		   model.addAttribute("memberInfo", memberInfo);
 		   
+	   }
 		   
+	   @PostMapping("/infoUpdate")
+	   public String updateProc(Model model, Info info, @RequestParam(required = false) List<MultipartFile> files,@RequestParam(required = false)  MultipartFile thumb) {
 		   
+		   logger.info("/admin/infoUpdate [post]");
+		  
+		   logger.info("info {}", info);
+		   logger.info("infoFiles {}", files);
+		   logger.info("thumb {}", thumb);
 		   
+		   //게시글 내용 + 파일 수정
+		   adminService.updateInfo(info, files, thumb);
+
+		   return "redirect:./info";
 		   
-		   
-		   
+	   }
 		   
 		   
 		   
@@ -683,4 +605,4 @@ public class AdminController {
 		   
 		   }
 		   
-		}
+}

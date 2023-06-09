@@ -75,7 +75,7 @@ public class InfoBoardController {
 	}
 
 	//정보게시판 - 정보게시글 검색기능
-	@RequestMapping("/searchInfo")
+	@RequestMapping("/info/searchInfo")
 	public void searchInfoKeyword(Model model,@RequestParam(value = "curPage", defaultValue = "1") int curPage, String keyword) {
 		
 		logger.info("/info/searchInfo");
@@ -110,21 +110,23 @@ public class InfoBoardController {
 		logger.info("/top [GET]");
 	}
 	
-	@RequestMapping("/deleteThumb")
+	//정보게시판 썸네일 삭제
+	@RequestMapping("/info/deleteThumb")
 	public void deleteThumb(@RequestParam("thumbNo") int thumbNo, @RequestParam("infoNo") int infoNo, Model model) {
 		
 		logger.info("thumbNo {}", thumbNo);
 	
 		//파일번호를 기준으로 파일 삭제
-		infoService.deleteThumb(infoNo);
+		infoService.deleteThumb(thumbNo);
 		
 		//삭제된 후 파일 리스트 조회
 		List<InfoThumbnail> infoThumb = infoService.getInfoThumb(infoNo);
-		logger.info("freeFile {}", infoThumb);
-		model.addAttribute("freeFile", infoThumb);
+		logger.info("infoThumb {}", infoThumb);
+		model.addAttribute("infoThumb", infoThumb);
 	}
 
-	@RequestMapping("/deleteFile")
+	//정보게시판 첨부파일 삭제
+	@RequestMapping("/info/deleteFile")
 	public void deleteFile(@RequestParam("infoFileNo") int infoFileNo, @RequestParam("infoNo") int infoNo, Model model) {
 		
 		logger.info("thumbNo {}", infoFileNo);
@@ -134,8 +136,9 @@ public class InfoBoardController {
 		
 		//삭제된 후 파일 리스트 조회
 		List<InfoFile> infoFile = infoService.getInfoFile(infoNo);
-		logger.info("freeFile {}", infoFile);
-		model.addAttribute("freeFile", infoFile);
+		logger.info("infoFile {}", infoFile);
+		model.addAttribute("infoFile", infoFile);
+	
 	}
 
 	//자유게시판 TOP 추천수 상세보기 불러오기

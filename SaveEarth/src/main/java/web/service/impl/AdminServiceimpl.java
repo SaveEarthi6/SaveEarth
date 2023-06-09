@@ -648,7 +648,7 @@ public class AdminServiceimpl implements AdminService {
 		
 		infoFiles.setInfoNo(info.getInfoNo());
 		infoFiles.setInfoOriginName(files.get(i).getOriginalFilename());;
-		infoFiles.setInfoStroedName(storedName1);
+		infoFiles.setInfoStoredName(storedName1);
 		logger.info("infoFiles : {}", infoFiles );
 		
 		upfiles.add(infoFiles);
@@ -800,7 +800,6 @@ public class AdminServiceimpl implements AdminService {
 	
 	
 	
-<<<<<<< HEAD
 	@Override
 	public void updateInfo(Info info, List<MultipartFile> files, MultipartFile thumb) {
 		
@@ -814,7 +813,7 @@ public class AdminServiceimpl implements AdminService {
 
 		for(MultipartFile m : files) {
 			if(m.getSize() <= 0 ) {
-				logger.info("0보다 작음, 처리 중단");
+				logger.info("첨부파일 0보다 작음, 처리 중단");
 				return;
 			}
 		}
@@ -865,7 +864,7 @@ public class AdminServiceimpl implements AdminService {
 
 			infoFiles.setInfoNo(info.getInfoNo());
 			infoFiles.setInfoOriginName(files.get(i).getOriginalFilename());
-			infoFiles.setInfoStroedName(storedName);
+			infoFiles.setInfoStoredName(storedName);
 			//여기서 에러
 			//				freeFiles.setFreeFileNo(freeFile.get(i).getFreeFileNo());
 			logger.info("infoFiles : {}", infoFiles );
@@ -885,7 +884,7 @@ public class AdminServiceimpl implements AdminService {
 		//=================썸네일 수정=================
 		
 		if(thumb.getSize() <= 0) {
-			logger.info("0보다 작음, 처리 중단");
+			logger.info("썸네일 0보다 작음, 처리 중단");
 			return;
 		}
 		
@@ -943,8 +942,23 @@ public class AdminServiceimpl implements AdminService {
 	
 	}
 	
-}
-=======
+	@Override
+	public Info getContent(int infoNo) {
+	
+		return adminDao.selectContent(infoNo);
+	}
+	
+	@Override
+	public InfoThumbnail getThumb(int infoNo) {
+		
+		return adminDao.selectThumb(infoNo);
+	}
+	
+	@Override
+	public List<InfoFile> getFile(int infoNo) {
+		
+		return adminDao.selectFile(infoNo);
+	}
 	
 }
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
+	

@@ -416,5 +416,20 @@
 		INSERT INTO campaign_file (camp_file_no, camp_no, camp_origin_name, camp_stored_name) 
 		VALUES ( camp_file_no_seq.nextval, #{campNo}, #{campOriginName}, #{campStoredName})
 	</insert>
+
+<select id="selectContent" resultType="web.dto.Info" parameterType="int">
+	SELECT * FROM info
+	WHERE info_no = #{infoNo}
+</select>
+
+<select id="selectThumb" resultType="web.dto.InfoThumbnail" parameterType="int">
+	SELECT * FROM info_thumbnail
+	WHERE info_no = #{infoNo}
+</select>
+
+<select id="selectFile" resultType="web.dto.InfoFile" parameterType="int">
+	SELECT * FROM info_file
+	WHERE info_no = #{infoNo}
+</select>
 	
 </mapper>

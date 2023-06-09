@@ -80,10 +80,10 @@ public interface InfoDao {
 	public void deleteInfo(int infoNo);
 
 	/**
-	 * 게시글 번호가 일치하는 썸네일을 삭제한다
-	 * @param infoNo - 게시글 번호
+	 * 썸네일 번호가 일치하는 썸네일을 삭제한다
+	 * @param thumbNo - 썸네일 번호
 	 */
-	public void deleteThumb(int infoNo);
+	public void deleteThumb(int thumbNo);
 
 
 	/**
