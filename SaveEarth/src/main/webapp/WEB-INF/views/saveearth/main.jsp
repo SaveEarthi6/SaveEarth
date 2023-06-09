@@ -5,7 +5,11 @@
 
 <c:import url="../layout/header.jsp"></c:import>
 
+<<<<<<< HEAD
 <!-- 풀캘린더 -->
+=======
+
+>>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
 
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
@@ -211,6 +215,35 @@ $(function() {
 	<h5 style= "padding-left: 1000px ; font-family: omyu_pretty; ">⚠️퀴즈는 3개로 랜덤입니다</h5>
 </div>
 
+	<div id="campList" class="row">
+		<div class="col-1"></div>
+		
+		<div id="camps" class="row col-10">
+		
+			<c:forEach var="campaign" items="${campList }" begin="0" end="2">
+			<div id="camp" class="col">
+			<a href="./detail?campno=${campaign.CAMP_NO }" id="campTag">
+				
+				<c:if test="${campaign.CAMP_STORED_NAME ne null }">
+					<div><img alt="" src="/upload/${campaign.CAMP_STORED_NAME }" style="width: 400px; height: 300px;"></div>
+				</c:if>
+				
+				<c:if test="${campaign.CAMP_STORED_NAME eq null }">
+					<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
+				</c:if>
+				
+				<div id="campTitle">
+					<span id="titleTag">[${campaign.CAMP_STATE }]</span>
+					<span id="title">${campaign.CAMP_TITLE }</span>
+				</div>
+			</a>
+			</div>
+			</c:forEach>
+			
+		</div>
+		
+		<div class='col-1'></div>
+	</div>
 
 <!-- 굿즈샵 예시보기 -->
 <h1 style="font-family: 'KBO-Dia-Gothic_bold'; text-align: center; padding-top: 100px;">🛍️굿즈샵🛍️</h1>
@@ -218,4 +251,13 @@ $(function() {
 
 
 
+<<<<<<< HEAD
+=======
+
+
+	
+	
+
+</tbody>
+>>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
 <c:import url="../layout/footer.jsp"></c:import>

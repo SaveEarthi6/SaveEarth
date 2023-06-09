@@ -13,6 +13,8 @@ import web.dto.Certification;
 import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Info;
+import web.dto.InfoFile;
+import web.dto.InfoThumbnail;
 import web.dto.Product;
 import web.dto.ProductFile;
 import web.util.Paging;
@@ -101,7 +103,7 @@ public interface AdminDao {
    public void deleteCam(Campaign campNo);
 
    
-//   public List<Product> selectProdList(Paging paging);
+   //   public List<Product> selectProdList(Paging paging);
 
    public void insertProductFile(ProductFile productFile);
 
@@ -131,5 +133,90 @@ public interface AdminDao {
 
 
 
+   /**
+	 * 정보게시판에 입력한 게시글 정보를 삽입한다
+	 * @param info - 게시글 제목, 내용
+	 */
+	public void insertInfo(Info info);
+
+	/**
+	 * 썸네일 파일 정보를 삽입한다
+	 * @param thumbnail - 첨부한 썸네일 정보
+	 */
+	public void insertinfoThumb(InfoThumbnail thumbnail);
+
+	/**
+	 * 정보게시판에 첨부한 파일 정보를 삽입한다
+	 * @param infoFiles - 첨부한 파일 정보
+	 */
+	public void insertInfoFile(InfoFile e);
+	
+	/**
+	 * 게시글 번호가 일치하는 썸네일을 삭제한다
+	 * @param infoNo - 게시글 번호
+	 */
+	public void deleteThumb(int infoNo);
+	
+	/**
+	 * 게시글 번호가 일치하는 파일(정보)를 삭제한다
+	 * @param infoNo - 게시글 번호
+	 */
+	public void deleteInfoFile(int infoNo);
+	
+	/**
+	 * 게시글 번호가 일치하는 게시글 내용을 삭제한다
+	 * @param infoNo - 게시글 번호
+	 */
+	public void deleteInfo(int infoNo);
+
+	/**
+	 * 게시글 번호와 일치하는 게시글 내용을 조회한다
+	 * @param infoNo - 게시글 번호
+	 * @return - 게시글 번호가 일치하는 게시글 내용
+	 */
+	public List<Map<String, Object>> selectInfoByInfoNo(int infoNo);
+
+	/**
+	 * 관리자페이지 정보게시판 게시글 조회
+	 * @param paging - 페이징 객체
+	 * @return - 정보게시판 게시글
+	 */
+	public List<Map<String, Object>> selectInfoList(Paging paging);
+
+	/**
+	 * 정보게시판 총 개수
+	 * @return - 게시글 총 개수
+	 */
+	public int selectCntInfo();
+	
+	
+
+   public Map<String, Object> selectCampBoard(@Param("campaign") Campaign campaign);
+
+   public List<CampaignFile> selectCampFile(Campaign campaign);
+   
+   /**
+	 * 게시글 정보 수정
+	 * @param campaign - 수정할 게시글 정보
+	 */
+   public void updateCamp(Campaign campaign);
+   
+   /**
+    *  게시글을 참조하고 있는 모든 첨부파일을 삭제
+    * @param campaign - 첨부파일을 삭제할 게시글 번호
+    */
+   public void deleteCampFile(Campaign campaign);
+   
+   /**
+    * 자유게시판에 첨부한 파일(들)을 삽입한다
+    * @param e - 첨부파일들
+    */
+   public void insertCampFile(CampaignFile campFiles);
+
+
+   
+	
+	
+	
 
 }

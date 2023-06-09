@@ -31,6 +31,17 @@
 	margin-bottom: 20px;
 }
 
+/* 문구 폰트 스타일 */
+@font-face {
+	font-family:'KBO-Dia-Gothic_bold';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff')
+		format('woff');
+		
+	font-weight: 700;
+	font-style: normal;
+}
+
 /* '굿즈샵' 문구 스타일 */
 .goods {
 	position: absolute;
@@ -76,11 +87,19 @@
 		
 			<c:forEach var="prod" items="${prodList }">
 			<div id="info" class="col">
-			<a href="./detail?prodno=${prod.prodNo }" id="prodNo">
-					<div><img alt="" src="" style="width: 400px; height: 300px; margin-bottom: 10px;"></div>
-				<div id="campTitle">
-					<span id="titleTag">[${prod.prodName }]</span>
-					<span id="title">${prod.prodPrice }원</span>
+			<a href="./detail?prodno=${prod.PROD_NO }" id="prodNo">
+			
+				
+<!-- 					<div><img alt="" src="" style="width: 400px; height: 300px; margin-bottom: 10px;"></div> -->
+				<c:if test="${prod.PROD_STORED_NAME ne null }" >
+					<div><img alt="" src="/upload/${prod.PROD_STORED_NAME }" style="width: 400px; height: 300px; margin-bottom: 10px;"></div>
+				</c:if>	
+				<c:if test="${prod.PROD_STORED_NAME eq null }">
+					<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
+				</c:if>
+				<div id="CampTitle">
+					<span id="titleTag">[${prod.PROD_NAME }]</span>
+					<span id="title">${prod.PROD_PRICE }원</span>
 				</div>
 			</a>
 			</div>
@@ -91,8 +110,9 @@
 
 </div><!-- infoList end	 -->
 
+<!-- TOP으로 가기 -->
+<div style="cursor:pointer; text-align:right; margin-right: 20px;" onclick="window.scrollTo(0,0);"><i class="bi bi-arrow-up-circle-fill" ></i></div>
 
-<c:import url="./paging.jsp"/>
+<c:import url="../layout/paging.jsp"/>
 	
-
 <c:import url="../layout/footer.jsp"/>
