@@ -103,7 +103,7 @@ body {
 #logo {
 	text-align: center;
 	width:500px;
-	height:150px;
+	height:115px;
 	margin-bottom: 50px;
 }
 
@@ -125,8 +125,17 @@ body {
 	
 }
 
+
+
 a{ text-decoration: none; } /* 링크텍스트에 밑줄없앰 */
 button{ cursor: pointer; } /* 모든 버튼에 마우스손모양 처리 */
+
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
 </style>
 
@@ -142,11 +151,11 @@ button{ cursor: pointer; } /* 모든 버튼에 마우스손모양 처리 */
 <div>
 	<a href="/member/login" class="lefttop">로그인</a>
 	<a href="/admin/login"	class="righttop">관리자 로그인 </a>
-	<a href="/goods/cart" class="top">장바구니</a>
+	<a href="/goods/cart" class="top";>장바구니</a>
 </div>	
 	</c:if>
 	<c:if test="${not empty isLogin and isLogin }">
-	<div>
+	<div style= "font-family: GmarketSansMedium">
 	<a href="/member/logout" class="lefttop">로그아웃</a>
 	<a href="/mypage/update" class="righttop">마이페이지</a>
 	<a href="/goods/cart" class="top">장바구니</a>
@@ -159,7 +168,7 @@ button{ cursor: pointer; } /* 모든 버튼에 마우스손모양 처리 */
 
 <table class="menu">
 
-<tr>
+<tr style= "font-family:GmarketSansMedium " >
 	<td id="welcome">소개</td>
 	<td id="infoBoard">정보게시판</td>
 	<td id="freeBoard">자유게시판</td>

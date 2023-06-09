@@ -18,6 +18,14 @@
    font-style: normal;
 }
 
+@font-face {
+    font-family: 'omyu_pretty';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 .free {
    position: absolute;
    top: 38%;
@@ -63,7 +71,7 @@
 #title {
    font-size: 2em;
    font-weight: bold;
-   font-family: 'KBO-Dia-Gothic_bold';
+   font-family: 'omyu_pretty';
 }
 
 #head {
@@ -81,6 +89,9 @@
 }
 
 
+.comm {
+	font-family: 'omyu_pretty';
+	font-size:20px;
 }
 </style>
 
@@ -134,17 +145,24 @@
       ㅣ 조회수 ${view.FREE_VIEWS }
 
     <!-- 추천 기능 버튼 -->
-    
-    <c:if test="${chk eq false }">
-		 <img class="button" id="recommendEmpty" src="../resources/img/button_empty.png" >
-    </c:if>
-    
-    <c:if test="${chk eq true }">
-		 <img class="button" id="recommendEmpty" src="../resources/img/button_heart.png" >
-    </c:if>
-   
-
-     	 <span id="result"> ${view.RECOMMEND }</span>
+   <c:choose>
+		<c:when test="${view.FREE_HEAD eq '공지사항' }">
+		<!-- 추천수가 뜨질 않게!! 공지사항엔 추천 할 수 없습니다. -->
+     	 </c:when>
+     	 
+     	 <c:otherwise>
+			    
+			    <c:if test="${chk eq false }">
+					 <img class="button" id="recommendEmpty" src="../resources/img/button_empty.png" >
+			    </c:if>
+			    
+			    <c:if test="${chk eq true }">
+					 <img class="button" id="recommendEmpty" src="../resources/img/button_heart.png" >
+			    </c:if>
+	     	 <span id="result"> ${view.RECOMMEND }</span>
+     	 </c:otherwise>
+     	 
+   </c:choose>
 
    </div>
 

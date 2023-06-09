@@ -105,11 +105,11 @@ $(document).ready(function() {
 			}
 		})
 		
-	})
+	})/* 파일 삭제 버튼 end */
 	
 	
 	
-})
+})/* 취소버튼 동작 end */
 
 
 </script>

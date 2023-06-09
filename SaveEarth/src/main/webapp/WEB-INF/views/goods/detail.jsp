@@ -6,42 +6,7 @@
 
 
 
-<!--  결제하기 실험해보기 -->
-   <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-    <script>
-        var IMP = window.IMP; 
-        IMP.init("imp42576077"); // 가맹점 식별코드
-      
-        var today = new Date();   
-        var hours = today.getHours(); // 시
-        var minutes = today.getMinutes();  // 분
-        var seconds = today.getSeconds();  // 초
-        var milliseconds = today.getMilliseconds();
-        var makeMerchantUid = hours +  minutes + seconds + milliseconds;
-        
 
-        function requestPay() {
-            IMP.request_pay({
-                pg : 'html5_inicis.INIpayTest  ', // PG사 코드표에서 코드 맞춰놓았음
-                pay_method : 'card', // 결제 방식
-                merchant_uid: "IMP"+makeMerchantUid, // 결제 고유 번호
-                name : '${goodsDetail.PROD_NAME }', // 제품명 변경
-                amount : document.getElementById("totalprice").innerText, // 가격
-                buyer_email : 'Iamport@chai.finance',
-                buyer_name : '아임포트 기술지원팀',
-                buyer_tel : '010-1234-5678',
-                buyer_addr : '서울특별시 강남구 삼성동',
-                buyer_postcode : '123-456'
-            }, function (rsp) { // callback
-                if (rsp.success) {
-                    console.log(rsp);
-                } else {
-                    console.log(rsp);
-                }
-            });
-        }
-
-	</script>
 
 
 
@@ -104,14 +69,6 @@ $(function(){
 
 </script>
     
-
-
-
-
-
-
-
-
 
 
 
@@ -250,7 +207,7 @@ $(function(){
             margin-top: 16px;
         }
 
-        #product > .view > .info > .summary .button > input {
+        #product > .view > .info > .summary .button > input  {
             float: left;
             width: 49%;
             height: 50px;
@@ -261,11 +218,27 @@ $(function(){
             cursor: pointer;
         }
 
-        #product > .view > .info > .summary .button > .cart {
+        #product > .view > .info > .summary .button > .cart  {
             background: #fff;
             border: 1px solid #d9d9d9;
             color: #233594;
         }
+        
+        #signup {
+			float: left;
+		    width: 49%;
+		    height: 50px;
+		    margin: 2px;
+		    font-size: 20px;
+		    font-weight: bold;
+		    border-radius: 2px;
+		    cursor: pointer;
+		    background: #fff;
+		    border: 1px solid #d9d9d9;
+		    color: #233594; 
+        
+        }
+        
 
         #product > .view > .info > .summary .button > .order {
             background: #2e8de5;
@@ -332,9 +305,10 @@ $(function(){
     }
 
     .count button {
-        padding: 5px 10px;
+        padding: 0px 10px;
         font-size: 16px;
         cursor: pointer;
+        margin: 10px;
     }
 
     .count input {
@@ -362,45 +336,58 @@ $(function(){
             <section class="view">
        
                 <article class="info">
+                
                     <div class="image">
-                        <img src="/resources/img/free.png" alt="상품이미지" class="goodsimage">
+                        <img src="/upload/${goodsDetail.PROD_STORED_NAME }" alt="상품이미지" class="goodsimage">
                     </div>
+               
                     <div class="summary">
-                  
                         <nav>
                             <h1>${goodsDetail.PROD_NAME }</h1>
                  
                         </nav>
                         <nav>
                             <div >
-                                <h3 class="prodprice">${goodsDetail.PROD_PRICE }</h3>
+                            	
+                                <h3 class="prodprice">${goodsDetail.PROD_PRICE }원</h3>
                                 
                             </div>
 
                         </nav>
+                  
 
                        
                         <div class="count">
+                     
+                        <div>
 						    <button class="decrease" onclick="decreaseValue()">-</button>
+						</div>  
+						<div>  
 						    <input type="text" name="num" id="num" value="1" readonly>
+						</div>  
+						<div>   
 						    <button class="increase" onclick="increaseValue()">+</button>
-                        </div>
-                        
-                        <!-- 옵션주기 -->
-						<div id="optionsDiv">
+						</div> 
+					   	  
+						 <div id="optionsDiv">
 						  <select id="optionSelect">
 						    
 						  <c:forEach items="${prodOption }" var="prodOption">
 						    <option value="${prodOption.PROD_OPT_NO }">Color: ${prodOption.PROD_COLOR } Size: ${prodOption.PROD_SIZE }</option>
 						  </c:forEach>
 						  </select>
-						</div>               
+						</div>      
+                        </div>
+                        
+                        <!-- 옵션주기 -->
+         
                         
                         
                         
                         
                         
                         <div class="total">
+                      		<span>총가격 : </span>
                             <span class="totalprice" id="totalprice">${goodsDetail.PROD_PRICE }</span>
                             <span>원</span>
                         
@@ -409,11 +396,16 @@ $(function(){
                        
     <input type="button" class="cart" value="장바구니" onclick="addToCart()">
                             <input type="hidden" name="prodCount" class="prodCount">
-                                <button onclick="requestPay()">결제하기</button> 
-                             <form>
-                            <input type="button" class="order" value="구매하기" onclick="detailbuy()">
+                                
+                            <form action="./detailbuy" method="post">
+                            <input type="hidden" name="prodNo" value="${goodsDetail.PROD_NO }">
+                            <input type="hidden" name="prodCount" value="">
+                            <input type="hidden" name="prodOptNo" value="">
                             
-                            </form>   
+<!--                     		<input type="button" class="order" value="구매하기" id="signup" onclick="detailbuy()" >  -->
+                            <button type="submit" class="order" id="signup" onclick="detailbuy()" >구매하기</button>
+                            </form>
+                              
                         </div>
                     </div>
                 </article>
@@ -426,7 +418,7 @@ $(function(){
         
     </div>
     
-    
+
 
 
 <script>
@@ -446,35 +438,29 @@ $(function(){
     }
 	 /* 스크립트로 상품 번호랑 갯수 넘기기 */
     function addToCart() {
-		 alert("장바구니 담기 완료");
-		let prodOptNo = document.getElementById('optionSelect').value;
-        let prodno = '${goodsDetail.PROD_NO}';
-        let prodCount = document.getElementById('num').value;
-        let url = './addCart?prodno=' + prodno + '&prodCount=' + prodCount + '&prodOptNo=' + prodOptNo;
-        location.href = url;
+		 
+	
+			 
+			 alert("장바구니 담기 완료");
+				let prodOptNo = document.getElementById('optionSelect').value;
+		        let prodno = '${goodsDetail.PROD_NO}';
+		        let prodCount = document.getElementById('num').value;
+		        let url = './addCart?prodno=' + prodno + '&prodCount=' + prodCount + '&prodOptNo=' + prodOptNo;
+		        location.href = url;			 
+			 
+	 
+	
     }    
 	 
 	function detailbuy(){
 		let prodOptNo = document.getElementById('optionSelect').value;
-        let prodno = '${goodsDetail.PROD_NO}';
+        
         let prodCount = document.getElementById('num').value;
-		let url = './detailbuy';
 		
 		
-		 // XMLHttpRequest 객체 생성
-		  let xhr = new XMLHttpRequest();
-		  
-		  // POST 요청 설정
-		  xhr.open('POST', url, true);
-		  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-		  
-		  // POST 데이터 생성
-		  let data = 'prodno=' + prodno + '&prodCount=' + prodCount + '&prodOptNo=' + prodOptNo;
-		  
-		  // 요청 전송
-		  xhr.send(data);
-		  
-
+		$('input[name=prodCount]').attr('value',prodCount);
+		$('input[name=prodOptNo]').attr('value',prodOptNo);
+	
 	} 
 </script>
 <form >

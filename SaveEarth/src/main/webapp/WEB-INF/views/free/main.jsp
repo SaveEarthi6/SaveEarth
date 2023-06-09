@@ -33,7 +33,7 @@ body {
 /* 이미지 안에 자유게시판 문구 스타일 */
 .free {
 	position: absolute;
-	top: 38%;
+	top: 50%;
 	left: 45%;
 	color: #fff;
 	font-weight: bold;
@@ -51,6 +51,14 @@ body {
 	font-weight: 700;
 	font-style: normal;
 }
+
+@font-face {
+    font-family: 'omyu_pretty';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 
 /* 말머리글 (드롭다운) 크기 늘리기 */
 select {
@@ -149,7 +157,7 @@ location.href="?freeHead=" + freeHead
 
 <div class="btn-group" >
 
-  <select id="freeHead" onchange="selectfreeHead(this.value)" name="freeHead" >
+  <select id="freeHead" onchange="selectfreeHead()" name="freeHead" >
 
   	    <c:choose>
   	    
@@ -183,7 +191,7 @@ location.href="?freeHead=" + freeHead
 			<option value= "사담">사담</option>
 			<option value= "정보">정보</option>
 			<option value= "질문">질문</option>
-			<option value= "공지사항" selected>공지사항</option>
+			<option value= "공지사항" selected >공지사항</option>
 		</c:when>
 		
 		<c:when test="${freeHead eq '전체'}">
@@ -199,7 +207,7 @@ location.href="?freeHead=" + freeHead
 			<option value= "사담">사담</option>
 			<option value= "정보">정보</option>
 			<option value= "질문">질문</option>
-			<option value= "공지사항">공지사항</option>
+			<option value= "공지사항" >공지사항</option>
 		</c:otherwise>
 		
       </c:choose>
@@ -214,7 +222,7 @@ location.href="?freeHead=" + freeHead
 </div>
 
 <!-- 게시판 -->
-<table id= "board" class= "table table-hover text-center">
+<table id= "board" class= "table table-hover text-center" style= "font-family: omyu_pretty; font-size:20px">
 
 	<tr style= "background-color: #59A8D9; color: white;">
 		<th style="width: 20px;">글번호</th>
@@ -232,7 +240,16 @@ location.href="?freeHead=" + freeHead
 			<tr>
 <!-- 				map에 저장된 컬럼명과 동일하게 지정해주어야 한다 -->
 				<td>${free.FREE_NO }</td>
-				<td>${free.FREE_HEAD}</td>
+				
+				
+				<td>
+					<c:if test="${free.FREE_HEAD eq '공지사항' }" > 
+						<img class="notice" src="../resources/img/notice.png" width= "35px;" > <!-- 공지사항 이미지 띄우게 하기 -->
+					</c:if>
+					${free.FREE_HEAD}
+				</td>
+				
+				
 				<td class="text-start" style="text-align:center"><a href="/free/view?freeNo=${free.FREE_NO }">${free.FREE_TITLE }</a></td>
 				<c:choose>
 				
