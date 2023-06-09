@@ -163,20 +163,38 @@ public class goodsController {
 		
 	}
 	
-	//전체 주문하기
+	//주문하기 페이지
 	@GetMapping("/order")
-	public void orderAll(HttpSession session, Model model) {
+	public void orderAll(HttpSession session, Model model, String cartArr) {
 		logger.info("/goods/order [GET]");
+		logger.info("{}", cartArr);
 		
-		//회원정보와 일치하는 카트List 전체 출력
-		List<Map<String, Object>> cartList = goodsService.getcartList((int)session.getAttribute("loginNo"));
-		logger.info("{}", cartList);
-		
-		model.addAttribute("cartList",cartList);
-		
-		//회원 정보 불러오기
-		
-		
+		//선택 주문 장바구니 불러오기
+		if(cartArr != null) {
+			
+			String[] cartNo = cartArr.split(",");
+			
+			List<Map<String, Object>> cartList = new ArrayList<>();
+			
+			for(int i = 0; i<cartNo.length; i++) {
+				logger.info("{}", cartNo[i]);
+				
+				cartList.add(goodsService.getCartListBySelect((int)session.getAttribute("loginNo"), cartNo[i]));
+				
+			}
+			
+			model.addAttribute("cartList",cartList);
+			logger.info("{}", cartList);
+			
+		  //전체 주문 장바구니 불러오기	
+		} else if(cartArr == null) {
+			
+			//회원정보와 일치하는 카트List 전체 출력
+			List<Map<String, Object>> cartList = goodsService.getcartList((int)session.getAttribute("loginNo"));
+			logger.info("{}", cartList);
+			
+			model.addAttribute("cartList",cartList);
+		}
 		
 	}
 	
@@ -215,7 +233,7 @@ public class goodsController {
 	
 	//선택 주문
 	@RequestMapping("/orderSelect")
-	public void orderSelect(HttpSession session, @RequestParam("chbox[]") List<String> chArr, Model model) {
+	public Model orderSelect(HttpSession session, @RequestParam("chbox[]") List<String> chArr, Model model) {
 		logger.info("/goods/orderSelect [GET]");
 		logger.info("{}", chArr);
 		logger.info("{}", session.getAttribute("loginNo"));
@@ -231,12 +249,12 @@ public class goodsController {
 				cartList.add(goodsService.getCartListBySelect((int)session.getAttribute("loginNo"), cartNo));
 			}
 			
-//			model.addAttribute("cartList",cartList);
+			model.addAttribute("cartList",cartList);
 			logger.info("{}", cartList);
-//			return 1;
+			return model;
 			
 		} else {
-//			return 0;
+			return model;
 		}
 		
 	}
@@ -342,6 +360,17 @@ public class goodsController {
 
 		  
 	    return "goods/paycomplete"; // 결제 완료 페이지로 이동
+	  }
+	  
+	  @ResponseBody
+	  //주문자 배송정보 불러오기
+	  @RequestMapping("/getShipInfo")
+	  public Member getShipInfo(HttpSession session, Member member) {
+		  logger.info("/goods/getShipInfo [GET]");
+		  
+		  Member memberinfo = goodsService.getUserShipInfo((int)session.getAttribute("loginNo"));
+		  
+		  return memberinfo;
 	  }
 	
 

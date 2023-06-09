@@ -9,7 +9,7 @@
 $(function() {
 	
 	//전체 선택 / 해제
-	$("#chkAll").click(function() {
+	$(document).on("click", "#chkAll", function() {
 		if($("#chkAll").is(":checked")) {
 			$("input[name=cartArr]").prop("checked", true)
 		} else {
@@ -17,7 +17,7 @@ $(function() {
 		}
 	})
 	
-	$("input[name=cartArr]").click(function() {
+	$(document).on("click", "input[name=cartArr]", function() {
 		var totalArr = $("input[name=cartArr]").length
 		var checked = $("input[name=cartArr]:checked").length
 		
@@ -75,35 +75,38 @@ $(function() {
 $(function() {
 	
 	//선택 주문
-	//	-> 카트번호, 회원번호 필요
 	$("#btnOrder").click(function() {
 		console.log("선택주문 선택")
 		
-		//if 전체 선택되었다면 전체주문으로 넘어가게 감싸주기
-		
-		var chkArr = new Array();
-		
-		$("input[name=cartArr]:checked").each(function() {
-			chkArr.push($(this).attr("data-cartNo"))
-		})
-		
-		console.log(chkArr)
-		
-		
-		$.ajax({
-			url: "./orderSelect"
-			, type: "post"
-			, data: {chbox : chkArr}
-			, success: function(res) {
-				console.log("성공")
-				
-			}
-			, error: function() {
-				console.log("실패")
-			}
+		var totalArr = $("input[name=cartArr]").length
+		var checked = $("input[name=cartArr]:checked").length
+
+		if(checked == 0) {
+			console.log("선택된 상품이 없습니다.")
+			alert("선택된 상품이 없습니다.")
+			return false;
+		} else {
 			
-		})
+			//전체 선택되었다면 전체주문
+			if(totalArr == checked) {
+				$("#btnOrderAll").click()
+				console.log("선택주문에서 전체주문으로 넘어감")
+				
+			  //선택 항목이 전체가 아니라면	
+			} else if(totalArr != checked) {
+				console.log("선택주문으로 넘어감")
+				
+				var chkArr = new Array();
+				
+				$("input[name=cartArr]:checked").each(function() {
+					chkArr.push($(this).attr("data-cartNo"))
+				})
+				
+				console.log(chkArr)
+				location.href="./order?cartArr=" + chkArr;
+			}
 		
+		}
 	})
 	
 	
