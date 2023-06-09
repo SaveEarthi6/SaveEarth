@@ -193,6 +193,17 @@
 		ORDER BY ADMIN_NO DESC
 	</select>
 
+	<delete id="deleteCam" parameterType="int">
+		{CALL
+			BEGIN
+				DELETE FROM campaign_file
+				WHERE camp_no = ${campNo};
+				
+				DELETE FROM campaign
+				WHERE camp_no = ${campNo};
+			END
+		}
+	</delete>
 
 
 	<select id="selectAdmin" parameterType="string"
@@ -200,7 +211,7 @@
 		SELECT * FROM admin
 		WHERE admin_id = #{adminId}
 	</select>
-
+	
 
 	 	<select id="selectProductList" resultType="map" parameterType="web.util.Paging">
 
@@ -249,29 +260,21 @@
 	VALUES ( #{infoNo}, #{adminNo}, #{infoTitle}, #{infoContent}, #{infoState})
  	
 </insert>
-
-	<insert id="insertProductFile" parameterType="web.dto.Admin">
-		INSERT INTO
-		prod_file (prod_file_no, prod_no, prod_origin_name,
-		prod_stored_name)
-		VALUES ( prod_files_no_seq.nextval, #{prodNo}, #{prodOriginName},
-		#{prodStroedName})
-	</insert>
 	
 	<!-- 캠패인 게시판 게시물 삭제 파일, 글 -->
-	<delete id="deleteCam" parameterType="int">
-		{CALL
-		BEGIN
-		DELETE FROM
-		campaign_file
-		WHERE camp_no = ${campNo};
+<!-- 	<delete id="deleteCam" parameterType="int"> -->
+<!-- 		{CALL -->
+<!-- 		BEGIN -->
+<!-- 		DELETE FROM -->
+<!-- 		campaign_file -->
+<!-- 		WHERE camp_no = ${campNo}; -->
 
-		DELETE FROM campaign
-		WHERE
-		camp_no = ${campNo};
-		END
-		}
-	</delete>
+<!-- 		DELETE FROM campaign -->
+<!-- 		WHERE -->
+<!-- 		camp_no = ${campNo}; -->
+<!-- 		END -->
+<!-- 		} -->
+<!-- 	</delete> -->
 	<!-- 썸네일 삽입 --> 
  <insert id="insertinfoThumb" parameterType="web.dto.InfoThumbnail">
  

@@ -109,9 +109,19 @@ public interface AdminService {
     * @param memberInfo
     */
    public void productnWrite(Product product, List<MultipartFile> files, Admin memberInfo);
-
+   
+   /**
+    *  게시글 수정
+    * @param campaign
+    * @return
+    */
    public Map<String, Object> getView(Campaign campaign);
-
+   
+   /**
+    * 게시글 수정
+    * @param campaign
+    * @return
+    */
    public List<CampaignFile> getCampFile(Campaign campaign);
    
 	/**
@@ -173,15 +183,6 @@ public void updateFree(Free freeBoard, List<MultipartFile> files, List<FreeFile>
     * @return
     */
    public List<Map<String, Object>> getProductList(Paging paging);
-	
-
-
-   
-
-
-
-
-   
    
 
 

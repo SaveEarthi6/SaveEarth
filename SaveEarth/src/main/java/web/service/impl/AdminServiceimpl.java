@@ -326,44 +326,45 @@ public class AdminServiceimpl implements AdminService {
 		}
 
 	}
-
+	
+	//캠페인 수정
 	@Override
 	public List<Map<String, Object>> Camlist(Paging paging) {
 
 		return adminDao.selectCamList(paging);
 	}
-
+	//캠페인 수정
 	@Override
 	public Admin getAdmin(String loginId) {
 		return adminDao.selectAdmin(loginId);
 	}
 	
-
+	//캠페인 삭제
 	@Override
 	public void deleteCam(Campaign campNo) {
 		adminDao.deleteCam(campNo);
 
 	}
-
+	//캠페인 삭제
 	@Override
 	public void campDelete(Campaign campaign) {
 		// TODO Auto-generated method stub
 
 	}
-
+	//캠페인 수정
 	@Override
 	public Map<String, Object> getView(Campaign campaign) {
 		
 		
 		return adminDao.selectCampBoard(campaign);
 	}
-	
+	//캠페인 수정
 	@Override
 	public List<CampaignFile> getCampFile(Campaign campaign) {
 		return adminDao.selectCampFile(campaign);
 		
 	}
-	
+	//캠페인 수정
 	@Override
 	public void updateCamp(Campaign campaign, List<MultipartFile> files, List<CampaignFile> campFile) {
 		

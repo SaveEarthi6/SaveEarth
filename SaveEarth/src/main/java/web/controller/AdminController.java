@@ -163,7 +163,7 @@ public class AdminController {
 
 		// 로그인 정보를 가지고 회원번호랑 관리자 번호를 가져옴
 		String loginId = (String) session.getAttribute("loginId");
-//    Member memberInfo = null;      
+		//    Member memberInfo = null;      
 
 		Admin memberInfo = adminService.info(loginId);
 		// 만약 회원번호가 있으면 회원번호를 가져오고
@@ -344,28 +344,34 @@ public class AdminController {
 	}
 
 
-	// 관리자 페이지 쇼핑몰 리스트
-	@RequestMapping("/product")
-	public void adminProduct(HttpSession session, Model model, @RequestParam(defaultValue = "0") int curPage) {
-		System.out.println("adminProduct");
+	   //관리자 페이지 쇼핑몰 리스트
+	   @RequestMapping("/product")
+	   public void adminProduct(HttpSession session, Model model, @RequestParam(defaultValue = "0")int curPage) {
+	      System.out.println("adminProduct");
+	      
+	  		//상품을 불러온다
 
-		// 상품을 불러온다
-
-		// 전체글 페이징
-		Paging paging = adminService.getPaging(curPage);
-
-		// 첫 로드시 상품 불러오기
-		List<Product> prodList = adminService.getproductList(paging);
-
-		for (Product c : prodList) {
-			logger.info("{}", c);
-		}
-
-		model.addAttribute("prodList", prodList);
-		model.addAttribute("paging", paging);
-
-	}
-
+			//전체글 페이징
+			Paging paging = adminService.getPaging(curPage);
+			
+			//첫 로드시 상품 불러오기
+//			List<Product> prodList = adminService.getproductList(paging);
+			List<Map<String, Object>> prodList = adminService.getProductList(paging);
+			
+			
+			System.out.println("prodList" + prodList);
+//			for(Product c : prodList) {
+//				logger.info("{}", c);
+//			}
+			
+			for(Map c : prodList) {
+				logger.info("{}", c);
+			}
+			
+			model.addAttribute("prodList", prodList);
+			model.addAttribute("paging", paging);	
+	      
+	   }
 	@GetMapping("/productWrite")
 	public void adminProductWrite(HttpSession session, Model model) {
 		System.out.println("상품목록 글쓰기 GET");
@@ -382,29 +388,50 @@ public class AdminController {
 
 	}
 
-	// 관리자 페이지 상품목록 글쓰기 Post
-	@PostMapping("/productWrite")
-	public String adminProductWritePost(HttpSession session, Product product,
-			@RequestParam(required = false) List<MultipartFile> files, Member member) {
-		System.out.println("상품목록 글쓰기 POST");
+	 //관리자 페이지 상품목록 글쓰기 Post
+	   @PostMapping("/productWrite")
+	   public String adminProductWritePost(HttpSession session, Product product, @RequestParam(required = false) List<MultipartFile> files,
+		         Member member) {
+	      System.out.println("상품목록 글쓰기 POST");
+	      
+	      String loginId = (String) session.getAttribute("loginId");
 
-		String loginId = (String) session.getAttribute("loginId");
+	      Admin memberInfo = adminService.info(loginId);
 
-		Admin memberInfo = adminService.info(loginId);
-
-		System.out.println("맴버인포에 들어있는거 :" + memberInfo);
-
-		System.out.println("product에 들어있는거 :" + product);
-		System.out.println("files에 들어있는거 :" + files);
-
-		product.setAdminNo(memberInfo.getAdminNo());
-
-		adminService.productnWrite(product, files, memberInfo);
-
-		return "redirect:./free";
-
-	}
-
+	      System.out.println("맴버인포에 들어있는거 :" + memberInfo);	
+	       
+	      System.out.println("product에 들어있는거 :" + product);	
+	      System.out.println("files에 들어있는거 :" + files);	
+	      
+	       
+	      product.setAdminNo(memberInfo.getAdminNo());
+	       
+	      adminService.productnWrite(product, files, memberInfo);
+	      
+	      
+	      return "redirect:./product";
+	      
+	      
+	   }
+	   
+	   //굿즈 게시판 상품 삭제
+	   @RequestMapping("/goodsDelete")
+	   public String goodsDelete(Product prodNo ) {
+		   
+		   System.out.println("굿즈삭제 : goodsDelete");
+		   System.out.println("ProdNo :" + prodNo);
+		   
+		   
+			adminService.deleteGoods(prodNo);
+			
+		   return "redirect:./product";
+	  }
+	   
+	   @RequestMapping("/productView")
+	   public void productView() {
+		   System.out.println("관리자 페이지 굿즈샵 상세페이지 접속");
+	   }
+	   
 	// 정보게시판 조회
 	@RequestMapping("/info")
 	public void adminInfo(Model model, @RequestParam(defaultValue = "0") int curPage) {
