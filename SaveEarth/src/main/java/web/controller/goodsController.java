@@ -22,10 +22,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
+
 import web.dto.Cart;
 import web.dto.Member;
-import web.dto.Ordertb;
+
 import web.dto.Order;
 import web.dto.ProdOption;
 import web.dto.Product;
@@ -55,7 +55,7 @@ public class goodsController {
 		List<Map<String, Object>> prodList = goodsService.getgoodsList(paging);
 		
 		
-		System.out.println(prodList);
+		System.out.println(prodList.get(0));
 		
 //		for(List<Map<String, Object>> c : prodList) {
 //			logger.info("{}", c);
