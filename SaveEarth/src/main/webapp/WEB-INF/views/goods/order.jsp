@@ -175,6 +175,17 @@ $(function() {
 				, success: function(res) {
 					console.log("성공")
 					console.log(res)
+					console.log(res.userName)
+					console.log(res.userPostcode)
+					console.log(res.userAddr)
+					console.log(res.userDetailaddr)
+					console.log(res.userPhone)
+					
+					$("#orderRec").val(res.userName)
+					$("#orderAddrPostcode").val(res.userPostcode)
+					$("#orderAddr").val(res.userAddr)
+					$("#orderAddrDetail").val(res.userDetailaddr)
+					$("#orderPhone").val(res.userPhone)
 					
 				}
 				, error: function() {
@@ -183,12 +194,16 @@ $(function() {
 				
 			})
 			
-			
-			
-			
 		  //해제된 상태면 빈칸 만들어주기
 		} else {
 			console.log("해제된 상태")
+			
+			$("#orderRec").val("")
+			$("#orderAddrPostcode").val("")
+			$("#orderAddr").val("")
+			$("#orderAddrDetail").val("")
+			$("#orderPhone").val("")
+			
 		}
 		
 		
@@ -269,7 +284,7 @@ tr:hover {
 
 	<div class="textForm">
 	  <label for="orderRec" class="form-label">받으시는 분</label>
-	  <input type="text" class="form-control" id="orderRec" name="orderRec">
+	  <input type="text" class="form-control" id="orderRec" name="orderRec" placeholder="수령인">
 	  <span id="recMsg" class="warnMsg"></span>
 	</div>
 	
@@ -285,7 +300,7 @@ tr:hover {
 
 	<div class="textForm">
 	  <label for="orderPhone" class="phone">연락처</label>
-	  <input type="text" class="form-control" id="orderPhone" name="orderPhone">
+	  <input type="text" class="form-control" id="orderPhone" name="orderPhone" placeholder="연락처">
 	  <span id="phoneMsg" class="warnMsg"></span>
 	</div>
 	

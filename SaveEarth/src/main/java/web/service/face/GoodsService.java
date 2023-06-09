@@ -134,6 +134,14 @@ public interface GoodsService {
 	 */
 	public Member getUserShipInfo(int userNo);
 
+	/**
+	 * 회원번호와 일치하는 회원의 주문번호 상세정보 가져오기
+	 * 
+	 * @param userNo - 로그인한 회원의 번호
+	 * @param orderNo - 주문번호
+	 */
+	public void getOrderInfo(int userNo, String orderNo);
+
 	
 	
 }

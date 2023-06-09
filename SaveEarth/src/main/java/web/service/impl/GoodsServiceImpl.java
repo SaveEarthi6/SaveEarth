@@ -254,5 +254,12 @@ public class GoodsServiceImpl implements GoodsService {
 		return goodsDao.selectUserShipInfo(userNo);
 	}
 	
+	@Override
+	public void getOrderInfo(int userNo, String orderNo) {
+
+		goodsDao.selectOrderInfo(userNo, orderNo);
+		
+	}
+	
 
 }

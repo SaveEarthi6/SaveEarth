@@ -362,8 +362,8 @@ public class goodsController {
 	    return "goods/paycomplete"; // 결제 완료 페이지로 이동
 	  }
 	  
-	  @ResponseBody
 	  //주문자 배송정보 불러오기
+	  @ResponseBody
 	  @RequestMapping("/getShipInfo")
 	  public Member getShipInfo(HttpSession session, Member member) {
 		  logger.info("/goods/getShipInfo [GET]");
@@ -371,6 +371,16 @@ public class goodsController {
 		  Member memberinfo = goodsService.getUserShipInfo((int)session.getAttribute("loginNo"));
 		  
 		  return memberinfo;
+	  }
+	  
+	  //주문번호 상세보기
+	  @RequestMapping("/orderView")
+	  public void orderView(HttpSession session, String orderNo) {
+		  logger.info("/goods/orderView [GET]");
+		  logger.info("{}", orderNo);
+		  
+		  goodsService.getOrderInfo((int)session.getAttribute("loginNo"), orderNo);
+		  
 	  }
 	
 

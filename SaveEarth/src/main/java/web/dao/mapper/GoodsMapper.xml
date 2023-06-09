@@ -130,4 +130,9 @@
 		WHERE user_no = #{userNo}
 	</select>
 	
+	<select id="selectOrderInfo" parameterType="map" resultType="web.dto.Order">
+		SELECT * FROM ordertb
+		WHERE user_no = #{userNo} AND order_no = #{orderNo}
+	</select>
+	
 </mapper>

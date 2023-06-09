@@ -52,4 +52,6 @@ public interface GoodsDao {
 
 	public Member selectUserShipInfo(int userNo);
 
+	public void selectOrderInfo(@Param("userNo") int userNo, @Param("orderNo") String orderNo);
+
 }
