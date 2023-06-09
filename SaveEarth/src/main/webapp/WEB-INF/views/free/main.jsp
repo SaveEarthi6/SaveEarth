@@ -52,6 +52,14 @@ body {
 	font-style: normal;
 }
 
+@font-face {
+    font-family: 'omyu_pretty';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 /* 말머리글 (드롭다운) 크기 늘리기 */
 select {
 	width:100px;
@@ -214,7 +222,7 @@ location.href="?freeHead=" + freeHead
 </div>
 
 <!-- 게시판 -->
-<table id= "board" class= "table table-hover text-center">
+<table id= "board" class= "table table-hover text-center" style= "font-family: omyu_pretty; font-size:20px">
 
 	<tr style= "background-color: #59A8D9; color: white;">
 		<th style="width: 20px;">글번호</th>
