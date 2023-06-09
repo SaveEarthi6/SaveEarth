@@ -25,6 +25,7 @@ import web.dto.Certification;
 import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Member;
+import web.dto.ProdOption;
 import web.dto.Product;
 import web.dto.ProductFile;
 import web.service.face.AdminService;
@@ -449,6 +450,16 @@ public void productnWrite(Product product, List<MultipartFile> files, Admin memb
 		System.out.println(paging);
 		
 		return adminDao.selectProductList(paging);
+	}
+
+
+	@Override
+	public List<Map<String, Object>> getOptionList(ProdOption prodOption) {
+		System.out.println("서비스 임플 prodno :" + prodOption);
+		prodOption.setProdNo(15);
+		
+		
+		return adminDao.getOption(prodOption);
 	}
 
 	

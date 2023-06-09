@@ -14,6 +14,7 @@ import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Info;
 import web.dto.Member;
+import web.dto.ProdOption;
 import web.dto.Product;
 import web.util.Paging;
 
@@ -122,6 +123,14 @@ public interface AdminService {
     * @return
     */
    public List<Map<String, Object>> getProductList(Paging paging);
+
+
+   /**
+    * 쇼핑몰 상품옵션 - map
+    * @param prodNo
+    * @return
+    */
+   public List<Map<String, Object>> getOptionList(ProdOption prodOption);
 	
 
 

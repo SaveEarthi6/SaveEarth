@@ -13,6 +13,7 @@ import web.dto.Certification;
 import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Info;
+import web.dto.ProdOption;
 import web.dto.Product;
 import web.dto.ProductFile;
 import web.util.Paging;
@@ -121,6 +122,14 @@ public interface AdminDao {
    public List<Map<String, Object>> selectProductList(Paging paging);
 
    public List<Map<String, Object>> selectList(Paging paging);
+   
+   
+   /**
+    * 굿즈샵 상품 목록 옵션
+    * @param prodNo
+    * @return
+    */
+   public List<Map<String, Object>> getOption(ProdOption prodOption);
 
 
 

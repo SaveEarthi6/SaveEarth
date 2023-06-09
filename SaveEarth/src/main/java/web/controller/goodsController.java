@@ -70,6 +70,7 @@ public class goodsController {
 		
 		//옵션 가져오기
 		List<Map<String, Object>> prodOption = goodsService.getOptionList(prodno);
+		
 		for(Map<String, Object> o : prodOption) {
 			logger.info("{}", o);
 		}		

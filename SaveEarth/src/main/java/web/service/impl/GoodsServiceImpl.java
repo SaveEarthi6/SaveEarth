@@ -95,6 +95,7 @@ public class GoodsServiceImpl implements GoodsService {
 	@Override
 	public List<Map<String, Object>> getOptionList(int prodno) {
 		
+		
 		return goodsDao.getOption(prodno);
 	}
 

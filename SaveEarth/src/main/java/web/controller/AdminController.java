@@ -23,6 +23,7 @@ import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Info;
 import web.dto.Member;
+import web.dto.ProdOption;
 import web.dto.Product;
 import web.service.face.AdminService;
 import web.service.face.CampService;
@@ -356,7 +357,7 @@ public class AdminController {
    //관리자 페이지 상품목록 글쓰기 Post
    @PostMapping("/productWrite")
    public String adminProductWritePost(HttpSession session, Product product, @RequestParam(required = false) List<MultipartFile> files,
-	         Member member) {
+	         Member member, Model model, ProdOption prodOption) {
       System.out.println("상품목록 글쓰기 POST");
       
       String loginId = (String) session.getAttribute("loginId");
@@ -367,14 +368,28 @@ public class AdminController {
        
       System.out.println("product에 들어있는거 :" + product);	
       System.out.println("files에 들어있는거 :" + files);	
-      
        
       product.setAdminNo(memberInfo.getAdminNo());
-       
+      
       adminService.productnWrite(product, files, memberInfo);
+
+      //--------------------------------------------------------------------
+      //굿즈샵 옵션값 넣기 ~ 진행중
+      
+      List<Map<String, Object>> productWrtieOption = adminService.getOptionList(prodOption);
+      
+      System.out.println("productWrtieOption 안에 들어있는거" + productWrtieOption);
+      System.out.println("prodNo 안에 들어있는거 :" + prodOption);
+      
+  		for(Map<String, Object> o : productWrtieOption) {
+		logger.info("{}", o);
+		System.out.println("리스트 o안에 들어있는거" + o);
+	}
+      
+    	model.addAttribute("productWrtieOption", productWrtieOption);
       
       
-      return "redirect:./product";
+      return "";
       
       
    }
@@ -396,20 +411,6 @@ public class AdminController {
    public void productView() {
 	   System.out.println("관리자 페이지 굿즈샵 상세페이지 접속");
    }
-   
-
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
    
 
    //정보게시판 조회
