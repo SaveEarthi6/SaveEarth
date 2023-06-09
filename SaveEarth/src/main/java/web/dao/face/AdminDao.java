@@ -212,6 +212,14 @@ public interface AdminDao {
     * @param e - 첨부파일들
     */
    public void insertCampFile(CampaignFile campFiles);
+   
+   /**
+    * 캠페인 게시판 참여 현황
+ * @param certification 
+    * @return
+    */
+   public int campParticipate(Certification certification);
+
 
 
    

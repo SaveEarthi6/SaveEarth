@@ -114,6 +114,7 @@ select {
     
  } 
 
+
 </style>
 
 
@@ -129,10 +130,6 @@ $(document).ready(function() {
 })
 </script>
 
- <div>
-<!-- 글쓰기 버튼 -->
-   <a href = "/admin/campaignWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
-</div>
 
 <br>
 <div class="nav">
@@ -142,6 +139,10 @@ $(document).ready(function() {
 </div> 
 <br>
 
+ <div style="left: 50px;">
+<!-- 글쓰기 버튼 -->
+   <a href = "/admin/campaignWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
+</div>
    <!-- 게시판 -->
 
 <table id= "board" class= "table table-hover text-center">

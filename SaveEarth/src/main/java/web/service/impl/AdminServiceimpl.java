@@ -798,6 +798,12 @@ public class AdminServiceimpl implements AdminService {
 			return paging;
 		}
 	
+		@Override
+		public int getParticipantCount(Certification certification) {
+			
+			
+			return adminDao.campParticipate(certification);
+		}
 	
 	
 	

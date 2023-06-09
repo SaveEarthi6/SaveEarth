@@ -409,4 +409,11 @@
 		VALUES ( camp_file_no_seq.nextval, #{campNo}, #{campOriginName}, #{campStoredName})
 	</insert>
 	
+	<!-- 캠페인 참여 현황  -->
+	<select id="campParticipate" parameterType="int" resultType="web.dto.Certification">
+   		SELECT COUNT(*) FROM  CERTIFICATION
+    	WHERE camp_no = #{campNo}
+	</select>
+	
+	
 </mapper>

@@ -184,6 +184,14 @@ public void updateFree(Free freeBoard, List<MultipartFile> files, List<FreeFile>
     */
    public List<Map<String, Object>> getProductList(Paging paging);
    
+   /**
+    *  참여 현황 조회
+ * @param certification 
+    * @return
+    */
+   public int getParticipantCount(Certification certification);
+   
+
 
 
 

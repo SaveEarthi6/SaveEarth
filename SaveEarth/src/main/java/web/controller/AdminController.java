@@ -294,8 +294,9 @@ public class AdminController {
 		logger.info("{}", campDetail);
 
 		// 인증현황 조회해오기
+		Certification Cer = 
 		
-		model.addAttribute("campDetail", campDetail);
+//		model.addAttribute("campDetail", campDetail);
 
 	}
 	
@@ -600,4 +601,6 @@ public class AdminController {
 		   
 		   }
 		   
+		  
+
 		}
