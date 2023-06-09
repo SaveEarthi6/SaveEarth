@@ -648,7 +648,7 @@ public class AdminServiceimpl implements AdminService {
 		
 		infoFiles.setInfoNo(info.getInfoNo());
 		infoFiles.setInfoOriginName(files.get(i).getOriginalFilename());;
-		infoFiles.setInfoStroedName(storedName1);
+		infoFiles.setInfoStoredName(storedName1);
 		logger.info("infoFiles : {}", infoFiles );
 		
 		upfiles.add(infoFiles);
@@ -800,5 +800,165 @@ public class AdminServiceimpl implements AdminService {
 	
 	
 	
+	@Override
+	public void updateInfo(Info info, List<MultipartFile> files, MultipartFile thumb) {
+		
+		logger.info("adminServiceImpl updateInfo()");
+	
+		//수정한 게시글 내용
+		adminDao.updateInfoBoard(info);
+
+
+		//파일이 없을 때 파일 삽입하는 메소드 처리되지 않도록 
+
+		for(MultipartFile m : files) {
+			if(m.getSize() <= 0 ) {
+				logger.info("첨부파일 0보다 작음, 처리 중단");
+				return;
+			}
+		}
+
+
+
+		List<InfoFile> upfiles= new ArrayList<>();
+
+		//파일이 저장될 경로 - RealPath - 톰캣 서버 배포 위치
+		String storedPath = context.getRealPath("upload");
+		logger.info("storedPath : {}", storedPath);
+
+		//upload폴더가 존재하지 않으면 생성한다
+		File storedFolder = new File(storedPath);
+		storedFolder.mkdir();
+
+		for(int i=0 ; i< files.size() ; i++) {
+
+			File dest = null;
+			String storedName = null;
+
+			//저장할 파일 이름 생성하기
+			storedName = files.get(i).getOriginalFilename();//원본 파일명
+			storedName += UUID.randomUUID().toString().split("-")[0]; //UUID추가
+			logger.info("storedName : {}", storedName);
+
+			//실제 저장될 파일 객체
+			dest = new File(storedFolder, storedName);
+
+			//-> 중복 이름 검증 코드 do while
+			//이름이 있으면 다시 만들어라 -> 이름이 없으면 빠져나오기
+
+			try {
+
+				//업로드된 파일을 upload폴더에 저장하기
+				//여기서 저장
+				files.get(i).transferTo(dest);
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+			}
+
+			//-------------------------------------------------
+
+			//DB에 기록할 정보 객체
+
+			//첨부한 파일 삽입(파일 정보)
+			InfoFile infoFiles = new InfoFile();
+
+			infoFiles.setInfoNo(info.getInfoNo());
+			infoFiles.setInfoOriginName(files.get(i).getOriginalFilename());
+			infoFiles.setInfoStoredName(storedName);
+			//여기서 에러
+			//				freeFiles.setFreeFileNo(freeFile.get(i).getFreeFileNo());
+			logger.info("infoFiles : {}", infoFiles );
+
+			upfiles.add(infoFiles);
+
+		}
+
+		//기존에 첨부되어있는 파일을 삭제한다
+		adminDao.deleteInfoFile(info.getInfoNo());
+
+		//새로 첨부된 파일들을 저장한다
+		for( InfoFile e : upfiles) {
+			adminDao.insertInfoFile(e);
+		}
+		
+		//=================썸네일 수정=================
+		
+		if(thumb.getSize() <= 0) {
+			logger.info("썸네일 0보다 작음, 처리 중단");
+			return;
+		}
+		
+		//파일이 저장될 경로 - RealPath - 톰캣 서버 배포 위치
+		String storedPath1 = context.getRealPath("upload");
+		logger.info("storedPath1 : {}", storedPath1);
+
+		//upload폴더가 존재하지 않으면 생성한다
+		File storedFolder1 = new File(storedPath1);
+		storedFolder1.mkdir();
+
+		File dest1 = null;
+		String storedName1 = null;
+
+		//저장할 파일 이름 생성하기
+		storedName1 = thumb.getOriginalFilename();//원본 파일명
+		storedName1 += UUID.randomUUID().toString().split("-")[0]; //UUID추가
+		logger.info("storedName1 : {}", storedName1);
+
+		//실제 저장될 파일 객체
+		dest1 = new File(storedFolder1, storedName1);
+
+		//-> 중복 이름 검증 코드 do while
+		//이름이 있으면 다시 만들어라 -> 이름이 없으면 빠져나오기
+
+		try {
+
+			//업로드된 파일을 upload폴더에 저장하기
+			//여기서 저장
+			thumb.transferTo(dest1);
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+		}
+
+		//-------------------------------------------------
+
+		//DB에 기록할 정보 객체
+
+		//첨부한 파일 삽입(파일 정보)
+		InfoThumbnail infoThumb = new InfoThumbnail();
+
+		infoThumb.setInfoNo(info.getInfoNo());
+		infoThumb.setThumbOriginName(thumb.getOriginalFilename());
+		infoThumb.setThumbStoredName(storedName1);
+		//여기서 에러
+		//				freeFiles.setFreeFileNo(freeFile.get(i).getFreeFileNo());
+		logger.info("infoThumb : {}", infoThumb );
+
+		//썸네일 삭제 후 삽입
+		adminDao.deleteThumb(info.getInfoNo());
+		
+		adminDao.insertinfoThumb(infoThumb);
+		
+				
+	
+	}
+	
+	@Override
+	public Info getContent(int infoNo) {
+	
+		return adminDao.selectContent(infoNo);
+	}
+	
+	@Override
+	public InfoThumbnail getThumb(int infoNo) {
+		
+		return adminDao.selectThumb(infoNo);
+	}
+	
+	@Override
+	public List<InfoFile> getFile(int infoNo) {
+		
+		return adminDao.selectFile(infoNo);
+	}
 	
 }
+	
