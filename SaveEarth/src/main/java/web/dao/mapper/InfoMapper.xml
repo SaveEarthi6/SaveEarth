@@ -135,7 +135,7 @@
 
 <delete id="deleteThumb" parameterType="int">
 	DELETE info_thumbnail 
-	WHERE info_no = #{infoNo}
+	WHERE thumb_no = #{thumbNo}
 </delete>
 
 <select id="selectThumbByInfoNo" parameterType="int" resultType="map">
