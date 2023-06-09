@@ -10,10 +10,13 @@
 	
 	<select id="selectProdList" resultType="web.dto.Product" parameterType="web.util.Paging">
 		SELECT * FROM (
-	    	SELECT rownum rnum, P.* FROM (
-	        	SELECT * FROM product ORDER BY prod_no DESC
-	    	) P
-		) Goods
+		    SELECT rownum rnum, A.* FROM (
+		        SELECT p.*, f.prod_origin_name, f.prod_stored_name
+		        FROM product p LEFT OUTER JOIN  prod_file f
+		        ON p.prod_no = f.prod_no
+		        ORDER BY p.prod_no DESC
+		    ) A
+		)
 		WHERE rnum BETWEEN #{startNo} AND #{endNo}
 	</select>
 	
@@ -63,10 +66,41 @@
 	
 	</select>
 	
-	<delete id="deleteCart" parameterType="map">
+	<delete id="deleteCartBySelect" parameterType="map">
 		DELETE FROM cart
 		WHERE user_no = #{userNo} AND cart_no = #{cartNo}
 	</delete>
+	
+	<delete id="deleteCartAll" parameterType="int">
+		DELETE FROM cart
+		WHERE user_no = #{userNo}
+	</delete>
+	
+	<insert id="insertOrder" parameterType="web.dto.Order">
+		{CALL
+			BEGIN
+				INSERT INTO ordertb (order_no, user_no, order_rec, order_addr_postcode, order_addr, order_addr_detail, order_phone, order_price)
+				VALUES (#{orderNo}, #{userNo}, #{orderRec}, #{orderAddrPostcode}, #{orderAddr}, #{orderAddrDetail}, #{orderPhone}, #{orderPrice});
+				
+				INSERT INTO order_detail
+					SELECT order_detail_seq.nextval, #{orderNo}, prod_no, cart_no, prod_opt_no
+					FROM cart
+					WHERE user_no = #{userNo};
+			END
+		}
+	</insert>
+	
+	<select id="selectOrderList" parameterType="int" resultType="web.dto.Order">
+		SELECT * FROM ordertb
+		WHERE user_no = #{userNo}
+	</select>
+	
+	<update id="updateAmount" parameterType="map">
+		UPDATE cart
+		SET prod_count = #{prodCount}
+		WHERE cart_no = #{cartNo}
+	</update>
+	
 	
 	
 	<select id="getProdinfo" parameterType="int" resultType="web.dto.Product">
@@ -78,4 +112,9 @@
 	select * FROM prod_option
 	where prod_opt_no=#{prodOptNo}
 	</select>
+	
+	<insert id="insertordertb" parameterType="web.dto.Ordertb" >
+	insert into ordertb(ORDER_NO,USER_NO,ORDER_REC,ORDER_ADDR_POSTCODE,ORDER_ADDR,ORDER_ADDR_DETAIL,ORDER_PHONE,ORDER_PRICE)
+	VALUES(#{orderNo},#{userNo},#{orderRec},#{orderAddrPostcode},#{orderAddr},#{orderAddrDetail},#{orderPhone},#{orderPrice})
+	</insert>
 </mapper>
