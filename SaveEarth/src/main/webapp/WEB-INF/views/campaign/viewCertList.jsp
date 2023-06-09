@@ -60,6 +60,8 @@
 	font-size: 0.8em;
 }
 
+
+
 </style>
 
 
@@ -67,7 +69,7 @@
 <c:choose>
 	<c:when test="${not empty userCertList }">
 		<c:forEach var="cert" items="${userCertList }">
-			<div id="viewWrap">
+			<div id="viewWrap" >
 			
 				<div id="certViewPartNo" name="partNo">${cert.PART_NO }</div>
 				<div id="certViewPartFileNo" name="partFileNo">${cert.PART_FILE_NO }</div>
