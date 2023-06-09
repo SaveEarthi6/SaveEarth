@@ -160,7 +160,7 @@ $(document).ready(function() {
          <tr>
             <td>${camp.campNo }</td>
             <td>${camp.campState }</td>
-            <td class="text-start" style="text-align:center"><a href="/campaign/detail?campno=${camp.campNo }">${camp.campTitle }</a></td>
+            <td class="text-start" style="text-align:center"><a href="/admin/campDetail?campno=${camp.campNo }">${camp.campTitle }</a></td>
             <td><fmt:formatDate value="${camp.campEnroll}" pattern="yy-MM-dd HH:mm:ss"/></td>
             <td><a href = "./camDelete?campNo=${camp.campNo}"><button id="btnDelete" class="btn btn-danger">삭제</button></a></td>
          </tr>

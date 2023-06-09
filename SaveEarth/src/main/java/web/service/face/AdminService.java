@@ -109,7 +109,29 @@ public interface AdminService {
     * @param memberInfo
     */
    public void productnWrite(Product product, List<MultipartFile> files, Admin memberInfo);
-
+   
+   /**
+    *  게시글 수정
+    * @param campaign
+    * @return
+    */
+   public Map<String, Object> getView(Campaign campaign);
+   
+   /**
+    * 게시글 수정
+    * @param campaign
+    * @return
+    */
+   public List<CampaignFile> getCampFile(Campaign campaign);
+   
+	/**
+	 * 게시글 정보 수정하기   
+	 * @param campaign - 입력한 게시글 정보
+	 * @param files - 수정한 파일
+	 * @param campFile - 수정할 파일 번호
+	 */
+   public void updateCamp(Campaign campaign, List<MultipartFile> files, List<CampaignFile> campFile);
+   
    /**
     * 관리자 페이지에서 정보게시판 글 작성
     * @param adminNo - 관리자 번호
@@ -156,20 +178,11 @@ public void updateFree(Free freeBoard, List<MultipartFile> files, List<FreeFile>
    public void deleteGoods(Product prodNo);
 
    /**
-    * 캠페인 리스트로 보여주기
+    * 리스트로 보여주기
     * @param paging
     * @return
     */
    public List<Map<String, Object>> getProductList(Paging paging);
-	
-
-
-   
-
-
-
-
-   
    
 
 
