@@ -5,6 +5,14 @@
 
 <c:import url="../layout/header.jsp"></c:import>
 
+<!-- 풀캘린더 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
+
+
 <style type="text/css">
 
 /* 여백 없애기 */
@@ -33,91 +41,65 @@ body {
 }
 
 
-/* 검색창 스타일 */
-input {
-	width: 100%;
-	border: 1px solid #bbb;
-	border-radius: 8px;
-	font-size: 14px;
-}
-
-/* '자유게시판'문구 폰트 스타일 */
+/* '메인게시판'문구 폰트 스타일 */
 @font-face {
 	font-family: 'KBO-Dia-Gothic_bold';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff')
-		format('woff');
-		
+	src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff')format('woff');
 	font-weight: 100%;
 	font-style: normal;
 }
-
-/* 말머리글 (드롭다운) 크기 늘리기 */
-select {
-	width:100px;
-}
-
-.head {
-	padding-left: 1200px;
-	padding-top: 50px;
 	
+@font-face {
+    font-family: 'omyu_pretty';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
 }
 
-/* 검색 전체 div태그 스타일 */
-.search {
-	text-align: center;
-	width: 100%;
-	height: 100px;
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
-/* 검색창 스타일 */
-.search_input {
-	width: 300px;
-	height: 30px;
-	font-size: 18px;
-	border: 1px solid #ccc;
-}
-
-/* 검색창 버튼 스타일 */
-.search_btn {
-	font-size: 18px;
-	border: none;
-	background-color: green;
-	width: 50px;
-	height: 30px;
-	border-radius: 15px;
-	color: #fff;
-	cursor: pointer;
-	vertical-align: middle;
-}
-
-/* 검색아이콘 이미지 */
-.search_icon {
-	margin-top:3px;
-	margin-bottom:3px;
-	width: 20px;
-	height: 20px;
-}
-
-/* 게시판 목록 */
-#board {
-	width:1300px;
-	
-	margin-top: 100px;
-	
-	margin-left:auto;
-	margin-right:auto;
-	
-	text-align: center;
-}
 
 .container {	
 	max-width:100%
 }
 
+#quiz{
+	font-family: 'GmarketSansMedium';
+}
+
+#wrapCalendar{
+	width:1000px;
+	margin: 0 auto;
+}
+
 </style>
 
-<thead>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script type="text/javascript">
+
+//퀴즈폼
+$(function() {
+  $("#answer").click(function() {
+    var selectedOption = $(".ch:checked");
+    if (selectedOption.length === 0) {
+      alert("정답을 선택해주세요 ‼️");
+      
+    } else {
+      var answer = $(this).data("no");
+      alert("정답은 " + answer + " 입니다❣️");
+    }
+  });
+});
+</script>
+
+
+
 <div class="container">
 
 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" >
@@ -128,13 +110,13 @@ select {
   </div>
   <div class="carousel-inner" >
     <div class="carousel-item active" >
-      <img src="/resources/img/free.png" class="d-block w-100" alt="...">
+      <img src="/resources/img/main_top.png" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="/resources/img/free.png" class="d-block w-100" alt="...">
+      <img src="/resources/img/main_top.png" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="/resources/img/free.png" class="d-block w-100" alt="...">
+      <img src="/resources/img/main_top.png" class="d-block w-100" alt="...">
     </div>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -148,12 +130,92 @@ select {
 </div>
 
 </div>
-</thead>
 
-<tbody>
+<!--  달력(기념일) -->
+
+<!-- 내 달력으로 가기 -->
+ <h1 style="font-family: 'KBO-Dia-Gothic_bold'; text-align: center; padding-top: 100px;">🌱환경기념일🌱</h1>
+	<div style= "padding-left: 1200px">
+ 		<a href = "/campaign/main"> 
+ 		<button type="button" class="btn btn-outline-success" >
+ 		내 달력</button></a>
+	</div>
+ 
+<div id="wrapCalendar"  >
+	<div id="calendarImport" style="margin-top: 80px; margin-bottom: 40px;">
+	
+		<c:import url="./calendarMain.jsp"></c:import>
+			
+	</div>
+</div>
+
+ 
+
+<!-- 인증사진 모아보기 -->
+ <h1 style="font-family: 'KBO-Dia-Gothic_bold'; text-align: center; padding-top: 100px;">🤳🏻SAVE EARTH의 캠페인 참여🤳🏻</h1>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+<!-- 퀴즈폼 만들기 --> 
+<!-- <div style="background-color: #D8E6EB; "> -->
+<div>
+ <h1 style="font-family: 'KBO-Dia-Gothic_bold'; text-align: center; padding-top: 100px;  padding-bottom: 30px;">🎲랜덤 퀴즈🎲</h1>
+  <form action="/saveearth/main" method="get">
+  
+  <div style= "padding-left: 500px;" >
+  <c:forEach items="${quiz }" var="quiz" varStatus="status">
+  
+  	<c:if test="${status.index < 1}">
+  	
+    <h2 id = "quiz">Q.${quiz. quizQuestion}</h2>
+    <input type="radio" name="q1" class= "ch" value="${quiz. quizOpt1}"> ${quiz. quizOpt1}<br>
+    <input type="radio" name="q1" class= "ch" value="${quiz. quizOpt2}"> ${quiz. quizOpt2}<br>
+    <input type="radio" name="q1" class= "ch" value="${quiz. quizOpt3}"> ${quiz. quizOpt3}<br>
+    <input type="radio" name="q1" class= "ch" value="${quiz. quizOpt4}"> ${quiz. quizOpt4}<br>
+           
+       <button type="button" id="answer" data-no="${quiz.quizAnswer }">정답확인</button>
+  	</c:if>
+  	  	
+  </c:forEach>
+  
+  </div>
+  
+   </form>
+	<h5 style= "padding-left: 1000px ; font-family: omyu_pretty; ">⚠️퀴즈는 3개로 랜덤입니다</h5>
+</div>
 
 
+<!-- 굿즈샵 예시보기 -->
+<h1 style="font-family: 'KBO-Dia-Gothic_bold'; text-align: center; padding-top: 100px;">🛍️굿즈샵🛍️</h1>
+  
 
-</tbody>
+
 
 <c:import url="../layout/footer.jsp"></c:import>
