@@ -430,6 +430,13 @@ public class FreeServiceImpl implements FreeService{
 	}
 
 	
+	@Override
+	public void updateComment(FreeComment comment) {
+		
+		freeDao.UpdateComment(comment);
+		
+	}
+	
 
 	
 }

@@ -186,7 +186,7 @@ $(document).ready(function() {
 		
 		<div id="infos" class="row col-10">
 		
-			<c:forEach var="infoList" items="${infoList }">
+			<c:forEach var="infoList" items="${infoList }" begin="">
 			<div id="info" class="col">
 			<a href="./infoView?infoNo=${infoList.INFO_NO }" id="infoNo">
 				<c:if test="${infoList.THUMB_STORED_NAME ne null }">

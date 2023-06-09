@@ -465,9 +465,23 @@ public class AdminController {
 		   //정보게시판 게시글 조회(게시글 번호와 일치하는 게시글 내용)
 		   List<Map<String, Object>> info = infoService.getInfo(infoNo);
 
-		   logger.info("info {}", info);
+		   //정보게시판 게시글 내용 조회
+		   Info infoContent = adminService.getContent(infoNo);
+		   
+		   //정보게시판 썸네일 정보 조회
+		   InfoThumbnail infoThumb = adminService.getThumb(infoNo);
+		   
+		   //정보게시판 첨부파일 정보 조회
+		   List<InfoFile> infoFile = adminService.getFile(infoNo);
 
-		   model.addAttribute("info", info);
+		   logger.info("infoContent {}", infoContent);
+		   logger.info("infoThumb {}", infoThumb);
+		   logger.info("infoFile {}", infoFile);
+		   
+		   model.addAttribute("infoContent", infoContent);
+		   model.addAttribute("infoThumb", infoThumb);
+		   model.addAttribute("infoFile", infoFile);
+
 		   
 	   }
 

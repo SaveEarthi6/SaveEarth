@@ -209,6 +209,12 @@ public interface FreeDao {
 	 */
 	public int selectCntAllKeyword(String keyword);
 
+	/**
+	 * 댓글 수정
+	 * @param comment - 댓글 내용
+	 */
+	public void UpdateComment(FreeComment comment);
+
 	
 	
 

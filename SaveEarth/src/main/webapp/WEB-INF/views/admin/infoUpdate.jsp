@@ -197,7 +197,8 @@ form {
 
 
 파일 수정 : 
-	
+<br>		
+		썸네일
 		<div id="originFile1">
 		<c:if test="${ not empty infoThumb }">
 			<a href="../upload/${infoThumb.thumbStoredName }" download="${infoThumb.thumbOriginName}">
@@ -214,7 +215,7 @@ form {
 		</div>
 		
 	
-	
+		첨부파일
 		<c:forEach items="${infoFile}" var="file">
 		<div id="originFile2">
 		<c:if test="${not empty file }">

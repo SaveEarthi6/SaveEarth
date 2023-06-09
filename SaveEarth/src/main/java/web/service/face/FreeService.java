@@ -178,6 +178,12 @@ public interface FreeService {
 	 */
 	public Paging getPagingByKeyword(int curPage, String keyword, String freeHead);
 
+	/**
+	 * 댓글 수정
+	 * @param comment - 수정한 댓글 내용
+	 */
+	public void updateComment(FreeComment comment);
+
 
 
 	

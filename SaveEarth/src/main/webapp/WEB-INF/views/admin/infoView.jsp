@@ -68,28 +68,34 @@ h1 {
 <body>
 
 
-<c:forEach var="info" items="${info }" varStatus="status">
+<%-- <c:forEach var="info" items="${info }" varStatus="status"> --%>
 
 <%-- <c:if test="${status.index < 1}"> --%>
 
-<h1>${info.INFO_TITLE }</h1>
+<h1>${infoContent.infoTitle }</h1>
 
 <div id="btnGruop">
 
-	<a href="./infoUpdate?infoNo=${info.INFO_NO }"><button type="button" class="btn btn-danger">수정</button></a>
-	<a href="./infoDelete?infoNo=${info.INFO_NO }"><button type="button" class="btn btn-danger">삭제</button></a>
+	<a href="./infoUpdate?infoNo=${infoContent.infoNo }"><button type="button" class="btn btn-danger">수정</button></a>
+	<a href="./infoDelete?infoNo=${infoContent.infoNo }"><button type="button" class="btn btn-danger">삭제</button></a>
 </div>
 
 <div id="thumnail1">
-	<img src="/upload/${info.INFO_STORED_NAME }" class="img-thumbnail" alt="...">
+	<img src="../upload/${infoThumb.thumbStoredName}" class="img-thumbnail" alt="...">
 </div>
 
+<c:forEach items="${infoFile }" var="file">
+<div class="files">
+	<img src="../upload/${file.infoStoredName}" class="img-thumbnail" alt="...">
+</div>
+</c:forEach>
+
 <div class="content">
-${info.INFO_CONTENT }
+${infoContent.infoContent }
 </div>
 
 <%-- </c:if> --%>
-</c:forEach>
+<%-- </c:forEach> --%>
 
 
 <div class="url">

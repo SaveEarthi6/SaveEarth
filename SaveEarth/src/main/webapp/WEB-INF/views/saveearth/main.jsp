@@ -5,11 +5,8 @@
 
 <c:import url="../layout/header.jsp"></c:import>
 
-<<<<<<< HEAD
 <!-- 풀캘린더 -->
-=======
 
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
 
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
@@ -97,6 +94,7 @@ $(function() {
     } else {
       var answer = $(this).data("no");
       alert("정답은 " + answer + " 입니다❣️");
+      location.href="./main"
     }
   });
 });
@@ -251,13 +249,10 @@ $(function() {
 
 
 
-<<<<<<< HEAD
-=======
 
 
 	
 	
 
 </tbody>
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
 <c:import url="../layout/footer.jsp"></c:import>

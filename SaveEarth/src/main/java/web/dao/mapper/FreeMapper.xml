@@ -317,7 +317,12 @@ ORDER BY free_no DESC
 	WHERE user_id = #{loginId}
 </select>
 
-
+<!-- 댓글 수정 -->
+<update id="UpdateComment" parameterType="web.dto.FreeComment">
+	UPDATE freecomment SET comm_content = #{commContent}, comm_modify = current_date
+	WHERE free_no = #{freeNo}
+	AND comm_no = #{commNo}
+</update>
 
 </mapper>	
 

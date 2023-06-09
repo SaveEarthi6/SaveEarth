@@ -270,7 +270,52 @@ $(function() {
 
 	   });
 	});
+	
+/* 댓글 수정 */
 
+$(document).ready(function(){
+	
+$(document).on("click",".commUpdate",function(){
+	
+	//수정한 댓글 내용을 newcomm이 담고 있음
+	var newcomm = prompt("수정할 댓글 내용을 입력해주세요")
+	
+	var idx = $(".commUpdate").index(this)
+	var commNo = $(".commUpdate").eq(idx).attr('data-no')
+	var freeNo = ${param.freeNo}
+	
+	console.log(newcomm)
+	console.log(commNo)
+	
+	$.ajax({
+		type : 'post',
+		url : '/free/commUpdate',
+		data : 
+			{commNo : commNo,
+			freeNo : freeNo,
+			//키값으로 찾으니까 왼쪽이 dto변수명과 일치해야해
+			commContent : newcomm},
+		success:
+			function(result){
+			
+			console.log('댓글 수정 성공!')
+			
+			//새로고침
+			location.reload();
+			
+// 			$(".comm").html(result);
+			
+		},
+		error: function(error){
+			console.log('댓글 수정 실패!')
+		}
+			
+		
+	})
+	
+})
+
+})
 
 </script>
 
@@ -343,6 +388,8 @@ function heart(freeNo) {
 	<input type="hidden" value="${commContent.COMM_NO }" class="commNo">
 	<!-- this는 버튼의 요소를 가져가 -->
 	<button class="commDelete" data-no="${commContent.COMM_NO }">삭제</button>  
+	<button class="commUpdate" data-no="${commContent.COMM_NO }">수정</button>  
+	
     </c:if>
 
       <hr>

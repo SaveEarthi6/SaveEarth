@@ -287,7 +287,7 @@
  <insert id="insertInfoFile" parameterType="web.dto.InfoFile">
  
  	INSERT INTO info_file (info_file_no, info_no, info_origin_name, info_stored_name) 
-	VALUES ( info_file_seq.nextval, #{infoNo}, #{infoOriginName}, #{infoStroedName})
+	VALUES ( info_file_seq.nextval, #{infoNo}, #{infoOriginName}, #{infoStoredName})
  
  </insert>  
  

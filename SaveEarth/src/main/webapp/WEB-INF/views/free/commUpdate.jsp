@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
@@ -9,7 +9,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
 </head>
 <body>
 
@@ -26,7 +25,7 @@
 	<c:if test="${loginId eq commList.USER_ID }">
 	<button class="commDelete" data-no="${commContent.COMM_NO }">삭제</button>  
 	<button class="commUpdate" data-no="${commContent.COMM_NO }">수정</button>  
-   </c:if>
+    </c:if>
 	
       <hr>
    </c:forEach>
