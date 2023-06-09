@@ -30,7 +30,7 @@ body {
 /* 이미지 안에 소개게시판 문구 스타일 */
 .intro {
 	position: absolute;
-	top: 38%;
+	top: 50%;
 	left: 45%;
 	color: #fff;
 	font-weight: bold;
@@ -221,7 +221,7 @@ h1 {
 </div>
 
 <!-- TOP으로 가기 -->
-<div style="cursor:pointer;" onclick="window.scrollTo(0,0);"><i class="bi bi-arrow-up-circle-fill" ></i></div>
+<div style="cursor:pointer; text-align:right;" onclick="window.scrollTo(0,0);"><i class="bi bi-arrow-up-circle-fill" ></i></div>
 
 <c:import url="../layout/footer.jsp"/>
 

@@ -86,9 +86,40 @@ public interface InfoDao {
 	public void deleteThumb(int infoNo);
 
 
+	/**
+	 * 썸네일 삭제 후 리스트 조회
+	 * @param infoNo - 게시글 번호
+	 * @return - 썸네일 삭제 후 리스트
+	 */
+	public List<InfoThumbnail> selectThumbByInfoNo(int infoNo);
 
+	/**
+	 * 파일 번호가 일치하는 파일 삭제
+	 * @param infoFileNo - 파일 번호
+	 */
+	public void deleteFile(int infoFileNo);
 
-	public List<Free> getTopFreeRecommend(int count);
+	/**
+	 * 파일 삭제 후 리스트 조회
+	 * @param infoNo - 게시글 번호
+	 * @return - 파일 삭제 후 리스트
+	 */
+	public List<InfoFile> selectFileByInfoNo(int infoNo);
+	/**
+	 * 자유게시판 추천수 TOP인 게시글 10개 조회 
+	 * 
+	 * @param count
+	 * @return
+	 */
+	public List<Map<String, Object>> getTopFreeRecommend(int count);
+	
+	/**
+	 * 게시글 번호가 일치하는 게시글을 조회
+	 * 
+	 * @param freeNo
+	 * @return
+	 */
+	public List<Map<String, Object>> selectInfoByfreeNo(int freeNo);
 	
 
 }

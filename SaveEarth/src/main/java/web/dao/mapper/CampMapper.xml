@@ -18,7 +18,7 @@
 <!-- 		) CAMP -->
 <!-- 		WHERE rnum BETWEEN #{startNo} AND #{endNo} -->
 		SELECT * FROM (
-		    SELECT rownum rnum, A.* FROM (
+		    SELECT rownum rnum, A.* FROM	 (
 		        SELECT c.*, f.camp_origin_name, f.camp_stored_name
 		        FROM campaign c LEFT OUTER JOIN  campaign_file f
 		        ON c.camp_no = f.camp_no

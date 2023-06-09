@@ -1,10 +1,13 @@
 package web.controller;
 
-
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
-
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 
@@ -19,14 +22,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-
-
-
+import org.springframework.web.servlet.ModelAndView;
 import web.dto.Cart;
-
 import web.dto.Member;
 import web.dto.Ordertb;
+import web.dto.Order;
 import web.dto.ProdOption;
 import web.dto.Product;
 import web.service.face.GoodsService;
@@ -97,8 +97,8 @@ public class goodsController {
 		System.out.println(result);
 		return result;
 	}
-	//장바구니 리스트 보여주기(2023-06-04일단 리스트 가져오기까지)
-	//( 카트랑 상품,상품파일 3개 조인 where 유저넘버=세션유저넘버) 이용해서 가져와야함
+
+	
 	@GetMapping("/cart")
 	public String getCart(HttpSession session, Model model) {
 		int userNo=(int)session.getAttribute("loginNo");
@@ -152,7 +152,7 @@ public class goodsController {
 		//로그인 된 상태이면
 		if(session.getAttribute("isLogin") != null) {
 			for(String cartNo : chArr) {
-				goodsService.deleteCart((int)session.getAttribute("loginNo"), cartNo);
+				goodsService.deleteCartBySelect((int)session.getAttribute("loginNo"), cartNo);
 			}
 			
 			return 1;
@@ -163,21 +163,57 @@ public class goodsController {
 		
 	}
 	
-	@RequestMapping("/orderAll")
-	public void orderAll(HttpSession session, @RequestParam("chbox[]") List<String> chArr, Model model) {
-		//주문페이지로 이동
-		logger.info("/goods/orderAll [POST]");
+	//전체 주문하기
+	@GetMapping("/order")
+	public void orderAll(HttpSession session, Model model) {
+		logger.info("/goods/order [GET]");
 		
-//		List<Map<String, Object>> cartList = new ArrayList<>();
-//		
-//		for(String cartNo : chArr) {
-//			cartList.add(goodsService.getcartList((int)session.getAttribute("loginNo"), cartNo));
-//		}
-//		logger.info("{}", cartList);
-//		
-//		model.addAttribute("cartList",cartList);
+		//회원정보와 일치하는 카트List 전체 출력
+		List<Map<String, Object>> cartList = goodsService.getcartList((int)session.getAttribute("loginNo"));
+		logger.info("{}", cartList);
+		
+		model.addAttribute("cartList",cartList);
+		
+		//회원 정보 불러오기
 		
 		
+		
+	}
+	
+	@PostMapping("/order")
+	public String orderinsert(HttpSession session, Order order) {
+		logger.info("/goods/order [POST]");
+		
+		//주문 DB에 넣기
+		
+		//주문번호
+		Calendar cal = Calendar.getInstance();
+		String date = cal.get(Calendar.YEAR) + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1) + new DecimalFormat("00").format(cal.get(Calendar.DATE));
+		String orderNo = cal.get(Calendar.YEAR) + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1) + new DecimalFormat("00").format(cal.get(Calendar.DATE)) + "_" + UUID.randomUUID().toString().split("-")[0];
+		
+		logger.info("{}", orderNo);		
+		
+		order.setOrderNo(orderNo);
+		order.setUserNo((int)session.getAttribute("loginNo"));
+		
+		logger.info("{}", order);
+		
+		goodsService.makeOrder(order);
+		
+		goodsService.deleteCart((int)session.getAttribute("loginNo"));
+		
+		return "redirect:./orderList";
+		
+	}
+	
+	//주문목록 불러오기
+	@RequestMapping("/orderList")
+	public void orderList(HttpSession session, Model model) {
+		logger.info("/goods/orderList [GET]");
+		
+		List<Order> orderList = goodsService.orderList((int)session.getAttribute("loginNo"));
+		
+		model.addAttribute("orderList", orderList);
 	}
 	
 
@@ -190,9 +226,6 @@ public class goodsController {
 		System.out.println("상품넘버확인"+prodNo);
 		System.out.println("상품갯수확인"+prodCount);
 		System.out.println("상품옵션확인"+prodOptNo);
-
-
-	
 		//로그인 정보
 		String loginId = (String) session.getAttribute("loginId");
 		logger.info("{}", loginId);
@@ -211,6 +244,30 @@ public class goodsController {
 		model.addAttribute("product", product );
 		model.addAttribute("option", option );
 		model.addAttribute("prodCount",prodCount);
+	}
+	
+	@RequestMapping("/payment")
+	public void payment(HttpServletRequest request) {
+		logger.info("/goods/payment [GET]");
+		logger.info("{}", request.getAttribute("val"));
+		
+		goodsService.paymentTest(request);
+		
+	}
+	
+	@RequestMapping("/cartAmount")
+	public String cartAmount(@RequestParam Map<String, Object> param, Model model, HttpSession session) {
+		logger.info("/cartAmount [POST]");
+		logger.info("{}", param);
+		
+		goodsService.updateAmount(param);
+		
+		List<Map<String, Object>> cartList = goodsService.getcartList((int)session.getAttribute("loginNo"));
+		logger.info("asdsaadsd{}", cartList);
+		model.addAttribute("cartList", cartList);
+		
+		return "/goods/cartList";
+		
 	}
 	
 
