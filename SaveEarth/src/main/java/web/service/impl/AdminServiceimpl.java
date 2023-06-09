@@ -455,8 +455,7 @@ public void productnWrite(Product product, List<MultipartFile> files, Admin memb
 
 	@Override
 	public List<Map<String, Object>> getOptionList(ProdOption prodOption) {
-		System.out.println("서비스 임플 prodno :" + prodOption);
-		prodOption.setProdNo(15);
+		System.out.println("서비스 임플 prodOption :" + prodOption);
 		
 		
 		return adminDao.getOption(prodOption);

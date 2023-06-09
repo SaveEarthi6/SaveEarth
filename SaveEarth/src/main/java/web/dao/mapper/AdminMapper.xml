@@ -239,8 +239,8 @@ SELECT * FROM (
 			select PROD_NO_seq.nextval from dual
 		</selectKey>
 
-  		INSERT INTO ProdOption (prod_no, prod_color, prod_size)
-   			VALUES (#{prodNo}, #{prodColor}, #{prodSize})
+  		INSERT INTO ProdOption (prod_opt_no, prod_color, prod_size)
+   			VALUES (#{prodOptNo}, #{prodColor}, #{prodSize})
 
    </insert>
 
