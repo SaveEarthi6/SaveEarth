@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import web.dto.Cart;
+import web.dto.Ordertb;
 import web.dto.Order;
 import web.dto.ProdOption;
 import web.dto.Product;
@@ -20,7 +21,7 @@ public interface GoodsService {
 	 * @param paging
 	 * @return
 	 */
-	public List<Product> getgoodsList(Paging paging);
+	List<Map<String, Object>> getgoodsList(Paging paging);
 
 	
 	/**
@@ -121,6 +122,8 @@ public interface GoodsService {
 	 * @return
 	 */
 	public Map<String, Object> getCartListBySelect(int userNo, String cartNo);
+
+	public  void insertordertb(Ordertb ordertb);
 
 	
 	

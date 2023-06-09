@@ -10,10 +10,13 @@
 	
 	<select id="selectProdList" resultType="web.dto.Product" parameterType="web.util.Paging">
 		SELECT * FROM (
-	    	SELECT rownum rnum, P.* FROM (
-	        	SELECT * FROM product ORDER BY prod_no DESC
-	    	) P
-		) Goods
+		    SELECT rownum rnum, A.* FROM (
+		        SELECT p.*, f.prod_origin_name, f.prod_stored_name
+		        FROM product p LEFT OUTER JOIN  prod_file f
+		        ON p.prod_no = f.prod_no
+		        ORDER BY p.prod_no DESC
+		    ) A
+		)
 		WHERE rnum BETWEEN #{startNo} AND #{endNo}
 	</select>
 	
@@ -119,4 +122,9 @@
 		where c.user_no = #{userNo}
 	</select>
 	
+	
+	<insert id="insertordertb" parameterType="web.dto.Ordertb" >
+	insert into ordertb(ORDER_NO,USER_NO,ORDER_REC,ORDER_ADDR_POSTCODE,ORDER_ADDR,ORDER_ADDR_DETAIL,ORDER_PHONE,ORDER_PRICE)
+	VALUES(#{orderNo},#{userNo},#{orderRec},#{orderAddrPostcode},#{orderAddr},#{orderAddrDetail},#{orderPhone},#{orderPrice})
+	</insert>
 </mapper>

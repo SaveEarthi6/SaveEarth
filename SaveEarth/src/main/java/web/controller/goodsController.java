@@ -10,6 +10,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +18,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import web.dto.Cart;
 import web.dto.Member;
+import web.dto.Ordertb;
 import web.dto.Order;
 import web.dto.ProdOption;
 import web.dto.Product;
@@ -47,16 +49,17 @@ public class goodsController {
 		Paging paging = goodsService.getPaging(curPage);
 		
 		//첫 로드시 상품 불러오기
-		List<Product> prodList = goodsService.getgoodsList(paging);
+//		List<Product> prodList = goodsService.getgoodsList(paging);
 		
 		// 파일 가져오기
+		List<Map<String, Object>> prodList = goodsService.getgoodsList(paging);
 		
 		
 
 		
-		for(Product c : prodList) {
-			logger.info("{}", c);
-		}
+//		for(List<Map<String, Object>> c : prodList) {
+//			logger.info("{}", c);
+//		}
 		
 		model.addAttribute("prodList", prodList);
 		model.addAttribute("paging", paging);		
@@ -303,23 +306,41 @@ public class goodsController {
 
 
 	  @PostMapping("/complete")
-	  public String completePayment(HttpServletRequest request) {
-	    // 아임포트 결제 정보를 가져옵니다.
-	    String merchantUid = request.getParameter("merchant_uid");
-	    String status = request.getParameter("status");
-	    String impUid = request.getParameter("imp_uid");
-	    
-	    System.out.println(merchantUid);
-	    System.out.println(status);
-	    System.out.println(impUid);
-	    
-	    // 원하는 값으로 SQL INSERT 작업 수행
-//	    Payment payment = new Payment();
-//	    payment.setMerchantUid(merchantUid);
-//	    payment.setStatus(status);
-//	    payment.setImpUid(impUid);
-//	    paymentService.insertPayment(payment); 
-	    
+	  public String complete( String userName,String userPostcode, String userAddr, String userDetailaddr, String userPhone, String totalPrice, String prodNo, HttpSession session ) {
+		  
+
+		  Ordertb ordertb = new Ordertb();
+		  ordertb.setOrderRec(userName);
+		  ordertb.setOrderAddrPostcode(userPostcode);
+		  ordertb.setOrderAddr(userAddr);
+		  ordertb.setOrderAddrDetail(userDetailaddr);
+		  ordertb.setOrderPhone(userPhone);
+		  ordertb.setOrderPrice(totalPrice);
+		  //주문번호
+		 System.out.println(session.getAttribute("loginNo"));
+			
+		 int userNo=(int)session.getAttribute("loginNo");
+		 ordertb.setOrderNo(1);	
+		 ordertb.setUserNo(userNo);
+		 goodsService.insertordertb(ordertb);
+		  
+		  
+		  
+		    
+	
+          
+	       
+	  
+	       
+        
+
+	       
+
+	       
+		  
+	
+
+		  
 	    return "goods/paycomplete"; // 결제 완료 페이지로 이동
 	  }
 	
