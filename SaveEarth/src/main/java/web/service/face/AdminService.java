@@ -16,6 +16,7 @@ import web.dto.Info;
 import web.dto.InfoFile;
 import web.dto.InfoThumbnail;
 import web.dto.Member;
+import web.dto.ProdOption;
 import web.dto.Product;
 import web.util.Paging;
 
@@ -217,6 +218,14 @@ public void updateFree(Free freeBoard, List<MultipartFile> files, List<FreeFile>
     * @return - 게시글 번호가 일치하는 파일 정보
     */
    public List<InfoFile> getFile(int infoNo);
+   
+   /**
+    * 쇼핑몰 상품옵션 - map
+    * @param prodNo
+    * @return
+    */
+   public void getOptionList(ProdOption prodOption);
+	
 	
 
 
