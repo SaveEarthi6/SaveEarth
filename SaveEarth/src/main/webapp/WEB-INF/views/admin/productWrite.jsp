@@ -57,6 +57,44 @@ function updateContents() {
 
 </script>
 
+
+<!--  결제하기 실험해보기 -->
+   <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+    <script>
+        var IMP = window.IMP; 
+        IMP.init("imp42576077"); // 가맹점 식별코드
+      
+        var today = new Date();   
+        var hours = today.getHours(); // 시
+        var minutes = today.getMinutes();  // 분
+        var seconds = today.getSeconds();  // 초
+        var milliseconds = today.getMilliseconds();
+        var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+        
+
+        function requestPay() {
+            IMP.request_pay({
+                pg : 'html5_inicis.INIpayTest  ', // PG사 코드표에서 코드 맞춰놓았음
+                pay_method : 'card', // 결제 방식
+                merchant_uid: "IMP"+makeMerchantUid, // 결제 고유 번호
+                name : '${goodsDetail.PROD_NAME }', // 제품명 변경
+                amount : document.getElementById("totalprice").innerText, // 가격
+                buyer_email : 'Iamport@chai.finance',
+                buyer_name : '아임포트 기술지원팀',
+                buyer_tel : '010-1234-5678',
+                buyer_addr : '서울특별시 강남구 삼성동',
+                buyer_postcode : '123-456'
+            }, function (rsp) { // callback
+                if (rsp.success) {
+                    console.log(rsp);
+                } else {
+                    console.log(rsp);
+                }
+            });
+        }
+
+	</script>
+
 <style type="text/css">
 
 
@@ -114,9 +152,18 @@ form {
 </div>
 
 <div class="form-group" style= "margin-top: 50px">
-	<label class="form-label" for="title">재고 수</label>
-	<input type="text" id="prodAmount" name="prodAmount" class="form-control">
+	<label class="form-label" for="title">상품색상</label>
+	<input type="text" id="prodColor" name="prodColor" class="form-control">
 </div>
+
+<div class="form-group" style= "margin-top: 50px">
+	<label class="form-label" for="title">상품 사이즈</label>
+	<input type="text" id="prodSize" name="prodSize" class="form-control">
+</div>
+
+
+
+
 
 
 <div class="form-group mb-3" style= "margin-top: 50px">
