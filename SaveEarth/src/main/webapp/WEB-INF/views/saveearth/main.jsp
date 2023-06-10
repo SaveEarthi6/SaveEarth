@@ -5,11 +5,8 @@
 
 <c:import url="../layout/header.jsp"></c:import>
 
-<<<<<<< HEAD
 <!-- 풀캘린더 -->
-=======
 
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
 
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
@@ -248,16 +245,7 @@ $(function() {
 <!-- 굿즈샵 예시보기 -->
 <h1 style="font-family: 'KBO-Dia-Gothic_bold'; text-align: center; padding-top: 100px;">🛍️굿즈샵🛍️</h1>
   
-
-
-
-<<<<<<< HEAD
-=======
-
-
-	
 	
 
 </tbody>
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
 <c:import url="../layout/footer.jsp"></c:import>

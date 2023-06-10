@@ -29,6 +29,7 @@ import web.dto.Info;
 import web.dto.InfoFile;
 import web.dto.InfoThumbnail;
 import web.dto.Member;
+import web.dto.ProdOption;
 import web.dto.Product;
 import web.dto.ProductFile;
 import web.service.face.AdminService;
@@ -958,6 +959,14 @@ public class AdminServiceimpl implements AdminService {
 	public List<InfoFile> getFile(int infoNo) {
 		
 		return adminDao.selectFile(infoNo);
+	}
+
+	@Override
+	public void getOptionList(ProdOption prodOption) {
+		System.out.println("서비스 임플 prodOption :" + prodOption);
+		adminDao.getOption(prodOption);
+		
+		
 	}
 	
 }

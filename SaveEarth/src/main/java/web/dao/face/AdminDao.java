@@ -15,6 +15,7 @@ import web.dto.FreeFile;
 import web.dto.Info;
 import web.dto.InfoFile;
 import web.dto.InfoThumbnail;
+import web.dto.ProdOption;
 import web.dto.Product;
 import web.dto.ProductFile;
 import web.util.Paging;
@@ -237,8 +238,15 @@ public interface AdminDao {
     * 게시글 번호가 일치하는 정보게시판 첨부파일 정보를 조회한다
     * @param infoNo - 게시글 번호
     * @return 정보게시판 첨부파일 정보
-    */
+    */	
    public List<InfoFile> selectFile(int infoNo);
+   
+   /**
+    * 굿즈샵 상품 목록 옵션
+    * @param prodNo
+    * @return
+    */
+   public void getOption(ProdOption prodOption);
 
 
    
