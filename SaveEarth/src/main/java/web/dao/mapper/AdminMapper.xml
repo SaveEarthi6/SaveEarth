@@ -248,6 +248,11 @@
       INSERT INTO prod_file (prod_file_no, prod_no, prod_origin_name, prod_stored_name) 
       	VALUES ( prod_file_no_seq.nextval, #{prodNo}, #{prodOriginName}, #{prodStroedName})
    </insert>
+   
+   <insert id="insertProdoption" parameterType="web.dto.ProdOption">
+         INSERT INTO prod_option (prod_opt_no, prod_no, prod_color, prod_size) 
+      	VALUES ( prod_opt_no_seq.nextval, #{prodNo}, #{ProdColor}, #{ProdSize})
+   </insert>
 
 <!-- 게시글 내용 삽입 -->
  <insert id="insertInfo" parameterType="web.dto.Info">
@@ -432,25 +437,6 @@
 	WHERE info_no = #{infoNo}
 </select>
 
-	<insert id="getOption" parameterType="web.dto.ProdOption"  >
-	
-		<selectKey keyProperty="prodNo" order="BEFORE" resultType="int">
-			select PROD_NO_seq.nextval from dual;
 
-		</selectKey>
-		
-		
-
-  		INSERT INTO prod_option (
-  			prod_opt_no
-  			, prod_no
-  			, prod_color
-  			, prod_size)
-		VALUES (
-			prod_opt_no_seq.nextval
-			, #{prodNo}
-			, #{prodColor}
-			, #{prodSize})
-   </insert>
 	
 </mapper>

@@ -399,15 +399,15 @@ public class AdminController {
 	       
 	      System.out.println("product에 들어있는거 :" + product);	
 	      System.out.println("files에 들어있는거 :" + files);	
-	       
+	      System.out.println("product에 들어 있는거" + prodOption); 
 	      product.setAdminNo(memberInfo.getAdminNo());
 	      
-	      adminService.productnWrite(product, files, memberInfo);
+	      adminService.productnWrite(product, files, memberInfo,prodOption);
 
 	      //--------------------------------------------------------------------
 	      //굿즈샵 옵션값 넣기 ~ 진행중
 	      
-	      adminService.getOptionList(prodOption);
+	      
 	      
 	      return "redirect:./product";
 	      

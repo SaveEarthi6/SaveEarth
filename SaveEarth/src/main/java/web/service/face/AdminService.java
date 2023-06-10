@@ -111,7 +111,7 @@ public interface AdminService {
     * @param files
     * @param memberInfo
     */
-   public void productnWrite(Product product, List<MultipartFile> files, Admin memberInfo);
+   public void productnWrite(Product product, List<MultipartFile> files, Admin memberInfo, ProdOption prodOption);
    
    /**
     *  게시글 수정
@@ -219,13 +219,7 @@ public void updateFree(Free freeBoard, List<MultipartFile> files, List<FreeFile>
     */
    public List<InfoFile> getFile(int infoNo);
    
-   /**
-    * 쇼핑몰 상품옵션 - map
-    * @param prodNo
-    * @return
-    */
-   public void getOptionList(ProdOption prodOption);
-	
+
 	
 
 

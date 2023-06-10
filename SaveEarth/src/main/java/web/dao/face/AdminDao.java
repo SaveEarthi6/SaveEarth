@@ -241,12 +241,14 @@ public interface AdminDao {
     */	
    public List<InfoFile> selectFile(int infoNo);
    
+
+
+
    /**
-    * 굿즈샵 상품 목록 옵션
-    * @param prodNo
-    * @return
+    * 옵션 인서트
+    * @param prodOption
     */
-   public void getOption(ProdOption prodOption);
+   public void insertProdoption(ProdOption prodOption);
 
 
    
