@@ -153,12 +153,12 @@ form {
 
 <div class="form-group" style= "margin-top: 50px">
 	<label class="form-label" for="title">상품색상</label>
-	<input type="text" id="prodColor" name="prodColor" class="form-control">
+	<input type="text" id="prodColor" name="prodColor" class="form-control" value="해당없음">
 </div>
 
 <div class="form-group" style= "margin-top: 50px">
 	<label class="form-label" for="title">상품 사이즈</label>
-	<input type="text" id="prodSize" name="prodSize" class="form-control">
+	<input type="text" id="prodSize" name="prodSize" class="form-control" value="해당없음">
 </div>
 
 

@@ -359,11 +359,11 @@ public class goodsController {
 		  
 		    
 	
-          
+        
 	       
 	  
 	       
-        
+      
 
 	       
 
@@ -371,7 +371,7 @@ public class goodsController {
 		  
 	
 
-		  
+	    
 	    return "goods/paycomplete"; // 결제 완료 페이지로 이동
 	  }
 	  

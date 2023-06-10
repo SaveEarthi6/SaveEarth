@@ -448,7 +448,7 @@ public class AdminServiceimpl implements AdminService {
 	//}
 
 	@Override
-	public void productnWrite(Product product, List<MultipartFile> files, Admin memberInfo) {
+	public void productnWrite(Product product, List<MultipartFile> files, Admin memberInfo, ProdOption prodOption) {
 
 	     product.setAdminNo(memberInfo.getAdminNo());
 //	     product.setProdNo(1);
@@ -524,6 +524,9 @@ public class AdminServiceimpl implements AdminService {
 	      for (ProductFile e : upfiles) {
 	         adminDao.insertProductFile(e);
 	      }
+	      
+	      prodOption.setProdNo(product.getProdNo());
+	      adminDao.insertProdoption(prodOption);
 	      
 	   }
 
@@ -961,13 +964,7 @@ public class AdminServiceimpl implements AdminService {
 		return adminDao.selectFile(infoNo);
 	}
 
-	@Override
-	public void getOptionList(ProdOption prodOption) {
-		System.out.println("서비스 임플 prodOption :" + prodOption);
-		adminDao.getOption(prodOption);
-		
-		
-	}
+	
 	
 }
 	
