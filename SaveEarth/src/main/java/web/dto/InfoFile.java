@@ -7,24 +7,26 @@ public class InfoFile {
 	private int infoFileNo;
 	private int infoNo;
 	private String infoOriginName;
-	private String infoStroedName;
+	private String infoStoredName;
 	private Date infoFileDate;
 	
-	public InfoFile() {}
+	public InfoFile() {
+		// TODO Auto-generated constructor stub
+	}
 
-	public InfoFile(int infoFileNo, int infoNo, String infoOriginName, String infoStroedName, Date infoFileDate) {
+	public InfoFile(int infoFileNo, int infoNo, String infoOriginName, String infoStoredName, Date infoFileDate) {
 		super();
 		this.infoFileNo = infoFileNo;
 		this.infoNo = infoNo;
 		this.infoOriginName = infoOriginName;
-		this.infoStroedName = infoStroedName;
+		this.infoStoredName = infoStoredName;
 		this.infoFileDate = infoFileDate;
 	}
 
 	@Override
 	public String toString() {
 		return "InfoFile [infoFileNo=" + infoFileNo + ", infoNo=" + infoNo + ", infoOriginName=" + infoOriginName
-				+ ", infoStroedName=" + infoStroedName + ", infoFileDate=" + infoFileDate + "]";
+				+ ", infoStoredName=" + infoStoredName + ", infoFileDate=" + infoFileDate + "]";
 	}
 
 	public int getInfoFileNo() {
@@ -51,12 +53,12 @@ public class InfoFile {
 		this.infoOriginName = infoOriginName;
 	}
 
-	public String getInfoStroedName() {
-		return infoStroedName;
+	public String getInfoStoredName() {
+		return infoStoredName;
 	}
 
-	public void setInfoStroedName(String infoStroedName) {
-		this.infoStroedName = infoStroedName;
+	public void setInfoStoredName(String infoStoredName) {
+		this.infoStoredName = infoStoredName;
 	}
 
 	public Date getInfoFileDate() {
@@ -66,10 +68,7 @@ public class InfoFile {
 	public void setInfoFileDate(Date infoFileDate) {
 		this.infoFileDate = infoFileDate;
 	}
-
 	
 	
 	
-	
-
 }

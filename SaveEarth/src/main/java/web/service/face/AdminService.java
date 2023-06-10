@@ -13,6 +13,8 @@ import web.dto.Certification;
 import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Info;
+import web.dto.InfoFile;
+import web.dto.InfoThumbnail;
 import web.dto.Member;
 import web.dto.Product;
 import web.util.Paging;
@@ -100,7 +102,7 @@ public interface AdminService {
     * @param paging
     * @return
     */
-   public List<Product> getproductList(Paging paging);
+//   public List<Product> getproductList(Paging paging);
 
    /**
     * 관리자 페이지 - 굿즈샵 상품등록
@@ -109,16 +111,113 @@ public interface AdminService {
     * @param memberInfo
     */
    public void productnWrite(Product product, List<MultipartFile> files, Admin memberInfo);
-
-
    
-
-
-
-
+   /**
+    *  게시글 수정
+    * @param campaign
+    * @return
+    */
+   public Map<String, Object> getView(Campaign campaign);
    
+   /**
+    * 게시글 수정
+    * @param campaign
+    * @return
+    */
+   public List<CampaignFile> getCampFile(Campaign campaign);
    
+	/**
+	 * 게시글 정보 수정하기   
+	 * @param campaign - 입력한 게시글 정보
+	 * @param files - 수정한 파일
+	 * @param campFile - 수정할 파일 번호
+	 */
+   public void updateCamp(Campaign campaign, List<MultipartFile> files, List<CampaignFile> campFile);
+   
+   /**
+    * 관리자 페이지에서 정보게시판 글 작성
+    * @param adminNo - 관리자 번호
+    * @param info - 작성한 게시글 내용
+    * @param thumb - 썸네일
+    * @param files - 첨부파일
+    */
+   public void infoWrite(int adminNo, Info info, List<MultipartFile> files, MultipartFile thumb);
+   
+   /**
+    * 
+    * @param infoNo
+    */
+   public void deleteInfo(int infoNo);
 
+   /**
+	 * 게시글 번호와 일치하는 게시글 내용 가져오기
+	 * @param infoNo - 게시글 번호
+	 * @return - 게시글 번호 일치하는 게시글 내용
+	 */
+   public List<Map<String, Object>> getInfo(int infoNo);
+   
+   /**
+    * 정보게시판 게시글 조회
+    * @param paging - 페이징 객체
+    * @return - 정보게시판 게시글
+    */
+   public List<Map<String, Object>> getInfoList(Paging paging);
+   
+   /**
+    * 정보게시판 게시글 총 개수 조회
+    * @param curPage - 현재 페이지
+    * @return - 페이징 객체
+    */
+   public Paging getInfoPaging(int curPage);
+
+
+public void updateFree(Free freeBoard, List<MultipartFile> files, List<FreeFile> freeFile);
+
+   /**
+    * 굿즈 게시판 상품 삭제 
+    * @param prodNo - 상품번호
+    */
+   public void deleteGoods(Product prodNo);
+
+   /**
+    * 리스트로 보여주기
+    * @param paging
+    * @return
+    */
+   public List<Map<String, Object>> getProductList(Paging paging);
+
+   /**
+    * 정보게시판 게시글 수정
+    * @param info - 게시글 내용
+    * @param files - 첨부파일(들)
+    * @param thumb - 썸네일 파일
+	 * @param infoFileNo - 파일 번호
+	 * @param thumbNo - 썸네일 번호 
+    */
+//   public void updateInfo(Info info, List<MultipartFile> files, MultipartFile thumb, int thumbNo, int infoFileNo);
+   public void updateInfo(Info info, List<MultipartFile> files, MultipartFile thumb);
+
+   /**
+    * 정보게시판 게시글 내용 조회
+    * @param infoNo - 게시글 번호
+    * @return - 게시글 내용
+    */
+   public Info getContent(int infoNo);
+
+   /**
+    * 정보게시판 썸네일 정보 조회
+    * @param infoNo - 게시글 번호
+    * @return - 게시글 번호가 일치하는 썸네일 정보
+    */
+   public InfoThumbnail getThumb(int infoNo);
+
+   /**
+    * 정보게시판 첨부파일 정보 조회
+    * @param infoNo - 게시글 번호
+    * @return - 게시글 번호가 일치하는 파일 정보
+    */
+   public List<InfoFile> getFile(int infoNo);
+	
 
 
 

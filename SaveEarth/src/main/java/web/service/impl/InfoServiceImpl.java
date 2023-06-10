@@ -45,6 +45,8 @@ public class InfoServiceImpl implements InfoService {
 		
 		Paging paging = new Paging(totalCount, curPage, 3);
 		
+		logger.info("infoServiceImpl paging{}", paging);
+		
 		return paging;
 	}
 
@@ -59,7 +61,7 @@ public class InfoServiceImpl implements InfoService {
 	}
 
 	@Override
-	public List<Free> getTopRecommend(int count) {
+	public List<Map<String, Object>> getTopRecommend(int count) {
 		return infoDao.getTopFreeRecommend(count);
 	}
 	
@@ -186,7 +188,7 @@ public class InfoServiceImpl implements InfoService {
 		
 		infoFiles.setInfoNo(info.getInfoNo());
 		infoFiles.setInfoOriginName(files.get(i).getOriginalFilename());;
-		infoFiles.setInfoStroedName(storedName1);
+		infoFiles.setInfoStoredName(storedName1);
 		logger.info("infoFiles : {}", infoFiles );
 		
 		upfiles.add(infoFiles);
@@ -239,6 +241,51 @@ public class InfoServiceImpl implements InfoService {
 		infoDao.deleteInfoFile(infoNo);
 		infoDao.deleteInfo(infoNo);
 		
+	}
+	
+	@Override
+	public void deleteThumb(int thumbNo) {
+
+		infoDao.deleteThumb(thumbNo);
+		
+	}
+	
+	@Override
+	public List<InfoThumbnail> getInfoThumb(int infoNo) {
+		
+		return infoDao.selectThumbByInfoNo(infoNo);
+		
+	}
+	
+	
+	@Override
+	public void deleteFile(int infoFileNo) {
+		
+		infoDao.deleteFile(infoFileNo);
+		
+	}
+	
+	
+	@Override
+	public List<InfoFile> getInfoFile(int infoNo) {
+		
+		return infoDao.selectFileByInfoNo(infoNo);
+	}
+	
+	@Override
+	public void updateInfo(Info info, List<MultipartFile> infoFiles, MultipartFile thumb) {
+
+		//게시글 내용 수정
+		
+		//지금 들어온 파일 있는지 검사하고 삭제 후 새로 넣기
+		
+		
+	}
+	
+	
+	@Override
+	public List<Map<String, Object>> getfreeTopDetail(int freeNo) {
+		return infoDao.selectInfoByfreeNo(freeNo);
 	}
 	
 	

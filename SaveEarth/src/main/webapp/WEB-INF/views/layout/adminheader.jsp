@@ -92,7 +92,7 @@ body {
 #logo {
 	text-align: center;
 	width:500px;
-	height:100px;
+	height:115px;
 	position: relative;
 }
 

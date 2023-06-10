@@ -47,6 +47,14 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'omyu_pretty';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 /* 게시판 분류 버튼 스타일 */
 .nav button {  
   	margin-left: 30px;  
@@ -128,9 +136,23 @@ input {
 
 
 
-
 </style>
 
+<script type="text/javascript">
+
+function selectFree() {
+	console.log("test")
+	document.getElementById('freebtn').className = 'btn btn-success'
+	location.href='./top'
+}
+
+function selectInfo() {
+	console.log("test")
+	document.getElementById('infobtn').className = 'btn btn-success'
+	location.href='./main'
+}
+
+</script>
 
 </head>
 <body>
@@ -148,26 +170,24 @@ input {
 </div>
 </c:if>
 
-<div id = "infoList">
 	<div class="nav">
-		<button id="navButton" type="button" class="btn btn-outline-success preface">정보</button>
-		<button id="navButton" type="button" class="btn btn-outline-success preface">자유</button>
+		<button type="button" class="btn btn-outline-success" id="infobtn" onclick="selectInfo()">정보</button>
+		<button type="button" class="btn btn-success" id="freebtn" onclick="selectFree()">자유</button>
 	</div>
 
-</div>
-
 <h2 style="text-align: center; font-family: KBO-Dia-Gothic_bold ; color: #2B4DA2" >⭐자유게시판 BEST 게시글⭐</h2>
-<div class="container">
+<div class="container" style="margin-bottom: 90px;">
 
 <!-- 정보 게시판 list CSS -->
-<table id= "board" class= "table table-hover text-center">
+<table id= "board" class= "table table-hover text-center" style= "font-family : omyu_pretty; font-size:20px">
 
 	<tr style= "background-color: #59A8D9; color: white;">
-		<th style="width: 20px;">글번호</th>
-		<th style="width: 20px;">작성자</th>
-		<th style="width: 30px; text-align:center">제목</th>
-		<th style="width: 20px;">조회수</th>
-		<th style="width: 20px;">작성일</th>
+		<th style="width: 10%;">글번호</th>
+		<th style="width: 10%;">말머리글</th>
+		<th style="width: 20%;">작성자</th>
+		<th style="width: 30%; text-align:center">제목</th>
+		<th style="width: 10%;">조회수</th>
+		<th style="width: 20%;">작성일</th>
 	</tr>
 
 <tbody>
@@ -178,11 +198,25 @@ input {
 	<c:if test="${status.index < 10}">
 
 	<tr>
-		<td>${recommend.freeNo }</td>
-		<td>${recommend.userNo }
-		<td>${recommend.freeTitle }</td>
-		<td>${recommend.freeViews }</td>
-		<td><fmt:formatDate value="${recommend.freeCreate}" pattern="yy-MM-dd HH:mm:ss"/></td>
+		<td>${recommend.FREE_NO }</td>
+		<td>
+			<img class="notice" src="../resources/img/bestHeart.png" width= "35px;" > <!-- BEST 이미지 -->
+			${recommend.FREE_HEAD }
+		</td>
+            <c:choose>
+            
+            <c:when test="${recommend.USER_ID != null }">
+            <td>${recommend.USER_ID}</td>
+            </c:when>
+            
+            <c:otherwise>
+            <td>관리자</td>
+            </c:otherwise>
+            
+            </c:choose>
+		<td class="text-start" style="text-align:center"><a href="/free/view?freeNo=${recommend.FREE_NO }">${recommend.FREE_TITLE }</a></td>
+		<td>${recommend.FREE_VIEWS }</td>
+		<td><fmt:formatDate value="${recommend.FREE_CREATE}" pattern="yy-MM-dd HH:mm:ss"/></td>
 	</tr>
 	
 	</c:if>
@@ -192,23 +226,8 @@ input {
 </table>
 
 
-<!-- 검색창 -->
-<div>
-	<form action="/free/search?freeHead=${freeHead }&keyword=${keyword }" method="get">
-	    <div class="search">
-	        <input type="text" name="keyword" class="search_input"
-	        placeholder="검색어를 입력해주세요" value=${keyword }>
-	        <button class="search_btn" style="margin-bottom: 3px;"><i class="bi bi-search"></i></button>
-	    </div>
-	</form>
-</div>
 
-
-
-
+</div><!-- container end -->
 
 <c:import url="../layout/footer.jsp"></c:import>
 
-</div>
-</body>
-</html>

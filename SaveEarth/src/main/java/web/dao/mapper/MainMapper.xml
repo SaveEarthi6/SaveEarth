@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace= "web.dao.face.MainDao">
+
+<select id="selectAllQuiz" resultType="web.dto.Quiz">
+	select * from Quiz order by dbms_random.value
+</select>
+
+<select id="selectCalList" resultType="web.dto.Calendar">
+		SELECT * FROM calendar
+</select>
+
+</mapper>

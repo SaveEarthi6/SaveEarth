@@ -201,6 +201,14 @@ public interface FreeDao {
 	 * @param loginId
 	 */
 	public int selectUserNoByLoginId(String loginId);
+
+	/**
+	 * 검색어와 일치하는 게시글 수 조회
+	 * @param keyword - 검색어
+	 * @return - 검색어와 일치하는 게시글 수
+	 */
+	public int selectCntAllKeyword(String keyword);
+
 	
 	
 

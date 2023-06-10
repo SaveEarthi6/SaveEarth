@@ -44,7 +44,7 @@ function updateContents() {
 
 <style type="text/css">
 
-
+ㅋ
 @font-face {
 	font-family: 'KBO-Dia-Gothic_bold';
 	src:
@@ -96,16 +96,28 @@ form {
 	<input type="text" id="title" name="campTitle" class="form-control">
 </div>
 
+<div>
+말머리글 <input type="text" id="campState" name="campState" class="form-control" style="width: 90px;" value="진행중">
+ </div>
+
 
 <div class="form-group mb-3" style= "margin-top: 50px">
 	<label class="form-label" for="file">첨부파일</label>
 	<input type="file" id="file" name="files" class="form-control" multiple="multiple">
 </div>
 
+<<<<<<< HEAD
 <div class="form-group mb-3" style= "margin-top: 50px">
-	<label class="form-label" for="file">캠페인 상태</label>
-	<input type="text" id="file" name="campState" class="form-control" >
+	 <label>캠패인 상태</label><br>
+        <select name="campState" id="campState">
+          <option>선택하세요</option>
+          <option value="진행중">진행중</option>
+          <option value="마감">마감</option>
+        </select><br><br>
 </div>
+=======
+
+>>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
 
 <!-- 글쓰기 작성, 취소 버튼 -->
 <div>

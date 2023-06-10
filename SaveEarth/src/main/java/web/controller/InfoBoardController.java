@@ -1,7 +1,6 @@
 package web.controller;
 
 import java.util.List;
-
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -14,14 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import web.dto.Free;
-import web.service.face.FreeService;
+import web.dto.InfoFile;
 import web.dto.InfoThumbnail;
+import web.service.face.FreeService;
 import web.service.face.InfoService;
 import web.service.face.MemberService;
 import web.util.Paging;
 
 
-@RequestMapping("/info")
 @Controller
 public class InfoBoardController {
 	
@@ -34,7 +33,7 @@ public class InfoBoardController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	//메인 화면
-	@GetMapping("/main")
+	@GetMapping("/info/main")
 	public void info(Model model, @RequestParam(defaultValue = "1") int curPage) {
 		logger.info("/info/main [GET]");
 
@@ -50,6 +49,7 @@ public class InfoBoardController {
 		for(Map i : infoList) {
 			logger.info("infoList : {}", i);
 		}
+		
 
 		model.addAttribute("infoList", infoList);
 		model.addAttribute("paging", paging);
@@ -60,7 +60,7 @@ public class InfoBoardController {
 	
 	
 	//상세보기
-	@GetMapping("/detail")
+	@GetMapping("/info/detail")
 	public void detail(Model model, @RequestParam(value="infoNo") int infoNo) {
 		
 		logger.info("/info/detail [GET]");
@@ -74,11 +74,11 @@ public class InfoBoardController {
 		
 	}
 
-	//검색기능
-	@RequestMapping("/search")
-	public void searchKeyword(Model model,@RequestParam(value = "curPage", defaultValue = "1") int curPage, String keyword) {
+	//정보게시판 - 정보게시글 검색기능
+	@RequestMapping("/info/searchInfo")
+	public void searchInfoKeyword(Model model,@RequestParam(value = "curPage", defaultValue = "1") int curPage, String keyword) {
 		
-		logger.info("/info/search [GET]");
+		logger.info("/info/searchInfo");
 		
 		logger.info("curPage {}", curPage);
 		Paging paging = infoService.getPagingByKeyword(curPage, keyword);
@@ -89,7 +89,7 @@ public class InfoBoardController {
 
 		List<Map<String,Object>> list = infoService.search(paging, keyword);
 		
-		logger.info("list {}", list);
+		logger.info("InfoBoardController search list {}", list);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("paging", paging);
@@ -99,75 +99,62 @@ public class InfoBoardController {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	//자유게시판 TOP추천수 불러오기
-	@RequestMapping("/top")
+	@RequestMapping("/info/top")
 	public void FreeTop (Model model, @RequestParam(defaultValue = "10") int count) {
 		
-		List<Free> topRecommend = infoService.getTopRecommend(count);
+		List<Map<String, Object>> topRecommend = infoService.getTopRecommend(count);
 		
 		model.addAttribute("recommend", topRecommend);
 		
 		logger.info("/top [GET]");
 	}
 	
+	//정보게시판 썸네일 삭제
+	@RequestMapping("/info/deleteThumb")
+	public void deleteThumb(@RequestParam("thumbNo") int thumbNo, @RequestParam("infoNo") int infoNo, Model model) {
+		
+		logger.info("thumbNo {}", thumbNo);
+	
+		//파일번호를 기준으로 파일 삭제
+		infoService.deleteThumb(thumbNo);
+		
+		//삭제된 후 파일 리스트 조회
+		List<InfoThumbnail> infoThumb = infoService.getInfoThumb(infoNo);
+		logger.info("infoThumb {}", infoThumb);
+		model.addAttribute("infoThumb", infoThumb);
+	}
+
+	//정보게시판 첨부파일 삭제
+	@RequestMapping("/info/deleteFile")
+	public void deleteFile(@RequestParam("infoFileNo") int infoFileNo, @RequestParam("infoNo") int infoNo, Model model) {
+		
+		logger.info("thumbNo {}", infoFileNo);
+		
+		//파일번호를 기준으로 파일 삭제
+		infoService.deleteFile(infoFileNo);
+		
+		//삭제된 후 파일 리스트 조회
+		List<InfoFile> infoFile = infoService.getInfoFile(infoNo);
+		logger.info("infoFile {}", infoFile);
+		model.addAttribute("infoFile", infoFile);
+	
+	}
+
+	//자유게시판 TOP 추천수 상세보기 불러오기
+	@RequestMapping ("/free/view")
+	public void FreeTopDetail(Model model, @RequestParam(value="freeNo") int freeNo) {
+		logger.info("/info/detail [GET]");
+		
+		//정보게시판 게시글 조회(게시글 번호와 일치하는 게시글 내용)
+		List<Map<String, Object>> freeTopDetail = infoService.getfreeTopDetail(freeNo);
+		
+		logger.info("info {}", freeTopDetail);
+		
+		model.addAttribute("info", freeTopDetail);
+
+		
+	}
+	
 }
+	

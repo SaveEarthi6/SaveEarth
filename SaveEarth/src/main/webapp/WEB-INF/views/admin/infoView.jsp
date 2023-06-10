@@ -68,11 +68,16 @@ h1 {
 <body>
 
 
-<c:forEach var="info" items="${info }">
+<c:forEach var="info" items="${info }" varStatus="status">
+
+<%-- <c:if test="${status.index < 1}"> --%>
+
 <h1>${info.INFO_TITLE }</h1>
 
 <div id="btnGruop">
-	<a href="./infoDelete?infoNo=${info.INFO_NO }"><button type="button" class="btn btn-success">삭제</button></a>
+
+	<a href="./infoUpdate?infoNo=${info.INFO_NO }"><button type="button" class="btn btn-danger">수정</button></a>
+	<a href="./infoDelete?infoNo=${info.INFO_NO }"><button type="button" class="btn btn-danger">삭제</button></a>
 </div>
 
 <div id="thumnail1">
@@ -82,7 +87,10 @@ h1 {
 <div class="content">
 ${info.INFO_CONTENT }
 </div>
+
+<%-- </c:if> --%>
 </c:forEach>
+
 
 <div class="url">
 <a href="https://kids.hyundai.com/kidshyundai/safetyEnvironment/learnenv/environmentList.kids?dtlCtgrLgrpCd=#none" style="margin-left: 430px;">홈페이지로 이동</a>
