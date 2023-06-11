@@ -37,7 +37,7 @@ import web.util.Paging;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-
+ 
 	@Autowired
 	AdminService adminService;
 	@Autowired
@@ -388,6 +388,7 @@ public class AdminController {
 	  //관리자 페이지 상품목록 글쓰기 Post
 	   @PostMapping("/productWrite")
 	   public String adminProductWritePost(HttpSession session, Product product, @RequestParam(required = false) List<MultipartFile> files,
+//			   @RequestParam(required = false) List<MultipartFile> otherfiles,
 		         Member member, Model model, ProdOption prodOption) {
 	      System.out.println("상품목록 글쓰기 POST");
 	      
