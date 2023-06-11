@@ -167,9 +167,14 @@ form {
 
 
 <div class="form-group mb-3" style= "margin-top: 50px">
-	<label class="form-label" for="file">상품 이미지</label>
+	<label class="form-label" for="file">대표 상품 이미지</label>
 	<input type="file" id="file" name="files" class="form-control" multiple="multiple">
 </div>
+
+<!-- <div class="form-group mb-3" style= "margin-top: 50px"> -->
+<!-- 	<label class="form-label" for="otherfiles">상품 정보,이미지</label> -->
+<!-- 	<input type="file" id="otherfiles" name="otherfiles" class="form-control" multiple="multiple"> -->
+<!-- </div> -->
 
 <button class="btn btn-success" id="btnWrite">작성</button>
 </form>

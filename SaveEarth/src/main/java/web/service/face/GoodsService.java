@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import web.dto.Cart;
 import web.dto.Member;
 import web.dto.Ordertb;
+import web.dto.ProdInq;
 import web.dto.Order;
 import web.dto.ProdOption;
 import web.dto.Product;
@@ -133,6 +134,30 @@ public interface GoodsService {
 	 * @return 회원의 배송정보
 	 */
 	public Member getUserShipInfo(int userNo);
+
+	/**
+	 * 파일들 가져오기
+	 * 상세정보에서 밑에 설명사진들가져오기
+	 * @param prodno
+	 * @return
+	 */
+	public List<Map<String, Object>> getdetailfiles(int prodno);
+
+	
+	/**
+	 * 상품문의하기
+	 * @param prodInq
+	 */
+	public void insertInq(ProdInq prodInq);
+
+	
+	
+	/**
+	 * 상품문의 목록 불러오기
+	 * @param prodno
+	 * @return
+	 */
+	public List<Map<String, Object>> getInqList(int prodno);
 
 	
 	
