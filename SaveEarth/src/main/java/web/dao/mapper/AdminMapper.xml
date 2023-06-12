@@ -8,7 +8,7 @@
 
 	<select id="selectCntByIdPw" resultType="int"
 		parameterType="web.dto.Admin">
-		SELECT * FROM admin
+		SELECT count(*) FROM admin
 		WHERE admin_id= #{adminId} and
 		admin_pw=#{adminPw}
 	</select>

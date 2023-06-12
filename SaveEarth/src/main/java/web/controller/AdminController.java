@@ -62,20 +62,22 @@ public class AdminController {
 		logger.info("어드민 로그인 정보 : {}", admin);
 		boolean isLogin = adminService.login(admin);
 
-		admin = adminService.info(admin.getAdminId());
-		logger.info("어드민 접속 정보:{}", admin);
-		logger.info("어드민 번호:{}", admin.getAdminNo());
+//		admin = adminService.info(admin.getAdminId());
+//		logger.info("어드민 접속 정보:{}", admin);
+//		logger.info("어드민 번호:{}", admin.getAdminNo());
 
 		if (isLogin) {
+			logger.info("로그인 성공");
 			session.setAttribute("isLogin", isLogin);
 			session.setAttribute("loginId", admin.getAdminId());
 			session.setAttribute("loginNo", admin.getAdminNo());
 
 			return "redirect:/admin/free";
 		} else {
+			logger.info("로그인 실패");
 			session.invalidate();
 			model.addAttribute("msg", "실패");
-			return "redirect:/admin/login";
+			return "/admin/login";
 		}
 
 	}
@@ -85,8 +87,9 @@ public class AdminController {
 	public void adminFail() {
 		logger.info("./fail");
 	}
-
-	@RequestMapping("/nLogin")
+	
+	//예외 페이지
+	@RequestMapping("/noLogin")
 	public void FreeNologin() {
 		logger.info("./fail");
 	}
