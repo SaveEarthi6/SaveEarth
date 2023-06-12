@@ -120,8 +120,6 @@ $(function() {
 		
 	})
 	
-	
-	
 })
 
 
@@ -175,6 +173,17 @@ $(function() {
 				, success: function(res) {
 					console.log("성공")
 					console.log(res)
+					console.log(res.userName)
+					console.log(res.userPostcode)
+					console.log(res.userAddr)
+					console.log(res.userDetailaddr)
+					console.log(res.userPhone)
+					
+					$("#orderRec").val(res.userName)
+					$("#orderAddrPostcode").val(res.userPostcode)
+					$("#orderAddr").val(res.userAddr)
+					$("#orderAddrDetail").val(res.userDetailaddr)
+					$("#orderPhone").val(res.userPhone)
 					
 				}
 				, error: function() {
@@ -183,12 +192,16 @@ $(function() {
 				
 			})
 			
-			
-			
-			
 		  //해제된 상태면 빈칸 만들어주기
 		} else {
 			console.log("해제된 상태")
+			
+			$("#orderRec").val("")
+			$("#orderAddrPostcode").val("")
+			$("#orderAddr").val("")
+			$("#orderAddrDetail").val("")
+			$("#orderPhone").val("")
+			
 		}
 		
 		
@@ -199,25 +212,62 @@ $(function() {
 </script>
 
 <style>
-table {
-    
-    width: 100%;
-    border-collapse: collapse;
+
+/* 장바구니 목록 table */
+#prodList {
+	width: 70%;
+    margin: 0 auto;
+    margin-top: 10px;
+    text-align: center;
 }
 
-th, td {
-    padding: 8px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+thead {
+    font-size: 1.25em;
+    border-top: solid 1px #ccc;
 }
 
-tr:hover {
-    background-color: #f5f5f5;
+tr {
+	border-bottom: solid 1px #ccc;
 }
 
+/* 상품 태그 강조 */
 .titleTag {
-	font-size: 1.8em;
-	font-weight: bold;
+    font-weight: bold;
+}
+
+/* 주문목록 태그 */
+#listTitle {
+	width: 70%;
+	margin: 0 auto;
+    margin-top: 30px;
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+/* 총 합계 */
+#sumWrap {
+	width: 70%;
+	margin: 0 auto;	
+	margin-top: 10px;
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+/* 가격 강조 */
+#tagColor {
+	color: #59A8D9;
+}
+
+/* 배송지 입력 랩 */
+#shipInfoWrap {
+	width: 50%;
+	margin: 0 auto;	
+    margin-top: 10px;
+}
+
+label {
+	font-size: 1.15em;
+    font-weight: bold;
 }
 
 .warnMsg {
@@ -228,48 +278,51 @@ tr:hover {
 </style>
 
 
-<div class="container">
+<div id="container">
 
 <div id="listWrap">
-<div class="titleTag">주문목록</div>
-<table>
-	<thead>
-         <tr>
-            <th>상품이미지</th> 
-			<th>상품이름</th>
-            <th>가격</th>
-            <th>수량</th>
-         </tr>
-	</thead>
-    <tbody>
-    	<c:set var="sum" value="0"/>
-        <c:forEach var="item" items="${cartList}">
-            <tr>
-				<td><img src="" width="100px" height="100px"></td>
-                <td>${item.PROD_NAME}</td>
-                <td><fmt:formatNumber pattern="###,###,###" value="${item.PROD_PRICE}" />원</td>
-                <td>${item.PROD_COUNT}</td>
-            </tr>
-        <c:set var="sum" value="${sum + (item.PROD_PRICE * item.PROD_COUNT) }"></c:set>    
-        </c:forEach>
-    </tbody>
-</table>
-<div id="sumWrap">
-	<div id="sum">
-		총 합계 : <fmt:formatNumber pattern="###,###,###" value="${sum}" />원
+<div id="listTitle">주문목록</div>
+	<table id="prodList">
+		<thead>
+	         <tr>
+	            <th>상품이미지</th> 
+				<th>상품이름</th>
+	            <th>가격</th>
+	            <th>수량</th>
+	         </tr>
+		</thead>
+	    <tbody>
+	    	<c:set var="sum" value="0"/>
+	        <c:forEach var="item" items="${cartList}">
+	            <tr>
+					<td style="padding: 10px; width:25%;"><img src="/upload/${item.CAMP_STORED_NAME }" width="150px" height="150px" id="thumnail"></td>
+	                <td class="titleTag">${item.PROD_NAME}</td>
+	                <td><span class="titleTag"><fmt:formatNumber pattern="###,###,###" value="${item.PROD_PRICE }"  /></span>원</td>
+	                <td><span class="titleTag">${item.PROD_COUNT}</span>개</td>
+	            </tr>
+	        <c:set var="sum" value="${sum + (item.PROD_PRICE * item.PROD_COUNT) }"></c:set>    
+	        </c:forEach>
+	    </tbody>
+	</table>
+	<div id="sumWrap">
+		<div id="sum">
+			결제할 금액 : 
+			<c:if test="${sum >= 30000}"><span id="tagColor"><fmt:formatNumber pattern="###,###,###" value="${sum}" /></span>원</c:if>
+			<c:if test="${sum < 30000}"><span id="tagColor"><fmt:formatNumber pattern="###,###,###" value="${sum+3000}" /></span>원</c:if>
+		</div>
 	</div>
-</div>
 </div> <!-- listWrap -->
-<hr>
-<div id="shipInfo">
-<div class="titleTag">배송정보</div>
 
-<form action="./payment" method="post">
+<div id="listTitle">배송지 입력</div>
+
+<div id="shipInfoWrap">
+
+<form action="./order" method="post">
 	<input type="checkbox" id="getShipInfo">주문자 정보와 동일
 
 	<div class="textForm">
 	  <label for="orderRec" class="form-label">받으시는 분</label>
-	  <input type="text" class="form-control" id="orderRec" name="orderRec">
+	  <input type="text" class="form-control" id="orderRec" name="orderRec" placeholder="수령인">
 	  <span id="recMsg" class="warnMsg"></span>
 	</div>
 	
@@ -277,15 +330,15 @@ tr:hover {
 		<label for="inputCity" class="form-label">주소</label>
 	
 		<input type="button" class="form-control" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
-	    <input type="text" class="form-control" id="orderAddrPostcode" placeholder="우편번호" name="userPostcode"> 
-	    <input type="text" class="form-control" id="orderAddr" placeholder="도로명주소" name="userAddr">
-		<input type="text" class="form-control" id="orderAddrDetail" placeholder="상세주소" name="userDetailaddr">
+	    <input type="text" class="form-control" id="orderAddrPostcode" placeholder="우편번호" name="orderAddrPostcode"> 
+	    <input type="text" class="form-control" id="orderAddr" placeholder="도로명주소" name="orderAddr">
+		<input type="text" class="form-control" id="orderAddrDetail" placeholder="상세주소" name="orderAddrDetail">
 		<span id="addrMsg" class="warnMsg"></span>
 	</div>
 
 	<div class="textForm">
 	  <label for="orderPhone" class="phone">연락처</label>
-	  <input type="text" class="form-control" id="orderPhone" name="orderPhone">
+	  <input type="text" class="form-control" id="orderPhone" name="orderPhone" placeholder="연락처">
 	  <span id="phoneMsg" class="warnMsg"></span>
 	</div>
 	
@@ -293,8 +346,8 @@ tr:hover {
 	
 	<br>
 	<br>
-	  <div >
-	    <button type="submit" class="btn btn-success" id="orderMade" >DB 결제하기</button>
+	  <div>
+	    <button type="submit" class="btn btn-success" id="orderMade">DB 결제하기</button>
 	  </div>
 	<br>
 	<br>  
@@ -317,7 +370,7 @@ const paymentWidget = PaymentWidget(clientKey, customerKey) // 회원 결제
 // ------  결제위젯 렌더링 ------ 
 // 결제위젯이 렌더링될 DOM 요소를 지정하는 CSS 선택자 및 결제 금액을 넣어주세요. 
 // https://docs.tosspayments.com/reference/widget-sdk#renderpaymentmethods선택자-결제-금액-옵션
-paymentWidget.renderPaymentMethods("#payment-method", { value: 15_000 })
+paymentWidget.renderPaymentMethods("#payment-method", { value: 100 })
 // ------  이용약관 렌더링 ------
 // 이용약관이 렌더링될 DOM 요소를 지정하는 CSS 선택자를 넣어주세요.
 // https://docs.tosspayments.com/reference/widget-sdk#renderagreement선택자
@@ -344,12 +397,7 @@ button.addEventListener("click", function () {
 
 </script>
 
-
-
-
-
 </div>
-
 
 </div>
 

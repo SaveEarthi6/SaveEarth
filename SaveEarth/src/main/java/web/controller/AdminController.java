@@ -5,30 +5,31 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.aspectj.weaver.AjAttribute.MethodDeclarationLineNumberAttribute;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
-
 import web.dto.Admin;
 import web.dto.Campaign;
 import web.dto.CampaignFile;
-import web.dto.Certification;
 import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Info;
 import web.dto.InfoFile;
 import web.dto.InfoThumbnail;
 import web.dto.Member;
+import web.dto.ProdInq;
+import web.dto.ProdInqAnswer;
+import web.dto.ProdOption;
 import web.dto.Product;
 import web.service.face.AdminService;
 import web.service.face.CampService;
@@ -40,7 +41,7 @@ import web.util.Paging;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-
+ 
 	@Autowired
 	AdminService adminService;
 	@Autowired
@@ -64,20 +65,22 @@ public class AdminController {
 		logger.info("어드민 로그인 정보 : {}", admin);
 		boolean isLogin = adminService.login(admin);
 
-		admin = adminService.info(admin.getAdminId());
-		logger.info("어드민 접속 정보:{}", admin);
-		logger.info("어드민 번호:{}", admin.getAdminNo());
+//		admin = adminService.info(admin.getAdminId());
+//		logger.info("어드민 접속 정보:{}", admin);
+//		logger.info("어드민 번호:{}", admin.getAdminNo());
 
 		if (isLogin) {
+			logger.info("로그인 성공");
 			session.setAttribute("isLogin", isLogin);
 			session.setAttribute("loginId", admin.getAdminId());
 			session.setAttribute("loginNo", admin.getAdminNo());
 
 			return "redirect:/admin/free";
 		} else {
+			logger.info("로그인 실패");
 			session.invalidate();
 			model.addAttribute("msg", "실패");
-			return "redirect:/admin/login";
+			return "/admin/login";
 		}
 
 	}
@@ -87,8 +90,9 @@ public class AdminController {
 	public void adminFail() {
 		logger.info("./fail");
 	}
-
-	@RequestMapping("/nLogin")
+	
+	//예외 페이지
+	@RequestMapping("/noLogin")
 	public void FreeNologin() {
 		logger.info("./fail");
 	}
@@ -258,23 +262,6 @@ public class AdminController {
 
 	}
 
-	@RequestMapping("/campaign")
-	public void campaign(Model model, @RequestParam(defaultValue = "0") int curPage) {
-
-		// 페이징
-		Paging paging = adminService.getPaging(curPage);
-
-		List<Map<String, Object>> camlist = adminService.Camlist(paging);
-		logger.info("자유게시판 Camlist : {}", camlist);
-
-		for (Map m : camlist) {
-			logger.info(" Camlist {} ", m);
-		}
-
-		model.addAttribute("camlist", camlist);
-		model.addAttribute("paging", paging);
-	}
-
 	// 켐페인 게시글 삭제하기
 	@RequestMapping("/camDelete")
 	public String camDelete(Campaign campNo) {
@@ -298,8 +285,12 @@ public class AdminController {
 
 		// 인증현황 조회해오기
 		
+		int campCount = adminService.selectOne(campno );
+		
+		logger.info("campCount", campCount );
+//		
 		model.addAttribute("campDetail", campDetail);
-
+		model.addAttribute("campCount", campCount);
 	}
 	
 	@PostMapping("/campUpdate")
@@ -391,10 +382,11 @@ public class AdminController {
 
 	}
 
-	 //관리자 페이지 상품목록 글쓰기 Post
+	  //관리자 페이지 상품목록 글쓰기 Post
 	   @PostMapping("/productWrite")
 	   public String adminProductWritePost(HttpSession session, Product product, @RequestParam(required = false) List<MultipartFile> files,
-		         Member member) {
+//			   @RequestParam(required = false) List<MultipartFile> otherfiles,
+		         Member member, Model model, ProdOption prodOption) {
 	      System.out.println("상품목록 글쓰기 POST");
 	      
 	      String loginId = (String) session.getAttribute("loginId");
@@ -405,11 +397,10 @@ public class AdminController {
 	       
 	      System.out.println("product에 들어있는거 :" + product);	
 	      System.out.println("files에 들어있는거 :" + files);	
-	      
-	       
+	      System.out.println("product에 들어 있는거" + prodOption); 
 	      product.setAdminNo(memberInfo.getAdminNo());
-	       
-	      adminService.productnWrite(product, files, memberInfo);
+	      
+	      adminService.productnWrite(product, files, memberInfo,prodOption);
 	      
 	      
 	      return "redirect:./product";
@@ -468,9 +459,23 @@ public class AdminController {
 		   //정보게시판 게시글 조회(게시글 번호와 일치하는 게시글 내용)
 		   List<Map<String, Object>> info = infoService.getInfo(infoNo);
 
-		   logger.info("info {}", info);
+		   //정보게시판 게시글 내용 조회
+		   Info infoContent = adminService.getContent(infoNo);
+		   
+		   //정보게시판 썸네일 정보 조회
+		   InfoThumbnail infoThumb = adminService.getThumb(infoNo);
+		   
+		   //정보게시판 첨부파일 정보 조회
+		   List<InfoFile> infoFile = adminService.getFile(infoNo);
 
-		   model.addAttribute("info", info);
+		   logger.info("infoContent {}", infoContent);
+		   logger.info("infoThumb {}", infoThumb);
+		   logger.info("infoFile {}", infoFile);
+		   
+		   model.addAttribute("infoContent", infoContent);
+		   model.addAttribute("infoThumb", infoThumb);
+		   model.addAttribute("infoFile", infoFile);
+
 		   
 	   }
 
@@ -480,14 +485,14 @@ public class AdminController {
 		   logger.info("Adimn/infoWrite[GET]");
 		   
 		   String loginId = (String) session.getAttribute("loginId");
-		      logger.info("관리자 id : {}", loginId);
+		   logger.info("관리자 id : {}", loginId);
 
-		      Admin memberInfo = adminService.info(loginId);
+		   Admin memberInfo = adminService.info(loginId);
 
-		      logger.info("관리자 정보 : {}", memberInfo);
+		   logger.info("관리자 정보 : {}", memberInfo);
 
-		      model.addAttribute("id", loginId);
-		      model.addAttribute("memberInfo", memberInfo);
+		   model.addAttribute("id", loginId);
+		   model.addAttribute("memberInfo", memberInfo);
 		   
 	   }
 	   
@@ -583,13 +588,6 @@ public class AdminController {
 		   
 	   }
 		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
 		   //공지사항 수정
 		   @GetMapping("/noticeUpdate")
 		   public void noticeUpdate (Model model, Free freeBoard, HttpSession session ) {
@@ -619,4 +617,50 @@ public class AdminController {
 		   
 		   }
 		   
+		   @RequestMapping("/inquiry")
+		   public void adminInquiry(Model model, ProdInq prodinq) {
+			   System.out.println("관리자 문의관리 ");
+			   
+			   List<ProdInq> list = adminService.inquiryList(prodinq);
+			   System.out.println("ProdInqList 안에 들어있는거 : " + list);
+			   
+			   model.addAttribute("prodinq", list);
+			   
+		   }
+		   
+		   @GetMapping("/inquiryWrite")
+		   public void adminInquiryWrite(HttpSession session, Model model, int inqNo) {
+			      
+			      model.addAttribute("inqNo",inqNo);
+			   
+		   }
+		   
+		   
+		   
+		   
+		   @PostMapping("/inquiryWrite")
+		   public String adminInquiryWriteProc(HttpSession session, ProdInqAnswer prodInqAnswer, @RequestParam(required = false) Model model ) {
+			   System.out.println("inquiryWrite : 관리자 답변하기" );
+			   String loginId = (String) session.getAttribute("loginId");
+			      System.out.println("관리자 id : " + loginId );
+
+			      Admin adminInfo = adminService.info(loginId);
+			    
+//			      System.out.println("inqNo!!!!!!!!!!!!!" + inqNo);
+			      System.out.println("관리자 정보 :" + adminInfo);
+			      
+			      prodInqAnswer.setAdminNo(adminInfo.getAdminNo());
+//			      prodInqAnswer.setInqNo(inqNo);
+			      System.out.println("prodInqAnswer 안에 들어있는거 : " + prodInqAnswer);
+			      
+			      adminService.inquiryWrite(prodInqAnswer);
+			      
+			      return "redirect:./inquiry";
+			   
+		   }
+		   
+		   
 }
+		  
+
+

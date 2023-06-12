@@ -1,5 +1,6 @@
 package web.controller;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,6 +28,9 @@ import web.dto.Cart;
 import web.dto.Member;
 
 import web.dto.Order;
+import web.dto.OrderDetail;
+import web.dto.OrderInfo;
+import web.dto.ProdInq;
 import web.dto.ProdOption;
 import web.dto.Product;
 import web.service.face.GoodsService;
@@ -55,8 +59,6 @@ public class goodsController {
 		List<Map<String, Object>> prodList = goodsService.getgoodsList(paging);
 		
 		
-		System.out.println(prodList.get(0));
-		
 //		for(List<Map<String, Object>> c : prodList) {
 //			logger.info("{}", c);
 //		}
@@ -79,18 +81,43 @@ public class goodsController {
 //		logger.info("{}", goodsDetail);
 		System.out.println(goodsDetail);
 		
+		//파일들 가져오기
+		List<Map<String, Object>> detailfiles = goodsService.getdetailfiles(prodno);
+		logger.info("상품번호에 맞는 파일들{}",detailfiles);
+		
 		//옵션 가져오기
 		List<Map<String, Object>> prodOption = goodsService.getOptionList(prodno);
-		for(Map<String, Object> o : prodOption) {
-//			logger.info("{}", o);
-		}	
-		
+
+		//상품 문의 목록 가져오기
+		List<Map<String, Object>> prodInq = goodsService.getInqList(prodno);
+		logger.info("상품질문과 답변{}",prodInq);
+
+
 
 		
-			
+		
+//		로그인 확인하기( 로그인 안되면 로그인하라고하기)		
+		session.getAttribute("isLogin");
+		System.out.println("현재 로그인 세션 "+session.getAttribute("isLogin"));
+		
+	
+		Object isLoginState = session.getAttribute("isLogin");
+		if (isLoginState != null && (boolean) isLoginState) {
+		    System.out.println("로그인 상태 테스트");
+		    boolean login = true;
+		    model.addAttribute("login", login);
+		} else {
+		    System.out.println("비로그인 상태 테스트");
+		    
+		    boolean login = false;
+		    model.addAttribute("login", login);
+		}
+		
+		
 			model.addAttribute("goodsDetail", goodsDetail);
 			model.addAttribute("prodOption", prodOption);
-	
+			model.addAttribute("detailfiles",detailfiles);	
+			model.addAttribute("prodInq",prodInq);
 		
 	}
 	
@@ -111,12 +138,11 @@ public class goodsController {
 		int userNo=(int)session.getAttribute("loginNo");
 		
 		List<Map<String, Object>> cartList = goodsService.getcartList(userNo);
-		logger.info("카드리스트{}", cartList);
+		logger.info("카트리스트{}", cartList);
 		
 		model.addAttribute("cartList",cartList);
 		
 		return "goods/cart";
-
 		
 	}
 	
@@ -299,11 +325,14 @@ public class goodsController {
 		model.addAttribute("prodCount",prodCount);
 	}
 	
+	//장바구니 결제하기
 	@RequestMapping("/payment")
 	public void payment(HttpServletRequest request, HttpSession session, Order order) {
 		logger.info("/goods/payment [GET]");
 		
-		
+		String orderAddrPostcode = request.getParameter("orderAddrPostcode");
+		System.out.println("유저번호 확인"+ orderAddrPostcode);
+			
 		
 		goodsService.paymentTest(request);
 		
@@ -359,11 +388,11 @@ public class goodsController {
 		  
 		    
 	
-          
+        
 	       
 	  
 	       
-        
+      
 
 	       
 
@@ -371,12 +400,12 @@ public class goodsController {
 		  
 	
 
-		  
+	    
 	    return "goods/paycomplete"; // 결제 완료 페이지로 이동
 	  }
 	  
-	  @ResponseBody
 	  //주문자 배송정보 불러오기
+	  @ResponseBody
 	  @RequestMapping("/getShipInfo")
 	  public Member getShipInfo(HttpSession session, Member member) {
 		  logger.info("/goods/getShipInfo [GET]");
@@ -385,6 +414,37 @@ public class goodsController {
 		  
 		  return memberinfo;
 	  }
+	  
+	  //주문번호 상세보기
+	  @RequestMapping("/orderView")
+	  public void orderView(HttpSession session, String orderNo, Model model) {
+		  logger.info("/goods/orderView [GET]");
+		  logger.info("{}", orderNo);
+		  
+		  List<OrderInfo> orderInfo = goodsService.getOrderInfo((int)session.getAttribute("loginNo"), orderNo);
+		  
+		  logger.info("{}", orderInfo);
+		  
+		  model.addAttribute("orderInfo", orderInfo);
+		  
+	  }
+	  
+	  
+	  
+	  // 모달로 값받아와서 문의내용 DB저장하기
+	  @PostMapping("/writeInq")
+	  public String writeInq(int prodNo, ProdInq prodInq, HttpSession session) {
+		  
+		  prodInq.setUserNo((int)session.getAttribute("loginNo"));
+		  logger.info("{}",prodInq);
+		  
+		  goodsService.insertInq(prodInq);
+
+		  
+		  
+		  return "redirect:/goods/detail?prodno=" + prodNo; 
+	  }
+	  
 	
 
 }

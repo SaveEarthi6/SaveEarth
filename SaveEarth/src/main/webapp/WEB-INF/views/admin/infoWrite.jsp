@@ -102,8 +102,8 @@ form {
 </div>
 
 <div class="form-group" style= "margin-top: 50px">
-	<label class="form-label" for="content">본문</label>
-	<textarea rows="10" style="width: 100%;" id="content" name="infoContent"></textarea>
+	<label class="form-label" for="content">출처</label>
+	<input type="text" id="url" name="infoUrl" class="form-control">
 </div>
 
 <div class="form-group mb-3" style= "margin-top: 50px">

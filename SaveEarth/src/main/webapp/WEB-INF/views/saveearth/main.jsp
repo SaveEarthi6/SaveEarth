@@ -344,8 +344,19 @@ $(function() {
 			
 		</div>
 
+<<<<<<< HEAD
 </div>
+=======
 
+
+>>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
+
+<<<<<<< HEAD
 
 	
+=======
+	
+
+</tbody>
+>>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
 <c:import url="../layout/footer.jsp"></c:import>

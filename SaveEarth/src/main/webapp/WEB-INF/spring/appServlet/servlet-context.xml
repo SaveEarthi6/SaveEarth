@@ -32,10 +32,26 @@
 			<mapping path="/admin/free" />
 			<mapping path="/admin/campaign" />
 			<mapping path="/admin/info" />
+			<mapping path="/admin/infoWrite" />
+			<mapping path="/admin/infoView" />
+			<mapping path="/admin/campDetail" />
+			<mapping path="/admin/campUpdate" />
 			<!-- 인터셉터가 적용되지 않도록 제외할 예외 페이지 URL -->
 			<exclude-mapping path="./admin/fail" />
 			<!-- 인터셉터 클래스 지정 -->
 			<beans:bean class="web.interceptor.AdminInterceptor"/>
+		</interceptor>
+
+
+		<interceptor>
+			<!-- 인터셉터가 적용될 URL -->
+			<mapping path="/free/view"/>
+			<mapping path="/goods/cart"/>
+			<!-- 인터셉터가 적용되지 않도록 제외할 예외 페이지 URL -->
+			<exclude-mapping path="./admin/noLogin" />
+			<!-- 인터셉터 클래스 지정 -->
+			<beans:bean class="web.interceptor.MemberInterceptor"/>
+			
 		</interceptor>
 
 	</interceptors>

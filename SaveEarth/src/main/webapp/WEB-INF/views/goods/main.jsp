@@ -53,6 +53,16 @@
     font-family: 'KBO-Dia-Gothic_bold';
 }
 
+#goods {
+  width: 225px;
+  text-align: center;
+  display: block;
+  margin-left:10px;
+  margin-right: 10px;
+  margin-bottom: 80px;
+  
+}
+
 /* '굿즈'문구 폰트 스타일 */
 @font-face {
 	font-family: 'KBO-Dia-Gothic_bold';
@@ -85,19 +95,17 @@
 		
 		<div id="infos" class="row col-10">
 		
-			<c:forEach var="prod" items="${prodList }">
-			<div id="info" class="col">
+			<c:forEach var="prod" items="${prodList }" begin="0" end="2">
+			<div id="goods" class="col">
 			<a href="./detail?prodno=${prod.PROD_NO }" id="prodNo">
 			
-				
-<!-- 					<div><img alt="" src="" style="width: 400px; height: 300px; margin-bottom: 10px;"></div> -->
 				<c:if test="${prod.PROD_STORED_NAME ne null }" >
 					<div><img alt="" src="/upload/${prod.PROD_STORED_NAME }" style="width: 400px; height: 300px; margin-bottom: 10px;"></div>
 				</c:if>	
 				<c:if test="${prod.PROD_STORED_NAME eq null }">
 					<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
 				</c:if>
-				<div id="CampTitle">
+				<div id="goodsinfo">
 					<span id="titleTag">[${prod.PROD_NAME }]</span>
 					<span id="title">${prod.PROD_PRICE }원</span>
 				</div>
@@ -106,13 +114,48 @@
 			</c:forEach>
 			
 		</div>
+		
+		
+		
+		<div class="col-1"></div>
+		</div>
+		
+
+  	<div id="goodsList" class="row">
+		<div class="col-1"></div>
+		
+		<div id="infos" class="row col-10">
+		
+			<c:forEach var="prod" items="${prodList }" begin="3" end="5">
+			<div id="goods" class="col">
+			<a href="./detail?prodno=${prod.PROD_NO }" id="prodNo">
+			
+				<c:if test="${prod.PROD_STORED_NAME ne null }" >
+					<div><img alt="" src="/upload/${prod.PROD_STORED_NAME }" style="width: 400px; height: 300px; margin-bottom: 10px;"></div>
+				</c:if>	
+				<c:if test="${prod.PROD_STORED_NAME eq null }">
+					<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
+				</c:if>
+				<div id="goodsinfo">
+					<span id="titleTag">[${prod.PROD_NAME }]</span>
+					<span id="title">${prod.PROD_PRICE }원</span>
+				</div>
+			</a>
+			</div>
+			</c:forEach>
+			
+		</div>
+		
+		
+		
+		<div class="col-1"></div>
+		</div>
 
 
-</div><!-- infoList end	 -->
+
 
 <!-- TOP으로 가기 -->
 <div style="cursor:pointer; text-align:right; margin-right: 20px;" onclick="window.scrollTo(0,0);"><i class="bi bi-arrow-up-circle-fill" ></i></div>
 
-<c:import url="../layout/paging.jsp"/>
-	
+<c:import url="../layout/paging.jsp"/>	
 <c:import url="../layout/footer.jsp"/>

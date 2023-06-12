@@ -16,6 +16,9 @@ import web.dto.Info;
 import web.dto.InfoFile;
 import web.dto.InfoThumbnail;
 import web.dto.Member;
+import web.dto.ProdInq;
+import web.dto.ProdInqAnswer;
+import web.dto.ProdOption;
 import web.dto.Product;
 import web.util.Paging;
 
@@ -110,7 +113,7 @@ public interface AdminService {
     * @param files
     * @param memberInfo
     */
-   public void productnWrite(Product product, List<MultipartFile> files, Admin memberInfo);
+   public void productnWrite(Product product, List<MultipartFile> files, Admin memberInfo, ProdOption prodOption);
    
    /**
     *  게시글 수정
@@ -239,6 +242,21 @@ public List<Map<String, Object>> getCommentByFreeNo(int freeNo);
  * @return
  */
 public List<Map<String, Object>> getComment(Free freeBoard);
+
+   /**
+    * 관리자 페이지 - 문의내용 리스트로 불러오기
+    * @param prodinq
+    * @return
+    */
+   public List<ProdInq> inquiryList(ProdInq prodinq);
+
+   public void inquiryWrite(ProdInqAnswer prodInqAnswer);
+
+
+
+   public int selectOne(int campno);
+   
+
 	
 
 

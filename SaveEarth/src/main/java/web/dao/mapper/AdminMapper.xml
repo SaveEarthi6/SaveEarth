@@ -8,7 +8,7 @@
 
 	<select id="selectCntByIdPw" resultType="int"
 		parameterType="web.dto.Admin">
-		SELECT * FROM admin
+		SELECT count(*) FROM admin
 		WHERE admin_id= #{adminId} and
 		admin_pw=#{adminPw}
 	</select>
@@ -89,10 +89,7 @@
 		SELECT * FROM admin
 		where admin_id = #{adminId}
 	</select>
-
-
-
-
+	
 
 	<!-- 관리자 자유게시판 글쓰기 -->
 	<!-- user_no, -->
@@ -215,18 +212,26 @@
 
 	 	<select id="selectProductList" resultType="map" parameterType="web.util.Paging">
 
-        SELECT * FROM (
+		SELECT * FROM (
 		    SELECT rownum rnum, A.* FROM (
-		        SELECT c.*, f.prod_origin_name, f.prod_stored_name
-		        FROM product c LEFT OUTER JOIN  prod_file f
-		        ON c.prod_no = f.prod_no
-		        ORDER BY c.prod_no DESC
+		        SELECT p.*, f.prod_origin_name, f.prod_stored_name
+		        FROM product p LEFT OUTER JOIN  (
+		        
+		        SELECT *
+					FROM prod_file
+					WHERE (prod_no, prod_file_no) IN (
+					    SELECT prod_no, MAX(prod_file_no)
+					    FROM prod_file
+					    GROUP BY prod_no
+					)
+		        
+		        
+		        ) f
+		        ON p.prod_no = f.prod_no
+		        ORDER BY p.prod_no DESC
 		    ) A
 		)
-
-
 		WHERE rnum BETWEEN #{startNo} AND #{endNo}
-
 	</select>
 
 
@@ -248,6 +253,11 @@
       INSERT INTO prod_file (prod_file_no, prod_no, prod_origin_name, prod_stored_name) 
       	VALUES ( prod_file_no_seq.nextval, #{prodNo}, #{prodOriginName}, #{prodStroedName})
    </insert>
+   
+   <insert id="insertProdoption" parameterType="web.dto.ProdOption">
+         INSERT INTO prod_option (prod_opt_no, prod_no, prod_color, prod_size) 
+      	VALUES ( prod_opt_no_seq.nextval, #{prodNo}, #{ProdColor}, #{ProdSize})
+   </insert>
 
 <!-- 게시글 내용 삽입 -->
  <insert id="insertInfo" parameterType="web.dto.Info">
@@ -256,8 +266,8 @@
 		select info_no_seq.nextval from dual
 	</selectKey>
 	
-	INSERT INTO info (info_no, admin_no, info_title, info_content, info_state)
-	VALUES ( #{infoNo}, #{adminNo}, #{infoTitle}, #{infoContent}, #{infoState})
+	INSERT INTO info (info_no, admin_no, info_title, info_url, info_state)
+	VALUES ( #{infoNo}, #{adminNo}, #{infoTitle}, #{infoUrl}, #{infoState})
  	
 </insert>
 	
@@ -287,7 +297,7 @@
  <insert id="insertInfoFile" parameterType="web.dto.InfoFile">
  
  	INSERT INTO info_file (info_file_no, info_no, info_origin_name, info_stored_name) 
-	VALUES ( info_file_seq.nextval, #{infoNo}, #{infoOriginName}, #{infoStroedName})
+	VALUES ( info_file_seq.nextval, #{infoNo}, #{infoOriginName}, #{infoStoredName})
  
  </insert>  
  
@@ -372,7 +382,7 @@
 <!-- 정보게시판 게시글 내용 수정 -->	
 <update id="updateInfoBoard" parameterType="web.dto.Info">
   	UPDATE info SET
-	info_title = #{infoTitle}, info_content = #{infoContent}, info_state = #{infoState}, info_upload = CURRENT_DATE 
+	info_title = #{infoTitle}, info_url = #{infoUrl}, info_state = #{infoState}, info_upload = CURRENT_DATE 
 	WHERE info_no = #{infoNo}
 </update>
 
@@ -454,5 +464,25 @@
 	ORDER BY comm_no desc
 </select>
 
+
+ 	<select id="ProdInq" resultType="web.dto.ProdInq">
+		select * from prod_inq
+		order by inq_no
+	</select>
+	
+	<insert id="prodInqAnswer" parameterType="web.dto.ProdInqAnswer">
+		INSERT INTO prod_inq_answer (INQ_ANSWER_NO, ADMIN_NO, INQ_NO, INQ_ANSWER_CONTENT) 
+		
+		VALUES ( PROD_INQ_ANSWER_NO_seq.nextval, #{adminNo}, #{inqNo}, #{inqAnswerContent})
+	</insert>
+	
+
+	
+	<!-- 캠페인 참여 현황  -->
+	<select id="campParticipate" parameterType="int" resultType="int">
+   		SELECT COUNT(*) FROM  CERTIFICATION
+    	WHERE camp_no = #{campNo}
+	</select>
+	
 	
 </mapper>
