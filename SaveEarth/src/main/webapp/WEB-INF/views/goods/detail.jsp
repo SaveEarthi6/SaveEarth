@@ -90,7 +90,8 @@ $(function(){
 		
 	}
 	.button{
-		width: 157px;
+		width: 160px;
+		float: right;
 		
 	}
 	
@@ -186,12 +187,14 @@ tbody{
 
 .inqtext{
 	    float: left;
-		margin-left: 5%;
+	    
+		margin-left: 10%;
 }
 
 .inqtext2{
 		float: right;
-		margin-right: 5%;
+		
+		margin-right: 10%;
 }
 
 
@@ -325,11 +328,18 @@ tbody{
 			<img src="/upload/${files.PROD_STORED_NAME }" alt="상품이미지" class="goodsimage" style="width: 52%">
 		</c:forEach>
 	</div>
+	
+	
+	
+	
+	<div style="padding : 100px">
+	
 					<div>
 						<div class="inqtext" ><h3 >문의하기</h3></div>	
 					<!-- 문의 모달버튼 -->
 						<div class="inqtext2" ><input type="button" id="openModal" class="inq" value="문의하기" onclick="inquire()"></div>   
 					</div>
+	</div>				
 <!-- 여기까지 -->	
 <div>
   <table class="inqtable">
@@ -362,7 +372,7 @@ tbody{
     </tbody>
   </table>
 </div>	
-	
+	</div>
 	<!-- 모달로 문의하기------시작---- -->
 	
 
