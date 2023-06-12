@@ -5,30 +5,28 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.aspectj.weaver.AjAttribute.MethodDeclarationLineNumberAttribute;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
-
 import web.dto.Admin;
 import web.dto.Campaign;
 import web.dto.CampaignFile;
-import web.dto.Certification;
 import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Info;
 import web.dto.InfoFile;
 import web.dto.InfoThumbnail;
 import web.dto.Member;
+import web.dto.ProdOption;
 import web.dto.Product;
 import web.service.face.AdminService;
 import web.service.face.CampService;
@@ -40,7 +38,7 @@ import web.util.Paging;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-
+ 
 	@Autowired
 	AdminService adminService;
 	@Autowired
@@ -64,20 +62,22 @@ public class AdminController {
 		logger.info("어드민 로그인 정보 : {}", admin);
 		boolean isLogin = adminService.login(admin);
 
-		admin = adminService.info(admin.getAdminId());
-		logger.info("어드민 접속 정보:{}", admin);
-		logger.info("어드민 번호:{}", admin.getAdminNo());
+//		admin = adminService.info(admin.getAdminId());
+//		logger.info("어드민 접속 정보:{}", admin);
+//		logger.info("어드민 번호:{}", admin.getAdminNo());
 
 		if (isLogin) {
+			logger.info("로그인 성공");
 			session.setAttribute("isLogin", isLogin);
 			session.setAttribute("loginId", admin.getAdminId());
 			session.setAttribute("loginNo", admin.getAdminNo());
 
 			return "redirect:/admin/free";
 		} else {
+			logger.info("로그인 실패");
 			session.invalidate();
 			model.addAttribute("msg", "실패");
-			return "redirect:/admin/login";
+			return "/admin/login";
 		}
 
 	}
@@ -87,8 +87,9 @@ public class AdminController {
 	public void adminFail() {
 		logger.info("./fail");
 	}
-
-	@RequestMapping("/nLogin")
+	
+	//예외 페이지
+	@RequestMapping("/noLogin")
 	public void FreeNologin() {
 		logger.info("./fail");
 	}
@@ -255,23 +256,6 @@ public class AdminController {
 
 	}
 
-	@RequestMapping("/campaign")
-	public void campaign(Model model, @RequestParam(defaultValue = "0") int curPage) {
-
-		// 페이징
-		Paging paging = adminService.getPaging(curPage);
-
-		List<Map<String, Object>> camlist = adminService.Camlist(paging);
-		logger.info("자유게시판 Camlist : {}", camlist);
-
-		for (Map m : camlist) {
-			logger.info(" Camlist {} ", m);
-		}
-
-		model.addAttribute("camlist", camlist);
-		model.addAttribute("paging", paging);
-	}
-
 	// 켐페인 게시글 삭제하기
 	@RequestMapping("/camDelete")
 	public String camDelete(Campaign campNo) {
@@ -295,8 +279,12 @@ public class AdminController {
 
 		// 인증현황 조회해오기
 		
+		int campCount = adminService.selectOne(campno );
+		
+		logger.info("campCount", campCount );
+//		
 		model.addAttribute("campDetail", campDetail);
-
+		model.addAttribute("campCount", campCount);
 	}
 	
 	@PostMapping("/campUpdate")
@@ -388,10 +376,11 @@ public class AdminController {
 
 	}
 
-	 //관리자 페이지 상품목록 글쓰기 Post
+	  //관리자 페이지 상품목록 글쓰기 Post
 	   @PostMapping("/productWrite")
 	   public String adminProductWritePost(HttpSession session, Product product, @RequestParam(required = false) List<MultipartFile> files,
-		         Member member) {
+//			   @RequestParam(required = false) List<MultipartFile> otherfiles,
+		         Member member, Model model, ProdOption prodOption) {
 	      System.out.println("상품목록 글쓰기 POST");
 	      
 	      String loginId = (String) session.getAttribute("loginId");
@@ -402,11 +391,14 @@ public class AdminController {
 	       
 	      System.out.println("product에 들어있는거 :" + product);	
 	      System.out.println("files에 들어있는거 :" + files);	
-	      
-	       
+	      System.out.println("product에 들어 있는거" + prodOption); 
 	      product.setAdminNo(memberInfo.getAdminNo());
-	       
-	      adminService.productnWrite(product, files, memberInfo);
+	      
+	      adminService.productnWrite(product, files, memberInfo,prodOption);
+
+	      //--------------------------------------------------------------------
+	      //굿즈샵 옵션값 넣기 ~ 진행중
+	      
 	      
 	      
 	      return "redirect:./product";
@@ -619,4 +611,7 @@ public class AdminController {
 		   
 		   }
 		   
-}
+		  
+
+		}
+

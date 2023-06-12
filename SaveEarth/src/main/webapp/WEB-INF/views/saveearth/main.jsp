@@ -94,7 +94,6 @@ $(function() {
     } else {
       var answer = $(this).data("no");
       alert("정답은 " + answer + " 입니다❣️");
-      location.href="./main"
     }
   });
 });
@@ -250,8 +249,6 @@ $(function() {
 
 
 
-
-	
 	
 
 </tbody>
