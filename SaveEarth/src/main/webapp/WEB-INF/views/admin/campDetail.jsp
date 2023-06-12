@@ -68,7 +68,7 @@
 				<span id="enroll">등록일 : <fmt:formatDate value="${campDetail.CAMP_ENROLL }" pattern="yyyy/MM/dd"/></span>
 				<span>|</span>
 				<span id="part">
-					참여현황 : ${campDetail.participantCount }
+					참여현황 : ${campCount }     |
 					
 					첨부파일 다운로드 : 
 						<c:if test="${not empty campDetail }">
@@ -91,7 +91,7 @@
 	<div class="col-1"></div>
 </div>
 
-<div id="toList"><button onclick="location.href='admin/campaign'"  id="navButton" type="button" class="btn btn-outline-success">목록으로</button></div>
+<div id="toList"><button onclick="location.href='/admin/campaign'"  id="navButton" type="button" class="btn btn-outline-success">목록으로</button></div>
 <div id="toList"><button onclick="location.href='./campUpdate?campNo=${campDetail.CAMP_NO}'"  id="navButton" type="button" class="btn btn-outline-success">수정</button></div>
 
 <c:import url="../layout/footer.jsp"></c:import>

@@ -188,7 +188,7 @@ public class InfoServiceImpl implements InfoService {
 		
 		infoFiles.setInfoNo(info.getInfoNo());
 		infoFiles.setInfoOriginName(files.get(i).getOriginalFilename());;
-		infoFiles.setInfoStroedName(storedName1);
+//		infoFiles.setInfoStroedName(storedName1);
 		logger.info("infoFiles : {}", infoFiles );
 		
 		upfiles.add(infoFiles);

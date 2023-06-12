@@ -113,6 +113,13 @@ select {
     width: fit-content;
     
  } 
+ 
+ /* 글쓰기 버튼 스타일 */
+#write {
+	text-align: right;
+	margin-right: 100px;
+	margin-bottom: 20px;
+}
 
 </style>
 <!-- 필터 기능 -->
@@ -155,7 +162,7 @@ location.href="?freeHead=" + freeHead
 
 
 
- <div>
+ <div id=write>
 <!-- 글쓰기 버튼 -->
 	<a href = "/admin/freeWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
 </div>

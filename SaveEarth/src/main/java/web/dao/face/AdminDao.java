@@ -247,8 +247,11 @@ public interface AdminDao {
     * @return 정보게시판 첨부파일 정보
     */
    public List<InfoFile> selectFile(int infoNo);
+   
+   public int campParticipate(int campno);
 
-
+  
+	
    
 	
 	

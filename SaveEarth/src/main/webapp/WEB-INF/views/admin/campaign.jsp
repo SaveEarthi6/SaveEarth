@@ -113,6 +113,13 @@ select {
     width: fit-content;
     
  } 
+ 
+ /* 글쓰기 버튼 스타일 */
+#write {
+	text-align: right;
+	margin-right: 100px;
+	margin-bottom: 20px;
+}
 
 
 </style>
@@ -139,7 +146,7 @@ $(document).ready(function() {
 </div> 
 <br>
 
- <div style="left: 50px;">
+<div id="write">
 <!-- 글쓰기 버튼 -->
    <a href = "/admin/campaignWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
 </div>
@@ -161,7 +168,7 @@ $(document).ready(function() {
          <tr>
             <td>${camp.campNo }</td>
             <td>${camp.campState }</td>
-            <td class="text-start" style="text-align:center"><a href="/admin/campDetail?campno=${camp.campNo }">${camp.campTitle }</a></td>
+            <td class="text-start" style="text-align:center"><a href="/admin/campDetail?campno=${camp.campNo }"  >${camp.campTitle }</a></td>
             <td><fmt:formatDate value="${camp.campEnroll}" pattern="yy-MM-dd HH:mm:ss"/></td>
             <td><a href = "./camDelete?campNo=${camp.campNo}"><button id="btnDelete" class="btn btn-danger">삭제</button></a></td>
          </tr>

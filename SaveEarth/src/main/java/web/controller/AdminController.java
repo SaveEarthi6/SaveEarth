@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.aspectj.weaver.AjAttribute.MethodDeclarationLineNumberAttribute;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -255,23 +256,6 @@ public class AdminController {
 
 	}
 
-	@RequestMapping("/campaign")
-	public void campaign(Model model, @RequestParam(defaultValue = "0") int curPage) {
-
-		// 페이징
-		Paging paging = adminService.getPaging(curPage);
-
-		List<Map<String, Object>> camlist = adminService.Camlist(paging);
-		logger.info("자유게시판 Camlist : {}", camlist);
-
-		for (Map m : camlist) {
-			logger.info(" Camlist {} ", m);
-		}
-
-		model.addAttribute("camlist", camlist);
-		model.addAttribute("paging", paging);
-	}
-
 	// 켐페인 게시글 삭제하기
 	@RequestMapping("/camDelete")
 	public String camDelete(Campaign campNo) {
@@ -294,10 +278,13 @@ public class AdminController {
 		logger.info("{}", campDetail);
 
 		// 인증현황 조회해오기
-//		Certification Cer = 
 		
-//		model.addAttribute("campDetail", campDetail);
-
+		int campCount = adminService.selectOne(campno );
+		
+		logger.info("campCount", campCount );
+//		
+		model.addAttribute("campDetail", campDetail);
+		model.addAttribute("campCount", campCount);
 	}
 	
 	@PostMapping("/campUpdate")

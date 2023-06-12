@@ -966,5 +966,13 @@ public class AdminServiceimpl implements AdminService {
 		return adminDao.selectFile(infoNo);
 	}
 	
+
+	@Override
+		public int selectOne(int campno) {
+			
+			return adminDao.campParticipate(campno);
+		}	
+		
+	
 }
 	
