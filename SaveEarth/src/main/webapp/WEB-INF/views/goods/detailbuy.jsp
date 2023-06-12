@@ -37,15 +37,15 @@ function sample4_execDaumPostcode() {
             }
 
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            document.getElementById('sample4_postcode').value = data.zonecode;
-            document.getElementById("sample4_roadAddress").value = roadAddr;
+            document.getElementById('orderAddrPostcode').value = data.zonecode;
+            document.getElementById("orderAddr").value = roadAddr;
 //             document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
             
             // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
             if(roadAddr !== ''){
 //                 document.getElementById("sample4_extraAddress").value = extraRoadAddr;
             } else {
-                document.getElementById("sample4_extraAddress").value = '';
+                document.getElementById("orderAddrDetail").value = '';
             }
 
         }
@@ -55,6 +55,111 @@ function sample4_execDaumPostcode() {
 }
 </script>
 
+<script type="text/javascript">
+
+//배송지 작성 중 검사
+$(function() {
+	
+	$("#orderRec").blur(function() {
+		
+		if($(this).val() == "") {
+			$("#recMsg").html("필수 입력요소입니다.")
+		} else {
+			$("#recMsg").html("")
+		}
+		
+	})
+	
+	$("#orderAddrPostcode").blur(function() {
+		
+		if($(this).val() == "") {
+			$("#addrMsg").html("필수 입력요소입니다.")
+		} else {
+			$("#addrMsg").html("")
+		}
+		
+	})
+	
+	$("#orderAddr").blur(function() {
+		
+		if($(this).val() == "") {
+			$("#addrMsg").html("필수 입력요소입니다.")
+		} else {
+			$("#addrMsg").html("")
+		}
+		
+	})
+	
+	$("#orderAddrDetail").blur(function() {
+		
+		if($(this).val() == "") {
+			$("#addrMsg").html("필수 입력요소입니다.")
+		} else {
+			$("#addrMsg").html("")
+		}
+		
+	})
+	
+	$("#orderPhone").focus(function() {
+		
+		$("#phoneMsg").html("[010-0000-0000] 형식으로 입력해주세요.")
+		
+	})
+	
+	$("#orderPhone").blur(function() {
+		
+		var phoneReg = /^(010)-?[0-9]{3,4}-?[0-9]{4}$/;
+		
+		if($(this).val() == "") {
+			$("#phoneMsg").html("필수 입력요소입니다.")
+		} else if(!phoneReg.test($(this).val())) {
+			$("#phoneMsg").html("[010-0000-0000] 형식으로 입력해주세요.") 
+		} else {
+			$("#phoneMsg").html("")
+		}
+		
+	})
+		
+})
+
+
+
+
+//결제하기 전 검사
+function validate() {
+	
+	if($("#orderRec").val() == "") {
+		$("#recMsg").html("수령인을 입력해주세요.")
+		return false;
+	} else {
+		$("#recMsg").html("")
+	}
+	
+	if($("#orderAddrPostcode").val() == "") {
+		$("#addrMsg").html("주소를 입력해주세요.")
+		return false;
+	} else if($("#orderAddr").val() == "") {
+		$("#addrMsg").html("주소를 입력해주세요.")
+		return false;
+	} else if($("#orderAddrDetail").val() == "") {
+		$("#addrMsg").html("주소를 입력해주세요.")
+		return false;
+	} else {
+		$("#addrMsg").html("")
+	}
+	
+	if($("#orderPhone").val() == "") {
+		$("#phoneMsg").html("연락처를 입력해주세요.")
+		return false;
+	} else {
+		$("#phoneMsg").html("")
+	}
+	
+	return true;
+	
+}
+
+</script>
 
 <style>
 table {
@@ -76,6 +181,11 @@ tr:hover {
 .titleTag {
 	font-size: 1.8em;
 	font-weight: bold;
+}
+
+.warnMsg {
+	font-size: 0.8em;
+	color: #3788D8;
 }
 
 
@@ -120,21 +230,24 @@ tr:hover {
 
 	<div class="textForm">
 	  <label for="orderRec" class="form-label">받으시는 분</label>
-	  <input type="text" class="form-control" id="userName" name="userName" value = "${info.userName }">
+	  <input type="text" class="form-control" id="orderRec" name="orderRec" value = "${info.userName }">
+	  <span id="recMsg" class="warnMsg"></span>
 	</div>
 	
 	<div class="textForm">
 		<label for="inputCity" class="form-label">주소</label>
 	
 		<input type="button" class="form-control" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
-	    <input type="text" class="form-control" id="sample4_postcode" placeholder="우편번호" name="userPostcode" value="${info.userPostcode}"> 
-	    <input type="text" class="form-control" id="sample4_roadAddress" placeholder="도로명주소" name="userAddr" value="${info.userAddr}">
-		<input type="text" class="form-control" id="sample4_detailAddress" placeholder="상세주소" name="userDetailaddr" value ="${info.userDetailaddr}">
+	    <input type="text" class="form-control" id="orderAddrPostcode" placeholder="우편번호" name="orderAddrPostcode" value="${info.userPostcode}"> 
+	    <input type="text" class="form-control" id="orderAddr" placeholder="도로명주소" name="orderAddr" value="${info.userAddr}">
+		<input type="text" class="form-control" id="orderAddrDetail" placeholder="상세주소" name="orderAddrDetail" value ="${info.userDetailaddr}">
+		<span id="addrMsg" class="warnMsg"></span>
   </div>
 
 	<div class="textForm">
 	  <label for="orderPhone" class="phone">연락처</label>
-	  <input type="text" class="form-control" id="userPhone" name="userPhone" value = "${info.userPhone }">
+	  <input type="text" class="form-control" id="orderPhone" name="orderPhone" value = "${info.userPhone }">
+	  <span id="phoneMsg" class="warnMsg"></span>
 	</div>
 	
 	<input type="hidden" name="orderPrice" value="${prodCount * product.prodPrice}">
@@ -142,7 +255,7 @@ tr:hover {
 	<br>
 	<br>
 	  <div >
-	    <button type="submit" class="btn btn-success" id="orderMade" >DB 결제하기</button>
+<!-- 	    <button type="submit" class="btn btn-success" id="orderMade" >DB 결제하기</button> -->
 	  </div>
 	<br>
 	<br>  
@@ -153,7 +266,7 @@ tr:hover {
 <div id="payment-method"></div>
 <div id="agreement"></div>
 <!-- 결제하기 버튼 -->
-<button id="payment-button">토스 결제하기</button>
+<button  id="payment-button">토스 결제하기</button>
 <script>
 const clientKey = "test_ck_lpP2YxJ4K87vZ9PKpAvrRGZwXLOb"
 const customerKey = "swfA_xX4Vg5HeRU1AZveQ" // 내 상점의 고객을 식별하는 고유한 키
@@ -177,10 +290,10 @@ button.addEventListener("click", function () {
   paymentWidget.requestPayment({
     orderId: "RkluNBM8DMR923bZ09aZA" + new Date().getTime(),            // 주문 ID(직접 만들어주세요)
     orderName: "토스 티셔츠 외 2건",                 // 주문명
-    successUrl: "http://localhost:8888/goods/complete",  // 결제에 성공하면 이동하는 페이지(직접 만들어주세요)
+    successUrl: "http://localhost:8888/goods/payment",  // 결제에 성공하면 이동하는 페이지(직접 만들어주세요)
     failUrl: "https://my-store.com/fail",        // 결제에 실패하면 이동하는 페이지(직접 만들어주세요)
     customerEmail: "customer123@gmail.com",
-    customerName: "김토스"
+    customerName: "김토스"  
   })
 })
 
@@ -190,8 +303,6 @@ button.addEventListener("click", function () {
 
 
 
-</div>
 
 
-</div>
 <c:import url="../layout/footer.jsp"></c:import>

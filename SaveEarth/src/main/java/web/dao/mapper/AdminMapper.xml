@@ -215,18 +215,26 @@
 
 	 	<select id="selectProductList" resultType="map" parameterType="web.util.Paging">
 
-        SELECT * FROM (
+		SELECT * FROM (
 		    SELECT rownum rnum, A.* FROM (
-		        SELECT c.*, f.prod_origin_name, f.prod_stored_name
-		        FROM product c LEFT OUTER JOIN  prod_file f
-		        ON c.prod_no = f.prod_no
-		        ORDER BY c.prod_no DESC
+		        SELECT p.*, f.prod_origin_name, f.prod_stored_name
+		        FROM product p LEFT OUTER JOIN  (
+		        
+		        SELECT *
+					FROM prod_file
+					WHERE (prod_no, prod_file_no) IN (
+					    SELECT prod_no, MAX(prod_file_no)
+					    FROM prod_file
+					    GROUP BY prod_no
+					)
+		        
+		        
+		        ) f
+		        ON p.prod_no = f.prod_no
+		        ORDER BY p.prod_no DESC
 		    ) A
 		)
-
-
 		WHERE rnum BETWEEN #{startNo} AND #{endNo}
-
 	</select>
 
 

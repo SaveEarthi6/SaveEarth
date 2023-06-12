@@ -286,9 +286,10 @@ $(function(){
 
 		  
 function joinform_check() {
-    var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
+    var getMail = RegExp(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i);
     var getCheck= RegExp(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/);
     var getName= RegExp(/^[가-힣|a-z|A-Z]+$/);
+    var getPhone = RegExp(/^\d{3}-\d{3,4}-\d{4}$/);
     var test = "ok";
 	console.log($("#idmessage").html()== test)
     //아이디 공백 확인
@@ -381,6 +382,14 @@ function joinform_check() {
     	$("userEmail").focus();
     	return false;
     }   
+    
+    //번호 유효성 검사
+    if(!getPhone.test($("#userPhone").val())){
+      alert("000-0000-0000형식에 맞춰주세요")
+      $("#userPhone").val("");
+      $("#userPhone").focus();
+      return false;
+    }
 
   return true;
 }		  		    
