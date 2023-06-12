@@ -15,7 +15,7 @@
     <c:forEach items="${orderList}" var="orderList">
     <li>
     <div>
-     <p><span>주문번호 <a href="/shop/orderView?n=${orderList.orderNo}">${orderList.orderNo}</a></p>
+     <p><span>주문번호 <a href="./orderView?orderNo=${orderList.orderNo}">${orderList.orderNo}</a></p>
      <p><span>수령인 ${orderList.orderRec}</p>
      <p><span>주소 (${orderList.orderAddrPostcode}) ${orderList.orderAddr} ${orderList.orderAddrDetail}</p>
      <p><span>가격 <fmt:formatNumber pattern="###,###,###" value="${orderList.orderPrice}" /> 원</p>

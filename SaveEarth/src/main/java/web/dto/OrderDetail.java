@@ -4,19 +4,21 @@ public class OrderDetail {
 	
 	private int orderDetailNo;
 	private String orderNo;
-	private String orderAddrPostcode;
 	private int prodNo;
 	private int cartNo;
+	private int prodOptNo;
+	private int prodAmount;
 	
 	public OrderDetail() {}
 
-	public OrderDetail(int orderDetailNo, String orderNo, String orderAddrPostcode, int prodNo, int cartNo) {
+	public OrderDetail(int orderDetailNo, String orderNo, int prodNo, int cartNo, int prodOptNo, int prodAmount) {
 		super();
 		this.orderDetailNo = orderDetailNo;
 		this.orderNo = orderNo;
-		this.orderAddrPostcode = orderAddrPostcode;
 		this.prodNo = prodNo;
 		this.cartNo = cartNo;
+		this.prodOptNo = prodOptNo;
+		this.prodAmount = prodAmount;
 	}
 
 	public int getOrderDetailNo() {
@@ -35,14 +37,6 @@ public class OrderDetail {
 		this.orderNo = orderNo;
 	}
 
-	public String getOrderAddrPostcode() {
-		return orderAddrPostcode;
-	}
-
-	public void setOrderAddrPostcode(String orderAddrPostcode) {
-		this.orderAddrPostcode = orderAddrPostcode;
-	}
-
 	public int getProdNo() {
 		return prodNo;
 	}
@@ -59,10 +53,27 @@ public class OrderDetail {
 		this.cartNo = cartNo;
 	}
 
+	public int getProdOptNo() {
+		return prodOptNo;
+	}
+
+	public void setProdOptNo(int prodOptNo) {
+		this.prodOptNo = prodOptNo;
+	}
+
+	public int getProdAmount() {
+		return prodAmount;
+	}
+
+	public void setProdAmount(int prodAmount) {
+		this.prodAmount = prodAmount;
+	}
+
 	@Override
 	public String toString() {
-		return "OrderDetail [orderDetailNo=" + orderDetailNo + ", orderNo=" + orderNo + ", orderAddrPostcode="
-				+ orderAddrPostcode + ", prodNo=" + prodNo + ", cartNo=" + cartNo + "]";
+		return "OrderDetail [orderDetailNo=" + orderDetailNo + ", orderNo=" + orderNo + ", prodNo=" + prodNo
+				+ ", cartNo=" + cartNo + ", prodOptNo=" + prodOptNo + ", prodAmount=" + prodAmount + "]";
 	}
+
 
 }
