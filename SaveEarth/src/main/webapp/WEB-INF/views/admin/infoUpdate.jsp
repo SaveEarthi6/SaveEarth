@@ -191,13 +191,14 @@ form {
 </div>
 
 <div class="form-group" style= "margin-top: 50px">
-	<label class="form-label" for="content">본문</label>
-	<textarea rows="10" style="width: 100%;" id="content" name="infoContent">${infoContent.infoContent}</textarea>
+	<label class="form-label" for="infoUrl">출처</label>
+	<input type="text" id="infoUrl" name="infoUrl" class="form-control" value="${infoContent.infoUrl}">
 </div>
 
 
 파일 수정 : 
-	
+<br>		
+		썸네일
 		<div id="originFile1">
 		<c:if test="${ not empty infoThumb }">
 			<a href="../upload/${infoThumb.thumbStoredName }" download="${infoThumb.thumbOriginName}">
@@ -214,7 +215,7 @@ form {
 		</div>
 		
 	
-	
+		첨부파일
 		<c:forEach items="${infoFile}" var="file">
 		<div id="originFile2">
 		<c:if test="${not empty file }">

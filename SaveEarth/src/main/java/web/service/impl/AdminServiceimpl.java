@@ -606,13 +606,12 @@ public class AdminServiceimpl implements AdminService {
 		logger.info("info {}", info);
 		logger.info("files {}", files);
 		
-		
+		//게시글 내용 삽입
 		adminDao.insertInfo(info);
 		
-		//파일이 없을 때 파일 삽입하는 메소드 처리되지 않도록 
-
 
 		//썸네일
+		//썸네일 없을 때 썸네일 삽입하는 메소드 처리되지 않도록 
 		if(thumb.getSize() <= 0) {
 			logger.info("0보다 작음, 처리 중단");
 			return;
@@ -870,7 +869,13 @@ public class AdminServiceimpl implements AdminService {
 			return paging;
 		}
 	
-	
+//		@Override
+//		public int getParticipantCount(Certification certification) {
+//			
+//			
+//			return adminDao.campParticipate(certification);
+//		}
+//	
 	
 	@Override
 	public void updateInfo(Info info, List<MultipartFile> files, MultipartFile thumb) {
@@ -1044,6 +1049,14 @@ public class AdminServiceimpl implements AdminService {
 
 
 	
+	
+
+	@Override
+		public int selectOne(int campno) {
+			
+			return adminDao.campParticipate(campno);
+		}	
+		
 	
 }
 	

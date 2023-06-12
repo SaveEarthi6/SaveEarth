@@ -34,6 +34,7 @@ import web.dto.Member;
 import web.dto.Ordertb;
 import web.dto.ProdInq;
 import web.dto.Order;
+import web.dto.OrderInfo;
 import web.dto.ProdOption;
 import web.dto.Product;
 import web.service.face.GoodsService;
@@ -254,7 +255,14 @@ public class GoodsServiceImpl implements GoodsService {
 
 		return goodsDao.selectUserShipInfo(userNo);
 	}
+	
+	@Override
+	public List<OrderInfo> getOrderInfo(int userNo, String orderNo) {
 
+		return goodsDao.selectOrderInfo(userNo, orderNo);
+		
+	}
+	
 	// 상품번호에 맞는 굿즈사진들 설명가져오기
 	@Override
 	public List<Map<String, Object>> getdetailfiles(int prodno) {
@@ -272,6 +280,10 @@ public class GoodsServiceImpl implements GoodsService {
 	@Override
 	public List<Map<String, Object>> getInqList(int prodno) {
 		
-		return goodsDao.getInqListByprodno(prodno);
+		List<Map<String, Object>> list = goodsDao.getInqListByprodno(prodno);
+		
+		
+		return list;
 	}
+	
 }

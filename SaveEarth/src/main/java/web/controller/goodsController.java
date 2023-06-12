@@ -1,5 +1,6 @@
 package web.controller;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,6 +28,8 @@ import web.dto.Cart;
 import web.dto.Member;
 
 import web.dto.Order;
+import web.dto.OrderDetail;
+import web.dto.OrderInfo;
 import web.dto.ProdInq;
 import web.dto.ProdOption;
 import web.dto.Product;
@@ -85,10 +88,13 @@ public class goodsController {
 		//옵션 가져오기
 		List<Map<String, Object>> prodOption = goodsService.getOptionList(prodno);
 
-		
 		//상품 문의 목록 가져오기
 		List<Map<String, Object>> prodInq = goodsService.getInqList(prodno);
-		logger.info("상품질문과 답변{}",prodInq);	
+		logger.info("상품질문과 답변{}",prodInq);
+
+
+
+		
 		
 //		로그인 확인하기( 로그인 안되면 로그인하라고하기)		
 		session.getAttribute("isLogin");
@@ -132,12 +138,11 @@ public class goodsController {
 		int userNo=(int)session.getAttribute("loginNo");
 		
 		List<Map<String, Object>> cartList = goodsService.getcartList(userNo);
-		logger.info("카드리스트{}", cartList);
+		logger.info("카트리스트{}", cartList);
 		
 		model.addAttribute("cartList",cartList);
 		
 		return "goods/cart";
-
 		
 	}
 	
@@ -320,6 +325,7 @@ public class goodsController {
 		model.addAttribute("prodCount",prodCount);
 	}
 	
+	//장바구니 결제하기
 	@RequestMapping("/payment")
 	public void payment(HttpServletRequest request, HttpSession session, Order order) {
 		logger.info("/goods/payment [GET]");
@@ -398,8 +404,8 @@ public class goodsController {
 	    return "goods/paycomplete"; // 결제 완료 페이지로 이동
 	  }
 	  
-	  @ResponseBody
 	  //주문자 배송정보 불러오기
+	  @ResponseBody
 	  @RequestMapping("/getShipInfo")
 	  public Member getShipInfo(HttpSession session, Member member) {
 		  logger.info("/goods/getShipInfo [GET]");
@@ -407,6 +413,20 @@ public class goodsController {
 		  Member memberinfo = goodsService.getUserShipInfo((int)session.getAttribute("loginNo"));
 		  
 		  return memberinfo;
+	  }
+	  
+	  //주문번호 상세보기
+	  @RequestMapping("/orderView")
+	  public void orderView(HttpSession session, String orderNo, Model model) {
+		  logger.info("/goods/orderView [GET]");
+		  logger.info("{}", orderNo);
+		  
+		  List<OrderInfo> orderInfo = goodsService.getOrderInfo((int)session.getAttribute("loginNo"), orderNo);
+		  
+		  logger.info("{}", orderInfo);
+		  
+		  model.addAttribute("orderInfo", orderInfo);
+		  
 	  }
 	  
 	  

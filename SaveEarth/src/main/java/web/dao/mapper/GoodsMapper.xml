@@ -32,7 +32,7 @@
 	</select>
 	
 	<select id="selectProd" resultType="map" parameterType="int">
-			SELECT p.*, f.*
+		SELECT p.*, f.*
 		FROM product p 
 		LEFT OUTER JOIN (
 		
@@ -110,7 +110,7 @@
 				VALUES (#{orderNo}, #{userNo}, #{orderRec}, #{orderAddrPostcode}, #{orderAddr}, #{orderAddrDetail}, #{orderPhone}, #{orderPrice});
 				
 				INSERT INTO order_detail
-					SELECT order_detail_seq.nextval, #{orderNo}, prod_no, cart_no, prod_opt_no
+					SELECT order_detail_seq.nextval, #{orderNo}, prod_no, cart_no, prod_opt_no, prod_count
 					FROM cart
 					WHERE user_no = #{userNo};
 			END
@@ -158,6 +158,21 @@
 		WHERE user_no = #{userNo}
 	</select>
 	
+	<select id="selectOrderInfo" parameterType="map" resultType="web.dto.OrderInfo">
+		SELECT o.*, d.prod_amount, p.prod_name, p.prod_price, n.prod_color, n.prod_size, f.prod_origin_name, f.prod_stored_name
+		FROM ordertb o
+		LEFT OUTER JOIN order_detail d
+		    ON o.order_no = d.order_no
+		LEFT OUTER JOIN product p
+		    ON d.prod_no = p.prod_no
+		LEFT OUTER JOIN prod_option n
+		    ON d.prod_opt_no = n. prod_opt_no
+		LEFT OUTER JOIN prod_file f
+		    ON p.prod_no = f.prod_no
+		WHERE o.order_no = #{orderNo}
+			AND o.user_no = #{userNo}
+	</select>
+	
 	<select id="getdetailfiles" parameterType="int" resultType="map">
 		 SELECT * FROM prod_file
 		 WHERE prod_no = #{prodNo}
@@ -170,11 +185,15 @@
 	</insert>
 	
 	<select id="getInqListByprodno" parameterType="int" resultType="map">
-		select p.*,inq_answer_content from prod_inq p
+		select p.*,inq_answer_content, m.user_id
+		from prod_inq p
+			LEFT OUTER join member m
+			ON p.user_no=m.user_no
 			LEFT OUTER join prod_inq_answer a 
 			ON p.inq_no=a.inq_no
 		WHERE p.prod_no = #{prodNo}
-		ORDER BY p.inq_no 
+		ORDER BY p.inq_no DESC
 	</select>
+	
 	
 </mapper>

@@ -38,7 +38,7 @@ public interface AdminDao {
    public int selectCntAll2();
 
    /**
-    * 관리자 페이지 - 글작성
+    * 관리자 정보 조회
     * 
     * @param loginId
     * @return
@@ -242,16 +242,18 @@ public interface AdminDao {
     * @return 정보게시판 첨부파일 정보
     */	
    public List<InfoFile> selectFile(int infoNo);
+
    
-
-
-
    /**
     * 옵션 인서트
     * @param prodOption
     */
    public void insertProdoption(ProdOption prodOption);
+   
+   
+   public int campParticipate(int campno);
 
+<<<<<<< HEAD
    /**
     * 관리자 페이지 - 문의불러오기
     * @param prodinq
@@ -264,6 +266,10 @@ public interface AdminDao {
 
 	
 
+=======
+  
+	
+>>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
    
 	
 	

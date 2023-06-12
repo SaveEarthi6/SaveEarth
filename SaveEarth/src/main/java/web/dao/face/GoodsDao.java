@@ -11,6 +11,7 @@ import web.dto.Member;
 import web.dto.Ordertb;
 import web.dto.ProdInq;
 import web.dto.Order;
+import web.dto.OrderInfo;
 import web.dto.ProdOption;
 import web.dto.Product;
 import web.util.Paging;
@@ -53,10 +54,13 @@ public interface GoodsDao {
 
 	public Member selectUserShipInfo(int userNo);
 
+	public List<OrderInfo> selectOrderInfo(@Param("userNo") int userNo, @Param("orderNo") String orderNo);
+
 	public List<Map<String, Object>> getdetailfiles(int prodno);
 
 	public void insertInqByprodNouserNo(ProdInq prodInq);
 
 	public List<Map<String, Object>> getInqListByprodno(int prodno);
+
 
 }
