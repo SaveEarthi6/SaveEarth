@@ -29,6 +29,7 @@ import web.dto.Info;
 import web.dto.InfoFile;
 import web.dto.InfoThumbnail;
 import web.dto.Member;
+import web.dto.ProdInq;
 import web.dto.ProdOption;
 import web.dto.Product;
 import web.dto.ProductFile;
@@ -1028,6 +1029,11 @@ public class AdminServiceimpl implements AdminService {
 	public List<InfoFile> getFile(int infoNo) {
 		
 		return adminDao.selectFile(infoNo);
+	}
+	
+	@Override
+	public List<ProdInq> inquiryList(ProdInq prodinq) {
+		return adminDao.ProdInq(prodinq);
 	}
 
 	

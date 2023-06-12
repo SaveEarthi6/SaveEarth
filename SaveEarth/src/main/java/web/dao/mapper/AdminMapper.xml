@@ -89,10 +89,7 @@
 		SELECT * FROM admin
 		where admin_id = #{adminId}
 	</select>
-
-
-
-
+	
 
 	<!-- 관리자 자유게시판 글쓰기 -->
 	<!-- user_no, -->
@@ -445,6 +442,10 @@
 	WHERE info_no = #{infoNo}
 </select>
 
+ 	<select id="ProdInq" resultType="web.dto.ProdInq">
+		select * from prod_inq
+		order by inq_no
+	</select>
 
 	
 </mapper>

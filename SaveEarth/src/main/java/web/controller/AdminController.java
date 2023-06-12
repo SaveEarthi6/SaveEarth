@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,6 +26,7 @@ import web.dto.Info;
 import web.dto.InfoFile;
 import web.dto.InfoThumbnail;
 import web.dto.Member;
+import web.dto.ProdInq;
 import web.dto.ProdOption;
 import web.dto.Product;
 import web.service.face.AdminService;
@@ -570,13 +572,6 @@ public class AdminController {
 		   
 	   }
 		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
 		   //공지사항 수정
 		   @GetMapping("/noticeUpdate")
 		   public void noticeUpdate (Model model, Free freeBoard, HttpSession session ) {
@@ -604,6 +599,17 @@ public class AdminController {
 			   return "redirect:/admin/free";
 		   
 		   
+		   }
+		   
+		   @RequestMapping("/inquiry")
+		   public void adminInquiry(Model model, ProdInq prodinq) {
+			   System.out.println("관리자 문의관리 ");
+			   
+			   List<ProdInq> list = adminService.inquiryList(prodinq);
+			   System.out.println("ProdInqList 안에 들어있는거 : " + list);
+			   
+			   model.addAttribute("prodinq", list);
+			   
 		   }
 		   
 }

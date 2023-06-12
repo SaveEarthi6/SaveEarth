@@ -15,6 +15,7 @@ import web.dto.FreeFile;
 import web.dto.Info;
 import web.dto.InfoFile;
 import web.dto.InfoThumbnail;
+import web.dto.ProdInq;
 import web.dto.ProdOption;
 import web.dto.Product;
 import web.dto.ProductFile;
@@ -249,6 +250,13 @@ public interface AdminDao {
     * @param prodOption
     */
    public void insertProdoption(ProdOption prodOption);
+
+   /**
+    * 관리자 페이지 - 문의불러오기
+    * @param prodinq
+    * @return
+    */
+   public List<ProdInq> ProdInq(ProdInq prodinq);
 
 
    
