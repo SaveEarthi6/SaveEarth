@@ -16,6 +16,7 @@ import web.dto.Info;
 import web.dto.InfoFile;
 import web.dto.InfoThumbnail;
 import web.dto.ProdInq;
+import web.dto.ProdInqAnswer;
 import web.dto.ProdOption;
 import web.dto.Product;
 import web.dto.ProductFile;
@@ -258,6 +259,10 @@ public interface AdminDao {
     */
    public List<ProdInq> ProdInq(ProdInq prodinq);
 
+   public void prodInqAnswer(ProdInqAnswer prodInqAnswer);
+   
+
+	
 
    
 	

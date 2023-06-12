@@ -446,6 +446,13 @@
 		select * from prod_inq
 		order by inq_no
 	</select>
+	
+	<insert id="prodInqAnswer" parameterType="web.dto.ProdInqAnswer">
+		INSERT INTO prod_inq_answer (INQ_ANSWER_NO, ADMIN_NO, INQ_NO, INQ_ANSWER_CONTENT) 
+		
+		VALUES ( PROD_INQ_ANSWER_NO_seq.nextval, #{adminNo}, #{inqNo}, #{inqAnswerContent})
+	</insert>
+	
 
 	
 </mapper>

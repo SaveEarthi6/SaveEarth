@@ -25,7 +25,7 @@
 // 	})
 // })
 
-/* '정보게시판' 클릭했을 때 지정한 href로 이동 */
+/* '게시판' 클릭했을 때 지정한 href로 이동 */
 $(document).ready(function(){
 
 	$("#adminFree").click(function(){
@@ -143,7 +143,7 @@ body {
 <tr>
 	<td id="adminFree">게시판 관리</td>
 	<td id="adminProduct">상품 관리</td>
-	<td id="admininquiry">문의 관리</td>
+	<td id="adminInquiry">문의 관리</td>
 </tr>
 
 </table>

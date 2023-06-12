@@ -27,6 +27,7 @@ import web.dto.InfoFile;
 import web.dto.InfoThumbnail;
 import web.dto.Member;
 import web.dto.ProdInq;
+import web.dto.ProdInqAnswer;
 import web.dto.ProdOption;
 import web.dto.Product;
 import web.service.face.AdminService;
@@ -406,10 +407,6 @@ public class AdminController {
 	      product.setAdminNo(memberInfo.getAdminNo());
 	      
 	      adminService.productnWrite(product, files, memberInfo,prodOption);
-
-	      //--------------------------------------------------------------------
-	      //굿즈샵 옵션값 넣기 ~ 진행중
-	      
 	      
 	      
 	      return "redirect:./product";
@@ -611,5 +608,37 @@ public class AdminController {
 			   model.addAttribute("prodinq", list);
 			   
 		   }
+		   
+		   @GetMapping("/inquiryWrite")
+		   public void adminInquiryWrite(HttpSession session, Model model, int inqNo) {
+			      
+			      model.addAttribute("inqNo",inqNo);
+			   
+		   }
+		   
+		   
+		   
+		   
+		   @PostMapping("/inquiryWrite")
+		   public String adminInquiryWriteProc(HttpSession session, ProdInqAnswer prodInqAnswer, @RequestParam(required = false) Model model ) {
+			   System.out.println("inquiryWrite : 관리자 답변하기" );
+			   String loginId = (String) session.getAttribute("loginId");
+			      System.out.println("관리자 id : " + loginId );
+
+			      Admin adminInfo = adminService.info(loginId);
+			    
+//			      System.out.println("inqNo!!!!!!!!!!!!!" + inqNo);
+			      System.out.println("관리자 정보 :" + adminInfo);
+			      
+			      prodInqAnswer.setAdminNo(adminInfo.getAdminNo());
+//			      prodInqAnswer.setInqNo(inqNo);
+			      System.out.println("prodInqAnswer 안에 들어있는거 : " + prodInqAnswer);
+			      
+			      adminService.inquiryWrite(prodInqAnswer);
+			      
+			      return "redirect:./inquiry";
+			   
+		   }
+		   
 		   
 }

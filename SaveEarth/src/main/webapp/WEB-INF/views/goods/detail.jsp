@@ -482,6 +482,7 @@ $(function(){
   </div>
 </div>
 
+
 <!-- CSS -->
 <style> 
 .modal {

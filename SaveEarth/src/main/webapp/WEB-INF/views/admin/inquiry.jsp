@@ -4,11 +4,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <c:import url="../layout/adminheader.jsp"/>
 
-<script type="text/javascript">
+ <script >
 
 
-
-</script>
+</script> 
 
 </head>
 <body>
@@ -20,17 +19,21 @@
 		<th style="width: 20px;">답변 하기</th>
 	</tr>
 <tbody>
-<c:forEach items="${prodinq}" var="prodinq">
+<c:forEach items="${prodinq}" var="prodinq" >
 
 			<tr>
 				<td>${prodinq.inqNo }</td>
 				<td>${prodinq.inqContent}</td>
-				
+				<td><a href = "./inquiryWrite?inqNo=${prodinq.inqNo}"><button>답변</button></a></td>
 			</tr>
 
 </c:forEach>
 </tbody>
 </table>	
+
+
+  
+
 
 
 <c:import url="../layout/footer.jsp"></c:import>

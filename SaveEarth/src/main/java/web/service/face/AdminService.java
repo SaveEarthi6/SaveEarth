@@ -17,6 +17,7 @@ import web.dto.InfoFile;
 import web.dto.InfoThumbnail;
 import web.dto.Member;
 import web.dto.ProdInq;
+import web.dto.ProdInqAnswer;
 import web.dto.ProdOption;
 import web.dto.Product;
 import web.util.Paging;
@@ -226,6 +227,10 @@ public void updateFree(Free freeBoard, List<MultipartFile> files, List<FreeFile>
     * @return
     */
    public List<ProdInq> inquiryList(ProdInq prodinq);
+
+   public void inquiryWrite(ProdInqAnswer prodInqAnswer);
+
+
    
 
 	
