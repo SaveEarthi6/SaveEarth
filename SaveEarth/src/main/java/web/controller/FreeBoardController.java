@@ -323,6 +323,23 @@ public class FreeBoardController {
 		
 		logger.info("551555555555555555555comment {}", comment);
 		
+//		freeService.updateComment(comment);
+		
+		List<Map<String, Object>> commList = freeService.getCommentByFreeNo(comment.getFreeNo());
+//		
+		logger.info("33333333333commList {}", commList);
+//		
+		model.addAttribute("commList", commList);
+		
+		
+	}
+	
+	
+	@PostMapping("/free/commSuccess")
+	public void updateSuccess(Model model, FreeComment comment) {
+		
+		logger.info("commSuccess!!!!!!!! {} ", comment);
+		
 		freeService.updateComment(comment);
 		
 		List<Map<String, Object>> commList = freeService.getCommentByFreeNo(comment.getFreeNo());
@@ -330,7 +347,6 @@ public class FreeBoardController {
 		logger.info("33333333333commList {}", commList);
 		
 		model.addAttribute("commList", commList);
-		
 		
 	}
 

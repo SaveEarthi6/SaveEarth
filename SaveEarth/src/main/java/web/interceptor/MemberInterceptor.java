@@ -21,18 +21,21 @@ public class MemberInterceptor implements HandlerInterceptor {
 		//세션 객체
 		HttpSession session = request.getSession();
 		
-		if( session.getAttribute("login") == null ) {
+		if( session.getAttribute("isLogin") == null ) {
 			logger.info(" >> 접속 불가 : 비로그인 상태");
 			
 			response.sendRedirect("/admin/noLogin");
 			
 			//컨트롤러 접근 금지
 			return false;
-		}
+			
+		} else {
+			
 		
 		//컨트롤러 접근 허용
 		logger.info(" >> 접속 허용 : 로그인 상태");
 		return true;
+		}
 	}
 	
 }

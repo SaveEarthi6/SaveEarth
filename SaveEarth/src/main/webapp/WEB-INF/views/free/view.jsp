@@ -277,44 +277,95 @@ $(function() {
 	});
 	
 /* 댓글 수정 */
-
 $(document).ready(function(){
 	
 $(document).on("click",".commUpdate",function(){
 	
 	//수정한 댓글 내용을 newcomm이 담고 있음
-	var newcomm = prompt("수정할 댓글 내용을 입력해주세요")
+// 	var newcomm = prompt("수정할 댓글 내용을 입력해주세요")
 // 	$("#rs").append('<input type="text" name="newcomm" class="newcomm">');
 // 	$(".newcomm").show();
 	
+	//수정 버튼의 index를 이용해 댓글 번호와 수정 전 내용을 가져와 input태그에 담는다
 	var idx = $(".commUpdate").index(this)
 	var commNo = $(".commUpdate").eq(idx).attr('data-no')
+	var commContent = $(".commUpdate").eq(idx).attr('data-con')
 	var freeNo = ${param.freeNo}
 
+	$("#rs").replaceWith('<input type="text" name="commContent" id="newcomm" value="' + commContent + '">');
+	$(".commUpdate").replaceWith('<button id="commSuccess" data-num="' +  commNo + '">완료</button>');
 	
-// 	$("#rs").replaceWith('<input type="text" name="newcomm" class="newcomm">');
-// 	var newcomm = $(".newcomm").val();
-
+	var newcomm = $("#newcomm").val();
 	
 // 	const element = document.getElementById('my_div');
 	
-	console.log(newcomm)
+	console.log('update' + newcomm)
 	console.log(commNo)
+	console.log(commContent)
+	console.log( $('#newcomm') )
 	
 	$.ajax({
-		type : 'post',
+		type : 'get',
 		url : '/free/commUpdate',
 		data : 
 			{commNo : commNo,
-			freeNo : freeNo,
-			//키값으로 찾으니까 왼쪽이 dto변수명과 일치해야해a
-			commContent : newcomm},
+			freeNo : freeNo},
 		success:
 			function(result){
 
-			console.log('댓글 수정 성공!')
+// 			$('commUpdate').replaceWith('<button id="commSuccess">완료</button>');
+			
+			console.log($('#commSuccess').attr('data-num'));
+			
+			console.log('댓글 수정!');
 			
 			//새로고침
+// 			location.reload();
+			
+			//-> 처음 수정만 되고 다시 수정 시도하면 실패 -> freeNo를 찾지 못함
+// 			$(".comm").html(result);
+			
+		},
+		error: function(error){
+			console.log('댓글 수정 실패!')
+		}
+			
+		
+	})
+})/* click end */
+
+})/* document ready end */
+
+$(document).ready(function(){
+	
+$(document).on("click","#commSuccess",function(){
+	
+	//수정한 댓글 내용을 newcomm이 담고 있음
+	
+	var idx = $("#commSuccess").index(this)
+	var commNo = $("#commSuccess").eq(idx).attr('data-num')
+	var freeNo = ${param.freeNo}
+
+	var commCon = $("#newcomm").val();
+	
+// 	const element = document.getElementById('my_div');
+	
+	console.log('commSuccess comCon' + commCon)
+	console.log(commNo)
+	console.log(freeNo)
+	
+	$.ajax({
+		type : 'post',
+		url : '/free/commSuccess',
+		data : 
+			{commNo : commNo,
+			freeNo : freeNo,
+			commContent : commCon},
+		success:
+			function(result){
+
+			console.log('댓글 수정 성공!');
+			
 			location.reload();
 			
 			//-> 처음 수정만 되고 다시 수정 시도하면 실패 -> freeNo를 찾지 못함
@@ -403,7 +454,7 @@ function heart(freeNo) {
 	<input type="hidden" value="${commContent.COMM_NO }" class="commNo">
 	<!-- this는 버튼의 요소를 가져가 -->
 	<button class="commDelete" data-no="${commContent.COMM_NO }">삭제</button>  
-	<button class="commUpdate" data-no="${commContent.COMM_NO }">수정</button>  
+	<button class="commUpdate" data-no="${commContent.COMM_NO }" data-con=${commContent.COMM_CONTENT }>수정</button>  
 	
     </c:if>
 
@@ -414,7 +465,7 @@ function heart(freeNo) {
     </div> <!-- <div> comm end -->
 
 <!-- 댓글 -->
-<c:if test="${loginId != null }">
+<c:if test="${isLogin != null }">
    <div class="card my-4">
       <h5 class="card-header" style="font-weight: bold;">댓글</h5>
       <div class="card-body">

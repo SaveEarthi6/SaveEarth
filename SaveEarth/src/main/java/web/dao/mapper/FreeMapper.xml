@@ -92,6 +92,10 @@
 		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('질문')">
 			WHERE free_head = #{freeHead}
 		</when>
+
+		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('공지사항')">
+			WHERE free_head = #{freeHead}
+		</when>
 		
 		<otherwise>
 		</otherwise>
