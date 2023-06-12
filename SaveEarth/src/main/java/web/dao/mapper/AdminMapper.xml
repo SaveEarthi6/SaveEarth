@@ -484,5 +484,10 @@
     	WHERE camp_no = #{campNo}
 	</select>
 	
+	<update id="updateinquire" parameterType="web.dto.ProdInqAnswer">
+		    UPDATE prod_inq  SET  inq_proc='답변완료'
+            where inq_no=#{inqNo}
+	</update>
+	
 	
 </mapper>
