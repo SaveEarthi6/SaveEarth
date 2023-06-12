@@ -253,8 +253,14 @@ public List<Map<String, Object>> getComment(Free freeBoard);
    public void inquiryWrite(ProdInqAnswer prodInqAnswer);
 
 
-
+   
    public int selectOne(int campno);
+   
+   /**
+    * 관리자 페이지 - 굿즈샵 상태변화
+    * @param prodInqAnswer
+    */
+   public void updateinquire(ProdInqAnswer prodInqAnswer);
    
 
 	
