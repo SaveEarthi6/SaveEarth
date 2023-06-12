@@ -467,7 +467,7 @@
 
  	<select id="ProdInq" resultType="web.dto.ProdInq">
 		select * from prod_inq
-		order by inq_no
+		order by inq_no desc
 	</select>
 	
 	<insert id="prodInqAnswer" parameterType="web.dto.ProdInqAnswer">
