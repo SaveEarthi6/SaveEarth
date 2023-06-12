@@ -332,7 +332,7 @@ const paymentWidget = PaymentWidget(clientKey, customerKey) // 회원 결제
 // ------  결제위젯 렌더링 ------ 
 // 결제위젯이 렌더링될 DOM 요소를 지정하는 CSS 선택자 및 결제 금액을 넣어주세요. 
 // https://docs.tosspayments.com/reference/widget-sdk#renderpaymentmethods선택자-결제-금액-옵션
-paymentWidget.renderPaymentMethods("#payment-method", { value: 15_000 })
+paymentWidget.renderPaymentMethods("#payment-method", { value: 100 })
 // ------  이용약관 렌더링 ------
 // 이용약관이 렌더링될 DOM 요소를 지정하는 CSS 선택자를 넣어주세요.
 // https://docs.tosspayments.com/reference/widget-sdk#renderagreement선택자

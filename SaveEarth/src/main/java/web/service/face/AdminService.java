@@ -13,7 +13,10 @@ import web.dto.Certification;
 import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Info;
+import web.dto.InfoFile;
+import web.dto.InfoThumbnail;
 import web.dto.Member;
+import web.dto.ProdOption;
 import web.dto.Product;
 import web.util.Paging;
 
@@ -108,7 +111,7 @@ public interface AdminService {
     * @param files
     * @param memberInfo
     */
-   public void productnWrite(Product product, List<MultipartFile> files, Admin memberInfo);
+   public void productnWrite(Product product, List<MultipartFile> files, Admin memberInfo, ProdOption prodOption);
    
    /**
     *  게시글 수정
@@ -136,8 +139,8 @@ public interface AdminService {
     * 관리자 페이지에서 정보게시판 글 작성
     * @param adminNo - 관리자 번호
     * @param info - 작성한 게시글 내용
-    * @param files - 첨부한 파일 정보
-    * @param thumb - 첨부한 썸네일 정보
+    * @param thumb - 썸네일
+    * @param files - 첨부파일
     */
    public void infoWrite(int adminNo, Info info, List<MultipartFile> files, MultipartFile thumb);
    
@@ -183,8 +186,41 @@ public void updateFree(Free freeBoard, List<MultipartFile> files, List<FreeFile>
     * @return
     */
    public List<Map<String, Object>> getProductList(Paging paging);
+
+   /**
+    * 정보게시판 게시글 수정
+    * @param info - 게시글 내용
+    * @param files - 첨부파일(들)
+    * @param thumb - 썸네일 파일
+	 * @param infoFileNo - 파일 번호
+	 * @param thumbNo - 썸네일 번호 
+    */
+//   public void updateInfo(Info info, List<MultipartFile> files, MultipartFile thumb, int thumbNo, int infoFileNo);
+   public void updateInfo(Info info, List<MultipartFile> files, MultipartFile thumb);
+
+   /**
+    * 정보게시판 게시글 내용 조회
+    * @param infoNo - 게시글 번호
+    * @return - 게시글 내용
+    */
+   public Info getContent(int infoNo);
+
+   /**
+    * 정보게시판 썸네일 정보 조회
+    * @param infoNo - 게시글 번호
+    * @return - 게시글 번호가 일치하는 썸네일 정보
+    */
+   public InfoThumbnail getThumb(int infoNo);
+
+   /**
+    * 정보게시판 첨부파일 정보 조회
+    * @param infoNo - 게시글 번호
+    * @return - 게시글 번호가 일치하는 파일 정보
+    */
+   public List<InfoFile> getFile(int infoNo);
    
 
+	
 
 
 

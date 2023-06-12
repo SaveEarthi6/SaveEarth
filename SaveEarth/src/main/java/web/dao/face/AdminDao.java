@@ -15,6 +15,7 @@ import web.dto.FreeFile;
 import web.dto.Info;
 import web.dto.InfoFile;
 import web.dto.InfoThumbnail;
+import web.dto.ProdOption;
 import web.dto.Product;
 import web.dto.ProductFile;
 import web.util.Paging;
@@ -188,6 +189,12 @@ public interface AdminDao {
 	 * @return - 게시글 총 개수
 	 */
 	public int selectCntInfo();
+
+	/**
+	 * 게시글 내용을 수정한다
+	 * @param info - 게시글 번호를 가지고 있는 객체
+	 */
+	public void updateInfoBoard(Info info);
 	
 	
 
@@ -212,6 +219,36 @@ public interface AdminDao {
     * @param e - 첨부파일들
     */
    public void insertCampFile(CampaignFile campFiles);
+
+   /**
+    * 게시글 번호가 일치하는 정보게시판 게시글 내용을 조회한다
+    * @param infoNo - 게시글 번호
+    * @return 정보게시판 게시글 내용
+    */
+   public Info selectContent(int infoNo);
+
+   /**
+    * 게시글 번호가 일치하는 정보게시판 썸네일 정보를 조회한다
+    * @param infoNo - 게시글 번호
+    * @return 정보게시판 썸네일 정보
+    */
+   public InfoThumbnail selectThumb(int infoNo);
+
+   /**
+    * 게시글 번호가 일치하는 정보게시판 첨부파일 정보를 조회한다
+    * @param infoNo - 게시글 번호
+    * @return 정보게시판 첨부파일 정보
+    */	
+   public List<InfoFile> selectFile(int infoNo);
+   
+
+
+
+   /**
+    * 옵션 인서트
+    * @param prodOption
+    */
+   public void insertProdoption(ProdOption prodOption);
 
 
    

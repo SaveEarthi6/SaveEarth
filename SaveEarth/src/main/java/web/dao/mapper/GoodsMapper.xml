@@ -12,7 +12,18 @@
 		SELECT * FROM (
 		    SELECT rownum rnum, A.* FROM (
 		        SELECT p.*, f.prod_origin_name, f.prod_stored_name
-		        FROM product p LEFT OUTER JOIN  prod_file f
+		        FROM product p LEFT OUTER JOIN  (
+		        
+		        SELECT *
+					FROM prod_file
+					WHERE (prod_no, prod_file_no) IN (
+					    SELECT prod_no, MIN(prod_file_no)
+					    FROM prod_file
+					    GROUP BY prod_no
+					)
+		        
+		        
+		        ) f
 		        ON p.prod_no = f.prod_no
 		        ORDER BY p.prod_no DESC
 		    ) A
@@ -23,7 +34,18 @@
 	<select id="selectProd" resultType="map" parameterType="int">
 			SELECT p.*, f.*
 		FROM product p 
-		LEFT OUTER JOIN prod_file f
+		LEFT OUTER JOIN (
+		
+		SELECT *
+			FROM prod_file
+			WHERE (prod_no, prod_file_no) IN (
+			    SELECT prod_no, MIN(prod_file_no)
+			    FROM prod_file
+			    GROUP BY prod_no
+			)
+		
+		
+		) f
 		ON p.prod_no = f.prod_no
 		WHERE p.prod_no = #{prodNo}
 	
@@ -133,6 +155,25 @@
 	<select id="selectOrderInfo" parameterType="map" resultType="web.dto.Order">
 		SELECT * FROM ordertb
 		WHERE user_no = #{userNo} AND order_no = #{orderNo}
+	</select>
+	
+	<select id="getdetailfiles" parameterType="int" resultType="map">
+		 SELECT * FROM prod_file
+		 WHERE prod_no = #{prodNo}
+		 ORDER BY prod_no DESC
+	</select>
+	
+	<insert id="insertInqByprodNouserNo" parameterType="web.dto.ProdInq">
+		INSERT INTO prod_inq(inq_no, user_no, prod_no, inq_title, inq_content )
+		VALUES(inq_no_seq.nextval, #{userNo}, #{prodNo},#{inqTitle}, #{inqContent})
+	</insert>
+	
+	<select id="getInqListByprodno" parameterType="int" resultType="map">
+		select p.*,inq_answer_content from prod_inq p
+			LEFT OUTER join prod_inq_answer a 
+			ON p.inq_no=a.inq_no
+		WHERE p.prod_no = #{prodNo}
+		ORDER BY p.inq_no 
 	</select>
 	
 </mapper>

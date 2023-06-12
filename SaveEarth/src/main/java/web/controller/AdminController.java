@@ -10,25 +10,22 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
-
 import web.dto.Admin;
 import web.dto.Campaign;
 import web.dto.CampaignFile;
-import web.dto.Certification;
 import web.dto.Free;
 import web.dto.FreeFile;
 import web.dto.Info;
 import web.dto.InfoFile;
 import web.dto.InfoThumbnail;
 import web.dto.Member;
+import web.dto.ProdOption;
 import web.dto.Product;
 import web.service.face.AdminService;
 import web.service.face.CampService;
@@ -40,7 +37,7 @@ import web.util.Paging;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-
+ 
 	@Autowired
 	AdminService adminService;
 	@Autowired
@@ -388,10 +385,11 @@ public class AdminController {
 
 	}
 
-	 //관리자 페이지 상품목록 글쓰기 Post
+	  //관리자 페이지 상품목록 글쓰기 Post
 	   @PostMapping("/productWrite")
 	   public String adminProductWritePost(HttpSession session, Product product, @RequestParam(required = false) List<MultipartFile> files,
-		         Member member) {
+//			   @RequestParam(required = false) List<MultipartFile> otherfiles,
+		         Member member, Model model, ProdOption prodOption) {
 	      System.out.println("상품목록 글쓰기 POST");
 	      
 	      String loginId = (String) session.getAttribute("loginId");
@@ -402,11 +400,14 @@ public class AdminController {
 	       
 	      System.out.println("product에 들어있는거 :" + product);	
 	      System.out.println("files에 들어있는거 :" + files);	
-	      
-	       
+	      System.out.println("product에 들어 있는거" + prodOption); 
 	      product.setAdminNo(memberInfo.getAdminNo());
-	       
-	      adminService.productnWrite(product, files, memberInfo);
+	      
+	      adminService.productnWrite(product, files, memberInfo,prodOption);
+
+	      //--------------------------------------------------------------------
+	      //굿즈샵 옵션값 넣기 ~ 진행중
+	      
 	      
 	      
 	      return "redirect:./product";
@@ -442,7 +443,8 @@ public class AdminController {
 
 		Paging paging = infoService.getPaging(curPage);
 
-		// 정보게시판 게시글 조회
+	   
+	// 정보게시판 게시글 조회
 		List<Map<String, Object>> infoList = infoService.getInfoList(paging);
 
 		for (Map i : infoList) {
@@ -451,8 +453,11 @@ public class AdminController {
 
 		model.addAttribute("infoList", infoList);
 		model.addAttribute("paging", paging);
+	   
+	   
+   }
 
-	}
+
 
 	   @RequestMapping("/infoView") 
 	   public void infoView(Model model, @RequestParam(value="infoNo") int infoNo) {
@@ -516,53 +521,54 @@ public class AdminController {
 	   }
 
 		   
-		   @GetMapping("/infoUpdate")
-		   public void update(Model model, @RequestParam(value="infoNo") int infoNo, HttpSession session) {
-			   
-			   logger.info("/admin/infoUpdate");
-			   
-			   String loginId = (String) session.getAttribute("loginId");
-			   logger.info("관리자 id : {}", loginId);
+	   @GetMapping("/infoUpdate")
+	   public void update(Model model, @RequestParam(value="infoNo") int infoNo, HttpSession session) {
+		   
+		   logger.info("/admin/infoUpdate");
+		   
+		   String loginId = (String) session.getAttribute("loginId");
+		   logger.info("관리자 id : {}", loginId);
 
-			   Admin memberInfo = adminService.info(loginId);
-			   
-			   //정보게시판 게시글 조회(게시글 번호와 일치하는 게시글 내용)
-			   List<Map<String, Object>> info = adminService.getInfo(infoNo);
+		   Admin memberInfo = adminService.info(loginId);
+		   
+		   //정보게시판 게시글 조회(게시글 번호와 일치하는 게시글 내용)
+//		   List<Map<String, Object>> infoUpdate = adminService.getInfo(infoNo);
 
-			   logger.info("infoUpdate info {}", info);
-			   
-			   model.addAttribute("info", info);
-			   model.addAttribute("memberInfo", memberInfo);
-			   
-		   }
+//		   logger.info("infoUpdate info {}", infoUpdate);
 		   
-		   @PostMapping("/infoUpdate")
-		   public void updateProc(Model model, Info info, @RequestParam(required = false) List<MultipartFile> infoFiles,@RequestParam(required = false)  MultipartFile thumb) {
-			   
-			   logger.info("/admin/infoUpdate [post]");
-			  
-			   logger.info("info {}", info);
-			   logger.info("infoFiles {}", infoFiles);
-			   logger.info("thumb {}", thumb);
-			   
-			   //게시글 내용 + 파일 수정
-			   infoService.updateInfo(info, infoFiles, thumb);
-			   
-			   logger.info("infoUpdate info {}", info);
-			   
-			   model.addAttribute("info", info);
-			   
-		   }
+//		   model.addAttribute("infoUpdate", infoUpdate);
+
+		   //정보게시판 게시글 내용 조회
+		   Info infoContent = adminService.getContent(infoNo);
 		   
+		   //정보게시판 썸네일 정보 조회
+		   InfoThumbnail infoThumb = adminService.getThumb(infoNo);
 		   
+		   //정보게시판 첨부파일 정보 조회
+		   List<InfoFile> infoFile = adminService.getFile(infoNo);
 		   
+		   model.addAttribute("infoContent", infoContent);
+		   model.addAttribute("infoThumb", infoThumb);
+		   model.addAttribute("infoFile", infoFile);
+		   model.addAttribute("memberInfo", memberInfo);
 		   
+	   }
 		   
+	   @PostMapping("/infoUpdate")
+	   public String updateProc(Model model, Info info, @RequestParam(required = false) List<MultipartFile> files,@RequestParam(required = false)  MultipartFile thumb) {
 		   
+		   logger.info("/admin/infoUpdate [post]");
+		  
+		   logger.info("info {}", info);
+		   logger.info("infoFiles {}", files);
+		   logger.info("thumb {}", thumb);
 		   
+		   //게시글 내용 + 파일 수정
+		   adminService.updateInfo(info, files, thumb);
+
+		   return "redirect:./info";
 		   
-		   
-		   
+	   }
 		   
 		   
 		   
@@ -600,4 +606,4 @@ public class AdminController {
 		   
 		   }
 		   
-		}
+}
