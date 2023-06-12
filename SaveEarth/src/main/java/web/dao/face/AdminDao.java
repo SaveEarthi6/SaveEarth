@@ -275,6 +275,10 @@ public List<Map<String, Object>> selectComment(Free freeBoard);
    public List<ProdInq> ProdInq(ProdInq prodinq);
 
    public void prodInqAnswer(ProdInqAnswer prodInqAnswer);
+
+public void insertProdoption(ProdOption prodOption);
+
+public int campParticipate(int campno);
    
 
 	
