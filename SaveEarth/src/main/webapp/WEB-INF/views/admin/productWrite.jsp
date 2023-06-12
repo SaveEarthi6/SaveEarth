@@ -167,7 +167,7 @@ form {
 
 
 <div class="form-group mb-3" style= "margin-top: 50px">
-	<label class="form-label" for="file">대표 상품 이미지</label>
+	<label class="form-label" for="file">대표 상품 이미지(대표이미지-먼저보여질 이미지 순서대로 파일첨부)</label>
 	<input type="file" id="file" name="files" class="form-control" multiple="multiple">
 </div>
 

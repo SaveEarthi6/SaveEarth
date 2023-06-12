@@ -295,6 +295,13 @@ $(function(){
             border-radius: 2px;
             white-space: normal;
         }
+        
+        #inqtest{
+        
+        	height:auto ;
+        	 
+        	width:120px;
+        }
  </style>
     
  <style>
@@ -410,12 +417,6 @@ $(function(){
                     
                     
                     
-                    <div class="imagetest">
-                        <c:forEach items="${detailfiles}" var="files">
-									
-									<img src="/upload/${files.PROD_STORED_NAME }" alt="상품이미지" class="goodsimage">
-						</c:forEach>
-                    </div>
                     
                     
                 </article>
@@ -427,13 +428,19 @@ $(function(){
        
         
     </div>
+                    <div class="imagetest">
+                        <c:forEach items="${detailfiles}" var="files">
+									
+									<img src="/upload/${files.PROD_STORED_NAME }" alt="상품이미지" class="goodsimage" style="width: 52%">
+						</c:forEach>
+                    </div>
     
 <div>문의하기</div>    
 
 <div>
 <c:forEach items="${prodInq }" var="prodInq">
-<div>제목:${prodInq.INQ_TITLE } 내용:${prodInq.INQ_CONTENT } 답변상태:${prodInq.INQ_PROC}</div>
-<div>답변:${prodInq.INQ_ANSWER_CONTENT }</div>
+<div>제목:${prodInq.INQ_TITLE } 내용:${prodInq.INQ_CONTENT } 답변상태:${prodInq.INQ_PROC}<img id="inqtest"onclick="openinq()" src="../../resources/img/logo2.png"  ></div>
+<div id="inq" style="display:none" >답변:${prodInq.INQ_ANSWER_CONTENT }</div>
 
 
 </c:forEach>
@@ -605,7 +612,12 @@ function inquire() {
 	} 
 </script>
 
-
+<script>
+	function openinq(){
+		
+		$("#inq").show();
+	}
+</script>
     
     
     
