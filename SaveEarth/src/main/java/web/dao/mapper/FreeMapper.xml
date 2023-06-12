@@ -110,26 +110,26 @@
 	<choose>
 		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('사담')">
 			WHERE free_head = #{freeHead}
-			ORDER BY pin, recommend desc, free_no DESC
+			ORDER BY pin, free_no DESC
 		</when>
 		
 		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('정보')">
 			WHERE free_head = #{freeHead}
-			ORDER BY pin, recommend desc, free_no DESC
+			ORDER BY pin, free_no DESC
 		</when>
 		
 		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('질문')">
 			WHERE free_head = #{freeHead}
-			ORDER BY pin, recommend desc, free_no DESC
+			ORDER BY pin, free_no DESC
 		</when>
 		
 		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('공지사항')">
 			WHERE free_head = #{freeHead}
-			ORDER BY pin, recommend desc, free_no DESC
+			ORDER BY pin, free_no DESC
 		</when>
 		
 		<otherwise>
-			ORDER BY pin, recommend desc, free_no DESC
+			ORDER BY pin, free_no DESC
 		</otherwise>
 		
 	</choose>	
@@ -240,15 +240,6 @@
     insert into freecomment(comm_no, free_no, user_no, comm_content)
     values (recomm_no_seq.nextval, #{freeNo}, #{userNo}, #{commContent})
 </insert>
-    
-<!-- 댓글 수정 -->
-<!-- <update id="replyModify" parameterType="com.board.domain.ReplyVO"> -->
-<!--     update tbl_reply set -->
-<!--         writer = #{writer}, -->
-<!--         content = #{content} -->
-<!--     where rno = #{rno} -->
-<!--         and bno = #{bno}     -->
-<!-- </update> -->
 
 <!-- 댓글 삭제 -->
 <delete id="deleteComm" parameterType="int">
@@ -256,6 +247,12 @@
     where comm_no = #{commNo}
 </delete>
 
+<!-- 댓글 수정 -->
+<update id="UpdateComment" parameterType="web.dto.FreeComment">
+	UPDATE freecomment SET comm_content = #{commContent}, comm_modify = current_date
+	WHERE free_no = #{freeNo}
+	AND comm_no = #{commNo}
+</update>
 
 <!-- <select id="mypageList" resultType="web.dto.Free" parameterType="int"> -->
 <!-- select * from Free -->
@@ -317,12 +314,6 @@ ORDER BY free_no DESC
 	WHERE user_id = #{loginId}
 </select>
 
-<!-- 댓글 수정 -->
-<update id="UpdateComment" parameterType="web.dto.FreeComment">
-	UPDATE freecomment SET comm_content = #{commContent}, comm_modify = current_date
-	WHERE free_no = #{freeNo}
-	AND comm_no = #{commNo}
-</update>
 
 </mapper>	
 

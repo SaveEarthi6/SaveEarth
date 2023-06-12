@@ -256,8 +256,8 @@
 		select info_no_seq.nextval from dual
 	</selectKey>
 	
-	INSERT INTO info (info_no, admin_no, info_title, info_content, info_state)
-	VALUES ( #{infoNo}, #{adminNo}, #{infoTitle}, #{infoContent}, #{infoState})
+	INSERT INTO info (info_no, admin_no, info_title, info_url, info_state)
+	VALUES ( #{infoNo}, #{adminNo}, #{infoTitle}, #{infoUrl}, #{infoState})
  	
 </insert>
 	
@@ -372,7 +372,7 @@
 <!-- 정보게시판 게시글 내용 수정 -->	
 <update id="updateInfoBoard" parameterType="web.dto.Info">
   	UPDATE info SET
-	info_title = #{infoTitle}, info_content = #{infoContent}, info_state = #{infoState}, info_upload = CURRENT_DATE 
+	info_title = #{infoTitle}, info_url = #{infoUrl}, info_state = #{infoState}, info_upload = CURRENT_DATE 
 	WHERE info_no = #{infoNo}
 </update>
 

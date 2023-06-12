@@ -217,7 +217,10 @@ $(function() {
         	  console.log(result);
 				
               $(".comm").html(result);
-              //값 비우기
+				
+// 				location.reload();
+			
+			  //값 비우기
               $("#commContent").val('');
           },
           error : function(request, status, error) { // 결과 에러 콜백함수
@@ -259,7 +262,9 @@ $(function() {
 	              console.log("성공")
         	  	  console.log(result);
 					
-	              $(".comm").html(result);
+// 	              $(".comm").html(result);
+
+				location.reload();
 	          },
 	          error : function(request, status, error) { // 결과 에러 콜백함수
 	               console.log(error)
@@ -279,10 +284,19 @@ $(document).on("click",".commUpdate",function(){
 	
 	//수정한 댓글 내용을 newcomm이 담고 있음
 	var newcomm = prompt("수정할 댓글 내용을 입력해주세요")
+// 	$("#rs").append('<input type="text" name="newcomm" class="newcomm">');
+// 	$(".newcomm").show();
 	
 	var idx = $(".commUpdate").index(this)
 	var commNo = $(".commUpdate").eq(idx).attr('data-no')
 	var freeNo = ${param.freeNo}
+
+	
+// 	$("#rs").replaceWith('<input type="text" name="newcomm" class="newcomm">');
+// 	var newcomm = $(".newcomm").val();
+
+	
+// 	const element = document.getElementById('my_div');
 	
 	console.log(newcomm)
 	console.log(commNo)
@@ -293,16 +307,17 @@ $(document).on("click",".commUpdate",function(){
 		data : 
 			{commNo : commNo,
 			freeNo : freeNo,
-			//키값으로 찾으니까 왼쪽이 dto변수명과 일치해야해
+			//키값으로 찾으니까 왼쪽이 dto변수명과 일치해야해a
 			commContent : newcomm},
 		success:
 			function(result){
-			
+
 			console.log('댓글 수정 성공!')
 			
 			//새로고침
 			location.reload();
 			
+			//-> 처음 수정만 되고 다시 수정 시도하면 실패 -> freeNo를 찾지 못함
 // 			$(".comm").html(result);
 			
 		},
@@ -379,7 +394,7 @@ function heart(freeNo) {
       <br>
     <span id="rs">${commContent.COMM_CONTENT }</span>
 ㅣ  <span id="writeDate">
-	<fmt:formatDate value="${commContent.COMM_CREATE}" pattern="yyyy. MM. dd. HH:mm:ss" />
+	<fmt:formatDate value="${commContent.COMM_MODIFY}" pattern="yyyy. MM. dd. HH:mm:ss" />
 	</span>
 	
 	<!-- 로그인한 아이디랑 댓글 작성한 아이디랑 같을 때 삭제 버튼이 보인다 -->
@@ -398,8 +413,8 @@ function heart(freeNo) {
 
     </div> <!-- <div> comm end -->
 
+<!-- 댓글 -->
 <c:if test="${loginId != null }">
-   <!-- 댓글 -->
    <div class="card my-4">
       <h5 class="card-header" style="font-weight: bold;">댓글</h5>
       <div class="card-body">
@@ -407,16 +422,17 @@ function heart(freeNo) {
             autocomplete="off" id="commentForm">
             <textarea id="commContent" name="commContent" class="form-control"
                rows="3"></textarea>
+               
             <div style="padding-top: 50px;">
                <button id="enroll" type="button" class="btn btn-success">등록</button>
             </div>
          </form>
       </div>
    </div>
+
 </c:if>
 
-</div>
-<!-- .container end -->
+</div><!-- .container end -->
 
 
 <c:import url="../layout/footer.jsp"></c:import>

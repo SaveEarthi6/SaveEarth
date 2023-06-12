@@ -191,8 +191,8 @@ form {
 </div>
 
 <div class="form-group" style= "margin-top: 50px">
-	<label class="form-label" for="content">본문</label>
-	<textarea rows="10" style="width: 100%;" id="content" name="infoContent">${infoContent.infoContent}</textarea>
+	<label class="form-label" for="infoUrl">출처</label>
+	<input type="text" id="infoUrl" name="infoUrl" class="form-control" value="${infoContent.infoUrl}">
 </div>
 
 

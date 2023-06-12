@@ -410,6 +410,11 @@ public class FreeServiceImpl implements FreeService{
 
 	@Override
 	public boolean checkRecommended(String loginId, Free freeBoard) {
+		
+		if(loginId == null) {
+			return false;
+		}
+		
 		//loginId를 이용하여 loginno을 가져오는 메소드를 만든다.
 		
 		//비로그인시 이 부분에서 에러

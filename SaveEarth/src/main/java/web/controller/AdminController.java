@@ -491,14 +491,14 @@ public class AdminController {
 		   logger.info("Adimn/infoWrite[GET]");
 		   
 		   String loginId = (String) session.getAttribute("loginId");
-		      logger.info("관리자 id : {}", loginId);
+		   logger.info("관리자 id : {}", loginId);
 
-		      Admin memberInfo = adminService.info(loginId);
+		   Admin memberInfo = adminService.info(loginId);
 
-		      logger.info("관리자 정보 : {}", memberInfo);
+		   logger.info("관리자 정보 : {}", memberInfo);
 
-		      model.addAttribute("id", loginId);
-		      model.addAttribute("memberInfo", memberInfo);
+		   model.addAttribute("id", loginId);
+		   model.addAttribute("memberInfo", memberInfo);
 		   
 	   }
 	   
