@@ -10,6 +10,7 @@ import web.dto.Member;
 import web.dto.Ordertb;
 import web.dto.ProdInq;
 import web.dto.Order;
+import web.dto.OrderInfo;
 import web.dto.ProdOption;
 import web.dto.Product;
 import web.util.Paging;
@@ -141,7 +142,7 @@ public interface GoodsService {
 	 * @param userNo - 로그인한 회원의 번호
 	 * @param orderNo - 주문번호
 	 */
-	public void getOrderInfo(int userNo, String orderNo);
+	public List<OrderInfo> getOrderInfo(int userNo, String orderNo);
 
 	/**
 	 * 파일들 가져오기

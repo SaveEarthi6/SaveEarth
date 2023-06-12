@@ -27,6 +27,8 @@ import web.dto.Cart;
 import web.dto.Member;
 
 import web.dto.Order;
+import web.dto.OrderDetail;
+import web.dto.OrderInfo;
 import web.dto.ProdInq;
 import web.dto.ProdOption;
 import web.dto.Product;
@@ -132,12 +134,11 @@ public class goodsController {
 		int userNo=(int)session.getAttribute("loginNo");
 		
 		List<Map<String, Object>> cartList = goodsService.getcartList(userNo);
-		logger.info("카드리스트{}", cartList);
+		logger.info("카트리스트{}", cartList);
 		
 		model.addAttribute("cartList",cartList);
 		
 		return "goods/cart";
-
 		
 	}
 	
@@ -320,6 +321,7 @@ public class goodsController {
 		model.addAttribute("prodCount",prodCount);
 	}
 	
+	//장바구니 결제하기
 	@RequestMapping("/payment")
 	public void payment(HttpServletRequest request, HttpSession session, Order order) {
 		logger.info("/goods/payment [GET]");
@@ -411,11 +413,15 @@ public class goodsController {
 	  
 	  //주문번호 상세보기
 	  @RequestMapping("/orderView")
-	  public void orderView(HttpSession session, String orderNo) {
+	  public void orderView(HttpSession session, String orderNo, Model model) {
 		  logger.info("/goods/orderView [GET]");
 		  logger.info("{}", orderNo);
 		  
-		  goodsService.getOrderInfo((int)session.getAttribute("loginNo"), orderNo);
+		  List<OrderInfo> orderInfo = goodsService.getOrderInfo((int)session.getAttribute("loginNo"), orderNo);
+		  
+		  logger.info("{}", orderInfo);
+		  
+		  model.addAttribute("orderInfo", orderInfo);
 		  
 	  }
 	  
