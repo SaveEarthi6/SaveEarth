@@ -223,7 +223,7 @@
 		        SELECT *
 					FROM prod_file
 					WHERE (prod_no, prod_file_no) IN (
-					    SELECT prod_no, MIN(prod_file_no)
+					    SELECT prod_no, MAX(prod_file_no)
 					    FROM prod_file
 					    GROUP BY prod_no
 					)

@@ -147,7 +147,7 @@ public class GoodsServiceImpl implements GoodsService {
 
 		goodsDao.updateAmount(param);
 	}
-	
+	 
 	@Override
 	public void paymentTest(HttpServletRequest request) {
 
