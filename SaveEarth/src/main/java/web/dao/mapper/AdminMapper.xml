@@ -215,18 +215,26 @@
 
 	 	<select id="selectProductList" resultType="map" parameterType="web.util.Paging">
 
-        SELECT * FROM (
+		SELECT * FROM (
 		    SELECT rownum rnum, A.* FROM (
-		        SELECT c.*, f.prod_origin_name, f.prod_stored_name
-		        FROM product c LEFT OUTER JOIN  prod_file f
-		        ON c.prod_no = f.prod_no
-		        ORDER BY c.prod_no DESC
+		        SELECT p.*, f.prod_origin_name, f.prod_stored_name
+		        FROM product p LEFT OUTER JOIN  (
+		        
+		        SELECT *
+					FROM prod_file
+					WHERE (prod_no, prod_file_no) IN (
+					    SELECT prod_no, MAX(prod_file_no)
+					    FROM prod_file
+					    GROUP BY prod_no
+					)
+		        
+		        
+		        ) f
+		        ON p.prod_no = f.prod_no
+		        ORDER BY p.prod_no DESC
 		    ) A
 		)
-
-
 		WHERE rnum BETWEEN #{startNo} AND #{endNo}
-
 	</select>
 
 
@@ -247,6 +255,11 @@
    <insert id="insertProductFile" parameterType="web.dto.ProductFile">
       INSERT INTO prod_file (prod_file_no, prod_no, prod_origin_name, prod_stored_name) 
       	VALUES ( prod_file_no_seq.nextval, #{prodNo}, #{prodOriginName}, #{prodStroedName})
+   </insert>
+   
+   <insert id="insertProdoption" parameterType="web.dto.ProdOption">
+         INSERT INTO prod_option (prod_opt_no, prod_no, prod_color, prod_size) 
+      	VALUES ( prod_opt_no_seq.nextval, #{prodNo}, #{ProdColor}, #{ProdSize})
    </insert>
 
 <!-- 게시글 내용 삽입 -->
@@ -431,6 +444,8 @@
 	SELECT * FROM info_file
 	WHERE info_no = #{infoNo}
 </select>
+
+
 	
 	<!-- 캠페인 참여 현황  -->
 	<select id="campParticipate" parameterType="int" resultType="int">

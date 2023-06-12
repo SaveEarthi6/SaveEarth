@@ -13,7 +13,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.text.ParseException;
 import java.util.Base64;
 import java.util.Base64.Encoder;
 import java.util.List;
@@ -21,8 +20,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.tomcat.util.json.JSONParser;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +31,9 @@ import org.springframework.stereotype.Service;
 import web.dao.face.GoodsDao;
 import web.dto.Cart;
 import web.dto.Member;
-import web.dto.Order;
 import web.dto.Ordertb;
+import web.dto.ProdInq;
+import web.dto.Order;
 import web.dto.ProdOption;
 import web.dto.Product;
 import web.service.face.GoodsService;
@@ -71,7 +72,7 @@ public class GoodsServiceImpl implements GoodsService {
 	@Override
 	public Map<String, Object> getProdDetail(int prodno) {
 		
-		logger.info("getCampDetail() - campno : {}", prodno);
+		logger.info("getgoodsDetail() - goods : {}", prodno);
 		
 		return goodsDao.selectProd(prodno);
 	}
@@ -146,7 +147,7 @@ public class GoodsServiceImpl implements GoodsService {
 
 		goodsDao.updateAmount(param);
 	}
-	
+	 
 	@Override
 	public void paymentTest(HttpServletRequest request) {
 
@@ -253,6 +254,24 @@ public class GoodsServiceImpl implements GoodsService {
 
 		return goodsDao.selectUserShipInfo(userNo);
 	}
-	
 
+	// 상품번호에 맞는 굿즈사진들 설명가져오기
+	@Override
+	public List<Map<String, Object>> getdetailfiles(int prodno) {
+		
+		return goodsDao.getdetailfiles(prodno);
+	}
+
+	@Override
+	public void insertInq(ProdInq prodInq) {
+		
+		goodsDao.insertInqByprodNouserNo(prodInq);
+		
+	}
+	
+	@Override
+	public List<Map<String, Object>> getInqList(int prodno) {
+		
+		return goodsDao.getInqListByprodno(prodno);
+	}
 }

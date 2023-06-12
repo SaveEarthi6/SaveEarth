@@ -16,6 +16,7 @@ import web.dto.Info;
 import web.dto.InfoFile;
 import web.dto.InfoThumbnail;
 import web.dto.Member;
+import web.dto.ProdOption;
 import web.dto.Product;
 import web.util.Paging;
 
@@ -110,7 +111,7 @@ public interface AdminService {
     * @param files
     * @param memberInfo
     */
-   public void productnWrite(Product product, List<MultipartFile> files, Admin memberInfo);
+   public void productnWrite(Product product, List<MultipartFile> files, Admin memberInfo, ProdOption prodOption);
    
    /**
     *  게시글 수정
@@ -217,8 +218,13 @@ public void updateFree(Free freeBoard, List<MultipartFile> files, List<FreeFile>
     * @return - 게시글 번호가 일치하는 파일 정보
     */
    public List<InfoFile> getFile(int infoNo);
+<<<<<<< HEAD
 
    public int selectOne(int campno);
+=======
+   
+
+>>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
 	
 
 
