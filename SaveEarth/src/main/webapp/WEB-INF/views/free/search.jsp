@@ -61,6 +61,14 @@ input {
 	font-style: normal;
 }
 
+/* 게시글 폰트 스타일 */
+@font-face {
+    font-family: 'omyu_pretty';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /* 말머리글 (드롭다운) 크기 늘리기 */
 select {
 	width:100px;
@@ -220,7 +228,7 @@ location.href="?freeHead=" + freeHead
 </div>
 
 <!-- 게시판 -->
-<table id= "board" class= "table table-hover text-center">
+<table id= "board" class= "table table-hover text-center" style= "font-family: omyu_pretty; font-size:20px">
 
 	<tr style= "background-color: #59A8D9; color: white;">
 		<th style="width: 20px;">글번호</th>
@@ -237,11 +245,45 @@ location.href="?freeHead=" + freeHead
 			<tr>
 <!-- 				map에 저장된 컬럼명과 동일하게 지정해주어야 한다 -->
 				<td>${free.FREE_NO }</td>
-				<td>${free.FREE_HEAD}</td>
+				
+				<td>
+					<c:if test="${free.FREE_HEAD eq '공지사항' }">
+						<img class="notice" src="../resources/img/notice.png" width="35px;">
+						<!-- 공지사항 이미지 띄우게 하기 -->
+					</c:if> ${free.FREE_HEAD}
+				</td>
+				
 				<td class="text-start" style="text-align:center"><a href="/free/view?freeNo=${free.FREE_NO }">${free.FREE_TITLE }</a></td>
-				<td>${free.ID}</td>
+				
+				<c:choose>
+				
+				<c:when test="${free.USER_ID != null }">
+				<td>${free.USER_ID}</td>
+				</c:when>
+				
+				<c:otherwise>
+				<td>관리자</td>
+				</c:otherwise>
+				
+				</c:choose>
+				
 				<td>${free.FREE_VIEWS }</td>
-				<td><fmt:formatDate value="${free.FREE_CREATE}" pattern="yy-MM-dd HH:mm:ss"/></td>
+				
+				<td>
+				<c:choose>
+	  			
+      			<c:when test="${free.FREE_CREATE != free.FREE_MODIFY }">
+      			<fmt:formatDate value="${free.FREE_MODIFY }"
+         		pattern="yy-MM-dd HH:mm:ss" />
+      			</c:when>
+      			
+      			<c:otherwise>
+				<fmt:formatDate value="${free.FREE_CREATE}" pattern="yy-MM-dd HH:mm:ss"/>
+				</c:otherwise>
+				
+				</c:choose>
+				</td>
+				
 			</tr>
 
 </c:forEach>

@@ -126,7 +126,6 @@ input {
 }
 
 
-
 #info {
     width: 225px;
     text-align: center;
@@ -135,6 +134,9 @@ input {
     margin-right: 10px;
     margin-bottom: 65px;
 }
+
+a{ text-decoration: none; } /* 링크텍스트에 밑줄없앰 */
+button{ cursor: pointer; } /* 모든 버튼에 마우스손모양 처리 */
 
 </style>
 
