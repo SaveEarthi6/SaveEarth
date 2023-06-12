@@ -296,7 +296,7 @@ $(function(){
             white-space: normal;
         }
         
-        #inqtest{
+        #inqtest${status.index}{
         
         	height:auto ;
         	 
@@ -435,22 +435,24 @@ $(function(){
 						</c:forEach>
                     </div>
     
-<div>문의하기</div>    
+<div>문의하기 리스트 구현중</div>    
 
 <div>
-<c:forEach items="${prodInq }" var="prodInq">
-<div>제목:${prodInq.INQ_TITLE } 내용:${prodInq.INQ_CONTENT } 답변상태:${prodInq.INQ_PROC}<img id="inqtest"onclick="openinq()" src="../../resources/img/logo2.png"  ></div>
-<div id="inq" style="display:none" >답변:${prodInq.INQ_ANSWER_CONTENT }</div>
-
-
+<c:forEach items="${prodInq }" var="prodInq" varStatus="status">
+	<div>
+		제목:${prodInq.INQ_TITLE } 내용:${prodInq.INQ_CONTENT } 답변상태:${prodInq.INQ_PROC} <img id="inqtest${status.index}" src="../../resources/img/logo2.png" style="width:120px">
+	</div>
+	<div id="inq${status.index}" style="display: none;">
+		답변:${prodInq.INQ_ANSWER_CONTENT }
+	</div>
 </c:forEach>
- </div>
+</div>
 <br>
 
 <!-- 모달로 문의하기------시작---- -->
 
 <!-- <button id="openModal">모달 열기</button> -->
-<input type="button" id="openModal" class="inq" value="문의하기" onclick="inquire()">      
+<div><input type="button" id="openModal" class="inq" value="문의하기" onclick="inquire()"></div>    
 <div id="myModal" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span>
@@ -472,7 +474,8 @@ $(function(){
     	
     	<input type="hidden" name="prodNo" value="${goodsDetail.PROD_NO }">
     	
-    	<button >문의하기</button>
+    		<button >문의하기</button>
+    	
     </form>
     
     
@@ -612,11 +615,39 @@ function inquire() {
 	} 
 </script>
 
+<!-- <script>
+
+    $(document).ready(function() {
+        $("#inqtest").click(function() {
+            $("#inq").show();
+        });
+        $("#inqtest").click(function() {
+            $("#inq").hide();
+        });
+    });	
+	
+</script> -->
+<!-- <script>
+  $(document).ready(function() {
+    $("#inqtest").click(function() {
+      $("#inq").toggle();
+    });
+  });
+</script> -->
 <script>
-	function openinq(){
-		
-		$("#inq").show();
-	}
+  $(document).ready(function() {
+    <%-- 문의의 개수만큼 반복하여 클릭 이벤트를 설정합니다. --%>
+    <c:forEach items="${prodInq}" varStatus="status">
+      $("#inqtest${status.index}").click(function() {
+        <%-- 현재 클릭한 문의의 답변 상태를 확인합니다. --%>
+        var inqStatus = "${prodInq[status.index].INQ_PROC}";
+        <%-- 답변 상태가 "답변완료"인 경우에만 토글 동작을 수행합니다. --%>
+        if (inqStatus === "답변완료") {
+          $("#inq${status.index}").toggle();
+        }
+      });
+    </c:forEach>
+  });
 </script>
     
     
