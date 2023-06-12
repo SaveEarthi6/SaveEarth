@@ -1,5 +1,6 @@
 package web.controller;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -87,10 +88,13 @@ public class goodsController {
 		//옵션 가져오기
 		List<Map<String, Object>> prodOption = goodsService.getOptionList(prodno);
 
-		
 		//상품 문의 목록 가져오기
 		List<Map<String, Object>> prodInq = goodsService.getInqList(prodno);
-		logger.info("상품질문과 답변{}",prodInq);	
+		logger.info("상품질문과 답변{}",prodInq);
+
+
+
+		
 		
 //		로그인 확인하기( 로그인 안되면 로그인하라고하기)		
 		session.getAttribute("isLogin");
