@@ -32,7 +32,7 @@
 	</select>
 	
 	<select id="selectProd" resultType="map" parameterType="int">
-			SELECT p.*, f.*
+		SELECT p.*, f.*
 		FROM product p 
 		LEFT OUTER JOIN (
 		
@@ -110,7 +110,7 @@
 				VALUES (#{orderNo}, #{userNo}, #{orderRec}, #{orderAddrPostcode}, #{orderAddr}, #{orderAddrDetail}, #{orderPhone}, #{orderPrice});
 				
 				INSERT INTO order_detail
-					SELECT order_detail_seq.nextval, #{orderNo}, prod_no, cart_no, prod_opt_no
+					SELECT order_detail_seq.nextval, #{orderNo}, prod_no, cart_no, prod_opt_no, prod_count
 					FROM cart
 					WHERE user_no = #{userNo};
 			END
@@ -156,6 +156,21 @@
 		SELECT user_no, user_name, user_postcode, user_addr, user_detailaddr, user_phone
 		FROM member
 		WHERE user_no = #{userNo}
+	</select>
+	
+	<select id="selectOrderInfo" parameterType="map" resultType="web.dto.OrderInfo">
+		SELECT o.*, d.prod_amount, p.prod_name, p.prod_price, n.prod_color, n.prod_size, f.prod_origin_name, f.prod_stored_name
+		FROM ordertb o
+		LEFT OUTER JOIN order_detail d
+		    ON o.order_no = d.order_no
+		LEFT OUTER JOIN product p
+		    ON d.prod_no = p.prod_no
+		LEFT OUTER JOIN prod_option n
+		    ON d.prod_opt_no = n. prod_opt_no
+		LEFT OUTER JOIN prod_file f
+		    ON p.prod_no = f.prod_no
+		WHERE o.order_no = #{orderNo}
+			AND o.user_no = #{userNo}
 	</select>
 	
 	<select id="getdetailfiles" parameterType="int" resultType="map">
