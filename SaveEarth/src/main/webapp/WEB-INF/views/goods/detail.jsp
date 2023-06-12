@@ -402,12 +402,22 @@ $(function(){
                             <input type="hidden" name="prodCount" value="">
                             <input type="hidden" name="prodOptNo" value="">
                             
-<!--                     		<input type="button" class="order" value="구매하기" id="signup" onclick="detailbuy()" >  -->
                             <button type="submit" class="order" id="signup" onclick="detailbuy()" >구매하기</button>
                             </form>
                               
                         </div>
                     </div>
+                    
+                    
+                    
+                    <div class="imagetest">
+                        <c:forEach items="${detailfiles}" var="files">
+									
+									<img src="/upload/${files.PROD_STORED_NAME }" alt="상품이미지" class="goodsimage">
+						</c:forEach>
+                    </div>
+                    
+                    
                 </article>
 
 
@@ -418,7 +428,128 @@ $(function(){
         
     </div>
     
+<div>문의하기</div>    
 
+<div>
+<c:forEach items="${prodInq }" var="prodInq">
+<div>제목:${prodInq.INQ_TITLE } 내용:${prodInq.INQ_CONTENT } 답변상태:${prodInq.INQ_PROC}</div>
+<div>답변:${prodInq.INQ_ANSWER_CONTENT }</div>
+
+
+</c:forEach>
+ </div>
+<br>
+
+<!-- 모달로 문의하기------시작---- -->
+
+<!-- <button id="openModal">모달 열기</button> -->
+<input type="button" id="openModal" class="inq" value="문의하기" onclick="inquire()">      
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    
+    <form action="./writeInq" method="post">
+	    <div>
+	    	<h3>상품명: ${goodsDetail.PROD_NAME }</h3>
+	    </div>
+	    
+	    <div>
+	  	  <label for="inqTitle">문의 제목</label>
+	   	 <input type="text" id="inqTitle" name="inqTitle">
+	    </div>
+	    
+	    <div>
+	  	  <label for="inqContent">문의 내용</label>
+	   	 <input type="text" id="inqContent" name="inqContent">
+	    </div>
+    	
+    	<input type="hidden" name="prodNo" value="${goodsDetail.PROD_NO }">
+    	
+    	<button >문의하기</button>
+    </form>
+    
+    
+  </div>
+</div>
+
+<!-- CSS -->
+<style> 
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
+
+
+
+ <!-- 로그인 확인 후 안되있으면 로그인 하셈 코드  -->
+ <script >
+function inquire() {
+	 
+	if(${login}){
+		
+
+		var modal = document.getElementById("myModal");
+		var btn = document.getElementById("openModal");
+		var span = document.getElementsByClassName("close")[0];
+
+		btn.onclick = function() {
+		  modal.style.display = "block";
+		}
+
+		span.onclick = function() {
+		  modal.style.display = "none";
+		}
+
+		window.onclick = function(event) {
+		  if (event.target == modal) {
+		    modal.style.display = "none";
+		  }
+		}
+
+		
+	} else {
+		alert("로그인이 필요");
+		let url = '../member/login'
+		location.href = url;
+	  }
+}
+
+</script> 
+
+
+
+
+<!-- 모달로 문의하기------끝---- -->
 
 
 <script>
@@ -439,14 +570,24 @@ $(function(){
 	 /* 스크립트로 상품 번호랑 갯수 넘기기 */
     function addToCart() {
 		 
+	if(${login}){
+		
+		
+		 alert("장바구니 담기 완료");
+			let prodOptNo = document.getElementById('optionSelect').value;
+	        let prodno = '${goodsDetail.PROD_NO}';
+	        let prodCount = document.getElementById('num').value;
+	        let url = './addCart?prodno=' + prodno + '&prodCount=' + prodCount + '&prodOptNo=' + prodOptNo;
+	        location.href = url;	
 	
+		
+	} else {
+		alert("로그인이 필요");
+		let url = '../member/login'
+		location.href = url;
+	  }
 			 
-			 alert("장바구니 담기 완료");
-				let prodOptNo = document.getElementById('optionSelect').value;
-		        let prodno = '${goodsDetail.PROD_NO}';
-		        let prodCount = document.getElementById('num').value;
-		        let url = './addCart?prodno=' + prodno + '&prodCount=' + prodCount + '&prodOptNo=' + prodOptNo;
-		        location.href = url;			 
+			 
 			 
 	 
 	
@@ -463,11 +604,9 @@ $(function(){
 	
 	} 
 </script>
-<form >
-</form>
+
 
     
     
     
-</body>
-</html>
+<c:import url="../layout/footer.jsp"/> 
