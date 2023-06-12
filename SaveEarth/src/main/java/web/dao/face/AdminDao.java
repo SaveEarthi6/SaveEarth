@@ -36,7 +36,7 @@ public interface AdminDao {
    public int selectCntAll2();
 
    /**
-    * 관리자 페이지 - 글작성
+    * 관리자 정보 조회
     * 
     * @param loginId
     * @return

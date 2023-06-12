@@ -10,8 +10,16 @@
 <style type="text/css">
 
 #posterWrap { 
-	text-align: center; 
+	text-align: center;
+	width: 70%;
+ 	height: 600px;
+	overflow: hidden;
 } 
+#posterWrap img{
+	max-width: 100%;
+ 	height: auto;
+ 	display: block;
+}
 
 #header {
 	margin-top: 30px;
@@ -68,7 +76,7 @@
 				<span id="enroll">등록일 : <fmt:formatDate value="${campDetail.CAMP_ENROLL }" pattern="yyyy/MM/dd"/></span>
 				<span>|</span>
 				<span id="part">
-					참여현황 : ${campCount }     |
+					참여현황 : ${campCount }    |
 					
 					첨부파일 다운로드 : 
 						<c:if test="${not empty campDetail }">
@@ -82,7 +90,7 @@
 		
 		<div id="clear"></div>
 		<hr>
-		<div id="posterWrap">
+		<div id="posterWrap" style=" height: 584 px; width: auto; ">
 			<!-- DB에서 불러온 이미지 넣기 -->
 			<img id="poster" src="/upload/${campDetail.CAMP_STORED_NAME }">
 		</div>
