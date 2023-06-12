@@ -175,7 +175,7 @@ function selectInfo() {
 		<button type="button" class="btn btn-success" id="freebtn" onclick="selectFree()">자유</button>
 	</div>
 
-<h2 style="text-align: center; font-family: KBO-Dia-Gothic_bold ; color: #2B4DA2" >⭐자유게시판 BEST 게시글⭐</h2>
+<h2 style="text-align: center; font-family: KBO-Dia-Gothic_bold ; color: #2B4DA2" >⭐자유게시판 추천수 TOP 10⭐</h2>
 <div class="container" style="margin-bottom: 90px;">
 
 <!-- 정보 게시판 list CSS -->

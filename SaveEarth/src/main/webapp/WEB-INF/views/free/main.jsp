@@ -33,7 +33,7 @@ body {
 /* 이미지 안에 자유게시판 문구 스타일 */
 .free {
 	position: absolute;
-	top: 50%;
+	top: 38%; 
 	left: 45%;
 	color: #fff;
 	font-weight: bold;

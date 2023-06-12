@@ -222,6 +222,28 @@ public void updateFree(Free freeBoard, List<MultipartFile> files, List<FreeFile>
    public List<InfoFile> getFile(int infoNo);
 
    /**
+    * 댓글 삭제
+    * @param commNo 
+ * @return 
+    */
+   public int deleteComm(int commNo);
+
+/**
+ * 게시글번호를 가지고 댓글 정보를 조회한다
+ * 
+ * @param freeNo
+ * @return
+ */
+public List<Map<String, Object>> getCommentByFreeNo(int freeNo);
+
+/**
+ * 게시글 번호를 가지고 댓글 정보를 조회한다
+ * @param freeBoard
+ * @return
+ */
+public List<Map<String, Object>> getComment(Free freeBoard);
+
+   /**
     * 관리자 페이지 - 문의내용 리스트로 불러오기
     * @param prodinq
     * @return

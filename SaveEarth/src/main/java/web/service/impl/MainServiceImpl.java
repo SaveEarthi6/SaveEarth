@@ -1,6 +1,7 @@
 package web.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,16 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public List<Calendar> getCalendar() {
 		return mainDao.selectCalList();
+	}
+
+	@Override
+	public List<Map<String, Object>> getProduct() {
+		return mainDao.selectAllProduct();
+	}
+
+	@Override
+	public List<Map<String, Object>> getCert() {
+		return mainDao.selectAllCertFile();
 	}
 
 }

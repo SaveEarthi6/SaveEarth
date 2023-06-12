@@ -136,9 +136,12 @@ public class AdminController {
 		// 상세보기 페이지 파일 조회
 //    FreeFile freeFile = freeService.getFreeFile(freeBoard);
 		List<FreeFile> freeFile = adminService.getFreeFile(freeBoard);
+		
+		List<Map<String,Object>> commContent = adminService.getComment(freeBoard);
 
 		logger.info("freeFile {}", freeFile);
 		model.addAttribute("freeFile", freeFile);
+		model.addAttribute("commContent", commContent);
 
 	}
 
@@ -522,6 +525,17 @@ public class AdminController {
 		   
 		   return "redirect:./info";
 		   
+	   }
+	   
+	   @RequestMapping("/freecommdelete")
+	   public void infocommdelete(@RequestParam("commNo") int commNo, @RequestParam("freeNo") int freeNo, Model model) {
+		   
+		   logger.info("/freedfjaklfjlkaj");
+		   adminService.deleteComm(commNo);
+		   
+		   List<Map<String, Object>> commList = adminService.getCommentByFreeNo(freeNo);
+		   
+		   model.addAttribute("comm", commList);
 	   }
 
 		   

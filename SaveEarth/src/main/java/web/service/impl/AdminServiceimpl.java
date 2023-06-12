@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import oracle.net.aso.f;
 import web.controller.AdminController;
 import web.dao.face.AdminDao;
+import web.dao.face.FreeDao;
 import web.dto.Admin;
 import web.dto.Calendar;
 import web.dto.Campaign;
@@ -1033,6 +1034,28 @@ public class AdminServiceimpl implements AdminService {
 	public List<InfoFile> getFile(int infoNo) {
 		
 		return adminDao.selectFile(infoNo);
+	}
+
+	@Override
+	public int deleteComm(int commNo) {
+	
+		int res = adminDao.deleteComment(commNo);
+		
+		return res;
+		
+	}
+	
+	@Override
+	public List<Map<String, Object>> getCommentByFreeNo(int freeNo) {
+		
+		List<Map<String, Object>> commList = adminDao.selectCommByFreeNo(freeNo);
+		
+		return commList;
+	}
+	
+	@Override
+	public List<Map<String, Object>> getComment(Free freeBoard) {
+		return adminDao.selectComment(freeBoard);
 	}
 	
 	@Override

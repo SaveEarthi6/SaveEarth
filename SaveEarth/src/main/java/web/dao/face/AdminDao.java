@@ -243,15 +243,29 @@ public interface AdminDao {
     */	
    public List<InfoFile> selectFile(int infoNo);
 
-   
    /**
-    * 옵션 인서트
-    * @param prodOption
+    * 댓글 삭제
+    * @param commNo
+    * @return
     */
-   public void insertProdoption(ProdOption prodOption);
-   
-   
-   public int campParticipate(int campno);
+   public int deleteComment(int commNo);
+
+   /**
+    * 댓글 정보를 조회한다
+    * 
+    * @param freeNo
+    * @return
+    */
+   public List<Map<String, Object>> selectCommByFreeNo(int freeNo);
+
+/**
+ * 댓글 정보를 조회한다
+ * 
+ * @param freeBoard
+ * @return
+ */
+public List<Map<String, Object>> selectComment(Free freeBoard);
+
 
    /**
     * 관리자 페이지 - 문의불러오기

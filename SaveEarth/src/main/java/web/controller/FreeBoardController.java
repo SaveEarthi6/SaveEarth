@@ -198,7 +198,7 @@ public class FreeBoardController {
 		//자유게시판 내용 수정 + 파일
 		freeService.updateFree(freeBoard, files,freeFile);
 		
-		return "redirect:/free/main";
+		return "redirect:/free/view?freeNo="+freeBoard.getFreeNo();
 		
 	}
 	
