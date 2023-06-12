@@ -218,8 +218,13 @@ public void updateFree(Free freeBoard, List<MultipartFile> files, List<FreeFile>
     * @return - 게시글 번호가 일치하는 파일 정보
     */
    public List<InfoFile> getFile(int infoNo);
+<<<<<<< HEAD
+
+   public int selectOne(int campno);
+=======
    
 
+>>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
 	
 
 

@@ -223,7 +223,7 @@
 		        SELECT *
 					FROM prod_file
 					WHERE (prod_no, prod_file_no) IN (
-					    SELECT prod_no, MIN(prod_file_no)
+					    SELECT prod_no, MAX(prod_file_no)
 					    FROM prod_file
 					    GROUP BY prod_no
 					)
@@ -446,5 +446,12 @@
 </select>
 
 
+	
+	<!-- 캠페인 참여 현황  -->
+	<select id="campParticipate" parameterType="int" resultType="int">
+   		SELECT COUNT(*) FROM  CERTIFICATION
+    	WHERE camp_no = #{campNo}
+	</select>
+	
 	
 </mapper>
