@@ -9,12 +9,12 @@ public class ProdInq {
 	private String inqTitle;
 	private String inqContent;
 	private Date inqDate;
-	private String inq_proc;
+	private String inqProc;
 	
 	public ProdInq() {}
 
 	public ProdInq(int inqNo, int userNo, int prodNo, String inqTitle, String inqContent, Date inqDate,
-			String inq_proc) {
+			String inqProc) {
 		super();
 		this.inqNo = inqNo;
 		this.userNo = userNo;
@@ -22,13 +22,13 @@ public class ProdInq {
 		this.inqTitle = inqTitle;
 		this.inqContent = inqContent;
 		this.inqDate = inqDate;
-		this.inq_proc = inq_proc;
+		this.inqProc = inqProc;
 	}
 
 	@Override
 	public String toString() {
 		return "ProdInq [inqNo=" + inqNo + ", userNo=" + userNo + ", prodNo=" + prodNo + ", inqTitle=" + inqTitle
-				+ ", inqContent=" + inqContent + ", inqDate=" + inqDate + ", inq_proc=" + inq_proc + "]";
+				+ ", inqContent=" + inqContent + ", inqDate=" + inqDate + ", inqProc=" + inqProc + "]";
 	}
 
 	public int getInqNo() {
@@ -79,13 +79,14 @@ public class ProdInq {
 		this.inqDate = inqDate;
 	}
 
-	public String getInq_proc() {
-		return inq_proc;
+	public String getInqProc() {
+		return inqProc;
 	}
 
-	public void setInq_proc(String inq_proc) {
-		this.inq_proc = inq_proc;
+	public void setInqProc(String inqProc) {
+		this.inqProc = inqProc;
 	}
+
 	
 	
 }
