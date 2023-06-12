@@ -57,22 +57,16 @@ body {
     font-style: normal;
 }
 
-@font-face {
-    font-family: 'GmarketSansMedium';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
 
 .container {	
 	max-width:100%
 }
 
 #quiz{
-	font-family: 'GmarketSansMedium';
+	font-family: 'omyu_pretty';
 }
 
+/* 달력 */
 #wrapCalendar{
 	width:1000px;
 	margin: 0 auto;
@@ -92,6 +86,7 @@ body {
 	margin-bottom: 20px;
 }
 
+/* 퀴즈 폼*/
 #quizForm {
 	border: 5px solid #59A8D9;
 	padding-bottom: 50px;
@@ -133,13 +128,13 @@ $(function() {
   </div>
   <div class="carousel-inner" >
     <div class="carousel-item active" >
-      <img src="/resources/img/main_top.png" class="d-block w-100" alt="...">
+      <img src="/resources/img/main_top2.jpg" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
       <img src="/resources/img/main_top.png" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="/resources/img/main_top.png" class="d-block w-100" alt="...">
+      <img src="/resources/img/main_top3.png" class="d-block w-100" alt="...">
     </div>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -259,7 +254,7 @@ $(function() {
            
            <br>
            
-       <button type="button" id="answer" data-no="${quiz.quizAnswer }">정답확인</button>
+     	<button type="button" id="answer" data-no="${quiz.quizAnswer } "  style="font-family:omyu_pretty;">정답확인</button>
   	</c:if>
   	  	
   </c:forEach>

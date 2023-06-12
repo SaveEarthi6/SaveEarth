@@ -431,5 +431,28 @@
 	SELECT * FROM info_file
 	WHERE info_no = #{infoNo}
 </select>
+
+<!-- 댓글 삭제 -->
+<delete id="deleteComment" parameterType="int">
+    delete from freecomment
+    where comm_no = #{commNo}
+</delete>
+
+
+<!-- 댓글 조회 - 댓글 등록 후 게시글 상세보기에서 -->
+<select id="selectCommByFreeNo" resultType="map" parameterType="int">
+	SELECT c.*, (SELECT m.user_id FROM member m WHERE m.user_no = c.user_no) user_id FROM freecomment c
+	WHERE free_no = #{freeNo}
+	ORDER BY comm_no desc
+</select>
+
+<!-- 댓글 조회 -->
+
+<select id="selectComment" resultType="map" parameterType="web.dto.Free">
+	SELECT c.*, (SELECT m.user_id FROM member m WHERE m.user_no = c.user_no) user_id FROM freecomment c
+	WHERE free_no = #{freeNo}
+	ORDER BY comm_no desc
+</select>
+
 	
 </mapper>

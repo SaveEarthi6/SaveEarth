@@ -69,8 +69,8 @@ body {
 
 /* 하단(footer) 스타일 */
 #footer {
- 	background-color: #7CA621; 
- 	color: white;
+ 	background-color: #E1E1E1; 
+ 	color: black;
 }
 
 /* 네비게이션바 전체 스타일 */
@@ -103,7 +103,7 @@ body {
 #logo {
 	text-align: center;
 	width:500px;
-	height:115px;
+	height:110px;
 	margin-bottom: 50px;
 }
 

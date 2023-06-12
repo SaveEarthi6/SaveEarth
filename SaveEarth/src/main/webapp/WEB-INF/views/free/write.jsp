@@ -184,6 +184,6 @@ nhn.husky.EZCreator.createInIFrame({
 })
 </script>
 
-
+</div><!-- container end -->
 
 <c:import url="../layout/footer.jsp"></c:import>

@@ -11,7 +11,7 @@
 
 <div id="footer">
 
-<h1 style= "font-family:KBO-Dia-Gothic_bold ;padding-top: 20px;">SAVE EARTH</h1><br>
+<h2 style= "font-family:KBO-Dia-Gothic_bold ;padding-top: 20px;">🌐SAVE EARTH🌐</h2><br>
 주소 : 서울특별시 강남구 테헤란로14길 6 남도빌딩 2층, 3층, 4층<br>
 대표전화 : 1234-5678 사업자등록번호 : 111-22-33333<br>
 

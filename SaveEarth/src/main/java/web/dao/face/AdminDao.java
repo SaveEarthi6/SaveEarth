@@ -240,6 +240,29 @@ public interface AdminDao {
     */
    public List<InfoFile> selectFile(int infoNo);
 
+   /**
+    * 댓글 삭제
+    * @param commNo
+    * @return
+    */
+   public int deleteComment(int commNo);
+
+   /**
+    * 댓글 정보를 조회한다
+    * 
+    * @param freeNo
+    * @return
+    */
+   public List<Map<String, Object>> selectCommByFreeNo(int freeNo);
+
+/**
+ * 댓글 정보를 조회한다
+ * 
+ * @param freeBoard
+ * @return
+ */
+public List<Map<String, Object>> selectComment(Free freeBoard);
+
 
    
 	

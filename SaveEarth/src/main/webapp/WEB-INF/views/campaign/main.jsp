@@ -20,7 +20,7 @@
 
 .camp {
 	position: absolute;
-	top: 50%; 
+	top: 38%; 
 	left: 45%; 
 /* 	transform: translate(-50%, -50%);  */
 	color: #fff; 

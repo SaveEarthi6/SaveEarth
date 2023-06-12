@@ -30,7 +30,7 @@ body {
 /* 이미지 안에 소개게시판 문구 스타일 */
 .intro {
 	position: absolute;
-	top: 50%;
+   	top: 38%;
 	left: 45%;
 	color: #fff;
 	font-weight: bold;
@@ -47,6 +47,13 @@ body {
 		
 	font-weight: 700;
 	font-style: normal;
+}
+
+@font-face {
+    font-family: 'omyu_pretty';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
 }
 
 /* 아코디언*/
@@ -111,40 +118,6 @@ h1 {
   </button>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- 소개 -->
 <div style= "padding-top: 200px;">
 <h1 style= "text-align:center; position:relative;" ><strong>SAVE EARTH 핵심가치</strong></h1>
@@ -160,7 +133,7 @@ h1 {
     </h2>
     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
       <div class="accordion-body"  style= "background-color:#ECF2F7">
-     <p> 
+     <p style="font-family:omyu_pretty; "> 
 		SaveEarth는 행동을 통해 용기를 발취하고, 보다 나은 변화를 필요하는 곳에서 일하며,
 		모든 이들에게 우리의 터전인 지구의 미래를 위협하는 여러 문제들에
 		대처할 수 있는 영감을 제공합니다. 
@@ -177,7 +150,7 @@ h1 {
  </h2>
  <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
    <div class="accordion-body"  style= "background-color:#ECF2F7">
-   	<p>
+   	<p style="font-family:omyu_pretty; ">
 		SaveEarth는 다른 이들에게 요구하는 원칙을 준수합니다. 
 		우리는 진실성, 책임감, 투명성을 가지고 행동하며, 
 		사실과 과학을 토대 삼아 우리가 스스로 배우고 발전할 수 있도록 노력합니다.                        
@@ -194,8 +167,8 @@ h1 {
   </h2>
   <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
     <div class="accordion-body"  style= "background-color:#ECF2F7">
-    <p>
-		SaveEarth는 우리가 봉사하고 있는 지역사회의목소리와 지식을 존중하며, 
+    <p style="font-family:omyu_pretty; ">
+		SaveEarth는 우리가 봉사하고 있는 지역사회의 목소리와 지식을 존중하며, 
 		사람들이 지속가능한 미래를  누릴 수 있는 기본적인 권리를 보장하기 위해 노력하고 있습니다.                                              
 	</p>
       </div>
@@ -211,8 +184,8 @@ h1 {
   </h2>
   <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample" >
     <div class="accordion-body" style= "background-color:#ECF2F7">
-    <p>
-		WWF는 공동 대응과 혁신의 힘을 통해 우리가 직면한 문제와 비례하는 영향력을 발휘하고자 합니다.                                             
+    <p style="font-family:omyu_pretty; ">
+		SaveEarth는 공동 대응과 혁신의 힘을 통해 우리가 직면한 문제와 비례하는 영향력을 발휘하고자 합니다.                                             
 	</p>
       </div>
     </div>

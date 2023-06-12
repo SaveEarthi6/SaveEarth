@@ -58,8 +58,8 @@ body {
 
 /* 하단(footer) 스타일 */
 #footer {
- 	background-color: #7CA621; 
- 	color: white;
+ 	background-color: #E1E1E1; 
+ 	color: black;
 }
 
 /* 네비게이션바 전체 스타일 */
@@ -113,6 +113,12 @@ body {
 	right: 137px;
 }
 
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
 </style>
 
@@ -121,8 +127,8 @@ body {
 <body>
 
 <div id="fullHeader">
-<div id="header">
-	<div id="wrap">
+<div id="header"  style= "font-family: GmarketSansMedium">
+	<div id="wrap" >
 	<a href="../admin/free"><img id="logo" src="../../resources/img/logo2.png"></a>
 	
 	<c:if test="${empty isLogin }">
