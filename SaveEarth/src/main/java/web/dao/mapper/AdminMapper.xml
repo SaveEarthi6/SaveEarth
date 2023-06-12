@@ -89,10 +89,7 @@
 		SELECT * FROM admin
 		where admin_id = #{adminId}
 	</select>
-
-
-
-
+	
 
 	<!-- 관리자 자유게시판 글쓰기 -->
 	<!-- user_no, -->
@@ -445,6 +442,17 @@
 	WHERE info_no = #{infoNo}
 </select>
 
+ 	<select id="ProdInq" resultType="web.dto.ProdInq">
+		select * from prod_inq
+		order by inq_no
+	</select>
+	
+	<insert id="prodInqAnswer" parameterType="web.dto.ProdInqAnswer">
+		INSERT INTO prod_inq_answer (INQ_ANSWER_NO, ADMIN_NO, INQ_NO, INQ_ANSWER_CONTENT) 
+		
+		VALUES ( PROD_INQ_ANSWER_NO_seq.nextval, #{adminNo}, #{inqNo}, #{inqAnswerContent})
+	</insert>
+	
 
 	
 	<!-- 캠페인 참여 현황  -->

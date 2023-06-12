@@ -115,6 +115,7 @@ public class FreeBoardController {
 		logger.info("id {}", loginId);
 		
 		Member memberInfo = memberService.info(loginId);
+		
 		model.addAttribute("id", loginId);
 		model.addAttribute("memberInfo", memberInfo);
 		

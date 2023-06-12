@@ -15,6 +15,8 @@ import web.dto.FreeFile;
 import web.dto.Info;
 import web.dto.InfoFile;
 import web.dto.InfoThumbnail;
+import web.dto.ProdInq;
+import web.dto.ProdInqAnswer;
 import web.dto.ProdOption;
 import web.dto.Product;
 import web.dto.ProductFile;
@@ -250,6 +252,18 @@ public interface AdminDao {
    
    
    public int campParticipate(int campno);
+
+   /**
+    * 관리자 페이지 - 문의불러오기
+    * @param prodinq
+    * @return
+    */
+   public List<ProdInq> ProdInq(ProdInq prodinq);
+
+   public void prodInqAnswer(ProdInqAnswer prodInqAnswer);
+   
+
+	
 
   
 	

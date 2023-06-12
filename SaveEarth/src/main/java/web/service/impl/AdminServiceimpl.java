@@ -29,6 +29,8 @@ import web.dto.Info;
 import web.dto.InfoFile;
 import web.dto.InfoThumbnail;
 import web.dto.Member;
+import web.dto.ProdInq;
+import web.dto.ProdInqAnswer;
 import web.dto.ProdOption;
 import web.dto.Product;
 import web.dto.ProductFile;
@@ -1004,8 +1006,6 @@ public class AdminServiceimpl implements AdminService {
 		infoThumb.setInfoNo(info.getInfoNo());
 		infoThumb.setThumbOriginName(thumb.getOriginalFilename());
 		infoThumb.setThumbStoredName(storedName1);
-		//여기서 에러
-		//				freeFiles.setFreeFileNo(freeFile.get(i).getFreeFileNo());
 		logger.info("infoThumb : {}", infoThumb );
 
 		//썸네일 삭제 후 삽입
@@ -1034,6 +1034,19 @@ public class AdminServiceimpl implements AdminService {
 		
 		return adminDao.selectFile(infoNo);
 	}
+	
+	@Override
+	public List<ProdInq> inquiryList(ProdInq prodinq) {
+		return adminDao.ProdInq(prodinq);
+	}
+
+	@Override
+	public void inquiryWrite(ProdInqAnswer prodInqAnswer) {
+		adminDao.prodInqAnswer(prodInqAnswer);
+		
+	}
+
+
 
 	
 	
