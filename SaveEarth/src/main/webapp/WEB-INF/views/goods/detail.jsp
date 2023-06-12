@@ -71,12 +71,35 @@ $(function(){
     
 
 <style>
-.content{
-	margin: 10%;
+
+/* 게시판 메인 이미지 스타일 */
+.freeimage {
+	/* 이미지랑 네비게이션바 띄우기 */
+	position: relative;
+	width: 100%;
+	height: 500px;
 }
+
+/* 이미지 안에 자유게시판 문구 스타일 */
+.free {
+	position: absolute;
+	top: 38%; 
+	left: 45%;
+	color: #fff;
+	font-weight: bold;
+	font-size: 50px;
+	font-family: 'KBO-Dia-Gothic_bold';
+}
+
+
+
+	.content{
+		margin: 10%;
+	}
 	.title{
 		margin: 10%;
-		padding: 10%;
+		padding: 16%;
+		border-bottom: 1px solid;
 	}
 	.left{
 		float: left;
@@ -239,7 +262,10 @@ tbody{
 
 
    
-    
+<div>
+	<img class="freeimage" src="../resources/img/free.png">
+	<h1 class="free">자유게시판</h1>
+</div>    
 
   
        
