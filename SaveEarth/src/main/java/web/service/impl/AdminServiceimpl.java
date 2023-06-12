@@ -1079,6 +1079,11 @@ public class AdminServiceimpl implements AdminService {
 			
 			return adminDao.campParticipate(campno);
 		}	
+	
+	@Override
+	public void updateinquire(ProdInqAnswer prodInqAnswer) {
+		adminDao.updateinquire(prodInqAnswer);
+	}
 		
 	
 }

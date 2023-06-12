@@ -279,6 +279,12 @@ public List<Map<String, Object>> selectComment(Free freeBoard);
 public void insertProdoption(ProdOption prodOption);
 
 public int campParticipate(int campno);
+
+/**
+ * 관리자 페이지 - 답변 상태변화
+ * @param prodInqAnswer
+ */
+public void updateinquire(ProdInqAnswer prodInqAnswer);
    
 
 	

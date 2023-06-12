@@ -654,10 +654,14 @@ public class AdminController {
 			      System.out.println("prodInqAnswer 안에 들어있는거 : " + prodInqAnswer);
 			      
 			      adminService.inquiryWrite(prodInqAnswer);
+			      adminService.updateinquire(prodInqAnswer);
+			      
 			      
 			      return "redirect:./inquiry";
 			   
 		   }
+		   
+		   
 		   
 		   
 }
