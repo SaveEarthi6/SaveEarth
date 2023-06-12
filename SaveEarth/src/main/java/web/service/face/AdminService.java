@@ -231,6 +231,8 @@ public void updateFree(Free freeBoard, List<MultipartFile> files, List<FreeFile>
    public void inquiryWrite(ProdInqAnswer prodInqAnswer);
 
 
+
+   public int selectOne(int campno);
    
 
 	

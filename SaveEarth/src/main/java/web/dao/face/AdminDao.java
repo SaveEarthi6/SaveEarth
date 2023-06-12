@@ -253,7 +253,6 @@ public interface AdminDao {
    
    public int campParticipate(int campno);
 
-<<<<<<< HEAD
    /**
     * 관리자 페이지 - 문의불러오기
     * @param prodinq
@@ -266,10 +265,8 @@ public interface AdminDao {
 
 	
 
-=======
   
 	
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
    
 	
 	

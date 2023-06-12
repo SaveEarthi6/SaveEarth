@@ -603,7 +603,6 @@ public class AdminController {
 		   
 		   }
 		   
-<<<<<<< HEAD
 		   @RequestMapping("/inquiry")
 		   public void adminInquiry(Model model, ProdInq prodinq) {
 			   System.out.println("관리자 문의관리 ");
@@ -648,9 +647,6 @@ public class AdminController {
 		   
 		   
 }
-=======
 		  
 
-		}
 
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
