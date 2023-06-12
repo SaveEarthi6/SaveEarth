@@ -19,6 +19,7 @@ h1 {
 	margin-top: 30px;
 	margin-bottom: 30px;
 	text-align: center;
+	font-weight: bold;
 }
 
 /* 기사 이미지 스타일 */
@@ -32,18 +33,11 @@ h1 {
  }
  
 
-/* 기사 내용 스타일 */
-.content {
-	margin: 0 auto;
-	display : block;
-	width : 500px;
-	text-align: center;
-}
-
 /* 기사 url 스타일 */
 .url {
 	text-align: center;
  	margin-top: 10px;
+ 	margin-bottom: 15px;
 }
 
 .list{
@@ -70,13 +64,10 @@ h1 {
 	<img src="/upload/${info.INFO_STORED_NAME }" class="img-thumbnail" alt="...">
 </div>
 
-<div class="content">
-${info.INFO_CONTENT }
-</div>
 </c:forEach>
 
 <div class="url">
-<a href="https://kids.hyundai.com/kidshyundai/safetyEnvironment/learnenv/environmentList.kids?dtlCtgrLgrpCd=#none" style="margin-left: 430px;">홈페이지로 이동</a>
+<a href="https://kids.hyundai.com/kidshyundai/safetyEnvironment/learnenv/environmentList.kids?dtlCtgrLgrpCd=#none" style="margin-left: 530px;">기사 자세히 보기</a>
 </div>
 
 <div class="list">

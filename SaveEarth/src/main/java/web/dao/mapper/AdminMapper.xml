@@ -269,8 +269,8 @@
 		select info_no_seq.nextval from dual
 	</selectKey>
 	
-	INSERT INTO info (info_no, admin_no, info_title, info_content, info_state)
-	VALUES ( #{infoNo}, #{adminNo}, #{infoTitle}, #{infoContent}, #{infoState})
+	INSERT INTO info (info_no, admin_no, info_title, info_url, info_state)
+	VALUES ( #{infoNo}, #{adminNo}, #{infoTitle}, #{infoUrl}, #{infoState})
  	
 </insert>
 	
@@ -300,7 +300,7 @@
  <insert id="insertInfoFile" parameterType="web.dto.InfoFile">
  
  	INSERT INTO info_file (info_file_no, info_no, info_origin_name, info_stored_name) 
-	VALUES ( info_file_seq.nextval, #{infoNo}, #{infoOriginName}, #{infoStroedName})
+	VALUES ( info_file_seq.nextval, #{infoNo}, #{infoOriginName}, #{infoStoredName})
  
  </insert>  
  
@@ -385,7 +385,7 @@
 <!-- 정보게시판 게시글 내용 수정 -->	
 <update id="updateInfoBoard" parameterType="web.dto.Info">
   	UPDATE info SET
-	info_title = #{infoTitle}, info_content = #{infoContent}, info_state = #{infoState}, info_upload = CURRENT_DATE 
+	info_title = #{infoTitle}, info_url = #{infoUrl}, info_state = #{infoState}, info_upload = CURRENT_DATE 
 	WHERE info_no = #{infoNo}
 </update>
 

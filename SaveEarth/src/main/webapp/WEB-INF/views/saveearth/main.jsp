@@ -245,6 +245,10 @@ $(function() {
 <!-- 굿즈샵 예시보기 -->
 <h1 style="font-family: 'KBO-Dia-Gothic_bold'; text-align: center; padding-top: 100px;">🛍️굿즈샵🛍️</h1>
   
+
+
+
+
 	
 
 </tbody>
