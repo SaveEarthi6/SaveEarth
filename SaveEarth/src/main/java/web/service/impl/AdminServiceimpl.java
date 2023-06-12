@@ -868,7 +868,13 @@ public class AdminServiceimpl implements AdminService {
 			return paging;
 		}
 	
-	
+//		@Override
+//		public int getParticipantCount(Certification certification) {
+//			
+//			
+//			return adminDao.campParticipate(certification);
+//		}
+//	
 	
 	@Override
 	public void updateInfo(Info info, List<MultipartFile> files, MultipartFile thumb) {
@@ -1031,6 +1037,14 @@ public class AdminServiceimpl implements AdminService {
 	}
 
 	
+	
+
+	@Override
+		public int selectOne(int campno) {
+			
+			return adminDao.campParticipate(campno);
+		}	
+		
 	
 }
 	

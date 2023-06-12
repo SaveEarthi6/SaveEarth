@@ -93,7 +93,36 @@ form {
 <div class="btn-group" >
 
   	    말머리글 : 
-  	<input type= "text" name = "freeHead" value= "공지사항">
+  <select id="freeHead" onchange="selectfreeHead()" name="freeHead" >
+
+  	    <c:choose>
+        <c:when test="${freeHead eq '사담' }">
+			<option value= "사담" selected>사담</option>
+			<option value= "정보">정보</option>
+			<option value= "질문">질문</option>
+		</c:when>
+       
+        <c:when test="${freeHead eq '정보' }">
+			<option value= "사담">사담</option>
+			<option value= "정보" selected>정보</option>
+			<option value= "질문">질문</option>
+		</c:when>
+       
+		<c:when test="${freeHead eq '질문' }">
+			<option value= "사담">사담</option>
+			<option value= "정보">정보</option>
+			<option value= "질문" selected>질문</option>
+		</c:when>
+
+		<c:otherwise>
+			<option value= "사담">사담</option>
+			<option value= "정보">정보</option>
+			<option value= "질문">질문</option>
+		</c:otherwise>
+		
+      </c:choose>
+
+  </select>
   
 </div>
 

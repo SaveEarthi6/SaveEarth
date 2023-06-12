@@ -447,4 +447,11 @@
 
 
 	
+	<!-- 캠페인 참여 현황  -->
+	<select id="campParticipate" parameterType="int" resultType="int">
+   		SELECT COUNT(*) FROM  CERTIFICATION
+    	WHERE camp_no = #{campNo}
+	</select>
+	
+	
 </mapper>
