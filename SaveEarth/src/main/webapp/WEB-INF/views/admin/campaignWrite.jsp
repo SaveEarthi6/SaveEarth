@@ -44,7 +44,7 @@ function updateContents() {
 
 <style type="text/css">
 
-ㅋ
+
 @font-face {
 	font-family: 'KBO-Dia-Gothic_bold';
 	src:
