@@ -329,7 +329,7 @@ tr {
 	        <c:forEach var="item" items="${cartList}">
 	            <tr>
 	                <td><input type="checkbox" data-cartNo="${item.CART_NO}" value="${item.CART_NO}" name="cartArr"></td>
-					<td style="padding: 10px;"><img src="/upload/${item.CAMP_STORED_NAME }" width="200px" height="200px" id="thumnail"></td>
+					<td style="padding: 10px;"><img src="/upload/${item.PROD_STORED_NAME }" width="200px" height="200px" id="thumnail"></td>
 	                <td class="titleTag">${item.PROD_NAME}</td>
                     <td><span class="titleTag">사이즈 : </span>${item.PROD_SIZE} <br> <span class="titleTag">색상 : </span>${item.PROD_COLOR}</td>
 	                <td><span class="titleTag"><fmt:formatNumber pattern="###,###,###" value="${item.PROD_PRICE }"  /></span>원</td>

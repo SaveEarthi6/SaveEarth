@@ -19,187 +19,68 @@
 </head>
 
 <style type="text/css">
-* {
-  margin: 0px;
-  padding: 0px;
-  text-decoration: none;
-  font-family:sans-serif;
 
-}
-
+/* 여백 없애기 */
 body {
-  background-image:#34495e;
+	margin:0;
+	padding: 0;
 }
 
-.joinForm {
-  position:absolute;
-  width:400px;
-  height:400px;
-  padding: 30px, 20px;
-  background-color:#FFFFFF;
-  text-align:center;
-  top:40%;
-  left:50%;
-  transform: translate(-50%,-50%);
-  border-radius: 15px;
-}
-
-.joinForm h2 {
-  text-align: center;
-  margin: 30px;
-}
-
-.textForm {
-  border-bottom: 2px solid #adadad;
-  margin: 30px;
-  padding: 10px 10px;
-}
-
-
-.id {
-  width: 100%;
-  border:none;
-  outline:none;
-  color: #636e72;
-  font-size:16px;
-  height:25px;
-  background: none;
-}
-
-.pw {
-  width: 100%;
-  border:none;
-  outline:none;
-  color: #636e72;
-  font-size:16px;
-  height:25px;
-  background: none;
-}
-
-.name {
-  width: 100%;
-  border:none;
-  outline:none;
-  color: #636e72;
-  font-size:16px;
-  height:25px;
-  background: none;
-}
-
-.email {
-  width: 100%;
-  border:none;
-  outline:none;
-  color: #636e72;
-  font-size:16px;
-  height:25px;
-  background: none;
-}
-
-.nickname {
-  width: 100%;
-  border:none;
-  outline:none;
-  color: #636e72;
-  font-size:16px;
-  height:25px;
-  background: none;
-}
-
-.cellphoneNo {
-  width: 100%;
-  border:none;
-  outline:none;
-  color: #636e72;
-  font-size:16px;
-  height:25px;
-  background: none;
-}
-
- .btn-bottom { 
-  position:relative; 
-  left:2%; */
-  transform: translateX(-50%); 
-  margin-bottom: 40px; 
-  width:80%; 
-  height:40px; 
-  background: linear-gradient(125deg,#81ecec,#6c5ce7,#81ecec); 
-  background-position: center; 
-  background-size: 200%; 
-  color:white; 
-  font-weight: bold; 
-  border:none;
-  cursor:pointer; 
-  transition: 0.4s; 
-  display:inline; 
-  margin-left: 60px; 
- } 
-
-.btn-bottom:hover {
-  background-position: center;
-}
-
-form{
-margin: 0 auto;
-width: 700px;
-}
-
-/*  */
-/* 게시판 이미지 스타일 */
-.infoimage {
+/* 게시판 메인 이미지 스타일 */
+.freeimage {
+	/* 이미지랑 네비게이션바 띄우기 */
 	position: relative;
+	width: 100%;
+	height: 500px;
 }
 
-/* '정보게시판' 문구 스타일 */
-.info {
+/* 이미지 안에 자유게시판 문구 스타일 */
+.free {
 	position: absolute;
-	top: 38%; 
-	left: 45%; 
-	color: #fff; 
+	top: 38%;
+	left: 45%;
+	color: #fff;
 	font-weight: bold;
 	font-size: 50px;
-    font-family: 'KBO-Dia-Gothic_bold';
+	font-family: 'KBO-Dia-Gothic_bold';
 }
 
-/* 폰트 스타일 */
+
+/* 검색창 스타일 */
+input {
+	width: 100%;
+	border: 1px solid #bbb;
+	border-radius: 8px;
+	font-size: 14px;
+}
+
+/* '자유게시판'문구 폰트 스타일 */
 @font-face {
-    font-family: 'KBO-Dia-Gothic_bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff') format('woff');
-    font-weight: 700;
-    font-style: normal;
+	font-family: 'KBO-Dia-Gothic_bold';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff')
+		format('woff');
+		
+	font-weight: 700;
+	font-style: normal;
 }
 
-/* 게시판 분류 버튼 스타일 */
-.nav button {  
-  	margin-left: 30px;  
-	margin-top: 20px;  
- 	width: 100px;  
-  }  
+/* 말머리글 (드롭다운) 크기 늘리기 */
+select {
+	width:100px;
+}
 
-
-/* 게시글 분류 전체(div) 스타일 */
-.nav { 
-<<<<<<< HEAD
-	margin: 0 auto;
-	margin-left:615px; 
-=======
- 	margin: 0 auto; 
-    width: fit-content; 
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
- } 
-
-/* 게시물 전체 감싸는 태그 */
-.row {
-	text-align: center;
-	margin-bottom: 50px;
-	cursor: pointer;
+.head {
+	padding-left: 1200px;
+	padding-top: 50px;
+	
 }
 
 /* 검색 전체 div태그 스타일 */
 .search {
 	text-align: center;
 	width: 100%;
-	height: 100px;
+	height: 290px;
 }
 
 /* 검색창 스타일 */
@@ -208,8 +89,6 @@ width: 700px;
 	height: 30px;
 	font-size: 18px;
 	border: 1px solid #ccc;
-	margin-top: 10px;
-/* 	border-bottom: 1px black solid; */
 }
 
 /* 검색창 버튼 스타일 */
@@ -222,22 +101,43 @@ width: 700px;
 	border-radius: 15px;
 	color: #fff;
 	cursor: pointer;
+	vertical-align: middle;
 }
 
 /* 검색아이콘 이미지 */
 .search_icon {
+	margin-top:3px;
+	margin-bottom:3px;
 	width: 20px;
 	height: 20px;
-	margin-bottom: 3px;
-	color: white;
 }
 
-/* 검색창 스타일 */
-input {
-	width: 100%;
-	border: 1px solid #bbb;
-	border-radius: 8px;
-	font-size: 14px;
+/* 게시판 목록 */
+#board {
+	width:1300px;
+	
+	margin-top: 100px;
+	
+	margin-left:auto;
+	margin-right:auto;
+	
+	text-align: center;
+}
+
+.nav button {  
+  	margin-left: 30px;  
+	margin-top: 20px;  
+ 	width: 100px;  
+  }  
+
+
+/* 게시글 분류 전체(div) 스타일 */
+.nav { 
+ 	margin: 0 auto; 
+    width: fit-content;
+ } 
+.main{
+	height: 412px;
 }
 
 </style>
@@ -248,35 +148,39 @@ input {
 <div class="nav">
 <a href="./update"><button type="button" class="btn btn-outline-success" id ="top">회원정보 수정</button></a>
 <a href="./delete"><button type="button" class="btn btn-outline-success" id ="top">회원정보 탈퇴</button></a>
-<a href="./board"><button type="button" class="btn btn-outline-success" id ="top">작성글<br>보기</button></a>
+
+
 <a href="./order"><button type="button" class="btn btn-outline-success" id ="top">주문내역 확인</button></a>
+
+<a href="./board"><button type="button" class="btn btn-outline-success" id ="top">작성글<br>보기</button></a>
 <a href="./comment"><button type="button" class="btn btn-outline-success" id ="top">작성 댓글 보기</button></a>
 </div>
 
 <br>
 
-<div class="container">
+<div class="main">
+<table id= "board" class= "table table-hover text-center">
 
-<section id="content">
-   
-   <ul class="orderList">
-    <c:forEach items="${orderList}" var="orderList">
-    <li>
-    <div>
-     <p><span>주문번호 <a href="/shop/orderView?n=${orderList.orderNo}">${orderList.orderNo}</a></p>
-     <p><span>수령인 ${orderList.orderRec}</p>
-     <p><span>주소 (${orderList.orderAddrPostcode}) ${orderList.orderAddr} ${orderList.orderAddrDetail}</p>
-     <p><span>가격 <fmt:formatNumber pattern="###,###,###" value="${orderList.orderPrice}" /> 원</p>
-    </div>
-    </li>
-    </c:forEach>
-   </ul>
+	<tr style= "background-color: #59A8D9; color: white;">
+		<th style="width: 20px;">주문번호</th>
+		<th style="width: 20px;">수령인</th>
+		<th style="width: 20px;">주소</th>
+		<th style="width: 20px;">가격</th>
+	</tr>
+	
+<tbody>
+<c:forEach items="${orderList }" var="orderList">
+			<tr>
+				<td> <a href="/shop/orderView?n=${orderList.orderNo}">${orderList.orderNo} </a></td>
+				<td> ${orderList.orderRec} </td>
+				<td> (${orderList.orderAddrPostcode}) ${orderList.orderAddr} ${orderList.orderAddrDetail} </td>
+				<td> <fmt:formatNumber pattern="###,###,###" value="${orderList.orderPrice}" /> 원 </td>
+			</tr>
+</c:forEach>
+</tbody>
 
-</section>
-
+</table>
 </div>
-
-
 
 
 </body>

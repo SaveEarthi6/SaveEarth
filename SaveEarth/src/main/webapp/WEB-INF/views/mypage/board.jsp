@@ -76,7 +76,7 @@ select {
 .search {
 	text-align: center;
 	width: 100%;
-	height: 100px;
+	height: 290px;
 }
 
 /* 검색창 스타일 */
@@ -142,8 +142,11 @@ select {
 <div class="nav">
 <a href="./update"><button type="button" class="btn btn-outline-success" id ="top">회원정보 수정</button></a>
 <a href="./delete"><button type="button" class="btn btn-outline-success" id ="top">회원정보 탈퇴</button></a>
-<a href="./board"><button type="button" class="btn btn-outline-success" id ="top">작성글<br>보기</button></a>
+
+
 <a href="./order"><button type="button" class="btn btn-outline-success" id ="top">주문내역 확인</button></a>
+
+<a href="./board"><button type="button" class="btn btn-outline-success" id ="top">작성글<br>보기</button></a>
 <a href="./comment"><button type="button" class="btn btn-outline-success" id ="top">작성 댓글 보기</button></a>
 </div>
   
@@ -176,17 +179,6 @@ select {
 </tbody>
 
 </table>	
-
-<!-- 검색창 -->
-<div>
-	<form action="/free/search?freeHead=${freeHead }&keyword=${keyword }" method="get">
-	    <div class="search">
-	        <input type="text" name="keyword" class="search_input"
-	        placeholder="검색어를 입력해주세요" value=${keyword }>
-	        <button class="search_btn" style="margin-bottom: 3px;"><i class="bi bi-search"></i></button>
-	    </div>
-	</form>
-</div>
 
 <span class="float-end mb-3">${paging.totalCount }</span>
 <div class="clearfix"></div>

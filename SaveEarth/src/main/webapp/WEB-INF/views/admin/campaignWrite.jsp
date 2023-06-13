@@ -75,7 +75,7 @@ form {
 
 <div class="container">
 
-<h1 style= "text-align: center;">글쓰기</h1>
+<h1 style= "text-align: center;">캠페인 게시판 글쓰기</h1>
 
 <div class="col-8 mx-auto">
 

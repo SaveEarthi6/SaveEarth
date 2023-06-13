@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import oracle.jdbc.proxy.annotation.Post;
 import web.dto.Admin;
 import web.dto.Campaign;
 import web.dto.CampaignFile;
@@ -385,7 +386,7 @@ public class AdminController {
 	  //관리자 페이지 상품목록 글쓰기 Post
 	   @PostMapping("/productWrite")
 	   public String adminProductWritePost(HttpSession session, Product product, @RequestParam(required = false) List<MultipartFile> files,
-//			   @RequestParam(required = false) List<MultipartFile> otherfiles,
+			   @RequestParam(required = false) List<MultipartFile> otherfiles,
 		         Member member, Model model, ProdOption prodOption) {
 	      System.out.println("상품목록 글쓰기 POST");
 	      
@@ -398,10 +399,12 @@ public class AdminController {
 	      System.out.println("product에 들어있는거 :" + product);	
 	      System.out.println("files에 들어있는거 :" + files);	
 	      System.out.println("product에 들어 있는거" + prodOption); 
+	      System.out.println("otherfiles에들어있는거"+otherfiles);
 	      product.setAdminNo(memberInfo.getAdminNo());
 	      
 	      adminService.productnWrite(product, files, memberInfo,prodOption);
-	      
+
+	      adminService.insertOtherfiles(product,otherfiles);
 	      
 	      return "redirect:./product";
 	      
@@ -663,6 +666,26 @@ public class AdminController {
 			      
 			      return "redirect:./inquiry";
 			   
+		   }
+		   
+		   @GetMapping("addopt")
+		   public void addopt(Model model) {
+			   //상품 번호 상품이름 가져오기
+			   List<Map<String, Object>> ProdNoName = adminService.getProdNoName();
+			   
+			   
+			   model.addAttribute("ProdNoName",ProdNoName);
+			  
+		   }
+		   
+		   @PostMapping("addopt")
+		   public String addopt( ProdOption prodOption) {
+			   System.out.println(prodOption);
+			   logger.info("{}",prodOption);
+			   
+			   adminService.addopt(prodOption);
+			   
+			   return "redirect:./addopt";
 		   }
 		   
 		   
