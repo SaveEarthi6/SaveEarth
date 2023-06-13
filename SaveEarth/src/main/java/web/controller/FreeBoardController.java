@@ -115,6 +115,7 @@ public class FreeBoardController {
 		logger.info("id {}", loginId);
 		
 		Member memberInfo = memberService.info(loginId);
+		
 		model.addAttribute("id", loginId);
 		model.addAttribute("memberInfo", memberInfo);
 		
@@ -197,7 +198,7 @@ public class FreeBoardController {
 		//자유게시판 내용 수정 + 파일
 		freeService.updateFree(freeBoard, files,freeFile);
 		
-		return "redirect:/free/main";
+		return "redirect:/free/view?freeNo="+freeBoard.getFreeNo();
 		
 	}
 	
@@ -318,6 +319,22 @@ public class FreeBoardController {
 		
 	}
 	
+	@RequestMapping("/free/commUpdate")
+	public void updateComm(FreeComment comment, Model model) {
+		
+		logger.info("551555555555555555555comment {}", comment);
+		
+		freeService.updateComment(comment);
+		
+		List<Map<String, Object>> commList = freeService.getCommentByFreeNo(comment.getFreeNo());
+		
+		logger.info("33333333333commList {}", commList);
+		
+		model.addAttribute("commList", commList);
+		
+		
+	}
+
 	
 	
 }

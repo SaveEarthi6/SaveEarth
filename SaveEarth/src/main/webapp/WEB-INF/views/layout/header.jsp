@@ -69,8 +69,8 @@ body {
 
 /* 하단(footer) 스타일 */
 #footer {
- 	background-color: #7CA621; 
- 	color: white;
+ 	background-color: #E1E1E1; 
+ 	color: black;
 }
 
 /* 네비게이션바 전체 스타일 */
@@ -103,7 +103,7 @@ body {
 #logo {
 	text-align: center;
 	width:500px;
-	height:115px;
+	height:110px;
 	margin-bottom: 50px;
 }
 
@@ -148,7 +148,7 @@ button{ cursor: pointer; } /* 모든 버튼에 마우스손모양 처리 */
 	<div id="wrap">
 	<a href="../saveearth/main"><img id="logo" src="../../resources/img/logo2.png"></a>
 	<c:if test="${empty isLogin }">
-<div>
+<div style= "font-family: GmarketSansMedium">
 	<a href="/member/login" class="lefttop">로그인</a>
 	<a href="/admin/login"	class="righttop">관리자 로그인 </a>
 	<a href="/goods/cart" class="top";>장바구니</a>

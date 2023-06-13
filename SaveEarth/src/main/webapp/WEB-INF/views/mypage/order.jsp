@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 
 <c:import url="../layout/header.jsp"></c:import>
@@ -242,11 +243,33 @@ input {
 <div class="nav">
 <a href="./update"><button type="button" class="btn btn-outline-success" id ="top">회원정보 수정</button></a>
 <a href="./delete"><button type="button" class="btn btn-outline-success" id ="top">회원정보 탈퇴</button></a>
-<a href="./board"><button type="button" class="btn btn-outline-success" id ="top">작성글<br> 보기</button></a>
-<a href="./order"><button type="button" class="btn btn-outline-success" id ="top">주문내역 수정</button></a>
+<a href="./board"><button type="button" class="btn btn-outline-success" id ="top">작성글<br>보기</button></a>
+<a href="./order"><button type="button" class="btn btn-outline-success" id ="top">주문내역 확인</button></a>
+<a href="./comment"><button type="button" class="btn btn-outline-success" id ="top">작성 댓글 보기</button></a>
 </div>
 
 <br>
+
+<div class="container">
+
+<section id="content">
+   
+   <ul class="orderList">
+    <c:forEach items="${orderList}" var="orderList">
+    <li>
+    <div>
+     <p><span>주문번호 <a href="/shop/orderView?n=${orderList.orderNo}">${orderList.orderNo}</a></p>
+     <p><span>수령인 ${orderList.orderRec}</p>
+     <p><span>주소 (${orderList.orderAddrPostcode}) ${orderList.orderAddr} ${orderList.orderAddrDetail}</p>
+     <p><span>가격 <fmt:formatNumber pattern="###,###,###" value="${orderList.orderPrice}" /> 원</p>
+    </div>
+    </li>
+    </c:forEach>
+   </ul>
+
+</section>
+
+</div>
 
 
 

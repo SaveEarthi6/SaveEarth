@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자 정보게시판 글쓰기</title>
+<title>관리자 페이지 상품등록</title>
 
 <!-- 스마트 에디터 2 로드 -->
 <script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js"></script>
@@ -30,17 +30,20 @@ $(function() {
 		$("form").submit()
 		
 	})
-	
-	
-	
+
 })
+
 
 function updateContents() {
 	//스마트 에디터에 작성된 내용을 textarea#content에 반영한다
 	oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", [])
 }
 
+
+
 </script>
+
+
 
 <style type="text/css">
 
@@ -61,73 +64,45 @@ h1 {
 	font-weight: bold;
 	font-size: 50px;
 	font-family: 'KBO-Dia-Gothic_bold';
-	margin-bottom: 30px;
 }
 
 form {
 	font-weight: bold;
 }
 
-#notice {
+#freeHead {
 	border: 1px solid #ccc;
 }
 
 </style>
 
-<div class="container">
+<div class="container"></div>
 
-<h1 style= "text-align: center;">정보게시판 글쓰기</h1>
+<h1 style= "text-align: center;">문의 답변</h1>
 
 <div class="col-8 mx-auto">
 
-<form action="./infoWrite" method="post" enctype="multipart/form-data">
+<form action="./inquiryWrite" method="post">
 
-<div>
-	작성자 아이디 : ${memberInfo.adminId }
-</div>
-
-<div>
-	닉네임 : ${memberInfo.adminName }
-</div>
-
-<div>
-말머리글 :<input type="text" id="infoState" name="infoState" class="form-control" style="width: 90px;" value="정보">
- </div>
-
-
-<!-- 글쓰기 폼 (웹 에디터) -->
-<div class="form-group" style= "margin-top: 50px">
-	<label class="form-label" for="title">제목</label>
-	<input type="text" id="title" name="infoTitle" class="form-control">
-</div>
 
 <div class="form-group" style= "margin-top: 50px">
-	<label class="form-label" for="content">출처</label>
-	<input type="text" id="url" name="infoUrl" class="form-control">
+	<label class="form-label" for="inqAnswerContent">답변 내용</label>
+	<input type="text" id="inqAnswerContent" name="inqAnswerContent" class="form-control">
+	<input type="hidden" id="inqNo" name="inqNo" value="${inqNo }">
 </div>
 
-<div class="form-group mb-3" style= "margin-top: 50px">
-	<label class="form-label" for="file">썸네일</label>
-	<input type="file" id="file" name="thumb" class="form-control">
-</div>
 
-<div class="form-group mb-3" style= "margin-top: 20px;">
-	<label class="form-label" for="file">첨부파일</label>
-	<input type="file" id="file" name="files" class="form-control" multiple="multiple">
-</div>
-
-<!-- 글쓰기 작성, 취소 버튼 -->
-<div style="text-align: center; margin-bottom: 30px;">
-	<button class="btn btn-success" id="btnWrite">작성</button>
-	<input type="reset" id="cancel" class="btn btn-danger" value="취소">
-</div>
-
+<button class="btn btn-success" id="btnWrite">작성</button>
 </form>
 
-</div>
+
+
+<a href="/admin/product"><button type="reset" id="cancel" class="btn btn-danger">취소</button></a>
+
+
+
 
 </div><!-- container end -->
-
 <!-- 웹에디터 연결 -->
 <script type="text/javascript">
 var oEditors = [];

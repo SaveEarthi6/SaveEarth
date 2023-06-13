@@ -46,6 +46,7 @@
 		
 			<c:forEach var="prod" items="${prodList }" begin="0" end="2">
 			<div id="prod" class="col">
+			
 			<td><a href = "./goodsDelete?prodNo=${prod.PROD_NO}"><button id="btnDelete" class="btn btn-danger">삭제</button></a></td>
 			<a href="/goods/detail?prodno=${prod.PROD_NO }" id="campTag">
 			

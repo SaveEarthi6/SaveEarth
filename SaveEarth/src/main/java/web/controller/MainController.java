@@ -41,12 +41,14 @@ public class MainController {
 	public void main(Model model) {
 		logger.info("/saveearth/main [GET]");
 		
+		//퀴즈
 		List<Quiz> quiz = mainService.selectAllQuiz();
 		
 		logger.info("{}", quiz);
 				
 		model.addAttribute("quiz", quiz);
 		
+		//캘린더 가져오기
 		List<Calendar> calList = mainService.getCalendar();
 		
 		for(Calendar c : calList) {
@@ -54,13 +56,18 @@ public class MainController {
 		}
 		
 		model.addAttribute("calList", calList);
+		
+		//상품 가져오기
+		List <Map<String, Object>> product = mainService.getProduct();
+		
+		model.addAttribute("product", product);
+		
+		//캠페인 참여 가져오기
+		List<Map<String, Object>> cert = mainService.getCert();
+		
+		model.addAttribute("cert", cert);
 	}
 	
-	
-//	@GetMapping("/main")
-//	public void calendarGet(Model model) {
-//		logger.info("/saveearth/main [GET]");
-//		
-//	}
+
 
 }

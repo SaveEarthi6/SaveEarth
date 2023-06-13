@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import oracle.net.aso.f;
 import web.controller.AdminController;
 import web.dao.face.AdminDao;
+import web.dao.face.FreeDao;
 import web.dto.Admin;
 import web.dto.Calendar;
 import web.dto.Campaign;
@@ -29,6 +30,8 @@ import web.dto.Info;
 import web.dto.InfoFile;
 import web.dto.InfoThumbnail;
 import web.dto.Member;
+import web.dto.ProdInq;
+import web.dto.ProdInqAnswer;
 import web.dto.ProdOption;
 import web.dto.Product;
 import web.dto.ProductFile;
@@ -604,13 +607,12 @@ public class AdminServiceimpl implements AdminService {
 		logger.info("info {}", info);
 		logger.info("files {}", files);
 		
-		
+		//게시글 내용 삽입
 		adminDao.insertInfo(info);
 		
-		//파일이 없을 때 파일 삽입하는 메소드 처리되지 않도록 
-
 
 		//썸네일
+		//썸네일 없을 때 썸네일 삽입하는 메소드 처리되지 않도록 
 		if(thumb.getSize() <= 0) {
 			logger.info("0보다 작음, 처리 중단");
 			return;
@@ -1005,8 +1007,6 @@ public class AdminServiceimpl implements AdminService {
 		infoThumb.setInfoNo(info.getInfoNo());
 		infoThumb.setThumbOriginName(thumb.getOriginalFilename());
 		infoThumb.setThumbStoredName(storedName1);
-		//여기서 에러
-		//				freeFiles.setFreeFileNo(freeFile.get(i).getFreeFileNo());
 		logger.info("infoThumb : {}", infoThumb );
 
 		//썸네일 삭제 후 삽입
@@ -1036,6 +1036,41 @@ public class AdminServiceimpl implements AdminService {
 		return adminDao.selectFile(infoNo);
 	}
 
+	@Override
+	public int deleteComm(int commNo) {
+	
+		int res = adminDao.deleteComment(commNo);
+		
+		return res;
+		
+	}
+	
+	@Override
+	public List<Map<String, Object>> getCommentByFreeNo(int freeNo) {
+		
+		List<Map<String, Object>> commList = adminDao.selectCommByFreeNo(freeNo);
+		
+		return commList;
+	}
+	
+	@Override
+	public List<Map<String, Object>> getComment(Free freeBoard) {
+		return adminDao.selectComment(freeBoard);
+	}
+	
+	@Override
+	public List<ProdInq> inquiryList(ProdInq prodinq) {
+		return adminDao.ProdInq(prodinq);
+	}
+
+	@Override
+	public void inquiryWrite(ProdInqAnswer prodInqAnswer) {
+		adminDao.prodInqAnswer(prodInqAnswer);
+		
+	}
+
+
+
 	
 	
 
@@ -1044,6 +1079,11 @@ public class AdminServiceimpl implements AdminService {
 			
 			return adminDao.campParticipate(campno);
 		}	
+	
+	@Override
+	public void updateinquire(ProdInqAnswer prodInqAnswer) {
+		adminDao.updateinquire(prodInqAnswer);
+	}
 		
 	
 }

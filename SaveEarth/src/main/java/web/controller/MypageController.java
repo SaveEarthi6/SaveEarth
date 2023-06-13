@@ -21,8 +21,11 @@ import org.springframework.web.servlet.ModelAndView;
 import web.dto.Free;
 import web.dto.FreeComment;
 import web.dto.Member;
+import web.dto.Order;
 import web.service.face.FreeService;
+import web.service.face.GoodsService;
 import web.service.face.MemberService;
+import web.service.face.MypageService;
 import web.util.Paging;
 
 
@@ -32,6 +35,8 @@ public class MypageController {
 	
 	@Autowired MemberService memberService;
 	@Autowired FreeService freeService;
+	@Autowired GoodsService goodsService;
+	@Autowired MypageService mypageService;
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -127,20 +132,40 @@ public class MypageController {
 
 	}
 	
-	@RequestMapping("/order")
-	public void mypageOrder() {
-		logger.info("/mypage/order");
-	}
 	
+	//마이페이지 - 내가 내가 쓴 댓글 확인
 	@RequestMapping("/comment")
-	public void mypagecomment(HttpSession session, Model model, FreeComment freeComment) {
+	public void mypagecomment(Model model, FreeComment freeComment) {
 		System.out.println("마이페이지 내가 쓴 댓글 보기");
 		
-		String loginId = (String) session.getAttribute("loginId");
-		System.out.println("loginId에 들어있는거 : " + loginId);
+		
+		List<FreeComment> list = mypageService.commitList(freeComment);
+		
+		System.out.println("list안에 들어있는거 : " + list );
+		System.out.println("freeComment 안에 들어있는거 : "+freeComment);
+		 model.addAttribute("comment", list);
+		
+	}
+	
+	//마이페이지 - 내가 쓴 댓글 삭제 
+	@RequestMapping("/commentDelete")
+	public String mypagecommentDelete(FreeComment cammNo) {
+		System.out.println("마이페이지 내가 쓴 댓글 삭제");
+		
+		mypageService.deleteComment(cammNo);
 		
 		
+		return "redirect: ./comment";
+	}
+	
+	//주문목록 불러오기
+	@RequestMapping("/order")
+	public void orderList(HttpSession session, Model model) {
+		logger.info("/goods/orderList [GET]");
 		
+		List<Order> orderList = goodsService.orderList((int)session.getAttribute("loginNo"));
+		
+		model.addAttribute("orderList", orderList);
 	}
 
 }
