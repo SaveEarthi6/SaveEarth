@@ -54,6 +54,9 @@ h1 {
 
 </style>
 
+	<div class="nav2">
+		<a href = "/admin/productWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
+	</div>
 <div class="nav">
 <h1>상품 관리</h1>
 </div>
@@ -122,12 +125,11 @@ h1 {
 			</div>
 			</c:forEach>
 		
-	<div class="nav2">
-		<a href = "/admin/productWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
-	</div>
+
 
 <%-- <span class="float-end mb-3">${paging.totalCount }</span> --%>
 <div class="clearfix"></div>
+
 
 <div>
 	<ul class="pagination pagination-sm justify-content-center">
