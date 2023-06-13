@@ -112,6 +112,7 @@ $(function() {
       var answer = $(this).data("no");
       alert("정답은 " + answer + " 입니다❣️");
     }
+      $(location).attr('href', './main');
   });
 });
 </script>
@@ -238,9 +239,9 @@ $(function() {
 <!-- 퀴즈폼 만들기 --> 
 <!-- <div style="background-color: #D8E6EB; "> -->
 <div>
+  <a name="up"></a>
  <h1 style="font-family: 'KBO-Dia-Gothic_bold'; text-align: center; padding-top: 100px;  padding-bottom: 30px;">🎲랜덤 퀴즈🎲</h1>
   <form action="/saveearth/main" method="get">
-  
   <div id = "quizForm" >
   <c:forEach items="${quiz }" var="quiz" varStatus="status">
   
@@ -254,7 +255,7 @@ $(function() {
            
            <br>
            
-     	<button type="button" id="answer" data-no="${quiz.quizAnswer } "  style="font-family:omyu_pretty;">정답확인</button>
+     	<a href="#up"><button type="button" id="answer" data-no="${quiz.quizAnswer } "  style="font-family:omyu_pretty;">정답확인</button></a>
   	</c:if>
   	  	
   </c:forEach>

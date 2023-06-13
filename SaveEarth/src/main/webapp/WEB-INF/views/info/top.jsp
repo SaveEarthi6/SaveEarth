@@ -172,7 +172,7 @@ function selectInfo() {
 
 	<div class="nav">
 		<button type="button" class="btn btn-outline-success" id="infobtn" onclick="selectInfo()">정보</button>
-		<button type="button" class="btn btn-success" id="freebtn" onclick="selectFree()">자유</button>
+		<button type="button" class="btn btn-success" id="freebtn" onclick="selectFree()">자유 TOP</button>
 	</div>
 
 <h2 style="text-align: center; font-family: KBO-Dia-Gothic_bold ; color: #2B4DA2" >⭐자유게시판 추천수 TOP 10⭐</h2>
@@ -186,7 +186,7 @@ function selectInfo() {
 		<th style="width: 10%;">말머리글</th>
 		<th style="width: 20%;">작성자</th>
 		<th style="width: 30%; text-align:center">제목</th>
-		<th style="width: 10%;">조회수</th>
+		<th style="width: 10%;">추천수</th>
 		<th style="width: 20%;">작성일</th>
 	</tr>
 
@@ -215,7 +215,7 @@ function selectInfo() {
             
             </c:choose>
 		<td class="text-start" style="text-align:center"><a href="/free/view?freeNo=${recommend.FREE_NO }">${recommend.FREE_TITLE }</a></td>
-		<td>${recommend.FREE_VIEWS }</td>
+		<td>${recommend.RECOMMEND }</td>
 		<td><fmt:formatDate value="${recommend.FREE_CREATE}" pattern="yy-MM-dd HH:mm:ss"/></td>
 	</tr>
 	

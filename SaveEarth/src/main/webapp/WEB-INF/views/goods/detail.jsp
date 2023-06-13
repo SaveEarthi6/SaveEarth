@@ -90,15 +90,22 @@ $(function(){
 	font-size: 50px;
 	font-family: 'KBO-Dia-Gothic_bold';
 }
+.goodsimage{
+	width: 310px;
+	height: 225px;	
+	}
 
 
+	.summary{
+		width:550px;
+	}
 
 	.content{
 		margin: 10%;
 		margin-top: 0;
 	}
 	.title{
-		margin: 10%;
+		margin: 2%;
 		padding: 16%;
 		border-bottom: 1px solid;
 		margin-top: 0;
@@ -175,7 +182,7 @@ tbody{
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 50%;
+  width: 42%;
 }
 
 .close {
@@ -220,6 +227,9 @@ tbody{
 		float: right;
 		
 		margin-right: 10%;
+}
+#btn_test1,#btn_test2, .inq{
+		color: white;
 }
 
 
@@ -327,9 +337,9 @@ tbody{
 			    <span>원</span>
 		    </div>
 		    
-		    <div class="button" id="btn_group">
+		    <div class="button" id="btn_group" style="width : 200px">
 		   
-				<input type="button" class="cart" value="장바구니" onclick="addToCart()" id="btn_test1">
+				<input type="button" class="cart btn btn-info"  value="장바구니" onclick="addToCart()" id="btn_test1">
 				<input type="hidden" name="prodCount" class="prodCount">
 				    
 				<form action="./detailbuy" method="post">
@@ -337,7 +347,7 @@ tbody{
 					<input type="hidden" name="prodCount" value="">
 					<input type="hidden" name="prodOptNo" value="">
 					
-					<button type="submit" class="order" id="btn_test2" onclick="detailbuy()" >구매하기</button>
+					<button type="submit" class="order btn btn-info" id="btn_test2" onclick="detailbuy()" >구매하기</button>
 			    </form>
 			 </div>
 		 </div>
@@ -356,7 +366,7 @@ tbody{
 	
 	<div class="imagetest">
 		<c:forEach items="${detailfiles}" var="files">
-			<img src="/upload/${files.PROD_STORED_NAME }" alt="상품이미지" class="goodsimage" style="width: 52%">
+			<img src="/upload/${files.PROD_STORED_NAME }" alt="상품이미지" class="goodsotherimage" style="width: 52%">
 		</c:forEach>
 	</div>
 	
@@ -366,9 +376,9 @@ tbody{
 	<div style="padding : 100px">
 	
 					<div>
-						<div class="inqtext" ><h3 >문의하기</h3></div>	
+						<div class="inqtext " ><h3 >문의하기</h3></div>	
 					<!-- 문의 모달버튼 -->
-						<div class="inqtext2" ><input type="button" id="openModal" class="inq" value="문의하기" onclick="inquire()"></div>   
+						<div class="inqtext2 " ><input type="button" id="openModal" class="inq btn btn-info" value="문의하기" onclick="inquire()"></div>   
 					</div>
 	</div>				
 <!-- 여기까지 -->	
@@ -412,7 +422,7 @@ tbody{
 	  <div class="modal-content">
 	    <span class="close">&times;</span>
 	    
-	    <form action="./writeInq" method="post">
+	    <form action="./writeInq" method="post" style="text-align: center">
 		    <div>
 		    	<h3>상품명: ${goodsDetail.PROD_NAME }</h3>
 		    </div>
@@ -432,7 +442,7 @@ tbody{
 	    	
 	    	<input type="hidden" name="prodNo" value="${goodsDetail.PROD_NO }">
 	    	<div class="inqsub">
-	    		<button >문의하기</button>
+	    		<button class="btn btn-info" >문의하기</button>
 	    	</div>
 	    </form>
 	    
@@ -458,13 +468,13 @@ function inquire() {
 		var btn = document.getElementById("openModal");
 		var span = document.getElementsByClassName("close")[0];
 
-		btn.onclick = function() {
+		 btn.onclick = function() { 
 		  modal.style.display = "block";
-		}
+		 } 
 
-		span.onclick = function() {
+		 span.onclick = function() { 
 		  modal.style.display = "none";
-		}
+	 	} 
 
 		window.onclick = function(event) {
 		  if (event.target == modal) {

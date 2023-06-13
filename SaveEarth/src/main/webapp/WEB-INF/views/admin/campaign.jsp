@@ -49,6 +49,14 @@ input {
    font-style: normal;
 }
 
+h1 {
+   margin-top:50px;
+   color: black;
+   font-weight: bold;
+   font-size: 50px;
+   font-family: 'KBO-Dia-Gothic_bold';
+}
+
 /* 말머리글 (드롭다운) 크기 늘리기 */
 select {
    width:100px;
@@ -86,6 +94,7 @@ select {
    color: #fff;
    cursor: pointer;
    vertical-align: middle;
+    
 }
 
 /* 검색아이콘 이미지 */
@@ -113,6 +122,11 @@ select {
     width: fit-content;
     
  } 
+
+.nav2{
+    margin: 0 auto;
+    margin-left: 1400px;
+}
  
   /* 게시판 분류 버튼 스타일 */
 .nav button {  
@@ -124,8 +138,8 @@ select {
  /* 글쓰기 버튼 스타일 */
 #write {
 	text-align: right;
-	margin-right: 100px;
-	margin-bottom: 20px;
+	margin-right: 121px;
+	margin-bottom: -64px;
 }
 
 
@@ -144,21 +158,19 @@ $(document).ready(function() {
 })
 </script>
 
+<div class="nav">
+<h1>게시판 관리</h1>
+</div>
 
 <br>
 <div class="nav">
 <a href="./free"><button type="button" class="btn btn-outline-success" id ="top">자유 게시판</button></a>
 <a href="./info"><button type="button" class="btn btn-outline-success" id ="top">정보 게시판</button></a>
-<a href="./campaign"><button type="button" class="btn btn-outline-success" id ="top">켐페인 게시판</button></a>
+<a href="./campaign"><button type="button" class="btn btn-outline-success" id ="top">캠페인 게시판</button></a>
 </div> 
 <br>
 
-<div id="write">
-<!-- 글쓰기 버튼 -->
-   <a href = "/admin/campaignWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
-</div>
    <!-- 게시판 -->
-
 <table id= "board" class= "table table-hover text-center">
    <tr style= "background-color: #59A8D9; color: white;">
       <th style="width: 20px;">글번호</th>
@@ -187,7 +199,11 @@ $(document).ready(function() {
 </table>   
 
 
-<span class="float-end mb-3">${paging.totalCount }</span>
+<div class="nav2">
+<!-- 글쓰기 버튼 -->
+   <a href = "/admin/campaignWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
+</div>
+<%-- <span class="float-end mb-3">${paging.totalCount }</span> --%>
 <div class="clearfix"></div>
 
 <div>

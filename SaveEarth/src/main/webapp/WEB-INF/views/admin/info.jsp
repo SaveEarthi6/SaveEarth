@@ -49,6 +49,14 @@ input {
    font-style: normal;
 }
 
+h1 {
+   margin-top:50px;
+   color: black;
+   font-weight: bold;
+   font-size: 50px;
+   font-family: 'KBO-Dia-Gothic_bold';
+}
+
 /* 말머리글 (드롭다운) 크기 늘리기 */
 select {
    width:100px;
@@ -114,6 +122,11 @@ select {
     
  } 
  
+.nav2{
+    margin: 0 auto;
+    margin-left: 1400px;
+}
+ 
   /* 게시판 분류 버튼 스타일 */
 .nav button {  
   	margin-left: 40px;  
@@ -173,20 +186,19 @@ $(document).ready(function() {
 })
 </script>
 
+<div class="nav">
+<h1>게시판 관리</h1>
+</div>
+
 
 <br>
 <div class="nav">
 <a href="./free"><button type="button" class="btn btn-outline-success" id ="freebtn">자유 게시판</button></a>
 <a href="./info"><button type="button" class="btn btn-outline-success" id ="infobtn">정보 게시판</button></a>
-<a href="./campaign"><button type="button" class="btn btn-outline-success" id ="campbtn">켐페인 게시판</button></a>
+<a href="./campaign"><button type="button" class="btn btn-outline-success" id ="campbtn">캠페인 게시판</button></a>
 </div> 
 
-<br>
-
-<div id="write">
-<!-- 글쓰기 버튼 -->
-   <a href = "/admin/infoWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
-</div>
+<br> <br>
 
 <!-- <h1>정보게시판</h1> -->
 
@@ -238,6 +250,11 @@ $(document).ready(function() {
 			
 		</div>
 		<div class="col-1"></div>
+</div>
+
+<div class="nav2">
+<!-- 글쓰기 버튼 -->
+   <a href = "/admin/infoWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
 </div>
 
 <%-- <span class="float-end mb-3">${paging.totalCount }</span> --%>

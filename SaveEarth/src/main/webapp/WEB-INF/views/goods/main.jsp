@@ -85,7 +85,7 @@
 
 <div style="text-align: center;">
 	<img class="goodsimage" src="../resources/img/goods.jpg">
-	<h1 class="goods">굿즈샵 메인</h1>
+	<h1 class="goods">굿즈샵</h1>
 </div>
 
 
@@ -145,9 +145,6 @@
 			</c:forEach>
 			
 		</div>
-		
-		
-		
 		<div class="col-1"></div>
 		</div>
 

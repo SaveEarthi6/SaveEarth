@@ -96,8 +96,31 @@
 	<td class="table-light">글번호</td><td colspan="3">${view.FREE_NO }</td>
 </tr>
 <tr>
+	<c:choose>
+	
+	<c:when test="${view.USER_ID != null}">
 	<td class="table-light">아이디</td><td>${view.USER_ID }</td>
+	
+	</c:when>
+	
+	<c:otherwise>
+	<td class="table-light">아이디</td><td>관리자</td>
+	</c:otherwise>
+
+	</c:choose>
+
+	<c:choose>
+	
+	<c:when test="${view.USER_NICK != null}">
 	<td class="table-light">닉네임</td><td>${view.USER_NICK }</td>
+	
+	</c:when>
+	
+	<c:otherwise>
+	<td class="table-light">닉네임</td><td>관리자</td>
+	</c:otherwise>
+
+	</c:choose>
 </tr>
 <tr>
 	<td class="table-light">조회수</td><td>${view.FREE_VIEWS }</td>

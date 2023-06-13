@@ -4,60 +4,79 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:import url="../layout/adminheader.jsp"/>
-<!DOCTYPE html>
 
-<style type="text/css">
+<style>
 
-#prod{
-	margin: 20px;
+@font-face {
+   font-family: 'KBO-Dia-Gothic_bold';
+   src:
+      url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff')
+      format('woff');
+      
+   font-weight: 700;
+   font-style: normal;
 }
 
-/* 글쓰기 버튼 스타일 */
-#write {
-	text-align: right;
-	margin-right: 100px;
-	margin-bottom: 20px;
+h1 {
+   margin-top:50px;
+   color: black;
+   font-weight: bold;
+   font-size: 50px;
+   font-family: 'KBO-Dia-Gothic_bold';
 }
 
-#addopt {
-	text-align: right;
-	margin-right: 100px;
-	margin-bottom: 20px;
-}
-
-.nav { 
- 	margin: 10px auto; 
-    width: fit-content;
-   	
- } 
-#campTitle {
+.nav{
 	margin: 10px auto;
-	width: 191px; 
+	width: fit-content;
 }
 
+.write{
+	text-align: right; 
+ 	margin-right: 100px; 
+ 	margin-bottom: 20px; 
+
+}
+
+.nav2 { 
+   margin: 0 auto;
+   margin-left: 1400px;
+} 
+
+#prodList {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.title2{
+    margin-left: 342px;
+
+}
 
 </style>
 
+	<div class="nav2">
+		<a href = "/admin/productWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
+	</div>
+	
+		<div class="nav2">
+		<a href = "/admin/addopt"><button type="button" class="btn btn-outline-success">상품옵션</button></a>
+	</div>
 <div class="nav">
 <h1>상품 관리</h1>
-</div>
- <div id=write>
-	<a href = "/admin/productWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
-</div>
- <div id=addopt>
-	<a href = "/admin/addopt"><button type="button" class="btn btn-outline-success">옵션추가</button></a>
 </div>
 
 	<div id="prodList" class="row">
 		<div class="col-1"></div>
 		
-		<div id="goods" class="row col-10">
+		<div id="infos" class="row col-10">
 		
 			<c:forEach var="prod" items="${prodList }" begin="0" end="2">
 			<div id="prod" class="col">
 			
-			<td><a href = "./goodsDelete?prodNo=${prod.PROD_NO}"><button id="btnDelete" class="btn btn-danger">삭제</button></a></td>
-			<a href="/goods/detail?prodno=${prod.PROD_NO }" id="campTag">
+			<div class="title2">
+				<td><a href = "./goodsDelete?prodNo=${prod.PROD_NO}"><button id="btnDelete" class="btn btn-danger">삭제</button></a></td>
+				<a href="/goods/detail?prodno=${prod.PROD_NO }" id="campTag">
+			</div>
 			
 			<c:if test="${prod.PROD_STORED_NAME ne null }">
 					<div><img alt="" src="/upload/${prod.PROD_STORED_NAME }" style="width: 400px; height: 300px;"></div>
@@ -75,39 +94,46 @@
 			</a>
 			</div>
 			</c:forEach>
-			
 		</div>
 		
 		<div class='col-1'></div>
 	</div>
 
-	<div id="prodList" class="row">
+  	<div id="prodList" class="row">
 		<div class="col-1"></div>
 		
-		<div id="camps" class="row col-10">
+		<div id="infos" class="row col-10">
 		
 			<c:forEach var="prod" items="${prodList }" begin="3" end="5">
 			<div id="prod" class="col">
-		
-			<td><a href = "./goodsDelete?prodNo=${prod.PROD_NO}"><button id="btnDelete" class="btn btn-danger">삭제</button></a></td>
-			<a href="/admin/productView?prodno=${prod.PROD_NO }" id="campTag">
-			<tr><tr>
-				<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
-				<div id="campTitle">
+			
+			<div class="title2">
+				<td><a href = "./goodsDelete?prodNo=${prod.PROD_NO}"><button id="btnDelete" class="btn btn-danger">삭제</button></a></td>
+				<a href="/goods/detail?prodno=${prod.PROD_NO }" id="campTag">
+			</div>
+			
+			
+			<a href="./detail?prodno=${prod.PROD_NO }" id="prodNo">
+			
+				<c:if test="${prod.PROD_STORED_NAME ne null }" >
+					<div><img alt="" src="/upload/${prod.PROD_STORED_NAME }" style="width: 400px; height: 300px; margin-bottom: 10px;"></div>
+				</c:if>	
+				<c:if test="${prod.PROD_STORED_NAME eq null }">
+					<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
+				</c:if>
+				<div id="goodsinfo">
 					<span id="titleTag">[${prod.PROD_NAME }]</span>
 					<span id="title">${prod.PROD_PRICE }원</span>
 				</div>
 			</a>
 			</div>
 			</c:forEach>
-			
-		</div>
 		
-		<div class='col-1'></div>
-	</div>
 
-<span class="float-end mb-3">${paging.totalCount }</span>
+
+<%-- <span class="float-end mb-3">${paging.totalCount }</span> --%>
 <div class="clearfix"></div>
+
 
 <div>
 	<ul class="pagination pagination-sm justify-content-center">
