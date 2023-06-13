@@ -178,8 +178,8 @@ width: 700px;
 
 /* 게시글 분류 전체(div) 스타일 */
 .nav { 
- 	margin-left: 100px; 
- 	margin-bottom: 50px; 
+ 	margin: 0 auto; 
+    width: fit-content;
  } 
 
 /* 게시물 전체 감싸는 태그 */
@@ -297,6 +297,7 @@ input {
 
 <body>
 <br>
+
 
 <div class="nav">
 <a href="./update"><button type="button" class="btn btn-outline-success" id ="top">회원정보 수정</button></a>

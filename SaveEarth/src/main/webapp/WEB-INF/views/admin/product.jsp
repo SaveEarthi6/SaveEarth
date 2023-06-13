@@ -5,9 +5,37 @@
 
 <c:import url="../layout/adminheader.jsp"/>
 <!DOCTYPE html>
-<h1>상품 관리</h1>
 
+<style type="text/css">
+
+#prod{
+	margin: 20px;
+}
+
+/* 글쓰기 버튼 스타일 */
+#write {
+	text-align: right;
+	margin-right: 100px;
+	margin-bottom: 20px;
+}
+
+.nav { 
+ 	margin: 10px auto; 
+    width: fit-content;
+   	
+ } 
+#campTitle {
+	margin: 10px auto;
+	width: 191px; 
+}
+
+
+</style>
+
+<div class="nav">
+<h1>상품 관리</h1>
 </div>
+ <div id=write>
 	<a href = "/admin/productWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
 </div>
 
@@ -54,7 +82,7 @@
 		
 			<td><a href = "./goodsDelete?prodNo=${prod.PROD_NO}"><button id="btnDelete" class="btn btn-danger">삭제</button></a></td>
 			<a href="/admin/productView?prodno=${prod.PROD_NO }" id="campTag">
-			
+			<tr><tr>
 				<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
 				<div id="campTitle">
 					<span id="titleTag">[${prod.PROD_NAME }]</span>
