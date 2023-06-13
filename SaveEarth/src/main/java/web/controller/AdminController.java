@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import oracle.jdbc.proxy.annotation.Post;
 import web.dto.Admin;
 import web.dto.Campaign;
 import web.dto.CampaignFile;
@@ -663,6 +664,26 @@ public class AdminController {
 			      
 			      return "redirect:./inquiry";
 			   
+		   }
+		   
+		   @GetMapping("addopt")
+		   public void addopt(Model model) {
+			   //상품 번호 상품이름 가져오기
+			   List<Map<String, Object>> ProdNoName = adminService.getProdNoName();
+			   
+			   
+			   model.addAttribute("ProdNoName",ProdNoName);
+			  
+		   }
+		   
+		   @PostMapping("addopt")
+		   public String addopt( ProdOption prodOption) {
+			   System.out.println(prodOption);
+			   logger.info("{}",prodOption);
+			   
+			   adminService.addopt(prodOption);
+			   
+			   return "redirect:./addopt";
 		   }
 		   
 		   
