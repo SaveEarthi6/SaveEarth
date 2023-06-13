@@ -162,14 +162,20 @@ form {
 </div>
 
 
-
-
-
-
 <div class="form-group mb-3" style= "margin-top: 50px">
-	<label class="form-label" for="file">대표 상품 이미지(대표이미지-먼저보여질 이미지 순서대로 파일첨부)</label>
-	<input type="file" id="file" name="files" class="form-control" multiple="multiple">
+	<label class="form-label" for="file">대표 상품 이미지(1장만 첨부)</label>
+	<input type="file" id="file" name="files" class="form-control" accept=".gif,.jpg,.png,.jpeg" multiple="multiple" >
 </div>
+
+<!-- test -->
+<div class="form-group mb-3" style= "margin-top: 50px">
+	<label class="form-label" for="otherfiles">나머지사진</label>
+	<input type="file" id="otherfiles" name="otherfiles" class="form-control"  multiple="multiple" accept=".gif,.jpg,.png,.jpeg" >
+</div>
+
+
+
+
 
 <!-- <div class="form-group mb-3" style= "margin-top: 50px"> -->
 <!-- 	<label class="form-label" for="otherfiles">상품 정보,이미지</label> -->

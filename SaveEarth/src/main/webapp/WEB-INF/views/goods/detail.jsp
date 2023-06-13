@@ -92,6 +92,9 @@ $(function(){
 }
 
 
+	.summary{
+		width:550px;
+	}
 
 	.content{
 		margin: 10%;
@@ -175,7 +178,7 @@ tbody{
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 50%;
+  width: 42%;
 }
 
 .close {
@@ -412,7 +415,7 @@ tbody{
 	  <div class="modal-content">
 	    <span class="close">&times;</span>
 	    
-	    <form action="./writeInq" method="post">
+	    <form action="./writeInq" method="post" style="text-align: center">
 		    <div>
 		    	<h3>상품명: ${goodsDetail.PROD_NAME }</h3>
 		    </div>
@@ -458,13 +461,13 @@ function inquire() {
 		var btn = document.getElementById("openModal");
 		var span = document.getElementsByClassName("close")[0];
 
-		btn.onclick = function() {
+		 btn.onclick = function() { 
 		  modal.style.display = "block";
-		}
+		 } 
 
-		span.onclick = function() {
+		 span.onclick = function() { 
 		  modal.style.display = "none";
-		}
+	 	} 
 
 		window.onclick = function(event) {
 		  if (event.target == modal) {

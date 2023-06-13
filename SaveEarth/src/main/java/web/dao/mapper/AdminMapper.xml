@@ -220,7 +220,7 @@
 		        SELECT *
 					FROM prod_file
 					WHERE (prod_no, prod_file_no) IN (
-					    SELECT prod_no, MAX(prod_file_no)
+					    SELECT prod_no, MIN(prod_file_no)
 					    FROM prod_file
 					    GROUP BY prod_no
 					)
@@ -253,6 +253,8 @@
       INSERT INTO prod_file (prod_file_no, prod_no, prod_origin_name, prod_stored_name) 
       	VALUES ( prod_file_no_seq.nextval, #{prodNo}, #{prodOriginName}, #{prodStroedName})
    </insert>
+
+      
    
    <insert id="insertProdoption" parameterType="web.dto.ProdOption">
          INSERT INTO prod_option (prod_opt_no, prod_no, prod_color, prod_size) 
