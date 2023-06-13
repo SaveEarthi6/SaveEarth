@@ -274,6 +274,11 @@ public List<Map<String, Object>> getComment(Free freeBoard);
     * @param prodOption
     */
    public void addopt(ProdOption prodOption);
+
+public void insertOtherfiles(Product product, List<MultipartFile> otherfiles);
+
+
+
    
 
 	

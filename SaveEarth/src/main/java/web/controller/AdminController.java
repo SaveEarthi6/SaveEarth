@@ -386,7 +386,7 @@ public class AdminController {
 	  //관리자 페이지 상품목록 글쓰기 Post
 	   @PostMapping("/productWrite")
 	   public String adminProductWritePost(HttpSession session, Product product, @RequestParam(required = false) List<MultipartFile> files,
-//			   @RequestParam(required = false) List<MultipartFile> otherfiles,
+			   @RequestParam(required = false) List<MultipartFile> otherfiles,
 		         Member member, Model model, ProdOption prodOption) {
 	      System.out.println("상품목록 글쓰기 POST");
 	      
@@ -399,10 +399,12 @@ public class AdminController {
 	      System.out.println("product에 들어있는거 :" + product);	
 	      System.out.println("files에 들어있는거 :" + files);	
 	      System.out.println("product에 들어 있는거" + prodOption); 
+	      System.out.println("otherfiles에들어있는거"+otherfiles);
 	      product.setAdminNo(memberInfo.getAdminNo());
 	      
 	      adminService.productnWrite(product, files, memberInfo,prodOption);
-	      
+
+	      adminService.insertOtherfiles(product,otherfiles);
 	      
 	      return "redirect:./product";
 	      
