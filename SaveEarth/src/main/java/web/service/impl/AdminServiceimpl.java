@@ -1084,6 +1084,19 @@ public class AdminServiceimpl implements AdminService {
 	public void updateinquire(ProdInqAnswer prodInqAnswer) {
 		adminDao.updateinquire(prodInqAnswer);
 	}
+
+	@Override
+	public List<Map<String, Object>> getProdNoName() {
+		
+		return adminDao.getProdNoName();
+	}
+
+	@Override
+	public void addopt(ProdOption prodOption) {
+		
+		adminDao.addopt(prodOption);
+		
+	}
 		
 	
 }

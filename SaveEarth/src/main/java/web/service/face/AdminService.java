@@ -261,6 +261,19 @@ public List<Map<String, Object>> getComment(Free freeBoard);
     * @param prodInqAnswer
     */
    public void updateinquire(ProdInqAnswer prodInqAnswer);
+
+   
+   /**
+    * 옵션 추가를 위한 번호랑 상품이름 뽑기
+    * @return
+    */
+   public List<Map<String, Object>> getProdNoName();
+
+   /**
+    * 상품 옵션 추가
+    * @param prodOption
+    */
+   public void addopt(ProdOption prodOption);
    
 
 	

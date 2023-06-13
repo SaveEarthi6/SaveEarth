@@ -95,11 +95,13 @@ $(function(){
 
 	.content{
 		margin: 10%;
+		margin-top: 0;
 	}
 	.title{
 		margin: 10%;
 		padding: 16%;
 		border-bottom: 1px solid;
+		margin-top: 0;
 	}
 	.left{
 		float: left;
@@ -264,7 +266,7 @@ tbody{
    
 <div>
 	<img class="freeimage" src="../resources/img/free.png">
-	<h1 class="free">자유게시판</h1>
+	<h1 class="free">굿즈샵</h1>
 </div>    
 
   
@@ -283,6 +285,9 @@ tbody{
 				</div>
 				<div >                            	
 				    <h3 class="prodprice">${goodsDetail.PROD_PRICE }원</h3>                              
+			    </div>
+			    <div>
+			    	<h3>${goodsDetail.PROD_DETAIL }</h3>
 			    </div>
 			</div> 		
 		              
