@@ -57,6 +57,10 @@ h1 {
 	<div class="nav2">
 		<a href = "/admin/productWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
 	</div>
+	
+		<div class="nav2">
+		<a href = "/admin/addopt"><button type="button" class="btn btn-outline-success">상품옵션</button></a>
+	</div>
 <div class="nav">
 <h1>상품 관리</h1>
 </div>
