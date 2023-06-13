@@ -174,7 +174,7 @@ function selectInfo() {
 
 <div class="nav">
 <button type="button" class="btn btn-success" id="infobtn" onclick="selectInfo()">정보</button>
-<button type="button" class="btn btn-outline-success" id="freebtn" onclick="selectFree()">자유</button>
+<button type="button" class="btn btn-outline-success" id="freebtn" onclick="selectFree()">자유 TOP</button>
 </div>
 
 		

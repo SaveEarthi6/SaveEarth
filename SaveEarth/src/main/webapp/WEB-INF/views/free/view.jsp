@@ -142,7 +142,7 @@
   	 </c:otherwise> 
   	 
 	 </c:choose> 
-      ㅣ 조회수 ${view.FREE_VIEWS }
+      ㅣ 조회수 ${view.FREE_VIEWS } ㅣ
 
     <!-- 추천 기능 버튼 -->
    <c:choose>
