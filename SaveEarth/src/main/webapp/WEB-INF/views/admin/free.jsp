@@ -121,11 +121,10 @@ select {
  	width: 300px;  
   }  
  
- /* 글쓰기 버튼 스타일 */
 #write {
 	text-align: right;
-	margin-right: 100px;
-	margin-bottom: 20px;
+	margin-right: 121px;
+	margin-bottom: -64px;
 }
 
 </style>
