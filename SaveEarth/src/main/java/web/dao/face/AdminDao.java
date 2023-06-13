@@ -285,6 +285,10 @@ public int campParticipate(int campno);
  * @param prodInqAnswer
  */
 public void updateinquire(ProdInqAnswer prodInqAnswer);
+
+public List<Map<String, Object>> getProdNoName();
+
+public void addopt(ProdOption prodOption);
    
 
 	
