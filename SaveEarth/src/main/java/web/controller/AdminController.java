@@ -13,10 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import oracle.jdbc.proxy.annotation.Post;
 import web.dto.Admin;
 import web.dto.Campaign;
 import web.dto.CampaignFile;
@@ -26,6 +28,8 @@ import web.dto.Info;
 import web.dto.InfoFile;
 import web.dto.InfoThumbnail;
 import web.dto.Member;
+import web.dto.ProdInq;
+import web.dto.ProdInqAnswer;
 import web.dto.ProdOption;
 import web.dto.Product;
 import web.service.face.AdminService;
@@ -133,9 +137,12 @@ public class AdminController {
 		// 상세보기 페이지 파일 조회
 //    FreeFile freeFile = freeService.getFreeFile(freeBoard);
 		List<FreeFile> freeFile = adminService.getFreeFile(freeBoard);
+		
+		List<Map<String,Object>> commContent = adminService.getComment(freeBoard);
 
 		logger.info("freeFile {}", freeFile);
 		model.addAttribute("freeFile", freeFile);
+		model.addAttribute("commContent", commContent);
 
 	}
 
@@ -379,7 +386,7 @@ public class AdminController {
 	  //관리자 페이지 상품목록 글쓰기 Post
 	   @PostMapping("/productWrite")
 	   public String adminProductWritePost(HttpSession session, Product product, @RequestParam(required = false) List<MultipartFile> files,
-//			   @RequestParam(required = false) List<MultipartFile> otherfiles,
+			   @RequestParam(required = false) List<MultipartFile> otherfiles,
 		         Member member, Model model, ProdOption prodOption) {
 	      System.out.println("상품목록 글쓰기 POST");
 	      
@@ -392,14 +399,12 @@ public class AdminController {
 	      System.out.println("product에 들어있는거 :" + product);	
 	      System.out.println("files에 들어있는거 :" + files);	
 	      System.out.println("product에 들어 있는거" + prodOption); 
+	      System.out.println("otherfiles에들어있는거"+otherfiles);
 	      product.setAdminNo(memberInfo.getAdminNo());
 	      
 	      adminService.productnWrite(product, files, memberInfo,prodOption);
 
-	      //--------------------------------------------------------------------
-	      //굿즈샵 옵션값 넣기 ~ 진행중
-	      
-	      
+	      adminService.insertOtherfiles(product,otherfiles);
 	      
 	      return "redirect:./product";
 	      
@@ -524,6 +529,17 @@ public class AdminController {
 		   return "redirect:./info";
 		   
 	   }
+	   
+	   @RequestMapping("/freecommdelete")
+	   public void infocommdelete(@RequestParam("commNo") int commNo, @RequestParam("freeNo") int freeNo, Model model) {
+		   
+		   logger.info("/freedfjaklfjlkaj");
+		   adminService.deleteComm(commNo);
+		   
+		   List<Map<String, Object>> commList = adminService.getCommentByFreeNo(freeNo);
+		   
+		   model.addAttribute("comm", commList);
+	   }
 
 		   
 	   @GetMapping("/infoUpdate")
@@ -575,13 +591,6 @@ public class AdminController {
 		   
 	   }
 		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
 		   //공지사항 수정
 		   @GetMapping("/noticeUpdate")
 		   public void noticeUpdate (Model model, Free freeBoard, HttpSession session ) {
@@ -611,7 +620,78 @@ public class AdminController {
 		   
 		   }
 		   
+		   @RequestMapping("/inquiry")
+		   public void adminInquiry(Model model, ProdInq prodinq) {
+			   System.out.println("관리자 문의관리 ");
+			   
+			   List<ProdInq> list = adminService.inquiryList(prodinq);
+			   System.out.println("ProdInqList 안에 들어있는거 : " + list);
+			   
+			   
+			   
+			   model.addAttribute("prodinq", list);
+			   
+		   }
+		   
+		   @GetMapping("/inquiryWrite")
+		   public void adminInquiryWrite(HttpSession session, Model model, int inqNo) {
+			      
+			      model.addAttribute("inqNo",inqNo);
+			   
+		   }
+		   
+		   
+		   
+		   
+		   @PostMapping("/inquiryWrite")
+		   public String adminInquiryWriteProc(HttpSession session, ProdInqAnswer prodInqAnswer, @RequestParam(required = false) Model model ) {
+			   System.out.println("inquiryWrite : 관리자 답변하기" );
+			   String loginId = (String) session.getAttribute("loginId");
+			      System.out.println("관리자 id : " + loginId );
+
+			      Admin adminInfo = adminService.info(loginId);
+			    
+//			      System.out.println("inqNo!!!!!!!!!!!!!" + inqNo);
+			      System.out.println("관리자 정보 :" + adminInfo);
+			      
+			      prodInqAnswer.setAdminNo(adminInfo.getAdminNo());
+//			      prodInqAnswer.setInqNo(inqNo);
+			      System.out.println("prodInqAnswer 안에 들어있는거 : " + prodInqAnswer);
+			      
+			      adminService.inquiryWrite(prodInqAnswer);
+			      adminService.updateinquire(prodInqAnswer);
+			      
+			      
+			      
+			      
+			      return "redirect:./inquiry";
+			   
+		   }
+		   
+		   @GetMapping("addopt")
+		   public void addopt(Model model) {
+			   //상품 번호 상품이름 가져오기
+			   List<Map<String, Object>> ProdNoName = adminService.getProdNoName();
+			   
+			   
+			   model.addAttribute("ProdNoName",ProdNoName);
+			  
+		   }
+		   
+		   @PostMapping("addopt")
+		   public String addopt( ProdOption prodOption) {
+			   System.out.println(prodOption);
+			   logger.info("{}",prodOption);
+			   
+			   adminService.addopt(prodOption);
+			   
+			   return "redirect:./addopt";
+		   }
+		   
+		   
+		   
+		   
+}
 		  
 
-		}
 

@@ -9,6 +9,7 @@
 
 
 
+
 <style type="text/css">
 
 @font-face {
@@ -38,16 +39,39 @@
 	height: 500px;
 }
 
+.commentProfile {
+   width: 30px;
+   height: 30px;
+}
+
+#comment {
+   font-family: 'KBO-Dia-Gothic_bold';
+   font-weight: bold;
+}
+
+.comm {
+	font-family: 'omyu_pretty';
+	font-size:20px;
+}
+
+@font-face {
+   font-family: 'KBO-Dia-Gothic_bold';
+   src:
+      url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff')
+      format('woff');
+   font-weight: 700;
+   font-style: normal;
+}
+
+@font-face {
+    font-family: 'omyu_pretty';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 </style>
 
-<script type="text/javascript">
-$(document).ready(function() {
-	$("#btnList").click(function() {
-		location.href = "/admin/free"
-	})
-	
-
-</script>
 
 
 
@@ -125,6 +149,65 @@ $(document).ready(function() {
 </div>
 
 
+<script type="text/javascript">
+
+$(function() {
+	   $(".commDelete").click(function() {
+	      console.log("test")
+	      console.log($(".commNo").index(this));
+	      
+	      var idx = $(".commDelete").index(this)
+	      var commentNo = $(".commDelete").eq(idx).attr('data-no')
+	      var freeNo = (${param.freeNo})
+	      
+	      console.log("인덱스 확인", commentNo)
+	      console.log("글번호", freeNo)
+	      
+	      //ajax start
+	      $.ajax({
+	          type : 'get',           // 타입 (get, post, put 등등)
+	          url : '/admin/freecommdelete',  // 요청할 서버url
+	          dataType : 'html',       // 데이터 타입 (html, xml, json, text 등등)
+	          data : {  // 보낼 데이터 (Object , String, Array)
+	        	  "commNo" : commentNo, 
+	        	  "freeNo" : freeNo
+	          }, 
+	          success : function(result) { // 결과 성공 콜백함수
+	              console.log("성공")
+     	  	  console.log(result);
+					
+	              $(".comm").html(result);
+	              location.reload();
+	          },
+	          error : function(request, status, error) { // 결과 에러 콜백함수
+	               console.log(error)
+	               console.log("실패")
+	          }
+	    })
+		//ajax end
+
+	   });
+	});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
 <!-- 버튼 -->
 <div class="text-center mb-3">
 	<a href= "/admin/free"><button id="btnList" class="btn btn-success">목록</button></a>
@@ -132,18 +215,48 @@ $(document).ready(function() {
 </div>
 
 <!-- 댓글 -->
-	<div class="card my-4">
-		<h5 class="card-header" style="font-weight: bold ;">댓글</h5>
-		<div class="card-body">
-			<form name="comment-form" action="/board/comment/write" method="post" autocomplete="off">
-					<textarea name="content" class="form-control" rows="3"></textarea>
-				<div style= "padding-top: 50px;">
-					<button type="submit" class="btn btn-success">등록</button>
-				</div>
-			</form>
-		</div>
-	</div>
+
+<h3 id="comment">댓글💚</h3>
+  
+   <div class="comm">
+  
+   <c:forEach items="${commContent }" var="commContent">
+   
+      <img class="commentProfile" src="../resources/img/commentProfile.png">&nbsp;<span
+        id="writer" style="font-weight: bold">${commContent.USER_ID }</span>
+      <br>
+    <span id="rs">${commContent.COMM_CONTENT }</span>
+ㅣ  <span id="writeDate">
+	<fmt:formatDate value="${commContent.COMM_CREATE}" pattern="yyyy. MM. dd. HH:mm:ss" />
+	</span>
 	
+	<button class="commDelete" data-no="${commContent.COMM_NO }">삭제</button>  
+
+      <hr>
+    
+   </c:forEach>
+
+    </div> <!-- <div> comm end -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 	
 </div><!-- .container end -->

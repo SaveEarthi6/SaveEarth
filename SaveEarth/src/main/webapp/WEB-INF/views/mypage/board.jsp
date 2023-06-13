@@ -76,7 +76,7 @@ select {
 .search {
 	text-align: center;
 	width: 100%;
-	height: 100px;
+	height: 290px;
 }
 
 /* 검색창 스타일 */
@@ -129,8 +129,8 @@ select {
 
 /* 게시글 분류 전체(div) 스타일 */
 .nav { 
- 	margin-left: 100px; 
- 	margin-bottom: 50px; 
+ 	margin: 0 auto; 
+    width: fit-content;
  } 
 
 </style>
@@ -143,7 +143,8 @@ select {
 <a href="./update"><button type="button" class="btn btn-outline-success" id ="top">회원정보 수정</button></a>
 <a href="./delete"><button type="button" class="btn btn-outline-success" id ="top">회원정보 탈퇴</button></a>
 <a href="./board"><button type="button" class="btn btn-outline-success" id ="top">작성글<br>보기</button></a>
-<a href="./order"><button type="button" class="btn btn-outline-success" id ="top">주문내역 수정</button></a>
+<a href="./order"><button type="button" class="btn btn-outline-success" id ="top">주문내역 확인</button></a>
+<a href="./comment"><button type="button" class="btn btn-outline-success" id ="top">작성 댓글 보기</button></a>
 </div>
   
 <!-- 게시판 -->

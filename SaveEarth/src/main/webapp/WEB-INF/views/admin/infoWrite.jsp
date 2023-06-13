@@ -70,6 +70,8 @@ form {
 
 #notice {
 	border: 1px solid #ccc;
+	
+	
 }
 
 </style>

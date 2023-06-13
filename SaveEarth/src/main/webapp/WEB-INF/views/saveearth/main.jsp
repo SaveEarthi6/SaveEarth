@@ -57,27 +57,44 @@ body {
     font-style: normal;
 }
 
-@font-face {
-    font-family: 'GmarketSansMedium';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
 
 .container {	
 	max-width:100%
 }
 
 #quiz{
-	font-family: 'GmarketSansMedium';
+	font-family: 'omyu_pretty';
 }
 
+/* 달력 */
 #wrapCalendar{
 	width:1000px;
 	margin: 0 auto;
 }
 
+/* 굿즈샵 이미지 스타일 */
+.goodsimage {
+	width: 100%; 
+	height: 500px; 
+	position: relative;
+	margin-bottom: 30px;
+}
+
+/* 굿즈샵 상품 목록 스타일 */
+#goodsList {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+/* 퀴즈 폼*/
+#quizForm {
+	border: 5px solid #59A8D9;
+	padding-bottom: 50px;
+	padding-top: 50px;
+	margin-left: 400px;
+	margin-right: 400px;
+	padding-left: 60px;
+}
 </style>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -111,13 +128,13 @@ $(function() {
   </div>
   <div class="carousel-inner" >
     <div class="carousel-item active" >
-      <img src="/resources/img/main_top.png" class="d-block w-100" alt="...">
+      <img src="/resources/img/main_top2.jpg" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
       <img src="/resources/img/main_top.png" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="/resources/img/main_top.png" class="d-block w-100" alt="...">
+      <img src="/resources/img/main_top3.png" class="d-block w-100" alt="...">
     </div>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -131,6 +148,10 @@ $(function() {
 </div>
 
 </div>
+
+
+
+
 
 <!--  달력(기념일) -->
 
@@ -152,11 +173,41 @@ $(function() {
 
  
 
+
+
 <!-- 인증사진 모아보기 -->
- <h1 style="font-family: 'KBO-Dia-Gothic_bold'; text-align: center; padding-top: 100px;">🤳🏻SAVE EARTH의 캠페인 참여🤳🏻</h1>
+ <h1 style="font-family: 'KBO-Dia-Gothic_bold'; text-align: center; padding-top: 100px; padding-bottom: 30px;">🤳🏻SAVE EARTH의 캠페인 참여🤳🏻</h1>
  
- 
- 
+ 	<div id="certList" class="row">
+		<div class="col-1"></div>
+		
+		<div id="cert" class="row col-10" >
+		
+			<c:forEach var="cert" items="${cert }" varStatus="status">
+			
+			<c:if test="${status.index < 9}">
+			
+			<div id="info" class="col">
+			<a href="./detail?prodno=${prod.PROD_NO }" id="prodNo">
+			
+				<c:if test="${prod.PROD_STORED_NAME ne null }" >
+				
+					<div>
+						<img alt="" src="/upload/${prod.PROD_STORED_NAME }" style="width: 400px; height: 300px; margin-bottom: 10px;">
+					</div>
+				</c:if>	
+				<c:if test="${prod.PROD_STORED_NAME eq null }">
+					<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
+				</c:if>
+			</a>
+			</div>
+			
+			</c:if>
+			</c:forEach>
+			
+		</div>
+	
+	</div>
  
  
  
@@ -190,7 +241,7 @@ $(function() {
  <h1 style="font-family: 'KBO-Dia-Gothic_bold'; text-align: center; padding-top: 100px;  padding-bottom: 30px;">🎲랜덤 퀴즈🎲</h1>
   <form action="/saveearth/main" method="get">
   
-  <div style= "padding-left: 500px;" >
+  <div id = "quizForm" >
   <c:forEach items="${quiz }" var="quiz" varStatus="status">
   
   	<c:if test="${status.index < 1}">
@@ -201,15 +252,18 @@ $(function() {
     <input type="radio" name="q1" class= "ch" value="${quiz. quizOpt3}"> ${quiz. quizOpt3}<br>
     <input type="radio" name="q1" class= "ch" value="${quiz. quizOpt4}"> ${quiz. quizOpt4}<br>
            
-       <button type="button" id="answer" data-no="${quiz.quizAnswer }">정답확인</button>
+           <br>
+           
+     	<button type="button" id="answer" data-no="${quiz.quizAnswer } "  style="font-family:omyu_pretty;">정답확인</button>
   	</c:if>
   	  	
   </c:forEach>
   
   </div>
   
-   </form>
 	<h5 style= "padding-left: 1000px ; font-family: omyu_pretty; ">⚠️퀴즈는 3개로 랜덤입니다</h5>
+   </form>
+   
 </div>
 
 	<div id="campList" class="row">
@@ -242,12 +296,55 @@ $(function() {
 		<div class='col-1'></div>
 	</div>
 
+
+
+
+
+
 <!-- 굿즈샵 예시보기 -->
 <h1 style="font-family: 'KBO-Dia-Gothic_bold'; text-align: center; padding-top: 100px;">🛍️굿즈샵🛍️</h1>
-  
+  	
+	<div style= "padding-left: 1200px; padding-bottom: 50px;">
+		<a href="/goods/main">
+		<button type="button" class="btn btn-outline-success" >
+		굿즈샵 </button></a>
+  	</div>
+  	
+	<div id="goodsList" class="row" style="padding-bottom:100px;">
+		<div class="col-1"></div>
+		
+		<div id="infos" class="row col-10">
+		
+			<c:forEach var="prod" items="${product }" varStatus="status">
+			
+  			<c:if test="${status.index < 3}">
+			
+			<div id="info" class="col">
+			<a href="/goods/detail?prodno=${prod.PROD_NO }" id="prodNo">
+			
+				
+<!-- 					<div><img alt="" src="" style="width: 400px; height: 300px; margin-bottom: 10px;"></div> -->
+				<c:if test="${prod.PROD_STORED_NAME ne null }" >
+					<div>
+						<img alt="" src="/upload/${prod.PROD_STORED_NAME }" style="width: 400px; height: 300px; ">
+					</div>
+				</c:if>	
+				<c:if test="${prod.PROD_STORED_NAME eq null }">
+					<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
+				</c:if>
+				<div id="CampTitle">
+					<span id="titleTag">[${prod.PROD_NAME }]</span>
+					<span id="title">${prod.PROD_PRICE }원</span>
+				</div>
+			</a>
+			</div>
+			
+			</c:if>
+			</c:forEach>
+			
+		</div>
 
-
-
+</div>
 
 	
 

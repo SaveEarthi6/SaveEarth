@@ -280,6 +280,10 @@ public class GoodsServiceImpl implements GoodsService {
 	@Override
 	public List<Map<String, Object>> getInqList(int prodno) {
 		
-		return goodsDao.getInqListByprodno(prodno);
+		List<Map<String, Object>> list = goodsDao.getInqListByprodno(prodno);
+		
+		
+		return list;
 	}
+	
 }

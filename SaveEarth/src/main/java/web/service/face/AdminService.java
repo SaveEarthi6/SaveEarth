@@ -16,6 +16,8 @@ import web.dto.Info;
 import web.dto.InfoFile;
 import web.dto.InfoThumbnail;
 import web.dto.Member;
+import web.dto.ProdInq;
+import web.dto.ProdInqAnswer;
 import web.dto.ProdOption;
 import web.dto.Product;
 import web.util.Paging;
@@ -219,7 +221,64 @@ public void updateFree(Free freeBoard, List<MultipartFile> files, List<FreeFile>
     */
    public List<InfoFile> getFile(int infoNo);
 
+   /**
+    * 댓글 삭제
+    * @param commNo 
+ * @return 
+    */
+   public int deleteComm(int commNo);
+
+/**
+ * 게시글번호를 가지고 댓글 정보를 조회한다
+ * 
+ * @param freeNo
+ * @return
+ */
+public List<Map<String, Object>> getCommentByFreeNo(int freeNo);
+
+/**
+ * 게시글 번호를 가지고 댓글 정보를 조회한다
+ * @param freeBoard
+ * @return
+ */
+public List<Map<String, Object>> getComment(Free freeBoard);
+
+   /**
+    * 관리자 페이지 - 문의내용 리스트로 불러오기
+    * @param prodinq
+    * @return
+    */
+   public List<ProdInq> inquiryList(ProdInq prodinq);
+
+   public void inquiryWrite(ProdInqAnswer prodInqAnswer);
+
+
+   
    public int selectOne(int campno);
+   
+   /**
+    * 관리자 페이지 - 굿즈샵 상태변화
+    * @param prodInqAnswer
+    */
+   public void updateinquire(ProdInqAnswer prodInqAnswer);
+
+   
+   /**
+    * 옵션 추가를 위한 번호랑 상품이름 뽑기
+    * @return
+    */
+   public List<Map<String, Object>> getProdNoName();
+
+   /**
+    * 상품 옵션 추가
+    * @param prodOption
+    */
+   public void addopt(ProdOption prodOption);
+
+public void insertOtherfiles(Product product, List<MultipartFile> otherfiles);
+
+
+
    
 
 	

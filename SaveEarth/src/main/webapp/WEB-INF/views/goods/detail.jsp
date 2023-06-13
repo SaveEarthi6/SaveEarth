@@ -70,242 +70,183 @@ $(function(){
 </script>
     
 
+<style>
+
+/* 게시판 메인 이미지 스타일 */
+.freeimage {
+	/* 이미지랑 네비게이션바 띄우기 */
+	position: relative;
+	width: 100%;
+	height: 500px;
+}
+
+/* 이미지 안에 자유게시판 문구 스타일 */
+.free {
+	position: absolute;
+	top: 38%; 
+	left: 45%;
+	color: #fff;
+	font-weight: bold;
+	font-size: 50px;
+	font-family: 'KBO-Dia-Gothic_bold';
+}
+.goodsimage{
+	width: 310px;
+	height: 225px;	
+	}
+
+
+	.summary{
+		width:550px;
+	}
+
+	.content{
+		margin: 10%;
+		margin-top: 0;
+	}
+	.title{
+		margin: 2%;
+		padding: 16%;
+		border-bottom: 1px solid;
+		margin-top: 0;
+	}
+	.left{
+		float: left;
+		width: 50%;
+		
+	}
+	.right{
+		float: right;
+		width: 35%; 
+		margin-left:15%;
+		
+	}
+	.button{
+		width: 160px;
+		float: right;
+		
+	}
+	
+	.cart{
+		float: left;
+	}
+	
+	.order{
+		float: right;
+	}
+	
+	.imagetest{
+		text-align: center;
+		margin: 10%
+	}
+/*  문의하기 스타일	 */
+
+thead {
+	
+    border-bottom: 1px solid black;
+
+}
+.inqtable {
+	margin: 0 auto;
+	width: 1200px;
+}
+th {
+	
+    text-align: center;
+	
+}
+
+tbody{
+	 text-align: center;
+}
+
+
+</style>
+
+
+<style> 
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 42%;
+}
+
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  text-align : end;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.inq1,.inq2{
+
+	padding:10px;	
+}
+
+#inqTitle {
+	width: 500px;
+}
+
+#inqContent{
+	width:500px;
+}
+
+.inqsub{
+	text-align : end;
+}
+
+.inqtext{
+	    float: left;
+	    
+		margin-left: 10%;
+}
+
+.inqtext2{
+		float: right;
+		
+		margin-right: 10%;
+}
+#btn_test1,#btn_test2, .inq{
+		color: white;
+}
+
+
+</style>
+
+
+
+
+
+
+    
 
 
 
 
 <style>
-        #product > .view > .info > div {
-            float: left;
-            width: 50%;
-            height: 100%;
-            padding: 10px;
-            box-sizing: border-box;
-            text-align: center;
-        }
 
-        #product > .view > .info > .image > img { 
-        	width: 400px; 
-        	height: 300px;
-         }
-         
-         #goodsimage{
-         	width: 400px; 
-        	height: 300px;
-         }
-
-        #product > .view > .info > .summary > nav {
-            border-bottom: 1px solid #eaeaea;
-            padding-bottom: 10px;
-            margin-bottom: 12px;
-            overflow: hidden;
-        }
-
-        #product > .view > .info > .summary > nav > h1 {
-            float: left;
-            color: #0231a6;
-            font-weight: bold;
-            font-size: 1.5em;
-        }
-
-        #product > .view > .info > .summary > nav > h2 {
-            float: right;
-            color: #777;
-            margin-top: 8px;
-        }
-
-        #product > .view > .info > .summary > nav > h3 {
-            font-size: 18px;
-            font-weight: bold;
-            color: #1e2732;
-        }
-
-        #product > .view > .info > .summary > nav > p {
-            font-size: 14px;
-            color: #474747;
-            line-height: 36px;
-            letter-spacing: -1px;
-        }
-
-        #product > .view > .info > .summary > nav:nth-child(2) > .rating > a {
-            color: #346aff;
-            text-decoration: underline;
-        }
-
-        #product > .view > .info > .summary .count {
-            position: relative;
-            width: 100px;
-            height: 40px;
-        }
-
-        #product > .view > .info > .summary .count > button {
-            position: absolute;
-            width: 21px;
-            height: 21px;
-            /* background-image: url(./img/kogo.jpg); */
-            font-size: 10px;
-            background-color: transparent;
-            border: none;
-        }
-
-        #product > .view > .info > .summary .count > input[name=num] {
-            position: absolute;
-            left: 30px;
-            top: 0;
-            width: 30px;
-            height: 21px;
-            border: 1px solid #ececec;
-            font-size: 14px;
-            text-align: center;
-        }
-
-        .decrease {
-            left: 0;
-            top: 0;
-            background-position: 0px -74px;
-        }
-
-        .increase {
-            left: 70px;
-            top: 0;
-            background-position: -48px -74px;
-        }
-
-
-        #product > .view > .info > .summary .total {
-            overflow: hidden;
-            margin-top: 16px;
-        }
-
-        #product > .view > .info > .summary .total > span {
-/*             float: right; */
-            display: inline-block;
-            line-height: 38px;
-            font-size: 24px;
-            font-weight: bold;
-            color: #000;
-            text-align: right;
-            letter-spacing: -0.5px;
-        }
-
- 
-
-        #product > .view > .info > .summary .total > em {
-            float: right;
-            display: block;
-            width: 100px;
-            height: 22px;
-            padding: 10px 0 0;
-            font-size: 16px;
-            line-height: 22px;
-            color: #5e636d;
-            letter-spacing: -1px;
-        }
-
-        #product > .view > .info > .summary .button {
-            overflow: hidden;
-            margin-top: 16px;
-        }
-
-        #product > .view > .info > .summary .button > input  {
-            float: left;
-            width: 49%;
-            height: 50px;
-            margin: 2px;
-            font-size: 20px;
-            font-weight: bold;
-            border-radius: 2px;
-            cursor: pointer;
-        }
-
-        #product > .view > .info > .summary .button > .cart  {
-            background: #fff;
-            border: 1px solid #d9d9d9;
-            color: #233594;
-        }
-        
-        #signup {
-			float: left;
-		    width: 49%;
-		    height: 50px;
-		    margin: 2px;
-		    font-size: 20px;
-		    font-weight: bold;
-		    border-radius: 2px;
-		    cursor: pointer;
-		    background: #fff;
-		    border: 1px solid #d9d9d9;
-		    color: #233594; 
-        
-        }
-        
-
-        #product > .view > .info > .summary .button > .order {
-            background: #2e8de5;
-            border: 1px solid #217fd7;
-            color: #fff;
-        }
-
-
-
-        #product > .view > article > nav {
-            border-bottom: 1px solid #a4a9b0;
-            padding: 6px 0;
-            margin-bottom: 12px;
-            overflow: hidden;
-        }
-
-        #product > .view > article > nav > p {
-            float: left;
-            color: #777;
-            margin-top: 6px;
-            margin-left: 6px;
-        }
-
-        #product > .view > article > nav > h1 {
-            float: left;
-            color: #1e2732;
-            font-weight: bold;
-            font-size: 1.5em;
-        }
-
-        #product > .view > .notice > table { width: 100%; }
-
-        #product > .view > .notice > table:nth-of-type(2) { border-top: 1px solid #ececec; }
-
-        #product > .view > .notice > table tr > td {
-             padding: 5px 0 6px 21px;
-             font-size: 14px;
-             color: #777;
-        }
-
-        #product > .view > .notice > table tr > td:nth-child(1) { width: 20%; color: #222; }
-
-
-
-
-
-        #product > .view > .notice > .notice {
-            margin: 20px 0;
-            padding: 21px 26px 20px 19px;
-            line-height: 20px;
-            font-size: 14px;
-            color: #757c8a;
-            background: #fafafa;
-            border-radius: 2px;
-            white-space: normal;
-        }
-        
-        #inqtest${status.index}{
-        
-        	height:auto ;
-        	 
-        	width:120px;
-        }
- </style>
-    
- <style>
-    /* Add your CSS styles here */
     .count {
         display: flex;
         align-items: center;
@@ -329,195 +270,190 @@ $(function(){
 
     
     
-<body>
-<br><br><br><br><br><br><br><br><br><br>
-    <div id="wrapper">
-        <header>
-       
-       
 
 
-        </header>
-        <main id="product">
 
-            <section class="view">
-       
-                <article class="info">
-                
-                    <div class="image">
-                        <img src="/upload/${goodsDetail.PROD_STORED_NAME }" alt="상품이미지" class="goodsimage">
-                    </div>
-               
-                    <div class="summary">
-                        <nav>
-                            <h1>${goodsDetail.PROD_NAME }</h1>
-                 
-                        </nav>
-                        <nav>
-                            <div >
-                            	
-                                <h3 class="prodprice">${goodsDetail.PROD_PRICE }원</h3>
-                                
-                            </div>
-
-                        </nav>
-                  
-
-                       
-                        <div class="count">
-                     
-                        <div>
-						    <button class="decrease" onclick="decreaseValue()">-</button>
-						</div>  
-						<div>  
-						    <input type="text" name="num" id="num" value="1" readonly>
-						</div>  
-						<div>   
-						    <button class="increase" onclick="increaseValue()">+</button>
-						</div> 
-					   	  
-						 <div id="optionsDiv">
-						  <select id="optionSelect">
-						    
-						  <c:forEach items="${prodOption }" var="prodOption">
-						    <option value="${prodOption.PROD_OPT_NO }">Color: ${prodOption.PROD_COLOR } Size: ${prodOption.PROD_SIZE }</option>
-						  </c:forEach>
-						  </select>
-						</div>      
-                        </div>
-                        
-                        <!-- 옵션주기 -->
-         
-                        
-                        
-                        
-                        
-                        
-                        <div class="total">
-                      		<span>총가격 : </span>
-                            <span class="totalprice" id="totalprice">${goodsDetail.PROD_PRICE }</span>
-                            <span>원</span>
-                        
-                        </div>
-                        <div class="button">
-                       
-    <input type="button" class="cart" value="장바구니" onclick="addToCart()">
-                            <input type="hidden" name="prodCount" class="prodCount">
-                                
-                            <form action="./detailbuy" method="post">
-                            <input type="hidden" name="prodNo" value="${goodsDetail.PROD_NO }">
-                            <input type="hidden" name="prodCount" value="">
-                            <input type="hidden" name="prodOptNo" value="">
-                            
-                            <button type="submit" class="order" id="signup" onclick="detailbuy()" >구매하기</button>
-                            </form>
-                              
-                        </div>
-                    </div>
-                    
-                    
-                    
-                    
-                    
-                </article>
-
-
-               
-            </section>
-        </main>
-       
-        
-    </div>
-                    <div class="imagetest">
-                        <c:forEach items="${detailfiles}" var="files">
-									
-									<img src="/upload/${files.PROD_STORED_NAME }" alt="상품이미지" class="goodsimage" style="width: 52%">
-						</c:forEach>
-                    </div>
-    
-<div>문의하기 리스트 구현중</div>    
-
+   
 <div>
-<c:forEach items="${prodInq }" var="prodInq" varStatus="status">
-	<div>
-		제목:${prodInq.INQ_TITLE } 내용:${prodInq.INQ_CONTENT } 답변상태:${prodInq.INQ_PROC} <img id="inqtest${status.index}" src="../../resources/img/logo2.png" style="width:120px">
-	</div>
-	<div id="inq${status.index}" style="display: none;">
-		답변:${prodInq.INQ_ANSWER_CONTENT }
-	</div>
-</c:forEach>
-</div>
-<br>
+	<img class="freeimage" src="../resources/img/free.png">
+	<h1 class="free">굿즈샵</h1>
+</div>    
 
-<!-- 모달로 문의하기------시작---- -->
+  
+       
+<div class="content">
+	<div class="title">
+		<div class="left">
+			<div class="image">
+			    <img src="/upload/${goodsDetail.PROD_STORED_NAME }" alt="상품이미지" class="goodsimage">
+			</div>
+		</div>
+		<div class="right">
+			<div class="summary">
+			    <div>
+			        <h1>${goodsDetail.PROD_NAME }</h1>
+				</div>
+				<div >                            	
+				    <h3 class="prodprice">${goodsDetail.PROD_PRICE }원</h3>                              
+			    </div>
+			    <div>
+			    	<h3>${goodsDetail.PROD_DETAIL }</h3>
+			    </div>
+			</div> 		
+		              
+		        
+		
+		             
+			<div class="count">
+				 <div>
+					<button class="decrease" onclick="decreaseValue()">-</button>
+				</div>  
+				<div>  
+				    <input type="text" name="num" id="num" value="1" readonly>
+				</div>  
+				<div>   
+				    <button class="increase" onclick="increaseValue()">+</button>
+				</div> 
+				  	  
+				 <div id="optionsDiv">
+					<select id="optionSelect">
+					<c:forEach items="${prodOption }" var="prodOption">
+						<option value="${prodOption.PROD_OPT_NO }">Color: ${prodOption.PROD_COLOR } Size: ${prodOption.PROD_SIZE }</option>
+					</c:forEach>
+					</select>
+				</div>      
+		    </div>
+			                  
+			                  <!-- 옵션주기 -->
+			
+			
+			
+			
+			
+			
+			<div class="total">
+				<span>총가격 : </span>
+			    <span class="totalprice" id="totalprice">${goodsDetail.PROD_PRICE }</span>
+			    <span>원</span>
+		    </div>
+		    
+		    <div class="button" id="btn_group" style="width : 200px">
+		   
+				<input type="button" class="cart btn btn-info"  value="장바구니" onclick="addToCart()" id="btn_test1">
+				<input type="hidden" name="prodCount" class="prodCount">
+				    
+				<form action="./detailbuy" method="post">
+					<input type="hidden" name="prodNo" value="${goodsDetail.PROD_NO }">
+					<input type="hidden" name="prodCount" value="">
+					<input type="hidden" name="prodOptNo" value="">
+					
+					<button type="submit" class="order btn btn-info" id="btn_test2" onclick="detailbuy()" >구매하기</button>
+			    </form>
+			 </div>
+		 </div>
+	</div>    
+	    
+	                    
+	                    
+	                    
+	 
+	
+	               
+	
+	
+	       
+	        
+	
+	<div class="imagetest">
+		<c:forEach items="${detailfiles}" var="files">
+			<img src="/upload/${files.PROD_STORED_NAME }" alt="상품이미지" class="goodsotherimage" style="width: 52%">
+		</c:forEach>
+	</div>
+	
+	
+	
+	
+	<div style="padding : 100px">
+	
+					<div>
+						<div class="inqtext " ><h3 >문의하기</h3></div>	
+					<!-- 문의 모달버튼 -->
+						<div class="inqtext2 " ><input type="button" id="openModal" class="inq btn btn-info" value="문의하기" onclick="inquire()"></div>   
+					</div>
+	</div>				
+<!-- 여기까지 -->	
+<div>
+  <table class="inqtable">
+    <thead>
+      <tr>
+        <th>작성자</th>
+        <th>제목</th>
+        <th>내용</th>
+        <th>답변상태</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <c:forEach items="${prodInq}" var="prodInq" varStatus="status">
+        <tr>
+          <td>${prodInq.USER_ID}</td>
+          <td>${prodInq.INQ_TITLE}</td>
+          <td>${prodInq.INQ_CONTENT}</td>
+          <td>${prodInq.INQ_PROC}</td>
+          <td><img id="inqtest${status.index}" src="../../resources/img/logo2.png" style="width:120px"></td>
+        </tr>
+        <tr>
+          <td colspan="5">
+            <div id="inq${status.index}" style="display: none; text-align: start;">
+              답변: ${prodInq.INQ_ANSWER_CONTENT}
+            </div>
+          </td>
+        </tr>
+      </c:forEach>
+    </tbody>
+  </table>
+</div>	
+	</div>
+	<!-- 모달로 문의하기------시작---- -->
+	
 
-<!-- <button id="openModal">모달 열기</button> -->
-<div><input type="button" id="openModal" class="inq" value="문의하기" onclick="inquire()"></div>    
-<div id="myModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    
-    <form action="./writeInq" method="post">
-	    <div>
-	    	<h3>상품명: ${goodsDetail.PROD_NAME }</h3>
-	    </div>
+<!-- 	<div><input type="button" id="openModal" class="inq" value="문의하기" onclick="inquire()"></div>     -->
+	<div id="myModal" class="modal">
+	  <div class="modal-content">
+	    <span class="close">&times;</span>
 	    
-	    <div>
-	  	  <label for="inqTitle">문의 제목</label>
-	   	 <input type="text" id="inqTitle" name="inqTitle">
-	    </div>
+	    <form action="./writeInq" method="post" style="text-align: center">
+		    <div>
+		    	<h3>상품명: ${goodsDetail.PROD_NAME }</h3>
+		    </div>
+		    
+		    <div class="inq1">
+		  	  <label for="inqTitle">문의 제목</label>
+		   	 <input type="text" id="inqTitle" name="inqTitle">
+		    </div>
+		    
+		    <div class="inq2">
+		    
+		    
+		  	  <label for="inqContent">문의 내용</label>
+		  	  <textarea rows="10" cols="10" id="inqContent" name="inqContent"></textarea>
+<!-- 		   	 <input type="text" id="inqContent" name="inqContent"> -->
+		    </div>
+	    	
+	    	<input type="hidden" name="prodNo" value="${goodsDetail.PROD_NO }">
+	    	<div class="inqsub">
+	    		<button class="btn btn-info" >문의하기</button>
+	    	</div>
+	    </form>
 	    
-	    <div>
-	  	  <label for="inqContent">문의 내용</label>
-	   	 <input type="text" id="inqContent" name="inqContent">
-	    </div>
-    	
-    	<input type="hidden" name="prodNo" value="${goodsDetail.PROD_NO }">
-    	
-    		<button >문의하기</button>
-    	
-    </form>
-    
-    
-  </div>
+	    
+	  </div>
+	</div>
 </div>
+
 
 <!-- CSS -->
-<style> 
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
-}
 
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-}
-
-.close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-</style>
 
 
 
@@ -532,13 +468,13 @@ function inquire() {
 		var btn = document.getElementById("openModal");
 		var span = document.getElementsByClassName("close")[0];
 
-		btn.onclick = function() {
+		 btn.onclick = function() { 
 		  modal.style.display = "block";
-		}
+		 } 
 
-		span.onclick = function() {
+		 span.onclick = function() { 
 		  modal.style.display = "none";
-		}
+	 	} 
 
 		window.onclick = function(event) {
 		  if (event.target == modal) {
@@ -597,10 +533,7 @@ function inquire() {
 		location.href = url;
 	  }
 			 
-			 
-			 
-	 
-	
+			 	
     }    
 	 
 	function detailbuy(){
@@ -615,33 +548,18 @@ function inquire() {
 	} 
 </script>
 
-<!-- <script>
 
-    $(document).ready(function() {
-        $("#inqtest").click(function() {
-            $("#inq").show();
-        });
-        $("#inqtest").click(function() {
-            $("#inq").hide();
-        });
-    });	
-	
-</script> -->
-<!-- <script>
-  $(document).ready(function() {
-    $("#inqtest").click(function() {
-      $("#inq").toggle();
-    });
-  });
-</script> -->
+
+
+<!-- 문의하기 스크립트 -->
 <script>
   $(document).ready(function() {
-    <%-- 문의의 개수만큼 반복하여 클릭 이벤트를 설정합니다. --%>
+
     <c:forEach items="${prodInq}" varStatus="status">
       $("#inqtest${status.index}").click(function() {
-        <%-- 현재 클릭한 문의의 답변 상태를 확인합니다. --%>
+
         var inqStatus = "${prodInq[status.index].INQ_PROC}";
-        <%-- 답변 상태가 "답변완료"인 경우에만 토글 동작을 수행합니다. --%>
+        <%--  답변완료일떄 토글 동작을 수행 --%>
         if (inqStatus === "답변완료") {
           $("#inq${status.index}").toggle();
         }

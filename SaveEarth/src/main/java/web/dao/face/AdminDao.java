@@ -15,6 +15,8 @@ import web.dto.FreeFile;
 import web.dto.Info;
 import web.dto.InfoFile;
 import web.dto.InfoThumbnail;
+import web.dto.ProdInq;
+import web.dto.ProdInqAnswer;
 import web.dto.ProdOption;
 import web.dto.Product;
 import web.dto.ProductFile;
@@ -241,18 +243,60 @@ public interface AdminDao {
     */	
    public List<InfoFile> selectFile(int infoNo);
 
-   
    /**
-    * 옵션 인서트
-    * @param prodOption
+    * 댓글 삭제
+    * @param commNo
+    * @return
     */
+   public int deleteComment(int commNo);
+
+   /**
+    * 댓글 정보를 조회한다
+    * 
+    * @param freeNo
+    * @return
+    */
+   public List<Map<String, Object>> selectCommByFreeNo(int freeNo);
+
+   /**
+ 	* 댓글 정보를 조회한다
+ 	* 
+ 	* @param freeBoard
+ 	* @return
+ 	*/
+   public List<Map<String, Object>> selectComment(Free freeBoard);
+
+   /**
+    * 관리자 페이지 - 문의불러오기
+    * @param prodinq
+    * @return
+    */
+   public List<ProdInq> ProdInq(ProdInq prodinq);
+
+   public void prodInqAnswer(ProdInqAnswer prodInqAnswer);
+
    public void insertProdoption(ProdOption prodOption);
-   
-   
+
    public int campParticipate(int campno);
 
-  
-	
+   /**
+    * 관리자 페이지 - 답변 상태변화
+    * @param prodInqAnswer
+    */
+   public void updateinquire(ProdInqAnswer prodInqAnswer);
+
+   public List<Map<String, Object>> getProdNoName();
+
+   public void addopt(ProdOption prodOption);
+   
+
+
+
+
+
+
+
+   
    
 	
 	

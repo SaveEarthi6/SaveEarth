@@ -115,23 +115,23 @@ body {
   background: none;
 }
 
- .btn-bottom { 
-  position:relative; 
-  left:2%; */
-  transform: translateX(-50%); 
-  margin-bottom: 40px; 
-  width:80%; 
-  height:40px; 
-  background: linear-gradient(125deg,#81ecec,#6c5ce7,#81ecec); 
-  background-position: center; 
-  background-size: 200%; 
-  color:white; 
-  font-weight: bold; 
-  border:none;
-  cursor:pointer; 
-  transition: 0.4s; 
-  display:inline; 
-  margin-left: 60px; 
+.btn-bottom { 
+	position: relative;
+    left: 42%;
+    transform: translateX(-50%);
+    margin-bottom: 44px;
+    width: 80%;
+    height: 40px;
+    background:#C62828;
+    background-position: center;
+    background-size: 200%;
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: 0.4s;
+    display: inline;
+    margin-left: 60px;
  } 
 
 .btn-bottom:hover {
@@ -178,8 +178,8 @@ width: 700px;
 
 /* 게시글 분류 전체(div) 스타일 */
 .nav { 
- 	margin-left: 100px; 
- 	margin-bottom: 50px; 
+ 	margin: 0 auto; 
+    width: fit-content;
  } 
 
 /* 게시물 전체 감싸는 태그 */
@@ -242,47 +242,49 @@ input {
 <div class="nav">
 <a href="./update"><button type="button" class="btn btn-outline-success" id ="top">회원정보 수정</button></a>
 <a href="./delete"><button type="button" class="btn btn-outline-success" id ="top">회원정보 탈퇴</button></a>
-<a href="./board"><button type="button" class="btn btn-outline-success" id ="top">작성글<br> 보기</button></a>
-<a href="./order"><button type="button" class="btn btn-outline-success" id ="top">주문내역 수정</button></a>
+<a href="./board"><button type="button" class="btn btn-outline-success" id ="top">작성글<br>보기</button></a>
+<a href="./order"><button type="button" class="btn btn-outline-success" id ="top">주문내역 확인</button></a>
+<a href="./comment"><button type="button" class="btn btn-outline-success" id ="top">작성 댓글 보기</button></a>
 </div>
 
 <br>
 
+<div class="main">
 
 <form action="./delete" method="post">
 
-<table class="table table-bordered">
-    <tr>
-      <td>아이디</td>
-      <td>${info.userId }</td>
-    </tr>
-    <tr>
-    
-    <tr>
-      <td>패스워드</td>
-      <td>${info.userPw}</td>
-    </tr>
-    
-    <tr>
-      <td>닉네임</td>
-      <td>${info.userNick}</td>
-    </tr>
-    
-    <tr>
-      <td>이메일</td>
-      <td>${info.userEmail}</td>
-    </tr>
-    
-    <tr>
-      <td>연락처</td>
-      <td>${info.userPhone}</td>
-    </tr>
-</table>
-
-
-	<button class="btn-bottom">회원 탈퇴</button>
-
+      <div class="textForm">
+      	<label>아이디</label>
+      	<input name="userId" disabled id="userId" type="text" class="id" value = "${info.userId}">
+      </div>
+      
+      <div class="textForm">
+     	 <label>패스워드</label>
+        <input name="userPw" disabled id="pw" type="password" class="pw" value = "${info.userPw}">
+      </div>
+      
+      <div class="textForm">
+      <label>닉네임</label>
+        <input name="userNick" disabled id="nick" type="text" class="nickname" value="${info.userNick }">
+      </div>
+      
+      <div class="textForm">
+      <label>이메일</label>
+      <input name="userEmail" disabled id ="email" type="text" class="email" value="${info.userEmail }">
+      </div>
+     
+      <div class="textForm">
+      	<label>연락처</label>
+        <input type="text" disabled class="nickname" id="phone" name="userPhone" value="${info.userPhone }">
+      </div>
+      
+      <button class="btn-bottom">회원 탈퇴</button>
+      
 </form>
+
+
+
+</div>
 
 </body>
 <c:import url="../layout/footer.jsp"></c:import>

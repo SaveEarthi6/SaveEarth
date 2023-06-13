@@ -111,32 +111,55 @@ select {
 .nav { 
  	margin: 0 auto; 
     width: fit-content;
-    
  } 
+ 
+ .nav2 { 
+    margin: 0 auto;
+    margin-left: 1400px;
+ } 
+ 
+ /* 게시판 분류 버튼 스타일 */
+.nav button {  
+  	margin-left: 40px;  
+	margin-top: 60px;  
+ 	width: 300px;  
+  }  
  
  /* 글쓰기 버튼 스타일 */
 #write {
-	text-align: right;
-	margin-right: 100px;
-	margin-bottom: 20px;
+ 	text-align: right; 
+ 	margin-right: 100px; 
+ 	margin-bottom: 20px; 
 }
+
+@font-face {
+   font-family: 'KBO-Dia-Gothic_bold';
+   src:
+      url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff')
+      format('woff');
+      
+   font-weight: 700;
+   font-style: normal;
+}
+
+h1 {
+   margin-top:50px;
+   color: black;
+   font-weight: bold;
+   font-size: 50px;
+   font-family: 'KBO-Dia-Gothic_bold';
+}
+
+.nav {  
+  	margin: 10px auto;  
+    width: fit-content;
+   	 }
 
 </style>
 <!-- 필터 기능 -->
 <script type="text/javascript">
 
 
-// function selectFilter () {
-// 	console.log("click")
-	
-// 	 console.log( $("#filter").val() )
-	   
-// 	   //curPage 초기화
-// 	   var filter = $("#filter").val();
-// 	   location.href = "?filter=" + filter
-
-	
-// }
 function selectfreeHead() {
 	
 var freeHead = $('#freeHead').val()
@@ -152,20 +175,16 @@ location.href="?freeHead=" + freeHead
 
 </head>
 <body>
+<div class="nav">
+<h1>게시판 관리</h1>
+</div>
 
 <br>
 <div class="nav">
 <a href="./free"><button type="button" class="btn btn-outline-success" id ="top">자유 게시판</button></a>
 <a href="./info"><button type="button" class="btn btn-outline-success" id ="top">정보 게시판</button></a>
-<a href="./campaign"><button type="button" class="btn btn-outline-success" id ="top">켐페인 게시판</button></a>
+<a href="./campaign"><button type="button" class="btn btn-outline-success" id ="top">캠페인 게시판</button></a>
 </div> 
-
-
-
- <div id=write>
-<!-- 글쓰기 버튼 -->
-	<a href = "/admin/freeWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
-</div>
 
 <!-- 게시판 -->
 <table id= "board" class= "table table-hover text-center">
@@ -206,6 +225,11 @@ location.href="?freeHead=" + freeHead
 </tbody>
 
 </table>	
+
+ <div class="nav2">
+<!-- 글쓰기 버튼 -->
+	<a href = "/admin/freeWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
+</div>
 
 
 

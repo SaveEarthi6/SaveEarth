@@ -5,6 +5,23 @@
   
   <mapper namespace="web.dao.face.MypagDao">
   
+ 	<select id="selectComment" resultType="web.dto.FreeComment">
+		select * from freecomment
+		order by comm_no desc;
+	</select>
+	
+		<delete id="deleteComment" parameterType="web.dto.FreeComment">
+		DELETE freecomment
+		WHERE
+		comm_no = #{commNo}
+	</delete>
+	
+	<select id="commentList" resultType="web.dto.FreeComment" parameterType="int">
+		select * from freecomment
+		where user_no = #{userNo}
+		ORDER BY comm_no DESC
+</select>
+  
   </mapper>
   
   

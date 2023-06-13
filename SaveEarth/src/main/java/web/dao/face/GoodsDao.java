@@ -62,4 +62,5 @@ public interface GoodsDao {
 
 	public List<Map<String, Object>> getInqListByprodno(int prodno);
 
+
 }

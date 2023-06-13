@@ -168,6 +168,8 @@ public interface GoodsService {
 	 */
 	public List<Map<String, Object>> getInqList(int prodno);
 
+
+
 	
 	
 }

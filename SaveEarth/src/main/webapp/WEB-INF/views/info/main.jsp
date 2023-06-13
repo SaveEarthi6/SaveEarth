@@ -31,7 +31,7 @@
 /* '정보게시판' 문구 스타일 */
 .info {
 	position: absolute;
-	top: 50%; 
+	top: 38%; 
 	left: 45%; 
 	color: #fff; 
 	font-weight: bold;
@@ -174,7 +174,7 @@ function selectInfo() {
 
 <div class="nav">
 <button type="button" class="btn btn-success" id="infobtn" onclick="selectInfo()">정보</button>
-<button type="button" class="btn btn-outline-success" id="freebtn" onclick="selectFree()">자유</button>
+<button type="button" class="btn btn-outline-success" id="freebtn" onclick="selectFree()">자유 TOP</button>
 </div>
 
 		
