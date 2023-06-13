@@ -36,6 +36,7 @@
 			<mapping path="/admin/infoView" />
 			<mapping path="/admin/campDetail" />
 			<mapping path="/admin/campUpdate" />
+			<mapping path="/admin/product" />
 			<!-- 인터셉터가 적용되지 않도록 제외할 예외 페이지 URL -->
 			<exclude-mapping path="./admin/fail" />
 			<!-- 인터셉터 클래스 지정 -->
@@ -47,6 +48,7 @@
 			<!-- 인터셉터가 적용될 URL -->
 			<mapping path="/free/view"/>
 			<mapping path="/goods/cart"/>
+			
 			<!-- 인터셉터가 적용되지 않도록 제외할 예외 페이지 URL -->
 			<exclude-mapping path="./admin/noLogin" />
 			<!-- 인터셉터 클래스 지정 -->

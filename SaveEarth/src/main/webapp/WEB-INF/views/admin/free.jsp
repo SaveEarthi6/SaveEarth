@@ -125,12 +125,7 @@ select {
  	width: 300px;  
   }  
  
- /* 글쓰기 버튼 스타일 */
-#write {
- 	text-align: right; 
- 	margin-right: 100px; 
- 	margin-bottom: 20px; 
-}
+
 
 @font-face {
    font-family: 'KBO-Dia-Gothic_bold';
@@ -233,7 +228,7 @@ location.href="?freeHead=" + freeHead
 
 
 
-<span class="float-end mb-3">${paging.totalCount }</span>
+<%-- <span class="float-end mb-3">${paging.totalCount }</span> --%>
 <div class="clearfix"></div>
 
 <div>

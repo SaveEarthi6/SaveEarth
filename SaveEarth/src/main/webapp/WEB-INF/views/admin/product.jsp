@@ -54,6 +54,13 @@ h1 {
 
 </style>
 
+	<div class="nav2">
+		<a href = "/admin/productWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
+	</div>
+	
+		<div class="nav2">
+		<a href = "/admin/addopt"><button type="button" class="btn btn-outline-success">상품옵션</button></a>
+	</div>
 <div class="nav">
 <h1>상품 관리</h1>
 </div>
@@ -67,8 +74,8 @@ h1 {
 			<div id="prod" class="col">
 			
 			<div class="title2">
-			<td><a href = "./goodsDelete?prodNo=${prod.PROD_NO}"><button id="btnDelete" class="btn btn-danger">삭제</button></a></td>
-			<a href="/goods/detail?prodno=${prod.PROD_NO }" id="campTag">
+				<td><a href = "./goodsDelete?prodNo=${prod.PROD_NO}"><button id="btnDelete" class="btn btn-danger">삭제</button></a></td>
+				<a href="/goods/detail?prodno=${prod.PROD_NO }" id="campTag">
 			</div>
 			
 			<c:if test="${prod.PROD_STORED_NAME ne null }">
@@ -92,13 +99,20 @@ h1 {
 		<div class='col-1'></div>
 	</div>
 
-  	<div id="goodsList" class="row">
+  	<div id="prodList" class="row">
 		<div class="col-1"></div>
 		
 		<div id="infos" class="row col-10">
 		
 			<c:forEach var="prod" items="${prodList }" begin="3" end="5">
-			<div id="goods" class="col">
+			<div id="prod" class="col">
+			
+			<div class="title2">
+				<td><a href = "./goodsDelete?prodNo=${prod.PROD_NO}"><button id="btnDelete" class="btn btn-danger">삭제</button></a></td>
+				<a href="/goods/detail?prodno=${prod.PROD_NO }" id="campTag">
+			</div>
+			
+			
 			<a href="./detail?prodno=${prod.PROD_NO }" id="prodNo">
 			
 				<c:if test="${prod.PROD_STORED_NAME ne null }" >
@@ -115,12 +129,11 @@ h1 {
 			</div>
 			</c:forEach>
 		
-	<div class="nav2">
-		<a href = "/admin/productWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
-	</div>
 
-<span class="float-end mb-3">${paging.totalCount }</span>
+
+<%-- <span class="float-end mb-3">${paging.totalCount }</span> --%>
 <div class="clearfix"></div>
+
 
 <div>
 	<ul class="pagination pagination-sm justify-content-center">

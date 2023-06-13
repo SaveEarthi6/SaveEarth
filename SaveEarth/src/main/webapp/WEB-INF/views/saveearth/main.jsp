@@ -112,6 +112,7 @@ $(function() {
       var answer = $(this).data("no");
       alert("정답은 " + answer + " 입니다❣️");
     }
+      $(location).attr('href', './main');
   });
 });
 </script>
