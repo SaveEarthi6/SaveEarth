@@ -54,7 +54,7 @@
 		SELECT
 		(SELECT m.user_id FROM member m WHERE
 		m.user_no = F.user_no) user_id,
-		(SELECT m.user_id FROM member m WHERE
+		(SELECT m.user_nick FROM member m WHERE
 		m.user_no = F.user_no) user_nick, F.*
 		FROM (
 		SELECT
