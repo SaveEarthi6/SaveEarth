@@ -125,17 +125,7 @@ select {
  	width: 300px;  
   }  
  
-#write {
-<<<<<<< HEAD
- 	text-align: right; 
- 	margin-right: 100px; 
- 	margin-bottom: 20px; 
-=======
-	text-align: right;
-	margin-right: 121px;
-	margin-bottom: -64px;
->>>>>>> branch 'soonho3' of https://github.com/SaveEarthi6/SaveEarth.git
-}
+
 
 @font-face {
    font-family: 'KBO-Dia-Gothic_bold';
@@ -238,7 +228,7 @@ location.href="?freeHead=" + freeHead
 
 
 
-<span class="float-end mb-3">${paging.totalCount }</span>
+<%-- <span class="float-end mb-3">${paging.totalCount }</span> --%>
 <div class="clearfix"></div>
 
 <div>
