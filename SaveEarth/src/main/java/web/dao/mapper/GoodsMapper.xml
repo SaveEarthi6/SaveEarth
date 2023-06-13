@@ -17,7 +17,7 @@
 		        SELECT *
 					FROM prod_file
 					WHERE (prod_no, prod_file_no) IN (
-					    SELECT prod_no, MAX(prod_file_no)
+					    SELECT prod_no, MIN(prod_file_no)
 					    FROM prod_file
 					    GROUP BY prod_no
 					)
@@ -39,7 +39,7 @@
 		SELECT *
 			FROM prod_file
 			WHERE (prod_no, prod_file_no) IN (
-			    SELECT prod_no, MAX(prod_file_no)
+			    SELECT prod_no, MIN(prod_file_no)
 			    FROM prod_file
 			    GROUP BY prod_no
 			)
@@ -73,7 +73,7 @@
 		join (		SELECT *
 			FROM prod_file
 			WHERE (prod_no, prod_file_no) IN (
-			    SELECT prod_no, MAX(prod_file_no)
+			    SELECT prod_no, MIN(prod_file_no)
 			    FROM prod_file
 			    GROUP BY prod_no
 			)) f on f.prod_no = c.prod_no
@@ -174,9 +174,18 @@
 	</select>
 	
 	<select id="getdetailfiles" parameterType="int" resultType="map">
-		 SELECT * FROM prod_file
-		 WHERE prod_no = #{prodNo}
-		 ORDER BY prod_file_no desc
+		 SELECT p.*, f.prod_origin_name, f.prod_stored_name
+FROM product p
+LEFT OUTER JOIN (
+    SELECT pf.prod_no, pf.prod_origin_name, pf.prod_stored_name
+    FROM prod_file pf
+    WHERE (pf.prod_no, pf.prod_file_no) NOT IN (
+        SELECT prod_no, MIN(prod_file_no)
+        FROM prod_file
+        GROUP BY prod_no
+    )
+) f ON p.prod_no = f.prod_no
+WHERE p.prod_no=#{prodNo}
 	</select>
 	
 	<insert id="insertInqByprodNouserNo" parameterType="web.dto.ProdInq">
