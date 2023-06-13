@@ -327,8 +327,9 @@ public class goodsController {
 	
 	//장바구니 결제하기
 	@RequestMapping("/payment")
-	public void payment(HttpServletRequest request, HttpSession session, Order order) {
-		logger.info("/goods/payment [GET]");
+	public void payment(HttpServletRequest request, HttpSession session, Order order, @RequestParam Map<String, String> map) {
+		logger.info("/goods/payment GET]");
+		logger.info("payment 맵 {}", map);
 		
 		String orderAddrPostcode = request.getParameter("orderAddrPostcode");
 		System.out.println("유저번호 확인"+ orderAddrPostcode);
