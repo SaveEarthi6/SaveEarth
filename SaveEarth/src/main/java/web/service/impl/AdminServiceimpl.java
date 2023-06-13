@@ -514,11 +514,7 @@ public class AdminServiceimpl implements AdminService {
 	      
 	      prodOption.setProdNo(product.getProdNo());
 	      adminDao.insertProdoption(prodOption);
-	      
-<<<<<<< HEAD
-=======
 
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
 	   }
 	
 	//테스트

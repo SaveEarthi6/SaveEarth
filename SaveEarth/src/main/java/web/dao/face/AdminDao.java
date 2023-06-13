@@ -287,10 +287,8 @@ public interface AdminDao {
 
    public List<Map<String, Object>> getProdNoName();
 
-<<<<<<< HEAD
    public void addopt(ProdOption prodOption);
-=======
-public void addopt(ProdOption prodOption);
+   
 
 
 
@@ -298,7 +296,6 @@ public void addopt(ProdOption prodOption);
 
 
 
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
    
    
 	
