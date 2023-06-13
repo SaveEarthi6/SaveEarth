@@ -489,5 +489,16 @@
             where inq_no=#{inqNo}
 	</update>
 	
+	<select id="getProdNoName" resultType="web.dto.Product">
+			SELECT * FROM Product
+	
+	</select>
+	
+	<insert id="addopt" parameterType="web.dto.ProdOption">
+	INSERT INTO prod_option(prod_opt_no,prod_no,prod_color,prod_size)
+	VALUES(PROD_OPT_NO_seq.nextval,#{prodNo},#{prodColor},#{prodSize})
+	
+	</insert>
+	
 	
 </mapper>

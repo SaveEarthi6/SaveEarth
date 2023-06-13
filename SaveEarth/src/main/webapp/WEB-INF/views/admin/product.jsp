@@ -19,6 +19,12 @@
 	margin-bottom: 20px;
 }
 
+#addopt {
+	text-align: right;
+	margin-right: 100px;
+	margin-bottom: 20px;
+}
+
 .nav { 
  	margin: 10px auto; 
     width: fit-content;
@@ -37,6 +43,9 @@
 </div>
  <div id=write>
 	<a href = "/admin/productWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
+</div>
+ <div id=addopt>
+	<a href = "/admin/addopt"><button type="button" class="btn btn-outline-success">옵션추가</button></a>
 </div>
 
 	<div id="prodList" class="row">

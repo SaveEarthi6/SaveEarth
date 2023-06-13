@@ -71,12 +71,37 @@ $(function(){
     
 
 <style>
-.content{
-	margin: 10%;
+
+/* 게시판 메인 이미지 스타일 */
+.freeimage {
+	/* 이미지랑 네비게이션바 띄우기 */
+	position: relative;
+	width: 100%;
+	height: 500px;
 }
+
+/* 이미지 안에 자유게시판 문구 스타일 */
+.free {
+	position: absolute;
+	top: 38%; 
+	left: 45%;
+	color: #fff;
+	font-weight: bold;
+	font-size: 50px;
+	font-family: 'KBO-Dia-Gothic_bold';
+}
+
+
+
+	.content{
+		margin: 10%;
+		margin-top: 0;
+	}
 	.title{
 		margin: 10%;
-		padding: 10%;
+		padding: 16%;
+		border-bottom: 1px solid;
+		margin-top: 0;
 	}
 	.left{
 		float: left;
@@ -90,7 +115,8 @@ $(function(){
 		
 	}
 	.button{
-		width: 157px;
+		width: 160px;
+		float: right;
 		
 	}
 	
@@ -186,12 +212,14 @@ tbody{
 
 .inqtext{
 	    float: left;
-		margin-left: 5%;
+	    
+		margin-left: 10%;
 }
 
 .inqtext2{
 		float: right;
-		margin-right: 5%;
+		
+		margin-right: 10%;
 }
 
 
@@ -236,7 +264,10 @@ tbody{
 
 
    
-    
+<div>
+	<img class="freeimage" src="../resources/img/free.png">
+	<h1 class="free">굿즈샵</h1>
+</div>    
 
   
        
@@ -254,6 +285,9 @@ tbody{
 				</div>
 				<div >                            	
 				    <h3 class="prodprice">${goodsDetail.PROD_PRICE }원</h3>                              
+			    </div>
+			    <div>
+			    	<h3>${goodsDetail.PROD_DETAIL }</h3>
 			    </div>
 			</div> 		
 		              
@@ -325,11 +359,18 @@ tbody{
 			<img src="/upload/${files.PROD_STORED_NAME }" alt="상품이미지" class="goodsimage" style="width: 52%">
 		</c:forEach>
 	</div>
+	
+	
+	
+	
+	<div style="padding : 100px">
+	
 					<div>
 						<div class="inqtext" ><h3 >문의하기</h3></div>	
 					<!-- 문의 모달버튼 -->
 						<div class="inqtext2" ><input type="button" id="openModal" class="inq" value="문의하기" onclick="inquire()"></div>   
 					</div>
+	</div>				
 <!-- 여기까지 -->	
 <div>
   <table class="inqtable">
@@ -362,7 +403,7 @@ tbody{
     </tbody>
   </table>
 </div>	
-	
+	</div>
 	<!-- 모달로 문의하기------시작---- -->
 	
 
