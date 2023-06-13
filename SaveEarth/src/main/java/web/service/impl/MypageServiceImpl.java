@@ -23,17 +23,16 @@ public class MypageServiceImpl implements MypageService {
 	@Autowired
 	MypagDao mypageDao;
 	
-	@Override
-	public List<FreeComment> commitList(FreeComment freeComment) {
-		System.out.println("서비스임플 freeCommit :" + freeComment);
-		
-		return mypageDao.selectComment(freeComment);
-	}
 
 	@Override
 	public void deleteComment(FreeComment cammNo) {
 		mypageDao.deleteComment(cammNo);
 		
+	}
+	
+	@Override
+	public List<FreeComment> commitList(int userNo) {
+		return mypageDao.commentList(userNo);
 	}
 
 }

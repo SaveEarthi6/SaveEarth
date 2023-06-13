@@ -129,8 +129,8 @@ select {
 
 /* 게시글 분류 전체(div) 스타일 */
 .nav { 
- 	margin-left: 100px; 
- 	margin-bottom: 50px; 
+	margin: 0 auto;
+	margin-left:615px; 
  } 
 
 </style>
