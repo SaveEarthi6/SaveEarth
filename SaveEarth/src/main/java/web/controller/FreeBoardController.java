@@ -324,7 +324,6 @@ public class FreeBoardController {
 	@RequestMapping("/free/commUpdate")
 	public void updateComm(FreeComment comment, Model model) {
 		
-<<<<<<< HEAD
 		logger.info("551555555555555555555comment {}", comment);
 		
 		List<Map<String, Object>> commList = freeService.getCommentByFreeNo(comment.getFreeNo());
@@ -342,8 +341,6 @@ public class FreeBoardController {
 		
 		logger.info("commSuccess!!!!!!!! {} ", comment);
 		
-=======
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
 		freeService.updateComment(comment);
 		
 		List<Map<String, Object>> commList = freeService.getCommentByFreeNo(comment.getFreeNo());
