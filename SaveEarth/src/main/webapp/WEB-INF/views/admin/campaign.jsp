@@ -94,6 +94,7 @@ select {
    color: #fff;
    cursor: pointer;
    vertical-align: middle;
+    
 }
 
 /* 검색아이콘 이미지 */
@@ -137,8 +138,8 @@ select {
  /* 글쓰기 버튼 스타일 */
 #write {
 	text-align: right;
-	margin-right: 100px;
-	margin-bottom: 20px;
+	margin-right: 121px;
+	margin-bottom: -64px;
 }
 
 
@@ -200,9 +201,9 @@ $(document).ready(function() {
 
 <div class="nav2">
 <!-- 글쓰기 버튼 -->
-   <a href = "/admin/infoWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
+   <a href = "/admin/campaignWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
 </div>
-<span class="float-end mb-3">${paging.totalCount }</span>
+<%-- <span class="float-end mb-3">${paging.totalCount }</span> --%>
 <div class="clearfix"></div>
 
 <div>

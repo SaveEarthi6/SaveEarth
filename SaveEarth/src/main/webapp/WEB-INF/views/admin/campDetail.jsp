@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<c:import url="../layout/header.jsp"></c:import>
+<c:import url="../layout/adminheader.jsp"></c:import>
 
 <!-- 필요시 css, js, jquery 넣을 곳 -->
 
@@ -76,9 +76,9 @@
 				<span id="enroll">등록일 : <fmt:formatDate value="${campDetail.CAMP_ENROLL }" pattern="yyyy/MM/dd"/></span>
 				<span>|</span>
 				<span id="part">
-					참여현황 : ${campCount }    |
-					
-					첨부파일 다운로드 : 
+					참여현황 : ${campCount }
+				<span>|</span>
+				첨부파일 다운로드 : 
 						<c:if test="${not empty campDetail }">
 							<a href="../upload/${campDetail.CAMP_STORED_NAME }" download="${campDetail.CAMP_ORIGIN_NAME }">
 								${campDetail.CAMP_ORIGIN_NAME }
