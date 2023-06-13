@@ -180,12 +180,6 @@ form {
 </form>
 
 
-
-<a href="/admin/product"><button type="reset" id="cancel" class="btn btn-danger">취소</button></a>
-
-
-
-
 </div><!-- container end -->
 <!-- 웹에디터 연결 -->
 <script type="text/javascript">
