@@ -258,14 +258,13 @@ public interface AdminDao {
     */
    public List<Map<String, Object>> selectCommByFreeNo(int freeNo);
 
-/**
- * 댓글 정보를 조회한다
- * 
- * @param freeBoard
- * @return
- */
-public List<Map<String, Object>> selectComment(Free freeBoard);
-
+   /**
+ 	* 댓글 정보를 조회한다
+ 	* 
+ 	* @param freeBoard
+ 	* @return
+ 	*/
+   public List<Map<String, Object>> selectComment(Free freeBoard);
 
    /**
     * 관리자 페이지 - 문의불러오기
@@ -276,19 +275,20 @@ public List<Map<String, Object>> selectComment(Free freeBoard);
 
    public void prodInqAnswer(ProdInqAnswer prodInqAnswer);
 
-public void insertProdoption(ProdOption prodOption);
+   public void insertProdoption(ProdOption prodOption);
 
-public int campParticipate(int campno);
+   public int campParticipate(int campno);
 
-/**
- * 관리자 페이지 - 답변 상태변화
- * @param prodInqAnswer
- */
-public void updateinquire(ProdInqAnswer prodInqAnswer);
+   /**
+    * 관리자 페이지 - 답변 상태변화
+    * @param prodInqAnswer
+    */
+   public void updateinquire(ProdInqAnswer prodInqAnswer);
 
-public List<Map<String, Object>> getProdNoName();
+   public List<Map<String, Object>> getProdNoName();
 
-public void addopt(ProdOption prodOption);
+   public void addopt(ProdOption prodOption);
+   
 
 
 

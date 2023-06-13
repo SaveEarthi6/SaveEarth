@@ -129,11 +129,6 @@ public class AdminServiceimpl implements AdminService {
 		adminDao.insertFree(free);
 		logger.info("size {}", files.get(0).getSize());
 
-//   if(files.get(0).getSize() <= 0 ) {
-//      logger.info("파일의 크기가 0이다, 처리 중단!");
-//         freeWrite() 메소드 중단
-//      return;
-//   }
 
 		// 파일이 없을 때 파일 삽입하는 메소드 처리되지 않도록
 		for (MultipartFile m : files) {
@@ -260,11 +255,6 @@ public class AdminServiceimpl implements AdminService {
 		adminDao.insertCampaign(campaign);
 		logger.info("size {}", files.get(0).getSize());
 
-//   if(files.get(0).getSize() <= 0 ) {
-//      logger.info("파일의 크기가 0이다, 처리 중단!");
-//         freeWrite() 메소드 중단
-//      return;
-//   }
 
 		// 파일이 없을 때 파일 삽입하는 메소드 처리되지 않도록
 		for (MultipartFile m : files) {
@@ -443,12 +433,6 @@ public class AdminServiceimpl implements AdminService {
 		
 	}
 	
-	//@Override
-	//public List<Product> getproductList(Paging paging) {
-//		   System.out.println("서비스 임플 페이징"+ paging);
-//		   
-//		   return adminDao.selectProdList(paging);
-	//}
 
 	@Override
 	public void productnWrite(Product product, List<MultipartFile> files, Admin memberInfo, ProdOption prodOption) {
@@ -530,7 +514,6 @@ public class AdminServiceimpl implements AdminService {
 	      
 	      prodOption.setProdNo(product.getProdNo());
 	      adminDao.insertProdoption(prodOption);
-	      
 
 	   }
 	
@@ -884,14 +867,6 @@ public class AdminServiceimpl implements AdminService {
 			return paging;
 		}
 	
-//		@Override
-//		public int getParticipantCount(Certification certification) {
-//			
-//			
-//			return adminDao.campParticipate(certification);
-//		}
-//	
-	
 	@Override
 	public void updateInfo(Info info, List<MultipartFile> files, MultipartFile thumb) {
 		
@@ -1082,11 +1057,6 @@ public class AdminServiceimpl implements AdminService {
 		adminDao.prodInqAnswer(prodInqAnswer);
 		
 	}
-
-
-
-	
-	
 
 	@Override
 		public int selectOne(int campno) {

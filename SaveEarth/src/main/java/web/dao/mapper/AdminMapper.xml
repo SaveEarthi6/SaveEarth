@@ -272,22 +272,7 @@
 	VALUES ( #{infoNo}, #{adminNo}, #{infoTitle}, #{infoUrl}, #{infoState})
  	
 </insert>
-	
-	<!-- 캠패인 게시판 게시물 삭제 파일, 글 -->
-<!-- 	<delete id="deleteCam" parameterType="int"> -->
-<!-- 		{CALL -->
-<!-- 		BEGIN -->
-<!-- 		DELETE FROM -->
-<!-- 		campaign_file -->
-<!-- 		WHERE camp_no = ${campNo}; -->
 
-<!-- 		DELETE FROM campaign -->
-<!-- 		WHERE -->
-<!-- 		camp_no = ${campNo}; -->
-<!-- 		END -->
-<!-- 		} -->
-<!-- 	</delete> -->
-	<!-- 썸네일 삽입 --> 
  <insert id="insertinfoThumb" parameterType="web.dto.InfoThumbnail">
  
  	INSERT INTO info_thumbnail (thumb_no, info_no, thumb_origin_name, thumb_stored_name) 
@@ -429,43 +414,41 @@
 		VALUES ( camp_file_no_seq.nextval, #{campNo}, #{campOriginName}, #{campStoredName})
 	</insert>
 
-<select id="selectContent" resultType="web.dto.Info" parameterType="int">
-	SELECT * FROM info
-	WHERE info_no = #{infoNo}
-</select>
+	<select id="selectContent" resultType="web.dto.Info" parameterType="int">
+		SELECT * FROM info
+		WHERE info_no = #{infoNo}
+	</select>
 
-<select id="selectThumb" resultType="web.dto.InfoThumbnail" parameterType="int">
-	SELECT * FROM info_thumbnail
-	WHERE info_no = #{infoNo}
-</select>
+	<select id="selectThumb" resultType="web.dto.InfoThumbnail" parameterType="int">
+		SELECT * FROM info_thumbnail
+		WHERE info_no = #{infoNo}
+	</select>
 
-<select id="selectFile" resultType="web.dto.InfoFile" parameterType="int">
-	SELECT * FROM info_file
-	WHERE info_no = #{infoNo}
-</select>
+	<select id="selectFile" resultType="web.dto.InfoFile" parameterType="int">
+		SELECT * FROM info_file
+		WHERE info_no = #{infoNo}
+	</select>
 
-<!-- 댓글 삭제 -->
-<delete id="deleteComment" parameterType="int">
-    delete from freecomment
-    where comm_no = #{commNo}
-</delete>
+	<!-- 댓글 삭제 -->
+	<delete id="deleteComment" parameterType="int">
+    	delete from freecomment
+    	where comm_no = #{commNo}
+	</delete>
 
 
-<!-- 댓글 조회 - 댓글 등록 후 게시글 상세보기에서 -->
-<select id="selectCommByFreeNo" resultType="map" parameterType="int">
-	SELECT c.*, (SELECT m.user_id FROM member m WHERE m.user_no = c.user_no) user_id FROM freecomment c
-	WHERE free_no = #{freeNo}
-	ORDER BY comm_no desc
-</select>
+	<!-- 댓글 조회 - 댓글 등록 후 게시글 상세보기에서 -->
+	<select id="selectCommByFreeNo" resultType="map" parameterType="int">
+		SELECT c.*, (SELECT m.user_id FROM member m WHERE m.user_no = c.user_no) user_id FROM freecomment c
+		WHERE free_no = #{freeNo}
+		ORDER BY comm_no desc
+	</select>
 
-<!-- 댓글 조회 -->
-
-<select id="selectComment" resultType="map" parameterType="web.dto.Free">
-	SELECT c.*, (SELECT m.user_id FROM member m WHERE m.user_no = c.user_no) user_id FROM freecomment c
-	WHERE free_no = #{freeNo}
-	ORDER BY comm_no desc
-</select>
-
+	<!-- 댓글 조회 -->
+	<select id="selectComment" resultType="map" parameterType="web.dto.Free">
+		SELECT c.*, (SELECT m.user_id FROM member m WHERE m.user_no = c.user_no) user_id FROM freecomment c
+		WHERE free_no = #{freeNo}
+		ORDER BY comm_no desc
+	</select>
 
  	<select id="ProdInq" resultType="web.dto.ProdInq">
 		select * from prod_inq
@@ -477,8 +460,6 @@
 		
 		VALUES ( PROD_INQ_ANSWER_NO_seq.nextval, #{adminNo}, #{inqNo}, #{inqAnswerContent})
 	</insert>
-	
-
 	
 	<!-- 캠페인 참여 현황  -->
 	<select id="campParticipate" parameterType="int" resultType="int">
@@ -497,8 +478,8 @@
 	</select>
 	
 	<insert id="addopt" parameterType="web.dto.ProdOption">
-	INSERT INTO prod_option(prod_opt_no,prod_no,prod_color,prod_size)
-	VALUES(PROD_OPT_NO_seq.nextval,#{prodNo},#{prodColor},#{prodSize})
+		INSERT INTO prod_option(prod_opt_no,prod_no,prod_color,prod_size)
+		VALUES(PROD_OPT_NO_seq.nextval,#{prodNo},#{prodColor},#{prodSize})
 	</insert>
 	
 	

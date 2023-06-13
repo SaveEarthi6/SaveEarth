@@ -4,12 +4,6 @@
 
 <c:import url="../layout/adminheader.jsp"/>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>관리자 자유게시판 글쓰기</title>
-
 <!-- 스마트 에디터 2 로드 -->
 <script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js"></script>
 
