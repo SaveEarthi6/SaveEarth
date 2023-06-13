@@ -467,7 +467,7 @@
 
  	<select id="ProdInq" resultType="web.dto.ProdInq">
 		select * from prod_inq
-		order by inq_no
+		order by inq_no desc
 	</select>
 	
 	<insert id="prodInqAnswer" parameterType="web.dto.ProdInqAnswer">
@@ -483,6 +483,11 @@
    		SELECT COUNT(*) FROM  CERTIFICATION
     	WHERE camp_no = #{campNo}
 	</select>
+	
+	<update id="updateinquire" parameterType="web.dto.ProdInqAnswer">
+		    UPDATE prod_inq  SET  inq_proc='답변완료'
+            where inq_no=#{inqNo}
+	</update>
 	
 	
 </mapper>

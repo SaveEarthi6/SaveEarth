@@ -135,15 +135,28 @@ public class MypageController {
 	
 	//마이페이지 - 내가 내가 쓴 댓글 확인
 	@RequestMapping("/comment")
-	public void mypagecomment(Model model, FreeComment freeComment) {
+	public void mypagecomment(Model model, FreeComment freeComment, HttpSession session) {
 		System.out.println("마이페이지 내가 쓴 댓글 보기");
 		
+		// 내 정보 불러오기 
+				String loginId = (String) session.getAttribute("loginId");
+				logger.info("{}", loginId);
+				
+				Member info = memberService.info(loginId);
+				logger.info("info: {}", info);
+				
+				freeComment.setUserNo(info.getUserNo());
 		
-		List<FreeComment> list = mypageService.commitList(freeComment);
+				// 게시글 리스트
+				List<FreeComment> list = mypageService.commitList(info.getUserNo());
 		
-		System.out.println("list안에 들어있는거 : " + list );
-		System.out.println("freeComment 안에 들어있는거 : "+freeComment);
-		 model.addAttribute("comment", list);
+				System.out.println("list안에 들어있는거 : " + list );
+				System.out.println("freeComment 안에 들어있는거 : "+freeComment);
+				
+				for(FreeComment f : list) {
+					logger.info(" list {} ", f);
+				}
+				model.addAttribute("comment", list);
 		
 	}
 	
