@@ -270,12 +270,24 @@ tr {
 /* 선택 삭제 */
 #btnDelete {
 	margin-right: 20px;
-	border-color: #198754;
-	color: #198754;
+	border-color: #7CA621;
+	color: #7CA621;
 }
 
 #btnDelete:hover {
-	background-color: #E3F2EB;
+	background-color: #EBF0DF;
+}
+
+/* 선택 주문 */
+#btnOrder {
+	background-color: #7CA621;
+	border-color: #7CA621;
+	color: white;
+}
+
+#btnOrder:hover {
+	background-color: #5C8A00;
+	
 }
 
 /* 가격 강조 */
@@ -292,6 +304,7 @@ tr {
 	width: 70%;
 	margin: 25px auto;
     text-align: center;
+    margin-bottom: 50px;
 }
 
 /* 전체주문 버튼 */
@@ -301,6 +314,7 @@ tr {
 	border-color: #59A8D9;
     font-size: 1.15em;
     font-weight: bold;
+    color: white;
 }
 
 
@@ -360,7 +374,7 @@ tr {
 		
 		<div id="btnSelectWrap">
 			<button type="button" id="btnDelete" class="btn">선택 삭제</button>
-			<button type="button" id="btnOrder" class="btn btn-success">선택 주문</button>
+			<button type="button" id="btnOrder" class="btn">선택 주문</button>
 		</div>
 		<div id="clear"></div>
 	</div>
@@ -368,7 +382,7 @@ tr {
 </div>	<!-- cartWrap -->
 
 <div id="btnWrap">
-	<button type="button" id="btnOrderAll" class="btn btn-success" onclick="location.href='./order'">전체 주문</button>
+	<button type="button" id="btnOrderAll" class="btn" onclick="location.href='./order'">전체 주문</button>
 </div>
 
 </div>	<!-- container -->

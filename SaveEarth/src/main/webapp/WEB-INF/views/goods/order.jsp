@@ -260,9 +260,89 @@ tr {
 
 /* 배송지 입력 랩 */
 #shipInfoWrap {
+ 	width: 50%; 
+ 	margin: 0 auto;	 
+/*     margin-top: 10px; */
+}
+
+/* 결제하기 wrap */
+#btnPayWrap {
+	margin-bottom: 50px;
+	text-align: center;
+}
+
+/* 결제하기 */
+#payment-button {
+	width: 350px;
+	background-color: #7CA621;
+	border-color: #7CA621;
+    font-size: 1.15em;
+    font-weight: bold;
+    color: white;
+}
+
+#payment-button:hover {
+	background-color: #5C8A00;
+}
+
+/* 수령인 wrap */
+#recWrap {
+	margin-bottom: 20px;
+}
+
+/* 주소 wrap */
+#addrWrap {
+	margin-bottom: 20px;
+}
+
+/* 연락처 wrap */
+#phoneWrap {
+	margin-bottom: 20px;
+}
+
+/* 구분선 */
+#line {
+	width: 80%;
+	margin: 30px auto;
+	border-style: dashed;
+}
+
+/* 결제부분 wrap */
+#payWrap {
+ 	width:70%; 
+ 	margin: 0 auto; 
+}
+
+/* 우편번호 찾기 버튼 */
+#postBtn {
+    width: 49%;
+    display: inline-block;
+    background-color: #59A8D9;
+    border-color: #59A8D9;
+    color: white;
+    font-weight: bold;
+}
+
+/* 우편번호 폼 */
+#orderAddrPostcode {
+    width: 50%;
+    display: inline-block;
+}
+
+/* 주문자 정보 체크버튼 */
+#getInfoBtn {
 	width: 50%;
-	margin: 0 auto;	
-    margin-top: 10px;
+	margin: 0 auto;
+    font-size: 1.05em;
+    margin-bottom: 5px;
+}
+
+.addr {
+	margin-bottom: 10px;
+}
+
+.clear {
+	clear: both;
 }
 
 label {
@@ -295,7 +375,7 @@ label {
 	    	<c:set var="sum" value="0"/>
 	        <c:forEach var="item" items="${cartList}">
 	            <tr>
-					<td style="padding: 10px; width:25%;"><img src="/upload/${item.CAMP_STORED_NAME }" width="150px" height="150px" id="thumnail"></td>
+					<td style="padding: 10px; width:25%;"><img src="/upload/${item.PROD_STORED_NAME }" width="150px" height="150px" id="thumnail"></td>
 	                <td class="titleTag">${item.PROD_NAME}</td>
 	                <td><span class="titleTag"><fmt:formatNumber pattern="###,###,###" value="${item.PROD_PRICE }"  /></span>원</td>
 	                <td><span class="titleTag">${item.PROD_COUNT}</span>개</td>
@@ -304,61 +384,79 @@ label {
 	        </c:forEach>
 	    </tbody>
 	</table>
-	<div id="sumWrap">
+	
+</div> <!-- listWrap -->
+
+<hr id="line">
+
+<div id='titleWrap'>
+	<div id="listTitle">배송정보</div>
+	<div id="getInfoBtn"><input type="checkbox" id="getShipInfo"> 주문자 정보와 동일</div>
+</div>
+
+<div id="shipInfoWrap">
+
+<form action="./order" method="post">
+
+	<div id="recWrap">
+	  <label for="orderRec" class="form-label">받으시는 분</label>
+	  <input type="text" class="form-control" id="orderRec" name="orderRec" placeholder="수령인">
+	  <span id="recMsg" class="warnMsg"></span>
+	</div>
+	
+	<div class="clear"></div>
+	
+	<div id="addrWrap">
+		<div><label for="inputCity" class="form-label">주소</label></div>
+	
+	    <input type="text" class="form-control addr" id="orderAddrPostcode" placeholder="우편번호" name="orderAddrPostcode"> 
+		<input type="button" id="postBtn" class="form-control addr" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
+	    <input type="text" class="form-control addr" id="orderAddr" placeholder="도로명주소" name="orderAddr">
+		<input type="text" class="form-control addr" id="orderAddrDetail" placeholder="상세주소" name="orderAddrDetail">
+		<span id="addrMsg" class="warnMsg"></span>
+	</div>
+	
+	<div class="clear"></div>
+
+	<div id="phoneWrap">
+	  <label for="orderPhone" class="phone">연락처</label>
+	  <input type="text" class="form-control" id="orderPhone" name="orderPhone" placeholder="연락처">
+	  <span id="phoneMsg" class="warnMsg"></span>
+	</div>
+	
+	<div class="clear"></div>
+
+	<input type="hidden" name="orderPrice" value="${sum}">
+	
+	<div>
+<!-- 	  <button type="submit" class="btn btn-success" id="orderMade">DB 결제하기</button> -->
+	</div>
+  
+</form>
+
+</div>
+
+<hr id="line">
+	
+<div id="payWrap">
+
+<!-- 	<div id="listTitle">결제</div> -->
+
+	<div id="listTitle" style="width: 100%;">
 		<div id="sum">
 			결제할 금액 : 
 			<c:if test="${sum >= 30000}"><span id="tagColor"><fmt:formatNumber pattern="###,###,###" value="${sum}" /></span>원</c:if>
 			<c:if test="${sum < 30000}"><span id="tagColor"><fmt:formatNumber pattern="###,###,###" value="${sum+3000}" /></span>원</c:if>
 		</div>
 	</div>
-</div> <!-- listWrap -->
 
-<div id="listTitle">배송지 입력</div>
-
-<div id="shipInfoWrap">
-
-<form action="./order" method="post">
-	<input type="checkbox" id="getShipInfo">주문자 정보와 동일
-
-	<div class="textForm">
-	  <label for="orderRec" class="form-label">받으시는 분</label>
-	  <input type="text" class="form-control" id="orderRec" name="orderRec" placeholder="수령인">
-	  <span id="recMsg" class="warnMsg"></span>
-	</div>
+	<div id="payment-method"></div>
+	<div id="agreement"></div>
 	
-	<div class="textForm">
-		<label for="inputCity" class="form-label">주소</label>
-	
-		<input type="button" class="form-control" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
-	    <input type="text" class="form-control" id="orderAddrPostcode" placeholder="우편번호" name="orderAddrPostcode"> 
-	    <input type="text" class="form-control" id="orderAddr" placeholder="도로명주소" name="orderAddr">
-		<input type="text" class="form-control" id="orderAddrDetail" placeholder="상세주소" name="orderAddrDetail">
-		<span id="addrMsg" class="warnMsg"></span>
+	<div id="btnPayWrap">
+		<button id="payment-button" class="btn btn-lg">결제하기</button>
 	</div>
 
-	<div class="textForm">
-	  <label for="orderPhone" class="phone">연락처</label>
-	  <input type="text" class="form-control" id="orderPhone" name="orderPhone" placeholder="연락처">
-	  <span id="phoneMsg" class="warnMsg"></span>
-	</div>
-	
-	<input type="hidden" name="orderPrice" value="${sum}">
-	
-	<br>
-	<br>
-	  <div>
-	    <button type="submit" class="btn btn-success" id="orderMade">DB 결제하기</button>
-	  </div>
-	<br>
-	<br>  
-  
-</form>
-
-<!-- 결제위젯, 이용약관 영역 -->
-<div id="payment-method"></div>
-<div id="agreement"></div>
-<!-- 결제하기 버튼 -->
-<button id="payment-button">토스 결제하기</button>
 <script>
 const clientKey = "test_ck_lpP2YxJ4K87vZ9PKpAvrRGZwXLOb"
 const customerKey = "swfA_xX4Vg5HeRU1AZveQ" // 내 상점의 고객을 식별하는 고유한 키
@@ -400,5 +498,6 @@ button.addEventListener("click", function () {
 </div>
 
 </div>
+
 
 <c:import url="../layout/footer.jsp"></c:import>
