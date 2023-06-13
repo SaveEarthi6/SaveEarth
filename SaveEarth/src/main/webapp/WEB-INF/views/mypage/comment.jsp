@@ -129,9 +129,14 @@ select {
 
 /* 게시글 분류 전체(div) 스타일 */
 .nav { 
-	margin: 0 auto;
-	margin-left:615px; 
+ 	margin: 0 auto; 
+    width: fit-content;
  } 
+ 
+ .main {
+ height: 372px
+ 
+ }
 
 </style>
 
@@ -146,7 +151,8 @@ select {
 <a href="./order"><button type="button" class="btn btn-outline-success" id ="top">주문내역 확인</button></a>
 <a href="./comment"><button type="button" class="btn btn-outline-success" id ="top">작성 댓글 보기</button></a>
 </div>
-  
+ 
+<div class="main">
 <!-- 게시판 -->
 <table id= "board" class= "table table-hover text-center">
 
@@ -169,7 +175,8 @@ select {
 </c:forEach>
 </tbody>
 
-</table>	
+</table>
+</div>	
 
 
 <span class="float-end mb-3">${paging.totalCount }</span>

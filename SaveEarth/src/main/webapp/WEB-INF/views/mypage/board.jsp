@@ -76,7 +76,7 @@ select {
 .search {
 	text-align: center;
 	width: 100%;
-	height: 100px;
+	height: 290px;
 }
 
 /* 검색창 스타일 */
