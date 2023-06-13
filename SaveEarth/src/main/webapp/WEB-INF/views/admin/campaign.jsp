@@ -114,6 +114,13 @@ select {
     
  } 
  
+  /* 게시판 분류 버튼 스타일 */
+.nav button {  
+  	margin-left: 40px;  
+	margin-top: 60px;  
+ 	width: 300px;  
+  }  
+ 
  /* 글쓰기 버튼 스타일 */
 #write {
 	text-align: right;

@@ -129,8 +129,8 @@ select {
 
 /* 게시글 분류 전체(div) 스타일 */
 .nav { 
- 	margin-left: 100px; 
- 	margin-bottom: 50px; 
+	margin: 0 auto;
+	margin-left:615px; 
  } 
 
 </style>
@@ -153,6 +153,7 @@ select {
 	<tr style= "background-color: #59A8D9; color: white;">
 		<th style="width: 20px;">글번호</th>
 		<th style="width: 20px;">댓글</th>
+		<th style="width: 20px;">작성날짜</th>
 		<th style="width: 20px;">댓글 삭제</th>
 	</tr>
 	
@@ -161,6 +162,7 @@ select {
 			<tr>
 				<td>${comment.commNo }</td> 
 				<td>${comment.commContent}</td>
+				<td><fmt:formatDate value="${comment.commCreate}" pattern="yy-MM-dd HH:mm:ss"/></td>
 				<td><a href = "./commentDelete?commNo=${comment.commNo}"><button id="btnDelete" class="btn btn-danger">삭제</button></a></td>
 			</tr>
 
