@@ -175,7 +175,6 @@ location.href="?freeHead=" + freeHead
 			<option value= "정보" selected>정보</option>
 			<option value= "질문">질문</option>
 			<option value= "공지사항">공지사항</option>
-
 		</c:when>
        
 		<c:when test="${freeHead eq '질문' }">
@@ -294,6 +293,7 @@ location.href="?freeHead=" + freeHead
 	    <div class="search">
 	        <input type="text" name="keyword" class="search_input"
 	        placeholder="검색어를 입력해주세요" value=${keyword }>
+	        <input type="hidden" name="freeHead" value="${freeHead}">
 	        <button class="search_btn" style="margin-bottom: 3px;"><i class="bi bi-search"></i></button>
 	    </div>
 	</form>	

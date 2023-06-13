@@ -244,7 +244,10 @@ location.href="?freeHead=" + freeHead
   
 </div>
 <!-- 글쓰기 버튼 -->
+<c:if test="${loginId != null }">
+<!-- 글쓰기 버튼 -->
 	<a href = "/free/write"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
+</c:if>
 </div>
 
 <!-- 게시판 -->
@@ -324,6 +327,8 @@ location.href="?freeHead=" + freeHead
 	        <a href="/free/main"><button class="search_reset" style="margin-bottom: 3px;">초기화</button></a>
 		</div>
 </div>
+
+<input type="hidden" name="freeHead" value="${freeHead }">
 
 <span class="float-end mb-3">${paging.totalCount }</span>
 <div class="clearfix"></div>
