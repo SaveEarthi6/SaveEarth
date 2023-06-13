@@ -322,8 +322,6 @@ public class FreeBoardController {
 	@RequestMapping("/free/commUpdate")
 	public void updateComm(FreeComment comment, Model model) {
 		
-		logger.info("551555555555555555555comment {}", comment);
-		
 		freeService.updateComment(comment);
 		
 		List<Map<String, Object>> commList = freeService.getCommentByFreeNo(comment.getFreeNo());
