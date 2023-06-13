@@ -285,6 +285,7 @@ public int campParticipate(int campno);
  * @param prodInqAnswer
  */
 public void updateinquire(ProdInqAnswer prodInqAnswer);
+
    
 
 	
