@@ -86,6 +86,7 @@ select {
    color: #fff;
    cursor: pointer;
    vertical-align: middle;
+    
 }
 
 /* 검색아이콘 이미지 */
