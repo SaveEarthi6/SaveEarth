@@ -207,7 +207,7 @@ location.href="?freeHead=" + freeHead
 			<option value= "사담">사담</option>
 			<option value= "정보">정보</option>
 			<option value= "질문">질문</option>
-			<option value= "공지사항" >공지사항</option>
+			<option value= "공지사항">공지사항</option>
 		</c:otherwise>
 		
       </c:choose>
@@ -247,6 +247,7 @@ location.href="?freeHead=" + freeHead
 						<img class="notice" src="../resources/img/notice.png" width= "35px;" > <!-- 공지사항 이미지 띄우게 하기 -->
 					</c:if>
 					${free.FREE_HEAD}
+					<input type="hidden" name="freeHead" value="${free.FREE_HEAD }">
 				</td>
 				
 				

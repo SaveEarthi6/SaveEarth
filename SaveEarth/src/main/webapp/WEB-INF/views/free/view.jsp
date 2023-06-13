@@ -216,9 +216,9 @@ $(function() {
           success : function(result) { // 결과 성공 콜백함수
         	  console.log(result);
 				
-              $(".comm").html(result);
+//               $(".comm").html(result);
 				
-// 				location.reload();
+				location.reload();
 			
 			  //값 비우기
               $("#commContent").val('');
@@ -264,6 +264,7 @@ $(function() {
 					
 // 	              $(".comm").html(result);
 
+	            //새로고침
 				location.reload();
 	          },
 	          error : function(request, status, error) { // 결과 에러 콜백함수
@@ -277,45 +278,37 @@ $(function() {
 	});
 	
 /* 댓글 수정 */
-$(document).ready(function(){
-	
-$(document).on("click",".commUpdate",function(){
-	
-	//수정한 댓글 내용을 newcomm이 담고 있음
-// 	var newcomm = prompt("수정할 댓글 내용을 입력해주세요")
-// 	$("#rs").append('<input type="text" name="newcomm" class="newcomm">');
-// 	$(".newcomm").show();
-	
-	//수정 버튼의 index를 이용해 댓글 번호와 수정 전 내용을 가져와 input태그에 담는다
-	var idx = $(".commUpdate").index(this)
+
+function commUpdate(th) {
+
+	var idx = $(".commUpdate").index(th)
 	var commNo = $(".commUpdate").eq(idx).attr('data-no')
 	var commContent = $(".commUpdate").eq(idx).attr('data-con')
 	var freeNo = ${param.freeNo}
-
-	$("#rs").replaceWith('<input type="text" name="commContent" id="newcomm" value="' + commContent + '">');
-	$(".commUpdate").replaceWith('<button id="commSuccess" data-num="' +  commNo + '">완료</button>');
 	
-	var newcomm = $("#newcomm").val();
-	
-// 	const element = document.getElementById('my_div');
-	
-	console.log('update' + newcomm)
-	console.log(commNo)
+	console.log('commNo' + commNo)
 	console.log(commContent)
-	console.log( $('#newcomm') )
+	console.log(freeNo)
+	
+	/* 댓글 내용이 있는 태그를 바로 찾아갈 수 없기 때문에 부모 태그를 먼저 찾은 후에 하위 태그를 find로 찾음 */
+	$(th).parents(".com").find('#rs').replaceWith('<input type="text" name="commContent" id="newcomm" value="'+ commContent +'">')
+	$(th).parents(".com").find('.commUpdate').replaceWith('<button id="commSuccess" data-no="' +  commNo + '" onclick="success(this)">완료</button>')
+
+	var commCon = $("#newcomm").val();
 	
 	$.ajax({
 		type : 'get',
 		url : '/free/commUpdate',
 		data : 
 			{commNo : commNo,
-			freeNo : freeNo},
+			freeNo : freeNo,
+			commContent : commCon},
 		success:
 			function(result){
 
 // 			$('commUpdate').replaceWith('<button id="commSuccess">완료</button>');
 			
-			console.log($('#commSuccess').attr('data-num'));
+// 			console.log($('#commSuccess').attr('data-no'));
 			
 			console.log('댓글 수정!');
 			
@@ -325,30 +318,25 @@ $(document).on("click",".commUpdate",function(){
 			//-> 처음 수정만 되고 다시 수정 시도하면 실패 -> freeNo를 찾지 못함
 // 			$(".comm").html(result);
 			
-		},
+			},
 		error: function(error){
 			console.log('댓글 수정 실패!')
 		}
 			
 		
 	})
-})/* click end */
+	
 
-})/* document ready end */
 
-$(document).ready(function(){
-	
-$(document).on("click","#commSuccess",function(){
-	
-	//수정한 댓글 내용을 newcomm이 담고 있음
-	
-	var idx = $("#commSuccess").index(this)
-	var commNo = $("#commSuccess").eq(idx).attr('data-num')
+}
+
+function success(th) {
+
+	var idx = $("#commSuccess").index(th)
+	var commNo = $("#commSuccess").eq(idx).attr('data-no')
 	var freeNo = ${param.freeNo}
-
-	var commCon = $("#newcomm").val();
 	
-// 	const element = document.getElementById('my_div');
+	var commCon = $("#newcomm").val();
 	
 	console.log('commSuccess comCon' + commCon)
 	console.log(commNo)
@@ -363,13 +351,13 @@ $(document).on("click","#commSuccess",function(){
 			commContent : commCon},
 		success:
 			function(result){
-
+	
 			console.log('댓글 수정 성공!');
 			
 			location.reload();
 			
 			//-> 처음 수정만 되고 다시 수정 시도하면 실패 -> freeNo를 찾지 못함
-// 			$(".comm").html(result);
+	//			$(".comm").html(result);
 			
 		},
 		error: function(error){
@@ -379,9 +367,9 @@ $(document).on("click","#commSuccess",function(){
 		
 	})
 	
-})
+	}
 
-})
+
 
 </script>
 
@@ -443,6 +431,8 @@ function heart(freeNo) {
       <img class="commentProfile" src="../resources/img/commentProfile.png">&nbsp;<span
         id="writer" style="font-weight: bold">${commContent.USER_ID }</span>
       <br>
+      
+    <div class="com">
     <span id="rs">${commContent.COMM_CONTENT }</span>
 ㅣ  <span id="writeDate">
 	<fmt:formatDate value="${commContent.COMM_MODIFY}" pattern="yyyy. MM. dd. HH:mm:ss" />
@@ -454,9 +444,11 @@ function heart(freeNo) {
 	<input type="hidden" value="${commContent.COMM_NO }" class="commNo">
 	<!-- this는 버튼의 요소를 가져가 -->
 	<button class="commDelete" data-no="${commContent.COMM_NO }">삭제</button>  
-	<button class="commUpdate" data-no="${commContent.COMM_NO }" data-con=${commContent.COMM_CONTENT }>수정</button>  
+	<button class="commUpdate" data-no="${commContent.COMM_NO }" data-con="${commContent.COMM_CONTENT }" onclick="commUpdate(this)">수정</button>  
 	
     </c:if>
+
+	</div>
 
       <hr>
     

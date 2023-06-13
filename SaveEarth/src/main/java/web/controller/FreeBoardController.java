@@ -208,10 +208,11 @@ public class FreeBoardController {
 		logger.info("/free/search [GET]");
 		
 		logger.info("curPage {}", curPage);
-		Paging paging = freeService.getPagingByKeyword(curPage, keyword, freeHead);
-		
 		logger.info("freeHead {}", freeHead);
 		logger.info("keyword {}", keyword);
+
+		Paging paging = freeService.getPagingByKeyword(curPage, keyword, freeHead);
+		
 		
 		logger.info("paging {}", paging);
 
@@ -318,12 +319,11 @@ public class FreeBoardController {
 		
 	}
 	
+	//댓글 수정할 내용 조회
 	@RequestMapping("/free/commUpdate")
 	public void updateComm(FreeComment comment, Model model) {
 		
 		logger.info("551555555555555555555comment {}", comment);
-		
-//		freeService.updateComment(comment);
 		
 		List<Map<String, Object>> commList = freeService.getCommentByFreeNo(comment.getFreeNo());
 //		
@@ -334,8 +334,8 @@ public class FreeBoardController {
 		
 	}
 	
-	
-	@PostMapping("/free/commSuccess")
+	//댓글 수정
+	@RequestMapping("/free/commSuccess")
 	public void updateSuccess(Model model, FreeComment comment) {
 		
 		logger.info("commSuccess!!!!!!!! {} ", comment);
