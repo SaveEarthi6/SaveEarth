@@ -111,9 +111,15 @@ select {
 .nav { 
     margin: 0 auto; 
     width: fit-content;
-    margin-top: 20px;
     
  } 
+ 
+  /* 게시판 분류 버튼 스타일 */
+.nav button {  
+  	margin-left: 40px;  
+	margin-top: 60px;  
+ 	width: 300px;  
+  }  
 
 /* 글쓰기 버튼 스타일 */
 #write {
@@ -148,6 +154,9 @@ h1 {
     margin-right: 10px;
     margin-bottom: 65px;
 }
+
+a{ text-decoration: none; } /* 링크텍스트에 밑줄없앰 */
+button{ cursor: pointer; } /* 모든 버튼에 마우스손모양 처리 */
 
 </style>
 
@@ -186,7 +195,32 @@ $(document).ready(function() {
 		
 		<div id="infos" class="row col-10">
 		
-			<c:forEach var="infoList" items="${infoList }">
+			<c:forEach var="infoList" items="${infoList }" begin="0" end="2">
+			<div id="info" class="col">
+			<a href="./infoView?infoNo=${infoList.INFO_NO }" id="infoNo">
+				<c:if test="${infoList.THUMB_STORED_NAME ne null }">
+					<div><img alt="" src="/upload/${infoList.THUMB_STORED_NAME }" style="width: 400px; height: 300px;"></div>
+				</c:if>
+				<c:if test="${infoList.THUMB_STORED_NAME eq null }">
+					<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
+				</c:if>
+				<div id="infoTitle">
+					<span id="title">[${infoList.INFO_TITLE }]</span>
+				</div>
+			</a>
+			</div>
+			</c:forEach>
+			
+		</div>
+		<div class="col-1"></div>
+</div>
+
+  	<div id="infoList" class="row">
+		<div class="col-1"></div>
+		
+		<div id="infos" class="row col-10">
+		
+			<c:forEach var="infoList" items="${infoList }" begin="3" end="5">
 			<div id="info" class="col">
 			<a href="./infoView?infoNo=${infoList.INFO_NO }" id="infoNo">
 				<c:if test="${infoList.THUMB_STORED_NAME ne null }">
@@ -203,9 +237,10 @@ $(document).ready(function() {
 			</c:forEach>
 			
 		</div>
+		<div class="col-1"></div>
 </div>
 
-<span class="float-end mb-3">${paging.totalCount }</span>
+<%-- <span class="float-end mb-3">${paging.totalCount }</span> --%>
 <div class="clearfix"></div>
 
 <div>
