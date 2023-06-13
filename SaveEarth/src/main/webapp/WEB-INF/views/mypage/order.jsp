@@ -179,8 +179,13 @@ width: 700px;
 
 /* 게시글 분류 전체(div) 스타일 */
 .nav { 
+<<<<<<< HEAD
+	margin: 0 auto;
+	margin-left:615px; 
+=======
  	margin: 0 auto; 
     width: fit-content; 
+>>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth.git
  } 
 
 /* 게시물 전체 감싸는 태그 */
