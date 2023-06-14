@@ -62,6 +62,7 @@ public class CampaignController {
 //				logger.info("{}", c);
 			}
 			
+			
 			model.addAttribute("certList", certList);
 			
 			
