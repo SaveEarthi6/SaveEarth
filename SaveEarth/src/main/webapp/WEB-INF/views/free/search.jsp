@@ -71,7 +71,12 @@ input {
 
 /* 말머리글 (드롭다운) 크기 늘리기 */
 select {
-	width:100px;
+	height: 30px;
+	width: 83px;
+	margin-right: 10px;
+	font-family: 'omyu_pretty';
+	font-size: 18px;
+	
 }
 
 .head {
@@ -93,6 +98,8 @@ select {
 	height: 30px;
 	font-size: 18px;
 	border: 1px solid #ccc;
+	font-family: 'omyu_pretty';
+	font-size: 18px;
 }
 
 /* 검색창 버튼 스타일 */
@@ -119,6 +126,8 @@ select {
 	color: #fff;
 	cursor: pointer;
 	vertical-align: middle;
+	font-family: 'omyu_pretty';
+	font-size: 18px;
 }
 
 /* 검색아이콘 이미지 */

@@ -77,6 +77,7 @@ $(document).ready(function() {
 				console.log(data)
 				alert('썸네일이 삭제되었습니다!')
 				$("#originFile1").html(data)
+				location.reload();
 							
 			}
 		})

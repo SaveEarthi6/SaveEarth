@@ -133,7 +133,17 @@ input {
 	text-align: center;
 }
 
+/* '정보'버튼 스타일 */
+#infobtn {
+	font-family: 'omyu_pretty';
+	font-size: 18px;
+}
 
+/* '자유TOP' 버튼 스타일 */
+#freebtn {
+	font-family: 'omyu_pretty';
+	font-size: 18px;
+}
 
 
 </style>

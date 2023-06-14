@@ -9,6 +9,7 @@
 
 
 <style type="text/css">
+
 @font-face {
    font-family: 'KBO-Dia-Gothic_bold';
    src:
@@ -48,15 +49,16 @@
    width: 70px;
 }
 
+/* 댓글 목록 스타일 */
 .commList {
    border: 1px solid green;
    margin-bottom: 3px;
 }
 
-#btnRecommend, #btnEmpty {
-   border: 0;
-   background-color: white;
-}
+/* #btnRecommend, #btnEmpty { */
+/*    border: 0; */
+/*    background-color: white; */
+/* } */
 
 /* 추천수 버튼 스타일 */
 .button {
@@ -117,6 +119,32 @@
 	text-align: right;
 	margin-right: 200px;
 	margin-top: 20px;
+	font-family: 'omyu_pretty';
+	font-size: 20px;
+}
+
+/* '삭제' 버튼 스타일 */
+#btnDelete {
+	font-family: 'omyu_pretty';
+	font-size: 18px;
+}
+
+/* '수정' 버튼 스타일 */
+#btnUpdate {
+	font-family: 'omyu_pretty';
+	font-size: 18px;
+}
+
+/* '목록' 버튼 스타일 */
+#btnList {
+	font-family: 'omyu_pretty';
+	font-size: 18px;
+}
+
+/* 댓글 등록 버튼 스타일 */
+#enroll {
+	font-family: 'omyu_pretty';
+	font-size: 18px;
 }
 
 </style>

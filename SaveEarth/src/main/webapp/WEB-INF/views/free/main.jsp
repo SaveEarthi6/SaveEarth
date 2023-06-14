@@ -62,12 +62,16 @@ body {
 
 /* 말머리글 (드롭다운) 크기 늘리기 */
 select {
-	width:100px;
+	height: 30px;
+	width: 83px;
+	margin-right: 10px;
 }
 
 .head {
 	padding-left: 1200px;
 	padding-top: 50px;
+	font-family: 'omyu_pretty';
+	font-size: 18px;
 	
 }
 
@@ -85,6 +89,7 @@ select {
 	font-size: 18px;
 	border-radius: 8px;
 	border: 1px solid #bbb;
+	font-family: 'omyu_pretty';
 }
 
 /* 검색창 버튼 스타일 */
@@ -123,6 +128,10 @@ select {
 	text-align: center;
 }
 
+#write {
+	font-family: 'omyu_pretty';
+	font-size: 18px;
+}
 
 
 
@@ -157,7 +166,7 @@ location.href="?freeHead=" + freeHead
 
 <div class="btn-group" >
 
-  <select id="freeHead" onchange="selectfreeHead()" name="freeHead" >
+  <select id="freeHead" onchange="selectfreeHead()" name="freeHead">
 
   	    <c:choose>
   	    
@@ -216,7 +225,7 @@ location.href="?freeHead=" + freeHead
 </div>
 <c:if test="${loginId != null }">
 <!-- 글쓰기 버튼 -->
-	<a href = "/free/write"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
+	<a href = "/free/write"><button type="button" class="btn btn-outline-success" id="write">글쓰기</button></a>
 </c:if>
 </div>
 
