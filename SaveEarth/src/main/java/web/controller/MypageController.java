@@ -30,7 +30,7 @@ import web.service.face.MemberService;
 import web.service.face.MypageService;
 import web.util.Paging;
 
-
+//test
 @Controller
 @RequestMapping("/mypage")
 public class MypageController {
@@ -58,6 +58,8 @@ public class MypageController {
 		
 		model.addAttribute("info", info); 
 	}
+	
+	
 	
 	
 	@PostMapping("/update") // 마이페이지 - 개인정보 수정
