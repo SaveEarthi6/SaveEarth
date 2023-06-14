@@ -192,14 +192,18 @@ public void updateFree(Free freeBoard, List<MultipartFile> files, List<FreeFile>
    /**
     * 정보게시판 게시글 수정
     * @param info - 게시글 내용
-    * @param files - 첨부파일(들)
     * @param thumb - 썸네일 파일
-	 * @param infoFileNo - 파일 번호
-	 * @param thumbNo - 썸네일 번호 
     */
-//   public void updateInfo(Info info, List<MultipartFile> files, MultipartFile thumb, int thumbNo, int infoFileNo);
-   public void updateInfo(Info info, List<MultipartFile> files, MultipartFile thumb);
+   public void updateInfo(Info info, MultipartFile thumb);
 
+   /**
+    * 정보게시판 게시글 수정
+    * @param info - 수정할 게시글 정보
+    * @param files - 첨부파일들 정보
+    */
+   public void updateFiles(Info info, List<MultipartFile> files);
+   
+   
    /**
     * 정보게시판 게시글 내용 조회
     * @param infoNo - 게시글 번호
@@ -276,6 +280,8 @@ public List<Map<String, Object>> getComment(Free freeBoard);
    public void addopt(ProdOption prodOption);
 
 public void insertOtherfiles(Product product, List<MultipartFile> otherfiles);
+
+
 
 
 

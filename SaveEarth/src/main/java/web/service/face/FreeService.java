@@ -158,9 +158,9 @@ public interface FreeService {
 
 	/**
 	 * 파일 번호를 기준으로 파일을 삭제한다
-	 * @param fileNo - 파일 번호
+	 * @param freeFileNo - 파일 번호
 	 */
-	public void deleteFile(int fileNo);
+	public void deleteFile(int freeFileNo);
 
 	/**
 	 * 게시글 번호(정수형)를 기준으로 파일 정보를 조회한다
@@ -183,6 +183,7 @@ public interface FreeService {
 	 * @param comment - 수정한 댓글 내용
 	 */
 	public void updateComment(FreeComment comment);
+
 
 
 

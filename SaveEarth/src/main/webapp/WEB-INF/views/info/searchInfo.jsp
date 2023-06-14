@@ -24,6 +24,14 @@
 
 <style type="text/css">
 
+/* 폰트 */
+@font-face {
+    font-family: 'omyu_pretty';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /* 게시판 이미지 스타일 */
 .infoimage {
 	position: relative;
@@ -82,7 +90,6 @@
 	font-size: 18px;
 	border: 1px solid #ccc;
 	margin-top: 10px;
-/* 	border-bottom: 1px black solid; */
 }
 
 /* 검색창 버튼 스타일 */
@@ -119,13 +126,8 @@ input {
 
 #infoTitle {
 	margin-top: 10px;
-}
-
-
-#title {
 	font-weight: bold;
 }
-
 
 #info {
     width: 225px;
@@ -146,6 +148,18 @@ input {
 	color: #fff;
 	cursor: pointer;
 	vertical-align: middle;
+}
+
+/* '정보'버튼 스타일 */
+#infobtn {
+	font-family: 'omyu_pretty';
+	font-size: 18px;
+}
+
+/* '자유TOP' 버튼 스타일 */
+#freebtn {
+	font-family: 'omyu_pretty';
+	font-size: 18px;
 }
 
 </style>

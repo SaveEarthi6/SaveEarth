@@ -51,10 +51,8 @@ $(document).ready(function() {
 	if( ${not empty infoThumb} ) {
 // 		console.log(${freeFile})
 		$("#originFile1").show()
-		$("#newFile1").hide()
 	} else {
 		$("#newFile1").show()
-		$("#originFile1").hide()
 	}
 	
 /* 썸네일 삭제 버튼 동작 */	
@@ -79,6 +77,7 @@ $(document).ready(function() {
 				console.log(data)
 				alert('썸네일이 삭제되었습니다!')
 				$("#originFile1").html(data)
+				location.reload();
 							
 			}
 		})
@@ -90,34 +89,36 @@ $(document).ready(function() {
 	if( ${not empty infoFile} ) {
 // 		console.log(${freeFile})
 		$("#originFile2").show()
-		$("#newFile2").hide()
 	} else {
 		$("#newFile2").show()
-		$("#originFile2").hide()
 	}
 	
 /* 파일 삭제 버튼 동작 */	
 	$(".deleteFile").click(function() {
 		console.log('삭제 버튼 동작');
 		
-		$("#originFile2").toggleClass("through");
+		var idx = $(".deleteFile").index(this)
+	    var infoFileNo = $(".deleteFile").eq(idx).attr('data-no')
+		
+		$(".originFile2").toggleClass("through");
 		$("#newFile2").toggle();
 
-		console.log( $('.infoFileNo').val() )
+		console.log( infoFileNo )
 		console.log( ${param.infoNo} )
 		
 		$.ajax({
 			type: "get",
 			dataType : "html",
-			url: "http://localhost:8888/info/deleteFile",
+			url: "/info/deleteFile",
 			data:{
-				infoFileNo: $('.infoFileNo').val(),
+				infoFileNo: infoFileNo,
 				infoNo: ${param.infoNo}
 				},
 			success: function(data){
 				console.log(data)
 				alert('선택한 파일이 삭제되었습니다!')
-				$("#originFile2").html(data)
+				$(".originFile2").html(data)
+				location.reload();
 							
 			}
 		})
@@ -198,7 +199,10 @@ form {
 
 파일 수정 : 
 <br>		
+		<c:if test="${infoThumb != null }">
 		썸네일
+		</c:if>
+		
 		<div id="originFile1">
 		<c:if test="${ not empty infoThumb }">
 			<a href="../upload/${infoThumb.thumbStoredName }" download="${infoThumb.thumbOriginName}">
@@ -214,15 +218,18 @@ form {
 			<small>** 새로운 파일로 첨부하면 기존 파일은 삭제됩니다</small>
 		</div>
 		
+		<br>
 	
+		<c:if test="${infoFile != null }">
 		첨부파일
+		</c:if>
+		
 		<c:forEach items="${infoFile}" var="file">
 		<div id="originFile2">
 		<c:if test="${not empty file }">
 			<a href="../upload/${file.infoStoredName }" download="${file.infoOriginName}">
 				${file.infoOriginName }
-			</a><button class="deleteFile btn btn-outline-warning" type="button">삭제</button><br>
-			<input type="hidden" value="${file.infoFileNo}" class="infoFileNo" name="infoFileNo">
+			</a><button class="deleteFile btn btn-outline-warning" type="button" data-no="${file.infoFileNo}">삭제</button><br>
 		</c:if>
 		</div>
 		</c:forEach>

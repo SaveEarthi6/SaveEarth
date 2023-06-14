@@ -96,10 +96,10 @@ body {
 	position: relative;
 }
 
-.lefttop {
+.lefttop3 {
 	position : absolute;
 	top: 50px;
-	right:150px
+	right:150px;
 }
 .righttop{
 	position: absolute;
@@ -119,6 +119,9 @@ body {
     font-weight: normal;
     font-style: normal;
 }
+
+a{ text-decoration: none; } /* 링크텍스트에 밑줄없앰 */
+button{ cursor: pointer; } /* 모든 버튼에 마우스손모양 처리 */
 
 </style>
 

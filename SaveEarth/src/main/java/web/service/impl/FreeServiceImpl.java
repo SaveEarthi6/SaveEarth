@@ -363,9 +363,9 @@ public class FreeServiceImpl implements FreeService{
 	
 	//수정 페이지에서 파일 삭제
 	@Override
-	public void deleteFile(int fileNo) {
+	public void deleteFile(int freeFileNo) {
 		
-		freeDao.deleteFileByFileNo(fileNo);
+		freeDao.deleteFileByfreeFileNo(freeFileNo);
 	}
 	
 	@Override
