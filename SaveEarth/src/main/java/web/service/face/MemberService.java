@@ -66,7 +66,7 @@ public interface MemberService {
 	 * @param member
 	 * @return
 	 */
-	public void temPw(Member member);
+	public void temPwSha(Member member);
 
 	/**
 	 * 메일발송
