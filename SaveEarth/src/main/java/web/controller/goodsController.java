@@ -446,6 +446,10 @@ public class goodsController {
 		  return "redirect:/goods/detail?prodno=" + prodNo; 
 	  }
 	  
+	  @RequestMapping("orderFail")
+	  public void orderFail() {
+		  
+	  }
 	
 
 }

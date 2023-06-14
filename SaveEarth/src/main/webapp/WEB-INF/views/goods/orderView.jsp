@@ -30,6 +30,8 @@ $(function() {
 thead {
     font-size: 1.25em;
     border-top: solid 1px #ccc;
+    background-color: #7ca6212e;
+    color: #000000bd; 
 }
 
 tr {
@@ -38,6 +40,14 @@ tr {
 
 /* 상품 태그 강조 */
 .titleTag {
+    font-weight: bold;
+}
+
+/* 주문목록 태그 */
+#orderNo {
+	width: 70%;
+	margin: 30px auto;
+    font-size: 2em;
     font-weight: bold;
 }
 
@@ -152,6 +162,22 @@ tr {
     color: white;
 }
 
+/* 총 합계 */
+#totalSum {
+    font-size: 1.5em;
+    font-weight: bold;
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+/* 상품 가격 + 배송비 */
+#payInfo {
+	width: 70%;
+	margin: 0 auto;
+	font-size: 1.35em;
+}
+
 .addr {
 	margin-bottom: 10px;
 }
@@ -169,6 +195,15 @@ label {
 
 
 <div id="container">
+
+
+<div id="orderNo">
+<c:forEach var="item" items="${orderInfo}" begin="0" end="0">
+주문번호 : ${item.orderNo}
+</c:forEach>
+</div>
+
+<hr id="line">
 
 <div id="listWrap">
 <div id="listTitle">구매목록</div>
@@ -192,6 +227,24 @@ label {
 	        </c:forEach>
 	    </tbody>
 	</table>
+	
+	<div id="bottomWrap">
+		<c:forEach var="item" items="${orderInfo}" begin="0" end="0">
+		<div id="totalSum">
+			결제 금액 : <span id="tagColor"><fmt:formatNumber pattern="###,###,###" value="${item.orderPrice}" /></span> 원
+		</div>
+		<div id="payInfo">
+			<c:if test="${item.orderPrice >= 30000}">
+				총 상품가격 : <span id="tagColor"><fmt:formatNumber pattern="###,###,###" value="${item.orderPrice}" /></span> 원 
+				+ 배송비 : <span id="tagColor">0</span> 원
+			</c:if>
+			<c:if test="${item.orderPrice < 30000}">
+				총 상품가격 : <span id="tagColor"><fmt:formatNumber pattern="###,###,###" value="${item.orderPrice - 3000}" /></span> 원 
+				+ 배송비 : <span id="tagColor">3,000</span> 원
+			</c:if>
+		</div>
+		</c:forEach>
+	</div>
 	
 </div> <!-- listWrap -->
 

@@ -16,29 +16,25 @@
     font-weight: bold;
 }
 
+/* 주문내역들 */
 #orderList {
 	width: 70%;
 	margin: 0 auto;
     margin-top: 30px;
 }
 
-#order {
+/* 주문내역 */
+.order {
 	border: solid 5px #ccc;
+    margin-bottom: 60px;
 }
 
-p {
-	margin-left: 30px;
-}
-
+/* 주문번호 wrap */
 #orderNoP {
 	margin-top: 20px;
 }
 
-span {
-	font-weight: bold;
-    font-size: 1.5em;
-}
-
+/* 소제목 태그 */
 .tag {
 	font-weight: bold;
     font-size: 1.5em;	
@@ -47,6 +43,7 @@ span {
  	width: 35%; 
 }
 
+/* 태그 내용 */
 .content {
 	display: inline-block;
 	margin-right: 120px;
@@ -54,15 +51,22 @@ span {
  	font-size: 1.25em;
 }
 
+/* 주문금액 wrap */
 #orderPriceP {
 	margin-bottom: 20px;
 }
 
+/* 주문번호, 수령인, 주소 wrap */
 #orderNoP, #orderRecP, #orderAdddrP {
 	margin-bottom: 10px;
 }
 
-
+/* 주문내역 없음 */
+#noOrder {
+    text-align: center;
+    font-size: 1.5em;
+    padding: 30px;
+}
 
 </style>
 
@@ -73,8 +77,9 @@ span {
 </div>
 
 <div id="orderList">
+	<c:if test="${!empty orderList}">
 	<c:forEach items="${orderList}" var="orderList">
-	<div id="order">
+	<div id="existOrder" class="order">
 		<div id="orderNoP">
 			<div class="tag">주문번호</div>
 			<div class="content"><a href="./orderView?orderNo=${orderList.orderNo}">${orderList.orderNo}</a></div>
@@ -93,6 +98,12 @@ span {
 		</div>
 	</div>
 	</c:forEach>
+	</c:if>
+	<c:if test="${empty orderList}">
+	<div id="noOrder" class="order">
+		주문 내역이 없습니다
+	</div>
+	</c:if>
 </div>
 
 </div>

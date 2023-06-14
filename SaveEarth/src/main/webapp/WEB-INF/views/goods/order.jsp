@@ -146,8 +146,13 @@ function validate() {
 		$("#addrMsg").html("")
 	}
 	
+	var phoneReg = /^(010)-?[0-9]{3,4}-?[0-9]{4}$/;
+	
 	if($("#orderPhone").val() == "") {
 		$("#phoneMsg").html("연락처를 입력해주세요.")
+		return false;
+	} else if(!phoneReg.test($("#orderPhone").val())) {
+		$("#phoneMsg").html("[010-0000-0000] 형식으로 입력해주세요.")
 		return false;
 	} else {
 		$("#phoneMsg").html("")
@@ -209,6 +214,22 @@ $(function() {
 	})
 })
 
+//취소하기
+$(function() {
+	
+	$("#cancelBtn").click(function() {
+		
+		var confirm_val = confirm("장바구니로 돌아가시겠습니까?")
+		
+		if(confirm_val) {
+			location.href="./cart"
+		}
+		
+	})
+	
+	
+})
+
 </script>
 
 <style>
@@ -224,6 +245,8 @@ $(function() {
 thead {
     font-size: 1.25em;
     border-top: solid 1px #ccc;
+    background-color: #7ca6212e;
+    color: #000000bd; 
 }
 
 tr {
@@ -267,8 +290,11 @@ tr {
 
 /* 결제하기 wrap */
 #btnPayWrap {
-	margin-bottom: 50px;
-	text-align: center;
+    display: flex;
+    justify-content: space-around;
+    width: 60%;
+    margin: 0 auto;
+    margin-bottom: 50px;
 }
 
 /* 결제하기 */
@@ -284,6 +310,20 @@ tr {
 #payment-button:hover {
 	background-color: #5C8A00;
 }
+
+/* 취소하기 */
+#cancelBtn {
+	width: 350px;
+	border-color: #7CA621;
+    font-size: 1.15em;
+    font-weight: bold;
+    color: #7CA621;
+}
+
+#cancelBtn:hover {
+	background-color: #EBF0DF;
+}
+
 
 /* 수령인 wrap */
 #recWrap {
@@ -440,8 +480,6 @@ label {
 	
 <div id="payWrap">
 
-<!-- 	<div id="listTitle">결제</div> -->
-
 	<div id="listTitle" style="width: 100%;">
 		<div id="sum">
 			결제할 금액 : 
@@ -455,6 +493,7 @@ label {
 	
 	<div id="btnPayWrap">
 		<button id="payment-button" class="btn btn-lg">결제하기</button>
+		<button id="cancelBtn" class="btn btn-lg">취소하기</button>
 	</div>
 
 <script>
@@ -488,7 +527,7 @@ console.log(name);
 		  orderId: "RkluNBM8DMR923bZ09aZA" + new Date().getTime(),            // 주문 ID(직접 만들어주세요)
 		  orderName: "토스 티셔츠 외 2건",                 // 주문명
 		  successUrl: "http://localhost:8888/goods/payment?name="+${sum}+'&abc='+'abcsde',  // 결제에 성공하면 이동하는 페이지(직접 만들어주세요)
-		  failUrl: "https://my-store.com/fail",        // 결제에 실패하면 이동하는 페이지(직접 만들어주세요)
+		  failUrl: "http://localhost:8888/goods/orderFail",        // 결제에 실패하면 이동하는 페이지(직접 만들어주세요)
 		  customerEmail: "customer123@gmail.com",
 		  customerName: "김토스"
 		})
