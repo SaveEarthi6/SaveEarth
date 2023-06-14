@@ -685,7 +685,7 @@ public class AdminController {
 			   
 			   adminService.addopt(prodOption);
 			   
-			   return "redirect:./addopt";
+			   return "redirect:./product";
 		   }
 		   
 		   
