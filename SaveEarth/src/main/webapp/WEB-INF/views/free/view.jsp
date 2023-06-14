@@ -93,6 +93,21 @@
 	font-family: 'omyu_pretty';
 	font-size:20px;
 }
+
+.mb-3 img{
+	border: 1px solid #ccc;
+	margin-top: 30px;
+}
+
+.mb-3 {
+	text-align: center;
+}
+
+.down {
+	text-align: right;
+	margin-right: 200px;
+}
+
 </style>
 
 
@@ -186,8 +201,11 @@
          <c:forEach items="${freeFile }" var="file">
                 <img src="../upload/  ${file.freeStoredName }" style= "width:1000px;">
                 <br>
-            <a href="../upload/${file.freeStoredName }"
-               download="${file.freeOriginName }"> ${file.freeOriginName } </a>
+          
+            <div class="down">
+            <span style="font-weight: bold;">다운로드 : </span><a href="../upload/${file.freeStoredName }"
+               download="${file.freeOriginName }" style="font-weight: bold;"> ${file.freeOriginName } </a>
+            </div>
             <br>
          </c:forEach>
       </c:if>
@@ -292,7 +310,7 @@ function commUpdate(th) {
 	
 	/* 댓글 내용이 있는 태그를 바로 찾아갈 수 없기 때문에 부모 태그를 먼저 찾은 후에 하위 태그를 find로 찾음 */
 	$(th).parents(".com").find('#rs').replaceWith('<input type="text" name="commContent" id="newcomm" value="'+ commContent +'">')
-	$(th).parents(".com").find('.commUpdate').replaceWith('<button id="commSuccess" data-no="' +  commNo + '" onclick="success(this)">완료</button>')
+	$(th).parents(".com").find('.commUpdate').replaceWith('<button id="commSuccess" class="btn btn-danger" data-no="' +  commNo + '" onclick="success(this)">완료</button>')
 
 	var commCon = $("#newcomm").val();
 	
@@ -443,8 +461,8 @@ function heart(freeNo) {
 	<!-- id값은 중복되면 에러나기 때문에 c:foreach같은 반복문에서는 클래스로 지정해주어야 한다 -->
 	<input type="hidden" value="${commContent.COMM_NO }" class="commNo">
 	<!-- this는 버튼의 요소를 가져가 -->
-	<button class="commDelete" data-no="${commContent.COMM_NO }">삭제</button>  
-	<button class="commUpdate" data-no="${commContent.COMM_NO }" data-con="${commContent.COMM_CONTENT }" onclick="commUpdate(this)">수정</button>  
+	<button class="commDelete btn btn-danger" data-no="${commContent.COMM_NO }">삭제</button>  
+	<button class="commUpdate btn btn-danger" data-no="${commContent.COMM_NO }" data-con="${commContent.COMM_CONTENT }" onclick="commUpdate(this)">수정</button>  
 	
     </c:if>
 

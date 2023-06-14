@@ -92,7 +92,6 @@ public class FreeBoardController {
 		model.addAttribute("loginId", loginId);
 		
 		//상세보기 페이지 파일 조회
-//		FreeFile freeFile = freeService.getFreeFile(freeBoard);
 		List<FreeFile> freeFile = freeService.getFreeFile(freeBoard);
 		logger.info("freeFile {}", freeFile);
 		model.addAttribute("freeFile", freeFile);
@@ -304,14 +303,14 @@ public class FreeBoardController {
 		
 	}
 	
-	@GetMapping("/free/deleteFile")
-	public void updateFile(@RequestParam("fileNo") int fileNo, @RequestParam("freeNo") int freeNo, Model model) {
+	@RequestMapping("/free/deleteFile")
+	public void updateFile(@RequestParam("freeFileNo") int freeFileNo, @RequestParam("freeNo") int freeNo, Model model) {
 //		public void updateFile(@RequestParam("fileNo") int fileNo) {
 		
-		logger.info("fileNo {}", fileNo);
+		logger.info("freeFileNo {}", freeFileNo);
 	
 		//파일번호를 기준으로 파일 삭제
-		freeService.deleteFile(fileNo);
+		freeService.deleteFile(freeFileNo);
 		
 		//삭제된 후 파일 리스트 조회
 		List<FreeFile> freeFile = freeService.getFreeFile(freeNo);

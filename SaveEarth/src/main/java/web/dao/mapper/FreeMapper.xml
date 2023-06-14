@@ -325,7 +325,7 @@ ORDER BY free_no DESC
 
 
 <!-- 수정 페이지에서 파일 삭제 -->
-<delete id="deleteFileByFileNo" parameterType="int">
+<delete id="deleteFileByfreeFileNo" parameterType="int">
 	DELETE free_file 
 	WHERE free_file_no = #{freeFileNo}
 </delete>
