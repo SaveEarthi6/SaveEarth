@@ -112,6 +112,8 @@ public interface CampService {
 	 */
 	public Map<String, Object> getCert(int userNo, int partNo);
 
+	public int selectOne(int campno);
+
 
 
 	
