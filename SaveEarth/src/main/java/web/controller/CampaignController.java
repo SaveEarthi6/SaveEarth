@@ -71,6 +71,7 @@ public class CampaignController {
 			model.addAttribute("ingList", ingList);
 			
 			
+			
 		} else {
 			
 			//기념일(공용 달력) 불러오기
