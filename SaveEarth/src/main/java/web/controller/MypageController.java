@@ -23,6 +23,7 @@ import web.dto.Free;
 import web.dto.FreeComment;
 import web.dto.Member;
 import web.dto.Order;
+import web.service.face.AdminService;
 import web.service.face.FreeService;
 import web.service.face.GoodsService;
 import web.service.face.MemberService;
@@ -48,10 +49,14 @@ public class MypageController {
 		String loginId = (String) session.getAttribute("loginId");
 		logger.info("{}", loginId);
 		
-		Member info = memberService.info(loginId);
+		System.out.println("loginId에 들어있는거 : " + loginId); //세션정보
+		
+		Member info = mypageService.info(loginId);
 		logger.info("info: {}", info);
 		
-		model.addAttribute("info", info);
+		System.out.println("info 안에들어있는거 : " + info); //세선졍보
+		
+		model.addAttribute("info", info); 
 	}
 	
 	
@@ -60,6 +65,8 @@ public class MypageController {
 		
 		member.setUserId((String)session.getAttribute("loginId"));
 		logger.info("{}", member);
+
+
 		
 		
 		//암호화 테스트
@@ -95,7 +102,7 @@ public class MypageController {
 	}
 	
 	
-	@GetMapping("/delete") // 마이페이지 - 개인정보 불러오기 
+	@GetMapping("/delete") // 마이페이지 회원탈퇴 - 개인정보 불러오기 
 	public void mypageDelete(HttpSession session, Model model) {
 		logger.info("/mypage/delete[GET]");
 		
@@ -109,14 +116,14 @@ public class MypageController {
 		model.addAttribute("info", info);
 	}
 	
-	@PostMapping("/delete") // 마이페이지 - 회원탈퇴
+	@PostMapping("/delete") // 마이페이지 회원탈퇴 - 회원탈퇴
 	public String mypageDeleteProc(Member member, HttpSession session) {
 		logger.info("/delete/delete[POST]");
 		
 		String loginId = (String) session.getAttribute("loginId");
 		logger.info("controller{}", loginId);
 		
-		memberService.delete(loginId);
+		mypageService.delete(loginId);
 		
 		return "redirect:/member/logout";
 	}
@@ -127,12 +134,16 @@ public class MypageController {
 		logger.info("/mypage/board[RequestMapping]");
 		logger.info("freeHead{}", freeHead);
 		
-		Paging paging = freeService.getPaging(curPage);
+		Paging paging = mypageService.getPaging(curPage);
 		
-		List<Map<String,Object>> list = freeService.list(paging, freeHead);
-		logger.info("페이징처리:list {}", list);
+		System.out.println("paging 페이징안에 들어있는거 :" + paging);
+		
+		System.out.println("freeHead 안에들어있는거 : " + freeHead);
+		
+		List<Map<String,Object>> MypageBoardlist = mypageService.MypageBoardlist(paging, freeHead);
+		logger.info("페이징처리:list {}", MypageBoardlist);
 
-		for(Map m : list) {
+		for(Map m : MypageBoardlist) {
 			logger.info(" list {} ", m);
 			
 		}
@@ -144,12 +155,12 @@ public class MypageController {
 		String loginId = (String) session.getAttribute("loginId");
 		logger.info("{}", loginId);
 		
-		Member info = memberService.info(loginId);
+		Member info = mypageService.info(loginId);
 		logger.info("info: {}", info);
 
 		// 게시글 리스트 
 		free.setUserNo(info.getUserNo());
-		List<Free> mypageList = freeService.mypageList(info.getUserNo());
+		List<Free> mypageList = mypageService.mypageList(info.getUserNo());
 		System.out.println(mypageList);
 		
 		for(Free m : mypageList) {
@@ -161,31 +172,32 @@ public class MypageController {
 	}
 	
 	
-	//마이페이지 - 내가 내가 쓴 댓글 확인
+	//마이페이지 - 내가 쓴 댓글 확인
 	@RequestMapping("/comment")
 	public void mypagecomment(Model model, FreeComment freeComment, HttpSession session) {
 		System.out.println("마이페이지 내가 쓴 댓글 보기");
 		
 		// 내 정보 불러오기 
-				String loginId = (String) session.getAttribute("loginId");
-				logger.info("{}", loginId);
+		String loginId = (String) session.getAttribute("loginId");
+		logger.info("{}", loginId);
 				
-				Member info = memberService.info(loginId);
-				logger.info("info: {}", info);
+		Member info = memberService.info(loginId);
+		logger.info("info: {}", info);
 				
-				freeComment.setUserNo(info.getUserNo());
-		
-				// 게시글 리스트
-				List<FreeComment> list = mypageService.commitList(info.getUserNo());
-		
-				System.out.println("list안에 들어있는거 : " + list );
-				System.out.println("freeComment 안에 들어있는거 : "+freeComment);
+		freeComment.setUserNo(info.getUserNo());
 				
-				for(FreeComment f : list) {
-					logger.info(" list {} ", f);
-				}
-				model.addAttribute("comment", list);
+				
+		// 게시글 리스트
+		List<FreeComment> list = mypageService.commitList(info.getUserNo());
 		
+		System.out.println("list안에 들어있는거 : " + list );
+		System.out.println("freeComment 안에 들어있는거 : " + freeComment);
+				
+		for(FreeComment f : list) {
+			logger.info(" list {} ", f);
+		}
+			model.addAttribute("comment", list);
+	
 	}
 	
 	//마이페이지 - 내가 쓴 댓글 삭제 

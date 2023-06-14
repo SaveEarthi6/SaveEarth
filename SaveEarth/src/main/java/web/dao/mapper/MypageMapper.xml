@@ -20,8 +20,67 @@
 		select * from freecomment
 		where user_no = #{userNo}
 		ORDER BY comm_no DESC
-</select>
-  
+	</select>
+	
+	<select id="selectCntAll" resultType="int">
+		SELECT count(*) FROM free
+	</select>
+	
+	<select id="selectById" resultType="web.dto.Member" >
+	     SELECT * FROM member
+    	 WHERE user_id= #{userId}
+	</select>
+	
+	<delete id="delete" parameterType="String">
+		DELETE 
+		FROM member
+		WHERE user_id = #{userId}
+	</delete>
+	
+<select id="selectList" resultType="map" parameterType="map">
+	SELECT * FROM(
+		SELECT rownum rnum, (SELECT m.user_id FROM member m WHERE m.user_no = F.user_no) user_id, F.* FROM (
+			SELECT
+			*
+			FROM free f
+	<choose>
+		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('사담')">
+			WHERE free_head = #{freeHead}
+			ORDER BY pin, free_no DESC
+		</when>
+		
+		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('정보')">
+			WHERE free_head = #{freeHead}
+			ORDER BY pin, free_no DESC
+		</when>
+		
+		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('질문')">
+			WHERE free_head = #{freeHead}
+			ORDER BY pin, free_no DESC
+		</when>
+		
+		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('공지사항')">
+			WHERE free_head = #{freeHead}
+			ORDER BY pin, free_no DESC
+		</when>
+		
+		<otherwise>
+			ORDER BY pin, free_no DESC
+		</otherwise>
+		
+	</choose>	
+		) F
+	) FREEMAIN
+	WHERE rnum BETWEEN #{paging.startNo} and #{paging.endNo}
+	</select>
+
+	<select id="mypageList" resultType="web.dto.Free" parameterType="int">
+		select * from Free
+		where user_no = #{userNo}
+		ORDER BY free_no DESC
+	</select>
+	
+
   </mapper>
   
   

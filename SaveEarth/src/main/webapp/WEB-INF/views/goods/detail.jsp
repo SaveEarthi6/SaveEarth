@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="../layout/header.jsp"/> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
 
@@ -122,8 +123,8 @@ $(function(){
 		
 	}
 	.button{
-		width: 160px;
-		float: right;
+		    width: 187px;
+    		margin-left: 219px;
 		
 	}
 	
@@ -263,6 +264,16 @@ tbody{
         width: 40px;
         text-align: center;
     }
+    
+    .total{
+	   	font-size: 1.4em;
+	   	font-weight: bold;
+	    display: inline-block;
+	    width: 500px;
+    }
+    #tagColor {
+	color: #59A8D9;
+}
 </style>
 
 
@@ -332,9 +343,12 @@ tbody{
 			
 			
 			<div class="total">
-				<span>총가격 : </span>
-			    <span class="totalprice" id="totalprice">${goodsDetail.PROD_PRICE }</span>
-			    <span>원</span>
+				
+			    총 상품가격 :<span class="totalprice" id="totalprice"><fmt:formatNumber pattern="###,###,###" value="${goodsDetail.PROD_PRICE }" /></span>원
+				+ 배송비 : 
+			<c:if test="${goodsDetail.PROD_PRICE>=30000 }"><span id="tagColor">0</span></c:if>
+			<c:if test="${goodsDetail.PROD_PRICE<30000 }"><span id="tagColor">3,000</span></c:if>
+			원
 		    </div>
 		    
 		    <div class="button" id="btn_group" style="width : 200px">
@@ -346,6 +360,8 @@ tbody{
 					<input type="hidden" name="prodNo" value="${goodsDetail.PROD_NO }">
 					<input type="hidden" name="prodCount" value="">
 					<input type="hidden" name="prodOptNo" value="">
+					<input type="hidden" name="prodStoredName" value="${goodsDetail.PROD_STORED_NAME}">
+					
 					
 					<button type="submit" class="order btn btn-info" id="btn_test2" onclick="detailbuy()" >구매하기</button>
 			    </form>

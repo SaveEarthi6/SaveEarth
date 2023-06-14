@@ -156,31 +156,120 @@ function validate() {
 	}
 	
 	return true;
-	
+			
 }
+
+
+//주문자 배송정보 불러오기
+$(function() {
+	$("#getShipInfo").change(function() {
+		console.log("체크변경")
+		
+		//체크가 되어있다면 ajax로 정보 불러오기 수행
+		if($("#getShipInfo").is(":checked")) {
+			console.log("체크된 상태임")
+			
+			$.ajax({
+				url: "./getShipInfo"
+				, type: "post"
+				, success: function(res) {
+					console.log("성공")
+					console.log(res)
+					console.log(res.userName)
+					console.log(res.userPostcode)
+					console.log(res.userAddr)
+					console.log(res.userDetailaddr)
+					console.log(res.userPhone)
+					
+					$("#orderRec").val(res.userName)
+					$("#orderAddrPostcode").val(res.userPostcode)
+					$("#orderAddr").val(res.userAddr)
+					$("#orderAddrDetail").val(res.userDetailaddr)
+					$("#orderPhone").val(res.userPhone)
+					
+				}
+				, error: function() {
+					console.log("실패")
+				}
+				
+			})
+			
+		  //해제된 상태면 빈칸 만들어주기
+		} else {
+			console.log("해제된 상태")
+			
+			$("#orderRec").val("")
+			$("#orderAddrPostcode").val("")
+			$("#orderAddr").val("")
+			$("#orderAddrDetail").val("")
+			$("#orderPhone").val("")
+			
+		}
+		
+		
+		
+	})
+})
+
+
 
 </script>
 
 <style>
-table {
-    
-    width: 100%;
-    border-collapse: collapse;
+#prodList {
+	width: 70%;
+    margin: 0 auto;
+    margin-top: 10px;
+    text-align: center;
 }
 
-th, td {
-    padding: 8px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+thead {
+    font-size: 1.25em;
+    border-top: solid 1px #ccc;
 }
 
-tr:hover {
-    background-color: #f5f5f5;
+tr {
+	border-bottom: solid 1px #ccc;
 }
 
+/* 상품 태그 강조 */
 .titleTag {
-	font-size: 1.8em;
-	font-weight: bold;
+    font-weight: bold;
+}
+
+/* 주문목록 태그 */
+#listTitle {
+	width: 70%;
+	margin: 0 auto;
+    margin-top: 30px;
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+/* 총 합계 */
+#sumWrap {
+	width: 70%;
+	margin: 0 auto;	
+	margin-top: 10px;
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+/* 가격 강조 */
+#tagColor {
+	color: #59A8D9;
+}
+
+/* 배송지 입력 랩 */
+#shipInfoWrap {
+	width: 50%;
+	margin: 0 auto;	
+    margin-top: 10px;
+}
+
+label {
+	font-size: 1.15em;
+    font-weight: bold;
 }
 
 .warnMsg {
@@ -189,14 +278,17 @@ tr:hover {
 }
 
 
+
+
+
 </style>
 
 
 <div class="container">
 
 <div id="listWrap">
-<div class="titleTag">주문목록</div>
-<table>
+<div id="listTitle">주문목록</div>
+<table id="prodList">
 	<thead>
          <tr>
             <th>상품이미지</th> 
@@ -208,29 +300,33 @@ tr:hover {
     <tbody>
     
             <tr>
-				<td><img src="" width="100px" height="100px"></td>
-                <td>${product.prodName }</td>
-                <td><fmt:formatNumber pattern="###,###,###" value="${product.prodPrice }" />원</td>
-                <td>${prodCount}</td>
+				<td style="padding: 10px; width:25%;"><img src="/upload/${prodStoredName }" width="150px" height="150px" id="thumnail"></td>
+                <td class="titleTag">${product.prodName }</td>
+                <td class="titleTag"><fmt:formatNumber pattern="###,###,###" value="${product.prodPrice }" />원</td>
+                <td class="titleTag">${prodCount}</td>
             </tr>
 
     </tbody>
 </table>
 <div id="sumWrap">
 	<div id="sum">
-		총 합계 : <fmt:formatNumber pattern="###,###,###" value="${prodCount * product.prodPrice}" />원
+			결제할 금액 : 
+			<c:if test="${prodCount * product.prodPrice>=30000}"><span id="tagColor"><fmt:formatNumber pattern="###,###,###" value="${prodCount * product.prodPrice}" /></span>원</c:if>
+			<c:if test="${prodCount * product.prodPrice < 30000}"><span id="tagColor"><fmt:formatNumber pattern="###,###,###" value="${prodCount * product.prodPrice+3000}" /></span>원</c:if>
 	</div>
 </div>
 </div> <!-- listWrap -->
-<hr>
-<div id="shipInfo">
-<div class="titleTag">배송정보</div>
 
-<form action="" method="post">
+<div id="listTitle">배송지 입력</div>
+
+<div id="shipInfoWrap">
+
+<form id="order-form" action="./order" method="post">
+	<input type="checkbox" id="getShipInfo">주문자 정보와 동일
 
 	<div class="textForm">
 	  <label for="orderRec" class="form-label">받으시는 분</label>
-	  <input type="text" class="form-control" id="orderRec" name="orderRec" value = "${info.userName }">
+	  <input type="text" class="form-control" id="orderRec" name="orderRec" placeholder="수령인">
 	  <span id="recMsg" class="warnMsg"></span>
 	</div>
 	
@@ -238,27 +334,21 @@ tr:hover {
 		<label for="inputCity" class="form-label">주소</label>
 	
 		<input type="button" class="form-control" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
-	    <input type="text" class="form-control" id="orderAddrPostcode" placeholder="우편번호" name="orderAddrPostcode" value="${info.userPostcode}"> 
-	    <input type="text" class="form-control" id="orderAddr" placeholder="도로명주소" name="orderAddr" value="${info.userAddr}">
-		<input type="text" class="form-control" id="orderAddrDetail" placeholder="상세주소" name="orderAddrDetail" value ="${info.userDetailaddr}">
+	    <input type="text" class="form-control" id="orderAddrPostcode" placeholder="우편번호" name="orderAddrPostcode"> 
+	    <input type="text" class="form-control" id="orderAddr" placeholder="도로명주소" name="orderAddr">
+		<input type="text" class="form-control" id="orderAddrDetail" placeholder="상세주소" name="orderAddrDetail">
 		<span id="addrMsg" class="warnMsg"></span>
-  </div>
+	</div>
 
 	<div class="textForm">
 	  <label for="orderPhone" class="phone">연락처</label>
-	  <input type="text" class="form-control" id="orderPhone" name="orderPhone" value = "${info.userPhone }">
+	  <input type="text" class="form-control" id="orderPhone" name="orderPhone" placeholder="연락처">
 	  <span id="phoneMsg" class="warnMsg"></span>
 	</div>
 	
-	<input type="hidden" name="orderPrice" value="${prodCount * product.prodPrice}">
+	<input type="hidden" name="orderPrice" value="100">
 	
-	<br>
-	<br>
-	  <div >
-<!-- 	    <button type="submit" class="btn btn-success" id="orderMade" >DB 결제하기</button> -->
-	  </div>
-	<br>
-	<br>  
+ 
   
 </form>
 
@@ -266,7 +356,7 @@ tr:hover {
 <div id="payment-method"></div>
 <div id="agreement"></div>
 <!-- 결제하기 버튼 -->
-<button  id="payment-button">토스 결제하기</button>
+<button id="payment-button">토스 결제하기</button>
 <script>
 const clientKey = "test_ck_lpP2YxJ4K87vZ9PKpAvrRGZwXLOb"
 const customerKey = "swfA_xX4Vg5HeRU1AZveQ" // 내 상점의 고객을 식별하는 고유한 키
@@ -287,22 +377,28 @@ paymentWidget.renderAgreement('#agreement')
 // 더 많은 결제 정보 파라미터는 결제위젯 SDK에서 확인하세요.
 // https://docs.tosspayments.com/reference/widget-sdk#requestpayment결제-정보
 button.addEventListener("click", function () {
-  paymentWidget.requestPayment({
-    orderId: "RkluNBM8DMR923bZ09aZA" + new Date().getTime(),            // 주문 ID(직접 만들어주세요)
-    orderName: "토스 티셔츠 외 2건",                 // 주문명
-    successUrl: "http://localhost:8888/goods/payment",  // 결제에 성공하면 이동하는 페이지(직접 만들어주세요)
-    failUrl: "https://my-store.com/fail",        // 결제에 실패하면 이동하는 페이지(직접 만들어주세요)
-    customerEmail: "customer123@gmail.com",
-    customerName: "김토스"  
-  })
+
+	
+	if(!validate()) {
+		return false
+	} 
+	
+		paymentWidget.requestPayment({
+		  orderId: "RkluNBM8DMR923bZ09aZA" + new Date().getTime(),            // 주문 ID(직접 만들어주세요)
+		  orderName: "토스 티셔츠 외 2건",                 // 주문명
+		  successUrl: "http://localhost:8888/goods/payment",  // 결제에 성공하면 이동하는 페이지(직접 만들어주세요)
+		  failUrl: "https://my-store.com/fail",        // 결제에 실패하면 이동하는 페이지(직접 만들어주세요)
+		  customerEmail: "customer123@gmail.com",
+		  customerName: "김토스",
+		  
+		})
 })
 
 </script>
 
+</div>
 
-
-
-
+</div>
 
 
 <c:import url="../layout/footer.jsp"></c:import>
