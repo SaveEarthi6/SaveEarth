@@ -100,6 +100,12 @@ public interface InfoDao {
 	public void deleteFile(int infoFileNo);
 
 	/**
+	 * 파일 번호와 일치하는 파일을 삭제한다
+	 * @param infoFileNo - 파일 번호
+	 */
+	public void deleteFileByFileNo(int infoFileNo);
+	
+	/**
 	 * 파일 삭제 후 리스트 조회
 	 * @param infoNo - 게시글 번호
 	 * @return - 파일 삭제 후 리스트
@@ -120,6 +126,7 @@ public interface InfoDao {
 	 * @return
 	 */
 	public List<Map<String, Object>> selectInfoByfreeNo(int freeNo);
+
 	
 
 }

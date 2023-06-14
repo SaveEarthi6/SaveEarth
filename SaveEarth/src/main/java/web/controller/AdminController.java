@@ -576,7 +576,7 @@ public class AdminController {
 	   }
 		   
 	   @PostMapping("/infoUpdate")
-	   public String updateProc(Model model, Info info, @RequestParam(required = false) List<MultipartFile> files,@RequestParam(required = false)  MultipartFile thumb) {
+	   public String updateProc(Model model, Info info, @RequestParam(required = false) List<MultipartFile> files,@RequestParam(required = false)  MultipartFile thumb, InfoThumbnail infoThumb ) {
 		   
 		   logger.info("/admin/infoUpdate [post]");
 		  
@@ -584,9 +584,12 @@ public class AdminController {
 		   logger.info("infoFiles {}", files);
 		   logger.info("thumb {}", thumb);
 		   
-		   //게시글 내용 + 파일 수정
-		   adminService.updateInfo(info, files, thumb);
+		   //게시글 내용 + 썸네일 수정
+		   adminService.updateInfo(info, thumb);
 
+		   //첨부파일 수정
+		   adminService.updateFiles(info, files);
+		   	
 		   return "redirect:./info";
 		   
 	   }

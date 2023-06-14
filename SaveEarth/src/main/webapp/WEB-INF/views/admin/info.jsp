@@ -194,7 +194,7 @@ $(document).ready(function() {
 <br>
 <div class="nav">
 <a href="./free"><button type="button" class="btn btn-outline-success" id ="freebtn">자유 게시판</button></a>
-<a href="./info"><button type="button" class="btn btn-outline-success" id ="infobtn">정보 게시판</button></a>
+<a href="./info"><button type="button" class="btn btn-success" id ="infobtn">정보 게시판</button></a>
 <a href="./campaign"><button type="button" class="btn btn-outline-success" id ="campbtn">캠페인 게시판</button></a>
 </div> 
 
