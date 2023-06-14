@@ -143,7 +143,7 @@ public class AdminController {
 		logger.info("freeFile {}", freeFile);
 		model.addAttribute("freeFile", freeFile);
 		model.addAttribute("commContent", commContent);
-
+ 
 	}
 
 	// 관리자 페이지(자유게시판 글쓰기)
