@@ -32,6 +32,7 @@ public class FreeBoardController {
 	
 	//로그 객체
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	FreeService freeService;
 	
