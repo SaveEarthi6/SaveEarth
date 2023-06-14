@@ -58,54 +58,65 @@
    background-color: white;
 }
 
+/* 추천수 버튼 스타일 */
 .button {
    width: 30px;
    height: 30px;
 }
 
+/* 게시글 작성자 닉네임 스타일 */
 .profile {
    width: 50px;
    height: 50px;
 }
 
+/* 게시글 제목 스타일 */
 #title {
    font-size: 2em;
    font-weight: bold;
    font-family: 'omyu_pretty';
 }
 
+/* 말머리글 글씨 스타일 */
 #head {
    color: blue;
 }
 
+/* '댓글' 글씨 스타일 */
 #comment {
    font-family: 'KBO-Dia-Gothic_bold';
    font-weight: bold;
 }
 
+/* 댓글 작성자(아이디) 스타일 */
 .commentProfile {
    width: 30px;
    height: 30px;
 }
 
 
+/* 댓글 내용 스타일 */
 .comm {
 	font-family: 'omyu_pretty';
 	font-size:20px;
 }
 
+/* 첨부한 이미지 스타일 */
 .mb-3 img{
 	border: 1px solid #ccc;
 	margin-top: 30px;
 }
 
+/* 첨부한 이미지 스타일 */
 .mb-3 {
 	text-align: center;
 }
 
+/* 다운로드 링크 스타일 */
 .down {
 	text-align: right;
 	margin-right: 200px;
+	margin-top: 20px;
 }
 
 </style>
@@ -143,7 +154,6 @@
       <br> <br>
       <div id="head">${view.FREE_HEAD }</div>
       작성일
-<%-- 	  <fmt:formatDate value="${view.FREE_CREATE}" pattern="yy-MM-dd HH:mm:ss"/> --%>
 
 	  <c:choose>
 	  			
@@ -233,9 +243,11 @@ $(function() {
           }, 
           success : function(result) { // 결과 성공 콜백함수
         	  console.log(result);
-				
+			
+          	//이 코드를 사용하면 등록은 동작하는데 '수정', '삭제' 버튼이 동작 안함
 //               $(".comm").html(result);
 				
+          		//새로고침
 				location.reload();
 			
 			  //값 비우기
@@ -269,7 +281,7 @@ $(function() {
 	      
 	      //ajax start
 	      $.ajax({
-	          type : 'get',           // 타입 (get, post, put 등등)
+	          type : 'post',           // 타입 (get, post, put 등등)
 	          url : '/free/commdelete',  // 요청할 서버url
 	          dataType : 'html',       // 데이터 타입 (html, xml, json, text 등등)
 	          data : {  // 보낼 데이터 (Object , String, Array)
@@ -375,7 +387,7 @@ function success(th) {
 			location.reload();
 			
 			//-> 처음 수정만 되고 다시 수정 시도하면 실패 -> freeNo를 찾지 못함
-	//			$(".comm").html(result);
+// 			$(".comm").html(result);
 			
 		},
 		error: function(error){

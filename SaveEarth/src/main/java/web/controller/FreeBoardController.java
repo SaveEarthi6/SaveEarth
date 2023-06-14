@@ -247,7 +247,7 @@ public class FreeBoardController {
 		
 	}
 			
-	@GetMapping("/free/commdelete")
+	@PostMapping("/free/commdelete")
 	public void commdelete(@RequestParam("commNo") int commNo, @RequestParam("freeNo") int freeNo, Model model) {
 		
 		logger.info("commNo {}", commNo);

@@ -321,6 +321,7 @@ location.href="?freeHead=" + freeHead
 	    <div class="search">
 	        <input type="text" name="keyword" class="search_input" value="${keyword }">
 	        <button class="search_btn"  style="margin-bottom: 3px;"><i class="bi bi-search"></i></button>
+	        <input type="hidden" name="freeHead" value="${freeHead }">
 	    </div>
 	</form>
 	    <div class="search">
@@ -330,7 +331,7 @@ location.href="?freeHead=" + freeHead
 
 <input type="hidden" name="freeHead" value="${freeHead }">
 
-<span class="float-end mb-3">${paging.totalCount }</span>
+<%-- <span class="float-end mb-3">${paging.totalCount }</span> --%>
 <div class="clearfix"></div>
 
 <div>
