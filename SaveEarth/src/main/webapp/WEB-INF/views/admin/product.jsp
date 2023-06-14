@@ -37,10 +37,10 @@ h1 {
 
 }
 
-.nav2 { 
-   margin: 0 auto;
-   margin-left: 1400px;
-} 
+.nav2{
+    margin: 0 auto;
+    margin-left: 1400px;
+}
 
 #prodList {
 	text-align: center;
@@ -51,19 +51,23 @@ h1 {
     margin-left: 342px;
 
 }
+body {
+	margin:0;
+	padding: 0;
+}
 
 </style>
-
-	<div class="nav2">
-		<a href = "/admin/productWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
-	</div>
-	
-		<div class="nav2">
-		<a href = "/admin/addopt"><button type="button" class="btn btn-outline-success">상품옵션</button></a>
-	</div>
+</head>
+<body>
 <div class="nav">
 <h1>상품 관리</h1>
 </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 
 	<div id="prodList" class="row">
 		<div class="col-1"></div>
@@ -95,7 +99,17 @@ h1 {
 			</div>
 			</c:forEach>
 		</div>
-		
+	
+ 	<div style="display: inline-block; margin: 0 584px;  float: right;">	
+		<a href = "/admin/productWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
+		<a href = "/admin/addopt"><button type="button" class="btn btn-outline-success">상품옵션</button></a>
+	</div>
+	</div>
+			
+<br>
+<br>
+<br>
+<br>
 		<div class='col-1'></div>
 	</div>
 
@@ -128,7 +142,6 @@ h1 {
 			</a>
 			</div>
 			</c:forEach>
-		
 
 
 <%-- <span class="float-end mb-3">${paging.totalCount }</span> --%>
@@ -197,6 +210,9 @@ h1 {
 	</ul>
 </div>
 
-
+</div>
+</div>
+</body>
+</html>
 
 <c:import url="../layout/footer.jsp"></c:import>
