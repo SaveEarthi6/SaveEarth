@@ -151,10 +151,6 @@ $(function(){
 		</form>
 	</div>
 
-
-
-
-
 </body>
 </html>
 

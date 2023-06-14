@@ -137,7 +137,11 @@ public class CampaignController {
 		logger.info("{}", campDetail);
 		
 		//인증현황 조회해오기
+		int campCount = campService.selectOne(campno );
 		
+		logger.info("campCount", campCount );
+		
+		model.addAttribute("campCount",campCount);
 		model.addAttribute("campDetail", campDetail);
 		
 	}

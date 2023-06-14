@@ -43,4 +43,6 @@ public interface CampDao {
 
 	public Map<String, Object> selectCert(@Param("userNo") int userNo, @Param("partNo") int partNo);
 
+	public int campParticipate(int campno);
+
 }

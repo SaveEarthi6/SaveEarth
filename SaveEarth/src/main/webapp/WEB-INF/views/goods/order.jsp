@@ -476,17 +476,18 @@ paymentWidget.renderAgreement('#agreement')
 // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
 // 더 많은 결제 정보 파라미터는 결제위젯 SDK에서 확인하세요.
 // https://docs.tosspayments.com/reference/widget-sdk#requestpayment결제-정보
+var name = document.getElementById("orderRec").value;
 button.addEventListener("click", function () {
-
+console.log(name);
 	
-	if(!validate()) {
+	if(!validate()) {	
 		return false
 	} 
 	
 		paymentWidget.requestPayment({
 		  orderId: "RkluNBM8DMR923bZ09aZA" + new Date().getTime(),            // 주문 ID(직접 만들어주세요)
 		  orderName: "토스 티셔츠 외 2건",                 // 주문명
-		  successUrl: "http://localhost:8888/goods/payment",  // 결제에 성공하면 이동하는 페이지(직접 만들어주세요)
+		  successUrl: "http://localhost:8888/goods/payment?name="+${sum}+'&abc='+'abcsde',  // 결제에 성공하면 이동하는 페이지(직접 만들어주세요)
 		  failUrl: "https://my-store.com/fail",        // 결제에 실패하면 이동하는 페이지(직접 만들어주세요)
 		  customerEmail: "customer123@gmail.com",
 		  customerName: "김토스"

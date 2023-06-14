@@ -34,7 +34,7 @@ $(function() {
 $(function() {
 	
 	//선택 삭제
-	$("#btnDelete").click(function() {
+	$(document).on("click", "#btnDelete", function() {
 		var confirm_val = confirm("정말 삭제하시겠습니까?")
 		
 		if(confirm_val) {
@@ -75,7 +75,7 @@ $(function() {
 $(function() {
 	
 	//선택 주문
-	$("#btnOrder").click(function() {
+	$(document).on("click", "#btnOrder", function() {
 		console.log("선택주문 선택")
 		
 		var totalArr = $("input[name=cartArr]").length

@@ -45,22 +45,58 @@
 .btn:hover {
   background-position: center;
 }
+
+.box{
+	margin : 0 auto;
+	text-align: center;
+	
+	width: 500px;
+	
+    font-size: 50px;
+}
+.find {
+	margin-bottom: 6px;
+	margin-top: 20%;
+}
+.content{
+	width: 700px;
+	margin: 0 auto;
+	height: 600px;
+}
+.id{
+	font-size: 20px;
+    font-weight: bold;
+    color: blueviolet;
+}
+.idid{
+	margin:36px;
+}
 </style>
 </head>
 <body>
 
 
 
-
-<div class="textForm">
-
-<h1>${id.userName }님의 회원정보와 일치하는 아이디는 ${id.userId }입니다</h1>
-  
+<div class="content">
+	<div class="textForm">
+	<div class="find">
+		<div class="id">아이디찾기</div>
+		<div style="border-top: 1px solid;">${id.userName} 님의 정보와 일치하는 아이디 입니다</div>
+	</div>	
+		<div class="box">
+		
+		
+		
+		<div class="idid">${id.userId }</div>
+		</div>
+	  
+	</div>
+	
+		<div style="width:700px; margin: 0 auto;">
+	       <a href="./login"> <button class="btn">로그인하러가기</button></a>
+		</div>
 </div>
 
-	<div style="width:700px; margin: 0 auto;">
-       <a href="./login"> <button class="btn">로그인하러가기</button></a>
-	</div>
 
 
 

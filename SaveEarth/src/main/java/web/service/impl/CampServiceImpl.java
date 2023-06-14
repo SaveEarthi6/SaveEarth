@@ -190,5 +190,10 @@ public class CampServiceImpl implements CampService {
 		return campDao.selectCert(userNo, partNo);
 	}
 	
+	@Override
+	public int selectOne(int campno) {
+		return campDao.campParticipate(campno);
+	}
+	
 	
 }

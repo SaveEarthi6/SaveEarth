@@ -80,7 +80,7 @@ public class goodsController {
 		Map<String, Object> goodsDetail = goodsService.getProdDetail(prodno);
 //		logger.info("{}", goodsDetail);
 		System.out.println(goodsDetail);
-		
+		System.out.println();
 		//파일들 가져오기
 		List<Map<String, Object>> detailfiles = goodsService.getdetailfiles(prodno);
 		logger.info("상품번호에 맞는 파일들{}",detailfiles);
@@ -301,10 +301,13 @@ public class goodsController {
 
 
 	@PostMapping("/detailbuy")
-	public void detailbuy(HttpSession session,@RequestParam("prodNo") int prodNo, @RequestParam("prodCount") int prodCount, @RequestParam("prodOptNo") int prodOptNo,Model model) {
+	public void detailbuy(HttpSession session,@RequestParam("prodNo") int prodNo, @RequestParam("prodCount") int prodCount, @RequestParam("prodOptNo") int prodOptNo,Model model,
+			 @RequestParam("prodStoredName") String prodStoredName
+			) {
 		System.out.println("상품넘버확인"+prodNo);
 		System.out.println("상품갯수확인"+prodCount);
 		System.out.println("상품옵션확인"+prodOptNo);
+		System.out.println("상품사진"+prodStoredName);
 		//로그인 정보
 		String loginId = (String) session.getAttribute("loginId");
 		logger.info("{}", loginId);
@@ -323,15 +326,19 @@ public class goodsController {
 		model.addAttribute("product", product );
 		model.addAttribute("option", option );
 		model.addAttribute("prodCount",prodCount);
+		model.addAttribute("prodStoredName",prodStoredName);
 	}
 	
 	//장바구니 결제하기
 	@RequestMapping("/payment")
-	public void payment(HttpServletRequest request, HttpSession session, Order order) {
-		logger.info("/goods/payment [GET]");
+	public void payment(HttpServletRequest request, HttpSession session, Order order, @RequestParam Map<String, String> map) {
+		logger.info("/goods/payment GET]");
+		logger.info("payment 맵 {}", map);
 		
-		String orderAddrPostcode = request.getParameter("orderAddrPostcode");
-		System.out.println("유저번호 확인"+ orderAddrPostcode);
+		
+		System.out.println("유저번호 확인"+ order);
+		
+		
 			
 		
 		goodsService.paymentTest(request);

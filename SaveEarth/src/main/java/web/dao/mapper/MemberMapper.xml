@@ -61,7 +61,7 @@
 	WHERE user_id=#{userId} and user_email=#{userEmail}
 	</select>
 	
-	<update id="updateTemPw" parameterType="web.dto.Member" >
+	<update id="updateTemPwSha" parameterType="web.dto.Member" >
 	UPDATE member
 	SET user_pw=#{userPw}
 	WHERE user_id=#{userId}

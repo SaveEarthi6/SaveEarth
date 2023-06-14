@@ -77,7 +77,7 @@ public interface MemberDao {
 	 * @param member
 	 * @return id와 임시비밀번호
 	 */
-	public void updateTemPw(Member member);
+	public void updateTemPwSha(Member member);
 
 	public int kakaoExist(Member member);
 
