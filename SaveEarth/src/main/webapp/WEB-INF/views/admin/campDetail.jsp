@@ -61,6 +61,7 @@
 	margin-left: 20px;
 }
 
+
 </style>
 
 
@@ -72,22 +73,16 @@
 		<div id="header">
 			<div id="title">[ ${campDetail.CAMP_STATE } ] ${campDetail.CAMP_TITLE }</div>
 			<p id="clear"></p>
+			<hr>
 			<div id="info">
 				<span id="enroll">등록일 : <fmt:formatDate value="${campDetail.CAMP_ENROLL }" pattern="yyyy/MM/dd"/></span>
 				<span>|</span>
 				<span id="part">
 					참여현황 : ${campCount }
-				<span>|</span>
-				첨부파일 다운로드 : 
-						<c:if test="${not empty campDetail }">
-							<a href="../upload/${campDetail.CAMP_STORED_NAME }" download="${campDetail.CAMP_ORIGIN_NAME }">
-								${campDetail.CAMP_ORIGIN_NAME }
-							</a>
-						</c:if>
 				</span>	<!-- DB에서 인증사진 campno으로 count해와서 넣기 -->
 			</div>
 		</div>
-		
+			
 		<div id="clear"></div>
 		<hr>
 		<div id="posterWrap" style=" height: 584 px; width: auto; ">
@@ -98,7 +93,14 @@
 	</div>
 	<div class="col-1"></div>
 </div>
-
+	 <div style="display: inline-block; margin: 0 5px;  float: right;">		
+				첨부파일 다운로드 : 
+						<c:if test="${not empty campDetail }">
+							<a href="../upload/${campDetail.CAMP_STORED_NAME }" download="${campDetail.CAMP_ORIGIN_NAME }">
+								${campDetail.CAMP_ORIGIN_NAME }
+							</a>
+						</c:if>
+	</div>	
 <div id="toList"><button onclick="location.href='/admin/campaign'"  id="navButton" type="button" class="btn btn-outline-success">목록으로</button></div>
 <div id="toList"><button onclick="location.href='./campUpdate?campNo=${campDetail.CAMP_NO}'"  id="navButton" type="button" class="btn btn-outline-success">수정</button></div>
 

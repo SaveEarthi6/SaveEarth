@@ -3,15 +3,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<c:import url="../layout/header.jsp"></c:import>
+<c:import url="../layout/adminheader.jsp"></c:import>
 
 <!-- 필요시 css, js, jquery 넣을 곳 -->
 
 <style type="text/css">
 
 #posterWrap { 
-	text-align: center; 
+	text-align: center;
+	width: 70%;
+ 	height: 600px;
+	overflow: hidden;
 } 
+#posterWrap img{
+	max-width: 100%;
+ 	height: auto;
+ 	display: block;
+}
 
 #header {
 	margin-top: 30px;
@@ -53,6 +61,7 @@
 	margin-left: 20px;
 }
 
+
 </style>
 
 
@@ -64,23 +73,19 @@
 		<div id="header">
 			<div id="title">[ ${campDetail.CAMP_STATE } ] ${campDetail.CAMP_TITLE }</div>
 			<p id="clear"></p>
+			<hr>
 			<div id="info">
 				<span id="enroll">등록일 : <fmt:formatDate value="${campDetail.CAMP_ENROLL }" pattern="yyyy/MM/dd"/></span>
 				<span>|</span>
 				<span id="part">
-					참여현황 : 
-						<c:if test="${not empty campDetail }">
-							<a href="../upload/${campDetail.CAMP_STORED_NAME }" download="${campDetail.CAMP_ORIGIN_NAME }">
-								${campDetail.CAMP_ORIGIN_NAME }
-							</a>
-						</c:if>
+					참여현황 : ${campCount }
 				</span>	<!-- DB에서 인증사진 campno으로 count해와서 넣기 -->
 			</div>
 		</div>
-		
+			
 		<div id="clear"></div>
 		<hr>
-		<div id="posterWrap">
+		<div id="posterWrap" style=" height: 584 px; width: auto; ">
 			<!-- DB에서 불러온 이미지 넣기 -->
 			<img id="poster" src="/upload/${campDetail.CAMP_STORED_NAME }">
 		</div>
@@ -88,9 +93,15 @@
 	</div>
 	<div class="col-1"></div>
 </div>
-
-<div id="toList"><button onclick="location.href='./main';"  id="navButton" type="button" class="btn btn-outline-success">목록으로</button></div>
-
-</div>
+	 <div style="display: inline-block; margin: 0 5px;  float: right;">		
+				첨부파일 다운로드 : 
+						<c:if test="${not empty campDetail }">
+							<a href="../upload/${campDetail.CAMP_STORED_NAME }" download="${campDetail.CAMP_ORIGIN_NAME }">
+								${campDetail.CAMP_ORIGIN_NAME }
+							</a>
+						</c:if>
+	</div>	
+<div id="toList"><button onclick="location.href='/admin/campaign'"  id="navButton" type="button" class="btn btn-outline-success">목록으로</button></div>
+<div id="toList"><button onclick="location.href='./campUpdate?campNo=${campDetail.CAMP_NO}'"  id="navButton" type="button" class="btn btn-outline-success">수정</button></div>
 
 <c:import url="../layout/footer.jsp"></c:import>
