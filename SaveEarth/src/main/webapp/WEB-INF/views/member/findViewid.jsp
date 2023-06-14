@@ -49,9 +49,9 @@
 .box{
 	margin : 0 auto;
 	text-align: center;
-	border: 1px solid black;
+	
 	width: 500px;
-	background: floralwhite;
+	
     font-size: 50px;
 }
 .find {
@@ -69,7 +69,7 @@
     color: blueviolet;
 }
 .idid{
-	margin:70px;
+	margin:36px;
 }
 </style>
 </head>
@@ -96,6 +96,8 @@
 	       <a href="./login"> <button class="btn">로그인하러가기</button></a>
 		</div>
 </div>
+
+
 
 
 <c:import url="../layout/footer.jsp"></c:import>

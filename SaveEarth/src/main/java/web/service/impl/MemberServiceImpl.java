@@ -130,9 +130,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void temPw(Member member) {
+	public void temPwSha(Member member) {
 		
-		memberDao.updateTemPw(member);
+		memberDao.updateTemPwSha(member);
 	}
 
 	@Override

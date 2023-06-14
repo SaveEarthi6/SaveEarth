@@ -318,7 +318,7 @@ input {
       
       <div class="textForm">
      	 <label>비밀번호</label>
-        <input name="userPw" id="pw" type="password" class="pw" value = "${info.userPw}">
+        <input name="userPw" id="pw" type="password" class="pw" >
       </div>
      
       <div class="textForm">
