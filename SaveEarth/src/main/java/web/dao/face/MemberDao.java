@@ -21,9 +21,6 @@ public interface MemberDao {
 	 * @return
 	 */
 	public int checkid(Member member);
-
-
-
 	
 	
 	
