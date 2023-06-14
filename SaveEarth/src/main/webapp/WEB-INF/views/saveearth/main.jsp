@@ -58,10 +58,6 @@ body {
 }
 
 
-.container {	
-	max-width:100%
-}
-
 #quiz{
 	font-family: 'omyu_pretty';
 }
@@ -119,7 +115,7 @@ $(function() {
 
 
 
-<div class="container">
+<div>
 
 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" >
   <div class="carousel-indicators">
