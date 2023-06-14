@@ -48,11 +48,36 @@
 		
 		<when test="keyword != null &amp;&amp; freeHead == null">	
 			WHERE free_title LIKE '%' || #{keyword} || '%'
+			AND free_head = #{freeHead}
 		</when>
 
 		<when test="keyword != null &amp;&amp; freeHead.equals('전체')">	
 			WHERE free_title LIKE '%' || #{keyword} || '%'
+			AND free_head = #{freeHead}
 		</when>
+
+		<when test="keyword != null &amp;&amp; freeHead.equals('사담')">	
+			WHERE free_title LIKE '%' || #{keyword} || '%'
+			AND free_head = #{freeHead}
+		</when>
+		
+		<when test="keyword != null &amp;&amp; freeHead.equals('정보')">	
+			WHERE free_title LIKE '%' || #{keyword} || '%'
+			AND free_head = #{freeHead}
+		</when>
+		
+		<when test="keyword != null &amp;&amp; freeHead.equals('질문')">	
+			WHERE free_title LIKE '%' || #{keyword} || '%'
+			AND free_head = #{freeHead}
+		</when>
+		
+		<when test="keyword != null &amp;&amp; freeHead.equals('공지사항')">	
+			WHERE free_title LIKE '%' || #{keyword} || '%'
+			AND free_head = #{freeHead}
+		</when>
+		
+		<otherwise>
+		</otherwise>
 		
 		</choose>
 	
@@ -90,6 +115,10 @@
 		</when>
 		
 		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('질문')">
+			WHERE free_head = #{freeHead}
+		</when>
+
+		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('공지사항')">
 			WHERE free_head = #{freeHead}
 		</when>
 		
@@ -208,8 +237,33 @@
 		</when>
 
 		<when test="keyword != null &amp;&amp; freeHead.equals('전체')">	
-			WHERE free_title LIKE '%' || #{keyword} || '%'
+			WHERE free_head = #{freeHead}
+			AND free_title LIKE '%' || #{keyword} || '%'
 		</when>
+
+		<when test="keyword != null &amp;&amp; freeHead.equals('사담')">	
+			WHERE free_head = #{freeHead}
+			AND free_title LIKE '%' || #{keyword} || '%'
+		</when>
+		
+		<when test="keyword != null &amp;&amp; freeHead.equals('정보')">	
+			WHERE free_head = #{freeHead}
+			AND free_title LIKE '%' || #{keyword} || '%'
+		</when>
+		
+		<when test="keyword != null &amp;&amp; freeHead.equals('질문')">	
+			WHERE free_head = #{freeHead}
+			AND free_title LIKE '%' || #{keyword} || '%'
+		</when>
+		
+		<when test="keyword != null &amp;&amp; freeHead.equals('공지사항')">	
+			WHERE free_head = #{freeHead}
+			AND free_title LIKE '%' || #{keyword} || '%'
+		</when>
+		
+		<otherwise>
+			WHERE free_title LIKE '%' || #{keyword} || '%'
+		</otherwise>
 		
 		</choose>
 
