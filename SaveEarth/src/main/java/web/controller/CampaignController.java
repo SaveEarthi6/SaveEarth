@@ -62,6 +62,7 @@ public class CampaignController {
 //				logger.info("{}", c);
 			}
 			
+			
 			model.addAttribute("certList", certList);
 			
 			
@@ -69,6 +70,7 @@ public class CampaignController {
 			List<Campaign> ingList = campService.getIngList((int)session.getAttribute("loginNo"));
 			
 			model.addAttribute("ingList", ingList);
+			
 			
 			
 		} else {
