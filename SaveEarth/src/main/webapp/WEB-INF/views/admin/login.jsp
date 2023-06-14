@@ -10,6 +10,11 @@
 
 <style type="text/css">
 
+body {
+	margin:0;
+	padding: 0;
+}
+
 /* base - 브라우저 별로 다를 수도 있는 것을 초기화 */
 * {
 	padding: 0;
@@ -137,8 +142,13 @@ $(function(){
 <title>Insert title here</title>
 </head>
 <body>
+
 	<div class="loginbox">
 		<h2>관리자 로그인</h2>
+<br>
+<br>
+<br>
+<br>
 		<form action="./login" method="post">
 			<!--작성하지 않아도 문제는 없음-->
 			<legend>로그인 구역</legend>
@@ -148,9 +158,21 @@ $(function(){
 				placeholder="Admin PW">
 			<!--데이터를 서버로 전송-->
 			<button type="submit">로그인</button>
+
 		</form>
 	</div>
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 </body>
 </html>
 
