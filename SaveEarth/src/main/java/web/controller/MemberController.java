@@ -2,6 +2,8 @@ package web.controller;
 
 
 
+import java.security.MessageDigest;
+
 import javax.servlet.http.HttpSession;
 
 
@@ -42,6 +44,34 @@ public class MemberController {
 
 		logger.info("/member/login");
 		logger.info("{}", member);
+		
+		
+		//암호화 테스트
+		try {
+			MessageDigest md = MessageDigest.getInstance("SHA-256");
+			md.update(member.getUserPw().getBytes());
+			byte byteData[] = md.digest();
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < byteData.length; i++) {
+				sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+			}
+			StringBuffer hexString = new StringBuffer();
+			for (int i = 0; i < byteData.length; i++) {
+				String hex = Integer.toHexString(0xff & byteData[i]);
+				if (hex.length() == 1) {
+					hexString.append('0');
+				}
+				hexString.append(hex);
+			}
+			member.setUserPw(hexString.toString());
+			System.out.println(member.getUserPw());
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException();
+		}
+		
+		
+		
 		boolean isLogin = memberService.login(member);
 
 		member = memberService.info(member.getUserId());
@@ -71,9 +101,37 @@ public class MemberController {
 
 	@PostMapping("/join")
 	public String join(Member memberParam) {
+
+		
+//	암호화 테스트
+		try {
+			MessageDigest md = MessageDigest.getInstance("SHA-256");
+			md.update(memberParam.getUserPw().getBytes());
+			byte byteData[] = md.digest();
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < byteData.length; i++) {
+				sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+			}
+			StringBuffer hexString = new StringBuffer();
+			for (int i = 0; i < byteData.length; i++) {
+				String hex = Integer.toHexString(0xff & byteData[i]);
+				if (hex.length() == 1) {
+					hexString.append('0');
+				}
+				hexString.append(hex);
+			}
+			memberParam.setUserPw(hexString.toString());
+			System.out.println(memberParam.getUserPw());
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException();
+		}
+			
+	
 		memberParam.setUserLogintype("basic");
 		memberService.join(memberParam);
-
+		
+		
 		return "redirect:./login";
 	}
 
@@ -145,11 +203,38 @@ public class MemberController {
 			member.setUserPw(pw);
 
 			// 비밀번호 난수로 변경(update)
-			memberService.temPw(member);
+//			memberService.temPw(member);
 			System.out.println(member);
 
 			// 이메일 발송()
 			memberService.mailSend(member);
+			
+			//임시비밀번호 SHA256
+//			암호화 테스트
+			try {
+				MessageDigest md = MessageDigest.getInstance("SHA-256");
+				md.update(member.getUserPw().getBytes());
+				byte byteData[] = md.digest();
+				StringBuffer sb = new StringBuffer();
+				for (int i = 0; i < byteData.length; i++) {
+					sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+				}
+				StringBuffer hexString = new StringBuffer();
+				for (int i = 0; i < byteData.length; i++) {
+					String hex = Integer.toHexString(0xff & byteData[i]);
+					if (hex.length() == 1) {
+						hexString.append('0');
+					}
+					hexString.append(hex);
+				}
+				member.setUserPw(hexString.toString());
+				System.out.println(member.getUserPw());
+				memberService.temPwSha(member);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException();
+			}			
+			
 
 			return result;
 
