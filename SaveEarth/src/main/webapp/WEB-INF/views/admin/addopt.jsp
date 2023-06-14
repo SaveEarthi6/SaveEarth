@@ -45,7 +45,7 @@ form {
 <form action="addopt" method="POST">
 
 <div class="form-group" style= "margin-top: 50px">
-   <label class="form-label" for="title">색상</label>
+   <label class="form-label" for="title">상품</label>
    
      <select name="ProdNo">
     <c:forEach var="prod" items="${ProdNoName}">

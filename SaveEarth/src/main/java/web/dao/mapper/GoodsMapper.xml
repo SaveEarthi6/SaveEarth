@@ -142,7 +142,14 @@
 		select c.*, p.prod_name, p.prod_price, p.prod_detail, f.prod_origin_name, f.prod_stored_name, o.prod_color, o.prod_size from cart c
 		join product p on c.prod_no = p.prod_no
 		join prod_option o on o.prod_opt_no = c.prod_opt_no 
-		join prod_file f on f.prod_no = c.prod_no
+		join (SELECT *
+			FROM prod_file
+			WHERE (prod_no, prod_file_no) IN (
+			    SELECT prod_no, MIN(prod_file_no)
+			    FROM prod_file
+			    GROUP BY prod_no
+			)
+		) f on f.prod_no = c.prod_no
 		where c.user_no = #{userNo}
 			and c.cart_no = #{cartNo}
 	</select>
