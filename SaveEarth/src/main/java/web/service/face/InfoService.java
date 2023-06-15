@@ -114,6 +114,13 @@ public interface InfoService {
 		 */
 		public List<InfoFile> getInfoFile(int infoNo);
 
+		/**
+		 * 정보게시판 게시글 정보 상세조회
+		 * @param infoNo - 게시글 번호
+		 * @return
+		 */
+		public Info getInfoDetail(int infoNo);
+
 
 
 }
