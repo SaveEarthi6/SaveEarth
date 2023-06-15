@@ -154,11 +154,11 @@ $(function() {
 
 <!-- 내 달력으로 가기 -->
  <h1 style="font-family: 'KBO-Dia-Gothic_bold'; text-align: center; padding-top: 100px;">🌱환경기념일🌱</h1>
-	<div style= "padding-left: 1200px">
- 		<a href = "/campaign/main"> 
- 		<button type="button" class="btn btn-outline-success" >
- 		내 달력</button></a>
-	</div>
+<!-- 	<div style= "padding-left: 1200px"> -->
+<!--  		<a href = "/campaign/main">  -->
+<!--  		<button type="button" class="btn btn-outline-success" > -->
+<!--  		내 달력</button></a> -->
+<!-- 	</div> -->
  
 <div id="wrapCalendar"  >
 	<div id="calendarImport" style="margin-top: 80px; margin-bottom: 40px;">
