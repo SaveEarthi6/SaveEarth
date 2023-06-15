@@ -279,15 +279,6 @@ public class InfoServiceImpl implements InfoService {
 		return infoDao.selectFileByInfoNo(infoNo);
 	}
 	
-	@Override
-	public void updateInfo(Info info, List<MultipartFile> infoFiles, MultipartFile thumb) {
-
-		//게시글 내용 수정
-		
-		//지금 들어온 파일 있는지 검사하고 삭제 후 새로 넣기
-		
-		
-	}
 	
 	
 	@Override
