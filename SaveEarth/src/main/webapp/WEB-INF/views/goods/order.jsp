@@ -408,6 +408,7 @@ label {
 	         <tr>
 	            <th>상품이미지</th> 
 				<th>상품이름</th>
+				<th>옵션</th>
 	            <th>가격</th>
 	            <th>수량</th>
 	         </tr>
@@ -418,6 +419,7 @@ label {
 	            <tr>
 					<td style="padding: 10px; width:25%;"><img src="/upload/${item.PROD_STORED_NAME }" width="150px" height="150px" id="thumnail"></td>
 	                <td class="titleTag">${item.PROD_NAME}</td>
+	                <td><span class="titleTag">사이즈 : </span>${item.PROD_SIZE} <br> <span class="titleTag">색상 : </span>${item.PROD_COLOR}</td>
 	                <td><span class="titleTag"><fmt:formatNumber pattern="###,###,###" value="${item.PROD_PRICE }"  /></span>원</td>
 	                <td><span class="titleTag">${item.PROD_COUNT}</span>개</td>
 	            </tr>
