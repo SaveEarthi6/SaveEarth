@@ -114,14 +114,6 @@ public interface InfoService {
 		 */
 		public List<InfoFile> getInfoFile(int infoNo);
 
-		/**
-		 * 정보게시판 게시글 수정
-		 * @param info - 게시글 내용
-		 * @param infoFiles - 첨부파일(들)
-		 * @param thumb - 썸네일
-		 */
-		public void updateInfo(Info info, List<MultipartFile> infoFiles, MultipartFile thumb);
-
 
 
 }
