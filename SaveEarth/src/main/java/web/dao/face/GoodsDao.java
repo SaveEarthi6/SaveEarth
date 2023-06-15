@@ -20,6 +20,8 @@ public interface GoodsDao {
 
 	public int selectCntAll();
 	
+	public int selectCntAllOrderList(int userNo);
+	
 	public List<Map<String, Object>> selectProdList(Paging paging);
 
 	public Map<String, Object> selectProd(int prodno);
@@ -40,7 +42,7 @@ public interface GoodsDao {
 
 	public void deleteCartAll(int userNo);
 
-	public List<Order> selectOrderList(int userNo);
+	public List<Order> selectOrderList(@Param("userNo") int userNo, @Param("paging") Paging paging);
 
 	public Product getProdinfo(int prodNo);
 
@@ -61,6 +63,9 @@ public interface GoodsDao {
 	public void insertInqByprodNouserNo(ProdInq prodInq);
 
 	public List<Map<String, Object>> getInqListByprodno(int prodno);
+
+	public Member selectUserInfo(int userNo);
+
 
 
 }

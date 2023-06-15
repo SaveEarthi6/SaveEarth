@@ -7,6 +7,11 @@
 	<select id="selectCntAll" resultType="int">
 	SELECT count(*) FROM product
 	</select>
+
+	<select id="selectCntAllOrderList" parameterType="int" resultType="int">
+	SELECT count(*) FROM ordertb
+	WHERE user_no = #{userNO}
+	</select>
 	
 	<select id="selectProdList" resultType="map" parameterType="web.util.Paging">
 		SELECT * FROM (
@@ -117,9 +122,14 @@
 		}
 	</insert>
 	
-	<select id="selectOrderList" parameterType="int" resultType="web.dto.Order">
-		SELECT * FROM ordertb
-		WHERE user_no = #{userNo}
+	<select id="selectOrderList" parameterType="map" resultType="web.dto.Order">
+		SELECT *
+		FROM (SELECT rownum rnum, A.*
+		        FROM (SELECT * FROM ordertb
+		                WHERE user_no = #{userNo}
+		                ORDER BY order_date DESC) A
+		)
+		WHERE rnum BETWEEN #{paging.startNo} AND #{paging.endNo}
 	</select>
 	
 	<update id="updateAmount" parameterType="map">
@@ -209,6 +219,11 @@ WHERE p.prod_no=#{prodNo}
 			ON p.inq_no=a.inq_no
 		WHERE p.prod_no = #{prodNo}
 		ORDER BY p.inq_no DESC
+	</select>
+	
+	<select id="selectUserInfo" parameterType="int" resultType="web.dto.Member">
+		SELECT user_name, user_email FROM member
+		WHERE user_no = #{userNo}
 	</select>
 	
 	
