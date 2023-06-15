@@ -9,6 +9,7 @@
 
 
 <style type="text/css">
+
 @font-face {
    font-family: 'KBO-Dia-Gothic_bold';
    src:
@@ -48,51 +49,104 @@
    width: 70px;
 }
 
+/* 댓글 목록 스타일 */
 .commList {
    border: 1px solid green;
    margin-bottom: 3px;
 }
 
-#btnRecommend, #btnEmpty {
-   border: 0;
-   background-color: white;
-}
+/* #btnRecommend, #btnEmpty { */
+/*    border: 0; */
+/*    background-color: white; */
+/* } */
 
+/* 추천수 버튼 스타일 */
 .button {
    width: 30px;
    height: 30px;
 }
 
+/* 게시글 작성자 닉네임 스타일 */
 .profile {
    width: 50px;
    height: 50px;
 }
 
+/* 게시글 제목 스타일 */
 #title {
    font-size: 2em;
    font-weight: bold;
    font-family: 'omyu_pretty';
 }
 
+/* 말머리글 글씨 스타일 */
 #head {
    color: blue;
 }
 
+/* '댓글' 글씨 스타일 */
 #comment {
    font-family: 'KBO-Dia-Gothic_bold';
    font-weight: bold;
 }
 
+/* 댓글 작성자(아이디) 스타일 */
 .commentProfile {
    width: 30px;
    height: 30px;
 }
 
 
+/* 댓글 내용 스타일 */
 .comm {
 	font-family: 'omyu_pretty';
 	font-size:20px;
 }
+
+/* 첨부한 이미지 스타일 */
+.mb-3 img{
+	border: 1px solid #ccc;
+	margin-top: 30px;
+}
+
+/* 첨부한 이미지 스타일 */
+.mb-3 {
+	text-align: center;
+}
+
+/* 다운로드 링크 스타일 */
+.down {
+	text-align: right;
+	margin-right: 200px;
+	margin-top: 20px;
+	font-family: 'omyu_pretty';
+	font-size: 20px;
+}
+
+/* '삭제' 버튼 스타일 */
+#btnDelete {
+	font-family: 'omyu_pretty';
+	font-size: 18px;
+}
+
+/* '수정' 버튼 스타일 */
+#btnUpdate {
+	font-family: 'omyu_pretty';
+	font-size: 18px;
+}
+
+/* '목록' 버튼 스타일 */
+#btnList {
+	font-family: 'omyu_pretty';
+	font-size: 18px;
+}
+
+/* 댓글 등록 버튼 스타일 */
+#enroll {
+	font-family: 'omyu_pretty';
+	font-size: 18px;
+}
+
 </style>
 
 
@@ -128,7 +182,6 @@
       <br> <br>
       <div id="head">${view.FREE_HEAD }</div>
       작성일
-<%-- 	  <fmt:formatDate value="${view.FREE_CREATE}" pattern="yy-MM-dd HH:mm:ss"/> --%>
 
 	  <c:choose>
 	  			
@@ -186,8 +239,11 @@
          <c:forEach items="${freeFile }" var="file">
                 <img src="../upload/  ${file.freeStoredName }" style= "width:1000px;">
                 <br>
-            <a href="../upload/${file.freeStoredName }"
-               download="${file.freeOriginName }"> ${file.freeOriginName } </a>
+          
+            <div class="down">
+            <span style="font-weight: bold;">다운로드 : </span><a href="../upload/${file.freeStoredName }"
+               download="${file.freeOriginName }" style="font-weight: bold;"> ${file.freeOriginName } </a>
+            </div>
             <br>
          </c:forEach>
       </c:if>
@@ -215,9 +271,11 @@ $(function() {
           }, 
           success : function(result) { // 결과 성공 콜백함수
         	  console.log(result);
-				
+			
+          	//이 코드를 사용하면 등록은 동작하는데 '수정', '삭제' 버튼이 동작 안함
 //               $(".comm").html(result);
 				
+          		//새로고침
 				location.reload();
 			
 			  //값 비우기
@@ -251,7 +309,7 @@ $(function() {
 	      
 	      //ajax start
 	      $.ajax({
-	          type : 'get',           // 타입 (get, post, put 등등)
+	          type : 'post',           // 타입 (get, post, put 등등)
 	          url : '/free/commdelete',  // 요청할 서버url
 	          dataType : 'html',       // 데이터 타입 (html, xml, json, text 등등)
 	          data : {  // 보낼 데이터 (Object , String, Array)
@@ -292,7 +350,7 @@ function commUpdate(th) {
 	
 	/* 댓글 내용이 있는 태그를 바로 찾아갈 수 없기 때문에 부모 태그를 먼저 찾은 후에 하위 태그를 find로 찾음 */
 	$(th).parents(".com").find('#rs').replaceWith('<input type="text" name="commContent" id="newcomm" value="'+ commContent +'">')
-	$(th).parents(".com").find('.commUpdate').replaceWith('<button id="commSuccess" data-no="' +  commNo + '" onclick="success(this)">완료</button>')
+	$(th).parents(".com").find('.commUpdate').replaceWith('<button id="commSuccess" class="btn btn-danger" data-no="' +  commNo + '" onclick="success(this)">완료</button>')
 
 	var commCon = $("#newcomm").val();
 	
@@ -357,7 +415,7 @@ function success(th) {
 			location.reload();
 			
 			//-> 처음 수정만 되고 다시 수정 시도하면 실패 -> freeNo를 찾지 못함
-	//			$(".comm").html(result);
+// 			$(".comm").html(result);
 			
 		},
 		error: function(error){
@@ -443,8 +501,8 @@ function heart(freeNo) {
 	<!-- id값은 중복되면 에러나기 때문에 c:foreach같은 반복문에서는 클래스로 지정해주어야 한다 -->
 	<input type="hidden" value="${commContent.COMM_NO }" class="commNo">
 	<!-- this는 버튼의 요소를 가져가 -->
-	<button class="commDelete" data-no="${commContent.COMM_NO }">삭제</button>  
-	<button class="commUpdate" data-no="${commContent.COMM_NO }" data-con="${commContent.COMM_CONTENT }" onclick="commUpdate(this)">수정</button>  
+	<button class="commDelete btn btn-danger" data-no="${commContent.COMM_NO }">삭제</button>  
+	<button class="commUpdate btn btn-danger" data-no="${commContent.COMM_NO }" data-con="${commContent.COMM_CONTENT }" onclick="commUpdate(this)">수정</button>  
 	
     </c:if>
 

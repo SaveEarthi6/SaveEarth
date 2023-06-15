@@ -71,7 +71,12 @@ input {
 
 /* 말머리글 (드롭다운) 크기 늘리기 */
 select {
-	width:100px;
+	height: 30px;
+	width: 83px;
+	margin-right: 10px;
+	font-family: 'omyu_pretty';
+	font-size: 18px;
+	
 }
 
 .head {
@@ -93,6 +98,8 @@ select {
 	height: 30px;
 	font-size: 18px;
 	border: 1px solid #ccc;
+	font-family: 'omyu_pretty';
+	font-size: 18px;
 }
 
 /* 검색창 버튼 스타일 */
@@ -119,6 +126,8 @@ select {
 	color: #fff;
 	cursor: pointer;
 	vertical-align: middle;
+	font-family: 'omyu_pretty';
+	font-size: 18px;
 }
 
 /* 검색아이콘 이미지 */
@@ -321,6 +330,7 @@ location.href="?freeHead=" + freeHead
 	    <div class="search">
 	        <input type="text" name="keyword" class="search_input" value="${keyword }">
 	        <button class="search_btn"  style="margin-bottom: 3px;"><i class="bi bi-search"></i></button>
+	        <input type="hidden" name="freeHead" value="${freeHead }">
 	    </div>
 	</form>
 	    <div class="search">
@@ -330,7 +340,7 @@ location.href="?freeHead=" + freeHead
 
 <input type="hidden" name="freeHead" value="${freeHead }">
 
-<span class="float-end mb-3">${paging.totalCount }</span>
+<%-- <span class="float-end mb-3">${paging.totalCount }</span> --%>
 <div class="clearfix"></div>
 
 <div>

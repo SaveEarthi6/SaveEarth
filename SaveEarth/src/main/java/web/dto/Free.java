@@ -14,6 +14,7 @@ public class Free {
 	private Date freeCreate;
 	private Date freeModify;
 	private int recommend;
+	private int pin;
 	
 	public Free() {
 		// TODO Auto-generated constructor stub
@@ -23,11 +24,12 @@ public class Free {
 	public String toString() {
 		return "Free [freeNo=" + freeNo + ", userNo=" + userNo + ", adminNo=" + adminNo + ", freeHead=" + freeHead
 				+ ", freeTitle=" + freeTitle + ", freeContent=" + freeContent + ", freeViews=" + freeViews
-				+ ", freeCreate=" + freeCreate + ", freeModify=" + freeModify + ", recommend=" + recommend + "]";
+				+ ", freeCreate=" + freeCreate + ", freeModify=" + freeModify + ", recommend=" + recommend + ", pin="
+				+ pin + "]";
 	}
 
 	public Free(int freeNo, int userNo, int adminNo, String freeHead, String freeTitle, String freeContent,
-			int freeViews, Date freeCreate, Date freeModify, int recommend) {
+			int freeViews, Date freeCreate, Date freeModify, int recommend, int pin) {
 		super();
 		this.freeNo = freeNo;
 		this.userNo = userNo;
@@ -39,6 +41,7 @@ public class Free {
 		this.freeCreate = freeCreate;
 		this.freeModify = freeModify;
 		this.recommend = recommend;
+		this.pin = pin;
 	}
 
 	public int getFreeNo() {
@@ -120,10 +123,16 @@ public class Free {
 	public void setRecommend(int recommend) {
 		this.recommend = recommend;
 	}
-	
-	
-	
 
+	public int getPin() {
+		return pin;
+	}
+
+	public void setPin(int pin) {
+		this.pin = pin;
+	}
+	
+	
 	
 	
 

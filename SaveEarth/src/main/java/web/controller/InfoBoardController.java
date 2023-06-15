@@ -129,10 +129,10 @@ public class InfoBoardController {
 	@RequestMapping("/info/deleteFile")
 	public void deleteFile(@RequestParam("infoFileNo") int infoFileNo, @RequestParam("infoNo") int infoNo, Model model) {
 		
-		logger.info("thumbNo {}", infoFileNo);
+		logger.info("infoFileNo {}", infoFileNo);
 		
 		//파일번호를 기준으로 파일 삭제
-		infoService.deleteFile(infoFileNo);
+		infoService.deleteFileByFileNo(infoFileNo);
 		
 		//삭제된 후 파일 리스트 조회
 		List<InfoFile> infoFile = infoService.getInfoFile(infoNo);

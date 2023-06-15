@@ -105,7 +105,9 @@
 <select id="selectCntAllFreeHead" resultType="int" parameterType="map">
 		
 	SELECT count(*) FROM free
+	
 		<choose>
+		
 		<when test="freeHead != null &amp;&amp; !freeHead.equals('') &amp;&amp; freeHead.equals('사담')">
 			WHERE free_head = #{freeHead}
 		</when>
@@ -325,7 +327,7 @@ ORDER BY free_no DESC
 
 
 <!-- 수정 페이지에서 파일 삭제 -->
-<delete id="deleteFileByFileNo" parameterType="int">
+<delete id="deleteFileByfreeFileNo" parameterType="int">
 	DELETE free_file 
 	WHERE free_file_no = #{freeFileNo}
 </delete>

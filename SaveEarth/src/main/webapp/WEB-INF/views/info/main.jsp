@@ -28,6 +28,14 @@
 	position: relative;
 }
 
+/* 폰트 */
+@font-face {
+    font-family: 'omyu_pretty';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /* '정보게시판' 문구 스타일 */
 .info {
 	position: absolute;
@@ -81,7 +89,7 @@
 	font-size: 18px;
 	border: 1px solid #ccc;
 	margin-top: 10px;
-/* 	border-bottom: 1px black solid; */
+	font-family: 'omyu_pretty';
 }
 
 /* 검색창 버튼 스타일 */
@@ -112,20 +120,15 @@ input {
 	font-size: 14px;
 }
 
-/* .row { */
-/* 	margin-bottom: 30px; */
-/* } */
-
+/* 게시글 제목 스타일 */
 #infoTitle {
 	margin-top: 10px;
-}
-
-
-#title {
+	font-family: 'omyu_pretty';
+	font-size: 20px;
 	font-weight: bold;
 }
 
-
+/* 게시글 스타일 */
 #info {
     width: 225px;
     text-align: center;
@@ -137,6 +140,19 @@ input {
 
 a{ text-decoration: none; } /* 링크텍스트에 밑줄없앰 */
 button{ cursor: pointer; } /* 모든 버튼에 마우스손모양 처리 */
+
+/* '정보'버튼 스타일 */
+#infobtn {
+	font-family: 'omyu_pretty';
+	font-size: 18px;
+}
+
+/* '자유TOP' 버튼 스타일 */
+#freebtn {
+	font-family: 'omyu_pretty';
+	font-size: 18px;
+}
+
 
 </style>
 
@@ -193,7 +209,7 @@ function selectInfo() {
 					<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
 				</c:if>
 				<div id="infoTitle">
-					<span id="title">${infoList.INFO_TITLE }</span>
+					<span id="title">[ ${infoList.INFO_TITLE } ]</span>
 				</div>
 			</a>
 			</div>

@@ -132,6 +132,11 @@
 	WHERE info_no = #{infoNo}
 </delete>
 
+<delete id="deleteFileByFileNo" parameterType="int">
+	DELETE info_file
+	WHERE info_file_no = #{infoFileNo}
+</delete>
+
 <delete id="deleteThumb" parameterType="int">
 	DELETE info_thumbnail 
 	WHERE thumb_no = #{thumbNo}

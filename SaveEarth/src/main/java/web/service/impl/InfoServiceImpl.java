@@ -265,6 +265,13 @@ public class InfoServiceImpl implements InfoService {
 		
 	}
 	
+	@Override
+	public void deleteFileByFileNo(int infoFileNo) {
+		
+		infoDao.deleteFileByFileNo(infoFileNo);
+		
+	}
+	
 	
 	@Override
 	public List<InfoFile> getInfoFile(int infoNo) {

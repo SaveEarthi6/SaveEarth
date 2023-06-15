@@ -97,11 +97,16 @@ public interface InfoService {
 		public List<InfoThumbnail> getInfoThumb(int infoNo);
 
 		/**
-		 * 파일 번호와 일치하는 파일을 삭제한다
+		 * 게시글 번호와 일치하는 파일을 삭제한다
+		 * @param infoNo - 파일 번호
+		 */
+		public void deleteFile(int infoNo);
+
+		/**
+		 * 파일 번호와 일치하는 파일을 삭제한단
 		 * @param infoFileNo - 파일 번호
 		 */
-		public void deleteFile(int infoFileNo);
-
+		public void deleteFileByFileNo(int infoFileNo);
 		/**
 		 * 삭제한 후 파일 정보 조회
 		 * @param infoNo - 게시글 번호
@@ -116,6 +121,7 @@ public interface InfoService {
 		 * @param thumb - 썸네일
 		 */
 		public void updateInfo(Info info, List<MultipartFile> infoFiles, MultipartFile thumb);
+
 
 
 }

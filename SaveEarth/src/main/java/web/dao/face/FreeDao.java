@@ -157,10 +157,10 @@ public interface FreeDao {
 	public List<Map<String, Object>> selectCommentByFreeNo(int freeNo);
 
 	/**
-	 * 파일 번호를 기준으로 파일을 삭제
-	 * @param fileNo - 파일 번호
+	 * 파일 번호로 파일 삭제
+	 * @param freeFileNo - 파일 번호
 	 */
-	public void deleteFileByFileNo(int fileNo);
+	public void deleteFileByfreeFileNo(int freeFileNo);
 
 	/**
 	 * 게시글 번호(정수형)을 기준으로 파일 정보를 조회한다
@@ -214,6 +214,7 @@ public interface FreeDao {
 	 * @param comment - 댓글 내용
 	 */
 	public void UpdateComment(FreeComment comment);
+
 
 	
 	

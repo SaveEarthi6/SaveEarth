@@ -23,8 +23,8 @@
 	
 	<!-- 로그인한 아이디랑 댓글 작성한 아이디랑 같을 때 삭제 버튼이 보인다 -->
 	<c:if test="${loginId eq commList.USER_ID }">
-	<button class="commDelete" data-no="${commList.COMM_NO }">삭제</button>  
-	<button class="commSuccess" data-num="${commList.COMM_NO }">완료</button>  
+	<button class="commDelete btn btn-danger" data-no="${commList.COMM_NO }">삭제</button>  
+	<button class="commSuccess btn btn-danger" data-num="${commList.COMM_NO }">완료</button>  
     </c:if>
 	
       <hr>
