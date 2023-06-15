@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<c:import url="../layout/adminheader.jsp"></c:import>
+<c:import url="../layout/header.jsp"></c:import>
 
 <!-- 필요시 css, js, jquery 넣을 곳 -->
 

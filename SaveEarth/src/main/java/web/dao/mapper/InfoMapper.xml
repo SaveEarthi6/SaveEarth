@@ -58,7 +58,14 @@
 
   </select>
   
+  <!-- 게시글 상세 조회 - 게시글 정보 -->
+	<select id="selectDetail" parameterType="int" resultType="web.dto.Info">
 
+		SELECT * FROM info
+		WHERE info_no = #{infoNo}
+	
+ 	</select>	
+  
   
 <!-- 게시글 내용 삽입 -->
  <insert id="insertInfo" parameterType="web.dto.Info">
@@ -153,6 +160,7 @@
 	WHERE info_file_no = #{infoFileNo}
 </delete>
 
+<!-- 파일 정보 조회 -->
 <select id="selectFileByInfoNo" parameterType="int" resultType="web.dto.InfoFile">
 	SELECT * FROM info_file
 	WHERE info_no = #{infoNo}
