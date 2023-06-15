@@ -126,6 +126,7 @@ select {
 	margin-right:auto;
 	
 	text-align: center;
+	
 }
 
 #write {
