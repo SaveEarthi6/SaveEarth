@@ -123,20 +123,29 @@ body {
 a{ text-decoration: none; } /* 링크텍스트에 밑줄없앰 */
 button{ cursor: pointer; } /* 모든 버튼에 마우스손모양 처리 */
 
+
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 </style>
 
 
 </head>
 <body>
-
-<div id="fullHeader">
 <div id="header"  style= "font-family: GmarketSansMedium">
+<div id="fullHeader">
+
 	<div id="wrap" >
 	<a href="../admin/free"><img id="logo" src="../../resources/img/logo2.png"></a>
 	
 	<c:if test="${empty isLogin }">
 	<a href="/admin/login"	class="righttop">관리자 로그인 </a>
 	<a href="/saveearth/main"	class="righttop2">메인화면</a>
+	
 	</c:if>
 	
 	<c:if test="${not empty isLogin and isLogin }">
@@ -144,16 +153,18 @@ button{ cursor: pointer; } /* 모든 버튼에 마우스손모양 처리 */
 	</c:if>
 	</div>
 </div>
+</div>
 
-
-
+<div style= "font-family: GmarketSansMedium">
 <table class="menu">
 
 <tr>
+
 	<td id="adminFree">게시판 관리</td>
 	<td id="adminProduct">상품 관리</td>
 	<td id="adminInquiry">문의 관리</td>
+</div>
 </tr>
-
+</div>
 </table>
 </div>
