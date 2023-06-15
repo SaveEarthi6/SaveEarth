@@ -236,25 +236,13 @@ $(function(){
 
 <style>
 
-/* 폰트 스타일 */
-@font-face {
-	font-family: 'KBO-Dia-Gothic_bold';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff')
-		format('woff');
-		
-	font-weight: 700;
-	font-style: normal;
-}
-
 /* 장바구니 타이틀 */
 #cartTitle {
     width: 70%;
     margin: 0 auto;
     font-weight: bold; 
     margin-top: 30px;
- 	font-size: 45px; 
-	font-family: 'KBO-Dia-Gothic_bold';
+ 	font-size: 2em; 
 }
 
 /* 장바구니 목록 table */

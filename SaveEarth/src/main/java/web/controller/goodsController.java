@@ -178,6 +178,7 @@ public class goodsController {
 		
 	}
 	
+	//선택삭제
 	@ResponseBody
 	@PostMapping("/deleteCart")
 	public int deleteCart(HttpSession session, @RequestParam("chbox[]") List<String> chArr) {
@@ -205,6 +206,8 @@ public class goodsController {
 		logger.info("/goods/order [GET]");
 		logger.info("{}", cartArr);
 		
+		 Member member = goodsService.getUserInfo((int)session.getAttribute("loginNo"));
+		
 		//선택 주문 장바구니 불러오기
 		if(cartArr != null) {
 			
@@ -220,6 +223,7 @@ public class goodsController {
 			}
 			
 			model.addAttribute("cartList",cartList);
+			model.addAttribute("member", member);
 			logger.info("{}", cartList);
 			
 		  //전체 주문 장바구니 불러오기	
@@ -230,13 +234,14 @@ public class goodsController {
 			logger.info("{}", cartList);
 			
 			model.addAttribute("cartList",cartList);
+			model.addAttribute("member", member);
 		}
 		
 	}
 	
 	//주문 배송지 폼 DB 삽입
 	@PostMapping("/order")
-	public void orderinsert(HttpSession session, Order order) {
+	public String orderinsert(HttpSession session, Order order) {
 		logger.info("/goods/order [POST]");
 		
 		//주문번호
@@ -255,15 +260,20 @@ public class goodsController {
 		
 		goodsService.deleteCart((int)session.getAttribute("loginNo"));
 		
+		return "redirect:./orderView?orderNo=" + orderNo;
+		
 	}
 	
 	//주문목록 불러오기
 	@RequestMapping("/orderList")
-	public void orderList(HttpSession session, Model model) {
+	public void orderList(HttpSession session, Model model, @RequestParam(defaultValue = "0") int curPage) {
 		logger.info("/goods/orderList [GET]");
 		
-		List<Order> orderList = goodsService.orderList((int)session.getAttribute("loginNo"));
+		Paging paging = goodsService.getPagingOrder((int)session.getAttribute("loginNo"), curPage);
 		
+		List<Order> orderList = goodsService.orderList((int)session.getAttribute("loginNo"), paging);
+		
+		model.addAttribute("paging", paging);
 		model.addAttribute("orderList", orderList);
 	}
 	
@@ -331,22 +341,46 @@ public class goodsController {
 	
 	//장바구니 결제하기
 	@RequestMapping("/payment")
-	public void payment(HttpServletRequest request, HttpSession session, Order order, @RequestParam Map<String, String> map) {
+	public String payment(HttpServletRequest request, HttpSession session, Order order, String cartArr) {
 		logger.info("/goods/payment GET]");
-		logger.info("payment 맵 {}", map);
+		logger.info("값 대입 전 order {}", order);
+		logger.info("{}", cartArr);
+		
+		//주문번호
+		Calendar cal = Calendar.getInstance();
+		String date = cal.get(Calendar.YEAR) + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1) + new DecimalFormat("00").format(cal.get(Calendar.DATE));
+		String orderNo = cal.get(Calendar.YEAR) + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1) + new DecimalFormat("00").format(cal.get(Calendar.DATE)) + "_" + UUID.randomUUID().toString().split("-")[0];
+		
+		logger.info("{}", orderNo);		
+		
+		order.setOrderNo(orderNo);
+		order.setUserNo((int)session.getAttribute("loginNo"));
+		
+		logger.info("값 대입 후 order {}", order);
+		
+		goodsService.paymentTest(request, order);
 		
 		
-		System.out.println("유저번호 확인"+ order);
 		
-		
+		//선택결제라면
+		if(cartArr != null) {
 			
+			String[] cartNo = cartArr.split(",");
+			
+			for(int i = 0; i<cartNo.length; i++) {
+				
+				goodsService.deleteCart((int)session.getAttribute("loginNo"), cartNo[i]);
+				
+			}
+			
+		//전체 결제라면
+		} else {
+			goodsService.deleteCart((int)session.getAttribute("loginNo"));
+		}
 		
-		goodsService.paymentTest(request);
+
 		
-		
-		
-		
-		
+		return "redirect:./orderView?orderNo=" + orderNo;
 		
 	}
 	

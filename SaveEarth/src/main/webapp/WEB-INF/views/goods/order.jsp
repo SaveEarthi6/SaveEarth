@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <c:import url="../layout/header.jsp"></c:import>
 
@@ -440,7 +441,7 @@ label {
 
 	<div id="recWrap">
 	  <label for="orderRec" class="form-label">받으시는 분</label>
-	  <input type="text" class="form-control" id="orderRec" name="orderRec" placeholder="수령인">
+	  <input type="text" class="form-control getValue" id="orderRec" name="orderRec" placeholder="수령인">
 	  <span id="recMsg" class="warnMsg"></span>
 	</div>
 	
@@ -449,10 +450,10 @@ label {
 	<div id="addrWrap">
 		<div><label for="inputCity" class="form-label">주소</label></div>
 	
-	    <input type="text" class="form-control addr" id="orderAddrPostcode" placeholder="우편번호" name="orderAddrPostcode"> 
+	    <input type="text" class="form-control addr getValue" id="orderAddrPostcode" placeholder="우편번호" name="orderAddrPostcode"> 
 		<input type="button" id="postBtn" class="form-control addr" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
-	    <input type="text" class="form-control addr" id="orderAddr" placeholder="도로명주소" name="orderAddr">
-		<input type="text" class="form-control addr" id="orderAddrDetail" placeholder="상세주소" name="orderAddrDetail">
+	    <input type="text" class="form-control addr getValue" id="orderAddr" placeholder="도로명주소" name="orderAddr">
+		<input type="text" class="form-control addr getValue" id="orderAddrDetail" placeholder="상세주소" name="orderAddrDetail">
 		<span id="addrMsg" class="warnMsg"></span>
 	</div>
 	
@@ -460,16 +461,22 @@ label {
 
 	<div id="phoneWrap">
 	  <label for="orderPhone" class="phone">연락처</label>
-	  <input type="text" class="form-control" id="orderPhone" name="orderPhone" placeholder="연락처">
+	  <input type="text" class="form-control getValue" id="orderPhone" name="orderPhone" placeholder="연락처">
 	  <span id="phoneMsg" class="warnMsg"></span>
 	</div>
 	
 	<div class="clear"></div>
-
-	<input type="hidden" name="orderPrice" value="${sum}">
+	
+	<c:if test="${sum >= 30000}">
+		<input type="hidden" name="orderPrice" id="orderPrice" value="${sum}">
+	</c:if>
+	
+	<c:if test="${sum < 30000}">
+		<input type="hidden" name="orderPrice" id="orderPrice" value="${sum + 3000}">
+	</c:if>
 	
 	<div>
-<!-- 	  <button type="submit" class="btn btn-success" id="orderMade">DB 결제하기</button> -->
+	  <button type="submit" class="btn btn-success" id="orderMade">DB 결제하기</button>
 	</div>
   
 </form>
@@ -499,38 +506,49 @@ label {
 <script>
 const clientKey = "test_ck_lpP2YxJ4K87vZ9PKpAvrRGZwXLOb"
 const customerKey = "swfA_xX4Vg5HeRU1AZveQ" // 내 상점의 고객을 식별하는 고유한 키
-const button = document.getElementById("payment-button")
+
 // ------  결제위젯 초기화 ------ 
-// 비회원 결제에는 customerKey 대신 ANONYMOUS를 사용하세요.
 const paymentWidget = PaymentWidget(clientKey, customerKey) // 회원 결제
-// const paymentWidget = PaymentWidget(clientKey, PaymentWidget.ANONYMOUS) // 비회원 결제
+
 // ------  결제위젯 렌더링 ------ 
-// 결제위젯이 렌더링될 DOM 요소를 지정하는 CSS 선택자 및 결제 금액을 넣어주세요. 
-// https://docs.tosspayments.com/reference/widget-sdk#renderpaymentmethods선택자-결제-금액-옵션
 paymentWidget.renderPaymentMethods("#payment-method", { value: 100 })
+
 // ------  이용약관 렌더링 ------
-// 이용약관이 렌더링될 DOM 요소를 지정하는 CSS 선택자를 넣어주세요.
-// https://docs.tosspayments.com/reference/widget-sdk#renderagreement선택자
 paymentWidget.renderAgreement('#agreement')
+
 // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
-// 더 많은 결제 정보 파라미터는 결제위젯 SDK에서 확인하세요.
-// https://docs.tosspayments.com/reference/widget-sdk#requestpayment결제-정보
-var name = document.getElementById("orderRec").value;
-button.addEventListener("click", function () {
-console.log(name);
+$(function() {
 	
-	if(!validate()) {	
-		return false
-	} 
+	// ------  결제위젯 렌더링 ------ 
+	paymentWidget.renderPaymentMethods("#payment-method", { value: $("#orderPrice").val() })
 	
+	$(document).on("click", "#payment-button", function() {
+	
+		if(!validate()) {	
+			return false
+		} 
+		
+		var chkArr = new Array();
+		
+		<c:forEach var="item" items="${cartList}">
+			chkArr.push(${item.CART_NO})
+		</c:forEach>
+		
+		console.log(chkArr)
+		
+		<c:forEach var="item" items="${cartList}" begin="0" end="0">
 		paymentWidget.requestPayment({
-		  orderId: "RkluNBM8DMR923bZ09aZA" + new Date().getTime(),            // 주문 ID(직접 만들어주세요)
-		  orderName: "토스 티셔츠 외 2건",                 // 주문명
-		  successUrl: "http://localhost:8888/goods/payment?name="+${sum}+'&abc='+'abcsde',  // 결제에 성공하면 이동하는 페이지(직접 만들어주세요)
-		  failUrl: "http://localhost:8888/goods/orderFail",        // 결제에 실패하면 이동하는 페이지(직접 만들어주세요)
-		  customerEmail: "customer123@gmail.com",
-		  customerName: "김토스"
+			orderId: "RkluNBM8DMR923bZ09aZA" + new Date().getTime(),
+			orderName: "${item.PROD_NAME} 외 " + ${fn:length(cartList)-1} + "건",
+			successUrl: "http://localhost:8888/goods/payment?orderRec=" + $("#orderRec").val() + "&orderAddrPostcode=" + $("#orderAddrPostcode").val() + "&orderAddr=" + $("#orderAddr").val() + "&orderAddrDetail=" + $("#orderAddrDetail").val() + "&orderPhone=" + $("#orderPhone").val() + "&orderPrice=" + $("#orderPrice").val(),
+			failUrl: "http://localhost:8888/goods/orderFail",
+			customerEmail: "${member.userEmail}",
+			customerName: "${member.userName}"
 		})
+		</c:forEach>
+	
+	})
+	
 })
 
 </script>

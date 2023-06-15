@@ -106,6 +106,10 @@
 	</c:if>
 </div>
 
+<div>
+	<c:import url="./pagingList.jsp"></c:import>
+</div>
+
 </div>
 
 <c:import url="../layout/footer.jsp"></c:import>
