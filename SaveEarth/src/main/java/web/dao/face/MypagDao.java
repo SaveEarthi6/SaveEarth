@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import web.dto.Free;
 import web.dto.FreeComment;
 import web.dto.Member;
+import web.dto.Order;
 import web.util.Paging;
 
 public interface MypagDao {
@@ -43,14 +44,6 @@ public interface MypagDao {
 	 * @param loginId - 세션 로그인 정보
 	 */
 	public void delete(String loginId);
-
-	/**
-	 * 내가 작성한 글 리스트로 불러오기
-	 * @param paging - 페이징 객체
-	 * @param freeHead - 말머리글
-	 * @return
-	 */
-	public List<Map<String, Object>> selectList(@Param("paging") Paging paging, @Param("freeHead") String freeHead);
 	
 	/**
 	 * 내가 작성한글 리스트로 불러오기
@@ -58,6 +51,27 @@ public interface MypagDao {
 	 * @return
 	 */
 	public List<Free> mypageList(int userNo);
+	
+	/**
+	 * 내가 작성한 글 리스트로 불러오기
+	 * @param paging - 페이징 객체
+	 * @param freeHead - 말머리글
+	 * @return
+	 */
+	public List<Map<String, Object>> selectList(Paging paging);
+	
+	/**
+	 * 마이페이지 - 회원정보 변경
+	 * @param member
+	 */
+	public void updateUser(Member member);
+	
+	/**
+	 * 마이페이지 - 주문상품 불러오기 
+	 * @param userNo
+	 * @return
+	 */
+	public List<Order> selectOrderList(int userNo);
 
 
 	

@@ -14,6 +14,7 @@ import web.dao.face.MypagDao;
 import web.dto.Free;
 import web.dto.FreeComment;
 import web.dto.Member;
+import web.dto.Order;
 import web.service.face.MypageService;
 import web.util.Paging;
 
@@ -62,14 +63,25 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public List<Map<String, Object>> MypageBoardlist(Paging paging, String freeHead) {
+	public List<Map<String, Object>> MypageBoardlist(Paging paging) {
 		
-		return mypageDao.selectList(paging, freeHead);
+		return mypageDao.selectList(paging);
 	}
 
 	@Override
 	public List<Free> mypageList(int userNo) {
 		return mypageDao.mypageList(userNo);
+	}
+
+	@Override
+	public void update(Member member) {
+		mypageDao.updateUser(member);
+		
+	}
+	
+	@Override
+	public List<Order> orderList(int userNo) {
+		return mypageDao.selectOrderList(userNo);
 	}
 	
 	
