@@ -78,11 +78,17 @@ public class MypageServiceImpl implements MypageService {
 		mypageDao.updateUser(member);
 		
 	}
+
+//	@Override
+//	public List<Map<String, Object>> orderList(int userNo, Paging paging) {
+//		return mypageDao.selectOrderList(userNo, paging);
+//	}
 	
 	@Override
 	public List<Order> orderList(int userNo) {
 		return mypageDao.selectOrderList(userNo);
 	}
+
 	
 	
 }

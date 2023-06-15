@@ -70,7 +70,9 @@ public interface MypageService {
 	 * @param attribute
 	 * @return
 	 */
-	public List<Order> orderList(int userNo);
+//	public List<Map<String, Object>> orderList(int userNo, Paging paging);
+
+	public List<Order> orderList(int attribute);
 
 
 
