@@ -156,18 +156,6 @@ public class FreeBoardController {
 		return "redirect:/mypage/board"; 
 	}
 	
-//	@RequestMapping("/free/deleteFile")
-//	public void deleteFile (Free free, Model model) {
-//		
-//		logger.info("/free/deleteFile");
-//		logger.info("free {}", free);
-//		
-//		freeService.deleteFreeFile(free);
-//		
-//		model.addAttribute("free", free);
-//		
-//	}
-	
 	
 	@GetMapping("/free/update")
 	public void update(Model model, Free freeBoard, HttpSession session) {

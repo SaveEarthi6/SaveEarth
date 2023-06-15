@@ -1,11 +1,13 @@
 package web.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.aspectj.weaver.AjAttribute.MethodDeclarationLineNumberAttribute;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +15,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import oracle.jdbc.proxy.annotation.Post;
 import web.dto.Admin;
 import web.dto.Campaign;
 import web.dto.CampaignFile;
@@ -64,15 +64,15 @@ public class AdminController {
 	public String login(HttpSession session, Admin admin, Model model) {
 		logger.info("/admin/login");
 		logger.info("어드민 로그인 정보 : {}", admin);
-		boolean isLogin = adminService.login(admin);
+		boolean adminLogin = adminService.login(admin);
 
 //		admin = adminService.info(admin.getAdminId());
 //		logger.info("어드민 접속 정보:{}", admin);
 //		logger.info("어드민 번호:{}", admin.getAdminNo());
 
-		if (isLogin) {
+		if (adminLogin) {
 			logger.info("로그인 성공");
-			session.setAttribute("isLogin", isLogin);
+			session.setAttribute("adminLogin", adminLogin);
 			session.setAttribute("loginId", admin.getAdminId());
 			session.setAttribute("loginNo", admin.getAdminNo());
 
@@ -94,7 +94,19 @@ public class AdminController {
 	
 	//예외 페이지
 	@RequestMapping("/noLogin")
-	public void FreeNologin() {
+	public void FreeNologin(HttpServletResponse response) {
+		
+		response.setContentType("text/html; charset=UTF-8");
+		 
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+			out.println("<script>alert('로그인 후 이용하실 수 있습니다'); location.href='/member/login';</script>");
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		logger.info("./fail");
 	}
 
