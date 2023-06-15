@@ -366,12 +366,13 @@ public class goodsController {
 		if(cartArr != null) {
 			
 			String[] cartNo = cartArr.split(",");
-			
+		
 			for(int i = 0; i<cartNo.length; i++) {
 				
 				goodsService.deleteCart((int)session.getAttribute("loginNo"), cartNo[i]);
 				
 			}
+
 			
 		//전체 결제라면
 		} else {

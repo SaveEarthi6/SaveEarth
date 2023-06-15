@@ -540,7 +540,9 @@ $(function() {
 		paymentWidget.requestPayment({
 			orderId: "RkluNBM8DMR923bZ09aZA" + new Date().getTime(),
 			orderName: "${item.PROD_NAME} 외 " + ${fn:length(cartList)-1} + "건",
-			successUrl: "http://localhost:8888/goods/payment?orderRec=" + $("#orderRec").val() + "&orderAddrPostcode=" + $("#orderAddrPostcode").val() + "&orderAddr=" + $("#orderAddr").val() + "&orderAddrDetail=" + $("#orderAddrDetail").val() + "&orderPhone=" + $("#orderPhone").val() + "&orderPrice=" + $("#orderPrice").val(),
+			successUrl: "http://localhost:8888/goods/payment?orderRec=" + $("#orderRec").val() + "&orderAddrPostcode=" + $("#orderAddrPostcode").val() 
+						+ "&orderAddr=" + $("#orderAddr").val() + "&orderAddrDetail=" + $("#orderAddrDetail").val() + "&orderPhone=" + $("#orderPhone").val() 
+						+ "&orderPrice=" + $("#orderPrice").val() + "&cartArr=" + chkArr,
 			failUrl: "http://localhost:8888/goods/orderFail",
 			customerEmail: "${member.userEmail}",
 			customerName: "${member.userName}"
