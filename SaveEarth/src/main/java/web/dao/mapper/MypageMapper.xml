@@ -73,27 +73,21 @@
     	 WHERE user_id = #{userId} 
    </update>
    
-   	<select id="selectOrderList" parameterType="int" resultType="web.dto.Order">
+<!--    	<select id="selectOrderList" parameterType="int" resultType="web.dto.Order"> -->
+<!-- 		SELECT * FROM ordertb -->
+<!-- 		WHERE user_no = #{userNo} -->
+<!-- 	</select> -->
+
+
+	<select id="selectOrderList" resultType="map" parameterType="web.util.Paging">
 		SELECT * FROM ordertb
-		WHERE user_no = #{userNo}
+		WHERE user_no = #{userNo}	
 	</select>
 
+	<select id="selectOrderCntAll" resultType="int">
+		SELECT count(*) FROM free
+	</select>
 
-<!-- <select id="selectOrderList" resultType="map" parameterType="map"> -->
-
-<!--     SELECT * FROM( -->
-<!-- 		SELECT rownum rnum,  -->
-<!--         (SELECT m.user_no  -->
-<!--         FROM member m  -->
-<!--         WHERE m.user_no = F.user_no) user_id, F.*  -->
-<!--         FROM ( -->
-<!-- 			SELECT -->
-<!-- 			* -->
-<!-- 			FROM ordertb f -->
-<!-- 		) F -->
-<!-- 	) FREEMAIN -->
-<!-- 		WHERE rnum BETWEEN #{paging.startNo} and #{paging.endNo} -->
-<!-- </select> -->
 
   </mapper>
   

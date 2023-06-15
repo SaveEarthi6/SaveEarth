@@ -66,12 +66,12 @@ public interface MypagDao {
 	 */
 	public void updateUser(Member member);
 	
-	/**
-	 * 마이페이지 - 주문상품 불러오기 
-	 * @param userNo
-	 * @return
-	 */
-	public List<Order> selectOrderList(int userNo);
+//	/**
+//	 * 마이페이지 - 주문상품 불러오기 
+//	 * @param userNo
+//	 * @return
+//	 */
+//	public List<Order> selectOrderList(int userNo);
 	
 //	/**
 //	 * 마이페이지 - 주문상품 불러오기
@@ -79,7 +79,13 @@ public interface MypagDao {
 //	 * @param paging
 //	 * @return
 //	 */
-//	public List<Map<String, Object>> selectOrderList(@Param ("userNo") int userNo, @Param("paging") Paging paging );
+	public List<Map<String, Object>> selectOrderList(@Param ("userNo") int userNo, @Param("paging") Paging paging );
+
+	/**
+	 * 주문내역 페이징
+	 * @return
+	 */
+	public int selectOrderCntAll();
 
 
 	

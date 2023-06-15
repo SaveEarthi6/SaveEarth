@@ -70,9 +70,16 @@ public interface MypageService {
 	 * @param attribute
 	 * @return
 	 */
-//	public List<Map<String, Object>> orderList(int userNo, Paging paging);
+	public List<Map<String, Object>> orderList(int userNo, Paging paging);
+	
+	/**
+	 * 마이페이지 - 주문내역 페이징
+	 * @param curPage - 페이징객체
+	 * @return
+	 */
+	public Paging orderPaging(int curPage);
 
-	public List<Order> orderList(int attribute);
+//	public List<Order> orderList(int userNo);
 
 
 

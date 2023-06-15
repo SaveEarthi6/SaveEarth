@@ -170,24 +170,24 @@ select {
 	
 <tbody>
 
-<c:forEach items="${orderList }" var="orderList">
-			<tr>
-				<td> <a href="/shop/orderView?n=${orderList.orderNo}">${orderList.orderNo} </a></td>
-				<td> ${orderList.orderRec} </td>
-				<td> (${orderList.orderAddrPostcode}) ${orderList.orderAddr} ${orderList.orderAddrDetail} </td>
-				<td> <fmt:formatNumber pattern="###,###,###" value="${orderList.orderPrice}" /> 원 </td>
-			</tr>
-</c:forEach>
-
-
 <%-- <c:forEach items="${orderList }" var="orderList"> --%>
 <!-- 			<tr> -->
-<%-- 				<td> <a href="/shop/orderView?n=${orderList.ORDER_NO}">${orderList.ORDER_NO} </a></td> --%>
-<%-- 				<td> ${orderList.ORDER_REC} </td> --%>
-<%-- 				<td> (${orderList.ORDER_ADDR_POSTCODE}) ${orderList.ORDER_ADDR} ${orderList.ORDER_ADDR_DETAIL} </td> --%>
-<%-- 				<td> <fmt:formatNumber pattern="###,###,###" value="${orderList.ORDER_PRICE}" /> 원 </td> --%>
+<%-- 				<td> <a href="/shop/orderView?n=${orderList.orderNo}">${orderList.orderNo} </a></td> --%>
+<%-- 				<td> ${orderList.orderRec} </td> --%>
+<%-- 				<td> (${orderList.orderAddrPostcode}) ${orderList.orderAddr} ${orderList.orderAddrDetail} </td> --%>
+<%-- 				<td> <fmt:formatNumber pattern="###,###,###" value="${orderList.orderPrice}" /> 원 </td> --%>
 <!-- 			</tr> -->
 <%-- </c:forEach> --%>
+
+
+<c:forEach items="${orderList }" var="orderList">
+			<tr>
+				<td> <a href="/shop/orderView?n=${orderList.ORDER_NO}">${orderList.ORDER_NO} </a></td>
+				<td> ${orderList.ORDER_REC} </td>
+				<td> (${orderList.ORDER_ADDR_POSTCODE}) ${orderList.ORDER_ADDR} ${orderList.ORDER_ADDR_DETAIL} </td>
+				<td> <fmt:formatNumber pattern="###,###,###" value="${orderList.ORDER_PRICE}" /> 원 </td>
+			</tr>
+</c:forEach>
 </tbody>
 
 </table>
@@ -195,7 +195,6 @@ select {
 
 <div>
 	<ul class="pagination pagination-sm justify-content-center">
-
 	<%-- 첫 페이지로 이동 --%>
 	<c:if test="${paging.curPage ne 1 }">
 		<li class="page-link">&larr; 처음 </li>	
