@@ -88,12 +88,12 @@ public interface FreeDao {
 
 	/**
 	 * 검색어와 일치하는 게시글을 조회한다
+	 * map안에 들어있는 파라미터들
 	 * @param paging - 페이징 객체
 	 * @param keyword - 입력한 검색어
-	 * @param freeHead 
+	 * @param freeHead - 말머리글
 	 * @return - 검색어와 일치하는 게시글
 	 */
-//	public List<Map<String, Object>> selectFreeByKeyword(@Param("paging") Paging paging, @Param("keyword") String keyword, @Param("freeHead") String freeHead);
 	public List<Map<String, Object>> selectFreeByKeyword(Map<String, Object> map);
 
 

@@ -115,12 +115,11 @@ public interface InfoService {
 		public List<InfoFile> getInfoFile(int infoNo);
 
 		/**
-		 * 정보게시판 게시글 수정
-		 * @param info - 게시글 내용
-		 * @param infoFiles - 첨부파일(들)
-		 * @param thumb - 썸네일
+		 * 정보게시판 게시글 정보 상세조회
+		 * @param infoNo - 게시글 번호
+		 * @return
 		 */
-		public void updateInfo(Info info, List<MultipartFile> infoFiles, MultipartFile thumb);
+		public Info getInfoDetail(int infoNo);
 
 
 

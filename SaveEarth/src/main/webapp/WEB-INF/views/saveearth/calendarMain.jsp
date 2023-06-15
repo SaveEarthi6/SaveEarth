@@ -75,10 +75,20 @@ document.addEventListener('DOMContentLoaded', function() {
    var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
       initialView: 'dayGridMonth',
+      customButtons: {
+			myCustomButton: {
+				text: '내 달력'
+				, click: function() {
+					
+					location.href="/campaign/main"
+				}
+			}
+
+		},
       headerToolbar: {
-         start: 'prev'
+         start: 'prev next'
          , center: 'title'
-         , end: 'next'
+         , end: 'myCustomButton'
       },
       events: [
          <c:forEach items="${calList}" var="calendar">
