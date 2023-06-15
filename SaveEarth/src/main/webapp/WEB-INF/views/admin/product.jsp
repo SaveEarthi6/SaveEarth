@@ -65,8 +65,6 @@ body {
 <br>
 <br>
 <br>
-<br>
-<br>
 
 
 	<div id="prodList" class="row">
@@ -106,7 +104,6 @@ body {
 	</div>
 	</div>
 			
-<br>
 <br>
 <br>
 <br>
