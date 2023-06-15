@@ -212,6 +212,7 @@ label {
 	         <tr>
 	            <th>상품이미지</th> 
 				<th>상품이름</th>
+				<th>옵션</th>
 	            <th>가격</th>
 	            <th>수량</th>
 	         </tr>
@@ -221,6 +222,7 @@ label {
 	            <tr>
 					<td style="padding: 10px; width:25%;"><img src="/upload/${item.prodStoredName }" width="150px" height="150px" id="thumnail"></td>
 	                <td class="titleTag">${item.prodName}</td>
+	                <td><span class="titleTag">사이즈 : </span>${item.prodSize} <br> <span class="titleTag">색상 : </span>${item.prodColor}</td>
 	                <td><span class="titleTag"><fmt:formatNumber pattern="###,###,###" value="${item.prodPrice }"  /></span>원</td>
 	                <td><span class="titleTag">${item.prodAmount}</span>개</td>
 	            </tr>
@@ -258,41 +260,29 @@ label {
 	<c:forEach var="item" items="${orderInfo}" begin="0" end="0">
 	<div id="recWrap">
 	  <label for="orderRec" class="form-label">받으시는 분</label>
-	  <input type="text" class="form-control" id="orderRec" name="orderRec" value="${item.orderRec }">
+	  <input type="text" class="form-control" id="orderRec" name="orderRec" value="${item.orderRec }" readonly="readonly">
 	</div>
 	
 	<div id="addrWrap">
-<!-- 		<div><label for="inputCity" class="form-label">주소</label></div> -->
-	
-<%-- 	    <input type="text" class="form-control addr" id="orderAddrPostcode" value="${item.orderAddrPostcode }" name="orderAddrPostcode" >  --%>
-<!-- 		<input type="button" id="postBtn" class="form-control addr" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"> -->
-<%-- 	    <input type="text" class="form-control addr" id="orderAddr" value="${item.orderAddr }" name="orderAddr"> --%>
-<%-- 		<input type="text" class="form-control addr" id="orderAddrDetail" value="${item.orderAddrDetail }" name="orderAddrDetail"> --%>
-	
+
 		<label for="orderAddrPostcode" class="form-label">우편번호</label>
-	  	<input type="text" class="form-control" id="orderAddrPostcode" name="orderAddrPostcode" value="${item.orderAddrPostcode }">		
+	  	<input type="text" class="form-control" id="orderAddrPostcode" name="orderAddrPostcode" value="${item.orderAddrPostcode }" readonly="readonly">		
 	
 		<label for="orderAddr" class="form-label">주소</label>
-	    <input type="text" class="form-control" id="orderAddr" value="${item.orderAddr }" name="orderAddr">
+	    <input type="text" class="form-control" id="orderAddr" value="${item.orderAddr }" name="orderAddr" readonly="readonly">
 
 		<label for="orderAddrDetail" class="form-label">상세주소</label>
-			<input type="text" class="form-control" id="orderAddrDetail" value="${item.orderAddrDetail }" name="orderAddrDetail">
+			<input type="text" class="form-control" id="orderAddrDetail" value="${item.orderAddrDetail }" name="orderAddrDetail" readonly="readonly">
 	</div>
 
 	<div id="phoneWrap">
 	  <label for="orderPhone" class="phone">연락처</label>
-	  <input type="text" class="form-control" id="orderPhone" name="orderPhone" value="${item.orderPhone }">
+	  <input type="text" class="form-control" id="orderPhone" name="orderPhone" value="${item.orderPhone }" readonly="readonly">
 	</div>
 	</c:forEach>
 
 	<input type="hidden" name="orderPrice" value="${sum}">
 	
-	<div>
-<!-- 	  <button type="submit" class="btn btn-success" id="orderMade">DB 결제하기</button> -->
-	</div>
-  
-</form>
-
 </div>
 
 <hr id="line">
