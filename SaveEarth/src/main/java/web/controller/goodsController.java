@@ -344,7 +344,7 @@ public class goodsController {
 	public String payment(HttpServletRequest request, HttpSession session, Order order, String cartArr) {
 		logger.info("/goods/payment GET]");
 		logger.info("값 대입 전 order {}", order);
-		logger.info("{}", cartArr);
+		logger.info("***************** 카트넘{}", cartArr);
 		
 		//주문번호
 		Calendar cal = Calendar.getInstance();
@@ -365,6 +365,8 @@ public class goodsController {
 		//선택결제라면
 		if(cartArr != null) {
 			
+			logger.info("*********************주문 후 선택삭제 실행됨");
+			
 			String[] cartNo = cartArr.split(",");
 		
 			for(int i = 0; i<cartNo.length; i++) {
@@ -376,6 +378,7 @@ public class goodsController {
 			
 		//전체 결제라면
 		} else {
+			logger.info("***************주문 후 전체 삭제 실행됨");
 			goodsService.deleteCart((int)session.getAttribute("loginNo"));
 		}
 		
