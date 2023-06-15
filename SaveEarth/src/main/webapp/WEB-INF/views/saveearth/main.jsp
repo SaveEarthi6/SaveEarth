@@ -58,10 +58,6 @@ body {
 }
 
 
-.container {	
-	max-width:100%
-}
-
 #quiz{
 	font-family: 'omyu_pretty';
 }
@@ -112,13 +108,14 @@ $(function() {
       var answer = $(this).data("no");
       alert("정답은 " + answer + " 입니다❣️");
     }
+    location.reload();
   });
 });
 </script>
 
 
 
-<div class="container">
+<div>
 
 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" >
   <div class="carousel-indicators">
@@ -238,7 +235,6 @@ $(function() {
 <!-- 퀴즈폼 만들기 --> 
 <!-- <div style="background-color: #D8E6EB; "> -->
 <div>
-  <a name="up"></a>
  <h1 style="font-family: 'KBO-Dia-Gothic_bold'; text-align: center; padding-top: 100px;  padding-bottom: 30px;">🎲랜덤 퀴즈🎲</h1>
   <form action="/saveearth/main" method="get">
   <div id = "quizForm" >
@@ -254,7 +250,7 @@ $(function() {
            
            <br>
            
-     	<a href="#up"><button type="button" id="answer" data-no="${quiz.quizAnswer } "  style="font-family:omyu_pretty;">정답확인</button></a>
+     	<button type="button" id="answer" data-no="${quiz.quizAnswer } "  style="font-family:omyu_pretty;">정답확인</button>
   	</c:if>
   	  	
   </c:forEach>

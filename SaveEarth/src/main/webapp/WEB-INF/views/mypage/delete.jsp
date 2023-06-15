@@ -263,7 +263,7 @@ input {
       
       <div class="textForm">
      	 <label>패스워드</label>
-        <input name="userPw" disabled id="pw" type="password" class="pw" value = "${info.userPw}">
+        <input name="userPw" disabled id="pw" type="password" class="pw" value = "**********">
       </div>
       
       <div class="textForm">

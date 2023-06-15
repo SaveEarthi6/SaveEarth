@@ -73,10 +73,8 @@ $(document).ready(function() {
 	if( ${not empty freeFile} ) {
 // 		console.log(${freeFile})
 		$("#originFile").show()
-		$("#newFile").hide()
 	} else {
 		$("#newFile").show()
-		$("#originFile").hide()
 	}
 	
 /* 파일 삭제 버튼 동작 */	
@@ -85,22 +83,26 @@ $(document).ready(function() {
 		
 		$("#originFile").toggleClass("through");
 		$("#newFile").toggle();
+		
+		var idx = $(".deleteFile").index(this)
+	    var freeFileNo = $(".deleteFile").eq(idx).attr('data-no')
 
-		console.log( $('.fileNo').val() )
+		console.log( freeFileNo )
 		console.log( ${param.freeNo} )
 		
 		$.ajax({
-			type: "get",
+			type: "post",
 			dataType : "html",
-			url: "http://localhost:8888/free/deleteFile",
+			url: "/free/deleteFile",
 			data:{
-				fileNo:$('.fileNo').val(),
+				freeFileNo:freeFileNo,
 				freeNo:${param.freeNo}
 				},
 			success: function(data){
 				console.log(data)
 				alert('선택한 파일이 삭제되었습니다!')
 				$("#originFile").html(data)
+				location.reload();
 							
 			}
 		})
@@ -119,7 +121,6 @@ $(document).ready(function() {
 <div>
 	<img class="free_detail" src="../resources/img/free_detail.png">
 	<h1 class="free">자유게시판</h1>
-	
 </div>
 
 <div class="container">
@@ -231,8 +232,8 @@ $(document).ready(function() {
 		<c:forEach items="${freeFile }" var="file">
 			<a href="../upload/${file.freeStoredName }" download="${file.freeOriginName }">
 				${file.freeOriginName }
-			</a><button class="deleteFile btn btn-outline-warning" type="button">삭제</button><br>
-			<input type="hidden" value="${file.freeFileNo}" class="fileNo">
+			</a><button class="deleteFile btn btn-outline-warning" type="button" data-no="${file.freeFileNo}">삭제</button><br>
+			<input type="hidden" value="${file.freeFileNo}" class="freeFileNo">
 			<input type="hidden" value="${file.freeNo}" class="freeNo">
 		</c:forEach>
 		</c:if>
@@ -252,7 +253,7 @@ $(document).ready(function() {
 
 
 <div>
-	<input type="reset" id="cancel" class="btn btn-danger" value="취소">
+	<a href="/free/main"><input type="reset" id="cancel" class="btn btn-danger" value="취소"></a>
 </div>
 
 <!-- 버튼 -->
