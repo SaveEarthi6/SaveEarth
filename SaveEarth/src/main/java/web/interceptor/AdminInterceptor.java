@@ -20,7 +20,7 @@ public class AdminInterceptor implements HandlerInterceptor {
 		HttpSession session = request.getSession();
 //	        String requestURI = request.getRequestURI();
 
-		if (session.getAttribute("isLogin") == null) {
+		if (session.getAttribute("adminLogin") == null) {
 			// 1. 비 로그인 상태
 			logger.info(" >> 접속 불가 : 비로그인 상태");
 
