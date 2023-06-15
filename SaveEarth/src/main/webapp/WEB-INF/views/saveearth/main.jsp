@@ -80,6 +80,8 @@ body {
 #goodsList {
 	text-align: center;
 	margin-bottom: 20px;
+	font-family: 'omyu_pretty';
+	font-size: 18px;
 }
 
 /* 퀴즈 폼*/
@@ -91,6 +93,13 @@ body {
 	margin-right: 400px;
 	padding-left: 60px;
 }
+
+/* '굿즈샵' 버튼 스타일 */
+#goodsbtn {
+	font-family:'omyu_pretty';
+	font-size: 18px; 
+}
+
 </style>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -302,7 +311,7 @@ $(function() {
   	
 	<div style= "padding-left: 1200px; padding-bottom: 50px;">
 		<a href="/goods/main">
-		<button type="button" class="btn btn-outline-success" >
+		<button type="button" class="btn btn-outline-success" id="goodsbtn">
 		굿즈샵 </button></a>
   	</div>
   	

@@ -24,6 +24,14 @@
 	font-style: normal;
 }
 
+/* 폰트 */
+@font-face {
+    font-family: 'omyu_pretty';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .free {
 	position: absolute;
 	top: 38%;
@@ -39,6 +47,34 @@
 	position: relative;
 	width: 100%;
 	height: 500px;
+}
+
+h1 {
+	margin-top:50px;
+	color: black;
+	font-weight: bold;
+	font-size: 50px;
+	font-family: 'KBO-Dia-Gothic_bold';
+}
+
+#detail {
+	font-family: 'omyu_pretty';
+	font-size: 18px;
+}
+
+#editor {
+	font-family: 'omyu_pretty';
+	font-size: 18px;
+}
+
+#file {
+	font-family: 'omyu_pretty';
+	font-size: 18px;
+}
+
+#btn {
+	font-family: 'omyu_pretty';
+	font-size: 18px;
 }
 
 </style>
@@ -125,11 +161,13 @@ $(document).ready(function() {
 
 <div class="container">
 
+<h1 style= "text-align: center;">글수정</h1>
+
 <div style= "margin-left: 1100px; padding-top: 50px; padding-bottom: 50px;">
 </div>
 
 <!-- 게시글 상세 -->
-<table class="table table-bordered" style= "font-weight: bold;">
+<table class="table table-bordered" id="detail">
 <tr>
 	<td class="table-light">글번호</td><td colspan="3">${view.FREE_NO}</td>
 </tr>
@@ -155,8 +193,6 @@ $(document).ready(function() {
 	
 	</c:choose> 
 	
-<%-- 	<fmt:formatDate value="${view.FREE_CREATE }" pattern="yy-MM-dd HH:mm:ss"/> --%>
-	
 	</td>
 </tr>
 
@@ -166,8 +202,8 @@ $(document).ready(function() {
 
 <input type="hidden" name="freeNo" value="${view.FREE_NO}">
 
-<div class="form-group" style= "margin-top: 50px">
-	<label class="form-label" for="head">말머리글</label><br>
+<div class="form-group" style= "margin-top: 50px; font-family: 'omyu_pretty'; font-size: 18px;">
+	<label class="form-label" for="head" style="font-size: 20px;">말머리글</label><br>
 	
 	 <select id="freeHead" onchange="selectfreeHead()" name="freeHead">
 
@@ -199,11 +235,13 @@ $(document).ready(function() {
       </c:choose>
 
   </select>
-<%-- 	<input type="text" id="head" name="freeHead" class="form-control" style="width: 100px;" value="${view.FREE_HEAD}"> --%>
+  
 </div>
 
 
 <!-- 글쓰기 폼 (웹 에디터) -->
+<div id="editor">
+
 <div class="form-group" style= "margin-top: 50px">
 	<label class="form-label" for="title">제목</label>
 	<input type="text" id="title" name="freeTitle" class="form-control" value="${view.FREE_TITLE }">
@@ -214,19 +252,14 @@ $(document).ready(function() {
 	<textarea class="form-control" rows="10" style="width: 100%;" id="content" name="freeContent">${view.FREE_CONTENT }</textarea>
 </div>
 
-<div style="
-    margin-top: 30px; margin-bottom: 30px;">
+<div style="margin-top: 30px; margin-bottom: 30px;">
 		<button id="btnUpdate" class="btn btn-success">수정완료</button>
 </div>
 
+</div><!-- editor end -->
 
-<div class="form-group">
+<div class="form-group" id="file">
 
-<!-- 	<div id="fileBox"> -->
-<%-- 			<a href="./download?freeFileNo=${freeFile.freeFileNo }">${freeFile.freeOriginName }</a> --%>
-<!-- 	</div> -->
-		
-<!-- 	<div id="fileBox"> -->
 		<div id="originFile">
 		<c:if test="${not empty freeFile }">
 		<c:forEach items="${freeFile }" var="file">
@@ -252,18 +285,18 @@ $(document).ready(function() {
 </form>
 
 
+<div id="btn">
+
 <div>
 	<a href="/free/main"><input type="reset" id="cancel" class="btn btn-danger" value="취소"></a>
 </div>
 
-<!-- 버튼 -->
 <div class="text-center mb-3">
 	<a href= "/free/main"><button id="btnList" class="btn btn-success">목록</button></a>
 	
 </div>
 
-	
-	
+</div>
 	
 </div><!-- .container end -->
 
