@@ -18,6 +18,8 @@ import web.util.Paging;
 public interface GoodsService {
 
 	public Paging getPaging(int curPage);
+	
+	public Paging getPagingOrder(int userNo, int curPage);
 
 	/**
 	 * 상품 목록 불러오기
@@ -87,7 +89,7 @@ public interface GoodsService {
 	 * @param userNo - 로그인한 회원의 번호
 	 * @return 회원의 주문목록 리스트
 	 */
-	public List<Order> orderList(int userNo);
+	public List<Order> orderList(int userNo, Paging paging);
 
 	/**
 	 * 일치하는 cartNo의 수량 변경
@@ -101,7 +103,7 @@ public interface GoodsService {
 	 * 
 	 * @param request
 	 */
-	public void paymentTest(HttpServletRequest request);
+	public void paymentTest(HttpServletRequest request, Order order);
 
 	/**
 	 * 바로구매 상품정보 가져오기
@@ -168,8 +170,21 @@ public interface GoodsService {
 	 */
 	public List<Map<String, Object>> getInqList(int prodno);
 
+	/**
+	 * 회원번호와 일치하는 회원의 정보 불러오기
+	 * 
+	 * @param userNo - 로그인한 회원의 번호
+	 * @return 일치하는 회원의 정보
+	 */
+	public Member getUserInfo(int userNo);
 
+	/**
+	 * 선택결제 장바구니 지우기
+	 * 
+	 * @param userNo
+	 * @param cartNo
+	 */
+	public void deleteCart(int attribute, String cartNo);
 
-	
 	
 }

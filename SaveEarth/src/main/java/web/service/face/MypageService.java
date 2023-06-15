@@ -6,6 +6,7 @@ import java.util.Map;
 import web.dto.Free;
 import web.dto.FreeComment;
 import web.dto.Member;
+import web.dto.Order;
 import web.util.Paging;
 
 public interface MypageService {
@@ -49,7 +50,7 @@ public interface MypageService {
 	 * @param freeHead - 말머리글
 	 * @return
 	 */
-	public List<Map<String, Object>> MypageBoardlist(Paging paging, String freeHead);
+	public List<Map<String, Object>> MypageBoardlist(Paging paging);
 
 	/**
 	 * 마이페이지 - 작성한글 확인
@@ -57,6 +58,21 @@ public interface MypageService {
 	 * @return
 	 */
 	public List<Free> mypageList(int userNo);
+	
+	/**
+	 * 개인정보 수정 
+	 * @param member
+	 */
+	public void update(Member member);
+	
+	/**
+	 * 세션정보와 userNo
+	 * @param attribute
+	 * @return
+	 */
+	public List<Order> orderList(int userNo);
+
+
 
 
 

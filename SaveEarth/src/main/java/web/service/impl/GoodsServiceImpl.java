@@ -62,6 +62,21 @@ public class GoodsServiceImpl implements GoodsService {
 		return paging;
 		
 	}
+	
+	@Override
+	public Paging getPagingOrder(int userNo, int curPage) {
+		logger.info("getPaging() - curPage : {}", curPage);
+		
+		//총 게시글 수 조회하기
+		int totalCount = goodsDao.selectCntAllOrderList(userNo);
+		logger.info("totalCount : {}", totalCount);
+		
+		//페이징 객체
+		Paging paging = new Paging(totalCount, curPage, 3);
+		
+		return paging;
+		
+	}
 
 	@Override
 	public List<Map<String, Object>> getgoodsList(Paging paging) {
@@ -138,9 +153,9 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 	
 	@Override
-	public List<Order> orderList(int userNo) {
+	public List<Order> orderList(int userNo, Paging paging) {
 		
-		return goodsDao.selectOrderList(userNo);
+		return goodsDao.selectOrderList(userNo, paging);
 	}
 	
 	@Override
@@ -150,82 +165,85 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 	 
 	@Override
-	public void paymentTest(HttpServletRequest request) {
-
-	      String orderId = request.getParameter("orderId");
-	      String paymentKey = request.getParameter("paymentKey");
-	      String amount = request.getParameter("amount");
-	      String secretKey = "test_sk_JQbgMGZzorzPqjjEMJD3l5E1em4d:";
-
-	      JSONObject jsonObject = null;
-	      
-	      Encoder encoder = Base64.getEncoder(); 
-	      byte[] encodedBytes;
-	      HttpURLConnection connection = null;
-	      int code = 0;
-	      try {
-	         encodedBytes = encoder.encode(secretKey.getBytes("UTF-8"));
-	         String authorizations = "Basic "+ new String(encodedBytes, 0, encodedBytes.length);
-
-	         paymentKey = URLEncoder.encode(paymentKey, StandardCharsets.UTF_8);
-
-	         URL url = new URL("https://api.tosspayments.com/v1/payments/confirm");
-
-	         connection = (HttpURLConnection) url.openConnection();
-	         connection.setRequestProperty("Authorization", authorizations);
-	         connection.setRequestProperty("Content-Type", "application/json");
-	         connection.setRequestMethod("POST");
-	         connection.setDoOutput(true);
-
-	         JSONObject obj = new JSONObject();
-	         obj.put("paymentKey", paymentKey);
-	         obj.put("orderId", orderId);
-	         obj.put("amount", amount);
-	         
-	         OutputStream outputStream = connection.getOutputStream();
-	         outputStream.write(obj.toString().getBytes("UTF-8"));
-	         
-	         code = connection.getResponseCode();
-	         boolean isSuccess = code == 200 ? true : false;
-	         
-	         InputStream responseStream = isSuccess? connection.getInputStream(): connection.getErrorStream();
-	         
-	         Reader reader = new InputStreamReader(responseStream, StandardCharsets.UTF_8);
-	         JSONParser parser = new JSONParser();
-	         jsonObject = (JSONObject) parser.parse(reader);
-	         
-	         responseStream.close();
-	         
-	            if (isSuccess) {
-	                //결제 성공
-	                     logger.info("결과 데이터 : {}", jsonObject.toJSONString()); 
-	                     logger.info("orderName : {}", jsonObject.get("orderName")); 
-	                     logger.info("method : {}", jsonObject.get("method")); 
-	                        
-	                     if(jsonObject.get("method").equals("카드")) {  logger.info("method : {}",(((JSONObject)jsonObject.get("card")).get("number")));}
-	                     if(jsonObject.get("method").equals("가상계좌")) { logger.info("method : {}",(((JSONObject)jsonObject.get("virtualAccount")).get("accountNumber")));} 
-	                     if(jsonObject.get("method").equals("계좌이체")) { logger.info("method : {}",(((JSONObject)jsonObject.get("transfer")).get("bank")));}
-	                     if(jsonObject.get("method").equals("휴대폰")) { logger.info("method : {}",(((JSONObject)jsonObject.get("mobilePhone")).get("customerMobilePhone")));}     
-	                           
-	                    } else { 
-	                   //결제 실패
-	                        logger.info("method : {}", jsonObject.get("message")); 
-	                        logger.info("에러코드 : {}", jsonObject.get("code") ); 
-	                    }
-	      } catch (UnsupportedEncodingException e) {
-	         e.printStackTrace();
-	      } catch (MalformedURLException e) {
-	         e.printStackTrace();
-	      } catch (IOException e) {
-	         e.printStackTrace();
-	      } catch (ParseException e) {
-	         e.printStackTrace();
-	      }
-	      
-	      
+	public void paymentTest(HttpServletRequest request, Order order) {
+			
+		//토스 자체적 처리
+		String orderId = request.getParameter("orderId");
+		String paymentKey = request.getParameter("paymentKey");
+		String amount = request.getParameter("amount");
+		String secretKey = "test_sk_JQbgMGZzorzPqjjEMJD3l5E1em4d:";
+	
+		JSONObject jsonObject = null;
+		  
+		Encoder encoder = Base64.getEncoder(); 
+		byte[] encodedBytes;
+		HttpURLConnection connection = null;
+		int code = 0;
+		try {
+			encodedBytes = encoder.encode(secretKey.getBytes("UTF-8"));
+			String authorizations = "Basic "+ new String(encodedBytes, 0, encodedBytes.length);
 		
+			paymentKey = URLEncoder.encode(paymentKey, StandardCharsets.UTF_8);
+		
+			URL url = new URL("https://api.tosspayments.com/v1/payments/confirm");
+		
+			connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestProperty("Authorization", authorizations);
+			connection.setRequestProperty("Content-Type", "application/json");
+			connection.setRequestMethod("POST");
+			connection.setDoOutput(true);
+		
+			JSONObject obj = new JSONObject();
+			obj.put("paymentKey", paymentKey);
+			obj.put("orderId", orderId);
+			obj.put("amount", amount);
+		 
+			OutputStream outputStream = connection.getOutputStream();
+			outputStream.write(obj.toString().getBytes("UTF-8"));
+		 
+			code = connection.getResponseCode();
+			boolean isSuccess = code == 200 ? true : false;
+		 
+			InputStream responseStream = isSuccess? connection.getInputStream(): connection.getErrorStream();
+		 
+			Reader reader = new InputStreamReader(responseStream, StandardCharsets.UTF_8);
+			JSONParser parser = new JSONParser();
+			jsonObject = (JSONObject) parser.parse(reader);
+		 
+			responseStream.close();
+		 
+		    if (isSuccess) {
+		        //결제 성공
+		    	logger.info("결과 데이터 : {}", jsonObject.toJSONString()); 
+		    	logger.info("orderName : {}", jsonObject.get("orderName")); 
+		    	logger.info("method : {}", jsonObject.get("method")); 
+		    
+		    	if(jsonObject.get("method").equals("카드")) {  logger.info("method : {}",(((JSONObject)jsonObject.get("card")).get("number")));}
+		    	if(jsonObject.get("method").equals("가상계좌")) { logger.info("method : {}",(((JSONObject)jsonObject.get("virtualAccount")).get("accountNumber")));} 
+		    	if(jsonObject.get("method").equals("계좌이체")) { logger.info("method : {}",(((JSONObject)jsonObject.get("transfer")).get("bank")));}
+		    	if(jsonObject.get("method").equals("휴대폰")) { logger.info("method : {}",(((JSONObject)jsonObject.get("mobilePhone")).get("customerMobilePhone")));}     
+		           
+		    } else { 
+		   //결제 실패
+		    	logger.info("method : {}", jsonObject.get("message")); 
+		    	logger.info("에러코드 : {}", jsonObject.get("code") ); 
+            }
+		  
+		} catch (UnsupportedEncodingException e) {
+		     e.printStackTrace();
+		} catch (MalformedURLException e) {
+		     e.printStackTrace();
+		} catch (IOException e) {
+		     e.printStackTrace();
+		} catch (ParseException e) {
+		     e.printStackTrace();
+		}
+	      
+		//DB INSERT
+		goodsDao.insertOrder(order);
 		
 	}
+	
 	@Override
 	public Product getProdinfo(int prodNo) {
 		
@@ -284,6 +302,19 @@ public class GoodsServiceImpl implements GoodsService {
 		
 		
 		return list;
+	}
+	
+	@Override
+	public Member getUserInfo(int userNo) {
+		
+		return goodsDao.selectUserInfo(userNo);
+	}
+	
+	@Override
+	public void deleteCart(int userNo, String cartNo) {
+
+		goodsDao.deleteCartBySelect(userNo, cartNo);
+		
 	}
 	
 }

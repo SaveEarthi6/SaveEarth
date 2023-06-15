@@ -64,15 +64,15 @@ public class AdminController {
 	public String login(HttpSession session, Admin admin, Model model) {
 		logger.info("/admin/login");
 		logger.info("어드민 로그인 정보 : {}", admin);
-		boolean isLogin = adminService.login(admin);
+		boolean adminLogin = adminService.login(admin);
 
 //		admin = adminService.info(admin.getAdminId());
 //		logger.info("어드민 접속 정보:{}", admin);
 //		logger.info("어드민 번호:{}", admin.getAdminNo());
 
-		if (isLogin) {
+		if (adminLogin) {
 			logger.info("로그인 성공");
-			session.setAttribute("isLogin", isLogin);
+			session.setAttribute("adminLogin", adminLogin);
 			session.setAttribute("loginId", admin.getAdminId());
 			session.setAttribute("loginNo", admin.getAdminNo());
 

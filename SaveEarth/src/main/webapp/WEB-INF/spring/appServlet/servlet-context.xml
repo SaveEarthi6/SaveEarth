@@ -37,6 +37,12 @@
 			<mapping path="/admin/campDetail" />
 			<mapping path="/admin/campUpdate" />
 			<mapping path="/admin/product" />
+			<mapping path="/admin/addopt" />
+			<mapping path="/admin/campaignWrite" />
+			<mapping path="/admin/freeView" />
+			<mapping path="/admin/freeWrite" />
+			<mapping path="/admin/inquiry" />
+			<mapping path="/admin/productView" />
 			<!-- 인터셉터가 적용되지 않도록 제외할 예외 페이지 URL -->
 			<exclude-mapping path="./admin/fail" />
 			<!-- 인터셉터 클래스 지정 -->

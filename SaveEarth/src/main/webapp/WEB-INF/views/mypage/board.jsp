@@ -180,8 +180,6 @@ select {
 
 </table>	
 
-<span class="float-end mb-3">${paging.totalCount }</span>
-
 <div>
 	<ul class="pagination pagination-sm justify-content-center">
 

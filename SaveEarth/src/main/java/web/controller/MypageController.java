@@ -68,8 +68,6 @@ public class MypageController {
 		member.setUserId((String)session.getAttribute("loginId"));
 		logger.info("{}", member);
 
-
-		
 		
 		//암호화 테스트
 		try {
@@ -94,11 +92,9 @@ public class MypageController {
 			e.printStackTrace();
 			throw new RuntimeException();
 		}		
-		
-		
 
-		
-		memberService.update(member);
+		System.out.println("Member 안에 들어있는거 : " + member);
+		mypageService.update(member);
 		
 		return "redirect:/mypage/update";
 	}
@@ -111,7 +107,7 @@ public class MypageController {
 		String loginId = (String) session.getAttribute("loginId");
 		logger.info("{}", loginId);
 		
-		Member info = memberService.info(loginId);
+		Member info = mypageService.info(loginId);
 		
 		logger.info("info: {}", info);
 		
@@ -132,17 +128,14 @@ public class MypageController {
 	
 		
 	@RequestMapping("/board") // 마이페이지 - 작성한글 조회
-	public void mypageBoard(Model model, @RequestParam(value = "curPage", defaultValue = "1") int curPage, String freeHead, HttpSession session, Free free) {
+	public void mypageBoard(HttpSession session, Free free, Model model, @RequestParam(defaultValue = "0") int curPage) {
 		logger.info("/mypage/board[RequestMapping]");
-		logger.info("freeHead{}", freeHead);
 		
 		Paging paging = mypageService.getPaging(curPage);
 		
 		System.out.println("paging 페이징안에 들어있는거 :" + paging);
 		
-		System.out.println("freeHead 안에들어있는거 : " + freeHead);
-		
-		List<Map<String,Object>> MypageBoardlist = mypageService.MypageBoardlist(paging, freeHead);
+		List<Map<String,Object>> MypageBoardlist = mypageService.MypageBoardlist(paging);
 		logger.info("페이징처리:list {}", MypageBoardlist);
 
 		for(Map m : MypageBoardlist) {
@@ -150,8 +143,8 @@ public class MypageController {
 			
 		}
 		
-		model.addAttribute("freeHead", freeHead);
 		model.addAttribute("paging", paging);
+		model.addAttribute("MypageBoardlist", MypageBoardlist);
 		
 		// 내 정보 불러오기 
 		String loginId = (String) session.getAttribute("loginId");
@@ -183,7 +176,7 @@ public class MypageController {
 		String loginId = (String) session.getAttribute("loginId");
 		logger.info("{}", loginId);
 				
-		Member info = memberService.info(loginId);
+		Member info = mypageService.info(loginId);
 		logger.info("info: {}", info);
 				
 		freeComment.setUserNo(info.getUserNo());
@@ -218,7 +211,7 @@ public class MypageController {
 	public void orderList(HttpSession session, Model model) {
 		logger.info("/goods/orderList [GET]");
 		
-		List<Order> orderList = goodsService.orderList((int)session.getAttribute("loginNo"));
+		List<Order> orderList = mypageService.orderList((int)session.getAttribute("loginNo"));
 		
 		model.addAttribute("orderList", orderList);
 	}
