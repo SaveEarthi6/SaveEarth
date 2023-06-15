@@ -287,4 +287,12 @@ public class InfoServiceImpl implements InfoService {
 	}
 	
 	
+	
+	@Override
+	public Info getInfoDetail(int infoNo) {
+		
+		return infoDao.selectDetail(infoNo);
+	}
+	
+	
 }

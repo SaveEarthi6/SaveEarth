@@ -127,6 +127,13 @@ public interface InfoDao {
 	 */
 	public List<Map<String, Object>> selectInfoByfreeNo(int freeNo);
 
+	/**
+	 * 정보게시판 게시글 정보 조회
+	 * @param infoNo - 게시글 번호
+	 * @return - 게시글 번호가 일치하는 게시글 정보
+	 */
+	public Info selectDetail(int infoNo);
+
 	
 
 }
