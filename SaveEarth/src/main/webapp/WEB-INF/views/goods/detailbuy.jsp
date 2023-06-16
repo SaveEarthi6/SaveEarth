@@ -490,6 +490,14 @@ label {
 		<input type="hidden" name="orderPrice" id="orderPrice" value="${prodCount * product.prodPrice + 3000}">
 	</c:if>
 	
+	<input type="hidden" name="userNo" id="userNo" value="${info.userNo }">
+	<input type="hidden" name="prodCount" id="prodCount" value="${prodCount}">
+	<input type="hidden" name="prodOptNo" id="prodOptNo" value="${option.prodOptNo}">
+	<input type="hidden" name="prodStoredName" id="prodStoredName" value="${prodStoredName}">
+	<input type="hidden" name="prodNo" id="prodNo" value="${product.prodNo}">
+	
+	
+	
 </form>
 
 <hr id="line">
@@ -547,7 +555,7 @@ paymentWidget.renderAgreement('#agreement')
 $(function() {
 	
 	// ------  결제위젯 렌더링 ------ 
-	paymentWidget.renderPaymentMethods("#payment-method", { value: $("#orderPrice").val() })
+// 	paymentWidget.renderPaymentMethods("#payment-method", { value: $("#orderPrice").val() })
 	
 	$(document).on("click", "#payment-button", function() {
 	
@@ -564,9 +572,9 @@ $(function() {
 		paymentWidget.requestPayment({
 			orderId: "RkluNBM8DMR923bZ09aZA" + new Date().getTime(),
 			orderName: "${product.prodName } ",
-			successUrl: "http://localhost:8888/goods/payment?orderRec=" + $("#orderRec").val() + "&orderAddrPostcode=" + $("#orderAddrPostcode").val() 
+			successUrl: "http://localhost:8888/goods/directpayment?orderRec=" + $("#orderRec").val() + "&orderAddrPostcode=" + $("#orderAddrPostcode").val() 
 						+ "&orderAddr=" + $("#orderAddr").val() + "&orderAddrDetail=" + $("#orderAddrDetail").val() + "&orderPhone=" + $("#orderPhone").val() 
-						+ "&orderPrice=" + $("#orderPrice").val() ,
+						+ "&orderPrice=" + $("#orderPrice").val() +"&userNo="+$("#userNo").val()+"&prodNo="+$("#prodNo").val()+"&prodCount="+$("#prodCount").val()+"&prodOptNo="+$("#prodOptNo").val() ,
 			failUrl: "http://localhost:8888/goods/orderFail",
 			customerEmail: "customer123@gmail.com",
 			customerName: "김토스"
