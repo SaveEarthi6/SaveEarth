@@ -37,10 +37,10 @@ $(function() {
 	              $(".comm").html(result);
 					
 	          		//새로고침
-//	 				location.reload();
+	 				location.reload();
 				
 				  //값 비우기
-	              $("#commContent").val('');
+// 	              $("#commContent").val('');
 	          },
 	          error : function(request, status, error) { // 결과 에러 콜백함수
 	               console.log('로그인이 필요합니다!')

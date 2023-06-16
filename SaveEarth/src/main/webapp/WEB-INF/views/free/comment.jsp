@@ -14,7 +14,6 @@
 <script type="text/javascript">
 
 
-
 /* 댓글 삭제 */
 $(function() {
 	   $(".commDelete").click(function() {

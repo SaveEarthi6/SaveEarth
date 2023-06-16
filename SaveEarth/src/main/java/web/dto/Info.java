@@ -7,9 +7,9 @@ public class Info {
 	private int infoNo;
 	private int adminNo;
 	private String infoTitle;
-	private String infoUrl;
 	private Date infoUpload;
 	private String infoState;
+	private String infoUrl;
 	
 	public Info() {
 		// TODO Auto-generated constructor stub

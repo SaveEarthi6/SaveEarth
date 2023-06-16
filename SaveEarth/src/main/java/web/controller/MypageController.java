@@ -131,7 +131,7 @@ public class MypageController {
 		
 		logger.info("userNo {}", userNo);
 		
-		Paging paging = mypageService.getPagingBoard(curPage, userNo);
+		Paging paging = mypageService.getPagingUserNo(curPage, userNo);
 		
 		System.out.println("paging 페이징안에 들어있는거 :" + paging);
 		
@@ -211,11 +211,15 @@ public class MypageController {
 	public void orderList(HttpSession session, Model model,  @RequestParam(value = "curPage", defaultValue = "1") int curPage) {
 		logger.info("/goods/orderList [GET]");
 		
-		Paging paging = mypageService.orderPaging(curPage);
+		int userNo = (int) session.getAttribute("loginNo");
+		
+		logger.info("userNo {}", userNo);
+		
+		Paging paging = mypageService.getPagingUserNo(curPage, userNo);
 		
 		System.out.println("paging 안에 들어있는거 : " + paging);
 		
-		List<Map<String,Object>> orderList = mypageService.orderList((int)session.getAttribute("loginNo"), paging);
+		List<Map<String,Object>> orderList = mypageService.orderList(userNo, paging);
 		
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("paging", paging);
