@@ -473,13 +473,13 @@ color:#F1E742;
 		<div class="right">
 			<div class="summary">
 			    <div>
-			        <h1 style = "font-family: omyu_pretty;"> 상품명: ${goodsDetail.PROD_NAME }</h1><br>
+			        <h1 style = "font-family: omyu_pretty;"> [${goodsDetail.PROD_NAME }]</h1><br>
 				</div>
 				<div >                            	
-				    <h3 class="prodprice" style = "font-family: omyu_pretty;"> 🔹가격: ${goodsDetail.PROD_PRICE }원</h3> <br>                             
+			    	<h3 style = "font-family: omyu_pretty;"> 🔹${goodsDetail.PROD_DETAIL }</h3>
 			    </div>
+				    <h3 class="prodprice" style = "font-family: omyu_pretty;"> 🔹판매가: ${goodsDetail.PROD_PRICE }원</h3> <br>                             
 			    <div>
-			    	<h3 style = "font-family: omyu_pretty;"> 🔹상품설명: ${goodsDetail.PROD_DETAIL }</h3>
 			    </div>
 			</div> 		
 		              
