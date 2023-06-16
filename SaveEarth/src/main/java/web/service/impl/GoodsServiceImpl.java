@@ -45,8 +45,7 @@ public class GoodsServiceImpl implements GoodsService {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	@Autowired
-	GoodsDao goodsDao;
+	@Autowired GoodsDao goodsDao;
 
 	@Override
 	public Paging getPaging(int curPage) {

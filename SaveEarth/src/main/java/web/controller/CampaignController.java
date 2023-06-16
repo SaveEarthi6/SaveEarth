@@ -41,10 +41,7 @@ public class CampaignController {
 		
 		
 		//첫 로드시 캠페인 불러오기
-//		List<Campaign> campList = campService.getCampList(paging);
 		List<Map<String, Object>> campList = campService.getCampList(paging);
-		
-		
 		
 		logger.info("{}", campList);
 		
@@ -59,18 +56,15 @@ public class CampaignController {
 			List<Certification> certList = campService.getcertList((int)session.getAttribute("loginNo"));
 		
 			for(Certification c : certList) {
-//				logger.info("{}", c);
+				logger.info("{}", c);
 			}
 			
-			
 			model.addAttribute("certList", certList);
-			
 			
 			//모달용 진행중 캠페인 리스트 불러오기
 			List<Campaign> ingList = campService.getIngList((int)session.getAttribute("loginNo"));
 			
 			model.addAttribute("ingList", ingList);
-			
 			
 			
 		} else {
@@ -79,14 +73,13 @@ public class CampaignController {
 			List<Calendar> calList = campService.getCalendar();
 	
 			for(Calendar c : calList) {
-//				logger.info("{}", c);
+				logger.info("{}", c);
 		
 			}
 			
 			model.addAttribute("calList", calList);
 	
 		}
-		
 		
 	}
 	
@@ -99,33 +92,8 @@ public class CampaignController {
 		
 		campService.writePart(certification, partFile);
 		
-		//재밌는 코딩 놀이 ^~^
-		
 		return "redirect:/campaign/main";
 	}
-	
-	//달력리스트 불러오기 -> 에이젝스 포기하고 메인에 합침
-//	@ResponseBody
-//	@PostMapping("/getCalendar")
-//	public List<Calendar> gerCalendar(HttpSession session, Model model) {
-//		
-//		//달력 불러오기
-//		if(session.getAttribute("isLogin") != null) {
-////					List<Certification> certList = campService.getcertList(session.getAttribute("loginId"));
-//		} else {
-//			List<Calendar> calList = campService.getCalendar();
-//			
-//			for(Calendar c : calList) {
-//				logger.info("{}", c);
-//				
-//			}
-//			
-//			return calList;
-//		}
-//		
-//		return null;
-//		
-//	}
 	
 	//캠페인 상세보기
 	@RequestMapping("/detail")
@@ -227,7 +195,5 @@ public class CampaignController {
 		
 		return "redirect:/campaign/main";
 	}
-
-	
 
 }
