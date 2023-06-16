@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import web.dto.Free;
+import web.dto.Info;
 import web.dto.InfoFile;
 import web.dto.InfoThumbnail;
 import web.service.face.FreeService;
@@ -66,10 +66,18 @@ public class InfoBoardController {
 		logger.info("/info/detail [GET]");
 
 		//정보게시판 게시글 조회(게시글 번호와 일치하는 게시글 내용)
-		List<Map<String, Object>> info = infoService.getInfo(infoNo);
+		
+		//게시글에 해당하는 파일 정보 상세조회
+		List<InfoFile> infoFile = infoService.getInfoFile(infoNo);
+		
+		//게시글 내용 상세조회
+		Info info = infoService.getInfoDetail(infoNo);
+		
+		logger.info("infoFile {}", infoFile);
 		
 		logger.info("info {}", info);
 		
+		model.addAttribute("infoFile", infoFile);
 		model.addAttribute("info", info);
 		
 	}

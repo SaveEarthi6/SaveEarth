@@ -47,13 +47,6 @@ public interface InfoDao {
 	public void insertinfoThumb(InfoThumbnail thumbnail);
 
 	/**
-	 * 게시글 번호와 일치하는 게시글 내용을 조회한다
-	 * @param infoNo - 게시글 번호
-	 * @return - 게시글 번호가 일치하는 게시글 내용
-	 */
-	public List<Map<String, Object>> selectInfoByInfoNo(int infoNo);
-
-	/**
 	 * 검색 했을 때 전체 게시글 수 조회
 	 * @param keyword - 검색어
 	 * @return - 검색어 일치하는 총 게시글 수
@@ -126,6 +119,13 @@ public interface InfoDao {
 	 * @return
 	 */
 	public List<Map<String, Object>> selectInfoByfreeNo(int freeNo);
+
+	/**
+	 * 정보게시판 게시글 정보 조회
+	 * @param infoNo - 게시글 번호
+	 * @return - 게시글 번호가 일치하는 게시글 정보
+	 */
+	public Info selectDetail(int infoNo);
 
 	
 

@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<c:import url="../layout/adminheader.jsp"></c:import>
+<c:import url="../layout/header.jsp"></c:import>
 
 <!-- 필요시 css, js, jquery 넣을 곳 -->
 
@@ -101,7 +101,6 @@
 							</a>
 						</c:if>
 	</div>	
-<div id="toList"><button onclick="location.href='/admin/campaign'"  id="navButton" type="button" class="btn btn-outline-success">목록으로</button></div>
-<div id="toList"><button onclick="location.href='./campUpdate?campNo=${campDetail.CAMP_NO}'"  id="navButton" type="button" class="btn btn-outline-success">수정</button></div>
+<div id="toList"><button onclick="location.href='/campaign/main'"  id="navButton" type="button" class="btn btn-outline-success">목록으로</button></div>
 
 <c:import url="../layout/footer.jsp"></c:import>

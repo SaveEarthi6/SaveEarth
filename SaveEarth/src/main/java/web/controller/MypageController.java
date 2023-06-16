@@ -61,7 +61,6 @@ public class MypageController {
 	
 	
 	
-	
 	@PostMapping("/update") // 마이페이지 - 개인정보 수정
 	public String mypageUpdateProc(HttpSession session, Member member) {
 		
@@ -208,10 +207,15 @@ public class MypageController {
 	
 	//주문목록 불러오기
 	@RequestMapping("/order")
-	public void orderList(HttpSession session, Model model) {
+	public void orderList(HttpSession session, Model model, @RequestParam(defaultValue = "0") int curPage) {
 		logger.info("/goods/orderList [GET]");
 		
-		List<Order> orderList = mypageService.orderList((int)session.getAttribute("loginNo"));
+		Paging paging = mypageService.orderPaging(curPage);
+		
+		System.out.println("paging 안에 들어있는거 : " + paging);
+		
+//		List<Order> orderList = mypageService.orderList((int)session.getAttribute("loginNo"));
+		List<Map<String,Object>> orderList = mypageService.orderList((int)session.getAttribute("loginNo"), paging);
 		
 		model.addAttribute("orderList", orderList);
 	}

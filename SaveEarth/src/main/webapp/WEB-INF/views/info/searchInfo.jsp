@@ -90,6 +90,8 @@
 	font-size: 18px;
 	border: 1px solid #ccc;
 	margin-top: 10px;
+	font-family: 'omyu_pretty';
+	font-size: 18px;
 }
 
 /* 검색창 버튼 스타일 */
@@ -118,6 +120,7 @@ input {
 	border: 1px solid #bbb;
 	border-radius: 8px;
 	font-size: 14px;
+	font-family: 'omyu_pretty';
 }
 
 /* .row { */
@@ -127,6 +130,8 @@ input {
 #infoTitle {
 	margin-top: 10px;
 	font-weight: bold;
+	font-family: 'omyu_pretty';
+	font-size: 20px;
 }
 
 #info {
@@ -136,6 +141,9 @@ input {
     margin-left: 10px;
     margin-right: 10px;
     margin-bottom: 65px;
+	font-family: 'omyu_pretty';
+}
+
 
 /* 초기화 버튼 스타일 */
 .search_reset {
@@ -147,7 +155,8 @@ input {
 	border-radius: 15px;
 	color: #fff;
 	cursor: pointer;
-	vertical-align: middle;
+	font-family: 'omyu_pretty';
+	line-height: initial;
 }
 
 /* '정보'버튼 스타일 */
@@ -210,7 +219,7 @@ function selectInfo() {
 					<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
 				</c:if>
 				<div id="infoTitle">
-					<span id="title">${list.INFO_TITLE }</span>
+					<span id="title">[ ${list.INFO_TITLE } ]</span>
 				</div>
 			</a>
 			</div>

@@ -45,19 +45,17 @@ function updateContents() {
 	oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", [])
 }
 
-// function freeHead_check() {
-	
-//     if($("#freeHead").val() != '질문' || $("#freeHead").val() != '정보' || $("#freeHead").val() != '사담'){
-//       alert("사담, 정보, 질문만 입력할 수 있습니다");
-//       $("#freeHead").focus();
-//       return false;
-//     }
-
-
-
 </script>
 
 <style type="text/css">
+
+/* 폰트 */
+@font-face {
+    font-family: 'omyu_pretty';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
 
 
 @font-face {
@@ -86,13 +84,19 @@ form {
 	border: 1px solid #ccc;
 }
 
+/* 글쓰기 입력 폼 스타일 */
+#writeForm {
+	font-family: 'omyu_pretty';
+	font-size: 18px;
+}
+
 </style>
 
 <div class="container">
 
 <h1 style= "text-align: center;">글쓰기</h1>
 
-<div class="col-8 mx-auto">
+<div class="col-8 mx-auto" id="writeForm">
 
 <form action="./write" method="post" enctype="multipart/form-data">
 

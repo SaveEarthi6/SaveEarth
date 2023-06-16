@@ -27,6 +27,13 @@ public interface InfoService {
 	 * @return - 해당 페이지에 로드될 캠페인 목록
 	 */
 	public List<Map<String, Object>> getInfoList(Paging paging);
+
+	/**
+	 * 정보게시판 게시글 정보 상세조회
+	 * @param infoNo - 게시글 번호
+	 * @return
+	 */
+	public Info getInfoDetail(int infoNo);
 	
 	/**
 	 * 자유게시판 추천수 TOP
@@ -45,13 +52,6 @@ public interface InfoService {
 	    * @param thumb - 썸네일
 	    */
 		public void infoWrite(int adminNo, Info info, List<MultipartFile> files, MultipartFile thumb);
-		
-		/**
-		 * 게시글 번호와 일치하는 게시글 내용 가져오기
-		 * @param infoNo - 게시글 번호
-		 * @return - 게시글 번호 일치하는 게시글 내용
-		 */
-		public List<Map<String, Object>> getInfo(int infoNo);
 
 		/**
 		 * 검색했을 때 페이징
@@ -114,13 +114,6 @@ public interface InfoService {
 		 */
 		public List<InfoFile> getInfoFile(int infoNo);
 
-		/**
-		 * 정보게시판 게시글 수정
-		 * @param info - 게시글 내용
-		 * @param infoFiles - 첨부파일(들)
-		 * @param thumb - 썸네일
-		 */
-		public void updateInfo(Info info, List<MultipartFile> infoFiles, MultipartFile thumb);
 
 
 

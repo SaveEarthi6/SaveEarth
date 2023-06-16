@@ -201,15 +201,6 @@ public class InfoServiceImpl implements InfoService {
 		
 	}
 	
-	@Override
-	public List<Map<String, Object>> getInfo(int infoNo) {
-		
-		logger.info("infoServiceImpl getInfo()");
-		
-		return infoDao.selectInfoByInfoNo(infoNo);
-		
-	}
-	
 	
 	@Override
 	public Paging getPagingByKeyword(int curPage, String keyword) {
@@ -279,20 +270,19 @@ public class InfoServiceImpl implements InfoService {
 		return infoDao.selectFileByInfoNo(infoNo);
 	}
 	
-	@Override
-	public void updateInfo(Info info, List<MultipartFile> infoFiles, MultipartFile thumb) {
-
-		//게시글 내용 수정
-		
-		//지금 들어온 파일 있는지 검사하고 삭제 후 새로 넣기
-		
-		
-	}
 	
 	
 	@Override
 	public List<Map<String, Object>> getfreeTopDetail(int freeNo) {
 		return infoDao.selectInfoByfreeNo(freeNo);
+	}
+	
+	
+	
+	@Override
+	public Info getInfoDetail(int infoNo) {
+		
+		return infoDao.selectDetail(infoNo);
 	}
 	
 	

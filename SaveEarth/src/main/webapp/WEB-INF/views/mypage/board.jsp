@@ -22,6 +22,10 @@ body {
 	padding: 0;
 }
 
+.main{
+height: 500px
+}
+
 /* 게시판 메인 이미지 스타일 */
 .freeimage {
 	/* 이미지랑 네비게이션바 띄우기 */
@@ -52,13 +56,10 @@ input {
 
 /* '자유게시판'문구 폰트 스타일 */
 @font-face {
-	font-family: 'KBO-Dia-Gothic_bold';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff')
-		format('woff');
-		
-	font-weight: 700;
-	font-style: normal;
+    font-family: 'KBO-Dia-Gothic_bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
 }
 
 /* 말머리글 (드롭다운) 크기 늘리기 */
@@ -151,6 +152,8 @@ select {
 </div>
   
 <!-- 게시판 -->
+
+<div class="main">
 <table id= "board" class= "table table-hover text-center">
 
 	<tr style= "background-color: #59A8D9; color: white;">
@@ -179,6 +182,7 @@ select {
 </tbody>
 
 </table>	
+</div>
 
 <div>
 	<ul class="pagination pagination-sm justify-content-center">

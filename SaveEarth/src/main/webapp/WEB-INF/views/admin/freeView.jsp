@@ -211,16 +211,18 @@ $(function() {
 <!-- 버튼 -->
 <div class="text-center mb-3">
 	<a href= "/admin/free"><button id="btnList" class="btn btn-success">목록</button></a>
-	
 </div>
 
 <!-- 댓글 -->
 
+
+<c:forEach items="${commContent }" var="commContent">
+
+<c:if test="${commContent.COMM_CONTENT ne '' }">
 <h3 id="comment">댓글💚</h3>
   
    <div class="comm">
   
-   <c:forEach items="${commContent }" var="commContent">
    
       <img class="commentProfile" src="../resources/img/commentProfile.png">&nbsp;<span
         id="writer" style="font-weight: bold">${commContent.USER_ID }</span>
@@ -234,30 +236,12 @@ $(function() {
 
       <hr>
     
-   </c:forEach>
 
     </div> <!-- <div> comm end -->
+</c:if>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
+</c:forEach>
+    
 	
 </div><!-- .container end -->
 
