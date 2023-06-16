@@ -37,6 +37,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'omyu_pretty';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 #wrapCalendar {
 	width: 1000px;
 	margin: 0 auto;
@@ -146,6 +153,22 @@ label {
 	color: #3788D8;
 }
 
+
+#calendarImport {
+	font-family: 'omyu_pretty';
+}
+
+#campList {
+	font-family: 'omyu_pretty';
+}
+
+#staticBackdrop {
+	font-family: 'omyu_pretty';
+}
+
+#viewModal {
+	font-family: 'omyu_pretty';
+}
 
 </style>
 

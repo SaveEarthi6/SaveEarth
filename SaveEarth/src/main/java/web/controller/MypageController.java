@@ -4,9 +4,7 @@ import java.security.MessageDigest;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,13 +15,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import web.dto.Free;
 import web.dto.FreeComment;
 import web.dto.Member;
-import web.dto.Order;
-import web.service.face.AdminService;
 import web.service.face.FreeService;
 import web.service.face.GoodsService;
 import web.service.face.MemberService;
@@ -127,10 +122,16 @@ public class MypageController {
 	
 		
 	@RequestMapping("/board") // 마이페이지 - 작성한글 조회
-	public void mypageBoard(HttpSession session, Free free, Model model, @RequestParam(value = "curPage", defaultValue = "1") int curPage) {
+	public void mypageBoard(HttpSession session, Free free, Model model, @RequestParam(value = "curPage", defaultValue = "0") int curPage) {
 		logger.info("/mypage/board[RequestMapping]");
 		
-		Paging paging = mypageService.getPaging(curPage);
+		logger.info("curPage {}", curPage);
+		
+		int userNo = (int) session.getAttribute("loginNo");
+		
+		logger.info("userNo {}", userNo);
+		
+		Paging paging = mypageService.getPagingUserNo(curPage, userNo);
 		
 		System.out.println("paging 페이징안에 들어있는거 :" + paging);
 		
@@ -210,11 +211,15 @@ public class MypageController {
 	public void orderList(HttpSession session, Model model,  @RequestParam(value = "curPage", defaultValue = "1") int curPage) {
 		logger.info("/goods/orderList [GET]");
 		
-		Paging paging = mypageService.orderPaging(curPage);
+		int userNo = (int) session.getAttribute("loginNo");
+		
+		logger.info("userNo {}", userNo);
+		
+		Paging paging = mypageService.getPagingUserNo(curPage, userNo);
 		
 		System.out.println("paging 안에 들어있는거 : " + paging);
 		
-		List<Map<String,Object>> orderList = mypageService.orderList((int)session.getAttribute("loginNo"), paging);
+		List<Map<String,Object>> orderList = mypageService.orderList(userNo, paging);
 		
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("paging", paging);

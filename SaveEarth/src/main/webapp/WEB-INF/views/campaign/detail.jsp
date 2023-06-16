@@ -9,6 +9,13 @@
 
 <style type="text/css">
 
+@font-face {
+    font-family: 'omyu_pretty';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 #posterWrap { 
 	text-align: center;
 	width: 70%;
@@ -51,6 +58,7 @@
 #toList {
 	text-align: center;
 	margin: 30px 0;
+	font-family: 'omyu_pretty';
 }
 
 #enroll {
@@ -59,6 +67,10 @@
 
 #part {
 	margin-left: 20px;
+}
+
+#content{
+	font-family: 'omyu_pretty';
 }
 
 
@@ -93,7 +105,7 @@
 	</div>
 	<div class="col-1"></div>
 </div>
-	 <div style="display: inline-block; margin: 0 5px;  float: right;">		
+	 <div style="display: inline-block; margin: 0 5px;  float: right; font-family: 'omyu_pretty';">		
 				첨부파일 다운로드 : 
 						<c:if test="${not empty campDetail }">
 							<a href="../upload/${campDetail.CAMP_STORED_NAME }" download="${campDetail.CAMP_ORIGIN_NAME }">

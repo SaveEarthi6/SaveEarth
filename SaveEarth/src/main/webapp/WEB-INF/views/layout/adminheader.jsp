@@ -142,14 +142,14 @@ button{ cursor: pointer; } /* 모든 버튼에 마우스손모양 처리 */
 	<div id="wrap" >
 	<a href="../admin/free"><img id="logo" src="../../resources/img/logo2.png"></a>
 	
-	<c:if test="${empty isLogin }">
+	<c:if test="${empty adminLogin }">
 	<a href="/admin/login"	class="righttop">관리자 로그인 </a>
 	<a href="/saveearth/main"	class="righttop2">메인화면</a>
 	
 	</c:if>
 	
-	<c:if test="${not empty isLogin and isLogin }">
-	<a href="/member/logout" class="lefttop3">로그아웃</a>
+	<c:if test="${not empty adminLogin }">
+	<a href="/member/logout" class="lefttop3">관리자 로그아웃</a>
 	</c:if>
 	</div>
 </div>

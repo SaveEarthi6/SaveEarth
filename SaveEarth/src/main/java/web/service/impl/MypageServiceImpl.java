@@ -42,10 +42,30 @@ public class MypageServiceImpl implements MypageService {
 		
 		int totalCount = mypageDao.selectCntAll();
 		
+		logger.info("totalCount {}", totalCount);
+		
 		Paging paging = new Paging(totalCount, curPage);
+		
+		logger.info("paging {}", paging);
 		
 		return paging;
 	}
+	
+	@Override
+	public Paging getPagingUserNo(int curPage, int userNo) {
+		
+		int totalCount = mypageDao.selectCntAllBoard(userNo);
+		
+		logger.info("totalCount {}", totalCount);
+		
+		Paging paging = new Paging(totalCount, curPage);
+		
+		logger.info("paging {}", paging);
+		
+		return paging;
+		
+	}
+	
 
 	@Override
 	public Member info(String loginId) {
@@ -84,15 +104,6 @@ public class MypageServiceImpl implements MypageService {
 		return mypageDao.selectOrderList(userNo, paging);
 	}
 
-	@Override
-	public Paging orderPaging(int curPage) {
-		
-		int totalCount = mypageDao.selectOrderCntAll();
-		
-		Paging paging = new Paging(totalCount, curPage);
-		
-		return paging;
-	}
 	
 
 	
