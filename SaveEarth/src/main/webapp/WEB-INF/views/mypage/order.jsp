@@ -170,19 +170,9 @@ select {
 	
 <tbody>
 
-<%-- <c:forEach items="${orderList }" var="orderList"> --%>
-<!-- 			<tr> -->
-<%-- 				<td> <a href="/shop/orderView?n=${orderList.orderNo}">${orderList.orderNo} </a></td> --%>
-<%-- 				<td> ${orderList.orderRec} </td> --%>
-<%-- 				<td> (${orderList.orderAddrPostcode}) ${orderList.orderAddr} ${orderList.orderAddrDetail} </td> --%>
-<%-- 				<td> <fmt:formatNumber pattern="###,###,###" value="${orderList.orderPrice}" /> 원 </td> --%>
-<!-- 			</tr> -->
-<%-- </c:forEach> --%>
-
-
 <c:forEach items="${orderList }" var="orderList">
 			<tr>
-				<td> <a href="/shop/orderView?n=${orderList.ORDER_NO}">${orderList.ORDER_NO} </a></td>
+				<td> <a href="/goods/orderView?n=${orderList.ORDER_NO}">${orderList.ORDER_NO} </a></td>
 				<td> ${orderList.ORDER_REC} </td>
 				<td> (${orderList.ORDER_ADDR_POSTCODE}) ${orderList.ORDER_ADDR} ${orderList.ORDER_ADDR_DETAIL} </td>
 				<td> <fmt:formatNumber pattern="###,###,###" value="${orderList.ORDER_PRICE}" /> 원 </td>

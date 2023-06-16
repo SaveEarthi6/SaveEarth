@@ -61,9 +61,6 @@ public class MypageController {
 	
 	
 	
-	
-	
-	
 	@PostMapping("/update") // 마이페이지 - 개인정보 수정
 	public String mypageUpdateProc(HttpSession session, Member member) {
 		
