@@ -128,8 +128,10 @@ public class MypageController {
 	
 		
 	@RequestMapping("/board") // 마이페이지 - 작성한글 조회
-	public void mypageBoard(HttpSession session, Free free, Model model, @RequestParam(defaultValue = "0") int curPage) {
+	public void mypageBoard(HttpSession session, Free free, Model model, @RequestParam(value = "curPage", defaultValue = "1") int curPage) {
 		logger.info("/mypage/board[RequestMapping]");
+		
+		logger.info("curPage {}", curPage);
 		
 		Paging paging = mypageService.getPaging(curPage);
 		

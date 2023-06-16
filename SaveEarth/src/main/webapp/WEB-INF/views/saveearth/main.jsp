@@ -94,6 +94,10 @@ body {
 	padding-left: 60px;
 }
 
+#quizForm input {
+	font-family: 'omyu_pretty';
+}
+
 /* '굿즈샵' 버튼 스타일 */
 #goodsbtn {
 	font-family:'omyu_pretty';

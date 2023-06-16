@@ -40,7 +40,7 @@
 	SELECT count(*) FROM free
 </select>
 
-<!-- 페이징에서 검색어 일치하는 게시글 수 조회 -->
+<!-- 페이징에서 검색어 일치하는 게시글 수 조회(말머리글 걸렸을때) -->
 <select id="selectCntAllSearch" resultType="int" parameterType="map">
 	SELECT count(*) FROM free
 		
@@ -83,7 +83,7 @@
 	
 </select>
 
-<!-- 페이징에서 말머리글 일치하는 게시글 수 조회 -->
+<!-- 페이징에서 말머리글 일치하는 게시글 수 조회(전체에서 조회할 때) -->
 <select id="selectCntAllfreeHead" resultType="int" parameterType="map">
 	SELECT count(*) FROM free
 		

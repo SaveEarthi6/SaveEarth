@@ -179,7 +179,6 @@ select {
 </tbody>
 
 </table>	
-
 <div>
 	<ul class="pagination pagination-sm justify-content-center">
 
