@@ -218,6 +218,7 @@ public class MypageController {
 		List<Map<String,Object>> orderList = mypageService.orderList((int)session.getAttribute("loginNo"), paging);
 		
 		model.addAttribute("orderList", orderList);
+		model.addAttribute("paging", paging);
 	}
 
 }
