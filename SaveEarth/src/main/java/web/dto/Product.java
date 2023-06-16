@@ -12,12 +12,11 @@ public class Product {
 	private String prodDetail;
 	private int prodAmount;
 	private Date prodEnroll;
-	private int prodSell;
 	
 	public Product() {}
 
 	public Product(int prodNo, int adminNo, String prodName, int prodPrice, String prodDetail, int prodAmount,
-			Date prodEnroll, int prodSell) {
+			Date prodEnroll) {
 		super();
 		this.prodNo = prodNo;
 		this.adminNo = adminNo;
@@ -26,14 +25,6 @@ public class Product {
 		this.prodDetail = prodDetail;
 		this.prodAmount = prodAmount;
 		this.prodEnroll = prodEnroll;
-		this.prodSell = prodSell;
-	}
-
-	@Override
-	public String toString() {
-		return "Product [prodNo=" + prodNo + ", adminNo=" + adminNo + ", prodName=" + prodName + ", prodPrice="
-				+ prodPrice + ", prodDetail=" + prodDetail + ", prodAmount=" + prodAmount + ", prodEnroll=" + prodEnroll
-				+ ", prodSell=" + prodSell + "]";
 	}
 
 	public int getProdNo() {
@@ -92,13 +83,11 @@ public class Product {
 		this.prodEnroll = prodEnroll;
 	}
 
-	public int getProdSell() {
-		return prodSell;
+	@Override
+	public String toString() {
+		return "Product [prodNo=" + prodNo + ", adminNo=" + adminNo + ", prodName=" + prodName + ", prodPrice="
+				+ prodPrice + ", prodDetail=" + prodDetail + ", prodAmount=" + prodAmount + ", prodEnroll=" + prodEnroll
+				+ "]";
 	}
 
-	public void setProdSell(int prodSell) {
-		this.prodSell = prodSell;
-	}
-	
-	
 }
