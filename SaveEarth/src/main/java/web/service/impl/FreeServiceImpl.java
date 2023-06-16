@@ -270,7 +270,8 @@ public class FreeServiceImpl implements FreeService{
 		}
 		
 		//기존에 첨부되어있는 파일을 삭제한다
-		freeDao.deleteFile(freeBoard);
+//		freeDao.deleteFile(freeBoard);
+		//-> 삭제 안하고 추가로 첨부파일 넣을 수 있으려면 이 메소드 없어야 함
 		
 		//새로 첨부된 파일들을 저장한다
 		for( FreeFile e : upfiles) {

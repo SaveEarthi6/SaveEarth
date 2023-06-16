@@ -9,6 +9,13 @@
   --fc-today-bg-color: #fffad9 !important;
 }
 
+@font-face {
+    font-family: 'omyu_pretty';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /* 툴바 제목 */
 .fc-toolbar-title {
 	font-weight: bold;
@@ -61,6 +68,10 @@
 	color: black;
 	background-color: red;
 	border-color: blue;
+}
+
+#calendar {
+	font-family: 'omyu_pretty';
 }
 
 </style>

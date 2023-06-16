@@ -276,7 +276,6 @@ $(document).ready(function() {
 		<div id="newFile">
 			<label class="form-label" for="files">새로운 첨부파일</label>
 			<input type="file" id="file" name="files" class="form-control" multiple="multiple">
-			<small>** 새로운 파일로 첨부하면 기존 파일은 삭제됩니다</small>
 		</div>
 		
 

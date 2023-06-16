@@ -16,6 +16,8 @@
 
 <style type="text/css">
 
+
+
 /* 여백 없애기 */
 body {
 	margin:0;
@@ -134,7 +136,9 @@ select {
 	font-size: 18px;
 }
 
-
+#paging {
+	font-family: 'omyu_pretty';
+}
 
 </style>
 
@@ -313,7 +317,7 @@ location.href="?freeHead=" + freeHead
 
 <div class="clearfix"></div>
 
-<div>
+<div id="paging">
 	<ul class="pagination pagination-sm justify-content-center">
 	
 	<%-- 첫 페이지로 이동 --%>

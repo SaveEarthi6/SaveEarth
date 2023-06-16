@@ -28,9 +28,15 @@ public interface MypagDao {
 
 	/**
 	 * totalCount 가져오기 
-	 * @return
+	 * @return - 총 게시글 수
 	 */
 	public int selectCntAll();
+
+	/**
+	 * totalCount 가져오기 
+	 * @return - 총 게시글 수
+	 */
+	public int selectCntAllBoard(int userNo);
 
 	/**
 	 * 회원정보 조회

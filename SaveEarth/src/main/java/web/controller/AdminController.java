@@ -560,13 +560,6 @@ public class AdminController {
 		   logger.info("관리자 id : {}", loginId);
 
 		   Admin memberInfo = adminService.info(loginId);
-		   
-		   //정보게시판 게시글 조회(게시글 번호와 일치하는 게시글 내용)
-//		   List<Map<String, Object>> infoUpdate = adminService.getInfo(infoNo);
-
-//		   logger.info("infoUpdate info {}", infoUpdate);
-		   
-//		   model.addAttribute("infoUpdate", infoUpdate);
 
 		   //정보게시판 게시글 내용 조회
 		   Info infoContent = adminService.getContent(infoNo);
