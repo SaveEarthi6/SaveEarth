@@ -21,7 +21,17 @@
 	     SELECT * FROM (
           SELECT prod.* FROM (
               SELECT p.*, g.prod_origin_name, g.prod_stored_name
-                FROM product p LEFT OUTER JOIN prod_file g
+                FROM product p LEFT OUTER JOIN (
+                
+                 SELECT *
+					FROM prod_file
+					WHERE (prod_no, prod_file_no) IN (
+					    SELECT prod_no, MIN(prod_file_no)
+					    FROM prod_file
+					    GROUP BY prod_no
+					)
+                
+                ) g
                 ON p.prod_no = g.prod_no
           ) prod
       )

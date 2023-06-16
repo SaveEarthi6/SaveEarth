@@ -344,10 +344,10 @@ public class MemberController {
 				// 추가해야함 이제 알리기 이미 존재하는아이디의 이메일이 회원가입이 되어있다고 알리기
 				session.invalidate();
 				System.out.println("로그인안됨");
+				model.addAttribute("msg","카카오실패");
 				
 				
-				
-				return "redirect:/member/login";
+				return "./member/login";
 			}
 
 		}
