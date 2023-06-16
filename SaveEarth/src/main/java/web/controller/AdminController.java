@@ -140,11 +140,11 @@ public class AdminController {
 
 		// 로그인한 회원과 작성자가 같은 회원인지 비교하기 위한 정보
 		String loginId = (String) session.getAttribute("loginId");
-		Member userInfo = memberService.getUserInfo(loginId);
-		logger.info("userInfo {}", userInfo);
+		Admin memberInfo = adminService.info(loginId);
+		logger.info("userInfo {}", memberInfo);
 
 		model.addAttribute("view", view);
-		model.addAttribute("userInfo", userInfo);
+		model.addAttribute("userInfo", memberInfo);
 
 		// 상세보기 페이지 파일 조회
 		List<FreeFile> freeFile = adminService.getFreeFile(freeBoard);

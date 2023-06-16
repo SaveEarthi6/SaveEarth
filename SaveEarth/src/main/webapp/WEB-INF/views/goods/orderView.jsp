@@ -268,11 +268,11 @@ label {
 		<label for="orderAddrPostcode" class="form-label">우편번호</label>
 	  	<input type="text" class="form-control" id="orderAddrPostcode" name="orderAddrPostcode" value="${item.orderAddrPostcode }" readonly="readonly">		
 	
-		<label for="orderAddr" class="form-label">주소</label>
+		<label for="orderAddr" class="form-label">도로명주소</label>
 	    <input type="text" class="form-control" id="orderAddr" value="${item.orderAddr }" name="orderAddr" readonly="readonly">
 
 		<label for="orderAddrDetail" class="form-label">상세주소</label>
-			<input type="text" class="form-control" id="orderAddrDetail" value="${item.orderAddrDetail }" name="orderAddrDetail" readonly="readonly">
+		<input type="text" class="form-control" id="orderAddrDetail" value="${item.orderAddrDetail }" name="orderAddrDetail" readonly="readonly">
 	</div>
 
 	<div id="phoneWrap">

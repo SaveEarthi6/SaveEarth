@@ -36,6 +36,7 @@ import web.dto.ProdInq;
 import web.dto.Order;
 import web.dto.OrderInfo;
 import web.dto.ProdOption;
+import web.dto.ProdReView;
 import web.dto.Product;
 import web.service.face.GoodsService;
 import web.util.Paging;
@@ -45,8 +46,7 @@ public class GoodsServiceImpl implements GoodsService {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	@Autowired
-	GoodsDao goodsDao;
+	@Autowired GoodsDao goodsDao;
 
 	@Override
 	public Paging getPaging(int curPage) {
@@ -316,5 +316,46 @@ public class GoodsServiceImpl implements GoodsService {
 		goodsDao.deleteCartBySelect(userNo, cartNo);
 		
 	}
+	
+	@Override
+	public List<Map<String, Object>> reviewList(ProdReView prodreView) {
+		
+		return goodsDao.getreviewList(prodreView);
+	}
+
+	@Override
+	public void addreview(ProdReView prodreView) {
+		
+		goodsDao.addreview(prodreView);
+		
+	}
+
+	@Override
+	public boolean checkreview(ProdReView prodreView) {
+		
+		int checkreview = goodsDao.existreview(prodreView);
+		if(checkreview>0) {
+			return true;
+		} else {
+		return false;
+		}
+	}
+	
+	@Override
+	public void deletereview(int reviewNo) {
+		goodsDao.deletereview(reviewNo);
+		}
+
+	@Override
+	public Map<String, Object> getnowreview(ProdReView prodreView) {
+		
+		return goodsDao.getnowreview(prodreView);
+	}
+
+	@Override
+	public int ordercheck(ProdReView prodreView) {
+		
+		return goodsDao.ordercheck(prodreView);
+	}	
 	
 }

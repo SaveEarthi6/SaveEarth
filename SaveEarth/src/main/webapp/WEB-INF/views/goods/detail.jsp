@@ -62,11 +62,105 @@ $(function(){
 	})
 	
 	
-
-
+	//별점 ajax test
+	$(document).ready(function() {
+		  $('#myform').submit(function(e) {
+		    e.preventDefault(); // 폼 기본 제출 동작 방지
+		    
+		    
 	
 
-})
+		    if (!${login}) {
+		        alert("로그인이 필요한 서비스입니다.");
+		        return;
+		      }
+		
+
+		    // 폼 데이터 가져오기
+		    var formData = {
+		      reviewStar: $('input[name=reviewStar]:checked').val(),
+		      reviewContents: $('#reviewContents').val(),
+		      prodNo: ${goodsDetail.PROD_NO }
+		     
+		    };
+		    
+		    console.log(formData);
+		    var goodsDetailProdNo = ${goodsDetail.PROD_NO};
+		    var userNo = ${userNo};
+
+		    // ajax 요청 보내기
+		    $.ajax({
+		      type: 'POST',
+		      url: 'http://localhost:8888/goods/review', // 컨트롤러의 URL을 여기에 입력해야 합니다.
+		      data: JSON.stringify(formData),
+		      contentType: 'application/json',
+		      dataType: 'json',
+		      success: function(response) {
+		        // 성공적으로 응답을 받았을 때 실행할 코드 작성
+		        console.log(response);
+		        
+		        if (response.message === "이미 해당상품에 리뷰를 작성하셧습니다") {
+		            alert(response.message);
+		            return false;
+		          }else if(response.message === "상품을 구매해야해요"){
+			            alert(response.message);
+			            return false;		        	  
+		          } else {
+						        console.log(response);
+						        var review = response.review; // 서버에서 반환된 리뷰 데이터
+				     	console.log(review);
+				        var starRating = '';
+				        // 별점 표시를 위한 코드 추가
+		
+				        // 선택된 별점 값을 가져옴
+				        var selectedRating = review.REVIEW_STAR;
+		
+				     // 선택된 별점 값에 따라 별표 생성
+				        for (var i = 1; i <= 5; i++) {
+				            if (i <= selectedRating) {
+				                starRating += '<span class="star1">★</span>';
+				            } else {
+				              starRating += '<span class="star1">☆</span>';
+				            }
+				        }
+				        
+				        
+				        var tableRow = '<tr>';
+				        
+				        tableRow += '<td>' + review.REVIEW_NO  + '</td>';
+				        tableRow += '<td>' + review.USER_ID  + '</td>';
+				        tableRow += '<td>' + review.REVIEW_CONTENTS  + '</td>';
+				        tableRow += '<td>' + starRating + '</td>';
+				        
+				        var reviewEnroll = new Date(review.REVIEW_ENROLL);
+				        tableRow += '<td>' + reviewEnroll.toLocaleString()  + '</td>';
+				        tableRow += '<td>';
+		
+				        // 상품과 사용자 번호가 일치하는 경우에만 삭제 버튼 표시
+				        if (review.PROD_NO == goodsDetailProdNo && review.USER_NO == userNo) {
+				          tableRow += '<button onclick="deleteReview(' + review.REVIEW_NO + ')">삭제</button>';
+				        } else {
+				            tableRow += '<td></td>';
+				          }
+		
+				           tableRow += '</tr>';
+				        
+				        $('#reviewContainer table .reviewbody').prepend(tableRow);    
+				      
+				        
+		          } 
+		      },
+		      error: function(xhr, status, error) {
+		        // 오류 발생 시 실행할 코드 작성
+		        console.log(error);
+		      }
+		    });
+		  });
+		});
+	
+});	
+
+
 
 </script>
     
@@ -161,6 +255,61 @@ tbody{
 	 text-align: center;
 }
 
+#myform fieldset{
+    display: inline-block;
+    direction: rtl;
+    border:0;
+}
+#myform fieldset legend{
+    text-align: right;
+}
+#myform input[type=radio]{
+    display: none;
+}
+#myform label{
+    font-size: 3em;
+    color: transparent;
+    text-shadow: 0 0 0 #f0f0f0;
+}
+#myform label:hover{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+#myform label:hover ~ label{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+#myform input[type=radio]:checked ~ label{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+#reviewContents {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: solid 1.5px #D3D3D3;
+    border-radius: 5px;
+    font-size: 16px;
+    resize: none;
+}
+
+.mb-3, .reviewtable{
+	width: 1200px;
+    margin: 0 auto;
+}
+
+.reviewbutton{
+	font-size: larger;
+    
+    text-align: end;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.btn-info{
+
+    bs-btn-bg: #a7c782;
+    bs-btn-border-color: #a7c782;
+}
+
 
 </style>
 
@@ -229,7 +378,7 @@ tbody{
 		
 		margin-right: 10%;
 }
-#btn_test1,#btn_test2, .inq{
+#btn_test1,#btn_test2, .inq, .writereview{
 		color: white;
 }
 
@@ -274,6 +423,30 @@ tbody{
     #tagColor {
 	color: #59A8D9;
 }
+<<<<<<< HEAD
+
+
+/* 폰트 */
+@font-face {
+    font-family: 'omyu_pretty';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+	font-family: 'KBO-Dia-Gothic_bold';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff')
+		format('woff');
+		
+	font-weight: 700;
+	font-style: normal;
+}
+=======
+	.star1{
+	color:yellow;
+	}
+>>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
 </style>
 
 
@@ -302,13 +475,13 @@ tbody{
 		<div class="right">
 			<div class="summary">
 			    <div>
-			        <h1>${goodsDetail.PROD_NAME }</h1>
+			        <h1 style = "font-family: omyu_pretty;">  상품명: ${goodsDetail.PROD_NAME }</h1><br>
 				</div>
 				<div >                            	
-				    <h3 class="prodprice">${goodsDetail.PROD_PRICE }원</h3>                              
+				    <h3 class="prodprice" style = "font-family: omyu_pretty;">가격: ${goodsDetail.PROD_PRICE }원</h3> <br>                             
 			    </div>
 			    <div>
-			    	<h3>${goodsDetail.PROD_DETAIL }</h3>
+			    	<h3 style = "font-family: omyu_pretty;">상품설명: ${goodsDetail.PROD_DETAIL }</h3>
 			    </div>
 			</div> 		
 		              
@@ -342,7 +515,7 @@ tbody{
 			
 			
 			
-			<div class="total">
+			<div class="total" style= "font-family: omyu_pretty; padding-top: 50px; font-size: 30px;">
 				
 			    총 상품가격 :<span class="totalprice" id="totalprice"><fmt:formatNumber pattern="###,###,###" value="${goodsDetail.PROD_PRICE }" /></span>원
 				+ 배송비 : 
@@ -351,9 +524,9 @@ tbody{
 			원
 		    </div>
 		    
-		    <div class="button" id="btn_group" style="width : 200px">
+		    <div class="button" id="btn_group" style="width : 200px; padding-top: 60px;" >
 		   
-				<input type="button" class="cart btn btn-info"  value="장바구니" onclick="addToCart()" id="btn_test1">
+				<input type="button" class="cart btn btn-info"  value="장바구니" onclick="addToCart()" id="btn_test1" style = "font-family: omyu_pretty;">
 				<input type="hidden" name="prodCount" class="prodCount">
 				    
 				<form action="./detailbuy" method="post">
@@ -363,7 +536,7 @@ tbody{
 					<input type="hidden" name="prodStoredName" value="${goodsDetail.PROD_STORED_NAME}">
 					
 					
-					<button type="submit" class="order btn btn-info" id="btn_test2" onclick="detailbuy()" >구매하기</button>
+					<button type="submit" class="order btn btn-info" id="btn_test2" onclick="detailbuy()" style = "font-family: omyu_pretty;">구매하기</button>
 			    </form>
 			 </div>
 		 </div>
@@ -386,20 +559,97 @@ tbody{
 		</c:forEach>
 	</div>
 	
-	
-	
+	 	<form class="mb-3" name="myform" id="myform" method="post">
+ 	<div class="star">
+	<fieldset>
+		<span class="text-bold">별점을 선택해주세요</span>
+		<input type="radio" name="reviewStar" value="5" id="rate1"><label
+			for="rate1">★</label>
+		<input type="radio" name="reviewStar" value="4" id="rate2"><label
+			for="rate2">★</label>
+		<input type="radio" name="reviewStar" value="3" id="rate3"><label
+			for="rate3">★</label>
+		<input type="radio" name="reviewStar" value="2" id="rate4"><label
+			for="rate4">★</label>
+		<input type="radio" name="reviewStar" value="1" id="rate5"><label
+			for="rate5">★</label>
+	</fieldset>
+	</div>
+	<div>
+		<textarea class="col-auto form-control" type="text" id="reviewContents"
+				  placeholder="해당상품에 대한 리뷰를 남겨주세요!!"></textarea>
+	</div>
+	<div class="reviewbutton">
+	<button class="btn btn-info writereview">작성하기</button>
+	</div>
+</form>
+	<div id="reviewContainer">
+				<table class="reviewtable">
+					  <thead>
+					    <tr>
+					      <th>리뷰번호</th>
+					      <th>아이디</th>
+					      <th style="width: 60%">내용</th>
+					      <th>별점</th>
+					      <th>날짜</th>					      
+					    </tr>
+					  </thead>
+					  <tbody class="reviewbody">
+					    <c:forEach items="${reviewList}" var="review" >
+					      <tr>
+					        <td>${review.REVIEW_NO}</td>
+					        <td>${review.USER_ID}</td>
+					        <td>${review.REVIEW_CONTENTS}</td>
+					        <td>
+					                   <c:choose>
+                <c:when test="${review.REVIEW_STAR == 5}">               		               
+                    <span class="star1">★★★★★</span>
+                </c:when>
+                <c:when test="${review.REVIEW_STAR == 4}">
+                    <span class="star1">★★★★☆</span>
+                </c:when>
+                <c:when test="${review.REVIEW_STAR == 3}">
+                    <span class="star1">★★★☆☆</span>
+                </c:when>
+                <c:when test="${review.REVIEW_STAR == 2}">
+                    <span class="star1">★★☆☆☆</span>
+                </c:when>
+                <c:when test="${review.REVIEW_STAR == 1}">
+                    <span class="star1">★☆☆☆☆</span>
+                </c:when>
+                <c:otherwise>
+                    별점 없음
+                </c:otherwise>
+            </c:choose>
+					        </td>
+					        <td><fmt:formatDate value="${review.REVIEW_ENROLL}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+					                  <td>
+            <!-- 상품과 사용자 번호가 일치하는 경우에만 삭제 버튼 표시 -->
+            <c:if test="${review.PROD_NO == goodsDetail.PROD_NO && review.USER_NO == userNo}">
+              
+              <a href = "./deleteReview?reviewNo=${review.REVIEW_NO}&prodNo=${goodsDetail.PROD_NO}"><button id="btnDelete" class="btn btn-danger">삭제</button></a>
+
+            </c:if>
+          </td>
+					        
+					        
+					      </tr>
+					    </c:forEach>
+					  </tbody>
+				</table>
+	<div>
 	
 	<div style="padding : 100px">
 	
 					<div>
-						<div class="inqtext " ><h3 >문의하기</h3></div>	
+						<div class="inqtext " style = "font-family: KBO-Dia-Gothic_bold"><h3 >문의하기💚</h3></div>	
 					<!-- 문의 모달버튼 -->
-						<div class="inqtext2 " ><input type="button" id="openModal" class="inq btn btn-info" value="문의하기" onclick="inquire()"></div>   
+						<div class="inqtext2 " ><input type="button" id="openModal" class="inq btn btn-info" value="문의하기" style = "font-family: omyu_pretty;" onclick="inquire()"></div>   
 					</div>
 	</div>				
 <!-- 여기까지 -->	
 <div>
-  <table class="inqtable">
+  <table class="inqtable" style = "font-family: omyu_pretty; font-size: 20px">
     <thead>
       <tr>
         <th>작성자</th>
