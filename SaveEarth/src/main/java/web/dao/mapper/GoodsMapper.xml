@@ -233,5 +233,45 @@ WHERE p.prod_no=#{prodNo}
 		WHERE user_no = #{userNo}
 	</select>
 	
+	<select resultType="map" id="getreviewList" parameterType="web.dto.ProdReView">
+		select p.*,m.user_id 
+		from prod_review p
+			join member m
+			on p.user_no=m.user_no
+		where prod_no=#{prodNo}
+		ORDER BY review_no DESC 
+	</select>
+
+	<insert id="addreview" parameterType="web.dto.ProdReView">
+		INSERT INTO prod_review(review_no,prod_no,user_no,review_star,review_contents)
+		VALUES(review_no_seq.nextval,#{prodNo},#{userNo},#{reviewStar},#{reviewContents}) 
+	</insert>
+
+	<select resultType="int" id="existreview" parameterType="web.dto.ProdReView">
+		SELECT count(*) FROM prod_review
+		WHERE prod_no=#{prodNo} and user_no=#{userNo} 
+	</select>
+
+	<delete id="deletereview" parameterType="int">
+		DELETE FROM prod_review
+		WHERE review_no=#{reviewNo} 
+	</delete>
+
+	<select resultType="map" id="getnowreview" parameterType="web.dto.ProdReView">
+		SELECT p.*,m.user_id 
+		FROM prod_review p
+			join member mon p.user_no=m.user_no
+		where prod_no=#{prodNo} and m.user_no=#{userNo}
+		ORDER BY review_no DESC 
+	</select>
+
+	<select resultType="int" id="ordercheck" parameterType="web.dto.ProdReView">
+		select count(*) 
+		from ordertb o
+			join order_detail d
+			on o.order_no=d.order_no
+		where prod_no=#{prodNo} and user_no=#{userNo} 
+	</select>
+	
 	
 </mapper>

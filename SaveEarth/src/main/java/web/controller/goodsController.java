@@ -4,6 +4,7 @@ package web.controller;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -19,7 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,6 +33,7 @@ import web.dto.OrderDetail;
 import web.dto.OrderInfo;
 import web.dto.ProdInq;
 import web.dto.ProdOption;
+import web.dto.ProdReView;
 import web.dto.Product;
 import web.service.face.GoodsService;
 import web.service.face.MemberService;
@@ -78,6 +80,12 @@ public class goodsController {
 		//상품 문의 목록 가져오기
 		List<Map<String, Object>> prodInq = goodsService.getInqList(prodno);
 		logger.info("상품질문과 답변{}",prodInq);
+
+		//리뷰 가져오기
+		ProdReView prodreView = new ProdReView();
+		prodreView.setProdNo(prodno);
+		List<Map<String, Object>> reviewList = goodsService.reviewList(prodreView);
+		logger.info("상품리뷰{}",reviewList);
 		
 //		로그인 확인하기( 로그인 안되면 로그인하라고하기)		
 		session.getAttribute("isLogin");
@@ -89,17 +97,20 @@ public class goodsController {
 		    System.out.println("로그인 상태 테스트");
 		    boolean login = true;
 		    model.addAttribute("login", login);
+		    model.addAttribute("userNo",(int)session.getAttribute("loginNo"));
 		} else {
 		    System.out.println("비로그인 상태 테스트");
 		    
 		    boolean login = false;
 		    model.addAttribute("login", login);
+		    model.addAttribute("userNo",0);
 		}
 		
 			model.addAttribute("goodsDetail", goodsDetail);
 			model.addAttribute("prodOption", prodOption);
 			model.addAttribute("detailfiles",detailfiles);	
 			model.addAttribute("prodInq",prodInq);
+			model.addAttribute("reviewList",reviewList);
 		
 	}
 	
@@ -359,5 +370,54 @@ public class goodsController {
 	  public void orderFail() {
 		  
 	  }
+	  
+	  @ResponseBody
+	  @PostMapping("review")
+	  public Map<String, Object> review(@RequestBody ProdReView prodreView,HttpSession session) {
+	      logger.info("{}",prodreView);
+	      
+	      System.out.println((int)session.getAttribute("loginNo"));
+	      prodreView.setUserNo((int)session.getAttribute("loginNo"));
+	      
+	      //상품 구매했나 체크
+	      int ordercheck = goodsService.ordercheck(prodreView);
+	      Map<String, Object> response = new HashMap<>();
+	      
+	      if(ordercheck>0) {
+	    	  
+		      boolean checkreview = goodsService.checkreview(prodreView);
+		      System.out.println(checkreview);
+		      
+		      if(checkreview) {
+		    	  
+		    	  response.put("message", "이미 해당상품에 리뷰를 작성하셧습니다");
+		    	  return response;
+		      } else {
+		    	  goodsService.addreview(prodreView);
+		    	  logger.info("{}",prodreView);
+		    	  //방금 쓴글 가져오기(id랑합쳐서)
+		    	  Map<String, Object> getreview = goodsService.getnowreview(prodreView);
+		    	  
+		    	  response.put("review", getreview);
+		    	  logger.info("{}response",response);
+		    	  return response;
+		      }
+	    	  
+	      } else {
+		      response.put("message", "상품을 구매해야해요");
+		      return response;
+	    	  
+	      }
+
+	  }
+	  
+	  @RequestMapping("/deleteReview")
+	  public String deleteReview(@RequestParam("reviewNo") int reviewNo,int prodNo) {
+
+		  goodsService.deletereview(reviewNo);
+
+
+		  return "redirect:/goods/detail?prodno=" + prodNo;
+	  }	
 
 }
