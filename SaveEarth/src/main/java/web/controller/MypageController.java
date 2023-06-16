@@ -132,7 +132,11 @@ public class MypageController {
 		
 		logger.info("curPage {}", curPage);
 		
-		Paging paging = mypageService.getPaging(curPage);
+		int userNo = (int) session.getAttribute("loginNo");
+		
+		logger.info("userNo {}", userNo);
+		
+		Paging paging = mypageService.getPagingBoard(curPage, userNo);
 		
 		System.out.println("paging 페이징안에 들어있는거 :" + paging);
 		

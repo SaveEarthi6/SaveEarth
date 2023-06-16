@@ -182,7 +182,6 @@ select {
 </tbody>
 
 </table>	
-curPage : ${paging.curPage }
 </div>
 
 <div>

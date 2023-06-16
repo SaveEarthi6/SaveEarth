@@ -79,6 +79,14 @@ public interface MypageService {
 	 */
 	public Paging orderPaging(int curPage);
 
+	/**
+	 * 마이페이지에서 자유게시판 목록 페이징
+	 * @param curPage - 현재 페이지
+	 * @param userNo - 회원번호
+	 * @return - 페이징 객체
+	 */
+	public Paging getPagingBoard(int curPage, int userNo);
+
 
 
 
