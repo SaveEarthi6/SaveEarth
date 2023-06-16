@@ -201,15 +201,6 @@ public class InfoServiceImpl implements InfoService {
 		
 	}
 	
-	@Override
-	public List<Map<String, Object>> getInfo(int infoNo) {
-		
-		logger.info("infoServiceImpl getInfo()");
-		
-		return infoDao.selectInfoByInfoNo(infoNo);
-		
-	}
-	
 	
 	@Override
 	public Paging getPagingByKeyword(int curPage, String keyword) {

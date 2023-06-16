@@ -31,16 +31,6 @@
 	margin-bottom: 20px;
 }
 
-/* 문구 폰트 스타일 */
-@font-face {
-	font-family:'KBO-Dia-Gothic_bold';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff')
-		format('woff');
-		
-	font-weight: 700;
-	font-style: normal;
-}
 
 /* '굿즈샵' 문구 스타일 */
 .goods {
@@ -74,9 +64,22 @@
 	font-style: normal;
 }
 
+/* 폰트 */
+@font-face {
+    font-family: 'omyu_pretty';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 
 .col {
 	margin-bottom: 10px;
+}
+
+#infos {
+	font-family: 'omyu_pretty';
+	font-size: 18px;
 }
 
 </style>

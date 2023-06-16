@@ -147,12 +147,12 @@ public class AdminController {
 		model.addAttribute("userInfo", memberInfo);
 
 		// 상세보기 페이지 파일 조회
-//    FreeFile freeFile = freeService.getFreeFile(freeBoard);
 		List<FreeFile> freeFile = adminService.getFreeFile(freeBoard);
 		
 		List<Map<String,Object>> commContent = adminService.getComment(freeBoard);
 
 		logger.info("freeFile {}", freeFile);
+		logger.info("commContent", commContent);
 		model.addAttribute("freeFile", freeFile);
 		model.addAttribute("commContent", commContent);
  
@@ -470,9 +470,6 @@ public class AdminController {
 	   @RequestMapping("/infoView") 
 	   public void infoView(Model model, @RequestParam(value="infoNo") int infoNo) {
 		   logger.info("/admin/infoView");
-
-		   //정보게시판 게시글 조회(게시글 번호와 일치하는 게시글 내용)
-		   List<Map<String, Object>> info = infoService.getInfo(infoNo);
 
 		   //정보게시판 게시글 내용 조회
 		   Info infoContent = adminService.getContent(infoNo);

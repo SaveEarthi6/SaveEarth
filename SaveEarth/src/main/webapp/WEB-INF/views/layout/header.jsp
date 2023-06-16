@@ -77,7 +77,7 @@ body {
 .menu  tr {
 	width : 1500px;
 	text-align: center;
-/* 	padding-left: 100px; */
+	font-family: 'GmarketSansMedium';
 }
 
 /* 네비게이션바 구분 스타일 */
@@ -110,19 +110,21 @@ body {
 .lefttop {
 	position : absolute;
 	top: 50px;
-	right:250px
+	right:250px;
+	text-decoration: none;
 }
 .righttop{
 	position: absolute;
 	top: 50px;
 	right: 117px;
+	text-decoration: none;
 }
 
 .top {
 	position: absolute;
 	top: 50px;
 	right: 22px;
-	
+	text-decoration: none;
 }
 
 
@@ -148,14 +150,14 @@ button{ cursor: pointer; } /* 모든 버튼에 마우스손모양 처리 */
 	<div id="wrap">
 	<a href="../saveearth/main"><img id="logo" src="../../resources/img/logo2.png"></a>
 	<c:if test="${empty isLogin }">
-<div style= "font-family: GmarketSansMedium">
+<div style= "font-family: 'GmarketSansMedium' ">
 	<a href="/member/login" class="lefttop">로그인</a>
 	<a href="/admin/login"	class="righttop">관리자 로그인 </a>
-	<a href="/goods/cart" class="top";>장바구니</a>
+	<a href="/goods/cart" class="top">장바구니</a>
 </div>	
 	</c:if>
 	<c:if test="${not empty isLogin and isLogin }">
-	<div style= "font-family: GmarketSansMedium">
+	<div style= "font-family: 'GmarketSansMedium' ">
 	<a href="/member/logout" class="lefttop">로그아웃</a>
 	<a href="/mypage/update" class="righttop">마이페이지</a>
 	<a href="/goods/cart" class="top">장바구니</a>
@@ -168,7 +170,7 @@ button{ cursor: pointer; } /* 모든 버튼에 마우스손모양 처리 */
 
 <table class="menu">
 
-<tr style= "font-family:GmarketSansMedium " >
+<tr style= "font-family:'GmarketSansMedium';" >
 	<td id="welcome">소개</td>
 	<td id="infoBoard">정보게시판</td>
 	<td id="freeBoard">자유게시판</td>
