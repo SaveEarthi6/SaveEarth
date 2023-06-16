@@ -52,7 +52,7 @@ public class MypageServiceImpl implements MypageService {
 	}
 	
 	@Override
-	public Paging getPagingBoard(int curPage, int userNo) {
+	public Paging getPagingUserNo(int curPage, int userNo) {
 		
 		int totalCount = mypageDao.selectCntAllBoard(userNo);
 		
@@ -104,15 +104,6 @@ public class MypageServiceImpl implements MypageService {
 		return mypageDao.selectOrderList(userNo, paging);
 	}
 
-	@Override
-	public Paging orderPaging(int curPage) {
-		
-		int totalCount = mypageDao.selectOrderCntAll();
-		
-		Paging paging = new Paging(totalCount, curPage);
-		
-		return paging;
-	}
 	
 
 	
