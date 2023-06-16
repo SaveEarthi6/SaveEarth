@@ -153,6 +153,9 @@ button{ cursor: pointer; } /* 모든 버튼에 마우스손모양 처리 */
 	font-size: 18px;
 }
 
+#paging {
+	font-family: 'omyu_pretty';
+}
 
 </style>
 

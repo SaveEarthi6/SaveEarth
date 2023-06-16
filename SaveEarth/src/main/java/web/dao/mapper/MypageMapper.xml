@@ -26,6 +26,11 @@
 		SELECT count(*) FROM free
 		WHERE user_no =#{userNo}
 	</select>
+
+	<select id="selectCntAllBoard" resultType="int" parameterType="int">
+		SELECT count(*) FROM free
+		WHERE user_no =#{userNo}
+	</select>
 	
 	<select id="selectById" resultType="web.dto.Member" >
 	     SELECT * FROM member

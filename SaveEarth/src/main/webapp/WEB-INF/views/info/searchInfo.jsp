@@ -171,6 +171,10 @@ input {
 	font-size: 18px;
 }
 
+#paging {
+	font-family: 'omyu_pretty';
+}
+
 </style>
 
 
@@ -249,7 +253,7 @@ function selectInfo() {
 
 
 
-<div>
+<div id="paging">
 	<ul class="pagination pagination-sm justify-content-center">
 
 	<%-- 첫 페이지로 이동 --%>

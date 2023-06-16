@@ -1008,7 +1008,8 @@ public class AdminServiceimpl implements AdminService {
     	}
 
     	//기존에 첨부되어있는 파일을 삭제한다
-    	adminDao.deleteInfoFile(info.getInfoNo());
+//    	adminDao.deleteInfoFile(info.getInfoNo());
+    	//-> 삭제 안하고 추가로 첨부파일 넣을 수 있으려면 이 메소드 없어야 함
 
     	//새로 첨부된 파일들을 저장한다
     	for( InfoFile e : upfiles) {
