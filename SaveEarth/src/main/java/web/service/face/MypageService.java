@@ -71,21 +71,14 @@ public interface MypageService {
 	 * @return
 	 */
 	public List<Map<String, Object>> orderList(int userNo, Paging paging);
-	
-	/**
-	 * 마이페이지 - 주문내역 페이징
-	 * @param curPage - 페이징객체
-	 * @return
-	 */
-	public Paging orderPaging(int curPage);
 
 	/**
 	 * 마이페이지에서 자유게시판 목록 페이징
 	 * @param curPage - 현재 페이지
 	 * @param userNo - 회원번호
 	 * @return - 페이징 객체
-	 */
-	public Paging getPagingBoard(int curPage, int userNo);
+	**/
+	public Paging getPagingUserNo(int curPage, int userNo);
 
 
 
