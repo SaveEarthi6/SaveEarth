@@ -182,11 +182,9 @@ select {
 </tbody>
 
 </table>	
-<<<<<<< HEAD
-=======
+curPage : ${paging.curPage }
 </div>
 
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
 <div>
 	<ul class="pagination pagination-sm justify-content-center">
 
