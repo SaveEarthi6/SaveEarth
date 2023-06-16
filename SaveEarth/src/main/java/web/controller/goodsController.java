@@ -54,35 +54,22 @@ public class goodsController {
 		//전체글 페이징
 		Paging paging = goodsService.getPaging(curPage);
 		
-		//첫 로드시 상품 불러오기
-//		List<Product> prodList = goodsService.getgoodsList(paging);
-		
 		// 파일 가져오기
 		List<Map<String, Object>> prodList = goodsService.getgoodsList(paging);
 		
-		
-//		for(List<Map<String, Object>> c : prodList) {
-//			logger.info("{}", c);
-//		}
-		
 		model.addAttribute("prodList", prodList);
 		model.addAttribute("paging", paging);		
-		
-		
 		
 	}
 	
 	@RequestMapping("/detail")
 	public void prodDetail(Model model, int prodno, HttpSession session) {
-//		logger.info("/goods/detail [GET]");
-//		logger.info("prodno : {}", prodno);
-		
-
 		
 		Map<String, Object> goodsDetail = goodsService.getProdDetail(prodno);
-//		logger.info("{}", goodsDetail);
+
 		System.out.println(goodsDetail);
 		System.out.println();
+		
 		//파일들 가져오기
 		List<Map<String, Object>> detailfiles = goodsService.getdetailfiles(prodno);
 		logger.info("상품번호에 맞는 파일들{}",detailfiles);
@@ -99,8 +86,6 @@ public class goodsController {
 		prodreView.setProdNo(prodno);
 		List<Map<String, Object>> reviewList = goodsService.reviewList(prodreView);
 		logger.info("상품리뷰{}",reviewList);
-
-		
 		
 //		로그인 확인하기( 로그인 안되면 로그인하라고하기)		
 		session.getAttribute("isLogin");
@@ -120,7 +105,6 @@ public class goodsController {
 		    model.addAttribute("login", login);
 		    model.addAttribute("userNo",0);
 		}
-		
 		
 			model.addAttribute("goodsDetail", goodsDetail);
 			model.addAttribute("prodOption", prodOption);
@@ -164,27 +148,23 @@ public class goodsController {
 		int userNo=(int)session.getAttribute("loginNo");
 		System.out.println("옵션번호"+ prodOptNo);
 		
-			//유저번호
-			cart.setUserNo(userNo);
-			//수량
-			cart.setProdCount(prodCount);
-			//상품번호
-			cart.setProdNo(prodno);
-			//옵션번호
-			cart.setProdOptNo(prodOptNo);
-			
-			
-			System.out.println(cart);
-			
-			goodsService.addCart(cart);
-			
-			
-			//장바구니 담고 다시 상세페이지 창으로 돌아가
-			return "redirect:/goods/detail?prodno=" + prodno; 			
-			
+		//유저번호
+		cart.setUserNo(userNo);
+		//수량
+		cart.setProdCount(prodCount);
+		//상품번호
+		cart.setProdNo(prodno);
+		//옵션번호
+		cart.setProdOptNo(prodOptNo);
 		
-
 		
+		System.out.println(cart);
+		
+		goodsService.addCart(cart);
+		
+		//장바구니 담고 다시 상세페이지 창으로 돌아가
+		return "redirect:/goods/detail?prodno=" + prodno; 			
+			
 	}
 	
 	//선택삭제
@@ -248,31 +228,6 @@ public class goodsController {
 		
 	}
 	
-	//주문 배송지 폼 DB 삽입
-	@PostMapping("/order")
-	public String orderinsert(HttpSession session, Order order) {
-		logger.info("/goods/order [POST]");
-		
-		//주문번호
-		Calendar cal = Calendar.getInstance();
-		String date = cal.get(Calendar.YEAR) + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1) + new DecimalFormat("00").format(cal.get(Calendar.DATE));
-		String orderNo = cal.get(Calendar.YEAR) + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1) + new DecimalFormat("00").format(cal.get(Calendar.DATE)) + "_" + UUID.randomUUID().toString().split("-")[0];
-		
-		logger.info("{}", orderNo);		
-		
-		order.setOrderNo(orderNo);
-		order.setUserNo((int)session.getAttribute("loginNo"));
-		
-		logger.info("{}", order);
-		
-		goodsService.makeOrder(order);
-		
-		goodsService.deleteCart((int)session.getAttribute("loginNo"));
-		
-		return "redirect:./orderView?orderNo=" + orderNo;
-		
-	}
-	
 	//주문목록 불러오기
 	@RequestMapping("/orderList")
 	public void orderList(HttpSession session, Model model, @RequestParam(defaultValue = "0") int curPage) {
@@ -285,39 +240,6 @@ public class goodsController {
 		model.addAttribute("paging", paging);
 		model.addAttribute("orderList", orderList);
 	}
-	
-	//선택 주문
-	@RequestMapping("/orderSelect")
-	public Model orderSelect(HttpSession session, @RequestParam("chbox[]") List<String> chArr, Model model) {
-		logger.info("/goods/orderSelect [GET]");
-		logger.info("{}", chArr);
-		logger.info("{}", session.getAttribute("loginNo"));
-		
-		// order.jsp로 model값 넘겨주기
-		
-		List<Map<String, Object>> cartList = new ArrayList<>();
-		
-		//로그인 된 상태이면
-		if(session.getAttribute("isLogin") != null) {
-			for(String cartNo : chArr) {
-//				goodsService.getCartListBySelect((int)session.getAttribute("loginNo"), cartNo);
-				cartList.add(goodsService.getCartListBySelect((int)session.getAttribute("loginNo"), cartNo));
-			}
-			
-			model.addAttribute("cartList",cartList);
-			logger.info("{}", cartList);
-			return model;
-			
-		} else {
-			return model;
-		}
-		
-	}
-	
-
-	
-	
-
 
 	@PostMapping("/detailbuy")
 	public void detailbuy(HttpSession session,@RequestParam("prodNo") int prodNo, @RequestParam("prodCount") int prodCount, @RequestParam("prodOptNo") int prodOptNo,Model model,
@@ -369,8 +291,6 @@ public class goodsController {
 		
 		goodsService.paymentTest(request, order);
 		
-		
-		
 		//선택결제라면
 		if(cartArr != null) {
 			
@@ -384,14 +304,11 @@ public class goodsController {
 				
 			}
 
-			
 		//전체 결제라면
 		} else {
 			logger.info("***************주문 후 전체 삭제 실행됨");
 			goodsService.deleteCart((int)session.getAttribute("loginNo"));
 		}
-		
-
 		
 		return "redirect:./orderView?orderNo=" + orderNo;
 		
@@ -411,52 +328,6 @@ public class goodsController {
 		return "/goods/cartList";
 		
 	}
-	
-
-	  
-
-	
-	
-
-//	  @PostMapping("/complete")
-	  @RequestMapping("/complete")
-//	  public String complete( String userName,String userPostcode, String userAddr, String userDetailaddr, String userPhone, String totalPrice, String prodNo, HttpSession session ) {
-		  public String complete(  ) {		  
-
-//		  Ordertb ordertb = new Ordertb();
-//		  ordertb.setOrderRec(userName);
-//		  ordertb.setOrderAddrPostcode(userPostcode);
-//		  ordertb.setOrderAddr(userAddr);
-//		  ordertb.setOrderAddrDetail(userDetailaddr);
-//		  ordertb.setOrderPhone(userPhone);
-//		  ordertb.setOrderPrice(totalPrice);
-//		  //주문번호
-//		 System.out.println(session.getAttribute("loginNo"));
-//			
-//		 int userNo=(int)session.getAttribute("loginNo");
-//		 ordertb.setOrderNo(1);	
-//		 ordertb.setUserNo(userNo);
-//		 goodsService.insertordertb(ordertb);
-		  
-		  
-		  
-		    
-	
-        
-	       
-	  
-	       
-      
-
-	       
-
-	       
-		  
-	
-
-	    
-	    return "goods/paycomplete"; // 결제 완료 페이지로 이동
-	  }
 	  
 	  //주문자 배송정보 불러오기
 	  @ResponseBody
@@ -483,8 +354,6 @@ public class goodsController {
 		  
 	  }
 	  
-	  
-	  
 	  // 모달로 값받아와서 문의내용 DB저장하기
 	  @PostMapping("/writeInq")
 	  public String writeInq(int prodNo, ProdInq prodInq, HttpSession session) {
@@ -493,8 +362,6 @@ public class goodsController {
 		  logger.info("{}",prodInq);
 		  
 		  goodsService.insertInq(prodInq);
-
-		  
 		  
 		  return "redirect:/goods/detail?prodno=" + prodNo; 
 	  }
@@ -503,14 +370,11 @@ public class goodsController {
 	  public void orderFail() {
 		  
 	  }
+	  
 	  @ResponseBody
 	  @PostMapping("review")
 	  public Map<String, Object> review(@RequestBody ProdReView prodreView,HttpSession session) {
 	      logger.info("{}",prodreView);
-	      
-	      
-	      
-	      
 	      
 	      System.out.println((int)session.getAttribute("loginNo"));
 	      prodreView.setUserNo((int)session.getAttribute("loginNo"));
@@ -543,16 +407,9 @@ public class goodsController {
 		      response.put("message", "상품을 구매해야해요");
 		      return response;
 	    	  
-	    	  
 	      }
 
-	      
-	      
-   
 	  }
-	  
-	  
-	
 	  
 	  @RequestMapping("/deleteReview")
 	  public String deleteReview(@RequestParam("reviewNo") int reviewNo,int prodNo) {

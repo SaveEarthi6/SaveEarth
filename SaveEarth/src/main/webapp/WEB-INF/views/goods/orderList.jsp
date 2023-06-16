@@ -40,14 +40,14 @@
     font-size: 1.5em;	
     margin-left: 120px;
 	display: inline-block;
- 	width: 35%; 
+ 	width: 25%; 
 }
 
 /* 태그 내용 */
 .content {
 	display: inline-block;
-	margin-right: 120px;
- 	width: 35%; 
+/* 	margin-right: 120px; */
+/*  	width: 35%;  */
  	font-size: 1.25em;
 }
 

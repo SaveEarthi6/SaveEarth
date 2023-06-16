@@ -15,14 +15,12 @@ public interface CampDao {
 
 	public int selectCntAll();
 
-//	public List<Campaign> selectCampList(Paging paging);
 	public List<Map<String, Object>> selectCampList(Paging paging);
 
 	public Map<String, Object> selectCamp(int campno);
 
 	public int selectCntAllByState(String state);
 
-//	public List<Campaign> selectCampListByState(Map<String, Object> param);
 	public List<Map<String, Object>> selectCampListByState(@Param("paging") Paging paging, @Param("state") String state);
 
 	public int selectPartNo();

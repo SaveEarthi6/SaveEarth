@@ -476,10 +476,6 @@ label {
 	<c:if test="${sum < 30000}">
 		<input type="hidden" name="orderPrice" id="orderPrice" value="${sum + 3000}">
 	</c:if>
-	
-	<div>
-	  <button type="submit" class="btn btn-success" id="orderMade">DB 결제하기</button>
-	</div>
   
 </form>
 

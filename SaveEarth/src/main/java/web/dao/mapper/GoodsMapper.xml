@@ -184,7 +184,14 @@
 		    ON d.prod_no = p.prod_no
 		LEFT OUTER JOIN prod_option n
 		    ON d.prod_opt_no = n. prod_opt_no
-		LEFT OUTER JOIN prod_file f
+		LEFT OUTER JOIN (
+			SELECT *
+			FROM prod_file
+			WHERE (prod_no, prod_file_no) IN (
+			    SELECT prod_no, MIN(prod_file_no)
+			    FROM prod_file
+			    GROUP BY prod_no)
+			) f
 		    ON p.prod_no = f.prod_no
 		WHERE o.order_no = #{orderNo}
 			AND o.user_no = #{userNo}
