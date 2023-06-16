@@ -423,7 +423,6 @@ tbody{
     #tagColor {
 	color: #59A8D9;
 }
-<<<<<<< HEAD
 
 
 /* 폰트 */
@@ -442,11 +441,10 @@ tbody{
 	font-weight: 700;
 	font-style: normal;
 }
-=======
-	.star1{
-	color:yellow;
-	}
->>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
+
+.star1{
+color:#F1E742;
+}
 </style>
 
 
@@ -475,13 +473,13 @@ tbody{
 		<div class="right">
 			<div class="summary">
 			    <div>
-			        <h1 style = "font-family: omyu_pretty;">  상품명: ${goodsDetail.PROD_NAME }</h1><br>
+			        <h1 style = "font-family: omyu_pretty;"> 상품명: ${goodsDetail.PROD_NAME }</h1><br>
 				</div>
 				<div >                            	
-				    <h3 class="prodprice" style = "font-family: omyu_pretty;">가격: ${goodsDetail.PROD_PRICE }원</h3> <br>                             
+				    <h3 class="prodprice" style = "font-family: omyu_pretty;"> 🔹가격: ${goodsDetail.PROD_PRICE }원</h3> <br>                             
 			    </div>
 			    <div>
-			    	<h3 style = "font-family: omyu_pretty;">상품설명: ${goodsDetail.PROD_DETAIL }</h3>
+			    	<h3 style = "font-family: omyu_pretty;"> 🔹상품설명: ${goodsDetail.PROD_DETAIL }</h3>
 			    </div>
 			</div> 		
 		              
@@ -560,9 +558,10 @@ tbody{
 	</div>
 	
 	 	<form class="mb-3" name="myform" id="myform" method="post">
- 	<div class="star">
+ 	<div class="star" >
+		<div style = "font-family: KBO-Dia-Gothic_bold; margin-left: 10px;"><h3 >리뷰💚</h3></div>	
 	<fieldset>
-		<span class="text-bold">별점을 선택해주세요</span>
+		<span class="text-bold" style = "font-family:omyu_pretty; ">별점을 선택해주세요</span>
 		<input type="radio" name="reviewStar" value="5" id="rate1"><label
 			for="rate1">★</label>
 		<input type="radio" name="reviewStar" value="4" id="rate2"><label
@@ -577,19 +576,19 @@ tbody{
 	</div>
 	<div>
 		<textarea class="col-auto form-control" type="text" id="reviewContents"
-				  placeholder="해당상품에 대한 리뷰를 남겨주세요!!"></textarea>
+				  placeholder="해당상품에 대한 리뷰를 남겨주세요!!" ></textarea>
 	</div>
 	<div class="reviewbutton">
-	<button class="btn btn-info writereview">작성하기</button>
+	<button class="btn btn-info writereview" style = "font-family:omyu_pretty; ">작성하기</button>
 	</div>
 </form>
-	<div id="reviewContainer">
+	<div id="reviewContainer" style = "font-family:omyu_pretty; font-size: 20px; ">
 				<table class="reviewtable">
 					  <thead>
 					    <tr>
 					      <th>리뷰번호</th>
 					      <th>아이디</th>
-					      <th style="width: 60%">내용</th>
+					      <th style="width: 50%">내용</th>
 					      <th>별점</th>
 					      <th>날짜</th>					      
 					    </tr>
@@ -639,12 +638,14 @@ tbody{
 				</table>
 	<div>
 	
-	<div style="padding : 100px">
+	
+	<div style= "padding-top: 100px;"></div>
+	<div style="padding : 100px;">
 	
 					<div>
-						<div class="inqtext " style = "font-family: KBO-Dia-Gothic_bold"><h3 >문의하기💚</h3></div>	
+						<div style = "font-family: KBO-Dia-Gothic_bold; "><h3 >문의하기💚</h3></div>	
 					<!-- 문의 모달버튼 -->
-						<div class="inqtext2 " ><input type="button" id="openModal" class="inq btn btn-info" value="문의하기" style = "font-family: omyu_pretty;" onclick="inquire()"></div>   
+						<div class="inqtext2 " ><input type="button" id="openModal" class="inq btn btn-info" value="문의하기" style = "font-family: omyu_pretty; padd" onclick="inquire()"></div>   
 					</div>
 	</div>				
 <!-- 여기까지 -->	
@@ -834,6 +835,6 @@ function inquire() {
   });
 </script>
     
-    
+ </div>   
     
 <c:import url="../layout/footer.jsp"/> 
