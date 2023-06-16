@@ -7,11 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import web.dto.Cart;
 import web.dto.Member;
-import web.dto.Ordertb;
-import web.dto.ProdInq;
 import web.dto.Order;
 import web.dto.OrderInfo;
+import web.dto.Ordertb;
+import web.dto.ProdInq;
 import web.dto.ProdOption;
+import web.dto.ProdReView;
 import web.dto.Product;
 import web.util.Paging;
 
@@ -185,6 +186,34 @@ public interface GoodsService {
 	 * @param cartNo
 	 */
 	public void deleteCart(int attribute, String cartNo);
+	
+	public List<Map<String, Object>> reviewList(ProdReView prodreView);
+
+	public void addreview(ProdReView prodreView);	
+
+	/**
+	 * 전에 썻던 리뷰가 있나확인
+	 * @param prodreView
+	 * @return
+	 */
+	public boolean checkreview(ProdReView prodreView);
+
+	public void deletereview(int reviewNo);
+
+
+	/**
+	 * ajax를 위해 방금 쓴 리뷰 아이디랑 같이 가져오기
+	 * @param prodreView
+	 * @return
+	 */
+	public Map<String, Object> getnowreview(ProdReView prodreView);
+
+	/**
+	 * 주문했나 안헀나 체크
+	 * @param prodreView
+	 * @return
+	 */
+	public int ordercheck(ProdReView prodreView);
 
 	
 }

@@ -13,6 +13,7 @@ import web.dto.ProdInq;
 import web.dto.Order;
 import web.dto.OrderInfo;
 import web.dto.ProdOption;
+import web.dto.ProdReView;
 import web.dto.Product;
 import web.util.Paging;
 
@@ -65,6 +66,18 @@ public interface GoodsDao {
 	public List<Map<String, Object>> getInqListByprodno(int prodno);
 
 	public Member selectUserInfo(int userNo);
+	
+	public List<Map<String, Object>> getreviewList(ProdReView prodreView);
+
+	public void addreview(ProdReView prodreView);
+
+	public int existreview(ProdReView prodreView);
+
+	public void deletereview(int reviewNo);	
+	
+	public Map<String, Object> getnowreview(ProdReView prodreView);
+
+	public int ordercheck(ProdReView prodreView);
 
 
 
