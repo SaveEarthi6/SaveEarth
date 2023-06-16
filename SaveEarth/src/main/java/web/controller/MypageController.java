@@ -127,10 +127,16 @@ public class MypageController {
 	
 		
 	@RequestMapping("/board") // 마이페이지 - 작성한글 조회
-	public void mypageBoard(HttpSession session, Free free, Model model, @RequestParam(value = "curPage", defaultValue = "1") int curPage) {
+	public void mypageBoard(HttpSession session, Free free, Model model, @RequestParam(value = "curPage", defaultValue = "0") int curPage) {
 		logger.info("/mypage/board[RequestMapping]");
 		
-		Paging paging = mypageService.getPaging(curPage);
+		logger.info("curPage {}", curPage);
+		
+		int userNo = (int) session.getAttribute("loginNo");
+		
+		logger.info("userNo {}", userNo);
+		
+		Paging paging = mypageService.getPagingUserNo(curPage, userNo);
 		
 		System.out.println("paging 페이징안에 들어있는거 :" + paging);
 		
@@ -210,11 +216,15 @@ public class MypageController {
 	public void orderList(HttpSession session, Model model,  @RequestParam(value = "curPage", defaultValue = "1") int curPage) {
 		logger.info("/goods/orderList [GET]");
 		
-		Paging paging = mypageService.orderPaging(curPage);
+		int userNo = (int) session.getAttribute("loginNo");
+		
+		logger.info("userNo {}", userNo);
+		
+		Paging paging = mypageService.getPagingUserNo(curPage, userNo);
 		
 		System.out.println("paging 안에 들어있는거 : " + paging);
 		
-		List<Map<String,Object>> orderList = mypageService.orderList((int)session.getAttribute("loginNo"), paging);
+		List<Map<String,Object>> orderList = mypageService.orderList(userNo, paging);
 		
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("paging", paging);

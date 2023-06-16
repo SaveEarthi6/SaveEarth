@@ -196,7 +196,7 @@ form {
 	<input type="text" id="infoUrl" name="infoUrl" class="form-control" value="${infoContent.infoUrl}">
 </div>
 
-
+<br>
 파일 수정 : 
 <br>		
 		<c:if test="${infoThumb != null }">
@@ -215,7 +215,6 @@ form {
 		<div id="newFile1">
 			<label class="form-label" for="files">새로운 썸네일</label>
 			<input type="file" id="thumb" name="thumb" class="form-control">
-			<small>** 새로운 파일로 첨부하면 기존 파일은 삭제됩니다</small>
 		</div>
 		
 		<br>
@@ -237,10 +236,9 @@ form {
 		<div id="newFile2">
 			<label class="form-label" for="files">새로운 첨부파일</label>
 			<input type="file" id="file" name="files" class="form-control" multiple="multiple">
-			<small>** 새로운 파일로 첨부하면 기존 파일은 삭제됩니다</small>
 		</div>
 	
-
+<br>
 
 <!-- 글쓰기 작성, 취소 버튼 -->
 <div style="text-align: center; margin-bottom: 30px;">

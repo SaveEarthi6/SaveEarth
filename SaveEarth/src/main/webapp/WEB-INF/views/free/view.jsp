@@ -279,7 +279,7 @@ $(function() {
 				location.reload();
 			
 			  //값 비우기
-              $("#commContent").val('');
+//               $("#commContent").val('');
           },
           error : function(request, status, error) { // 결과 에러 콜백함수
                console.log('로그인이 필요합니다!')
@@ -357,6 +357,7 @@ function commUpdate(th) {
 	$.ajax({
 		type : 'get',
 		url : '/free/commUpdate',
+		dataType : 'html', 
 		data : 
 			{commNo : commNo,
 			freeNo : freeNo,
