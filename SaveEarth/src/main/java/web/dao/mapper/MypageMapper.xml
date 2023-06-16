@@ -24,6 +24,7 @@
 	
 	<select id="selectCntAll" resultType="int">
 		SELECT count(*) FROM free
+		WHERE user_no =#{userNo}
 	</select>
 	
 	<select id="selectById" resultType="web.dto.Member" >
@@ -92,7 +93,7 @@
 	</select>
 
 	<select id="selectOrderCntAll" resultType="int">
-		SELECT count(*) FROM free
+		SELECT count(*) FROM ordertb
 	</select>
 
 

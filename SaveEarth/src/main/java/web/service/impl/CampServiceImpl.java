@@ -85,7 +85,6 @@ public class CampServiceImpl implements CampService {
 		param.put("paging", paging);
 		param.put("state", state);
 		
-//		return campDao.selectCampListByState(param);
 		return campDao.selectCampListByState(paging, state);
 	}
 	
@@ -97,11 +96,7 @@ public class CampServiceImpl implements CampService {
 		
 		logger.info("writePart() - nextVal : {}", nextVal);
 		
-		//여기도 바깠어
 		certification.put("partNo", Integer.toString(nextVal));
-		
-		
-		
 		
 		//인증 테이블 삽입
 		campDao.insertCert(certification);
@@ -143,11 +138,7 @@ public class CampServiceImpl implements CampService {
 		
 		certFile.setPartNo(nextVal);
 		
-		//바꾼 곳
 		certFile.setCampNo(Integer.parseInt(certification.get("campNo")));
-		
-		
-		
 		certFile.setPartOriginName(originName);
 		certFile.setPartStoredName(storedName);
 		

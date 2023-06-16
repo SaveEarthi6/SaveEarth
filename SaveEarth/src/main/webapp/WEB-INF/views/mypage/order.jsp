@@ -162,10 +162,10 @@ select {
 <table id= "board" class= "table table-hover text-center">
 
 	<tr style= "background-color: #59A8D9; color: white;">
-		<th style="width: 20px;">주문번호</th>
-		<th style="width: 20px;">수령인</th>
-		<th style="width: 20px;">주소</th>
-		<th style="width: 20px;">가격</th>
+		<th style="width: 25%;">주문번호</th>
+		<th>수령인</th>
+		<th>주소</th>
+		<th>가격</th>
 	</tr>
 	
 <tbody>
@@ -185,29 +185,17 @@ select {
 
 <div>
 	<ul class="pagination pagination-sm justify-content-center">
+
 	<%-- 첫 페이지로 이동 --%>
 	<c:if test="${paging.curPage ne 1 }">
-		<li class="page-link">&larr; 처음 </li>	
+		<li class="page-item"><a href="./order" class="page-link">&laquo;</a></li>	
 	</c:if>
-	
-	<%-- 이전 페이징 리스트로 이동 --%>
-	<c:choose>
-	<c:when test="${paging.startPage ne 1 }">
-		<li><a href="./order?curPage=${paging.startPage - paging.pageCount }" class="page-link">&laquo;</a></li>
-	</c:when>
-	
-	<c:when test="${paging.startPage eq 1 }">
-		<li><a class="page-link">&laquo;</a></li>
-	</c:when>
-	</c:choose>
-	
-	<%-- 이전 페이지로 가기 --%>
-	<c:if test="${paging.curPage > 1 }">
-		<li class="page-item"><a href="./order?curPage=${paging.curPage - 1 }" class="page-link">&lt;</a></li>
+	<c:if test="${paging.curPage eq 1 }">
+		<li class="page-item disabled"><a href="./order" class="page-link">&laquo;</a></li>	
 	</c:if>
 	
 	<%-- 페이징 리스트 --%>
-	<c:forEach begin="${getPaging.startPage }" end="${paging.endPage }" var="i">
+	<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="i">
 	<c:if test="${paging.curPage eq i }">
 		<li class="page-item active"><a href="./order?curPage=${i }" class="page-link">${i }</a></li>
 	</c:if>
@@ -216,31 +204,16 @@ select {
 	</c:if>
 	</c:forEach>
 	
-
-	
-	
-	<%-- 다음 페이지로 가기 --%>
-	<c:if test="${paging.curPage < paging.totalPage }">
-		<li class="page-item"><a href="./order?curPage=${paging.curPage + 1 }" class="page-link">&gt;</a></li>
-	</c:if>
-	
-	<%-- 다음 페이징 리스트로 이동 --%>
-	<c:choose>
-	<c:when test="${paging.endPage ne paging.totalPage }">
-		<li class="page-item"><a href="./order?curPage=${paging.startPage + paging.pageCount }" class="page-link">&raquo;</a></li>
-	</c:when>
-	<c:when test="${paging.endPage eq paging.totalPage }">
-		<li class="page-item disabled"><a class="page-link" href="./order?curPage=${paging.totalPage }">&raquo;</a></li>
-	</c:when>
-	</c:choose>
-
 	<%-- 끝 페이지로 이동 --%>
 	<c:if test="${paging.curPage ne paging.totalPage }">
-		<li class="page-item"><a href="./order?curPage=${paging.totalPage }" class="page-link">끝 &rarr;</a></li>	
+		<li class="page-item"><a href="./order?curPage=${paging.totalPage }" class="page-link">&raquo;</a></li>	
 	</c:if>
+	<c:if test="${paging.curPage eq paging.totalPage }">
+		<li class="page-item disabled"><a href="./order?curPage=${paging.totalPage }" class="page-link">&raquo;</a></li>	
+	</c:if>
+	
 	</ul>
 </div>
-
 
 </body>
 <c:import url="../layout/footer.jsp"></c:import>
