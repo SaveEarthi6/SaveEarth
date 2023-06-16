@@ -423,9 +423,30 @@ tbody{
     #tagColor {
 	color: #59A8D9;
 }
+<<<<<<< HEAD
+
+
+/* 폰트 */
+@font-face {
+    font-family: 'omyu_pretty';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+	font-family: 'KBO-Dia-Gothic_bold';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff')
+		format('woff');
+		
+	font-weight: 700;
+	font-style: normal;
+}
+=======
 	.star1{
 	color:yellow;
 	}
+>>>>>>> branch 'master' of https://github.com/SaveEarthi6/SaveEarth
 </style>
 
 
@@ -454,13 +475,13 @@ tbody{
 		<div class="right">
 			<div class="summary">
 			    <div>
-			        <h1>${goodsDetail.PROD_NAME }</h1>
+			        <h1 style = "font-family: omyu_pretty;">  상품명: ${goodsDetail.PROD_NAME }</h1><br>
 				</div>
 				<div >                            	
-				    <h3 class="prodprice">${goodsDetail.PROD_PRICE }원</h3>                              
+				    <h3 class="prodprice" style = "font-family: omyu_pretty;">가격: ${goodsDetail.PROD_PRICE }원</h3> <br>                             
 			    </div>
 			    <div>
-			    	<h3>${goodsDetail.PROD_DETAIL }</h3>
+			    	<h3 style = "font-family: omyu_pretty;">상품설명: ${goodsDetail.PROD_DETAIL }</h3>
 			    </div>
 			</div> 		
 		              
@@ -494,7 +515,7 @@ tbody{
 			
 			
 			
-			<div class="total">
+			<div class="total" style= "font-family: omyu_pretty; padding-top: 50px; font-size: 30px;">
 				
 			    총 상품가격 :<span class="totalprice" id="totalprice"><fmt:formatNumber pattern="###,###,###" value="${goodsDetail.PROD_PRICE }" /></span>원
 				+ 배송비 : 
@@ -503,9 +524,9 @@ tbody{
 			원
 		    </div>
 		    
-		    <div class="button" id="btn_group" style="width : 200px">
+		    <div class="button" id="btn_group" style="width : 200px; padding-top: 60px;" >
 		   
-				<input type="button" class="cart btn btn-info"  value="장바구니" onclick="addToCart()" id="btn_test1">
+				<input type="button" class="cart btn btn-info"  value="장바구니" onclick="addToCart()" id="btn_test1" style = "font-family: omyu_pretty;">
 				<input type="hidden" name="prodCount" class="prodCount">
 				    
 				<form action="./detailbuy" method="post">
@@ -515,7 +536,7 @@ tbody{
 					<input type="hidden" name="prodStoredName" value="${goodsDetail.PROD_STORED_NAME}">
 					
 					
-					<button type="submit" class="order btn btn-info" id="btn_test2" onclick="detailbuy()" >구매하기</button>
+					<button type="submit" class="order btn btn-info" id="btn_test2" onclick="detailbuy()" style = "font-family: omyu_pretty;">구매하기</button>
 			    </form>
 			 </div>
 		 </div>
@@ -621,14 +642,14 @@ tbody{
 	<div style="padding : 100px">
 	
 					<div>
-						<div class="inqtext " ><h3 >문의하기</h3></div>	
+						<div class="inqtext " style = "font-family: KBO-Dia-Gothic_bold"><h3 >문의하기💚</h3></div>	
 					<!-- 문의 모달버튼 -->
-						<div class="inqtext2 " ><input type="button" id="openModal" class="inq btn btn-info" value="문의하기" onclick="inquire()"></div>   
+						<div class="inqtext2 " ><input type="button" id="openModal" class="inq btn btn-info" value="문의하기" style = "font-family: omyu_pretty;" onclick="inquire()"></div>   
 					</div>
 	</div>				
 <!-- 여기까지 -->	
 <div>
-  <table class="inqtable">
+  <table class="inqtable" style = "font-family: omyu_pretty; font-size: 20px">
     <thead>
       <tr>
         <th>작성자</th>
