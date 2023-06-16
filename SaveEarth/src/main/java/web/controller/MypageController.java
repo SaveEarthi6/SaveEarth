@@ -209,7 +209,7 @@ public class MypageController {
 	
 	//주문목록 불러오기
 	@RequestMapping("/order")
-	public void orderList(HttpSession session, Model model, @RequestParam(defaultValue = "1") int curPage) {
+	public void orderList(HttpSession session, Model model,  @RequestParam(value = "curPage", defaultValue = "1") int curPage) {
 		logger.info("/goods/orderList [GET]");
 		
 		Paging paging = mypageService.orderPaging(curPage);
