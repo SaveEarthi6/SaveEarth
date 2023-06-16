@@ -35,6 +35,7 @@
          SELECT
          *
          FROM free
+         WHERE free_head != '공지사항'
          ORDER BY recommend desc, free_no DESC
       ) F
     )
