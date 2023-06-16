@@ -34,13 +34,13 @@ $(function() {
 	        	  console.log(result);
 				
 	          	//이 코드를 사용하면 등록은 동작하는데 '수정', '삭제' 버튼이 동작 안함
-	              $(".comm").html(result);
+// 	              $(".comm").html(result);
 					
 	          		//새로고침
-//	 				location.reload();
+	 				location.reload();
 				
 				  //값 비우기
-	              $("#commContent").val('');
+// 	              $("#commContent").val('');
 	          },
 	          error : function(request, status, error) { // 결과 에러 콜백함수
 	               console.log('로그인이 필요합니다!')
