@@ -79,7 +79,6 @@ public interface MypageService {
 	 */
 	public Paging orderPaging(int curPage);
 
-//	public List<Order> orderList(int userNo);
 
 
 

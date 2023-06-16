@@ -94,10 +94,6 @@ public class MypageServiceImpl implements MypageService {
 		return paging;
 	}
 	
-//	@Override
-//	public List<Order> orderList(int userNo) {
-//		return mypageDao.selectOrderList(userNo);
-//	}
 
 	
 	
