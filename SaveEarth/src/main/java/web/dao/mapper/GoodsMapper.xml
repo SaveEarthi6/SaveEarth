@@ -257,7 +257,8 @@ WHERE p.prod_no=#{prodNo}
 	<select resultType="map" id="getnowreview" parameterType="web.dto.ProdReView">
 		SELECT p.*,m.user_id 
 		FROM prod_review p
-			join member mon p.user_no=m.user_no
+			join member m
+			on p.user_no=m.user_no
 		where prod_no=#{prodNo} and m.user_no=#{userNo}
 		ORDER BY review_no DESC 
 	</select>

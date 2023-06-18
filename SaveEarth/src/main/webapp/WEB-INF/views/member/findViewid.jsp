@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 
 <c:import url="../layout/header.jsp"></c:import>
@@ -79,17 +80,17 @@
 
 <div class="content">
 	<div class="textForm">
-	<div class="find">
-		<div class="id">아이디찾기</div>
-		<div style="border-top: 1px solid;">${id.userName} 님의 정보와 일치하는 아이디 입니다</div>
-	</div>	
-		<div class="box">
-		
-		
-		
-		<div class="idid">${id.userId }</div>
+		<div class="find">
+			<div class="id">아이디찾기</div>
+			<div style="border-top: 1px solid;">${id.userName} 님의 정보와 일치하는 아이디 입니다</div>
+		</div>	
+		<div class="box">	
+			<div class="idid">
+				 ${fn:substring(id.userId,0,4) }
+			 	 <c:forEach begin="0" end="${fn:length(id.userId) - 5}" step="1">*</c:forEach>		
+			</div>
 		</div>
-	  
+		  
 	</div>
 	
 		<div style="width:700px; margin: 0 auto;">
