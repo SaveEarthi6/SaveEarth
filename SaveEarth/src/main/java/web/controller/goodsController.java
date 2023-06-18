@@ -102,6 +102,7 @@ public class goodsController {
 		    System.out.println("비로그인 상태 테스트");
 		    
 		    boolean login = false;
+		    System.out.println(login);
 		    model.addAttribute("login", login);
 		    model.addAttribute("userNo",0);
 		}
