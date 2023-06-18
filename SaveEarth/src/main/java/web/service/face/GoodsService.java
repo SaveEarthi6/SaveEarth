@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import web.dto.Cart;
 import web.dto.Member;
 import web.dto.Order;
+import web.dto.OrderDetail;
 import web.dto.OrderInfo;
-import web.dto.Ordertb;
 import web.dto.ProdInq;
 import web.dto.ProdOption;
 import web.dto.ProdReView;
@@ -129,8 +129,6 @@ public interface GoodsService {
 	 */
 	public Map<String, Object> getCartListBySelect(int userNo, String cartNo);
 
-	public  void insertordertb(Ordertb ordertb);
-
 	/**
 	 * 회원번호와 일치하는 회원의 배송정보 가져오기
 	 * 
@@ -214,6 +212,10 @@ public interface GoodsService {
 	 * @return
 	 */
 	public int ordercheck(ProdReView prodreView);
+
+	public void directpaymentTest(HttpServletRequest request, Order order);
+
+	public void directorderdetail(OrderDetail orderdetail);
 
 	
 }

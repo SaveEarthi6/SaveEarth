@@ -804,6 +804,10 @@ function inquire() {
     }    
 	 
 	function detailbuy(){
+		
+		
+		
+	
 		let prodOptNo = document.getElementById('optionSelect').value;
         
         let prodCount = document.getElementById('num').value;
@@ -812,7 +816,10 @@ function inquire() {
 		$('input[name=prodCount]').attr('value',prodCount);
 		$('input[name=prodOptNo]').attr('value',prodOptNo);
 	
+	
 	} 
+	
+	
 </script>
 
 

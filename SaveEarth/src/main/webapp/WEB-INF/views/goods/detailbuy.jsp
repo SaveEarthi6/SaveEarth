@@ -211,6 +211,22 @@ $(function() {
 	})
 })
 
+//취소하기
+$(function() {
+	
+	$("#cancelBtn").click(function() {
+		
+		var confirm_val = confirm("장바구니로 돌아가시겠습니까?")
+		
+		if(confirm_val) {
+			location.href="./cart"
+		}
+		
+	})
+	
+	
+})
+
 
 
 </script>
@@ -277,6 +293,113 @@ label {
 	color: #3788D8;
 }
 
+/* 결제하기 wrap */
+#btnPayWrap {
+    display: flex;
+    justify-content: space-around;
+    width: 60%;
+    margin: 0 auto;
+    margin-bottom: 50px;
+}
+
+/* 결제하기 */
+#payment-button {
+	width: 350px;
+	background-color: #7CA621;
+	border-color: #7CA621;
+    font-size: 1.15em;
+    font-weight: bold;
+    color: white;
+}
+
+#payment-button:hover {
+	background-color: #5C8A00;
+}
+
+/* 취소하기 */
+#cancelBtn {
+	width: 350px;
+	border-color: #7CA621;
+    font-size: 1.15em;
+    font-weight: bold;
+    color: #7CA621;
+}
+
+#cancelBtn:hover {
+	background-color: #EBF0DF;
+}
+
+
+/* 수령인 wrap */
+#recWrap {
+	margin-bottom: 20px;
+}
+
+/* 주소 wrap */
+#addrWrap {
+	margin-bottom: 20px;
+}
+
+/* 연락처 wrap */
+#phoneWrap {
+	margin-bottom: 20px;
+}
+
+/* 구분선 */
+#line {
+	width: 80%;
+	margin: 30px auto;
+	border-style: dashed;
+}
+
+/* 결제부분 wrap */
+#payWrap {
+ 	width:70%; 
+ 	margin: 0 auto; 
+}
+
+/* 우편번호 찾기 버튼 */
+#postBtn {
+    width: 49%;
+    display: inline-block;
+    background-color: #59A8D9;
+    border-color: #59A8D9;
+    color: white;
+    font-weight: bold;
+}
+
+/* 우편번호 폼 */
+#orderAddrPostcode {
+    width: 50%;
+    display: inline-block;
+}
+
+/* 주문자 정보 체크버튼 */
+#getInfoBtn {
+	width: 50%;
+	margin: 0 auto;
+    font-size: 1.05em;
+    margin-bottom: 5px;
+}
+
+.addr {
+	margin-bottom: 10px;
+}
+
+.clear {
+	clear: both;
+}
+
+label {
+	font-size: 1.15em;
+    font-weight: bold;
+}
+
+.warnMsg {
+	font-size: 0.8em;
+	color: #3788D8;
+}
+
 
 
 
@@ -317,21 +440,28 @@ label {
 </div>
 </div> <!-- listWrap -->
 
-<div id="listTitle">배송지 입력</div>
+<hr id="line">
+
+
+<div id='titleWrap'>
+	<div id="listTitle">배송정보</div>
+	<div id="getInfoBtn"><input type="checkbox" id="getShipInfo">주문자 정보와 동일</div>
+</div>
 
 <div id="shipInfoWrap">
 
-<form id="order-form" action="./order" method="post">
-	<input type="checkbox" id="getShipInfo">주문자 정보와 동일
+<form action="./order" method="post">
 
-	<div class="textForm">
+	<div id="recWrap">
 	  <label for="orderRec" class="form-label">받으시는 분</label>
 	  <input type="text" class="form-control" id="orderRec" name="orderRec" placeholder="수령인">
 	  <span id="recMsg" class="warnMsg"></span>
 	</div>
 	
-	<div class="textForm">
-		<label for="inputCity" class="form-label">주소</label>
+	<div class="clear"></div>
+	
+	<div id="addrWrap">
+		<div><label for="inputCity" class="form-label">주소</label></div>
 	
 		<input type="button" class="form-control" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
 	    <input type="text" class="form-control" id="orderAddrPostcode" placeholder="우편번호" name="orderAddrPostcode"> 
@@ -339,59 +469,120 @@ label {
 		<input type="text" class="form-control" id="orderAddrDetail" placeholder="상세주소" name="orderAddrDetail">
 		<span id="addrMsg" class="warnMsg"></span>
 	</div>
+	
+	<div class="clear"></div>
 
-	<div class="textForm">
+	<div id="phoneWrap">
 	  <label for="orderPhone" class="phone">연락처</label>
 	  <input type="text" class="form-control" id="orderPhone" name="orderPhone" placeholder="연락처">
 	  <span id="phoneMsg" class="warnMsg"></span>
 	</div>
 	
+	<div class="clear"></div>
+	
 	<input type="hidden" name="orderPrice" value="100">
 	
- 
-  
+	<c:if test="${prodCount * product.prodPrice >= 30000}">
+		<input type="hidden" name="orderPrice" id="orderPrice" value="${prodCount * product.prodPrice}">
+	</c:if>
+	
+	<c:if test="${prodCount * product.prodPrice < 30000}">
+		<input type="hidden" name="orderPrice" id="orderPrice" value="${prodCount * product.prodPrice + 3000}">
+	</c:if>
+	
+	<input type="hidden" name="userNo" id="userNo" value="${info.userNo }">
+	<input type="hidden" name="prodCount" id="prodCount" value="${prodCount}">
+	<input type="hidden" name="prodOptNo" id="prodOptNo" value="${option.prodOptNo}">
+	<input type="hidden" name="prodStoredName" id="prodStoredName" value="${prodStoredName}">
+	<input type="hidden" name="prodNo" id="prodNo" value="${product.prodNo}">
+	
+	
+	
 </form>
 
-<!-- 결제위젯, 이용약관 영역 -->
+<hr id="line">
+
+<div id="payWrap">
+
+	<div id="listTitle" style="width: 100%;">
+		<div id="sum">
+			결제할 금액 : 
+			<c:if test="${prodCount * product.prodPrice >= 30000}"><span id="tagColor"><fmt:formatNumber pattern="###,###,###" value="${prodCount * product.prodPrice}" /></span>원</c:if>
+			<c:if test="${prodCount * product.prodPrice < 30000}"><span id="tagColor"><fmt:formatNumber pattern="###,###,###" value="${prodCount * product.prodPrice+3000}" /></span>원</c:if>
+		</div>
+	</div>
+
+
 <div id="payment-method"></div>
 <div id="agreement"></div>
-<!-- 결제하기 버튼 -->
-<button id="payment-button">토스 결제하기</button>
+
+<div id="btnPayWrap">
+	<button id="payment-button">결제하기</button>
+	<button id="cancelBtn" class="btn btn-lg">취소하기</button>
+</div>
 <script>
 const clientKey = "test_ck_lpP2YxJ4K87vZ9PKpAvrRGZwXLOb"
 const customerKey = "swfA_xX4Vg5HeRU1AZveQ" // 내 상점의 고객을 식별하는 고유한 키
 const button = document.getElementById("payment-button")
-// ------  결제위젯 초기화 ------ 
-// 비회원 결제에는 customerKey 대신 ANONYMOUS를 사용하세요.
+
 const paymentWidget = PaymentWidget(clientKey, customerKey) // 회원 결제
-// const paymentWidget = PaymentWidget(clientKey, PaymentWidget.ANONYMOUS) // 비회원 결제
-// ------  결제위젯 렌더링 ------ 
-// 결제위젯이 렌더링될 DOM 요소를 지정하는 CSS 선택자 및 결제 금액을 넣어주세요. 
-// https://docs.tosspayments.com/reference/widget-sdk#renderpaymentmethods선택자-결제-금액-옵션
+
 paymentWidget.renderPaymentMethods("#payment-method", { value: 100 })
-// ------  이용약관 렌더링 ------
-// 이용약관이 렌더링될 DOM 요소를 지정하는 CSS 선택자를 넣어주세요.
-// https://docs.tosspayments.com/reference/widget-sdk#renderagreement선택자
+
 paymentWidget.renderAgreement('#agreement')
 // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
-// 더 많은 결제 정보 파라미터는 결제위젯 SDK에서 확인하세요.
-// https://docs.tosspayments.com/reference/widget-sdk#requestpayment결제-정보
-button.addEventListener("click", function () {
+
+// button.addEventListener("click", function () {
 
 	
-	if(!validate()) {
-		return false
-	} 
+// 	if(!validate()) {
+// 		return false
+// 	} 
 	
-		paymentWidget.requestPayment({
-		  orderId: "RkluNBM8DMR923bZ09aZA" + new Date().getTime(),            // 주문 ID(직접 만들어주세요)
-		  orderName: "토스 티셔츠 외 2건",                 // 주문명
-		  successUrl: "http://localhost:8888/goods/payment",  // 결제에 성공하면 이동하는 페이지(직접 만들어주세요)
-		  failUrl: "https://my-store.com/fail",        // 결제에 실패하면 이동하는 페이지(직접 만들어주세요)
-		  customerEmail: "customer123@gmail.com",
-		  customerName: "김토스",
+// 		paymentWidget.requestPayment({
+// 		  orderId: "RkluNBM8DMR923bZ09aZA" + new Date().getTime(),            // 주문 ID(직접 만들어주세요)
+// 		  orderName: "${product.prodName }",                 // 주문명
+// 		  successUrl: ""http://localhost:8888/goods/payment?orderRec=" + $("#orderRec").val() + "&orderAddrPostcode=" + $("#orderAddrPostcode").val() 
+// 				+ "&orderAddr=" + $("#orderAddr").val() + "&orderAddrDetail=" + $("#orderAddrDetail").val() + "&orderPhone=" + $("#orderPhone").val() 
+// 				+ "&orderPrice=" + $("#orderPrice").val(),  // 결제에 성공하면 이동하는 페이지(직접 만들어주세요)
+// 		  failUrl: "http://localhost:8888/goods/orderFail",        // 결제에 실패하면 이동하는 페이지(직접 만들어주세요)
+// 		  customerEmail: "customer123@gmail.com",
+// 		  customerName: "김토스",
 		  
+// 		})
+// })
+
+$(function() {
+	
+	// ------  결제위젯 렌더링 ------ 
+// 	paymentWidget.renderPaymentMethods("#payment-method", { value: $("#orderPrice").val() })
+	
+	$(document).on("click", "#payment-button", function() {
+	
+		if(!validate()) {	
+			return false
+		} 
+		
+
+		
+		
+
+		
+		
+		paymentWidget.requestPayment({
+			orderId: "RkluNBM8DMR923bZ09aZA" + new Date().getTime(),
+			orderName: "${product.prodName } ",
+			successUrl: "http://localhost:8888/goods/directpayment?orderRec=" + $("#orderRec").val() + "&orderAddrPostcode=" + $("#orderAddrPostcode").val() 
+						+ "&orderAddr=" + $("#orderAddr").val() + "&orderAddrDetail=" + $("#orderAddrDetail").val() + "&orderPhone=" + $("#orderPhone").val() 
+						+ "&orderPrice=" + $("#orderPrice").val() +"&userNo="+$("#userNo").val()+"&prodNo="+$("#prodNo").val()+"&prodCount="+$("#prodCount").val()+"&prodOptNo="+$("#prodOptNo").val() ,
+			failUrl: "http://localhost:8888/goods/orderFail",
+			customerEmail: "customer123@gmail.com",
+			customerName: "김토스"
 		})
+		
+	
+	})
+	
 })
 
 </script>
