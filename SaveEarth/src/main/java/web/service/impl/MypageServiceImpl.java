@@ -103,6 +103,20 @@ public class MypageServiceImpl implements MypageService {
 	public List<Map<String, Object>> orderList(int userNo, Paging paging) {
 		return mypageDao.selectOrderList(userNo, paging);
 	}
+	
+	@Override
+	public Paging getPagingOrderList(int curPage, int userNo) {
+		
+		int totalCount = mypageDao.getPagingOrderList(userNo);
+		
+		logger.info("totalCount {}", totalCount);
+		
+		Paging paging = new Paging(totalCount, curPage);
+		
+		logger.info("paging {}", paging);
+		
+		return paging;
+	}
 
 	
 
