@@ -292,7 +292,7 @@ public class goodsController {
 		
 		logger.info("값 대입 후 order {}", order);
 		
-		goodsService.paymentTest(request, order);
+		goodsService.paymentTest(request, order, cartArr);
 		
 		//선택결제라면
 		if(cartArr != null) {

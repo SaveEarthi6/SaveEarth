@@ -79,6 +79,10 @@ public interface GoodsDao {
 
 	public void insertdirectOrderdetail(OrderDetail orderdetail);
 
+	public void insertSelectOrder(Order order);
+
+	public void insertSelectOrderDetail(@Param("order") Order order, @Param("cartNo") String cartNo);
+
 
 
 }

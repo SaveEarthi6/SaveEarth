@@ -165,7 +165,7 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 	 
 	@Override
-	public void paymentTest(HttpServletRequest request, Order order) {
+	public void paymentTest(HttpServletRequest request, Order order, String cartArr) {
 			
 		//토스 자체적 처리
 		String orderId = request.getParameter("orderId");
@@ -240,7 +240,24 @@ public class GoodsServiceImpl implements GoodsService {
 		}
 	      
 		//DB INSERT
-		goodsDao.insertOrder(order);
+		
+		//선택 주문이라면
+		if(cartArr != null) {
+			String[] cartNo = cartArr.split(",");
+			
+			goodsDao.insertSelectOrder(order);
+			
+			for(int i = 0; i<cartNo.length; i++) {
+
+				goodsDao.insertSelectOrderDetail(order, cartNo[i]);
+				
+			}
+		
+			//전체 주문이라면
+		} else if(cartArr == null) {
+			goodsDao.insertOrder(order);
+			
+		}
 		
 	}
 	
