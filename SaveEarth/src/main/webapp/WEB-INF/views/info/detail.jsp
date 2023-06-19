@@ -80,7 +80,7 @@ h1 {
 
 
 <div class="url">
-<a href="https://kids.hyundai.com/kidshyundai/safetyEnvironment/learnenv/environmentList.kids?dtlCtgrLgrpCd=#none" style="margin-left: 530px;">기사 자세히 보기</a>
+<a href="${info.infoUrl }" style="margin-left: 530px;">기사 자세히 보기</a>
 </div>
 
 <div class="list">
