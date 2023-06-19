@@ -134,7 +134,7 @@ select {
  } 
  
  .main {
- height: 500px
+ height: 1500px
  
  }
 

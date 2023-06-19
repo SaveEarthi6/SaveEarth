@@ -1098,7 +1098,8 @@ public class AdminServiceimpl implements AdminService {
 	public Paging getProductPaging(int curPage) {
 		int totalCount = adminDao.selectCntAllProduct();
 		// 페이징 객체
-		Paging paging = new Paging(totalCount, curPage);
+		Paging paging = new Paging(totalCount, curPage, 6);
+		
 
 		return paging;
 	}
