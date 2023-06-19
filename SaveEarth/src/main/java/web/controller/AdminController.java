@@ -353,13 +353,14 @@ public class AdminController {
 
 	   //관리자 페이지 쇼핑몰 리스트
 	   @RequestMapping("/product")
-	   public void adminProduct(HttpSession session, Model model, @RequestParam(defaultValue = "0")int curPage) {
+	   public void adminProduct(HttpSession session, Model model, @RequestParam(defaultValue = "1")int curPage) {
 	      System.out.println("adminProduct");
 	      
 	  		//상품을 불러온다
 
 			//전체글 페이징
 			Paging paging = adminService.getPaging(curPage);
+			logger.info("페이징 값 : {},", curPage);
 			
 			//첫 로드시 상품 불러오기
 //			List<Product> prodList = adminService.getproductList(paging);
