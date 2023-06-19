@@ -486,5 +486,9 @@
 		SELECT count(*) FROM product
 	</select>
 	
+	<select id="selectCampaginCntAll" resultType="int">
+		SELECT count(*) FROM campaign
+	</select>
+	
 	
 </mapper>

@@ -216,7 +216,7 @@ public class AdminController {
 		logger.info("/campaign/main [GET]");
 		logger.info("curPage : {}", curPage);
 
-		Paging paging = adminService.getPaging(curPage);
+		Paging paging = adminService.getCampaignPaging(curPage);
 
 		// 캠페인 불러오기
 		List<Campaign> campList = adminService.getCampList(paging);
