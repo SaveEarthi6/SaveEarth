@@ -50,7 +50,7 @@ public interface MypageService {
 	 * @param freeHead - 말머리글
 	 * @return
 	 */
-	public List<Map<String, Object>> MypageBoardlist(Paging paging);
+	public List<Map<String, Object>> MypageBoardlist(Paging paging,int userNo);
 
 	/**
 	 * 마이페이지 - 작성한글 확인
