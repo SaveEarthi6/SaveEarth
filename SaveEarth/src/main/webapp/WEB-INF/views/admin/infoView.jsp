@@ -13,22 +13,17 @@
 
 <style type="text/css">
 
+
 /* 기사 제목 스타일 */
 h1 {
 	margin-top: 30px;
 	margin-bottom: 30px;
 	text-align: center;
 	font-weight: bold;
+	font-family: 'omyu_pretty';
 }
  
 
-/* 기사 내용 스타일 */
-.content {
-	margin: 0 auto;
-	display : block;
-	width : 500px;
-	text-align: center;
-}
 
 /* 기사 url 스타일 */
 .url {
@@ -38,7 +33,7 @@ h1 {
 }
 
 /* '목록으로' 버튼 스타일 */
-.list{
+.list {
 	text-align: center;
 	margin-bottom: 20px;
 }

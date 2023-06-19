@@ -156,8 +156,7 @@ public class FreeBoardController {
 		freeService.deleteCommByFreeNo(free);
 		freeService.deleteFree(free);
 		
-		
-		return "redirect:/mypage/board"; 
+		return "redirect:/free/main"; 
 	}
 	
 	
