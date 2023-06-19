@@ -86,11 +86,16 @@
 	</select>
 	
 	<select id="selectIngList" resultType="web.dto.Campaign" parameterType="int">
-<!-- 		SELECT * FROM campaign -->
-<!-- 		WHERE camp_no NOT IN (SELECT camp_no FROM certification WHERE user_no = #{userNo}) -->
-<!-- 		    AND camp_state = '진행중' -->
-<!-- 		ORDER BY camp_no DESC -->
-		SELECT * FROM campaign
+		SELECT *
+		FROM campaign
+		WHERE camp_no NOT IN (
+		    SELECT camp_no FROM certification
+		    WHERE user_no = 5
+		        AND part_date LIKE (
+		            SELECT SYSDATE FROM dual
+		        )
+		    )
+		AND camp_state = '진행중'
 		ORDER BY camp_no DESC
 	</select>
 	
