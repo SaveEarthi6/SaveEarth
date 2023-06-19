@@ -83,7 +83,7 @@ body {
 		
 		<div id="infos" class="row col-10">
 		
-			<c:forEach var="prod" items="${prodList }" >
+			<c:forEach var="prod" items="${prodList }">
 			<div id="prod" class="col">
 			
 			<div class="title2">
@@ -113,6 +113,7 @@ body {
 
 	</div>
 			
+
 		<div class='col-1'></div>
 
 

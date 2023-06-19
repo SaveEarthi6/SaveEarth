@@ -213,7 +213,7 @@ function selectInfo() {
 		
 		<div id="infos" class="row col-10">
 		
-			<c:forEach var="list" items="${list }" begin="0" end="2">
+			<c:forEach var="list" items="${list }">
 			<div id="info" class="col">
 			<a href="./detail?infoNo=${list.INFO_NO }" id="infoNo">
 				<c:if test="${list.THUMB_STORED_NAME ne null }">
