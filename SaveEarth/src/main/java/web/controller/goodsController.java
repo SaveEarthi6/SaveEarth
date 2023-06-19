@@ -408,7 +408,7 @@ public class goodsController {
 		      }
 	    	  
 	      } else {
-		      response.put("message", "상품을 구매해야해요");
+		      response.put("message", "상품을 구매하셔야 합니다");
 		      return response;
 	    	  
 	      }
