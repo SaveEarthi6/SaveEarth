@@ -79,6 +79,15 @@ public interface MypageService {
 	 * @return - 페이징 객체
 	**/
 	public Paging getPagingUserNo(int curPage, int userNo);
+	
+	/**
+	 * 마이페이지 - 주문내역 확인
+	 * @param curPage
+	 * @param userNo
+	 * @return
+	 */
+	public Paging getPagingOrderList(int curPage, int userNo);
+	
 
 
 
