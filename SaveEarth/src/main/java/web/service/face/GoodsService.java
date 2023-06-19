@@ -104,7 +104,7 @@ public interface GoodsService {
 	 * 
 	 * @param request
 	 */
-	public void paymentTest(HttpServletRequest request, Order order);
+	public void paymentTest(HttpServletRequest request, Order order, String cartArr);
 
 	/**
 	 * 바로구매 상품정보 가져오기
