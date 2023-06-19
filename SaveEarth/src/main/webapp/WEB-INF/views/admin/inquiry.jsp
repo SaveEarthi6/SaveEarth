@@ -112,6 +112,11 @@ input {
  	margin-right: 100px; 
  	margin-bottom: 20px; 
 }
+
+.main{
+
+height: 1000px;
+}
 </style>
 
 <div class="nav">
@@ -121,6 +126,8 @@ input {
 <br> <br>
 
 <body>
+
+
 <table id="board" class= "table table-hover text-center">
 
 	<tr style= "background-color: #59A8D9; color: white;">
@@ -130,7 +137,8 @@ input {
 		<th style="width: 20px;">문의 답변하기</th>
 		<th style="width: 20px;">문의 답변상태</th>
 	</tr>
-<tbody>
+	
+<div class="main">
 <c:forEach items="${prodinq}" var="prodinq" >
 
 			<tr>
@@ -144,6 +152,7 @@ input {
 </c:forEach>
 </tbody>
 </table>	
+</div>
 
 
   
