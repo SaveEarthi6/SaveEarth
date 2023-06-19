@@ -90,7 +90,7 @@
 <!-- 		WHERE camp_no NOT IN (SELECT camp_no FROM certification WHERE user_no = #{userNo}) -->
 <!-- 		    AND camp_state = '진행중' -->
 <!-- 		ORDER BY camp_no DESC -->
-		SELECT * FROM campign
+		SELECT * FROM campaign
 		ORDER BY camp_no DESC
 	</select>
 	
