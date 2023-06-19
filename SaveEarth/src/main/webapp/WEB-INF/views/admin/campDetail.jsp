@@ -82,7 +82,7 @@
 				</span>	<!-- DB에서 인증사진 campno으로 count해와서 넣기 -->
 			</div>
 		</div>
-			
+			 
 		<div id="clear"></div>
 		<hr>
 		<div id="posterWrap" style=" height: 584 px; width: auto; ">
