@@ -3,18 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<c:import url="../layout/header.jsp"></c:import>
+<c:import url="../layout/adminheader.jsp"></c:import>
 
 <!-- 필요시 css, js, jquery 넣을 곳 -->
 
 <style type="text/css">
-
-@font-face {
-    font-family: 'omyu_pretty';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
 
 #posterWrap { 
 	text-align: center;
@@ -26,6 +19,8 @@
 	max-width: 100%;
  	height: auto;
  	display: block;
+ 	width: 100%;
+    height: 100%;
 }
 
 #header {
@@ -58,7 +53,6 @@
 #toList {
 	text-align: center;
 	margin: 30px 0;
-	font-family: 'omyu_pretty';
 }
 
 #enroll {
@@ -67,10 +61,6 @@
 
 #part {
 	margin-left: 20px;
-}
-
-#content{
-	font-family: 'omyu_pretty';
 }
 
 
@@ -105,7 +95,7 @@
 	</div>
 	<div class="col-1"></div>
 </div>
-	 <div style="display: inline-block; margin: 0 5px;  float: right; font-family: 'omyu_pretty';">		
+	 <div style="display: inline-block; margin: 0 5px;  float: right;">		
 				첨부파일 다운로드 : 
 						<c:if test="${not empty campDetail }">
 							<a href="../upload/${campDetail.CAMP_STORED_NAME }" download="${campDetail.CAMP_ORIGIN_NAME }">
