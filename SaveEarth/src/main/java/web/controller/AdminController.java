@@ -359,7 +359,7 @@ public class AdminController {
 	  		//상품을 불러온다
 
 			//전체글 페이징
-			Paging paging = adminService.getPaging(curPage);
+			Paging paging = adminService.getProductPaging(curPage);
 			
 			//첫 로드시 상품 불러오기
 //			List<Product> prodList = adminService.getproductList(paging);

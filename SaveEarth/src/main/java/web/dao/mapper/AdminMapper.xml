@@ -482,5 +482,9 @@
 		VALUES(PROD_OPT_NO_seq.nextval,#{prodNo},#{prodColor},#{prodSize})
 	</insert>
 	
+	<select id="selectCntAllProduct" resultType="int">
+		SELECT count(*) FROM product
+	</select>
+	
 	
 </mapper>

@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="../layout/header.jsp"/> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 
@@ -124,21 +125,31 @@ $(function(){
 				            }
 				        }
 				        
-				        
+				        var userId = review.USER_ID;
+				        var maskedUserId = userId.substring(0, 4) + '*'.repeat(userId.length - 4);
+				 
 				        var tableRow = '<tr>';
 				        
 				        tableRow += '<td>' + review.REVIEW_NO  + '</td>';
-				        tableRow += '<td>' + review.USER_ID  + '</td>';
+				        tableRow += '<td>' + maskedUserId  + '</td>';
 				        tableRow += '<td>' + review.REVIEW_CONTENTS  + '</td>';
 				        tableRow += '<td>' + starRating + '</td>';
 				        
 				        var reviewEnroll = new Date(review.REVIEW_ENROLL);
-				        tableRow += '<td>' + reviewEnroll.toLocaleString()  + '</td>';
+				        var year = reviewEnroll.getFullYear();
+				        var month = String(reviewEnroll.getMonth() + 1).padStart(2, '0');
+				        var day = String(reviewEnroll.getDate()).padStart(2, '0');
+				        var hours = String(reviewEnroll.getHours()).padStart(2, '0');
+				        var minutes = String(reviewEnroll.getMinutes()).padStart(2, '0');
+				        var seconds = String(reviewEnroll.getSeconds()).padStart(2, '0');
+				        var formattedEnrollDate = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+				        tableRow += '<td>' + formattedEnrollDate  + '</td>';
 				        tableRow += '<td>';
 		
 				        // 상품과 사용자 번호가 일치하는 경우에만 삭제 버튼 표시
 				        if (review.PROD_NO == goodsDetailProdNo && review.USER_NO == userNo) {
-				          tableRow += '<button onclick="deleteReview(' + review.REVIEW_NO + ')">삭제</button>';
+				          tableRow += '<a href="./deleteReview?reviewNo=' + review.REVIEW_NO + '&prodNo=' + review.PROD_NO + '"><button id="btnDelete" class="btn btn-danger">삭제</button></a>';
+				         
 				        } else {
 				            tableRow += '<td></td>';
 				          }
@@ -214,6 +225,7 @@ $(function(){
 		float: right;
 		width: 35%; 
 		margin-left:15%;
+		margin-bottom: 5%;
 		
 	}
 	.button{
@@ -473,13 +485,13 @@ color:#F1E742;
 		<div class="right">
 			<div class="summary">
 			    <div>
-			        <h1 style = "font-family: omyu_pretty;"> 상품명: ${goodsDetail.PROD_NAME }</h1><br>
+			        <h1 style = "font-family: omyu_pretty;"> [${goodsDetail.PROD_NAME }]</h1><br>
 				</div>
 				<div >                            	
-				    <h3 class="prodprice" style = "font-family: omyu_pretty;"> 🔹가격: ${goodsDetail.PROD_PRICE }원</h3> <br>                             
+			    	<h3 style = "font-family: omyu_pretty;"> 🔹${goodsDetail.PROD_DETAIL }</h3>
 			    </div>
+				    <h3 class="prodprice" style = "font-family: omyu_pretty;"> 🔹판매가: ${goodsDetail.PROD_PRICE }원</h3> <br>                             
 			    <div>
-			    	<h3 style = "font-family: omyu_pretty;"> 🔹상품설명: ${goodsDetail.PROD_DETAIL }</h3>
 			    </div>
 			</div> 		
 		              
@@ -527,7 +539,7 @@ color:#F1E742;
 				<input type="button" class="cart btn btn-info"  value="장바구니" onclick="addToCart()" id="btn_test1" style = "font-family: omyu_pretty;">
 				<input type="hidden" name="prodCount" class="prodCount">
 				    
-				<form action="./detailbuy" method="post">
+				<form action="/goods/detailbuy" method="post">
 					<input type="hidden" name="prodNo" value="${goodsDetail.PROD_NO }">
 					<input type="hidden" name="prodCount" value="">
 					<input type="hidden" name="prodOptNo" value="">
@@ -597,7 +609,11 @@ color:#F1E742;
 					    <c:forEach items="${reviewList}" var="review" >
 					      <tr>
 					        <td>${review.REVIEW_NO}</td>
-					        <td>${review.USER_ID}</td>
+					        <td>
+					       		${fn:substring(review.USER_ID,0,4) }
+					       		<c:forEach begin="0" end="${fn:length(review.USER_ID) - 5}" step="1">*</c:forEach>		
+					        </td>
+					        
 					        <td>${review.REVIEW_CONTENTS}</td>
 					        <td>
 					                   <c:choose>
@@ -663,7 +679,11 @@ color:#F1E742;
     <tbody>
       <c:forEach items="${prodInq}" var="prodInq" varStatus="status">
         <tr>
-          <td>${prodInq.USER_ID}</td>
+         
+		  <td>
+			  ${fn:substring(prodInq.USER_ID,0,4) }
+		 	 <c:forEach begin="0" end="${fn:length(prodInq.USER_ID) - 5}" step="1">*</c:forEach>		
+		  </td>
           <td>${prodInq.INQ_TITLE}</td>
           <td>${prodInq.INQ_CONTENT}</td>
           <td>${prodInq.INQ_PROC}</td>
@@ -721,7 +741,12 @@ color:#F1E742;
 
 <!-- CSS -->
 
-
+<script>
+  function maskedUserId(userId) {
+    var masked = userId.substr(0, 4) + '*'.repeat(userId.length - 4);
+    return masked;
+  }
+</script>
 
 
  <!-- 로그인 확인 후 안되있으면 로그인 하셈 코드  -->
@@ -762,6 +787,7 @@ function inquire() {
 
 
 
+
 <!-- 모달로 문의하기------끝---- -->
 
 
@@ -795,7 +821,7 @@ function inquire() {
 	
 		
 	} else {
-		alert("로그인이 필요");
+		alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
 		let url = '../member/login'
 		location.href = url;
 	  }
@@ -803,16 +829,49 @@ function inquire() {
 			 	
     }    
 	 
-	function detailbuy(){
-		let prodOptNo = document.getElementById('optionSelect').value;
+// 	function detailbuy(){
+		
+
+// 		let prodOptNo = document.getElementById('optionSelect').value;
         
-        let prodCount = document.getElementById('num').value;
+//         let prodCount = document.getElementById('num').value;
 		
 		
-		$('input[name=prodCount]').attr('value',prodCount);
-		$('input[name=prodOptNo]').attr('value',prodOptNo);
+// 		$('input[name=prodCount]').attr('value',prodCount);
+// 		$('input[name=prodOptNo]').attr('value',prodOptNo);
 	
-	} 
+// 		} 
+
+window.onload = function() {
+  var isLoggedIn = ${login};
+  
+  if (!isLoggedIn) {
+    var btnBuy = document.getElementById('btn_test2');
+    btnBuy.disabled = true;
+    
+  }
+};
+
+function detailbuy() {
+  var isLoggedIn = ${login};
+  
+  if (isLoggedIn) {
+    let prodOptNo = document.getElementById('optionSelect').value;
+    let prodCount = document.getElementById('num').value;
+    
+    $('input[name=prodCount]').attr('value', prodCount);
+    $('input[name=prodOptNo]').attr('value', prodOptNo);
+  } else {
+    // 로그인되지 않은 상태
+    alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
+    let url = '/member/login';
+    location.href = url;
+  }
+}
+	
+
+	
+	
 </script>
 
 

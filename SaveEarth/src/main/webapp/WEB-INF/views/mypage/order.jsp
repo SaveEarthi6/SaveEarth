@@ -172,7 +172,7 @@ select {
 
 <c:forEach items="${orderList }" var="orderList">
 			<tr>
-				<td> <a href="/goods/orderView?n=${orderList.ORDER_NO}">${orderList.ORDER_NO} </a></td>
+				<td> <a href="/goods/orderList?n=${orderList.ORDER_NO}">${orderList.ORDER_NO} </a></td>
 				<td> ${orderList.ORDER_REC} </td>
 				<td> (${orderList.ORDER_ADDR_POSTCODE}) ${orderList.ORDER_ADDR} ${orderList.ORDER_ADDR_DETAIL} </td>
 				<td> <fmt:formatNumber pattern="###,###,###" value="${orderList.ORDER_PRICE}" /> 원 </td>
