@@ -184,6 +184,18 @@ public interface FreeService {
 	 */
 	public void updateComment(FreeComment comment);
 
+	/**
+	 * 추천수 삭제
+	 * @param free - 자유게시판 정보
+	 */
+	public void deleteRecommend(Free free);
+
+	/**
+	 * 게시글 번호로 댓글 삭제
+	 * @param free - 자유게시판 게시글 정보
+	 */
+	public void deleteCommByFreeNo(Free free);
+
 
 
 

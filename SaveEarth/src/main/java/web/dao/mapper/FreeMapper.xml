@@ -371,6 +371,16 @@ ORDER BY free_no DESC
 </select>
 
 
+<delete id="deleteRecomm" parameterType="web.dto.Free">
+	DELETE recommend 
+	WHERE free_no = #{freeNo}
+</delete>
+
+<delete id="deleteByFreeNo" parameterType="web.dto.Free">
+	DELETE freecomment 
+	WHERE free_no = #{freeNo}
+</delete>
+
 </mapper>	
 
 

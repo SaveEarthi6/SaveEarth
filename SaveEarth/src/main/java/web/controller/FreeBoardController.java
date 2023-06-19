@@ -152,6 +152,8 @@ public class FreeBoardController {
 	public String deleteBoard (Free free) {
 		
 		freeService.deleteFreeFile(free);
+		freeService.deleteRecommend(free);
+		freeService.deleteCommByFreeNo(free);
 		freeService.deleteFree(free);
 		
 		
