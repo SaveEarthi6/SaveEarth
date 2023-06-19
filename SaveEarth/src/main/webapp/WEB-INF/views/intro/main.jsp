@@ -83,7 +83,7 @@ h1 {
 </div>
 
 <!-- 지구 온도 상승 시나리오 -->
-<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" style= "width:1000px; margin-left: 445px; padding-top: 20px;" >
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" style= "width:1000px; margin :0 auto; padding-top: 20px;" >
   <div class="carousel-indicators">
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2" ></button>
@@ -123,7 +123,7 @@ h1 {
 <h1 style= "text-align:center; position:relative;" ><strong>SAVE EARTH 핵심가치</strong></h1>
 </div>
 
-<div class="accordion" id="accordionExample" style= "width:700px; padding-top: 20px; margin-left: 597px;">
+<div class="accordion" id="accordionExample" style= "width:700px; padding-top: 20px; margin : 0 auto;">
   <div class="accordion-item">
   
     <h2 class="accordion-header" id="headingOne">

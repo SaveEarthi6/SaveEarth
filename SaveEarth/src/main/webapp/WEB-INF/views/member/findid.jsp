@@ -111,7 +111,7 @@ width: 700px;
 
 
 <body>
-<h1> 아이디 찾기 구현 페이지</h1>
+
 
 
 
@@ -128,10 +128,10 @@ width: 700px;
       </div>
       
       <div style="width:700px; margin: 0 auto; text-align: center;">
-<%-- 		<p id="checkNameEmail">${errorMessage}</p>  --%>
+
       </div>
       <input type="submit" class="btn" id="check" value="아이디확인" onclick="showAlert()">
-	<!--   <input type="submit" class="btn" id="check" value="아이디확인"> -->
+
 	  
 
 </form>

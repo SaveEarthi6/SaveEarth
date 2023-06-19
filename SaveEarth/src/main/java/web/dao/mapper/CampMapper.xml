@@ -86,9 +86,11 @@
 	</select>
 	
 	<select id="selectIngList" resultType="web.dto.Campaign" parameterType="int">
-		SELECT * FROM campaign
-		WHERE camp_no NOT IN (SELECT camp_no FROM certification WHERE user_no = #{userNo})
-		    AND camp_state = '진행중'
+<!-- 		SELECT * FROM campaign -->
+<!-- 		WHERE camp_no NOT IN (SELECT camp_no FROM certification WHERE user_no = #{userNo}) -->
+<!-- 		    AND camp_state = '진행중' -->
+<!-- 		ORDER BY camp_no DESC -->
+		SELECT * FROM campign
 		ORDER BY camp_no DESC
 	</select>
 	
