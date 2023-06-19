@@ -1103,6 +1103,13 @@ public class AdminServiceimpl implements AdminService {
 		return paging;
 	}
 
+	@Override
+	public Paging getCampaignPaging(int curPage) {
+		int totalCount = adminDao.selectCampaginCntAll();
+		Paging paging = new Paging(totalCount, curPage);
+		return paging;
+	}
+
 
 		
 	

@@ -295,6 +295,12 @@ public interface AdminDao {
     */
    public int selectCntAllProduct();
    
+   /**
+    * 캠페인 게시판 글보여주기
+    * @return
+    */
+   public int selectCampaginCntAll();
+   
 
 
 

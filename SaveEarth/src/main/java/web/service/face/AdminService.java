@@ -287,6 +287,13 @@ public List<Map<String, Object>> getComment(Free freeBoard);
     * @return
     */
    public Paging getProductPaging(int curPage);
+   
+   /**
+    * 관리자 - 캠페인 게시판 리스트로 글보여줌
+    * @param curPage
+    * @return
+    */
+   public Paging getCampaignPaging(int curPage);
 
 
 
