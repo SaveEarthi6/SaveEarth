@@ -375,6 +375,8 @@ public class AdminController {
 				logger.info("{}", c);
 			}
 			
+			System.out.println("페이징 : " + paging);
+			
 			model.addAttribute("prodList", prodList);
 			model.addAttribute("paging", paging);	
 	      
@@ -644,8 +646,6 @@ public class AdminController {
 			      model.addAttribute("inqNo",inqNo);
 			   
 		   }
-		   
-		   
 		   
 		   
 		   @PostMapping("/inquiryWrite")

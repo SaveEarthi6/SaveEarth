@@ -56,6 +56,10 @@ body {
 	padding: 0;
 }
 
+.nav3{
+	margin-left: 1300px
+}
+
 </style>
 </head>
 <body>
@@ -66,19 +70,28 @@ body {
 <br>
 <br>
 
+	<div class="nav3">	
+		<a href = "/admin/productWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
+		<a href = "/admin/addopt"><button type="button" class="btn btn-outline-success">상품옵션</button></a>
+	</div>
+	
+<br>
+
 
 	<div id="prodList" class="row">
 		<div class="col-1"></div>
 		
 		<div id="infos" class="row col-10">
 		
-			<c:forEach var="prod" items="${prodList }" begin="0" end="2">
+			<c:forEach var="prod" items="${prodList }" >
 			<div id="prod" class="col">
 			
 			<div class="title2">
-				<td><a href = "./goodsDelete?prodNo=${prod.PROD_NO}"><button id="btnDelete" class="btn btn-danger">삭제</button></a></td>
-				<a href="/goods/detail?prodno=${prod.PROD_NO }" id="campTag">
+				<a href = "./goodsDelete?prodNo=${prod.PROD_NO}"><button id="btnDelete" class="btn btn-danger">삭제</button></a>
+				<a href="/goods/detail?prodno=${prod.PROD_NO }" id="campTag"></a>
 			</div>
+			
+			<a href="/goods/detail?prodno=${prod.PROD_NO }" id="campTag">
 			
 			<c:if test="${prod.PROD_STORED_NAME ne null }">
 					<div><img alt="" src="/upload/${prod.PROD_STORED_NAME }" style="width: 400px; height: 300px;"></div>
@@ -88,75 +101,38 @@ body {
 					<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
 			</c:if>
 			
-			
+			</a>	
 				<div id="campTitle">
 					<span id="titleTag">[${prod.PROD_NAME }]</span>
 					<span id="title">${prod.PROD_PRICE }</span>
 				</div>
-			</a>
 			</div>
 			</c:forEach>
 		</div>
 	
- 	<div style="display: inline-block; margin: 0 584px;  float: right;">	
-		<a href = "/admin/productWrite"><button type="button" class="btn btn-outline-success">글쓰기</button></a>
-		<a href = "/admin/addopt"><button type="button" class="btn btn-outline-success">상품옵션</button></a>
-	</div>
-	</div>
-			
-<br>
-<br>
-<br>
-		<div class='col-1'></div>
-	</div>
 
-  	<div id="prodList" class="row">
-		<div class="col-1"></div>
-		
-		<div id="infos" class="row col-10">
-		
-			<c:forEach var="prod" items="${prodList }" begin="3" end="5">
-			<div id="prod" class="col">
+	</div>
 			
-			<div class="title2">
-				<td><a href = "./goodsDelete?prodNo=${prod.PROD_NO}"><button id="btnDelete" class="btn btn-danger">삭제</button></a></td>
-				<a href="/goods/detail?prodno=${prod.PROD_NO }" id="campTag">
-			</div>
-			
-			
-			<a href="./detail?prodno=${prod.PROD_NO }" id="prodNo">
-			
-				<c:if test="${prod.PROD_STORED_NAME ne null }" >
-					<div><img alt="" src="/upload/${prod.PROD_STORED_NAME }" style="width: 400px; height: 300px; margin-bottom: 10px;"></div>
-				</c:if>	
-				<c:if test="${prod.PROD_STORED_NAME eq null }">
-					<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
-				</c:if>
-				<div id="goodsinfo">
-					<span id="titleTag">[${prod.PROD_NAME }]</span>
-					<span id="title">${prod.PROD_PRICE }원</span>
-				</div>
-			</a>
-			</div>
-			</c:forEach>
+		<div class='col-1'></div>
+
 
 
 <%-- <span class="float-end mb-3">${paging.totalCount }</span> --%>
 <div class="clearfix"></div>
 
 
-<div>
+<div id="paging">
 	<ul class="pagination pagination-sm justify-content-center">
 
 	<%-- 첫 페이지로 이동 --%>
 	<c:if test="${paging.curPage ne 1 }">
-		<li class="page-item"><a href="./product?freeHead=${freeHead }" class="page-link">&larr; 처음</a></li>	
+		<li class="page-item"><a href="./product" class="page-link">&larr; 처음</a></li>	
 	</c:if>
 	
 	<%-- 이전 페이징 리스트로 이동 --%>
 	<c:choose>
 	<c:when test="${paging.startPage ne 1 }">
-		<li class="page-item"><a href="./product?curPage=${paging.startPage - paging.pageCount }&freeHead=${freeHead}" class="page-link">&laquo;</a></li>
+		<li class="page-item"><a href="./product?curPage=${paging.startPage - paging.pageCount }" class="page-link">&laquo;</a></li>
 	</c:when>
 	<c:when test="${paging.startPage eq 1 }">
 		<li class="page-item disabled"><a class="page-link">&laquo;</a></li>
@@ -165,7 +141,7 @@ body {
 	
 	<%-- 이전 페이지로 가기 --%>
 	<c:if test="${paging.curPage > 1 }">
-		<li class="page-item"><a href="./product?curPage=${paging.curPage - 1 }&freeHead=${freeHead}" class="page-link">&lt;</a></li>
+		<li class="page-item"><a href="./product?curPage=${paging.curPage - 1 }" class="page-link">&lt;</a></li>
 	</c:if>
 	
 	
@@ -174,10 +150,10 @@ body {
 	<%-- 페이징 리스트 --%>
 	<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="i">
 	<c:if test="${paging.curPage eq i }">
-		<li class="page-item active"><a href="./product?curPage=${i }&freeHead=${freeHead}" class="page-link">${i }</a></li>
+		<li class="page-item active"><a href="./product?curPage=${i }" class="page-link">${i }</a></li>
 	</c:if>
 	<c:if test="${paging.curPage ne i }">
-		<li class="page-item"><a href="./product?curPage=${i }&freeHead=${freeHead}" class="page-link">${i }</a></li>
+		<li class="page-item"><a href="./product?curPage=${i }" class="page-link">${i }</a></li>
 	</c:if>
 	</c:forEach>
 	
@@ -186,22 +162,22 @@ body {
 	
 	<%-- 다음 페이지로 가기 --%>
 	<c:if test="${paging.curPage < paging.totalPage }">
-		<li class="page-item"><a href="./product?curPage=${paging.curPage + 1 }&freeHead=${freeHead}" class="page-link">&gt;</a></li>
+		<li class="page-item"><a href="./product?curPage=${paging.curPage + 1 }" class="page-link">&gt;</a></li>
 	</c:if>
 	
 	<%-- 다음 페이징 리스트로 이동 --%>
 	<c:choose>
 	<c:when test="${paging.endPage ne paging.totalPage }">
-		<li class="page-item"><a href="./product?curPage=${paging.startPage + paging.pageCount }&freeHead=${freeHead}" class="page-link">&raquo;</a></li>
+		<li class="page-item"><a href="./product?curPage=${paging.startPage + paging.pageCount }" class="page-link">&raquo;</a></li>
 	</c:when>
 	<c:when test="${paging.endPage eq paging.totalPage }">
-		<li class="page-item disabled"><a class="page-link" href="./product?curPage=${paging.totalPage }&freeHead=${freeHead}">&raquo;</a></li>
+		<li class="page-item disabled"><a class="page-link" href="./product?curPage=${paging.totalPage }">&raquo;</a></li>
 	</c:when>
 	</c:choose>
 
 	<%-- 끝 페이지로 이동 --%>
 	<c:if test="${paging.curPage ne paging.totalPage }">
-		<li class="page-item"><a href="./product?curPage=${paging.totalPage }&freeHead=${freeHead}" class="page-link">끝 &rarr;</a></li>	
+		<li class="page-item"><a href="./product?curPage=${paging.totalPage }" class="page-link">끝 &rarr;</a></li>	
 	</c:if>
 	
 	</ul>
