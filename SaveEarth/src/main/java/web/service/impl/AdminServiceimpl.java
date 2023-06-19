@@ -1093,6 +1093,15 @@ public class AdminServiceimpl implements AdminService {
 		adminDao.addopt(prodOption);
 		
 	}
+	
+	@Override
+	public Paging getProductPaging(int curPage) {
+		int totalCount = adminDao.selectCntAllProduct();
+		// 페이징 객체
+		Paging paging = new Paging(totalCount, curPage);
+
+		return paging;
+	}
 
 
 		

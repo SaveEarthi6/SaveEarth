@@ -86,6 +86,13 @@ public interface MypagDao {
 	 */
 	public int selectOrderCntAll();
 
+	/**
+	 * 마이페이지 - 주문내역 확인
+	 * @param userNo
+	 * @return
+	 */
+	public int getPagingOrderList(int userNo);
+
 
 	
 	

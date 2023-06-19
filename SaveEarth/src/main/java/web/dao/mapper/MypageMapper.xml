@@ -100,6 +100,11 @@
 	<select id="selectOrderCntAll" resultType="int" parameterType="int">
 		SELECT count(*) FROM ordertb
 	</select>
+	
+	<select id="getPagingOrderList" resultType="int" parameterType="int">
+		SELECT count(*) FROM ordertb
+		WHERE user_no =#{userNo}
+	</select>
 
 
   </mapper>

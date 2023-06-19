@@ -215,7 +215,7 @@ public class MypageController {
 		
 		logger.info("userNo {}", userNo);
 		
-		Paging paging = mypageService.getPagingUserNo(curPage, userNo);
+		Paging paging = mypageService.getPagingOrderList(curPage, userNo);
 		
 		System.out.println("paging 안에 들어있는거 : " + paging);
 		
