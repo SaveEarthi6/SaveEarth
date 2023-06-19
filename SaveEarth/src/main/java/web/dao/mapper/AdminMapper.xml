@@ -19,7 +19,7 @@
 
 	<select id="selectList" resultType="map"
 		parameterType="web.util.Paging">
-
+ 
 		SELECT * FROM (
 		SELECT rownum rnum, l.* FROM (
 		SELECT r.*,
