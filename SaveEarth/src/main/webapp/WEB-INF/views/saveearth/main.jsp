@@ -195,20 +195,20 @@ $(function() {
 		
 			<c:forEach var="cert" items="${cert }" varStatus="status">
 			
-			<c:if test="${status.index < 9}">
+			<c:if test="${status.index < 8}">
 			
 			<div id="info" class="col">
-			<a href="./detail?prodno=${prod.PROD_NO }" id="prodNo">
+			<a href="/campaign/detail?campno=${cert.CAMP_NO }" id="prodNo">
 			
-				<c:if test="${prod.PROD_STORED_NAME ne null }" >
+				<c:if test="${cert.PART_STORED_NAME ne null }" >
 				
 					<div>
-						<img alt="" src="/upload/${prod.PROD_STORED_NAME }" style="width: 400px; height: 300px; margin-bottom: 10px;">
+						<img alt="" src="/upload/${cert.PART_STORED_NAME }" style="width: 400px; height: 300px; margin-bottom: 10px;">
 					</div>
 				</c:if>	
-				<c:if test="${prod.PROD_STORED_NAME eq null }">
-					<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
-				</c:if>
+<%-- 				<c:if test="${prod.PROD_STORED_NAME eq null }"> --%>
+<!-- 					<div><img alt="" src="" style="width: 400px; height: 300px;"></div> -->
+<%-- 				</c:if> --%>
 			</a>
 			</div>
 			
