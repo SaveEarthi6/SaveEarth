@@ -279,7 +279,21 @@ public List<Map<String, Object>> getComment(Free freeBoard);
     */
    public void addopt(ProdOption prodOption);
 
-public void insertOtherfiles(Product product, List<MultipartFile> otherfiles);
+   public void insertOtherfiles(Product product, List<MultipartFile> otherfiles);
+   
+   /**
+    * 어드민 - 상품목록 불러오기 페이징
+    * @param curPage
+    * @return
+    */
+   public Paging getProductPaging(int curPage);
+   
+   /**
+    * 관리자 - 캠페인 게시판 리스트로 글보여줌
+    * @param curPage
+    * @return
+    */
+   public Paging getCampaignPaging(int curPage);
 
 
 

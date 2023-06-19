@@ -164,10 +164,7 @@
 			and c.cart_no = #{cartNo}
 	</select>
 	
-	<insert id="insertordertb" parameterType="web.dto.Ordertb" >
-	insert into ordertb(ORDER_NO,USER_NO,ORDER_REC,ORDER_ADDR_POSTCODE,ORDER_ADDR,ORDER_ADDR_DETAIL,ORDER_PHONE,ORDER_PRICE)
-	VALUES(#{orderNo},#{userNo},#{orderRec},#{orderAddrPostcode},#{orderAddr},#{orderAddrDetail},#{orderPhone},#{orderPrice})
-	</insert>
+
 	
 	<select id="selectUserShipInfo" parameterType="int" resultType="web.dto.Member">
 		SELECT user_no, user_name, user_postcode, user_addr, user_detailaddr, user_phone
@@ -260,7 +257,8 @@ WHERE p.prod_no=#{prodNo}
 	<select resultType="map" id="getnowreview" parameterType="web.dto.ProdReView">
 		SELECT p.*,m.user_id 
 		FROM prod_review p
-			join member mon p.user_no=m.user_no
+			join member m
+			on p.user_no=m.user_no
 		where prod_no=#{prodNo} and m.user_no=#{userNo}
 		ORDER BY review_no DESC 
 	</select>
@@ -272,6 +270,17 @@ WHERE p.prod_no=#{prodNo}
 			on o.order_no=d.order_no
 		where prod_no=#{prodNo} and user_no=#{userNo} 
 	</select>
+	
+		<insert id="insertdirectOrder" parameterType="web.dto.Order">
+	
+				INSERT INTO ordertb (order_no, user_no, order_rec, order_addr_postcode, order_addr, order_addr_detail, order_phone, order_price)
+				VALUES (#{orderNo}, #{userNo}, #{orderRec}, #{orderAddrPostcode}, #{orderAddr}, #{orderAddrDetail}, #{orderPhone}, #{orderPrice})
+		</insert>
+		
+		<insert id="insertdirectOrderdetail" parameterType="web.dto.OrderDetail">
+				INSERT INTO order_detail(ORDER_DETAIL_NO,ORDER_NO,PROD_NO,PROD_OPT_NO,PROD_AMOUNT)
+				VALUES(order_detail_seq.nextval,#{orderNo},#{prodNo},#{prodOptNo},#{prodAmount})
+		</insert>
 	
 	
 </mapper>

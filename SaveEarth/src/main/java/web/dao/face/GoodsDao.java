@@ -4,13 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import web.dto.Cart;
 import web.dto.Member;
-import web.dto.Ordertb;
 import web.dto.ProdInq;
 import web.dto.Order;
+import web.dto.OrderDetail;
 import web.dto.OrderInfo;
 import web.dto.ProdOption;
 import web.dto.ProdReView;
@@ -49,8 +47,6 @@ public interface GoodsDao {
 
 	public ProdOption getProdopt(int prodOptNo);
 
-	public void insertordertb(Ordertb ordertb);
-
 	public void updateAmount(Map<String, Object> param);
 
 	public Map<String, Object> selectCartListBySelect(@Param("userNo") int userNo, @Param("cartNo") String cartNo);
@@ -78,6 +74,10 @@ public interface GoodsDao {
 	public Map<String, Object> getnowreview(ProdReView prodreView);
 
 	public int ordercheck(ProdReView prodreView);
+
+	public void insertdirectOrder(Order order);
+
+	public void insertdirectOrderdetail(OrderDetail orderdetail);
 
 
 

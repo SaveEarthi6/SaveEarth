@@ -102,6 +102,7 @@ public class goodsController {
 		    System.out.println("비로그인 상태 테스트");
 		    
 		    boolean login = false;
+		    System.out.println(login);
 		    model.addAttribute("login", login);
 		    model.addAttribute("userNo",0);
 		}
@@ -272,10 +273,12 @@ public class goodsController {
 	
 	//장바구니 결제하기
 	@RequestMapping("/payment")
-	public String payment(HttpServletRequest request, HttpSession session, Order order, String cartArr) {
+	public String payment(HttpServletRequest request, HttpSession session, Order order, String cartArr, Model model) {
 		logger.info("/goods/payment GET]");
 		logger.info("값 대입 전 order {}", order);
 		logger.info("***************** 카트넘{}", cartArr);
+
+
 		
 		//주문번호
 		Calendar cal = Calendar.getInstance();
@@ -310,6 +313,7 @@ public class goodsController {
 			goodsService.deleteCart((int)session.getAttribute("loginNo"));
 		}
 		
+
 		return "redirect:./orderView?orderNo=" + orderNo;
 		
 	}
@@ -419,5 +423,40 @@ public class goodsController {
 
 		  return "redirect:/goods/detail?prodno=" + prodNo;
 	  }	
+	  
+	  @RequestMapping("/directpayment")
+	  public String directpayment(HttpServletRequest request, HttpSession session, Order order, Model model,
+			   String userNo, String prodNo, String prodCount, String prodOptNo,OrderDetail orderdetail) {
+		  
+			logger.info("/goods/payment GET]");
+			logger.info("값 대입 전 order {}", order);  
+			
+			//주문번호
+			Calendar cal = Calendar.getInstance();
+			String date = cal.get(Calendar.YEAR) + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1) + new DecimalFormat("00").format(cal.get(Calendar.DATE));
+			String orderNo = cal.get(Calendar.YEAR) + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1) + new DecimalFormat("00").format(cal.get(Calendar.DATE)) + "_" + UUID.randomUUID().toString().split("-")[0];
+			
+			logger.info("{}", orderNo);		
+			
+			order.setOrderNo(orderNo);
+			order.setUserNo((int)session.getAttribute("loginNo"));	
+			
+			goodsService.directpaymentTest(request, order);
+			
+			orderdetail.setOrderNo(orderNo);
+			orderdetail.setProdNo(Integer.parseInt(prodNo));
+			orderdetail.setProdAmount(Integer.parseInt(prodCount));
+			orderdetail.setProdOptNo(Integer.parseInt(prodOptNo));
+			
+			goodsService.directorderdetail(orderdetail);
+	
+			
+			
+		  
+		  return "redirect:./orderView?orderNo=" + orderNo;
+	  }
+	  
+	  
+	  //	  
 
 }

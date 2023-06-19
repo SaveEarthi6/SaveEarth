@@ -10,6 +10,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.JsonElement;
@@ -136,23 +139,40 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void mailSend(Member member) {
-		Mail mail = new Mail();
-		mail.setAddress(member.getUserEmail());
-		mail.setTitle("SaveEarth홈페이지 임시비밀번호 발송");
-		mail.setContent(member.getUserId() + "님의 임시비밀번호는 "+member.getUserPw() + "입니다"+ "로그인하고 비밀번호바꿔");
+	public void mailSend(Member member)  {
 		
-		SimpleMailMessage message = new SimpleMailMessage();
-	    message.setTo(mail.getAddress());
-	    message.setSubject(mail.getTitle());
-	    message.setText(mail.getContent());
-	    message.setFrom("saveearthtest@naver.com");
-	    message.setReplyTo("saveearthtest@naver.com");
-	    System.out.println("message"+message);
-	    mailSender.send(message);	
-
-		System.out.println("전송 완료!");
+		  try {
+				Mail mail = new Mail();
+				mail.setAddress(member.getUserEmail());
+				mail.setTitle("SaveEarth홈페이지 임시비밀번호 발송");
+		        mail.setContent(
+		               "<html>" +
+		               "<body style=\"font-family: Arial, sans-serif;\">" +
+		               "<h2 style=\"color: #007BFF;\">SaveEarth홈페이지 임시비밀번호 발송</h2>" +
+		               "<p><strong>" + member.getUserId() + "님의 임시비밀번호는</strong></p>" +
+		               "<p style=\"font-size: 18px;\">" + member.getUserPw() + "</p>" +
+		               "<p>로그인하시고 비밀번호를 변경하셔야 합니다.</p>" +
+		               "<p style=\"margin-top: 30px;\"><a href=\"http://localhost:8888/member/login\" style=\"background-color: #007BFF; color: #FFF; padding: 10px 20px; text-decoration: none;\">로그인하러 가기</a></p>" +
+		               "</body>" +
+		               "</html>"
+		            );
+				
+				MimeMessage message = mailSender.createMimeMessage();
+				MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+				helper.setTo(mail.getAddress());
+				helper.setSubject(mail.getTitle());
+				helper.setText(mail.getContent(),true);
+				helper.setFrom("saveearthtest@naver.com");
+				helper.setReplyTo("saveearthtest@naver.com");
+			    System.out.println("message"+message);
+			    mailSender.send(message);	
 		
+				System.out.println("전송 완료!");
+		  } catch (MessagingException e) {
+		      
+			  e.printStackTrace();
+		    }
+		  
 	}
 
 	//access토큰 가져오기

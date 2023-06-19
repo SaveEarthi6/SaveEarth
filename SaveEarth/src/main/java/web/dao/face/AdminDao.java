@@ -289,6 +289,18 @@ public interface AdminDao {
 
    public void addopt(ProdOption prodOption);
    
+   /**
+    * 관리자 - 상품목록 불러오기
+    * @return
+    */
+   public int selectCntAllProduct();
+   
+   /**
+    * 캠페인 게시판 글보여주기
+    * @return
+    */
+   public int selectCampaginCntAll();
+   
 
 
 
