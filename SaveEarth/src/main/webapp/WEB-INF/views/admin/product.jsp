@@ -72,16 +72,19 @@ body {
 		
 		<div id="infos" class="row col-10">
 		
-			<c:forEach var="prod" items="${prodList }" begin="0" end="2">
+			<c:forEach var="prod" items="${prodList }">
 			<div id="prod" class="col">
 			
 			<div class="title2">
-				<td><a href = "./goodsDelete?prodNo=${prod.PROD_NO}"><button id="btnDelete" class="btn btn-danger">삭제</button></a></td>
-				<a href="/goods/detail?prodno=${prod.PROD_NO }" id="campTag">
+				<a href = "./goodsDelete?prodNo=${prod.PROD_NO}"><button id="btnDelete" class="btn btn-danger">삭제</button></a>
 			</div>
 			
 			<c:if test="${prod.PROD_STORED_NAME ne null }">
-					<div><img alt="" src="/upload/${prod.PROD_STORED_NAME }" style="width: 400px; height: 300px;"></div>
+					<div>
+					<a href="/goods/detail?prodno=${prod.PROD_NO }" id="campTag">
+					<img alt="" src="/upload/${prod.PROD_STORED_NAME }" style="width: 400px; height: 300px;">
+					</a>
+					</div>
 			</c:if>
 		
 			<c:if test="${prod.PROD_STORED_NAME eq null }">
@@ -90,10 +93,11 @@ body {
 			
 			
 				<div id="campTitle">
-					<span id="titleTag">[${prod.PROD_NAME }]</span>
-					<span id="title">${prod.PROD_PRICE }</span>
+					<a href="/goods/detail?prodno=${prod.PROD_NO }" id="campTag">
+						<span id="titleTag">[${prod.PROD_NAME }]</span>
+						<span id="title">${prod.PROD_PRICE }</span>
+					</a>
 				</div>
-			</a>
 			</div>
 			</c:forEach>
 		</div>
@@ -107,38 +111,7 @@ body {
 <br>
 <br>
 <br>
-		<div class='col-1'></div>
-	</div>
 
-  	<div id="prodList" class="row">
-		<div class="col-1"></div>
-		
-		<div id="infos" class="row col-10">
-		
-			<c:forEach var="prod" items="${prodList }" begin="3" end="5">
-			<div id="prod" class="col">
-			
-			<div class="title2">
-				<td><a href = "./goodsDelete?prodNo=${prod.PROD_NO}"><button id="btnDelete" class="btn btn-danger">삭제</button></a></td>
-				<a href="/goods/detail?prodno=${prod.PROD_NO }" id="campTag">
-			</div>
-			
-			
-			<a href="./detail?prodno=${prod.PROD_NO }" id="prodNo">
-			
-				<c:if test="${prod.PROD_STORED_NAME ne null }" >
-					<div><img alt="" src="/upload/${prod.PROD_STORED_NAME }" style="width: 400px; height: 300px; margin-bottom: 10px;"></div>
-				</c:if>	
-				<c:if test="${prod.PROD_STORED_NAME eq null }">
-					<div><img alt="" src="" style="width: 400px; height: 300px;"></div>
-				</c:if>
-				<div id="goodsinfo">
-					<span id="titleTag">[${prod.PROD_NAME }]</span>
-					<span id="title">${prod.PROD_PRICE }원</span>
-				</div>
-			</a>
-			</div>
-			</c:forEach>
 
 
 <%-- <span class="float-end mb-3">${paging.totalCount }</span> --%>
