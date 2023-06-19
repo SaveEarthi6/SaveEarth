@@ -163,6 +163,12 @@ public interface FreeDao {
 	public void deleteFileByfreeFileNo(int freeFileNo);
 
 	/**
+	 * 추천 데이터 삭제(자유게시판 데이터 삭제할 때 함께 삭제)
+	 * @param free - 자유게시판 정보
+	 */
+	public void deleteRecomm(Free free);
+
+	/**
 	 * 게시글 번호(정수형)을 기준으로 파일 정보를 조회한다
 	 * @param freeNo - 게시글 번호
 	 * @return - 게시글 번호가 일치하는 파일 정보 
@@ -214,6 +220,13 @@ public interface FreeDao {
 	 * @param comment - 댓글 내용
 	 */
 	public void UpdateComment(FreeComment comment);
+
+	/**
+	 * 게시글 번호를 기준으로 댓글 삭제
+	 * @param free - 자유게시판 게시글 정보
+	 */
+	public void deleteByFreeNo(Free free);
+
 
 
 	

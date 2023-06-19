@@ -176,6 +176,25 @@ public class FreeServiceImpl implements FreeService{
 		
 	}
 
+	public void deleteFreeFile(Free free) {
+		
+		freeDao.deleteFile(free);
+	}
+
+	@Override
+	public void deleteRecommend(Free free) {
+		
+		freeDao.deleteRecomm(free);
+		
+	}
+	
+	@Override
+	public void deleteCommByFreeNo(Free free) {
+		
+		freeDao.deleteByFreeNo(free);
+		
+	}
+	
 	@Override
 	public void deleteFree(Free free) {
 		
@@ -183,10 +202,6 @@ public class FreeServiceImpl implements FreeService{
 		
 	}
 	
-	public void deleteFreeFile(Free free) {
-		
-		freeDao.deleteFile(free);
-	}
 	
 	@Override
 	public List<FreeFile> getFreeFile(Free freeBoard) {
