@@ -227,6 +227,7 @@ function selectInfo() {
 		<td class="text-start" style="text-align:center"><a href="/free/view?freeNo=${recommend.FREE_NO }">${recommend.FREE_TITLE }</a></td>
 		<td>${recommend.RECOMMEND }</td>
 		<td><fmt:formatDate value="${recommend.FREE_CREATE}" pattern="yy-MM-dd HH:mm:ss"/></td>
+		
 	</tr>
 	
 	</c:if>

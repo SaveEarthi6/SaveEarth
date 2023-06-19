@@ -40,16 +40,16 @@ public class FreeBoardController {
 	MemberService memberService;
 
 	@GetMapping("/free/main")
-	public void free(Model model, @RequestParam(value = "curPage", defaultValue = "1") int curPage, String freeHead, HttpSession session) {
+	public void free(Model model, @RequestParam(value = "curPage", defaultValue = "0") int curPage, String freeHead, HttpSession session) {
 		
 		logger.info("/free/main [GET]");
 		logger.info("freeHead{}", freeHead);
 		
+		logger.info("curPage {}", curPage);
 		
 		//페이징(말머리글 필터링)
 		Paging paging = freeService.getPagingHead(curPage, freeHead);
 		
-			
 		//페이징을 적용한 리스트 보여주기(userno을 기준으로 join)
 		List<Map<String,Object>> list = freeService.list(paging, freeHead);
 		
@@ -62,6 +62,8 @@ public class FreeBoardController {
 		for(Map m : list) {
 			logger.info(" list {} ", m);
 		}
+
+		logger.info("paging {}", paging);
 			
 		model.addAttribute("list", list);
 		model.addAttribute("freeHead", freeHead);
