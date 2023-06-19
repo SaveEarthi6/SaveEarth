@@ -207,7 +207,7 @@ public class InfoServiceImpl implements InfoService {
 		
 		int totalCount = infoDao.selectCntAllSearch(keyword);
 		
-		Paging paging = new Paging(curPage, totalCount);
+		Paging paging = new Paging(curPage, totalCount, 1);
 		
 		return paging;
 	}
