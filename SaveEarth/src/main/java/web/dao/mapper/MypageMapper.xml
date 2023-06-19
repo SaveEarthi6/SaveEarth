@@ -43,28 +43,18 @@
 		WHERE user_id = #{userId}
 	</delete>
 	
-	<select id="selectList" resultType="map"
-		parameterType="web.util.Paging">
+	<select id="selectList" resultType="map" parameterType="map">
 
-		SELECT * FROM (
-		SELECT rownum rnum, l.* FROM (
-		SELECT r.*,
-		a.admin_NAME
-		FROM (
-		SELECT f.*, m.user_id
-		FROM free f
-		LEFT OUTER JOIN
-		member m
-		ON f.user_no = m.user_no
-		) r
-		LEFT OUTER JOIN admin a
-		ON
-		r.admin_no = a.admin_no
-		ORDER BY free_no DESC
-		) l
-		)
-		WHERE rnum BETWEEN
-		#{startNo} AND #{endNo}
+                SELECT * FROM (
+			SELECT rownum rnum, B.* FROM (
+				select*
+				FROM free
+                where user_no = #{userNo}
+				
+			) B
+		) BOARD
+		WHERE rnum BETWEEN #{paging.startNo} and #{paging.endNo}
+        
 	</select>
 
 	<select id="mypageList" resultType="web.dto.Free" parameterType="int">

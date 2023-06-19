@@ -122,7 +122,7 @@ public class MypageController {
 	
 		
 	@RequestMapping("/board") // 마이페이지 - 작성한글 조회
-	public void mypageBoard(HttpSession session, Free free, Model model, @RequestParam(value = "curPage", defaultValue = "1") int curPage) {
+	public void mypageBoard(HttpSession session, Free free, Model model, @RequestParam(value = "curPage", defaultValue = "0") int curPage) {
 		logger.info("/mypage/board[RequestMapping]");
 		
 		logger.info("curPage {}", curPage);
@@ -135,7 +135,7 @@ public class MypageController {
 		
 		System.out.println("paging 페이징안에 들어있는거 :" + paging);
 		
-		List<Map<String,Object>> MypageBoardlist = mypageService.MypageBoardlist(paging);
+		List<Map<String,Object>> MypageBoardlist = mypageService.MypageBoardlist(paging,userNo);
 		logger.info("페이징처리:list {}", MypageBoardlist);
 
 		for(Map m : MypageBoardlist) {
@@ -143,26 +143,12 @@ public class MypageController {
 			
 		}
 		
-		model.addAttribute("paging", paging);
-		model.addAttribute("MypageBoardlist", MypageBoardlist);
 		
-		// 내 정보 불러오기 
-		String loginId = (String) session.getAttribute("loginId");
-		logger.info("{}", loginId);
-		
-		Member info = mypageService.info(loginId);
-		logger.info("info: {}", info);
 
-		// 게시글 리스트 
-		free.setUserNo(info.getUserNo());
-		List<Free> mypageList = mypageService.mypageList(info.getUserNo());
-		System.out.println(mypageList);
+
 		
-		for(Free m : mypageList) {
-			logger.info(" list {} ", m);
-		}
-		
-		model.addAttribute("mypageList", mypageList);
+		model.addAttribute("mypageList", MypageBoardlist);
+		model.addAttribute("paging", paging);
 
 	}
 	

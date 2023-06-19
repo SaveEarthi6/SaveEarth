@@ -23,7 +23,7 @@ body {
 }
 
 .main{
-height: 500px
+height: 1000px
 }
 
 /* 게시판 메인 이미지 스타일 */
@@ -168,14 +168,14 @@ select {
 <tbody>
 <c:forEach items="${mypageList }" var="free">
 			<tr>
-				<td>${free.freeNo }</td> 
-				<td>${free.freeHead}</td>
-				<td class="text-start" style="text-align:center"><a href="/free/view?freeNo=${free.freeNo }">${free.freeTitle }</a></td>
+				<td>${free.FREE_NO}</td> 
+				<td>${free.FREE_HEAD}</td>
+				<td class="text-start" style="text-align:center"><a href="/free/view?freeNo=${free.FREE_NO }">${free.FREE_TITLE }</a></td>
 				
 				<td>${sessionScope.loginId}</td>
 				
-				<td>${free.freeViews }</td>
-				<td><fmt:formatDate value="${free.freeCreate}" pattern="yy-MM-dd HH:mm:ss"/></td>
+				<td>${free.FREE_VIEWS }</td>
+				<td><fmt:formatDate value="${free.FREE_CREATE}" pattern="yy-MM-dd HH:mm:ss"/></td>
 			</tr>
 
 </c:forEach>

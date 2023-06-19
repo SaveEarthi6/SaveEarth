@@ -64,7 +64,7 @@ public interface MypagDao {
 	 * @param freeHead - 말머리글
 	 * @return
 	 */
-	public List<Map<String, Object>> selectList(Paging paging);
+	public List<Map<String, Object>> selectList(@Param("paging") Paging paging,@Param ("userNo") int userNo);
 	
 	/**
 	 * 마이페이지 - 회원정보 변경

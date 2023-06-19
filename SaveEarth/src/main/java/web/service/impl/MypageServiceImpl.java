@@ -83,9 +83,9 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public List<Map<String, Object>> MypageBoardlist(Paging paging) {
+	public List<Map<String, Object>> MypageBoardlist(Paging paging, int userNo) {
 		
-		return mypageDao.selectList(paging);
+		return mypageDao.selectList(paging,userNo);
 	}
 
 	@Override
