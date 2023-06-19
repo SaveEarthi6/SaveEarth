@@ -103,7 +103,7 @@ $(function(){
 		        if (response.message === "이미 해당상품에 리뷰를 작성하셧습니다") {
 		            alert(response.message);
 		            return false;
-		          }else if(response.message === "상품을 구매해야해요"){
+		          }else if(response.message === "상품을 구매하셔야 합니다"){
 			            alert(response.message);
 			            return false;		        	  
 		          } else {
@@ -776,7 +776,7 @@ function inquire() {
 
 		
 	} else {
-		alert("로그인이 필요");
+		alert("로그인이 필요한 서비스 입니다");
 		let url = '../member/login'
 		location.href = url;
 	  }
