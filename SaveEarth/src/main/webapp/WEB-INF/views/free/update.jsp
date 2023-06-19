@@ -252,12 +252,6 @@ $(document).ready(function() {
 	<textarea class="form-control" rows="10" style="width: 100%;" id="content" name="freeContent">${view.FREE_CONTENT }</textarea>
 </div>
 
-<div style="margin-top: 30px; margin-bottom: 30px;">
-		<button id="btnUpdate" class="btn btn-success">수정완료</button>
-</div>
-
-</div><!-- editor end -->
-
 <div class="form-group" id="file">
 
 		<div id="originFile">
@@ -271,7 +265,6 @@ $(document).ready(function() {
 		</c:forEach>
 		</c:if>
 		</div>
-<!-- 	</div> -->
 
 		<div id="newFile">
 			<label class="form-label" for="files">새로운 첨부파일</label>
@@ -280,6 +273,13 @@ $(document).ready(function() {
 		
 
 </div>
+
+<div style="margin-top: 30px; margin-bottom: 30px;">
+		<button id="btnUpdate" class="btn btn-success">수정완료</button>
+</div>
+
+</div><!-- editor end -->
+
 
 </form>
 
