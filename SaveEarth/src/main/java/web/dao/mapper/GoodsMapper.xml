@@ -83,6 +83,7 @@
 			    GROUP BY prod_no
 			)) f on f.prod_no = c.prod_no
 		where c.user_no = #{userNo}
+		ORDER BY cart_no DESC
 	</select>
 	
 	<select id="existCart" parameterType="web.dto.Cart" resultType="int" >
