@@ -122,6 +122,19 @@
 		}
 	</insert>
 	
+	<insert id="insertSelectOrder" parameterType="web.dto.Order">
+			INSERT INTO ordertb (order_no, user_no, order_rec, order_addr_postcode, order_addr, order_addr_detail, order_phone, order_price)
+			VALUES (#{orderNo}, #{userNo}, #{orderRec}, #{orderAddrPostcode}, #{orderAddr}, #{orderAddrDetail}, #{orderPhone}, #{orderPrice})
+	</insert>
+	
+	<insert id="insertSelectOrderDetail" parameterType="map">
+			INSERT INTO order_detail
+				SELECT order_detail_seq.nextval, #{order.orderNo}, prod_no, cart_no, prod_opt_no, prod_count
+				FROM cart
+				WHERE user_no = #{order.userNo}
+					AND cart_no = #{cartNo}
+	</insert>
+	
 	<select id="selectOrderList" parameterType="map" resultType="web.dto.Order">
 		SELECT *
 		FROM (SELECT rownum rnum, A.*

@@ -137,7 +137,7 @@ tr {
 					<td>
 						<div class="count">
 						    <button class="decrease btn btn-sm" data-sbItemCount="${item.PROD_COUNT}" data-cartNo="${item.CART_NO}">-</button>
-						    <input type="text" class="amountValue form-control form-control-sm" name="num" id="num" value="${item.PROD_COUNT}" readonly style="width: 30px; display: inline-block;">
+						    <input type="text" min="1" class="amountValue form-control form-control-sm" name="num" id="num" value="${item.PROD_COUNT}" readonly style="width: 30px; display: inline-block;">
 						    <button class="increase btn btn-sm" data-sbItemCount="${item.PROD_COUNT}" data-cartNo="${item.CART_NO}">+</button>
 	                     </div>
 					</td>
